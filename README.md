@@ -14,6 +14,7 @@ clinical validity, or improved patient outcomes.
 | --- | --- |
 | [Research frontier — 2026-10-22](docs/frontier-2026-10-22.md) | Evidence, open questions, and limits |
 | [Pilot protocol](protocols/pilot-001.md) | Proposed reproduction and robustness study |
+| [Pilot feasibility audit](docs/pilot-001-feasibility-audit.md) | Source-checked inputs, methods, patient-independence questions, and execution blockers |
 | [Roadmap](docs/roadmap.md) | Small milestones and decision gates |
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
@@ -24,6 +25,10 @@ clinical validity, or improved patient outcomes.
 
 This is a draft research scaffold dated **2026-10-22**. Primary literature,
 official approval notices, author code, and PDC study metadata were inspected.
+A static Figure 3D feasibility audit now records missing script inputs,
+code/method discrepancies, published endpoint definitions, and unresolved
+patient independence. Numerical reproduction remains blocked on those inputs
+and the existing access and review gates.
 Some source pages were inaccessible; the registry records the access limits.
 No research data were downloaded, no author analysis code was executed, no model
 was trained, and no scientific result has been reproduced here. Local scaffold

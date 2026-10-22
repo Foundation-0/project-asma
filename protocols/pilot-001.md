@@ -1,6 +1,6 @@
 # Pilot 001: reproduce a primary platinum-refractoriness protein signature
 
-**Status:** proposed; not executed. **Version:** 0.1, 2026-10-22.
+**Status:** proposed; not executed. **Version:** 0.2, 2026-10-22.
 **Scope:** research reproduction and robustness, not a novel classifier or new
 clinical validation. No treatment recommendations or patient-facing output.
 
@@ -11,8 +11,10 @@ and characterize performance on genuinely independent HGSOC patients?
 [S01](https://doi.org/10.1016/j.cell.2023.07.004)
 
 Start with the published 64-protein panel and primary refractory versus sensitive
-labels. Before analysis, extract the exact original endpoint, response criteria,
-timing, neoadjuvant exclusions, and specimen selection from methods and metadata.
+labels. The [static feasibility audit](../docs/pilot-001-feasibility-audit.md)
+records the paper's response definitions, published cohort counts, missing inputs,
+and code/method discrepancies. Map those definitions to authorized metadata and
+reconcile neoadjuvant and mixed primary/metastatic-sample exclusions before analysis.
 Primary refractory disease concerns failure of initial platinum therapy; later
 platinum-resistant recurrence is a different endpoint. Do not substitute one for
 the other or pool histotypes.
@@ -51,7 +53,10 @@ until it has been reviewed.
    releases, checksums, transformation history, label sources, participant,
    specimen and aliquot relationships, including primary/metastatic pairs.
    The paper reports discovery/frozen overlap and uses shared samples for assay
-   alignment. Reconcile those counts with eligibility exclusions. Explicitly
+   alignment, including 14 additional pairs from different tumors of the same
+   patients. Reconcile those relationships and eligibility exclusions before
+   accepting the published sample-level “independent” grouping as patient-level
+   independence; do not infer a revised count by subtraction. Explicitly
    classify each validation patient as independent, overlapping, or unresolved;
    unresolved patients cannot enter independent-patient metrics. The overlap is
    disclosed by the authors, not evidence of misconduct.
@@ -83,6 +88,14 @@ until it has been reviewed.
    labels. Use patient-level bootstrap 95% intervals (proposed 2,000 resamples,
    fixed seed), disclose class-empty resamples and instability. Small cohorts
    cannot support precise high-specificity estimates.
+
+The cohorts deliberately select refractory and long-term-sensitive tumors.
+Their class balance is not population prevalence; interpret AUPRC, Brier score,
+and calibration within that selection scheme, without claiming population-risk
+calibration. The published panel also used validation-set protein detectability
+in its construction; distinguish fixed-panel transfer evaluation from validation
+that was untouched throughout model development. The
+[audit](../docs/pilot-001-feasibility-audit.md) provides source locators.
 
 Retain FFPE and frozen evaluations separately. FFPE validation used model
 re-estimation and CV in the paper; report it as such, not a locked external model

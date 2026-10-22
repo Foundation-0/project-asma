@@ -1,7 +1,10 @@
 # Roadmap
 
-Status: proposed, 2026-10-22. The scaffold and its local checks are the only
-completed work. No research results are claimed.
+Status: proposed, 2026-10-22. The scaffold, a
+[static Figure 3D feasibility audit](pilot-001-feasibility-audit.md), and local
+checks are completed. No numerical reproduction or research results are claimed.
+The audit advances Gates 0–1 by identifying exact input/method gaps and the
+evidence needed to resolve them; it does not close those gates.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |

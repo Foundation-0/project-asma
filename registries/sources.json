@@ -8,9 +8,9 @@
       "url": "https://doi.org/10.1016/j.cell.2023.07.004",
       "verification": "full_text_reviewed",
       "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10414761/fullTextXML",
-      "locator": "Results: protein panel; Figure 3D; STAR Methods: prediction and FFPE/frozen alignment",
-      "takeaway": "Published 64-protein panel and cohort-specific evaluation, with incomplete sensitivity.",
-      "limitations": "Full manuscript via Europe PMC; publisher/PMC HTML inaccessible. Interpret cohort independence and validation design carefully; see S11.",
+      "locator": "Figure 3D; STAR Methods: Patient Selection and Cohorts (S29), FFPE/frozen alignment (S66), Feature Selection (S94), Prediction Model Building and Performance Evaluation (S95-S99)",
+      "takeaway": "Published 64-protein panel with cohort-specific evaluation. Static audit records endpoint definitions, selected-cohort denominators, validation feature-availability filtering, and 43 alignment pairs including 14 additional same-patient tumor pairs.",
+      "limitations": "Full manuscript via Europe PMC; publisher/PMC HTML inaccessible. Published sample counts and independent grouping are not reconciled unique-patient counts. No datasets inspected or results reproduced; corrected supplements remain unpinned. See S11 and docs/pilot-001-feasibility-audit.md.",
       "checked_on": "2026-10-22"
     },
     {
@@ -92,9 +92,9 @@
       "url": "https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response",
       "verification": "code_inspected",
       "reviewed_via": "https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/tree/48357fd63ccbfe3954f38c8efc558b4f88bd6051",
-      "locator": "README; repository tree; Protein_prediction_refractoriness/Figure_3D_part3.R",
-      "takeaway": "Pinned inspected commit: 48357fd63ccbfe3954f38c8efc558b4f88bd6051. R script references local input/helper files and a literal plot AUC label.",
-      "limitations": "Code was not executed or copied. Availability of every input/helper, dependencies, licenses and numerical reproducibility remain unverified.",
+      "locator": "Complete 77-entry Git tree; README; Protein_prediction_refractoriness/Figure_3D_part2.R and Figure_3D_part3.R; Data_preprocessing/FZ_data_alignment.r",
+      "takeaway": "Pinned commit 48357fd63ccbfe3954f38c8efc558b4f88bd6051: named pilot inputs/helper absent from its tree; static audit identifies unresolved cohort/object ownership, importance reduction, coefficient indexing, and metric provenance.",
+      "limitations": "Code inspected, not executed or redistributed. File absence is limited to this pinned tree; availability elsewhere and reuse rights are unverified. Static discrepancies do not establish effects on published results. Dependency versions, input contents and numerical reproducibility remain unresolved. See docs/pilot-001-feasibility-audit.md.",
       "checked_on": "2026-10-22"
     },
     {
@@ -130,7 +130,7 @@
       "reviewed_via": "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC10935576/unicode",
       "locator": "Correction paragraph; bibliographic identity cross-checked via PubMed/Europe PMC, PMID 38364782",
       "takeaway": "The correction concerns supplemental figure legends; corrected legends are now associated with the online article.",
-      "limitations": "Publisher/PMC HTML and Europe PMC XML retrieval failed; correction text verified through NCBI BioC. Pin the corrected supplementary materials before protocol freeze.",
+      "limitations": "Publisher/PMC HTML and Europe PMC XML retrieval failed; correction text verified through NCBI BioC. The notice does not state changed Figure 3D estimates. Corrected supplementary materials were not fetched or compared and must be pinned before protocol freeze.",
       "checked_on": "2026-10-22"
     }
   ]
