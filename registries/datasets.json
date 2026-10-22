@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "datasets": [
+    {
+      "id": "PDC000357",
+      "title": "PTRC HGSOC FFPE Validation - Phosphoproteome",
+      "source_ids": [
+        "S01",
+        "S09",
+        "S10"
+      ],
+      "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000357",
+      "cohort": "validation",
+      "preservation": "FFPE",
+      "assay": "phosphoproteome",
+      "histotype": "HGSOC",
+      "pilot_role": "context_only",
+      "checked_on": "2026-10-22",
+      "access_status": "reported_open_file_access_unverified",
+      "terms_status": "not_reviewed",
+      "download_status": "not_downloaded",
+      "provenance_status": "study_metadata_only",
+      "release": null,
+      "sha256": null,
+      "overlap_status": "unresolved_at_patient_level",
+      "notes": "Study ID/name verified by PDC metadata API. Portal studies listed Open; file-level access, release, terms, patient relationships and analysis inputs must be verified before use. No dataset imported."
+    },
+    {
+      "id": "PDC000358",
+      "title": "PTRC HGSOC FFPE Validation - Proteome",
+      "source_ids": [
+        "S01",
+        "S09",
+        "S10"
+      ],
+      "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000358",
+      "cohort": "validation",
+      "preservation": "FFPE",
+      "assay": "proteome",
+      "histotype": "HGSOC",
+      "pilot_role": "candidate",
+      "checked_on": "2026-10-22",
+      "access_status": "reported_open_file_access_unverified",
+      "terms_status": "not_reviewed",
+      "download_status": "not_downloaded",
+      "provenance_status": "study_metadata_only",
+      "release": null,
+      "sha256": null,
+      "overlap_status": "unresolved_at_patient_level",
+      "notes": "Study ID/name verified by PDC metadata API. Portal studies listed Open; file-level access, release, terms, patient relationships and analysis inputs must be verified before use. No dataset imported."
+    },
+    {
+      "id": "PDC000359",
+      "title": "PTRC HGSOC FFPE Discovery - Phosphoproteome",
+      "source_ids": [
+        "S01",
+        "S09",
+        "S10"
+      ],
+      "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000359",
+      "cohort": "discovery",
+      "preservation": "FFPE",
+      "assay": "phosphoproteome",
+      "histotype": "HGSOC",
+      "pilot_role": "context_only",
+      "checked_on": "2026-10-22",
+      "access_status": "reported_open_file_access_unverified",
+      "terms_status": "not_reviewed",
+      "download_status": "not_downloaded",
+      "provenance_status": "study_metadata_only",
+      "release": null,
+      "sha256": null,
+      "overlap_status": "unresolved_at_patient_level",
+      "notes": "Study ID/name verified by PDC metadata API. Portal studies listed Open; file-level access, release, terms, patient relationships and analysis inputs must be verified before use. No dataset imported."
+    },
+    {
+      "id": "PDC000360",
+      "title": "PTRC HGSOC FFPE Discovery - Proteome",
+      "source_ids": [
+        "S01",
+        "S09",
+        "S10"
+      ],
+      "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000360",
+      "cohort": "discovery",
+      "preservation": "FFPE",
+      "assay": "proteome",
+      "histotype": "HGSOC",
+      "pilot_role": "candidate",
+      "checked_on": "2026-10-22",
+      "access_status": "reported_open_file_access_unverified",
+      "terms_status": "not_reviewed",
+      "download_status": "not_downloaded",
+      "provenance_status": "study_metadata_only",
+      "release": null,
+      "sha256": null,
+      "overlap_status": "unresolved_at_patient_level",
+      "notes": "Study ID/name verified by PDC metadata API. Portal studies listed Open; file-level access, release, terms, patient relationships and analysis inputs must be verified before use. No dataset imported."
+    },
+    {
+      "id": "PDC000361",
+      "title": "PTRC HGSOC Frozen Validation - Phosphoproteome",
+      "source_ids": [
+        "S01",
+        "S09",
+        "S10"
+      ],
+      "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000361",
+      "cohort": "validation",
+      "preservation": "frozen",
+      "assay": "phosphoproteome",
+      "histotype": "HGSOC",
+      "pilot_role": "context_only",
+      "checked_on": "2026-10-22",
+      "access_status": "reported_open_file_access_unverified",
+      "terms_status": "not_reviewed",
+      "download_status": "not_downloaded",
+      "provenance_status": "study_metadata_only",
+      "release": null,
+      "sha256": null,
+      "overlap_status": "unresolved_at_patient_level",
+      "notes": "Study ID/name verified by PDC metadata API. Portal studies listed Open; file-level access, release, terms, patient relationships and analysis inputs must be verified before use. No dataset imported."
+    },
+    {
+      "id": "PDC000362",
+      "title": "PTRC HGSOC Frozen Validation - Proteome",
+      "source_ids": [
+        "S01",
+        "S09",
+        "S10"
+      ],
+      "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000362",
+      "cohort": "validation",
+      "preservation": "frozen",
+      "assay": "proteome",
+      "histotype": "HGSOC",
+      "pilot_role": "candidate",
+      "checked_on": "2026-10-22",
+      "access_status": "reported_open_file_access_unverified",
+      "terms_status": "not_reviewed",
+      "download_status": "not_downloaded",
+      "provenance_status": "study_metadata_only",
+      "release": null,
+      "sha256": null,
+      "overlap_status": "unresolved_at_patient_level",
+      "notes": "Study ID/name verified by PDC metadata API. Portal studies listed Open; file-level access, release, terms, patient relationships and analysis inputs must be verified before use. No dataset imported."
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Proteogenomic analysis of chemo-refractory high-grade serous ovarian cancer",
+      "kind": "paper",
+      "url": "https://doi.org/10.1016/j.cell.2023.07.004",
+      "verification": "full_text_reviewed",
+      "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10414761/fullTextXML",
+      "locator": "Results: protein panel; Figure 3D; STAR Methods: prediction and FFPE/frozen alignment",
+      "takeaway": "Published 64-protein panel and cohort-specific evaluation, with incomplete sensitivity.",
+      "limitations": "Full manuscript via Europe PMC; publisher/PMC HTML inaccessible. Interpret cohort independence and validation design carefully; see S11.",
+      "checked_on": "2026-10-22"
+    },
+    {
+      "id": "S02",
+      "title": "Tracking clonal evolution during treatment in ovarian cancer using cell-free DNA",
+      "kind": "paper",
+      "url": "https://www.nature.com/articles/s41586-025-09580-0",
+      "verification": "full_text_reviewed",
+      "reviewed_via": "https://www.nature.com/articles/s41586-025-09580-0",
+      "locator": "Abstract; evolution of drug resistance; discussion",
+      "takeaway": "Longitudinal clonal tracking supports selection of pre-existing HGSOC clones during treatment.",
+      "limitations": "Publisher full text initially readable; later fetch redirected to inaccessible identity service. Abstract cross-checked in Europe PMC. Observational/mechanistic results are not a trial proving improved survival from adaptive therapy.",
+      "checked_on": "2026-10-22"
+    },
+    {
+      "id": "S03",
+      "title": "Mapping spatial organization and genetic cell-state regulators to target immune evasion in ovarian cancer",
+      "kind": "paper",
+      "url": "https://www.nature.com/articles/s41590-024-01943-5",
+      "verification": "full_text_reviewed",
+      "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11436371/fullTextXML",
+      "locator": "Abstract; spatial mapping; perturbation experiments",
+      "takeaway": "Spatial and perturbational work links malignant cell states and immune interactions in high-grade serous tubo-ovarian cancer.",
+      "limitations": "Publisher route inaccessible; full article read via Europe PMC XML. Experimental immune-cell killing does not establish patient survival benefit.",
+      "checked_on": "2026-10-22"
+    },
+    {
+      "id": "S04",
+      "title": "FDA mirvetuximab soravtansine-gynx approval notice, March 22 2024",
+      "kind": "regulatory_notice",
+      "url": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-mirvetuximab-soravtansine-gynx-fra-positive-platinum-resistant-epithelial-ovarian",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-mirvetuximab-soravtansine-gynx-fra-positive-platinum-resistant-epithelial-ovarian",
+      "locator": "Opening indication paragraph",
+      "takeaway": "Restricted FRα-positive platinum-resistant indication; exact eligibility is retained in the frontier document.",
+      "limitations": "An approval notice is not a cure claim or evidence that AI caused the advance; not a prescribing guide.",
+      "checked_on": "2026-10-22"
+    },
+    {
+      "id": "S05",
+      "title": "FDA pembrolizumab with paclitaxel approval notice, February 10 2026",
+      "kind": "regulatory_notice",
+      "url": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-pembrolizumab-paclitaxel-platinum-resistant-epithelial-ovarian-fallopian-tube-or",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-pembrolizumab-paclitaxel-platinum-resistant-epithelial-ovarian-fallopian-tube-or",
+      "locator": "Opening indication paragraph",
+      "takeaway": "Restricted PD-L1-positive platinum-resistant indication; exact regimen and eligibility are retained in the frontier document.",
+      "limitations": "Not a general ovarian cancer immunotherapy indication or prescribing guide; not an AI attribution.",
+      "checked_on": "2026-10-22"
+    },
+    {
+      "id": "S06",
+      "title": "International multicenter validation of AI-driven ultrasound detection of ovarian cancer",
+      "kind": "paper",
+      "url": "https://www.nature.com/articles/s41591-024-03329-4",
+      "verification": "full_text_reviewed",
+      "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11750711/fullTextXML",
+      "locator": "Abstract; methods: patient selection and retrospective evaluation",
+      "takeaway": "Retrospective characterization of ovarian lesions across centers.",
+      "limitations": "Publisher page and Europe PMC full-text methods inspected. Does not establish asymptomatic population screening efficacy or mortality reduction.",
+      "checked_on": "2026-10-22"
+    },
+    {
+      "id": "S07",
+      "title": "Ovarian, Fallopian Tube, and Primary Peritoneal Cancers Screening PDQ, health professional version",
+      "kind": "evidence_summary",
+      "url": "https://www.cancer.gov/types/ovarian/hp/ovarian-screening-pdq",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.cancer.gov/types/ovarian/hp/ovarian-screening-pdq",
+      "locator": "Evidence of lack of mortality benefit associated with screening",
+      "takeaway": "Randomized evidence summarized by NCI finds no mortality reduction for studied CA-125/ultrasound screening strategies in average-risk populations.",
+      "limitations": "Do not extrapolate a lesion classifier to screening or high-risk populations.",
+      "checked_on": "2026-10-22"
+    },
+    {
+      "id": "S08",
+      "title": "Author code: CPTAC Ovarian Chemo Response",
+      "kind": "code",
+      "url": "https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/tree/48357fd63ccbfe3954f38c8efc558b4f88bd6051",
+      "locator": "README; repository tree; Protein_prediction_refractoriness/Figure_3D_part3.R",
+      "takeaway": "Pinned inspected commit: 48357fd63ccbfe3954f38c8efc558b4f88bd6051. R script references local input/helper files and a literal plot AUC label.",
+      "limitations": "Code was not executed or copied. Availability of every input/helper, dependencies, licenses and numerical reproducibility remain unverified.",
+      "checked_on": "2026-10-22"
+    },
+    {
+      "id": "S09",
+      "title": "PDC processed quantitation documentation",
+      "kind": "data_documentation",
+      "url": "https://pdc-docs.cancer.gov/pdc/explore-quantitation-data",
+      "verification": "partial",
+      "reviewed_via": "https://pdc-docs.cancer.gov/pdc-docs/usage",
+      "locator": "Explore Quantitative Data section (search-index extract only)",
+      "takeaway": "Official documentation entry point for processed quantitation discovery.",
+      "limitations": "Original URL and current usage route returned a page shell/no readable body. Search extract located the section; current download procedure and terms remain to be reviewed before ingestion.",
+      "checked_on": "2026-10-22"
+    },
+    {
+      "id": "S10",
+      "title": "PDC HGSOC study metadata and publication mapping",
+      "kind": "data_catalog",
+      "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000357%7CPDC000358%7CPDC000359%7CPDC000360%7CPDC000361%7CPDC000362",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://pdc.cancer.gov/graphql",
+      "locator": "Read-only study(pdc_study_id) queries: pdc_study_id and study_name, all six IDs; PDC publications listing",
+      "takeaway": "Proteome mapping: FFPE discovery 360, FFPE validation 358, frozen validation 362; matched phosphoproteomes 359/357/361.",
+      "limitations": "Portal browser extraction showed a page shell; study names verified by metadata API and publication listing. Open listing is not file-level access or reuse verification. No data files downloaded.",
+      "checked_on": "2026-10-22"
+    },
+    {
+      "id": "S11",
+      "title": "Correction to the 2023 Cell proteogenomic study",
+      "kind": "correction",
+      "url": "https://doi.org/10.1016/j.cell.2024.01.016",
+      "verification": "full_text_reviewed",
+      "reviewed_via": "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC10935576/unicode",
+      "locator": "Correction paragraph; bibliographic identity cross-checked via PubMed/Europe PMC, PMID 38364782",
+      "takeaway": "The correction concerns supplemental figure legends; corrected legends are now associated with the online article.",
+      "limitations": "Publisher/PMC HTML and Europe PMC XML retrieval failed; correction text verified through NCBI BioC. Pin the corrected supplementary materials before protocol freeze.",
+      "checked_on": "2026-10-22"
+    }
+  ]
+}
