@@ -1,0 +1,166 @@
+{
+  "clinical_source": {
+    "bytes": 41194360,
+    "filename": "NIHMS1918576-supplement-MMC1.xlsx",
+    "md5": "0255243711b1af3a3fab503d9abc725b",
+    "sha256": "6e46fa0cb3023173a3643e95ce0360c44cfabb0ed737e9a05f70473dad552340",
+    "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC1.xlsx"
+  },
+  "cohorts": {
+    "PDC000358": {
+      "all_response_labelled_rows_mapped": false,
+      "clinical_NA_rows": 2,
+      "clinical_rows": 22,
+      "clinical_rows_without_linkable_label": 0,
+      "clinical_sheet": "FFPE_Pilot_clinical",
+      "content_range_verified": true,
+      "duplicate_linkable_clinical_labels": 0,
+      "duplicate_matrix_headers": 0,
+      "exact_label_matches": 0,
+      "header_bytes_read": 524,
+      "header_sha256": "c1d67bb5534993d4e6d1a25071f2ca9ed190689369e26c93d30b1675a6efac56",
+      "http_status": 206,
+      "matched_clinical_NA_rows": 0,
+      "matched_response_labelled_rows": 0,
+      "matched_unique_patient_keys": 0,
+      "matched_unique_sample_keys": 0,
+      "matrix_columns_without_exact_clinical_label": 28,
+      "matrix_header_columns": 28,
+      "response_labelled_clinical_rows": 20,
+      "unmatched_linkable_clinical_labels": 22,
+      "unmatched_response_labelled_rows": 20
+    },
+    "PDC000360": {
+      "all_response_labelled_rows_mapped": false,
+      "clinical_NA_rows": 63,
+      "clinical_rows": 231,
+      "clinical_rows_without_linkable_label": 0,
+      "clinical_sheet": "FFPE_Discovery_clinical",
+      "content_range_verified": true,
+      "duplicate_linkable_clinical_labels": 0,
+      "duplicate_matrix_headers": 0,
+      "exact_label_matches": 41,
+      "header_bytes_read": 4573,
+      "header_sha256": "fedc72dd12835a5b739be1b8983fc6ef2fbb391b19e7a6fb750e66959f8ce555",
+      "http_status": 206,
+      "matched_clinical_NA_rows": 41,
+      "matched_response_labelled_rows": 0,
+      "matched_unique_patient_keys": 0,
+      "matched_unique_sample_keys": 0,
+      "matrix_columns_without_exact_clinical_label": 196,
+      "matrix_header_columns": 237,
+      "response_labelled_clinical_rows": 168,
+      "unmatched_linkable_clinical_labels": 190,
+      "unmatched_response_labelled_rows": 168
+    },
+    "PDC000362": {
+      "all_response_labelled_rows_mapped": false,
+      "clinical_NA_rows": 16,
+      "clinical_rows": 88,
+      "clinical_rows_without_linkable_label": 0,
+      "clinical_sheet": "Frozen_clinical",
+      "content_range_verified": true,
+      "duplicate_linkable_clinical_labels": 0,
+      "duplicate_matrix_headers": 0,
+      "exact_label_matches": 0,
+      "header_bytes_read": 1691,
+      "header_sha256": "87f0f80b3e581bd1cd0916af022a65318945acbd301137d0b2fe3fc168e5b0b6",
+      "http_status": 206,
+      "matched_clinical_NA_rows": 0,
+      "matched_response_labelled_rows": 0,
+      "matched_unique_patient_keys": 0,
+      "matched_unique_sample_keys": 0,
+      "matrix_columns_without_exact_clinical_label": 94,
+      "matrix_header_columns": 94,
+      "response_labelled_clinical_rows": 72,
+      "unmatched_linkable_clinical_labels": 88,
+      "unmatched_response_labelled_rows": 72
+    }
+  },
+  "elapsed_seconds": 4.823403493999649,
+  "finished_at_utc": "2026-10-23T16:59:26.889896+00:00",
+  "full_matrices_downloaded": false,
+  "implementation_sha256": {
+    "audit_matrix_headers.py": "c33206dbe7099dd46d468466b2f3b92b4b682cf3e4135d29ed0e732e3c0e501a",
+    "audit_pdc_metadata.py": "25c68461631de1fab8b73cd52b552019d351c0fb7c452a5a8947402dd357804e",
+    "audit_published_cohorts.py": "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
+  },
+  "join": "Unmodified matrix column equals clinical Data Label 2; literal NA is never a key",
+  "limitations": [
+    "Header hashes identify only the inspected first line; catalog MD5 values were not verified against matrix bodies.",
+    "Unmatched columns include annotation fields; this audit does not identify measurement columns by position or pattern.",
+    "Clinical-NA row matches do not establish patient links; nonmatches do not prove files are unrelated.",
+    "Exact equality is only the tested mapping rule. Authoritative naming transformations may require missing annotations.",
+    "No patient independence, abundance transformation history, score provenance or model performance is established.",
+    "Clinical workbooks and raw matrix headers remain in memory; no identifiers, signed URLs or row-level records are emitted."
+  ],
+  "matrix_catalog_files": {
+    "PDC000358": {
+      "access": "Open",
+      "data_category": "Alternate Processing Pipeline",
+      "downloadable": "Yes",
+      "embargo_date": null,
+      "file_id": "b7c7e777-e112-42cd-b9a0-039ca68e6987",
+      "file_name": "FP_GLBL_MI_FPbridge_Abund_20201002.tsv",
+      "file_size": "4229172",
+      "md5sum": "bbe675964cb46fc2aa6c08ceecfcda63",
+      "pdc_study_id": "PDC000358",
+      "study_id": "a729bd45-38c5-4144-b340-ee6f51a5d6d7"
+    },
+    "PDC000360": {
+      "access": "Open",
+      "data_category": "Alternate Processing Pipeline",
+      "downloadable": "Yes",
+      "embargo_date": null,
+      "file_id": "d55dbe94-e6d3-4c84-9c25-d966be2112a9",
+      "file_name": "FD_GLBL_MI_FFPEbridge_Abund_20201002.tsv",
+      "file_size": "39939461",
+      "md5sum": "e39caac97df93de256dd84c13b6c3bbc",
+      "pdc_study_id": "PDC000360",
+      "study_id": "97332d25-b8bb-4094-8bed-92290c729599"
+    },
+    "PDC000362": {
+      "access": "Open",
+      "data_category": "Alternate Processing Pipeline",
+      "downloadable": "Yes",
+      "embargo_date": null,
+      "file_id": "55c9f866-4d3c-4cfa-91a4-5cfdb98169e6",
+      "file_name": "FZ_GLBL_MI_FZbridge_Abund_20201002.tsv",
+      "file_size": "14577262",
+      "md5sum": "fe16f14794d24076f2ff1554cc02c751",
+      "pdc_study_id": "PDC000362",
+      "study_id": "196aabca-0e36-46ca-9096-339aee1471da"
+    }
+  },
+  "matrix_full_file_checksums_verified": false,
+  "metadata_unchanged_after_header_reads": true,
+  "query_sha256": {
+    "file": "62db9295dd66455c7fe07153e1a5fe5507c569b767291d01a5c057e7b777e525",
+    "study": "2e5f7122878a783536ecced4b10ad1bd77096d9e417a6e55285d9dda1bcd7410",
+    "url": "db19a9e91b3ec33f6827b10b4b814b33901e48d5a9b529546a8a3253859925b0"
+  },
+  "response_sha256": {
+    "PDC000358": {
+      "file_after_sha256": "e4bf88f05f1c78f2c69c2977d223f9779397eaf26475e2e7f43347d28b267af8",
+      "file_before_sha256": "e4bf88f05f1c78f2c69c2977d223f9779397eaf26475e2e7f43347d28b267af8",
+      "study_after_sha256": "573b0da8a4a28f2ff28cdc9bd928645dc6eb5842db2d8b89a084732383335c5f",
+      "study_before_sha256": "573b0da8a4a28f2ff28cdc9bd928645dc6eb5842db2d8b89a084732383335c5f"
+    },
+    "PDC000360": {
+      "file_after_sha256": "bb3882e7bf390deab33772edd491561647e66ac02791f87c10cfc20f1a8824ae",
+      "file_before_sha256": "bb3882e7bf390deab33772edd491561647e66ac02791f87c10cfc20f1a8824ae",
+      "study_after_sha256": "3f251e7e731b758d1fc732a2a9a95de3a97d969fdb82cfc382d2acb869a028b4",
+      "study_before_sha256": "3f251e7e731b758d1fc732a2a9a95de3a97d969fdb82cfc382d2acb869a028b4"
+    },
+    "PDC000362": {
+      "file_after_sha256": "8c1362a7f491bc8f10feae9d8b3ccb6e63d8a15da8ca1d5b7e5e568dfa499204",
+      "file_before_sha256": "8c1362a7f491bc8f10feae9d8b3ccb6e63d8a15da8ca1d5b7e5e568dfa499204",
+      "study_after_sha256": "4b2730a218906089f9ee0fdbac985732c3c1da7750dc8b552b13455f875f8b29",
+      "study_before_sha256": "4b2730a218906089f9ee0fdbac985732c3c1da7750dc8b552b13455f875f8b29"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Exact matrix-header to clinical-label diagnostic; no matrix values or predictions read",
+  "started_at_utc": "2026-10-23T16:59:22.066497+00:00",
+  "study_version": "1"
+}

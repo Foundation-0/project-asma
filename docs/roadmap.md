@@ -17,6 +17,27 @@ unsent; do not contact authors or recruit collaborators/reviewers without a new
 explicit instruction. Continue the early investigation using public sources and
 internal checks, recording limits without treating deferred review as completed.
 
+The [independent follow-up](pilot-001-independent-progress.md) tested the direct
+PDC header/design routes and then found a useful downstream citation to the
+original author archive. Its imputed discovery-matrix header matches all 168
+response-labelled measurement rows and all 135 published discovery-score keys.
+The subsequent complete-member audit verifies its ZIP CRC and finds all 64 panel
+symbols exactly once among 8,800 feature rows. This resolves naming and feature
+availability for the candidate input; transformation provenance remains open.
+Score export and corrected legend provenance also remain unresolved.
+
+The [public-input reconstruction contract](../protocols/pilot-001-independent-reconstruction.md)
+defines a prospective reconstruction target and its remaining requirements.
+The next independent step is an explicit reconstruction decision record using
+the [located preprocessing steps](pilot-001-preprocessing-provenance.md): fix
+feature interpretation, sample-key averaging, ordering, fit scope and replacements
+for missing helper/environment objects. The source review found an outlier
+threshold discrepancy and object-name mismatches; preserve them as unresolved
+history. Satisfy remaining data-use conditions before abundance analysis, and
+freeze an implementation before fitting. Source investigation does not
+require contacting researchers. The screened 2025 result remains a separate
+fallback; no replacement target has been adopted.
+
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
 | 0. Agree scope and rights | Owner license decision; collaborator review; correction and reuse/access review | No data ingestion or third-party code reuse until requirements are understood. No collaborator has been recruited. |
