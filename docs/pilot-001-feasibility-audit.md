@@ -1,5 +1,8 @@
 # Pilot 001: Figure 3D feasibility audit
 
+Follow-up: the [2026-10-23 input and linkage investigation](pilot-001-input-resolution.md)
+records subsequent evidence. The observations below preserve the initial audit.
+
 **Date:** 2026-10-22. **Status:** static source review completed; reproduction
 not started. **Decision:** do not start numerical reproduction until the
 specific input, method, and rights gaps below are resolved. This advances the

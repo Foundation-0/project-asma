@@ -1,0 +1,181 @@
+{
+  "checked_at_utc": "2026-10-23T15:39:01.658992+00:00",
+  "clinical_cohorts": {
+    "FFPE_Discovery_clinical": {
+      "class_counts": {
+        "refractory": 67,
+        "sensitive": 91
+      },
+      "eligible_class_counts": {
+        "refractory": 52,
+        "sensitive": 83
+      },
+      "eligible_samples": 135,
+      "location_group_Mix": 10,
+      "neoadjuvant_yes": 13,
+      "neoadjuvant_yes_and_Mix": 0,
+      "response_labelled_measurement_rows": 168,
+      "retained_score_cohort_location_group_NA": 1,
+      "rows_with_explicit_NA_clinical_fields": 63,
+      "technical_replicate_critical_field_conflicts": 0,
+      "unique_patient_keys": 158,
+      "unique_sample_keys": 158,
+      "unique_sample_location_group_NA": 2,
+      "worksheet_rows_excluding_header": 231
+    },
+    "FFPE_Pilot_clinical": {
+      "class_counts": {
+        "refractory": 10,
+        "sensitive": 10
+      },
+      "eligible_class_counts": {
+        "refractory": 10,
+        "sensitive": 10
+      },
+      "eligible_samples": 20,
+      "location_group_Mix": 0,
+      "neoadjuvant_yes": 0,
+      "neoadjuvant_yes_and_Mix": 0,
+      "response_labelled_measurement_rows": 20,
+      "retained_score_cohort_location_group_NA": 0,
+      "rows_with_explicit_NA_clinical_fields": 2,
+      "technical_replicate_critical_field_conflicts": 0,
+      "unique_patient_keys": 20,
+      "unique_sample_keys": 20,
+      "unique_sample_location_group_NA": 0,
+      "worksheet_rows_excluding_header": 22
+    },
+    "Frozen_clinical": {
+      "class_counts": {
+        "refractory": 20,
+        "sensitive": 44
+      },
+      "eligible_class_counts": {
+        "refractory": 19,
+        "sensitive": 42
+      },
+      "eligible_samples": 61,
+      "location_group_Mix": 0,
+      "neoadjuvant_yes": 3,
+      "neoadjuvant_yes_and_Mix": 0,
+      "response_labelled_measurement_rows": 72,
+      "retained_score_cohort_location_group_NA": 0,
+      "rows_with_explicit_NA_clinical_fields": 16,
+      "technical_replicate_critical_field_conflicts": 0,
+      "unique_patient_keys": 64,
+      "unique_sample_keys": 64,
+      "unique_sample_location_group_NA": 0,
+      "worksheet_rows_excluding_header": 88
+    }
+  },
+  "eligibility_membership_checks_passed": true,
+  "exact_score_join": "score Samples equals clinical Data Label 2; no string normalization or name-based inference",
+  "frozen_patient_linkage": {
+    "all_frozen": 64,
+    "all_frozen_not_observed_in_all_discovery": 21,
+    "all_frozen_shared_with_all_discovery": 43,
+    "eligible_frozen": 61,
+    "eligible_frozen_not_observed_in_all_discovery": 21,
+    "eligible_frozen_not_observed_in_eligible_discovery": 28,
+    "eligible_frozen_shared_with_eligible_discovery": 33
+  },
+  "limitations": [
+    "No Patient ID overlap observed is not proof of exclusion from upstream preprocessing or alignment.",
+    "Location-group NA remains unresolved even when retained in reconstructed published score membership.",
+    "Published scores were inspected for membership only; models and reported performance were not reproduced.",
+    "Supplement file numbers are not assumed to equal article table numbers.",
+    "No patient-level records, identifiers, scores, or protein symbols are emitted or persisted."
+  ],
+  "membership_reconstruction_rule": "Fields named eligible describe reconstructed published score membership: literal Neo-adjuvant == no and Tumor Location Group != Mix, followed by exact equality to the published score sample sets. Literal location NA is retained by this comparison and reported as unresolved; it does not establish nonmixed tissue or verified clinical eligibility.",
+  "panel": {
+    "canonical_encoding": "UTF-8 source order, LF after every symbol",
+    "canonical_sha256": "77329920b86dacaffc6778ed7e7c6b827683beed1aad7f2229b8bafe2f535144",
+    "count": 64,
+    "range": "A2:A65",
+    "sheet": "64_protein_predictors"
+  },
+  "patient_linkage": "exact equality of explicit clinical Patient ID fields",
+  "published_score_subsets": {
+    "FFPE_pred_scores": {
+      "ambiguous_score_keys": 0,
+      "class_counts": {
+        "refractory": 52,
+        "sensitive": 83
+      },
+      "duplicate_score_keys": 0,
+      "score_rows": 135,
+      "unique_patient_keys": 135,
+      "unique_sample_keys": 135,
+      "unmatched_score_keys": 0
+    },
+    "FFPE_valid_pred_scores": {
+      "ambiguous_score_keys": 0,
+      "class_counts": {
+        "refractory": 10,
+        "sensitive": 10
+      },
+      "duplicate_score_keys": 0,
+      "score_rows": 20,
+      "unique_patient_keys": 20,
+      "unique_sample_keys": 20,
+      "unmatched_score_keys": 0
+    },
+    "Frozen_nonoverlap_pred_scores": {
+      "ambiguous_score_keys": 0,
+      "class_counts": {
+        "refractory": 12,
+        "sensitive": 22
+      },
+      "duplicate_score_keys": 0,
+      "patient_keys_not_observed_in_all_discovery": 21,
+      "patient_keys_not_observed_in_eligible_discovery": 28,
+      "patient_keys_shared_with_all_discovery": 13,
+      "patient_keys_shared_with_eligible_discovery": 6,
+      "score_rows": 34,
+      "unique_patient_keys": 34,
+      "unique_sample_keys": 34,
+      "unmatched_score_keys": 0
+    },
+    "Frozen_overlap_pred_scores": {
+      "ambiguous_score_keys": 0,
+      "class_counts": {
+        "refractory": 7,
+        "sensitive": 20
+      },
+      "duplicate_score_keys": 0,
+      "patient_keys_not_observed_in_all_discovery": 0,
+      "patient_keys_not_observed_in_eligible_discovery": 0,
+      "patient_keys_shared_with_all_discovery": 27,
+      "patient_keys_shared_with_eligible_discovery": 27,
+      "score_rows": 27,
+      "unique_patient_keys": 27,
+      "unique_sample_keys": 27,
+      "unmatched_score_keys": 0
+    }
+  },
+  "replicate_conflict_fields": [
+    "Patient ID",
+    "Sample ID",
+    "Neo-adjuvant",
+    "Tumor response",
+    "Tumor Location Group",
+    "Sample type"
+  ],
+  "scope": "In-memory published metadata/prediction-membership audit; no model execution or performance calculation",
+  "source_files": {
+    "clinical": {
+      "bytes": 41194360,
+      "filename": "NIHMS1918576-supplement-MMC1.xlsx",
+      "md5": "0255243711b1af3a3fab503d9abc725b",
+      "sha256": "6e46fa0cb3023173a3643e95ce0360c44cfabb0ed737e9a05f70473dad552340",
+      "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC1.xlsx"
+    },
+    "panel_and_scores": {
+      "bytes": 591065,
+      "filename": "NIHMS1918576-supplement-MMC4.xlsx",
+      "md5": "7ea4df8e1008cd19aa67442fe6ea3556",
+      "sha256": "f318ed9d2fac341097a8b1be3e034753f6d427bdeeb0cd2b92eb715cadadb6ab",
+      "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC4.xlsx"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 # Pilot 001: reproduce a primary platinum-refractoriness protein signature
 
-**Status:** proposed; not executed. **Version:** 0.2, 2026-10-22.
+**Status:** numerical reproduction proposed; input/linkage checks executed.
+**Version:** 0.3, 2026-10-23.
 **Scope:** research reproduction and robustness, not a novel classifier or new
 clinical validation. No treatment recommendations or patient-facing output.
 
@@ -13,8 +14,12 @@ and characterize performance on genuinely independent HGSOC patients?
 Start with the published 64-protein panel and primary refractory versus sensitive
 labels. The [static feasibility audit](../docs/pilot-001-feasibility-audit.md)
 records the paper's response definitions, published cohort counts, missing inputs,
-and code/method discrepancies. Map those definitions to authorized metadata and
-reconcile neoadjuvant and mixed primary/metastatic-sample exclusions before analysis.
+and code/method discrepancies. The
+[input/linkage follow-up](../docs/pilot-001-input-resolution.md) recovers the panel
+and reconciles the published prediction membership to explicit clinical fields.
+Literal missing location annotations remain unresolved; matching published
+membership does not establish complete clinical eligibility. The original
+analysis workspaces and execution remain unverified.
 Primary refractory disease concerns failure of initial platinum therapy; later
 platinum-resistant recurrence is a different endpoint. Do not substitute one for
 the other or pool histotypes.
@@ -33,9 +38,11 @@ must be explained rather than tuned away.
 Candidate proteome studies: discovery **PDC000360**, FFPE validation **PDC000358**,
 frozen validation **PDC000362**. Matched phosphoproteomes (359/357/361) are
 registered for context and are outside the first analysis. See the
-[dataset registry](../registries/datasets.json); study names were verified using
-PDC metadata, but file-level access, terms, releases, and contents remain unchecked.
-No datasets have been downloaded.
+[dataset registry](../registries/datasets.json). Version-1 study and open
+processed-file metadata, PDC public-data terms, and catalog overlap were checked;
+only file headers were read, not full PDC abundance matrices. Published clinical
+and panel/score workbooks were inspected in memory, with only aggregate findings
+retained. The follow-up report pins exact source files, sheets, hashes and limits.
 
 Author code was inspected, not executed: commit
 `48357fd63ccbfe3954f38c8efc558b4f88bd6051`,
@@ -54,12 +61,17 @@ until it has been reviewed.
    specimen and aliquot relationships, including primary/metastatic pairs.
    The paper reports discovery/frozen overlap and uses shared samples for assay
    alignment, including 14 additional pairs from different tumors of the same
-   patients. Reconcile those relationships and eligibility exclusions before
-   accepting the published sample-level “independent” grouping as patient-level
-   independence; do not infer a revised count by subtraction. Explicitly
+   patients. Exact supplemental joins now identify six patient keys in the
+   published 34-row frozen `nonoverlap` score sheet also present in the eligible
+   135-row discovery score set. There are 28 frozen patient keys with no observed
+   eligible-discovery match, and 21 with no observed match to any discovery
+   record; neither is yet proven independent of upstream fitting/alignment.
+   Preserve published and revised membership separately and resolve this
+   discrepancy with scientific review before evaluation. Explicitly
    classify each validation patient as independent, overlapping, or unresolved;
-   unresolved patients cannot enter independent-patient metrics. The overlap is
-   disclosed by the authors, not evidence of misconduct.
+   unresolved patients cannot enter independent-patient metrics. The paper
+   discloses cross-cohort overlap and assay alignment; the six-key score-membership
+   discrepancy remains to be clarified.
 2. **Reproducible environment.** Pin R and package versions from an inspected
    dependency inventory, author commit, seeds, and execution commands. Record OS,
    session information, CPU/memory/time and all deviations. No unverified lockfile
@@ -128,4 +140,5 @@ Do not replace missing evidence with synthetic patient records or invented resul
 
 Publish only safe aggregate outputs after disclosure review; keep row-level data
 and patient keys out of Git. The [roadmap](../docs/roadmap.md) gives a conditional
-2–4 week estimate, not a commitment. Current executed research results: **none**.
+2–4 week estimate, not a commitment. Executed results are limited to the
+documented input and membership checks; no model performance has been reproduced.
