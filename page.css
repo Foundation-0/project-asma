@@ -1,0 +1,28 @@
+/* Project Asma · page-specific components on top of the shared f0.css.
+   Tokens only from the design system; no new colours. */
+
+/* status ledger (section 01) */
+.ledger { list-style: none; margin: var(--s-6) 0 0; padding: 0; border-top: 1px solid var(--line); }
+.ledger li { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--s-3) var(--s-5); padding: var(--s-5) 0; border-bottom: 1px solid var(--line); }
+.ledger-main { max-width: 68ch; min-width: min(52ch, 100%); flex: 1 1 52ch; }
+.ledger-main h3 { font: 600 var(--fs-h3)/1.2 var(--f-sans); letter-spacing: -.02em; }
+.ledger-main p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
+.ledger .badge { margin-top: 4px; }
+
+/* numbers table (section 02) */
+.nums { width: 100%; border-collapse: collapse; margin: var(--s-6) 0; background: var(--bg-2); border: 1px solid var(--line); }
+.nums caption { text-align: left; }
+.nums th, .nums td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); font-size: var(--fs-sm); line-height: 1.5; }
+.nums thead th { font: 500 var(--fs-label)/1.4 var(--f-mono); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--ink-2); }
+.nums tbody th { font-weight: 500; color: var(--ink-2); width: 42%; }
+.nums tbody td { font-family: var(--f-mono); font-size: 14px; color: var(--ink); }
+.nums tbody tr:last-child th, .nums tbody tr:last-child td { border-bottom: 0; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* missing-gap cards (section 03) */
+.cards4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); margin-top: var(--s-6); }
+.mini-card { background: var(--bg-2); border: 1px solid var(--line); border-top: 2px solid var(--bio); padding: var(--s-5); }
+.mini-card h3 { font: 600 19px/1.25 var(--f-sans); letter-spacing: -.015em; }
+.mini-card p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
+@media (max-width: 720px) { .cards4 { grid-template-columns: minmax(0, 1fr); } }
