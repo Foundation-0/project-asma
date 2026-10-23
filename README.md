@@ -18,6 +18,8 @@ clinical validity, or improved patient outcomes.
 | [Input and linkage resolution — 2026-10-23](docs/pilot-001-input-resolution.md) | Executed metadata checks, recovered source locations, and remaining reproduction gaps |
 | [Published-score verification specification](protocols/pilot-001-score-verification.md) | Fixed numerical check and recorded execution basis |
 | [Discovery-score AUROC result](docs/pilot-001-score-verification-result.md) | Executed preliminary result, comparison failure and remaining provenance limits |
+| [Independent progress](docs/pilot-001-independent-progress.md) | Matrix-header diagnostic, score lineage and concrete supplement-legend mismatch |
+| [Public-input reconstruction contract](protocols/pilot-001-independent-reconstruction.md) | Prospective discovery-only requirements and stop rules |
 | [Roadmap](docs/roadmap.md) | Small milestones and decision gates |
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
@@ -46,6 +48,18 @@ reproduction. External outreach is now **on hold at the user's request**. No
 author message was posted. This phase will use public sources and internal
 checks; unresolved provenance and external-review questions remain explicit.
 
+Independent investigation recovered an author-released imputed discovery matrix
+whose header exactly matches **all 168 response-labelled measurement rows and
+all 135 published discovery-score sample keys**. This resolves the naming gap
+for that candidate input. Full matrix integrity, protein coverage and the
+transformation into model workspaces still need verification.
+
+The direct PDC header route did not supply patient links. The code's discovery
+score lineage is located, but its export to the released scores remains untraced.
+A content mismatch also makes the available Figure S3 legend unsuitable for
+authoritative panel assignments. The [progress report](docs/pilot-001-independent-progress.md)
+records the recovered input, these limitations and the reconstruction path.
+
 The scope starts with HGSOC. Primary refractory disease (failure of initial
 therapy) must be distinguished from later platinum-resistant recurrence. Other
 histotypes require their own questions, labels, and study designs.
@@ -69,12 +83,17 @@ The optional network commands `python3 tools/audit_pdc_metadata.py` and
 and pinned supplemental membership checks in memory. They print aggregate JSON
 only and are separate from the offline checks. Neither establishes independence
 from upstream preprocessing or reproduces model performance.
+`python3 tools/audit_matrix_headers.py` reruns the bounded matrix-header to
+clinical-label diagnostic; it reads no abundance rows and emits aggregates only.
+`python3 tools/audit_author_archive.py` verifies the recovered discovery input's
+header linkage using bounded ZIP ranges and exact clinical/score-key joins.
 
 ## Decisions still needed
 
 The owner must choose repository licensing; **no license grant is supplied**.
 Third-party code and data retain their own terms. Before ingestion or execution,
 review access and reuse terms, pin corrected supplemental materials, resolve
-patient overlap, and assess computational requirements. A gynecologic oncologist and a
-proteomics/biostatistics collaborator are needed; none is recruited by this
-scaffold. See the [roadmap](docs/roadmap.md) for feasibility gates.
+patient overlap, and assess computational requirements. Clinical interpretation
+and later validation will require domain review; recruiting reviewers is deferred.
+Public-source investigation can continue independently under the
+[roadmap](docs/roadmap.md) and [reconstruction contract](protocols/pilot-001-independent-reconstruction.md).

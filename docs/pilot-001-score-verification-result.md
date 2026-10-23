@@ -102,6 +102,11 @@ estimate and missing fold/workspace provenance. Once available, record the
 evidence and any justified specification change before another comparison.
 Do not change tolerance, exclusions or direction to force agreement.
 
+The [independent follow-up](pilot-001-independent-progress.md) locates the
+repeated-CV score object but finds no export linking it to the workbook. It also
+tests matrix linkage and documents a supplement-legend mismatch; neither finding
+establishes the cause of the AUROC discrepancy.
+
 The [source request](../templates/pilot-001-source-request.md) remains unsent.
 After the unsuccessful posting attempts, the user placed external outreach on
 hold; no authors or outside reviewers will be contacted without a new explicit

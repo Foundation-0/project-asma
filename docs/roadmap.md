@@ -17,6 +17,22 @@ unsent; do not contact authors or recruit collaborators/reviewers without a new
 explicit instruction. Continue the early investigation using public sources and
 internal checks, recording limits without treating deferred review as completed.
 
+The [independent follow-up](pilot-001-independent-progress.md) tested the direct
+PDC header/design routes and then found a useful downstream citation to the
+original author archive. Its imputed discovery-matrix header matches all 168
+response-labelled measurement rows and all 135 published discovery-score keys.
+This resolves candidate-input naming; complete matrix integrity, feature coverage
+and transformation provenance still need checking. Score export and corrected
+legend provenance also remain unresolved.
+
+The [public-input reconstruction contract](../protocols/pilot-001-independent-reconstruction.md)
+defines a prospective reconstruction target and its remaining requirements.
+The next independent step is to audit the recovered matrix's full integrity,
+protein coverage and transformation/collapse history under verified reuse terms,
+then freeze the implementation before fitting. Source investigation does not
+require contacting researchers. The screened 2025 result remains a separate
+fallback; no replacement target has been adopted.
+
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
 | 0. Agree scope and rights | Owner license decision; collaborator review; correction and reuse/access review | No data ingestion or third-party code reuse until requirements are understood. No collaborator has been recruited. |

@@ -1,7 +1,7 @@
 # Registries
 
 - [sources.json](sources.json): dated primary-source metadata, claim locators,
-  takeaways, verification route, and limits. S01–S14 are stable local IDs.
+  takeaways, verification route, and limits. S01–S17 are stable local IDs.
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,
@@ -16,6 +16,17 @@
   hashes and environment. The [result report](../docs/pilot-001-score-verification-result.md)
   records the discrepancy and pending external review. No patient-level scores
   are retained; this is not model regeneration or independent validation.
+- [pilot-001-matrix-header-summary.json](pilot-001-matrix-header-summary.json):
+  executed exact matrix-header/clinical-label diagnostic, with bounded header
+  hashes and source/catalog provenance. Regenerate with
+  `python3 tools/audit_matrix_headers.py`. Clinical-NA matches are separated from
+  response-labelled patient links; whole-matrix checksums remain unverified.
+- [pilot-001-author-archive-summary.json](pilot-001-author-archive-summary.json):
+  recovered author discovery-matrix header linkage to all 168 response-labelled
+  measurements and 135 published score keys. Regenerate with
+  `python3 tools/audit_author_archive.py`. The ZIP directory/member metadata and
+  header are pinned; full matrix integrity, protein coverage and transformations
+  remain unverified.
 
 The source and dataset registries use `schema_version: 1` and a list under
 `sources` or `datasets`.
@@ -29,7 +40,10 @@ Source verification states: `full_text_reviewed`, `page_reviewed`,
 `code_inspected`, `metadata_reviewed`, or `partial`. Read `limitations` and
 `reviewed_via`; a mirror review is not a successful fetch from the original URL.
 S09 documentation remains partial. S11 correction text was verified through
-NCBI BioC after publisher/PMC routes failed. The code was inspected, not run.
+NCBI BioC and rechecked in byte-pinned NLM XML after publisher/PMC routes failed.
+The pinned NLM S3 legend conflicts with the article's panel references; the
+[independent report](../docs/pilot-001-independent-progress.md) records the
+content evidence and remaining corrected-artifact gap. The code was inspected, not run.
 PDC ID/name mappings were verified through read-only metadata queries
 and the [official publication listing](https://pdc.cancer.gov/pdc/publications).
 
