@@ -7,6 +7,12 @@ Executed metadata checks advance Gates 0–1; they do not close the remaining
 method, input, corrected-supplement or scientific-review requirements. No model
 performance result has been reproduced.
 
+The [published-score verification proposal](../protocols/pilot-001-score-verification.md)
+now defines a narrower arithmetic check, its executable command and the pending
+scientific-review record. It can advance the reproduction investigation but
+cannot substitute for regenerating the original predictions or close Gate 2.
+The authorized author request remains unsent because GitHub denied posting access.
+
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
 | 0. Agree scope and rights | Owner license decision; collaborator review; correction and reuse/access review | No data ingestion or third-party code reuse until requirements are understood. No collaborator has been recruited. |

@@ -33,6 +33,12 @@ reference values, not results from this project. Proposed agreement tolerance:
 absolute AUC difference ≤0.02 with matching endpoint and population; departures
 must be explained rather than tuned away.
 
+A [narrower published-score verification](pilot-001-score-verification.md) is
+prepared for scientific review. It would recompute the empirical discovery AUROC
+from the supplied predictions, without regenerating the models or claiming
+reproduction of the repeated-CV procedure. No live score calculation has been
+performed, and this proposal does not close the full reproduction gates.
+
 ## Inputs and access gate
 
 Candidate proteome studies: discovery **PDC000360**, FFPE validation **PDC000358**,
