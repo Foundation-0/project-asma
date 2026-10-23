@@ -42,8 +42,9 @@ error or completed model reproduction. External scientific review remains pendin
 
 No full PDC abundance matrix was downloaded, no author analysis code was executed,
 and no model was trained. Missing input/method provenance still prevents full
-reproduction. The authorized author request could not be posted because both
-GitHub connections denied access to the upstream issue.
+reproduction. External outreach is now **on hold at the user's request**. No
+author message was posted. This phase will use public sources and internal
+checks; unresolved provenance and external-review questions remain explicit.
 
 The scope starts with HGSOC. Primary refractory disease (failure of initial
 therapy) must be distinguished from later platinum-resistant recurrence. Other

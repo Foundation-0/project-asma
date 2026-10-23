@@ -1,12 +1,13 @@
 # Pilot 001: source-clarification request
 
-**Authorized 2026-10-23; posting blocked — not sent.** Destination: the existing
+**Held at the user's request — do not send.** Possible future destination: the existing
 [upstream data-availability issue](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/issues/1).
-No patient identifiers, labels, scores or linkage rows are included. The owner
-authorized this exact message. The connected GitHub tool and existing CLI
-connection both rejected posting with “Resource not accessible by integration.”
-No comment was created; the message below remains ready to post from an account
-with access. No further owner authorization is needed for this message.
+No patient identifiers, labels, scores or linkage rows are included. Earlier
+posting attempts, then authorized by the user, were rejected with “Resource not
+accessible by integration”; no comment was created. The user subsequently
+directed that other researchers should not be involved this early. This draft is
+retained as a record of unresolved questions. Do not retry posting or contact
+authors, collaborators or external reviewers without a new explicit instruction.
 
 ---
 

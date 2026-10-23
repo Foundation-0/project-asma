@@ -12,7 +12,10 @@ Its [AUROC result](pilot-001-score-verification-result.md) is 0.8088507878,
 rounding to 0.81 and missing the fixed comparison against printed 0.83. This
 advances the reproduction investigation through a recorded discrepancy; it does
 not regenerate the original predictions or close Gate 2.
-The authorized author request remains unsent because GitHub denied posting access.
+External outreach is on hold at the user's request. The source request remains
+unsent; do not contact authors or recruit collaborators/reviewers without a new
+explicit instruction. Continue the early investigation using public sources and
+internal checks, recording limits without treating deferred review as completed.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |

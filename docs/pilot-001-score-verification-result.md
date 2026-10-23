@@ -102,9 +102,10 @@ estimate and missing fold/workspace provenance. Once available, record the
 evidence and any justified specification change before another comparison.
 Do not change tolerance, exclusions or direction to force agreement.
 
-The [authorized source request](../templates/pilot-001-source-request.md) remains
-unsent because GitHub rejected both available posting connections. No new author
-message has been sent. Full reproduction also still needs the missing helper,
+The [source request](../templates/pilot-001-source-request.md) remains unsent.
+After the unsuccessful posting attempts, the user placed external outreach on
+hold; no authors or outside reviewers will be contacted without a new explicit
+instruction. Full reproduction also still needs the missing helper,
 original execution environment, intended transformations and corrected-legend
 confirmation. No independent-patient validation or clinical/treatment claim
 follows from this result.
