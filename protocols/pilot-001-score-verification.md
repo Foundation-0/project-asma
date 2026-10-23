@@ -1,8 +1,10 @@
 # Pilot 001: published discovery-score verification
 
-**Version:** 0.1, 2026-10-23. **Status:** prepared for scientific review; no live
-prediction-score calculation executed. This is a proposed narrower step within
-[Pilot 001](pilot-001.md), not approval to bypass its review requirements.
+**Version:** 0.2, 2026-10-23. **Status:** fixed specification for a preliminary
+run explicitly authorized by the user; external scientific review remains
+pending. This is a narrower step within [Pilot 001](pilot-001.md). Version 0.2
+records the execution instruction without changing version 0.1's numerical
+contract, sources, cohort, score direction or comparisons.
 
 ## Question and scope
 
@@ -29,9 +31,9 @@ These are published reference values, not Project Asma results.
 
 S95, “Prediction Model Building,” describes the output as “a score between 0
 and 1, indicating the probability of the tumor to be refractory.” Accordingly,
-the proposed fixed direction is **refractory positive; higher score predicts
+the fixed direction is **refractory positive; higher score predicts
 refractory**. A related author script encodes sensitive as 1, so this direction
-requires explicit review against the specific supplement. No outcome-driven
+remains a source-interpretation question for external review. No outcome-driven
 direction selection or automatic AUC reversal is permitted. A disagreement must
 remain a discrepancy until supported by independent source clarification.
 
@@ -79,7 +81,7 @@ actual Python/OS, source and implementation hashes, protocol hash, UTC time and
 elapsed time. A later environment change must be recorded rather than represented
 as the original author's environment.
 
-After the scientific review below is recorded, the intended command is:
+Under the execution instruction recorded below, the fixed command is:
 
 ```sh
 python3 tools/verify_published_auc.py > /tmp/asma-score-verification.json
@@ -96,10 +98,13 @@ changed denominator/class counts/membership, or disagreement between the two
 AUROC calculations. Numeric disagreement with the published value is a valid
 reported finding, not grounds to change direction, exclusions, or inputs.
 
-## Review record and remaining execution gate
+## Execution instruction and pending external review
 
-The user has authorized reproduction work. That authorization does not by itself
-record the scientific review the user asked to preserve. The project's
+After being told that no external scientific review was recorded, the user
+explicitly instructed “proceed with the work” on 2026-10-23. That instruction is
+the execution basis for this bounded, preliminary published-score check. It is
+a specific exception to the earlier pre-execution review sequence, not evidence
+that external scientific review occurred. The project's
 [data rules](../docs/reproducibility-and-data.md#rights-and-publication) require:
 “Obtain scientific review before such work advances beyond this research
 scaffold.” The [roadmap](../docs/roadmap.md) also calls for collaborator review;
@@ -107,11 +112,16 @@ the pilot identifies a gynecologic oncologist and a proteomics/biostatistics
 collaborator for its feasibility decision. Agent source/code checks are not a
 substitute for that human review.
 
-**Current outcome:** pending; no human reviewer or approval evidence is recorded
-in this proposal. PR #2 had no submitted reviews at the 2026-10-23 check. No live
-score calculation is claimed or stored. An existing review supplied by the owner
-can satisfy the applicable requirement if it covers this narrowed scope and the
-applicable protocol version; a duplicate approval is unnecessary.
+**External scientific review:** pending; no human reviewer or review approval is
+recorded here. Source, mathematical and code checks by agents are recorded as
+technical checks only. This instruction does not authorize clinical use, change
+the population, resolve missing model inputs, or close the full reproduction
+gates. Results must retain the preliminary status and these limitations.
+
+This specification is fixed before the numerical run. The aggregate run artifact
+will record its SHA-256 and the implementation/source hashes; results and later
+review evidence belong in separate dated records so that this specification
+remains recoverable unchanged.
 
 The reviewer should record a name/role or suitable review reference, date,
 protocol version/commit and disposition for these concrete questions:
@@ -126,11 +136,11 @@ protocol version/commit and disposition for these concrete questions:
 4. Does the implementation correctly calculate this statistic without expanding
    it into a claim of independent validation, full reproduction or clinical use?
 
-If approved, append the review evidence and execute the fixed command. Record
-agreement or failure with the exact version and deviations. If not approved,
-record the unresolved points; do not manufacture replacement records or declare
-Gate 2 complete. A successful point-score check alone would not close Gate 2's
-full model-reproduction requirements.
+Record agreement or failure with the exact version and deviations. When external
+review is available, record its evidence, scope and disposition separately.
+Unresolved points must remain explicit; do not manufacture replacement records
+or declare Gate 2 complete. A successful point-score check alone would not close
+Gate 2's full model-reproduction requirements.
 
 ## Author clarification
 

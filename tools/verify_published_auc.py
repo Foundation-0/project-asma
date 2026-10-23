@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify one published-score AUROC after the required scientific scope review.
+"""Verify one published-score AUROC under the recorded execution instruction.
 
 Only the pinned discovery scores and exact clinical joins are consumed. Raw
 workbooks, identifiers, responses, and scores remain in memory. This is an
@@ -155,7 +155,7 @@ def run_verification():
         "scope": "Arithmetic verification of AUROC from released discovery predictions; no model refit or cross-validation reconstruction",
         "review_contract": {"path": CONTRACT,
                             "sha256": contract_sha256,
-                            "requirement": "Required scientific scope review must be recorded before a live run; this tool does not attest its completion."},
+                            "requirement": "The protocol records the execution basis and pending external scientific review; this tool does not attest review completion."},
         "sources": {key: dict(value, url=audit.BASE + value["filename"])
                     for key, value in audit.SOURCES.items()},
         "selection": {
@@ -196,9 +196,9 @@ def run_verification():
 def main(argv=None):
     parser = argparse.ArgumentParser(
         description="Verify discovery AUROC from pinned public scores in memory; emit aggregate JSON only. "
-                    "Read the proposed scope contract and complete the required scientific review before a live run. "
+                    "Read the fixed scope contract and its execution/review record before a live run. "
                     "No refit, automatic direction choice, or confidence interval.",
-        epilog=f"Contract: {CONTRACT}. Command after review: python3 tools/verify_published_auc.py",
+        epilog=f"Contract: {CONTRACT}. Command: python3 tools/verify_published_auc.py",
     )
     parser.parse_args(argv)
     try:
