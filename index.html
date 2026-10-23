@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Asma · Foundation0</title>
+<meta name="description" content="An open reproduction study of a published 64-protein signature for primary platinum-refractory ovarian cancer (HGSOC). Research only, not clinical advice, not peer reviewed.">
+<link rel="canonical" href="https://foundation-0.github.io/project-asma/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Project Asma: can a published cancer signature be reproduced?">
+<meta property="og:description" content="An open reproduction study of a published 64-protein signature for primary platinum-refractory ovarian cancer. Research only, not peer reviewed.">
+<meta property="og:image" content="https://foundation-0.github.io/project-asma/assets/og.png">
+<meta property="og:url" content="https://foundation-0.github.io/project-asma/">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Project Asma. Ovarian cancer research, checked in the open.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#070b0e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f0e6" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<link rel="stylesheet" href="assets/f0.css">
+<link rel="stylesheet" href="page.css">
+<script>
+/* theme + motion bootstrap, before paint: ?theme=dark|light and ?motion=on|off override the stored choice */
+(function(){var d=document.documentElement;d.classList.add('js');try{var q=new URLSearchParams(location.search),t=q.get('theme')||localStorage.getItem('f0-theme'),m=q.get('motion')||localStorage.getItem('f0-motion');if(t==='dark'||t==='light')d.setAttribute('data-theme',t);if(m==='on'||m==='off')d.setAttribute('data-motion-pref',m);}catch(e){}var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,p=d.getAttribute('data-motion-pref');d.setAttribute('data-motion',p?p:(r?'off':'on'));})();
+</script>
+<script defer src="assets/f0.js"></script>
+</head>
+<body data-page="project-asma">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="zero" viewBox="-50 -50 100 100">
+      <!-- The incentre mark: a square, its diagonals, and the incircle of each triangle (r = (sqrt2 - 1) x half-side).
+           Neighbouring incircles touch at one point: gold (biological) meets cyan (digital). -->
+      <path d="M-40-40L40 40M40-40L-40 40" fill="none" stroke-width="2" style="stroke:var(--ink-3)"/>
+      <g fill="none" stroke-width="4"><circle cy="-23.431" r="16.569" style="stroke:var(--bio)"/><circle cy="23.431" r="16.569" style="stroke:var(--bio)"/><circle cx="-23.431" r="16.569" style="stroke:var(--dig)"/><circle cx="23.431" r="16.569" style="stroke:var(--dig)"/></g>
+      <g><circle cy="-23.431" r="3.4" style="fill:var(--bio)"/><circle cy="23.431" r="3.4" style="fill:var(--bio)"/><circle cx="-23.431" r="3.4" style="fill:var(--dig)"/><circle cx="23.431" r="3.4" style="fill:var(--dig)"/></g>
+      <rect x="-40" y="-40" width="80" height="80" fill="none" stroke-width="4.4" style="stroke:var(--ink)"/>
+    </symbol>
+  </defs>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Project Asma home"><svg aria-hidden="true"><use href="#zero"/></svg>project-asma</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#question">The question</a><a href="#checked">What has been checked</a><a href="#number">The number</a><a href="#missing">Still missing</a><a href="https://github.com/Foundation-0/project-asma">Repository</a><a href="https://foundation-0.github.io/f0/">Foundation0</a>
+    </nav>
+    <div class="tools">
+      <button class="tbtn" type="button" data-motion-toggle aria-pressed="true" aria-label="Motion"><span class="ico"></span><span class="t-txt">Motion</span></button>
+      <button class="tbtn" type="button" data-theme-toggle aria-label="Theme: switch"><span class="ico"></span><span class="t-txt">Theme</span></button>
+    </div>
+    <details class="menu">
+      <summary class="tbtn" aria-label="Menu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.4"/></svg><span class="t-txt">Menu</span></summary>
+      <nav class="menu-panel" aria-label="Main (compact)">
+        <a href="#question">The question <span>01</span></a><a href="#checked">What has been checked <span>02</span></a><a href="#number">The number <span>03</span></a><a href="#missing">Still missing <span>04</span></a><a href="https://github.com/Foundation-0/project-asma">Repository <span>05</span></a><a href="https://foundation-0.github.io/f0/">Foundation0 <span>06</span></a>
+      </nav>
+    </details>
+  </div>
+</header>
+<nav class="hud" data-hud aria-label="On this page"></nav>
+
+<main id="main">
+  <header class="page-hero" style="--acc:var(--bio)">
+    <div class="wrap">
+      <p class="kicker"><span class="pair" aria-hidden="true"><i></i><i></i></span>project-asma · ovarian cancer research · a reproduction study</p>
+      <h1 class="display">Project Asma</h1>
+      <p class="promise">A 2023 study reported a set of 64 proteins that marks the ovarian cancers most resistant to first treatment. This project rebuilds that result from the public data, step by step, and reports what holds.</p>
+      <p class="hint">Research only. Not clinical advice, not a diagnostic service, and not peer reviewed. No scientific result has been reproduced yet. By Aska Digital with Claude (Anthropic) for Foundation0.</p>
+      <dl class="stats" aria-label="The study in numbers">
+        <div class="stat"><dt class="k">proteins in the published panel</dt><dd class="v" style="margin:0">64</dd></div>
+        <div class="stat"><dt class="k">cohorts in the study</dt><dd class="v" style="margin:0">3</dd></div>
+        <div class="stat"><dt class="k">printed result under test</dt><dd class="v" style="margin:0">AUC 0.83</dd></div>
+        <div class="stat"><dt class="k">results reproduced so far</dt><dd class="v" style="margin:0">0</dd></div>
+      </dl>
+      <div class="prov">
+        <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tools"><span class="dot live" aria-hidden="true"></span>audits run in memory, aggregates only</a>
+        <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tests">checked by the repository test suite</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="sec" id="question" data-index="The question" data-num="00" aria-labelledby="question-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="sec-label"><b>00</b><i>//</i>The question</p><span class="chip">Chowdhury et al., Cell 2023</span></div>
+      <h2 class="h2" id="question-h">One published result, rebuilt from scratch.</h2>
+      <p class="lede">High-grade serous ovarian cancer (HGSOC) is the most common and most lethal form of ovarian cancer. First treatment is usually platinum chemotherapy. Some tumours never respond at all. That is primary refractory disease, and it is not the same as cancer that responds first and resists later.</p>
+      <div class="prose">
+        <p>In 2023, Chowdhury and colleagues published a proteogenomic study of HGSOC. Among its results was a signature: levels of 64 proteins, measured in tumour tissue, that separated refractory from sensitive cancers in the study's own data. The headline measure was an AUC of 0.83. At the study's strictest operating point it caught about a third of refractory tumours (sensitivity 0.35) while almost never flagging a sensitive one (specificity 98%).</p>
+        <p>A result like that matters only if it survives outside the data it was built on. Project Asma's first pilot takes the published panel exactly as printed and asks whether the reported numbers can be recovered from the public data, and whether the patients counted as a separate validation group really are separate. It does not build a new test, and it makes no claim about patient care.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="checked" data-index="What has been checked" data-num="01" aria-labelledby="checked-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="sec-label"><b>01</b><i>//</i>What has been checked</p><span class="chip">status at 2026-10-23</span></div>
+      <h2 class="h2" id="checked-h">The groundwork is done. The result is not.</h2>
+      <p class="lede">Each audit works in memory on public files and keeps only counts and fingerprints. No patient records, scores or linkage tables are stored in the repository.</p>
+      <ul class="ledger">
+        <li>
+          <div class="ledger-main"><h3>Research scaffold and pilot protocol</h3>
+          <p>The workspace, evidence map, registries and the pilot design. Defines the target (one printed result, Figure 3D), the cohorts and the stop rules.</p></div>
+          <span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main</span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Feasibility and patient-linkage audit</h3>
+          <p>Recovers the 64-protein panel from the published supplements and rebuilds the score cohorts: 135 discovery, 61 frozen, 20 FFPE. Records a discrepancy: six patient keys in the frozen sheet labelled non-overlapping also occur in the discovery score set. What that does to the reported performance is unknown.</p></div>
+          <span class="badge r"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>In review</span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Published-score check</h3>
+          <p>Recomputes the discovery AUC from the released scores and labels alone, under a specification fixed before the run. The result is in section 02.</p></div>
+          <span class="badge r"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>In review</span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Discovery input linkage</h3>
+          <p>Links the author-released discovery matrix to the clinical records by exact name match: all 168 response-labelled rows and all 135 score keys are present as columns, the file's integrity check passes, and each of the 64 panel proteins occurs exactly once among 8,800 feature rows.</p></div>
+          <span class="badge r"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>In review</span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Model reproduction</h3>
+          <p>Refitting the published models and recovering the printed AUC. Blocked on inputs that are still missing; see section 03.</p></div>
+          <span class="badge n"><span class="ladder" data-r="1" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not started</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="number" data-index="The number" data-num="02" aria-labelledby="number-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="sec-label"><b>02</b><i>//</i>The number</p><span class="chip">preliminary · arithmetic only</span></div>
+      <h2 class="h2" id="number-h">0.81 where the paper prints 0.83.</h2>
+      <p class="lede">AUC is a ranking score. Take every refractory patient and pair them with every sensitive patient: the AUC is the share of pairs where the refractory patient has the higher score, with tied scores counting half. 1.0 ranks every pair correctly; 0.5 is no better than chance.</p>
+      <div class="prose">
+        <p>The published supplements carry a score for each of the 135 discovery patients. Pairing the 52 refractory with the 83 sensitive patients gives 4,316 pairs. The released scores rank 3,491 of those pairs correctly and none are tied, so the AUC of the released scores is 3,491 / 4,316 = <strong>0.80885</strong>, which rounds to 0.81. The paper prints 0.83. The gap, 0.0211, is just outside the 0.02 agreement margin the pilot set before running the check.</p>
+        <p>Score direction cannot explain the gap. The specification reads the scores as the probability of refractory disease, following the paper's methods text. Read the other way, the same scores give 0.191, much further from 0.83.</p>
+      </div>
+      <table class="nums">
+        <caption class="sr-only">Published-score check: observed values against the printed reference</caption>
+        <thead><tr><th scope="col">Quantity</th><th scope="col">Value</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Patients scored</th><td>135 (52 refractory, 83 sensitive)</td></tr>
+          <tr><th scope="row">Patient pairs</th><td>4,316</td></tr>
+          <tr><th scope="row">Pairs ranked correctly / incorrectly / tied</th><td>3,491 / 825 / 0</td></tr>
+          <tr><th scope="row">AUC of the released scores</th><td>0.80885 (rounds to 0.81)</td></tr>
+          <tr><th scope="row">Printed AUC</th><td>0.83</td></tr>
+          <tr><th scope="row">Difference</th><td>0.0211, outside the pre-set 0.02 margin</td></tr>
+        </tbody>
+      </table>
+      <div class="prose">
+        <p><strong>What this does not show.</strong> It does not show the paper is wrong. The printed 0.83 is itself rounded, and its unrounded value is not available. The released scores have not been shown to be the exact predictions the printed value was computed from; the paper's figure code averages predictions over 100 repeated splits, and no export connects that object to the released workbook. A mismatch between a printed value and a later file release is a provenance question, and it stays open until the authors' original inputs surface.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="missing" data-index="Still missing" data-num="03" aria-labelledby="missing-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="sec-label"><b>03</b><i>//</i>Still missing</p><span class="chip">gates before any refit</span></div>
+      <h2 class="h2" id="missing-h">Four gaps stand between here and a reproduction.</h2>
+      <div class="cards4">
+        <div class="mini-card">
+          <h3>The fold helper</h3>
+          <p>The authors' scripts call a helper file, <span class="mono">balanced_folds.R</span>, that is not in their repository, its history, or its forks. It decides how patients were split into folds, so the printed cross-validation cannot be rerun faithfully without it or a declared replacement.</p>
+        </div>
+        <div class="mini-card">
+          <h3>The workspaces</h3>
+          <p>The figure scripts load saved R workspaces (RData files) that were never released. Which objects they held, and in what order, decides what the printed figure actually averaged.</p>
+        </div>
+        <div class="mini-card">
+          <h3>The corrected legends</h3>
+          <p>A 2024 correction fixes the supplemental figure legends, and the released Figure S3 legend disagrees with the article's own references at several points. Which legend is authoritative has to be settled before a reproduction target can be frozen.</p>
+        </div>
+        <div class="mini-card">
+          <h3>People and permissions</h3>
+          <p>No gynaecologic oncologist or proteomics/biostatistics collaborator has been recruited, and the repository licence is undecided. The pilot's own rules stop the work at these gates rather than route around them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="rules" data-index="Rules of the workspace" data-num="04" aria-labelledby="rules-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="sec-label"><b>04</b><i>//</i>Rules of the workspace</p><span class="chip">how claims are kept honest</span></div>
+      <h2 class="h2" id="rules-h">Small rules, applied every time.</h2>
+      <div class="prose">
+        <p><strong>Aggregates only.</strong> Audits read public files in memory and publish counts, hashes and provenance. Patient-level records, scores and linkage maps never enter the repository.</p>
+        <p><strong>Labels before numbers.</strong> Anything not independently verified is labelled as such, in the registries and on this page. A reproduced number and a printed reference value are never presented as the same kind of fact.</p>
+        <p><strong>Fixed before run.</strong> Numerical checks are specified, with their tolerance, before they are executed. A disappointing result is recorded unchanged, not tuned away.</p>
+        <p><strong>Plain tools.</strong> Every check runs on the Python standard library alone, so anyone can rerun it: <span class="mono">python3 tools/validate.py</span> and <span class="mono">python3 -m unittest discover -s tests</span> in the repository.</p>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/Foundation-0/project-asma">Open the repository <span class="arr" aria-hidden="true">&rarr;</span></a>
+        <a class="btn" href="https://github.com/Foundation-0/project-asma/pulls">Open pull requests</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><svg aria-hidden="true"><use href="#zero"/></svg>project-asma</div>
+        <p>An open reproduction study of a published ovarian cancer protein signature. Exploration, not peer reviewed; every executed number on this page comes from a check in the repository, and open questions stay labelled as open.</p>
+        <p>No licence has been chosen for this repository yet. Third-party code and data keep their own terms.</p>
+      </div>
+      <div class="foot-cols">
+        <div><h2 class="foot-h">Study</h2><ul><li><a href="#question">The question</a></li><li><a href="#checked">What has been checked</a></li><li><a href="#number">The number</a></li><li><a href="#missing">Still missing</a></li></ul></div>
+        <div><h2 class="foot-h">Record</h2><ul><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/frontier-2026-10-22.md">Research frontier</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/protocols/pilot-001.md">Pilot protocol</a></li><li><a href="https://github.com/Foundation-0/project-asma/tree/main/registries">Registries</a></li></ul></div>
+        <div><h2 class="foot-h">Source</h2><ul><li><a href="https://github.com/Foundation-0/project-asma">Repository</a></li><li><a href="https://github.com/Foundation-0/project-asma/pulls">Pull requests</a></li><li><a href="https://foundation-0.github.io/f0/">Foundation0</a></li></ul></div>
+      </div>
+    </div>
+    <div class="stamp">
+      <span>project-asma colophon</span>
+      <span>Checks and records in the repository; design system shared with the Foundation0 site</span>
+      <span class="who"><i style="background:var(--bio)" aria-hidden="true"></i>Human: Aska Digital</span>
+      <span class="who"><i style="background:var(--dig)" aria-hidden="true"></i>Digital: Claude (Anthropic) and the agentic team</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
