@@ -1,7 +1,7 @@
 # Pilot 001: reproduce a primary platinum-refractoriness protein signature
 
 **Status:** full model reproduction proposed; input/linkage and preliminary
-published-score checks executed. **Version:** 0.5, 2026-10-23.
+published-score checks executed. **Version:** 0.6, 2026-10-23.
 **Scope:** research reproduction and robustness, not a novel classifier or new
 clinical validation. No treatment recommendations or patient-facing output.
 
@@ -44,7 +44,11 @@ The [independent follow-up](../docs/pilot-001-independent-progress.md) adds a
 repeatable matrix-header diagnostic, score-lineage inspection and a concrete
 supplement-legend mismatch. A separate
 [public-input reconstruction contract](pilot-001-independent-reconstruction.md)
-specifies prospective work while external outreach is on hold. It does not change
+specifies prospective work while external outreach is on hold. A subsequent
+complete-member inspection verifies the recovered author matrix's ZIP CRC and
+finds all 64 panel symbols exactly once among 8,800 feature rows. The
+[preprocessing history review](../docs/pilot-001-preprocessing-provenance.md)
+records remaining transformation and workspace gaps. This does not change
 the executed score check or treat internal checks as external scientific review.
 
 ## Inputs and access gate

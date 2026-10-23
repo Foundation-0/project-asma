@@ -25,8 +25,14 @@
   recovered author discovery-matrix header linkage to all 168 response-labelled
   measurements and 135 published score keys. Regenerate with
   `python3 tools/audit_author_archive.py`. The ZIP directory/member metadata and
-  header are pinned; full matrix integrity, protein coverage and transformations
-  remain unverified.
+  header are pinned. This historical header-only artifact is unchanged; the
+  following artifact extends the inspection to the complete selected member.
+- [pilot-001-author-feature-summary.json](pilot-001-author-feature-summary.json):
+  complete-member CRC verification, newly observed SHA-256 and exact coverage of
+  all 64 panel symbols, once each, among 8,800 feature rows. Regenerate under the
+  bounded source-inspection contract with `python3 tools/audit_author_features.py`.
+  Abundance fields are discarded without numerical conversion or analysis; full
+  archive integrity, transformation history and later reuse terms remain open.
 
 The source and dataset registries use `schema_version: 1` and a list under
 `sources` or `datasets`.

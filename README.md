@@ -19,6 +19,7 @@ clinical validity, or improved patient outcomes.
 | [Published-score verification specification](protocols/pilot-001-score-verification.md) | Fixed numerical check and recorded execution basis |
 | [Discovery-score AUROC result](docs/pilot-001-score-verification-result.md) | Executed preliminary result, comparison failure and remaining provenance limits |
 | [Independent progress](docs/pilot-001-independent-progress.md) | Matrix-header diagnostic, score lineage and concrete supplement-legend mismatch |
+| [Preprocessing provenance](docs/pilot-001-preprocessing-provenance.md) | Located transformations, replicate-averaging example and unresolved execution history |
 | [Public-input reconstruction contract](protocols/pilot-001-independent-reconstruction.md) | Prospective discovery-only requirements and stop rules |
 | [Roadmap](docs/roadmap.md) | Small milestones and decision gates |
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
@@ -51,8 +52,10 @@ checks; unresolved provenance and external-review questions remain explicit.
 Independent investigation recovered an author-released imputed discovery matrix
 whose header exactly matches **all 168 response-labelled measurement rows and
 all 135 published discovery-score sample keys**. This resolves the naming gap
-for that candidate input. Full matrix integrity, protein coverage and the
-transformation into model workspaces still need verification.
+for that candidate input. A complete-member audit now verifies its ZIP CRC and
+finds **all 64 panel symbols exactly once among 8,800 feature rows**. Abundance
+fields were discarded after hashing, without numerical analysis. Transformation
+into the original model workspaces and later reuse conditions remain unresolved.
 
 The direct PDC header route did not supply patient links. The code's discovery
 score lineage is located, but its export to the released scores remains untraced.
@@ -87,6 +90,9 @@ from upstream preprocessing or reproduces model performance.
 clinical-label diagnostic; it reads no abundance rows and emits aggregates only.
 `python3 tools/audit_author_archive.py` verifies the recovered discovery input's
 header linkage using bounded ZIP ranges and exact clinical/score-key joins.
+`python3 tools/audit_author_features.py` checks the complete selected member
+in memory for CRC, hashes and exact panel coverage under the documented bounded
+inspection scope; it emits no source rows or abundance values.
 
 ## Decisions still needed
 

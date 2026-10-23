@@ -7,8 +7,9 @@ do not replace scientific review or complete model reproduction.
 **A new public input was recovered:** the author-released imputed discovery
 matrix's header matches all 168 response-labelled measurement rows and all 135
 published discovery-score sample keys by exact equality. This closes candidate
-input naming, while full matrix integrity, feature coverage and original
-workspace generation remain open. The existing supplied-score AUROC **0.8088507878**
+input naming. A subsequent complete-member audit verifies ZIP CRC and finds all
+64 panel symbols exactly once among 8,800 feature rows. Original workspace
+generation and later reuse conditions remain open. The existing supplied-score AUROC **0.8088507878**
 is retained unchanged. No alternative scores, cohorts or tolerances were tried
 to improve agreement with the printed 0.83.
 
@@ -163,8 +164,9 @@ uncompressed 18,498,831 bytes. The 70,138,965-byte archive has 42 directory entr
 central-directory SHA-256 is
 `5dd3db7c674ab2952a148af474da6604c1daf88a4e2cf2ff45d939f7530ae5a0`.
 This establishes that the earlier LC-MRM description did not capture the archive's
-full contents. It does not establish matrix-body integrity, transformation
-equivalence or the contents of the missing prediction workspaces.
+full contents. The initial directory/header check did not establish matrix-body
+integrity; the later full-member check is recorded below. Transformation
+equivalence and the missing prediction workspaces remain unresolved.
 
 The archive's `ReadMe_PTRC_data.docx` separately describes imputed global and
 phosphoproteomic files and batch-corrected files before imputation. It does not
@@ -202,8 +204,8 @@ Only 69,770 archive bytes were fetched, including 4,096 compressed member bytes.
 Decompression stopped at the header newline; no abundance values were inspected.
 Header SHA-256:
 `e39ef0ffaafaa92ca6dd7351ed578856be22f4e03b2cf26111106790bd7521c9`.
-The 10.77-second run retains source and implementation hashes. Neither the full
-member CRC/checksum nor full archive integrity was verified. The source workbook
+The 10.77-second header-only run retains source and implementation hashes. It did
+not verify full member CRC/checksum or full archive integrity. The source workbook
 hashes were verified in memory; only aggregate outputs are retained.
 
 The downstream paper also provides these distinct releases:
@@ -244,6 +246,88 @@ downstream target. No new performance result or replacement target is adopted.
 
 ## Independent continuation
 
+The [preprocessing provenance report](pilot-001-preprocessing-provenance.md)
+locates the displayed filtering, batch correction, imputation and commented
+replicate-averaging steps. It also records a **10^-7 versus 10^-10** outlier
+threshold discrepancy and object-name mismatches that prevent treating the
+displayed workflow as the recovered matrix's verified generation history.
+
+### Scope of the full-member source inspection
+
+The next-step instruction expands the bounded audit to full-member integrity
+and protein annotations. Article XML S27 states, "All processed data has been
+deposited at a publicly accessible URL listed in the key resources table."
+The table links this archive; S27 also offers public query, visualization and
+download through ProTrack. This is evidence supporting the requested source
+inspection, not a separate archive license grant.
+
+The rights check found no explicit dataset terms in the pinned archive README,
+author README or repository tree. Live GitHub metadata reports no recognized
+license. No dataset-specific license text was located on the inspected Dropbox
+or ProTrack landing pages. These bounded negative checks do not establish the
+universal absence of restrictions. The article's CC BY-NC-ND statement describes
+the article, while PDC and downstream Figshare terms concern separate releases.
+None is automatically assigned to this archive.
+
+The [bounded-inspection contract](../protocols/pilot-001-independent-reconstruction.md#bounded-source-inspection)
+permits transient reading and decompression for CRC/hash verification and
+protein-annotation checks. Abundance fields necessarily pass through memory but
+are discarded without numeric conversion, analysis, retention or redistribution.
+Only source fingerprints, aggregate counts and execution metadata are retained.
+This does not clear the later abundance-analysis, storage or code-reuse gates.
+
+### Complete-member integrity and exact panel coverage
+
+The [feature audit](../tools/audit_author_features.py) completed successfully
+on 2026-10-23, 17:39:01–17:39:10 UTC. Its
+[aggregate artifact](../registries/pilot-001-author-feature-summary.json) records
+the source, implementation, Python/platform and 9.689-second runtime. It
+transferred only the selected 7,993,706-byte compressed member plus ZIP metadata,
+8,124,937 archive bytes in total, and rechecked the pinned directory afterward.
+
+| Check | Observed result |
+| --- | --- |
+| Complete deflate stream / uncompressed bytes | Verified / 18,498,831 |
+| CRC32 against pinned ZIP directory | **Matches: `9f713751`** |
+| Uncompressed member SHA-256, newly computed | `b7eea435bb7fa65f31a6e8f50d977ff046f0f9bd851126e43cf9a5f52e62be62` |
+| Compressed member SHA-256, newly computed | `38268f2c80a50562c7d102446136c71ab5e6e20a283813598610f148095a79c6` |
+| Feature rows / distinct nonempty HGNC symbols | **8,800 / 8,800** |
+| Panel symbols with exactly one matching row | **64 / 64** |
+| Missing / multiply matched panel symbols | **0 / 0** |
+| Repeated nonempty UniProt annotation strings / indices | 0 / 0 |
+| Identical annotation rows beyond the first | 0 |
+
+The first nine fields are explicitly named annotations, including `HGNC symbol`.
+Only these fields are decoded; standard TSV quoting is removed before exact
+field comparison. No trimming, case folding, alias substitution or splitting of
+gene symbols occurs. The header hash matches the earlier patient-linkage audit,
+so this is the same named candidate input. No new patient mapping is inferred.
+
+All 64 matched rows contain a delimiter marker in the UniProt or `Proteins`
+annotation. This is only a syntax diagnostic: pipes can be ordinary accession
+notation, and the count does **not** establish 64 ambiguous protein groups.
+Exact symbol uniqueness resolves row selection for this fixed panel; it does
+not establish isoform specificity, shared-peptide attribution or biological
+equivalence to row names in the absent model workspace. Identical annotation
+checks do not compare abundance rows.
+
+The CRC is checked against pinned source metadata. The SHA-256 values are newly
+observed fingerprints, not matches to an independent publisher SHA-256 reference.
+The whole 70,138,965-byte archive was not downloaded or hashed. Abundance fields
+were decompressed for integrity checks and discarded without numeric conversion,
+analysis or storage; no scores or models were calculated.
+
+Two preliminary attempts stopped at quoted annotation fields before producing
+any aggregate scientific result: the CLI emitted a generic error, and a bounded
+diagnostic identified the parser location without source rows. The revised
+parser accepts balanced wrapping quotes and doubled quote escapes, while
+rejecting malformed quoting and embedded tab/newline ambiguities. Synthetic
+tests and a separate internal code review passed before the successful run.
+
+```sh
+python3 tools/audit_author_features.py
+```
+
 The [reconstruction contract](../protocols/pilot-001-independent-reconstruction.md)
 now fixes the intended discovery cohort, panel, score direction, fivefold/
 100-repeat aggregation, input requirements and failure rules. It separates
@@ -253,23 +337,28 @@ analysis. Model fitting has not started.
 | Work | Disposition |
 | --- | --- |
 | Direct PDC matrix-to-clinical labels and PDC design route | Executed; exact equality does not supply patient linkage. |
-| Original author imputed discovery matrix | Recovered header links all 168 measurement rows and all 135 score keys exactly; full matrix contents and workspace generation remain unverified. |
+| Original author imputed discovery matrix | Header links all 168 measurement rows and all 135 score keys; complete member CRC verified and all 64 panel symbols appear once. Workspace generation and abundance correctness remain unverified. |
 | Discovery score-generation lineage | Located; export to released score workbook remains absent from inspected code. |
 | Corrected S3 interpretation | Concrete mismatch documented; authoritative corrected artifact still needed. |
-| Public-input reconstruction | Specified prospectively; candidate naming bridge recovered; needs full integrity, feature/transform contracts and frozen implementation before fitting. |
+| Public-input reconstruction | Specified prospectively; candidate naming, member integrity and exact panel coverage checked. Needs remaining reuse/transform contracts and a frozen implementation before fitting. |
 | Original predictions, independent validation and scientific review | Unresolved; no completion or clinical-performance claim. |
 
-The next independent work is to establish applicable matrix reuse terms, verify
-the recovered member's full integrity and protein coverage, and document its
-transformation/collapse history. Then freeze the reconstruction implementation
-before fitting. The downstream 2025 result remains a separate fallback with its
-own unresolved contracts. No external contact is scheduled.
+The next independent work is to translate the recovered source instructions into
+an explicit reconstruction decision record: feature interpretation, sample-key
+averaging, ordering, processing scope and replacements for missing workspaces,
+helper and environment. Keep unresolved historical choices separate from new
+choices, and satisfy the remaining data-use conditions before abundance analysis.
+The member-integrity and exact-symbol coverage checks need not be repeated unless
+the source or implementation changes. The downstream 2025 result remains a
+separate fallback with its own unresolved contracts. No external contact is scheduled.
 
 The 21 new offline tests exercise exact joins, separation of clinical-NA rows,
 duplicate/conflicting annotations, bounded HTTP/ZIP/header reads, metadata drift,
 decompression limits, complete score-key coverage and generic error handling.
-All 72 repository tests pass. These checks validate software contracts, not the
-missing biological or historical relationships.
+The full-member audit adds 14 tests for bounded transfer/inflation, integrity,
+quoted annotation parsing, exact symbols, duplicates, malformed inputs and safe
+errors. All 86 repository tests pass. These checks validate software contracts,
+not the missing biological or historical relationships.
 
 PDC aggregate checks use the version-1 records for PDC000360, PDC000358 and
 PDC000362 and change their presentation into counts. Credit: PDC and
