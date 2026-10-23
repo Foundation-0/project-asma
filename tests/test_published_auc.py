@@ -173,7 +173,7 @@ class PublishedAucChecks(unittest.TestCase):
                                    capture_output=True, text=True, timeout=10, check=False)
         self.assertEqual(completed.returncode, 0, completed.stderr)
         self.assertIn(verify.CONTRACT, completed.stdout)
-        self.assertIn("python3 tools/verify_published_auc.py", completed.stdout)
+        self.assertIn("python3 tools/verify_published_auc.py", " ".join(completed.stdout.split()))
         self.assertEqual(completed.stderr, "")
 
     def test_cli_failure_is_sanitized_without_partial_output(self):

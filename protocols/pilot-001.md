@@ -1,7 +1,7 @@
 # Pilot 001: reproduce a primary platinum-refractoriness protein signature
 
-**Status:** numerical reproduction proposed; input/linkage checks executed.
-**Version:** 0.3, 2026-10-23.
+**Status:** full model reproduction proposed; input/linkage and preliminary
+published-score checks executed. **Version:** 0.4, 2026-10-23.
 **Scope:** research reproduction and robustness, not a novel classifier or new
 clinical validation. No treatment recommendations or patient-facing output.
 
@@ -33,11 +33,12 @@ reference values, not results from this project. Proposed agreement tolerance:
 absolute AUC difference ≤0.02 with matching endpoint and population; departures
 must be explained rather than tuned away.
 
-A [narrower published-score verification](pilot-001-score-verification.md) is
-prepared for scientific review. It would recompute the empirical discovery AUROC
-from the supplied predictions, without regenerating the models or claiming
-reproduction of the repeated-CV procedure. No live score calculation has been
-performed, and this proposal does not close the full reproduction gates.
+A [narrower published-score verification](pilot-001-score-verification.md) ran
+under the user's explicit instruction while external scientific review remains
+pending. The [result](../docs/pilot-001-score-verification-result.md), AUROC
+0.8088507878, rounds to 0.81 and misses the fixed comparison against printed 0.83.
+It does not regenerate models, establish original out-of-fold score provenance,
+reproduce the repeated-CV procedure or close the full reproduction gates.
 
 ## Inputs and access gate
 
@@ -146,5 +147,6 @@ Do not replace missing evidence with synthetic patient records or invented resul
 
 Publish only safe aggregate outputs after disclosure review; keep row-level data
 and patient keys out of Git. The [roadmap](../docs/roadmap.md) gives a conditional
-2–4 week estimate, not a commitment. Executed results are limited to the
-documented input and membership checks; no model performance has been reproduced.
+2–4 week estimate, not a commitment. Executed results include input/membership
+checks and the preliminary supplied-score AUROC discrepancy. The original model
+and reported performance have not been reproduced; external review is pending.

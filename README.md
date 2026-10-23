@@ -16,7 +16,8 @@ clinical validity, or improved patient outcomes.
 | [Pilot protocol](protocols/pilot-001.md) | Proposed reproduction and robustness study |
 | [Pilot feasibility audit](docs/pilot-001-feasibility-audit.md) | Source-checked inputs, methods, patient-independence questions, and execution blockers |
 | [Input and linkage resolution — 2026-10-23](docs/pilot-001-input-resolution.md) | Executed metadata checks, recovered source locations, and remaining reproduction gaps |
-| [Published-score verification proposal](protocols/pilot-001-score-verification.md) | Fixed numerical check and executable implementation awaiting scientific review |
+| [Published-score verification specification](protocols/pilot-001-score-verification.md) | Fixed numerical check and recorded execution basis |
+| [Discovery-score AUROC result](docs/pilot-001-score-verification-result.md) | Executed preliminary result, comparison failure and remaining provenance limits |
 | [Roadmap](docs/roadmap.md) | Small milestones and decision gates |
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
@@ -32,16 +33,17 @@ catalog overlap from the paper's prediction eligibility and missing analysis
 inputs. Public supplemental materials were also inspected transiently. Only
 reviewed aggregate results and source provenance are retained here.
 
-No full PDC abundance matrix was downloaded, no author analysis code was executed,
-and no model was trained or performance result reproduced. Scientific review and
-resolution of the remaining input/method gaps are still required. Some source
-routes were inaccessible or incomplete; the report records those limits.
+The [published-score check](docs/pilot-001-score-verification-result.md) has now
+run under the user's explicit instruction: discovery AUROC is **0.80885**
+(rounds to **0.81**), versus printed **0.83**, with difference **0.02115** outside
+the fixed 0.02 tolerance. Source files and exact joins passed validation; this
+is a preliminary supplied-score discrepancy, not evidence of an original-paper
+error or completed model reproduction. External scientific review remains pending.
 
-The next numerical step is prepared as a narrowly scoped
-[published-score AUROC check](protocols/pilot-001-score-verification.md), with
-offline tests and explicit review questions. Its live execution awaits the
-project's scientific review. The authorized author request could not be posted
-because both GitHub connections denied access to the upstream issue.
+No full PDC abundance matrix was downloaded, no author analysis code was executed,
+and no model was trained. Missing input/method provenance still prevents full
+reproduction. The authorized author request could not be posted because both
+GitHub connections denied access to the upstream issue.
 
 The scope starts with HGSOC. Primary refractory disease (failure of initial
 therapy) must be distinguished from later platinum-resistant recurrence. Other
