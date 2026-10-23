@@ -11,6 +11,11 @@
   public workbook provenance, recovered-panel checksum, clinical eligibility
   counts and exact prediction-membership joins. Regenerate with
   `python3 tools/audit_published_cohorts.py`; source workbooks stay in memory.
+- [pilot-001-score-verification.json](pilot-001-score-verification.json): executed
+  preliminary discovery AUROC, exact comparisons, source/implementation/protocol
+  hashes and environment. The [result report](../docs/pilot-001-score-verification-result.md)
+  records the discrepancy and pending external review. No patient-level scores
+  are retained; this is not model regeneration or independent validation.
 
 The source and dataset registries use `schema_version: 1` and a list under
 `sources` or `datasets`.

@@ -4,8 +4,18 @@ Status: updated 2026-10-23. The scaffold,
 [static feasibility audit](pilot-001-feasibility-audit.md), and
 [public input/linkage investigation](pilot-001-input-resolution.md) are completed.
 Executed metadata checks advance Gates 0–1; they do not close the remaining
-method, input, corrected-supplement or scientific-review requirements. No model
-performance result has been reproduced.
+method, input, corrected-supplement or scientific-review requirements.
+
+The [published-score verification](../protocols/pilot-001-score-verification.md)
+ran under the user's explicit instruction, with external review still pending.
+Its [AUROC result](pilot-001-score-verification-result.md) is 0.8088507878,
+rounding to 0.81 and missing the fixed comparison against printed 0.83. This
+advances the reproduction investigation through a recorded discrepancy; it does
+not regenerate the original predictions or close Gate 2.
+External outreach is on hold at the user's request. The source request remains
+unsent; do not contact authors or recruit collaborators/reviewers without a new
+explicit instruction. Continue the early investigation using public sources and
+internal checks, recording limits without treating deferred review as completed.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
