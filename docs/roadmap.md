@@ -1,7 +1,11 @@
 # Roadmap
 
-Status: proposed, 2026-10-22. The scaffold and its local checks are the only
-completed work. No research results are claimed.
+Status: updated 2026-10-23. The scaffold,
+[static feasibility audit](pilot-001-feasibility-audit.md), and
+[public input/linkage investigation](pilot-001-input-resolution.md) are completed.
+Executed metadata checks advance Gates 0–1; they do not close the remaining
+method, input, corrected-supplement or scientific-review requirements. No model
+performance result has been reproduced.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |

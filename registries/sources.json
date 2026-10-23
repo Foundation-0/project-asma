@@ -8,10 +8,10 @@
       "url": "https://doi.org/10.1016/j.cell.2023.07.004",
       "verification": "full_text_reviewed",
       "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10414761/fullTextXML",
-      "locator": "Results: protein panel; Figure 3D; STAR Methods: prediction and FFPE/frozen alignment",
-      "takeaway": "Published 64-protein panel and cohort-specific evaluation, with incomplete sensitivity.",
-      "limitations": "Full manuscript via Europe PMC; publisher/PMC HTML inaccessible. Interpret cohort independence and validation design carefully; see S11.",
-      "checked_on": "2026-10-22"
+      "locator": "Figure 3D; STAR Methods: Patient Selection and Cohorts (S29), FFPE/frozen alignment (S66), Feature Selection (S94), Prediction Model Building and Performance Evaluation (S95-S99)",
+      "takeaway": "Published 64-protein panel with cohort-specific evaluation. Static audit records endpoint definitions, selected-cohort denominators, validation feature-availability filtering, and 43 alignment pairs including 14 additional same-patient tumor pairs.",
+      "limitations": "Full manuscript via Europe PMC; publisher/PMC HTML inaccessible. Pinned public supplement eligibility and patient-key joins were subsequently checked (S14); the frozen subgroup labels require reconciliation. No model performance reproduced. Corrected supplement status remains unverified. See S11 and docs/pilot-001-input-resolution.md.",
+      "checked_on": "2026-10-23"
     },
     {
       "id": "S02",
@@ -45,7 +45,7 @@
       "verification": "page_reviewed",
       "reviewed_via": "https://www.fda.gov/drugs/resources-information-approved-drugs/fda-approves-mirvetuximab-soravtansine-gynx-fra-positive-platinum-resistant-epithelial-ovarian",
       "locator": "Opening indication paragraph",
-      "takeaway": "Restricted FRα-positive platinum-resistant indication; exact eligibility is retained in the frontier document.",
+      "takeaway": "Restricted FR\u03b1-positive platinum-resistant indication; exact eligibility is retained in the frontier document.",
       "limitations": "An approval notice is not a cure claim or evidence that AI caused the advance; not a prescribing guide.",
       "checked_on": "2026-10-22"
     },
@@ -92,10 +92,10 @@
       "url": "https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response",
       "verification": "code_inspected",
       "reviewed_via": "https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/tree/48357fd63ccbfe3954f38c8efc558b4f88bd6051",
-      "locator": "README; repository tree; Protein_prediction_refractoriness/Figure_3D_part3.R",
-      "takeaway": "Pinned inspected commit: 48357fd63ccbfe3954f38c8efc558b4f88bd6051. R script references local input/helper files and a literal plot AUC label.",
-      "limitations": "Code was not executed or copied. Availability of every input/helper, dependencies, licenses and numerical reproducibility remain unverified.",
-      "checked_on": "2026-10-22"
+      "locator": "Pinned current main; all 42 R/r/Rmd files; 69 reachable upstream commits and 66 distinct complete trees; three public forks; issue #1 and PR #3",
+      "takeaway": "Pinned commit 48357fd63ccbfe3954f38c8efc558b4f88bd6051: named pilot inputs/helper absent from its tree; static audit identifies unresolved cohort/object ownership, importance reduction, coefficient indexing, and metric provenance.",
+      "limitations": "Read-only static search; no author code executed or redistributed. Missing helper/panel/input workspaces not found in inspected current/history/fork trees or indexed searches; this does not establish global unavailability. Reconstruction remains blocked by source files, transformations, label coding, and corrected supplements. See docs/pilot-001-input-resolution.md.",
+      "checked_on": "2026-10-23"
     },
     {
       "id": "S09",
@@ -106,8 +106,8 @@
       "reviewed_via": "https://pdc-docs.cancer.gov/pdc-docs/usage",
       "locator": "Explore Quantitative Data section (search-index extract only)",
       "takeaway": "Official documentation entry point for processed quantitation discovery.",
-      "limitations": "Original URL and current usage route returned a page shell/no readable body. Search extract located the section; current download procedure and terms remain to be reviewed before ingestion.",
-      "checked_on": "2026-10-22"
+      "limitations": "Original URL and current usage route returned a page shell/no readable body. Search extract located the section. The later S12 review covers current PDC terms; S10 records the inspected files and header-only download route. This documentation-page review remains partial.",
+      "checked_on": "2026-10-23"
     },
     {
       "id": "S10",
@@ -116,10 +116,10 @@
       "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000357%7CPDC000358%7CPDC000359%7CPDC000360%7CPDC000361%7CPDC000362",
       "verification": "metadata_reviewed",
       "reviewed_via": "https://pdc.cancer.gov/graphql",
-      "locator": "Read-only study(pdc_study_id) queries: pdc_study_id and study_name, all six IDs; PDC publications listing",
-      "takeaway": "Proteome mapping: FFPE discovery 360, FFPE validation 358, frozen validation 362; matched phosphoproteomes 359/357/361.",
-      "limitations": "Portal browser extraction showed a page shell; study names verified by metadata API and publication listing. Open listing is not file-level access or reuse verification. No data files downloaded.",
-      "checked_on": "2026-10-22"
+      "locator": "Read-only version-1 getPaginatedUIStudy, uiBiospecimenPerStudy and getPaginatedUIFile queries for PDC000358/360/362; in-memory processed-file header checks",
+      "takeaway": "After reference exclusion, 158/20/64 discovery/FFPE/frozen case records; 43 canonical non-reference case records shared between discovery and frozen. One open alternate-processing file located per cohort; full content/checksum and script-input correspondence unverified.",
+      "limitations": "Rows inspected in memory only; no patient identifiers published or retained in the checkout. Case-record equality establishes catalog overlap, not distinct-person counts or analysis eligibility; pooled records retained and flagged. Only processed-file headers read, no complete matrices. See docs/pilot-001-input-resolution.md.",
+      "checked_on": "2026-10-23"
     },
     {
       "id": "S11",
@@ -130,8 +130,44 @@
       "reviewed_via": "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC10935576/unicode",
       "locator": "Correction paragraph; bibliographic identity cross-checked via PubMed/Europe PMC, PMID 38364782",
       "takeaway": "The correction concerns supplemental figure legends; corrected legends are now associated with the online article.",
-      "limitations": "Publisher/PMC HTML and Europe PMC XML retrieval failed; correction text verified through NCBI BioC. Pin the corrected supplementary materials before protocol freeze.",
-      "checked_on": "2026-10-22"
+      "limitations": "Correction text verified through NCBI BioC. The notice does not state changed Figure 3D estimates. An available NLM supplement PDF was hashed and inspected, but corrected-legend status is unverified; a file timestamp cannot settle content provenance.",
+      "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S12",
+      "title": "PDC data-use guidelines and current release/access policy",
+      "kind": "data_documentation",
+      "url": "https://pdc-docs.cancer.gov/pdc-docs/home#data-use-guidelines",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://pdc-docs.cancer.gov/pdc-docs/assets/searchindex.json",
+      "locator": "Data Use Guidelines; Data Submission and Release; file data dictionary; corroborated by live documentation and portal bundles",
+      "takeaway": "PDC states CC BY 4.0 with attribution, license link and change indication. Released open data do not require authorization; current release policy has no embargo. The three inspected proteome file records are Open, downloadable, with null embargo.",
+      "limitations": "Documentation pages return an application shell; substantive policy text inspected through the official search index and live bundles. Does not authorize controlled genomics, grant rights to author code or publisher supplements, establish IRB exemption, or approve storage.",
+      "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S13",
+      "title": "PDC case, sample and aliquot data model",
+      "kind": "data_documentation",
+      "url": "https://pdc-docs.cancer.gov/pdc-docs/data-dictionary/case",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://pdc-docs.cancer.gov/pdc-docs/assets/searchindex.json",
+      "locator": "Case, Sample, Aliquot and pool field definitions; Usage: Case Summary",
+      "takeaway": "Case relates data to a subject within a project; samples reference cases and aliquots reference samples. Canonical case IDs support observed catalog linkage. Pool may combine cases, samples or aliquots.",
+      "limitations": "Distinct IDs do not prove biological independence; submitter IDs lack a verified global namespace. Pooled records and prediction-specific exclusions require further source reconciliation.",
+      "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S14",
+      "title": "NLM versioned public supplements for PMC10414761.1",
+      "kind": "data_catalog",
+      "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC10414761.1/PMC10414761.1.json",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://pmc-oa-opendata.s3.amazonaws.com/README.txt",
+      "locator": "NIHMS1918576-supplement-MMC1.xlsx clinical sheets; MMC4.xlsx 64_protein_predictors and four prediction-score sheets; supplement-1.pdf",
+      "takeaway": "Documented NLM cloud distribution yielded byte/hash-pinned clinical and panel/score workbooks. The exact 64-panel and published score membership can be recovered. Explicit clinical fields reconcile eligibility and reveal a patient-key overlap within the published nonoverlap group.",
+      "limitations": "Source workbooks inspected only in memory for selected fields; no raw rows or workbooks redistributed. Article terms are CC BY-NC-ND 4.0, distinct from PDC terms. Membership findings do not prove an effect on performance or absence from preprocessing/alignment. Available figure legends are not certified corrected. XML table numbering does not reliably locate workbook contents; use inspected sheet names and hashes.",
+      "checked_on": "2026-10-23"
     }
   ]
 }

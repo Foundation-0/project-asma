@@ -31,7 +31,10 @@
       "source_ids": [
         "S01",
         "S09",
-        "S10"
+        "S10",
+        "S12",
+        "S13",
+        "S14"
       ],
       "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000358",
       "cohort": "validation",
@@ -39,15 +42,15 @@
       "assay": "proteome",
       "histotype": "HGSOC",
       "pilot_role": "candidate",
-      "checked_on": "2026-10-22",
-      "access_status": "reported_open_file_access_unverified",
-      "terms_status": "not_reviewed",
-      "download_status": "not_downloaded",
-      "provenance_status": "study_metadata_only",
-      "release": null,
+      "checked_on": "2026-10-23",
+      "access_status": "open_processed_file_metadata_verified",
+      "terms_status": "pdc_public_data_terms_reviewed",
+      "download_status": "headers_inspected_in_memory",
+      "provenance_status": "study_version_and_linkage_metadata_verified",
+      "release": "1",
       "sha256": null,
-      "overlap_status": "unresolved_at_patient_level",
-      "notes": "Study ID/name verified by PDC metadata API. Portal studies listed Open; file-level access, release, terms, patient relationships and analysis inputs must be verified before use. No dataset imported."
+      "overlap_status": "catalog_overlap_measured_analysis_membership_unresolved",
+      "notes": "PDC study version 1 and open/downloadable alternate-processing file FP_GLBL_MI_FPbridge_Abund_20201002.tsv verified. Linkage rows and file header inspected in memory; only aggregate results retained. No full matrix downloaded or file checksum independently verified. Supplemental clinical eligibility was reconciled separately (S14); mapping to missing author RData and the published frozen subgroup interpretation remain unresolved. See docs/pilot-001-input-resolution.md and registries/pilot-001-linkage-summary.json."
     },
     {
       "id": "PDC000359",
@@ -79,7 +82,10 @@
       "source_ids": [
         "S01",
         "S09",
-        "S10"
+        "S10",
+        "S12",
+        "S13",
+        "S14"
       ],
       "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000360",
       "cohort": "discovery",
@@ -87,15 +93,15 @@
       "assay": "proteome",
       "histotype": "HGSOC",
       "pilot_role": "candidate",
-      "checked_on": "2026-10-22",
-      "access_status": "reported_open_file_access_unverified",
-      "terms_status": "not_reviewed",
-      "download_status": "not_downloaded",
-      "provenance_status": "study_metadata_only",
-      "release": null,
+      "checked_on": "2026-10-23",
+      "access_status": "open_processed_file_metadata_verified",
+      "terms_status": "pdc_public_data_terms_reviewed",
+      "download_status": "headers_inspected_in_memory",
+      "provenance_status": "study_version_and_linkage_metadata_verified",
+      "release": "1",
       "sha256": null,
-      "overlap_status": "unresolved_at_patient_level",
-      "notes": "Study ID/name verified by PDC metadata API. Portal studies listed Open; file-level access, release, terms, patient relationships and analysis inputs must be verified before use. No dataset imported."
+      "overlap_status": "catalog_overlap_measured_analysis_membership_unresolved",
+      "notes": "PDC study version 1 and open/downloadable alternate-processing file FD_GLBL_MI_FFPEbridge_Abund_20201002.tsv verified. Linkage rows and file header inspected in memory; only aggregate results retained. No full matrix downloaded or file checksum independently verified. Supplemental clinical eligibility was reconciled separately (S14); mapping to missing author RData and the published frozen subgroup interpretation remain unresolved. See docs/pilot-001-input-resolution.md and registries/pilot-001-linkage-summary.json."
     },
     {
       "id": "PDC000361",
@@ -127,7 +133,10 @@
       "source_ids": [
         "S01",
         "S09",
-        "S10"
+        "S10",
+        "S12",
+        "S13",
+        "S14"
       ],
       "url": "https://pdc.cancer.gov/pdc/browse/filters/pdc_study_id%3APDC000362",
       "cohort": "validation",
@@ -135,15 +144,15 @@
       "assay": "proteome",
       "histotype": "HGSOC",
       "pilot_role": "candidate",
-      "checked_on": "2026-10-22",
-      "access_status": "reported_open_file_access_unverified",
-      "terms_status": "not_reviewed",
-      "download_status": "not_downloaded",
-      "provenance_status": "study_metadata_only",
-      "release": null,
+      "checked_on": "2026-10-23",
+      "access_status": "open_processed_file_metadata_verified",
+      "terms_status": "pdc_public_data_terms_reviewed",
+      "download_status": "headers_inspected_in_memory",
+      "provenance_status": "study_version_and_linkage_metadata_verified",
+      "release": "1",
       "sha256": null,
-      "overlap_status": "unresolved_at_patient_level",
-      "notes": "Study ID/name verified by PDC metadata API. Portal studies listed Open; file-level access, release, terms, patient relationships and analysis inputs must be verified before use. No dataset imported."
+      "overlap_status": "catalog_overlap_measured_analysis_membership_unresolved",
+      "notes": "PDC study version 1 and open/downloadable alternate-processing file FZ_GLBL_MI_FZbridge_Abund_20201002.tsv verified. Linkage rows and file header inspected in memory; only aggregate results retained. No full matrix downloaded or file checksum independently verified. Supplemental clinical eligibility was reconciled separately (S14); mapping to missing author RData and the published frozen subgroup interpretation remain unresolved. See docs/pilot-001-input-resolution.md and registries/pilot-001-linkage-summary.json."
     }
   ]
 }

@@ -18,6 +18,26 @@ DATA_FIELDS = COMMON | {
 }
 VERIFICATIONS = {"full_text_reviewed", "page_reviewed", "code_inspected", "metadata_reviewed", "partial"}
 KINDS = {"paper", "regulatory_notice", "evidence_summary", "code", "data_documentation", "data_catalog", "correction"}
+SCAFFOLD_STATE = {
+    "access_status": "reported_open_file_access_unverified",
+    "terms_status": "not_reviewed",
+    "download_status": "not_downloaded",
+    "provenance_status": "study_metadata_only",
+    "overlap_status": "unresolved_at_patient_level",
+    "release": None,
+    "sha256": None,
+}
+METADATA_AUDITED_STATE = {
+    "access_status": "open_processed_file_metadata_verified",
+    "terms_status": "pdc_public_data_terms_reviewed",
+    "download_status": "headers_inspected_in_memory",
+    "provenance_status": "study_version_and_linkage_metadata_verified",
+    "overlap_status": "catalog_overlap_measured_analysis_membership_unresolved",
+    "release": "1",
+    "sha256": None,
+}
+METADATA_AUDITED_IDS = {"PDC000358", "PDC000360", "PDC000362"}
+METADATA_AUDIT_SOURCES = {"S12", "S13"}
 
 
 def https_url(value):
@@ -89,10 +109,6 @@ def registry_errors(root):
         "cohort": {"discovery", "validation"}, "preservation": {"FFPE", "frozen"},
         "assay": {"proteome", "phosphoproteome"}, "histotype": {"HGSOC"},
         "pilot_role": {"candidate", "context_only"},
-        "access_status": {"reported_open_file_access_unverified"},
-        "terms_status": {"not_reviewed"}, "download_status": {"not_downloaded"},
-        "provenance_status": {"study_metadata_only"},
-        "overlap_status": {"unresolved_at_patient_level"},
     }
     for row in datasets:
         label = str(row.get("id"))
@@ -104,8 +120,25 @@ def registry_errors(root):
         for field, choices in allowed.items():
             if not isinstance(row.get(field), str) or row[field] not in choices:
                 errors.append(f"{label}: invalid {field}")
-        if row.get("release") is not None or row.get("sha256") is not None:
-            errors.append(f"{label}: pre-ingestion release/checksum must be null")
+        # A status is earned as a complete documented transition, not by mixing
+        # individual values from the two states. Header inspection cannot earn
+        # a checksum for an entire data file.
+        metadata_audited = any(
+            value is not None and row.get(field) == value
+            for field, value in METADATA_AUDITED_STATE.items()
+        )
+        state = METADATA_AUDITED_STATE if metadata_audited else SCAFFOLD_STATE
+        state_name = "metadata-audited" if metadata_audited else "scaffold"
+        for field, expected in state.items():
+            if row.get(field) != expected:
+                errors.append(f"{label}: invalid {field} for {state_name} state")
+        if metadata_audited:
+            if (label not in METADATA_AUDITED_IDS or row.get("assay") != "proteome"
+                    or row.get("pilot_role") != "candidate"):
+                errors.append(f"{label}: not eligible for metadata-audited state")
+            if (not isinstance(refs, list) or any(not isinstance(ref, str) for ref in refs)
+                    or not METADATA_AUDIT_SOURCES <= set(refs)):
+                errors.append(f"{label}: metadata-audited state requires source references S12 and S13")
     return errors
 
 
