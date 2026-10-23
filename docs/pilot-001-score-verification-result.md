@@ -45,6 +45,11 @@ could concern score versions, model/output provenance or another unresolved
 source relationship. This check does not identify a cause or establish an error
 in the original paper.
 
+Score direction does not explain the gap. With the direction reversed, the
+same scores give AUROC 825 / 4,316 = 0.191, further from the printed 0.83.
+Neither direction recovers the printed value, so the disagreement cannot be
+settled by relabelling the positive class.
+
 ## Execution and technical verification
 
 The [implementation](../tools/verify_published_auc.py) and specification were

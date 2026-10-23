@@ -219,6 +219,11 @@ The scripts supply some useful contracts:
   corroborates expected objects `data.nocb.coll.nopool1` and `senref1`, without
   establishing their contents. Earlier code in that script encodes sensitive as
   1 and refractory as 0; verify the loaded labels and positive class explicitly.
+  The same script also sources `balanced_folds.R` (line 83) and calls
+  `balanced.folds.vec(senref, 5)` (line 97), so the missing helper blocks more
+  than the Figure 3D scripts. This extension was supplied by an independent
+  inventory of the same pinned commit and verified against the file at that
+  commit on 2026-10-23.
 
 The preprocessing document itself has unresolved object-flow discrepancies:
 it creates a batch-corrected matrix but passes `data` into imputation, then
