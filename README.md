@@ -21,6 +21,7 @@ clinical validity, or improved patient outcomes.
 | [Independent progress](docs/pilot-001-independent-progress.md) | Matrix-header diagnostic, score lineage and concrete supplement-legend mismatch |
 | [Preprocessing provenance](docs/pilot-001-preprocessing-provenance.md) | Located transformations, replicate-averaging example and unresolved execution history |
 | [Public-input reconstruction contract](protocols/pilot-001-independent-reconstruction.md) | Prospective discovery-only requirements and stop rules |
+| [Code-audit addendum — 2026-10-24](docs/pilot-001-code-audit-addendum.md) | Static code findings beyond the earlier audit, reconciled with it |
 | [Roadmap](docs/roadmap.md) | Small milestones and decision gates |
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
@@ -45,9 +46,21 @@ error or completed model reproduction. External scientific review remains pendin
 
 No full PDC abundance matrix was downloaded, no author analysis code was executed,
 and no model was trained. Missing input/method provenance still prevents full
-reproduction. External outreach is now **on hold at the user's request**. No
-author message was posted. This phase will use public sources and internal
-checks; unresolved provenance and external-review questions remain explicit.
+reproduction. On 2026-10-24 the user authorized putting the code-audit questions
+to the authors through the consolidated
+[source request](templates/pilot-001-source-request.md). This supersedes the
+outreach hold recorded on 2026-10-23 for that request only. GitHub refused
+automated posting, so the owner confirms the text and sends it; no author
+message has been posted yet. Recruiting collaborators or reviewers remains on
+hold. Work continues
+from public sources and internal checks; unresolved provenance and
+external-review questions remain explicit.
+
+A [code-audit addendum](docs/pilot-001-code-audit-addendum.md) (2026-10-24) adds
+static findings, mostly beyond the earlier records. These cover which loaded
+objects can feed the plotted cross-validation, label orientation and operating
+points, the uncoded branches of panel selection, alignment details, and
+package-version sensitivity.
 
 Independent investigation recovered an author-released imputed discovery matrix
 whose header exactly matches **all 168 response-labelled measurement rows and

@@ -204,6 +204,54 @@
       "takeaway": "Recovered discovery header exactly covers 168 response-labelled measurement rows, 158 unique sample/patient keys and all 135 published score keys. Complete member CRC matches pinned ZIP metadata; newly observed SHA256 b7eea435bb7fa65f31a6e8f50d977ff046f0f9bd851126e43cf9a5f52e62be62. All 64 panel symbols occur exactly once among 8800 feature rows.",
       "limitations": "Bounded in-memory source inspection under the explicit next-step instruction and author public-download statement, not an archive license grant. Full member decompressed for CRC/hash and annotations; abundance fields discarded without numeric conversion, analysis or retention. Whole archive not hashed; SHA256 is newly observed rather than checked against an independent publisher reference. Exact symbol coverage does not establish biological specificity, original-workspace equivalence or transformation history. Later reuse terms remain unverified; do not inherit PDC or Figshare licensing. See docs/pilot-001-independent-progress.md and docs/pilot-001-preprocessing-provenance.md.",
       "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S18",
+      "title": "DreamAI imputation package (authors' group)",
+      "kind": "code",
+      "url": "https://github.com/WangLab-MSSM/DreamAI",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/WangLab-MSSM/DreamAI/tree/2cc86d1487227e8215a716459a984b49c4aaac84",
+      "locator": "LICENSE and its history; Code/DESCRIPTION; Code/R method handling and bagging, history 2019-01-24 to 2025-08-27 (head 2cc86d1, 2026-03-05)",
+      "takeaway": "Accepted method names, ensemble averaging and bag seeding change across commits while DESCRIPTION stays at 0.1.0; pin by commit if imputation is re-run.",
+      "limitations": "Static inspection only; not installed or executed. License signals conflict at the head: top-level Apache-2.0 LICENSE (added 2020-05-21; absent earlier; MIT text in one 2020-05-22 revision), DESCRIPTION GPL (>= 2), bundled libFM GPL-3 text. Which DreamAI source the authors installed is unknown.",
+      "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S19",
+      "title": "CRAN package sources via the read-only GitHub mirror: glmnet, pROC, randomForest, xgboost, pamr",
+      "kind": "code",
+      "url": "https://github.com/cran",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/cran/xgboost/tags",
+      "locator": "R sources, DESCRIPTION and NEWS at tags: glmnet 2.0-16 to 5.1; pROC 1.10.0 to 1.19.1; randomForest 4.6-14 to 4.7-1.2; xgboost 0.71.2 to 3.2.1.1; pamr 1.54 to 1.57",
+      "takeaway": "Defaults and interfaces used by the Figure 3D code, including pROC's DeLong default for roc(ci = TRUE); CRAN xgboost goes from 1.7.11.1 (2025-05-15) to 3.1.2.1 (2025-12-03) with a new interface.",
+      "limitations": "Unofficial mirror of CRAN releases, read statically; nothing installed or executed. Numerical effects on Figure 3D were not measured.",
+      "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S20",
+      "title": "XGBoost upstream source",
+      "kind": "code",
+      "url": "https://github.com/dmlc/xgboost",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/dmlc/xgboost/blob/v2.0.0/src/gbm/gbtree.cc",
+      "locator": "src/gbm/gbtree.cc and src/objective at v1.7.6 and v2.0.0; R-package/R/xgboost.R at v2.1.4 and v3.0.0",
+      "takeaway": "The default tree method becomes hist in 2.0 and the logistic intercept is estimated; the R interface is rewritten in 3.0.",
+      "limitations": "Static reading of source; the size of any change in Figure 3D predictions is unknown.",
+      "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S21",
+      "title": "R sources (read-only GitHub mirror): NEWS for R 3.6.0 and 4.0.0",
+      "kind": "code",
+      "url": "https://github.com/wch/r-source",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/wch/r-source/blob/tags/R-3-6-0/doc/NEWS.Rd",
+      "locator": "doc/NEWS.Rd at tags/R-3-6-0 and tags/R-4-0-0; src/main/RNG.c",
+      "takeaway": "R 3.6.0 changed sample()'s default discrete-uniform method; R 4.0.0 made stringsAsFactors = FALSE the default.",
+      "limitations": "Unofficial mirror of R's Subversion repository; cross-check against R's official NEWS before external citation.",
+      "checked_on": "2026-10-23"
     }
   ]
 }

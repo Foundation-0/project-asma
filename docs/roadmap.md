@@ -1,6 +1,6 @@
 # Roadmap
 
-Status: updated 2026-10-23. The scaffold,
+Status: updated 2026-10-24. The scaffold,
 [static feasibility audit](pilot-001-feasibility-audit.md), and
 [public input/linkage investigation](pilot-001-input-resolution.md) are completed.
 Executed metadata checks advance Gates 0–1; they do not close the remaining
@@ -12,10 +12,15 @@ Its [AUROC result](pilot-001-score-verification-result.md) is 0.8088507878,
 rounding to 0.81 and missing the fixed comparison against printed 0.83. This
 advances the reproduction investigation through a recorded discrepancy; it does
 not regenerate the original predictions or close Gate 2.
-External outreach is on hold at the user's request. The source request remains
-unsent; do not contact authors or recruit collaborators/reviewers without a new
-explicit instruction. Continue the early investigation using public sources and
-internal checks, recording limits without treating deferred review as completed.
+On 2026-10-24 the user authorized putting the code-audit questions to the
+authors through the consolidated
+[source request](../templates/pilot-001-source-request.md). GitHub refused
+automated posting, so the owner confirms the text and sends it. Do not recruit
+collaborators or reviewers without a new explicit instruction. Continue the
+investigation using public sources and internal checks, recording limits without
+treating deferred review as completed. The
+[code-audit addendum](pilot-001-code-audit-addendum.md) adds static findings and
+the protocol/contract changes they motivate (pilot 0.7, contract 0.3).
 
 The [independent follow-up](pilot-001-independent-progress.md) tested the direct
 PDC header/design routes and then found a useful downstream citation to the

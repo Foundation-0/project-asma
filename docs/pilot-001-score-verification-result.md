@@ -115,7 +115,9 @@ establishes the cause of the AUROC discrepancy.
 The [source request](../templates/pilot-001-source-request.md) remains unsent.
 After the unsuccessful posting attempts, the user placed external outreach on
 hold; no authors or outside reviewers will be contacted without a new explicit
-instruction. Full reproduction also still needs the missing helper,
+instruction. Follow-up (2026-10-24): that instruction was given for the
+consolidated source request, which the owner sends; reviewer recruitment remains
+on hold. Full reproduction also still needs the missing helper,
 original execution environment, intended transformations and corrected-legend
 confirmation. No independent-patient validation or clinical/treatment claim
 follows from this result.
