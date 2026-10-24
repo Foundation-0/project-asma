@@ -1,8 +1,8 @@
 # Pilot 001: public-input reconstruction contract
 
-**Version:** 0.2, 2026-10-23. **Status:** prospective; model execution not started.
-This specifies a possible reconstruction from public inputs while outreach is
-on hold. It does not alter the executed
+**Version:** 0.3, 2026-10-24. **Status:** prospective; model execution not started.
+This specifies a possible reconstruction from public inputs, independent of any
+author response. It does not alter the executed
 [score-verification specification](pilot-001-score-verification.md) or its result.
 The [source investigation](../docs/pilot-001-independent-progress.md) records
 which input and method contracts are still unresolved.
@@ -67,20 +67,32 @@ before fitting and preserved in the results.
 
 Once the input contracts are satisfied, record one execution specification with:
 
-- Explicit discovery workspace selection; no implicit overwrite by the FFPE
-  validation workspace. Pin input, implementation and specification hashes.
+- Explicit discovery workspace and object selection; no implicit overwrite by,
+  or dependence on, the FFPE validation workspace or earlier session state (see
+  the [code-audit addendum](../docs/pilot-001-code-audit-addendum.md)). Pin
+  input, implementation and specification hashes.
 - A declared replacement for `balanced_folds.R` if it remains unavailable. Group
   by explicit patient key and stratify by response; preserve seeds 1–100 as a
   documented starting convention, without claiming to recover original folds.
+  Record `RNGkind()`, including `sample.kind`. Declare whether the original
+  `set.seed(1000000)` before every random forest is kept, since it couples the
+  inner elastic-net folds to the forest's draws.
 - Exact R/package versions, model parameters and training-only tuning rules.
   Resolve the recorded feature-selection/object-flow discrepancies explicitly.
   Newly chosen versions are a new environment, not the original environment.
+  Pin a 1.x xgboost release, or set `tree_method` and `base_score` explicitly.
+  Fix one alternative configuration for sensitivity analysis before execution.
+- No missing values in labels or panel features. Panel names must be valid R
+  names, or use the matrix interface, so the random forest's formula interface
+  cannot fail on them.
 - The scope of every learned preprocessing step. A separate evaluation must fit
   these steps within training folds. Do not describe globally preprocessed
   inputs as proving fully independent validation.
 - Expected denominators, score direction, metric definition, comparison rule,
   compute limits and failure behavior. Stop on missing features, ambiguous
-  identities, class-empty folds or incomplete prediction coverage.
+  identities, class-empty folds or incomplete prediction coverage. Report the
+  distribution of per-repetition AUROCs as a secondary output next to the
+  repeat-averaged target.
 
 Small offline tests with abstract tokens can then check patient-disjoint splits,
 one held-out prediction per patient per repetition, complete coverage, stable

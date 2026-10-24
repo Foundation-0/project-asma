@@ -1,7 +1,7 @@
 # Pilot 001: reproduce a primary platinum-refractoriness protein signature
 
 **Status:** full model reproduction proposed; input/linkage and preliminary
-published-score checks executed. **Version:** 0.6, 2026-10-23.
+published-score checks executed. **Version:** 0.7, 2026-10-24.
 **Scope:** research reproduction and robustness, not a novel classifier or new
 clinical validation. No treatment recommendations or patient-facing output.
 
@@ -19,15 +19,20 @@ and code/method discrepancies. The
 and reconciles the published prediction membership to explicit clinical fields.
 Literal missing location annotations remain unresolved; matching published
 membership does not establish complete clinical eligibility. The original
-analysis workspaces and execution remain unverified.
+analysis workspaces and execution remain unverified. The
+[code-audit addendum](../docs/pilot-001-code-audit-addendum.md) adds details on
+object provenance, label orientation, panel branches, alignment and version
+sensitivity.
 Primary refractory disease concerns failure of initial platinum therapy; later
 platinum-resistant recurrence is a different endpoint. Do not substitute one for
 the other or pool histotypes.
 
 Target: the discovery cross-validation ROC/AUC in Figure 3D, with the
-frozen-independent evaluation as the first robustness comparison. Freeze the
-exact panel, methods version, analysis subset, expected number, and tolerance
-using corrected supplemental legends per [S11](https://doi.org/10.1016/j.cell.2024.01.016).
+frozen-cohort evaluation, restricted to independent patients per step 1, as the
+first robustness comparison. Freeze the exact panel, methods version, analysis
+subset, expected number, and tolerance using corrected supplemental legends per
+[S11](https://doi.org/10.1016/j.cell.2024.01.016). The hash-pinned MMC4 panel is
+a provisional freeze until a corrected artifact is confirmed.
 The paper reports discovery AUC 0.83 (95% CI 0.77–0.90); these are published
 reference values, not results from this project. Proposed agreement tolerance:
 absolute AUC difference ≤0.02 with matching endpoint and population; departures
@@ -44,7 +49,7 @@ The [independent follow-up](../docs/pilot-001-independent-progress.md) adds a
 repeatable matrix-header diagnostic, score-lineage inspection and a concrete
 supplement-legend mismatch. A separate
 [public-input reconstruction contract](pilot-001-independent-reconstruction.md)
-specifies prospective work while external outreach is on hold. A subsequent
+specifies prospective work that does not depend on an author response. A subsequent
 complete-member inspection verifies the recovered author matrix's ZIP CRC and
 finds all 64 panel symbols exactly once among 8,800 feature rows. The
 [preprocessing history review](../docs/pilot-001-preprocessing-provenance.md)
@@ -66,8 +71,9 @@ Author code was inspected, not executed: commit
 `48357fd63ccbfe3954f38c8efc558b4f88bd6051`,
 [Figure_3D_part3.R](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/blob/48357fd63ccbfe3954f38c8efc558b4f88bd6051/Protein_prediction_refractoriness/Figure_3D_part3.R).
 It references local RData/CSV inputs and `balanced_folds.R`, and the plot contains
-a literal AUC annotation. Resolve helper/input availability, object ordering,
-dependencies, and reuse rights; recompute metrics from predictions. Do not treat
+a literal AUC annotation. Resolve helper/input availability, which loaded objects
+feed each block, object ordering, dependencies, and reuse rights; recompute
+metrics from predictions. Do not treat
 the README's folder labels as an executable workflow. Do not run downloaded code
 until it has been reviewed.
 
@@ -99,6 +105,11 @@ until it has been reviewed.
    reproduction track, recording any upstream preprocessing shared across folds
    or cohorts. Recompute one ROC/AUC and its denominator from predictions; retain
    the discrepancy log. Do not silently change methods to improve agreement.
+   Report the per-repeat AUC distribution as a secondary output next to the
+   repeat-averaged estimand in the
+   [reconstruction contract](pilot-001-independent-reconstruction.md). Before
+   comparing regenerated predictions with published values, confirm which input
+   objects feed the cross-validation and how labels are coded.
 4. **Independent evaluation.** Separately evaluate a leakage-controlled track.
    Group every repeated tumor/aliquot by patient. Fit imputation, scaling,
    feature filtering/selection, batch adjustment, and any learned alignment only
@@ -107,6 +118,17 @@ until it has been reviewed.
    statistics for alignment or threshold choice. If published preprocessing
    cannot be reconstructed from sufficiently upstream inputs, disclose that
    limitation and stop claiming a fully leakage-controlled evaluation.
+   The published alignment is estimated on samples present in both cohorts.
+   Before frozen labels are used, pre-specify one harmonisation strategy:
+   (a) a mapping fitted only on pairs whose FFPE specimens are training data,
+   with those patients excluded from independent metrics; at most 28 eligible
+   frozen patient keys lack an eligible-discovery match, and 21 lack any
+   discovery match (step 1); (b) a non-learned, strictly per-sample
+   normalisation, with retraining declared as a deviation and the training
+   matrix's global preprocessing disclosed; or (c) re-estimating the model by
+   cross-validation within the frozen cohort (61 eligible, 19 refractory),
+   reported as within-cohort re-estimation rather than a test of the FFPE-trained
+   model.
 5. **Simple comparisons and uncertainty.** Compare the published panel/ensemble
    with a prevalence-only predictor and a regularized logistic regression on
    the same panel and patient splits. Use clinical-only baseline variables only
@@ -114,8 +136,11 @@ until it has been reviewed.
    use no test-driven feature selection. Report AUROC, AUPRC with prevalence,
    sensitivity/specificity and confusion counts at a training-selected operating
    point targeting 98% specificity, and calibration/Brier score when sample size
-   permits. Report achieved test specificity; do not force it to 98% using test
-   labels. Use patient-level bootstrap 95% intervals (proposed 2,000 resamples,
+   permits. Treat refractory disease as the positive class and assert this in
+   code. If the authors' label coding differs, record the re-orientation as a
+   deviation, and compare operating points with published values only when the
+   orientations match. Report achieved test specificity; do not force it to 98%
+   using test labels. Use patient-level bootstrap 95% intervals (proposed 2,000 resamples,
    fixed seed), disclose class-empty resamples and instability. Small cohorts
    cannot support precise high-specificity estimates.
 
@@ -145,6 +170,8 @@ faithful reproduction and disclose multiplicity.
 
 Stop or narrow the pilot if legal access, patient identity linkage, endpoint
 mapping, corrected supplements, essential inputs, or dependencies remain unresolved.
+If the inputs behind the published cross-validation cannot be identified, stop
+claiming a faithful reproduction and continue only as the declared reconstruction.
 Do not replace missing evidence with synthetic patient records or invented results.
 
 ## Reviewable outputs
