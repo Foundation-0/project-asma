@@ -11,8 +11,9 @@ This addendum extends the [feasibility audit](pilot-001-feasibility-audit.md),
 [input resolution](pilot-001-input-resolution.md),
 [independent progress](pilot-001-independent-progress.md),
 [preprocessing provenance](pilot-001-preprocessing-provenance.md) and
-[score-verification result](pilot-001-score-verification-result.md). It repeats
-nothing those records establish. Each item below states what it adds.
+[score-verification result](pilot-001-score-verification-result.md). Each item
+states what it adds. Where an item restates an earlier finding for context, it
+names that record.
 
 It covers the author code (S08) at commit
 `48357fd63ccbfe3954f38c8efc558b4f88bd6051`: [part 2][p2], [part 3][p3],
@@ -21,9 +22,16 @@ It covers the author code (S08) at commit
 source at named tags (S18–S21). Five static reviews by AI agents produced 89
 candidate findings. Two further reviews tried to refute each one, and three more
 checked the written text. A final comparison classified every item against the
-earlier records and adjudicated the ten that conflicted. Paper quotes were
-rechecked in the pinned article XML (SHA-256 `1d88848c…`, as in the independent
-progress report). No human expert has reviewed this yet.
+earlier records. Ten items conflicted with or were superseded by newer evidence
+there: the recovered panel and its freeze, the recovered discovery matrix,
+patient and overlap keys, identifier type, published-score direction, the
+paper's selection population, one-to-one sample–patient keys, column-name
+governance, and the protocol version. Most were partly right on both sides. This
+text adopts the earlier records' evidence, and no factual error was found in
+them. Paper quotes were rechecked in the pinned article XML (SHA-256
+`1d88848c…`, as in the independent progress report). Registry IDs are written
+"registry S19"; article sections are written "article S99". No human expert has
+reviewed this yet.
 
 ## Which objects feed the plotted cross-validation
 
@@ -40,13 +48,15 @@ evidence chain and a different risk direction.
   if neither file defines them. The reconstruction contract guards against the
   validation workspace overwriting discovery objects. The opposite risk, depending
   on it, is also possible.
-- If part 2 ran first in the same session, its `primmets` objects (part 2 lines
-  11–14) would be used. Supplement counts (158 samples; 13 neoadjuvant and 10
+- If part 2 ran first in the same session, and neither the `noneo` nor the
+  `UM_Pilot` files define the unsuffixed names, its `primmets` objects (part 2
+  lines 11–14) would be used. Supplement counts (158 samples; 13 neoadjuvant and 10
   mixed-site, disjoint) give 135 only when both exclusions apply. Part 2's
   hard-coded 135 therefore suggests the `primmets` set already excludes
   neoadjuvant samples, so it may equal the `noneo` set. This is an inference.
-- Evidence for the intended cohort: the paper specifies 5-fold discovery and
-  3-fold FFPE-validation cross-validation (S99), and part 3 always uses 5 folds.
+- Evidence for the intended cohort, already in the independent progress report:
+  the paper specifies 5-fold discovery and 3-fold FFPE-validation
+  cross-validation (article S99), and part 3 always uses 5 folds.
 - The frozen block loads frozen labels (line 136) and then reloads the `noneo`
   files (137–138). If those define `senref`, the frozen labels would be replaced.
 
@@ -57,21 +67,23 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
 ## Orientation and operating points
 
 - All three learners output the probability of the class coded 1 (glmnet
-  response, xgboost `binary:logistic`, random-forest `prob[, 2]`). The forced
-  `direction = "<"` (line 127) makes that class the ROC case, and pROC will not
+  response, xgboost `binary:logistic`, random-forest `prob[, 2]`). With 0/1
+  labels, pROC's default `levels` make the class coded 1 the ROC case. The forced
+  `direction = "<"` (line 127) means higher scores indicate it, and pROC will not
   flip it.
 - Every `senref` vector built in the repository codes sensitive as 1 (Figure 3C,
   Figure 1G, Figure S1L and the TGF-β script). Figure 3C replaces its own vector
   with labels loaded from the absent workspace (`senref1`, lines 62, 72) before
   its ROC. The convention therefore does not show how the workspace files code
   labels.
-- The paper defines the score as the probability of refractory disease (S95) and
-  reports detecting "~35% refractory tumors" at 98% specificity (P54, P58). The
-  released discovery scores rank refractory tumours higher (AUROC 0.809, or 0.191
-  reversed). If that sheet is part 3's output, then one of three holds: (a) the
-  Figure 3D labels code refractory as 1, the only option consistent with all of
-  the above but not established; (b) the scores were transformed on export, though
-  no export code was found; or (c) the sheet comes from another run or code path.
+- The paper defines the score as the probability of refractory disease (article
+  S95) and reports detecting "a subset of ~35% refractory tumors" at 98%
+  specificity (P54; similar wording in P58). The released discovery scores rank
+  refractory tumours higher (AUROC 0.809, or 0.191 reversed). If that sheet is the
+  unmodified output of part 3 as published, the Figure 3D labels must code
+  refractory as 1, which is not established. Otherwise either the scores were
+  transformed on export, with no export code found in a bounded search, or they
+  come from another run or code path.
 - AUROC is unchanged when score and positive class flip together, so the open
   question concerns operating points only. The printed 0.35 cannot settle it:
   18/52 and 29/83 both round to 0.35.
@@ -81,43 +93,49 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
   uninterrupted run its random state follows the last `set.seed(1000000)` and the
   final forest's draws, so a piecewise run changes the band. If 0.35 (0.19–0.52)
   came from it, the middle value is a bootstrap median.
-- `roc(ci = TRUE)` gives a DeLong AUC interval by default (S19), while the paper
-  describes bootstrap AUC intervals (S99). This answers the code-level question
-  left open by feasibility finding 4.
+- `roc(ci = TRUE)` gives a DeLong AUC interval by default (registry S19), while
+  the paper describes bootstrap AUC intervals (article S99). This answers the
+  code-level question left open by feasibility finding 4.
 
 ## Panel provenance
 
-- Part 2 implements only the metabolic-pathway branch of the paper's selection
-  (P177). That branch is frequency selection among 492 genes over 500 subsamples
-  of 80%, which matches 100 repeats × 5 training folds. Per-learner lists are
-  combined by union. The paper's ≥50% cutoff versus the code's > 40% is already
-  recorded. No code exists for the other branches: the Hypoxia and NF-κB set
-  selection by cross-validated AUC, the four genome-wide FDR markers, and the
-  removal of eight markers undetected in validation data. Even a working part 2
-  yields at most the metabolic subset, not the 64-protein panel.
-- Part 2 cannot reach its union (line 179) in a top-to-bottom run. Its summary
-  helper reads `MeanDecreaseGini`, which xgboost importance tables lack, so it
-  stops at line 148, before the random-forest summary (152). It would also
-  replace feature names with row positions (lines 134–137).
+- Part 2 appears to implement only the metabolic-pathway branch of the paper's
+  selection (P177); its candidate list, `meta_genes.RData`, is absent. That branch
+  is frequency selection among 492 genes over 500 subsamples of 80%, which matches
+  100 repeats × 5 training folds. Per-learner lists are combined by union. The
+  paper's ≥50% cutoff versus the code's > 40% is already in feasibility finding 2.
+  A bounded search of the 42 R/r/Rmd files found no panel-construction code for
+  the other branches: the Hypoxia and NF-κB set selection by cross-validated AUC,
+  the four genome-wide FDR markers, and the removal of eight markers undetected
+  in validation data. Figure 1E only filters a precomputed, absent association
+  table at FDR < 0.1 for plotting. Even a working part 2 would yield at most the
+  metabolic subset, not the 64-protein panel.
+- Feasibility finding 2 records the wrong importance column and the lost feature
+  names. This adds the literal consequence: part 2 cannot reach its union (line
+  179) in a top-to-bottom run. The summary helper stops at line 148, before the
+  random-forest summary (152).
 - Per-learner criteria are: a nonzero elastic-net coefficient at `lambda.min`
   (alpha 0.1, default 10 inner folds); random-forest `MeanDecreaseGini` > 0.9, an
   absolute and scale-dependent cutoff; and an apparently intended xgboost
   Gain > 1e-6 (commented line 132).
-- `meta_genes.RData` has no generator in any commit. P177 suggests the candidate
-  list for this branch is the 492-gene metabolic union, chosen using cell-line and
-  PDX data, but this is unverified.
+- `meta_genes.RData` has no generator in any commit. P176–P177 describe this
+  branch's candidate list as the 492-gene union of three metabolic pathways,
+  chosen using cell-line and PDX data. Whether `meta_genes.RData` equals that
+  union is unverified.
 - Every discovery sample is in the training set for 400 of the 500 fits. If part
   2's logic was used, the metabolic markers depend on every discovery label.
 
 ## Frozen block and alignment
 
-- A search of all 42 R files finds nothing that assigns `data.nocb.rib.Frozen`.
+- A search of all 42 R/r/Rmd files at the pinned commit finds nothing that
+  assigns `data.nocb.rib.Frozen`.
 - The frozen block computes ROC objects for the elastic net, xgboost and the
   ensemble, but none for the random forest. None is plotted or printed. The
   published frozen results are separate 34- and 27-row score sheets, and no
   subgroup-scoring code is in the repository.
-- The frozen block's 500 rounds and 1,000 trees match the paper (S95). The
-  cross-validation block's 100 rounds and 100 trees are the departure.
+- Already in feasibility finding 4: the frozen block's 500 rounds and 1,000 trees
+  match the paper (article S95), so the cross-validation block's 100 rounds and
+  100 trees are the departure.
 - Alignment (feasibility finding 5): line 28 multiplies by row 2 and adds row 1
   of the proteins-by-2 coefficient matrix. R recycles those two-element vectors
   across all values, so no protein receives its own intercept and slope.
@@ -145,15 +163,17 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
 
   Whether `make.names` would alter any of the 64 pinned symbols can be checked
   from the panel alone, as an aggregate count.
-- **Failures.** Only `cv.glmnet` is wrapped in `try()`. A failure breaks the fold
-  loop, so that fold and all later folds of the repeat get no predictions from any
-  model (lines 51–56). The per-repeat mean has no `na.rm` (line 107); the mean
-  over repeats does (line 123). pROC then drops samples that were never predicted.
-  The `stop` flag is unused, and failures are not counted. The released sheet has
-  135 finite scores, so if it is this output no sample was lost entirely; thinning
-  across repeats would be undetectable.
-- **Unused results.** A stacked logistic model is fitted on in-sample training
-  predictions (lines 93–100). It and the per-learner pools are unused.
+- **Failures.** Feasibility finding 3 records the `try()` and break. This adds
+  the consequences. Only `cv.glmnet` is protected, so errors in the other models
+  halt the script. A failure skips that fold and all later folds of the repeat
+  for every model (lines 51–56). The per-repeat mean has no `na.rm` (line 107);
+  the mean over repeats does (line 123). pROC then drops samples that were never
+  predicted. The `stop` flag is unused, and failures are not counted. The
+  released sheet has 135 finite scores, so if it is this output no sample was lost
+  entirely; thinning across repeats would be undetectable.
+- **Unused results.** Feasibility finding 3 notes the unused stacked logistic
+  model; it is fitted on in-sample training predictions (lines 93–100), so it
+  would be optimistic if used.
 - **Random streams.** `set.seed(1000000)` before every forest (line 79) means the
   inner `cv.glmnet` folds of outer folds 2–5 follow that fixed stream, advanced
   by the previous forest's draws. `set.seed(j)` governs only the fold draw and
@@ -161,7 +181,10 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
   `cv.glmnet` and xgboost consumed. Preserving seeds 1–100 alone therefore does
   not reproduce the original stream structure.
 
-## Upstream details not in earlier records
+## Upstream details
+
+The [preprocessing provenance](pilot-001-preprocessing-provenance.md) report
+locates the steps and their fit population. This section adds code-level details.
 
 - ComBat is called with batch only and no outcome covariate.
 - Plex membership is positional: 21 consecutive blocks of 8 columns in the
@@ -175,9 +198,11 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
   fails when no outlier is found. The risk in small training-fold subsets depends
   on the unresolved threshold (10^-7 in the paper, 10^-10 in the code).
 - The discovery reconstruction starts from the released post-imputation matrix
-  (S17). A leakage-controlled track built on it can control selection, tuning,
-  thresholds and grouping, but not whole-cohort preprocessing. It should be
-  described as partially leakage-controlled.
+  (registry S17), and the contract already says globally preprocessed inputs do
+  not prove independent validation. A leakage-controlled track built on that
+  matrix can control selection, tuning, thresholds and grouping, but not
+  whole-cohort preprocessing. The addendum suggests calling it partially
+  leakage-controlled.
 
 ## Dependencies and version sensitivity
 
@@ -185,10 +210,10 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
 | --- | --- |
 | R | 3.6.0 changed `sample()`'s default, which changes folds, inner folds and bootstrap draws for the same seed; record `RNGkind()`. 4.0.0 made `stringsAsFactors = FALSE` the default, which matters for the alignment input. |
 | glmnet | Inner folds drawn with `sample()` unless `foldid` is given; prediction is positional; 3.0-1 and later need R ≥ 3.6.0; the binomial solver moved to C++ in 4.1-4. |
-| xgboost | 1.x: exact method, intercept 0.5, draws from R's random stream, checks feature names. Upstream 2.0: histogram default and estimated intercept. CRAN went from 1.7.11.1 (2025-05-15) to 3.1.2.1 (2025-12-03) with a new interface that rejects the authors' calls and drops `ntreelimit`. |
+| xgboost | 1.x: exact method, intercept 0.5, draws from R's random stream, checks feature names. Upstream 2.0: histogram default and estimated intercept. CRAN went from 1.7.11.1 (2025-05-15) to 3.1.2.1 (2025-12-03) with a new interface that rejects the authors' `xgboost()` call (numeric labels with `binary:logistic`) and deprecates `ntreelimit` in favour of `iterationrange`. |
 | randomForest | 4.7-1 and later need R ≥ 4.1.0. |
 | pROC | DeLong AUC interval by default; `ci.se` uses 2,000 stratified replicates; `ggroc` needs ≥ 1.10.0. |
-| DreamAI (S18) | Method names, ensemble averaging and seeding changed across commits under version 0.1.0. "Brinn" was accepted only before 2020-09-21 or from 2020-10-07 to 2021-10-27. Relevant only if imputation is re-run. |
+| DreamAI (registry S18) | Method names, ensemble averaging and seeding changed across commits under version 0.1.0. "Brinn" was accepted only before 2020-09-21 or from 2020-10-07 to 2021-10-27. Relevant only if imputation is re-run. |
 
 Any chosen set is a new environment, not the authors'. Fix exact versions, plus
 one alternative configuration for sensitivity, before execution.
@@ -204,6 +229,9 @@ matters only if DreamAI is installed or run.
 ## Follow-ups this addendum proposes
 
 - **Protocol and contract (made in this change):**
+  - Confirm input objects and label coding before comparing regenerated
+    predictions. If the cross-validation inputs cannot be identified, stop
+    claiming a faithful reproduction.
   - Restrict the frozen comparison to independent patients.
   - Make refractory the asserted positive class, with re-orientation recorded as a
     deviation.

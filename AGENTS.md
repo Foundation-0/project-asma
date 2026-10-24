@@ -16,11 +16,12 @@ This repository is a research scaffold, not clinical decision support.
 - Do not ingest patient data/datasets, run third-party analysis code, train models,
   contact collaborators, or publish row-level outputs in a scaffold task. Future
   ingestion needs verified rights and appropriate authorization.
-- On 2026-10-24 the user explicitly authorized sending the consolidated
-  [source request](templates/pilot-001-source-request.md) to the authors. Automated
-  sessions cannot post upstream, so the owner sends it. Do not contact authors
-  beyond that request, or recruit collaborators/reviewers, without a new explicit
-  instruction.
+- On 2026-10-24 the user explicitly authorized putting the code-audit questions
+  to the authors through the consolidated
+  [source request](templates/pilot-001-source-request.md). The owner confirms its
+  full text and sends it from their own account. Automated sessions must not
+  post, retry posting or email it. Do not contact authors beyond that request, or
+  recruit collaborators/reviewers, without a new explicit instruction.
 - Keep this workspace lean. Prefer standard-library checks over new dependencies
   or empty architecture. Do not create CI or issue backlogs without need.
 - Run `python3 tools/validate.py` and

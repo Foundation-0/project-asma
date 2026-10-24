@@ -106,8 +106,8 @@ until it has been reviewed.
    or cohorts. Recompute one ROC/AUC and its denominator from predictions; retain
    the discrepancy log. Do not silently change methods to improve agreement.
    Report the per-repeat AUC distribution as a secondary output next to the
-   repeat-averaged estimand in the
-   [reconstruction contract](pilot-001-independent-reconstruction.md). Before
+   repeat-averaged discovery AUROC, the same estimand the
+   [reconstruction contract](pilot-001-independent-reconstruction.md) fixes. Before
    comparing regenerated predictions with published values, confirm which input
    objects feed the cross-validation and how labels are coded.
 4. **Independent evaluation.** Separately evaluate a leakage-controlled track.
@@ -121,14 +121,16 @@ until it has been reviewed.
    The published alignment is estimated on samples present in both cohorts.
    Before frozen labels are used, pre-specify one harmonisation strategy:
    (a) a mapping fitted only on pairs whose FFPE specimens are training data,
-   with those patients excluded from independent metrics; at most 28 eligible
-   frozen patient keys lack an eligible-discovery match, and 21 lack any
-   discovery match (step 1); (b) a non-learned, strictly per-sample
-   normalisation, with retraining declared as a deviation and the training
-   matrix's global preprocessing disclosed; or (c) re-estimating the model by
-   cross-validation within the frozen cohort (61 eligible, 19 refractory),
-   reported as within-cohort re-estimation rather than a test of the FFPE-trained
-   model.
+   with those patients excluded from independent metrics. Per step 1, 28
+   eligible frozen patient keys have no observed eligible-discovery match and 21
+   have no observed match to any discovery record; these are upper bounds on the
+   patients available for independent metrics. (b) A non-learned, strictly
+   per-sample normalisation, with retraining declared as a deviation and the
+   training matrix's global preprocessing disclosed. (c) Re-estimating the model
+   by cross-validation within the frozen cohort, restricted to patients
+   classified as independent in step 1. If all 61 eligible frozen patients (19
+   refractory) are used, report it as within-cohort re-estimation, not as an
+   independent-patient metric or a test of the FFPE-trained model.
 5. **Simple comparisons and uncertainty.** Compare the published panel/ensemble
    with a prevalence-only predictor and a regularized logistic regression on
    the same panel and patient splits. Use clinical-only baseline variables only
@@ -171,7 +173,9 @@ faithful reproduction and disclose multiplicity.
 Stop or narrow the pilot if legal access, patient identity linkage, endpoint
 mapping, corrected supplements, essential inputs, or dependencies remain unresolved.
 If the inputs behind the published cross-validation cannot be identified, stop
-claiming a faithful reproduction and continue only as the declared reconstruction.
+claiming a faithful reproduction in step 3. Report that discovery analysis only as
+the [public-input reconstruction](pilot-001-independent-reconstruction.md);
+steps 4–5 continue under their own rules.
 Do not replace missing evidence with synthetic patient records or invented results.
 
 ## Reviewable outputs

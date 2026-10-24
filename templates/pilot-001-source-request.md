@@ -1,17 +1,23 @@
 # Pilot 001: source-clarification request
 
-**Authorized to send (2026-10-24).** The user explicitly instructed that the
-code-audit questions be put to the authors. This consolidated request replaces
-the earlier held draft and adds the
-[code-audit addendum](../docs/pilot-001-code-audit-addendum.md) questions.
-Intended destination: a comment on the existing
-[upstream data-availability issue](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/issues/1),
-posted from the owner's own account, or an email to the corresponding author.
-Automated posting was rejected earlier (“Resource not accessible by
-integration”), and a 2026-10-24 access check was also refused, so the owner must
-send it. Record the date and link once sent. No patient identifiers, labels,
-scores or linkage rows are included. Recruiting collaborators or reviewers
-remains on hold.
+**Ready for the owner to send (2026-10-24).**
+- **Authorization.** On 2026-10-24 the user explicitly authorized putting the
+  [code-audit addendum](../docs/pilot-001-code-audit-addendum.md) questions to the
+  authors. This consolidated request also carries the questions held since
+  2026-10-23 (items 3 and 5, and the original parts of items 1–2). The owner
+  confirms the full text before sending.
+- **Superseded draft.** The request replaces the earlier held draft; the
+  2026-10-23 text remains in git history, for example at commit `6489425`.
+- **Destination.** A comment on the existing
+  [upstream data-availability issue](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/issues/1)
+  from the owner's own account, or an email to the corresponding author.
+- **Who sends it.** GitHub rejected automated posting earlier (“Resource not
+  accessible by integration”), and a 2026-10-24 access check was also refused.
+  Automated sessions must not post, retry or email it. Send it only once the
+  code-audit pull request is open, and record the date and link once sent.
+
+No patient identifiers, labels, scores or linkage rows are included. Recruiting
+collaborators or reviewers remains on hold.
 
 ---
 
@@ -48,8 +54,12 @@ Could you clarify these remaining reproduction inputs?
      were used? DreamAI's version string stays 0.1.0 across behaviour changes.
    - How were the supplementary prediction scores exported? The methods define
      the score as the probability of refractory disease, and the released
-     discovery scores rank refractory tumours higher. Other scripts in the
-     repository code sensitive tumours as 1.
+     discovery scores rank refractory tumours higher. Scripts that build labels
+     from the clinical table code sensitive tumours as 1; we could not tell how
+     the saved workspaces code them. For context, the AUROC computed directly
+     from the released discovery scores (refractory as positive) is 0.81,
+     compared with 0.83 in Figure 3D; we have not attributed a cause. Is that
+     sheet the output of the Figure 3D cross-validation?
 3. **Frozen subgroups.** Can you clarify the frozen subgroup definitions?
    - Joining each published score `Samples` key exactly to the clinical
      `Data Label 2` field, then comparing the explicit `Patient ID` field, gives
@@ -63,10 +73,10 @@ Could you clarify these remaining reproduction inputs?
 
    Is another identifier mapping, exclusion or supplement version required?
    Which samples contributed to upstream alignment and preprocessing? Please also
-   clarify the retained missing location annotation. Finally, which aligned
-   frozen file fed `data_nov.RData`? The alignment script writes
-   `…_Imput_v02_AlignedToFD.tsv`, and the Figure 6 script reads
-   `…_Imput_AlignedToFD_20210823.tsv`.
+   clarify the retained missing location annotation. Finally, was
+   `data_nov.RData` built from an aligned frozen file, and if so, which one? The
+   alignment script writes `…_Imput_v02_AlignedToFD.tsv`, and the Figure 6
+   script reads `…_Imput_AlignedToFD_20210823.tsv`.
 4. **Operating point and intervals.** How were the sensitivity at 98%
    specificity (0.35, 95% CI 0.19–0.52) and the AUC interval derived? The
    scripts draw a bootstrap sensitivity band but do not extract a value at 98%
@@ -77,5 +87,7 @@ Could you clarify these remaining reproduction inputs?
 
 Our reproducibility record and aggregate-only checking code are in the
 [Project Asma pull requests](https://github.com/Foundation-0/project-asma/pulls).
-Please do not post patient-level files or linkage rows in this issue; any
-restricted material would need an appropriately authorized private route.
+The code-level questions above are documented in the code-audit addendum on
+that list. Please do not share patient-level files or linkage rows publicly (for
+example, in the GitHub issue); any restricted material would need an
+appropriately authorized private route.

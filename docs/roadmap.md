@@ -1,6 +1,6 @@
 # Roadmap
 
-Status: updated 2026-10-23. The scaffold,
+Status: updated 2026-10-24. The scaffold,
 [static feasibility audit](pilot-001-feasibility-audit.md), and
 [public input/linkage investigation](pilot-001-input-resolution.md) are completed.
 Executed metadata checks advance Gates 0–1; they do not close the remaining
@@ -12,9 +12,10 @@ Its [AUROC result](pilot-001-score-verification-result.md) is 0.8088507878,
 rounding to 0.81 and missing the fixed comparison against printed 0.83. This
 advances the reproduction investigation through a recorded discrepancy; it does
 not regenerate the original predictions or close Gate 2.
-On 2026-10-24 the user authorized sending the consolidated
-[source request](../templates/pilot-001-source-request.md) to the authors; the
-owner sends it because automated posting is not permitted. Do not recruit
+On 2026-10-24 the user authorized putting the code-audit questions to the
+authors through the consolidated
+[source request](../templates/pilot-001-source-request.md). GitHub refused
+automated posting, so the owner confirms the text and sends it. Do not recruit
 collaborators or reviewers without a new explicit instruction. Continue the
 investigation using public sources and internal checks, recording limits without
 treating deferred review as completed. The

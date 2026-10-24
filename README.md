@@ -46,18 +46,21 @@ error or completed model reproduction. External scientific review remains pendin
 
 No full PDC abundance matrix was downloaded, no author analysis code was executed,
 and no model was trained. Missing input/method provenance still prevents full
-reproduction. On 2026-10-24 the user authorized sending the consolidated
-[source request](templates/pilot-001-source-request.md) to the authors. Automated
-posting is not permitted, so the owner sends it; no author message has been
-posted yet. Recruiting collaborators or reviewers remains on hold. Work continues
+reproduction. On 2026-10-24 the user authorized putting the code-audit questions
+to the authors through the consolidated
+[source request](templates/pilot-001-source-request.md). This supersedes the
+outreach hold recorded on 2026-10-23 for that request only. GitHub refused
+automated posting, so the owner confirms the text and sends it; no author
+message has been posted yet. Recruiting collaborators or reviewers remains on
+hold. Work continues
 from public sources and internal checks; unresolved provenance and
 external-review questions remain explicit.
 
 A [code-audit addendum](docs/pilot-001-code-audit-addendum.md) (2026-10-24) adds
-static findings not in the earlier records. These cover which loaded objects can
-feed the plotted cross-validation, label orientation and operating points, the
-uncoded branches of panel selection, alignment details, and package-version
-sensitivity.
+static findings, mostly beyond the earlier records. These cover which loaded
+objects can feed the plotted cross-validation, label orientation and operating
+points, the uncoded branches of panel selection, alignment details, and
+package-version sensitivity.
 
 Independent investigation recovered an author-released imputed discovery matrix
 whose header exactly matches **all 168 response-labelled measurement rows and
