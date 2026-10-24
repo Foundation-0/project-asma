@@ -13,8 +13,10 @@
   from the owner's own account, or an email to the corresponding author.
 - **Who sends it.** GitHub rejected automated posting earlier (“Resource not
   accessible by integration”), and a 2026-10-24 access check was also refused.
-  Automated sessions must not post, retry or email it. Send it only once the
-  code-audit pull request is open, and record the date and link once sent.
+  Automated sessions must not post, retry or email it. The code-audit pull
+  request is open ([#7](https://github.com/Foundation-0/project-asma/pull/7)).
+  Track sending in [issue #8](https://github.com/Foundation-0/project-asma/issues/8),
+  and record the date and link there once sent.
 
 No patient identifiers, labels, scores or linkage rows are included. Recruiting
 collaborators or reviewers remains on hold.
@@ -87,7 +89,7 @@ Could you clarify these remaining reproduction inputs?
 
 Our reproducibility record and aggregate-only checking code are in the
 [Project Asma pull requests](https://github.com/Foundation-0/project-asma/pulls).
-The code-level questions above are documented in the code-audit addendum on
-that list. Please do not share patient-level files or linkage rows publicly (for
+The code-level questions above are documented in the code-audit addendum in
+[pull request #7](https://github.com/Foundation-0/project-asma/pull/7). Please do not share patient-level files or linkage rows publicly (for
 example, in the GitHub issue); any restricted material would need an
 appropriately authorized private route.
