@@ -82,7 +82,8 @@ The observed 43 catalog matches are consistent with the paper's 29 overlapping
 samples plus 14 additional same-patient tumor pairs. That arithmetic does not
 establish their exact correspondence or the overlap remaining after exclusions.
 
-To rerun the public metadata check without writing linkage rows:
+To rerun the public metadata check without writing linkage rows, under the
+bounded-inspection rule in the [agent guidance](../AGENTS.md):
 
 ```sh
 python3 tools/audit_pdc_metadata.py
@@ -165,7 +166,8 @@ Do not silently relabel the published groups, infer a performance change, or
 describe this as misconduct. Preserve the published groups in the reproduction
 track and reconcile the membership discrepancy before a revised evaluation.
 
-The reproducible, aggregate-only check is:
+The reproducible, aggregate-only check, under the bounded-inspection rule in the
+[agent guidance](../AGENTS.md), is:
 
 ```sh
 python3 tools/audit_published_cohorts.py
@@ -219,6 +221,12 @@ The scripts supply some useful contracts:
   corroborates expected objects `data.nocb.coll.nopool1` and `senref1`, without
   establishing their contents. Earlier code in that script encodes sensitive as
   1 and refractory as 0; verify the loaded labels and positive class explicitly.
+  The genomic-predictor script `Genetic_prediction_refractoriness/Figure_3C.R`
+  also sources `balanced_folds.R` (line 83) and calls
+  `balanced.folds.vec(senref, 5)` (line 97), so the missing helper blocks more
+  than the Figure 3D scripts. This extension was supplied by an independent
+  inventory of the same pinned commit and verified against the file at that
+  commit on 2026-10-23.
 
 The preprocessing document itself has unresolved object-flow discrepancies:
 it creates a batch-corrected matrix but passes `data` into imputation, then

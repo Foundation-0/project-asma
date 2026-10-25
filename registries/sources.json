@@ -142,8 +142,8 @@
       "reviewed_via": "https://pdc-docs.cancer.gov/pdc-docs/assets/searchindex.json",
       "locator": "Data Use Guidelines; Data Submission and Release; file data dictionary; corroborated by live documentation and portal bundles",
       "takeaway": "PDC states CC BY 4.0 with attribution, license link and change indication. Released open data do not require authorization; current release policy has no embargo. The three inspected proteome file records are Open, downloadable, with null embargo.",
-      "limitations": "Documentation pages return an application shell; substantive policy text inspected through the official search index and live bundles. Does not authorize controlled genomics, grant rights to author code or publisher supplements, establish IRB exemption, or approve storage.",
-      "checked_on": "2026-10-23"
+      "limitations": "Documentation pages return an application shell; substantive policy text inspected through the official search index and live bundles. Does not authorize controlled genomics, grant rights to author code or publisher supplements, establish IRB exemption, or approve storage. The 2026-10-25 policy-index review and input-specific disposition are recorded in docs/pilot-001-data-use.md; rights for this PDC release do not automatically license the author archive.",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S13",
@@ -166,8 +166,8 @@
       "reviewed_via": "https://pmc-oa-opendata.s3.amazonaws.com/README.txt",
       "locator": "NIHMS1918576-supplement-MMC1.xlsx clinical sheets; MMC4.xlsx 64_protein_predictors and four prediction-score sheets; supplement-1.pdf",
       "takeaway": "Documented NLM cloud distribution yielded byte/hash-pinned clinical and panel/score workbooks. The exact 64-panel and published score membership can be recovered. Explicit clinical fields reconcile eligibility and reveal a patient-key overlap within the published nonoverlap group.",
-      "limitations": "Source workbooks inspected only in memory for selected fields; no raw rows or workbooks redistributed. Article terms are CC BY-NC-ND 4.0, distinct from PDC terms. Membership findings do not prove an effect on performance or absence from preprocessing/alignment. Available figure legends are not certified corrected. XML table numbering does not reliably locate workbook contents; use inspected sheet names and hashes. The pinned Figure S3 caption has a demonstrated content mismatch with article-XML references; do not use it as authoritative for those panel assignments. See docs/pilot-001-independent-progress.md.",
-      "checked_on": "2026-10-23"
+      "limitations": "Source workbooks inspected only in memory for selected fields; no raw rows or workbooks redistributed. Article terms are CC BY-NC-ND 4.0, distinct from PDC terms. Membership findings do not prove an effect on performance or absence from preprocessing/alignment. Available figure legends are not certified corrected. XML table numbering does not reliably locate workbook contents; use inspected sheet names and hashes. The pinned Figure S3 caption has a demonstrated content mismatch with article-XML references; do not use it as authoritative for those panel assignments. See docs/pilot-001-independent-progress.md. Article-version JSON explicitly associates MMC1/MMC4 with its CC BY-NC-ND metadata; this is not a separate workbook notice. Private noncommercial adaptation versus sharing restrictions are clarified in docs/pilot-001-data-use.md.",
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S15",
@@ -202,8 +202,104 @@
       "reviewed_via": "https://github.com/csabaiBio/HGSOC_platinum_response/blob/962aaa8aa855ae9dfa50a27dd69baa9b0e7e45d7/README.md",
       "locator": "ZIP central directory; complete FFPE_discovery_globalprotein_imputed.tsv member integrity and feature annotations; ReadMe_PTRC_data.docx; article XML S27 public-data availability",
       "takeaway": "Recovered discovery header exactly covers 168 response-labelled measurement rows, 158 unique sample/patient keys and all 135 published score keys. Complete member CRC matches pinned ZIP metadata; newly observed SHA256 b7eea435bb7fa65f31a6e8f50d977ff046f0f9bd851126e43cf9a5f52e62be62. All 64 panel symbols occur exactly once among 8800 feature rows.",
-      "limitations": "Bounded in-memory source inspection under the explicit next-step instruction and author public-download statement, not an archive license grant. Full member decompressed for CRC/hash and annotations; abundance fields discarded without numeric conversion, analysis or retention. Whole archive not hashed; SHA256 is newly observed rather than checked against an independent publisher reference. Exact symbol coverage does not establish biological specificity, original-workspace equivalence or transformation history. Later reuse terms remain unverified; do not inherit PDC or Figshare licensing. See docs/pilot-001-independent-progress.md and docs/pilot-001-preprocessing-provenance.md.",
+      "limitations": "Bounded in-memory source inspection under the explicit next-step instruction and author public-download statement, not an archive license grant. Full member decompressed for CRC/hash and annotations; abundance fields discarded without numeric conversion, analysis or retention. Whole archive not hashed; SHA256 is newly observed rather than checked against an independent publisher reference. Exact symbol coverage does not establish biological specificity, original-workspace equivalence or transformation history. Archive-specific license terms remain unverified; do not inherit PDC or Figshare licensing. See docs/pilot-001-independent-progress.md and docs/pilot-001-preprocessing-provenance.md. A targeted 2026-10-25 follow-up located no explicitly licensed byte-identical release. The project selects a conditional Canadian research fair-dealing assessment for a noncommercial phase; actual execution context must support it before analysis. This does not discover an archive license. See docs/pilot-001-data-use.md.",
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S18",
+      "title": "DreamAI imputation package (authors' group)",
+      "kind": "code",
+      "url": "https://github.com/WangLab-MSSM/DreamAI",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/WangLab-MSSM/DreamAI/tree/2cc86d1487227e8215a716459a984b49c4aaac84",
+      "locator": "LICENSE and its history; Code/DESCRIPTION; Code/R method handling and bagging, history 2019-01-24 to 2025-08-27 (head 2cc86d1, 2026-03-05)",
+      "takeaway": "Accepted method names, ensemble averaging and bag seeding change across commits while DESCRIPTION stays at 0.1.0; pin by commit if imputation is re-run.",
+      "limitations": "Static inspection only; not installed or executed. License signals conflict at the head: top-level Apache-2.0 LICENSE (added 2020-05-21; absent earlier; MIT text in one 2020-05-22 revision), DESCRIPTION GPL (>= 2), bundled libFM GPL-3 text. Which DreamAI source the authors installed is unknown.",
       "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S19",
+      "title": "CRAN package sources via the read-only GitHub mirror: glmnet, pROC, randomForest, xgboost, pamr",
+      "kind": "code",
+      "url": "https://github.com/cran",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/cran/xgboost/tags",
+      "locator": "R sources, DESCRIPTION and NEWS at tags: glmnet 2.0-16 to 5.1; pROC 1.10.0 to 1.19.1; randomForest 4.6-14 to 4.7-1.2; xgboost 0.71.2 to 3.2.1.1; pamr 1.54 to 1.57",
+      "takeaway": "Defaults and interfaces used by the Figure 3D code, including pROC's DeLong default for roc(ci = TRUE); CRAN xgboost goes from 1.7.11.1 (2025-05-15) to 3.1.2.1 (2025-12-03) with a new interface.",
+      "limitations": "Unofficial mirror of CRAN releases, read statically; nothing installed or executed. Numerical effects on Figure 3D were not measured.",
+      "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S20",
+      "title": "XGBoost upstream source",
+      "kind": "code",
+      "url": "https://github.com/dmlc/xgboost",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/dmlc/xgboost/blob/v2.0.0/src/gbm/gbtree.cc",
+      "locator": "src/gbm/gbtree.cc and src/objective at v1.7.6 and v2.0.0; R-package/R/xgboost.R at v2.1.4 and v3.0.0",
+      "takeaway": "The default tree method becomes hist in 2.0 and the logistic intercept is estimated; the R interface is rewritten in 3.0.",
+      "limitations": "Static reading of source; the size of any change in Figure 3D predictions is unknown.",
+      "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S21",
+      "title": "R sources (read-only GitHub mirror): NEWS for R 3.6.0 and 4.0.0",
+      "kind": "code",
+      "url": "https://github.com/wch/r-source",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/wch/r-source/blob/tags/R-3-6-0/doc/NEWS.Rd",
+      "locator": "doc/NEWS.Rd at tags/R-3-6-0 and tags/R-4-0-0; src/main/RNG.c",
+      "takeaway": "R 3.6.0 changed sample()'s default discrete-uniform method; R 4.0.0 made stringsAsFactors = FALSE the default.",
+      "limitations": "Unofficial mirror of R's Subversion repository; cross-check against R's official NEWS before external citation.",
+      "checked_on": "2026-10-23"
+    },
+    {
+      "id": "S22",
+      "title": "Creative Commons BY-NC-ND 4.0 legal code and database guidance",
+      "kind": "data_documentation",
+      "url": "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.en",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.en",
+      "locator": "Sections 1, 2(a)(1)(B), 2(a)(2), 3 and 4; official FAQ on noncommercial use and database mining/protection",
+      "takeaway": "Private noncommercial production/reproduction of adaptations is permitted; sharing adaptations is not licensed. Applicable exceptions remain available. Noncommercial status concerns actual use; facts, database structure and database rights require distinct assessment.",
+      "limitations": "Official pages inspected; direct raw retrieval failed, so no byte fingerprint is claimed. Does not automatically attach this license to the separate Dropbox archive or determine actual governing law. See docs/pilot-001-data-use.md.",
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S23",
+      "title": "Canadian research fair dealing: Copyright Act section 29 and CCH 2004 SCC 13",
+      "kind": "regulatory_notice",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/C-42/section-29.html",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.wipo.int/wipolex/en/text/600136",
+      "locator": "Copyright Act s.29; CCH paragraphs 50-60 and 70; WIPO judgment record 3721",
+      "takeaway": "Research is an eligible fair-dealing purpose, followed by a case-specific fairness assessment using purpose, character, amount, alternatives, nature and effect. License availability is not itself determinative of fairness. Supports a conditional narrow research-use assessment for the selected Canadian execution route.",
+      "limitations": "Does not establish a universal license, automatic fairness, privacy exemption or governing law based on citizenship/server location alone. Direct SCC document retrieval failed; full judgment inspected through official WIPO distribution. Source fingerprints and conditional assessment are in docs/pilot-001-data-use.md.",
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S24",
+      "title": "Canadian TCPS 2 scope and public/coded secondary data guidance",
+      "kind": "data_documentation",
+      "url": "https://ethics.gc.ca/eng/tcps2-eptc2_2022_introduction.html",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://ethics.gc.ca/eng/policy-politique_interpretations_scope-portee.html",
+      "locator": "Introduction/applicability; scope interpretations 1 and 17; chapter 2 articles 2.2 and 2.4; chapter 5 anonymous/coded information definitions; OPC commercial-activity guidance",
+      "takeaway": "Applicability follows funding, institutional auspices or adoption rather than citizenship. Publicly available deidentified repository data do not automatically satisfy public-information or anonymous-information exceptions. Assess applicable requirements for the actual independent research context.",
+      "limitations": "No institutional determination or exemption is asserted. Canadian server location alone does not establish all applicable privacy or contractual obligations. The noncommercial design does not establish exemption from every privacy law. See docs/pilot-001-data-use.md for source URLs and fingerprints.",
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S25",
+      "title": "Selected R and model-package source releases for independent reconstruction",
+      "kind": "code",
+      "url": "https://cran.r-project.org/src/base/R-4/R-4.4.3.tar.gz",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://cran.r-project.org/src/contrib/Archive/xgboost/xgboost_1.7.8.1.tar.gz",
+      "locator": "R 4.4.3 COPYING; glmnet 4.1-8, randomForest 4.7-1.2 and xgboost 1.7.8.1 DESCRIPTION; xgboost R/xgb.train.R lines 318-319",
+      "takeaway": "Direct source releases and declared license metadata are pinned. The selected XGBoost R API ignores native seed arguments and directs callers to set.seed(). These are newly selected reconstruction versions, not recovered author versions.",
+      "limitations": "No packages installed or executed; no compatibility result or complete dependency lock. Transitive dependencies, full license notices, build tools, compiler/BLAS/platform and synthetic smoke checks remain before fitting. Hashes are newly computed fingerprints. See registries/pilot-001-reconstruction-runtime.json. This describes the pre-execution selection; the later synthetic validation installs and tests these releases with a pinned dependency inventory (docs/pilot-001-synthetic-validation.md).",
+      "checked_on": "2026-10-25"
     }
   ]
 }

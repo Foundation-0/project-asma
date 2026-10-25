@@ -1,0 +1,350 @@
+{
+  "assertions": {
+    "core": 77,
+    "input": 41,
+    "models": 31,
+    "total": 149
+  },
+  "elapsed_seconds": 57.619,
+  "environment": {
+    "BLAS": "/usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3",
+    "LAPACK": "/usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so",
+    "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "fortran": "GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "installed_packages": [
+      {
+        "License": "Unlimited",
+        "Package": "KernSmooth",
+        "Version": "2.23-26",
+        "_row": "KernSmooth"
+      },
+      {
+        "License": "GPL-2 | GPL-3",
+        "Package": "MASS",
+        "Version": "7.3-64",
+        "_row": "MASS"
+      },
+      {
+        "License": "GPL (>= 2) | file LICENCE",
+        "Package": "Matrix",
+        "Version": "1.7-2",
+        "_row": "Matrix"
+      },
+      {
+        "License": "GPL (>= 2)",
+        "Package": "Rcpp",
+        "Version": "1.0.14",
+        "_row": "Rcpp"
+      },
+      {
+        "License": "GPL (>= 2) | file LICENSE",
+        "Package": "RcppEigen",
+        "Version": "0.3.4.0.2",
+        "_row": "RcppEigen"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "base",
+        "Version": "4.4.3",
+        "_row": "base"
+      },
+      {
+        "License": "Unlimited",
+        "Package": "boot",
+        "Version": "1.3-31",
+        "_row": "boot"
+      },
+      {
+        "License": "GPL-2 | GPL-3",
+        "Package": "class",
+        "Version": "7.3-23",
+        "_row": "class"
+      },
+      {
+        "License": "GPL (>= 2)",
+        "Package": "cluster",
+        "Version": "2.1.8",
+        "_row": "cluster"
+      },
+      {
+        "License": "GPL",
+        "Package": "codetools",
+        "Version": "0.2-20",
+        "_row": "codetools"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "compiler",
+        "Version": "4.4.3",
+        "_row": "compiler"
+      },
+      {
+        "License": "MPL-2.0 | file LICENSE",
+        "Package": "data.table",
+        "Version": "1.17.0",
+        "_row": "data.table"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "datasets",
+        "Version": "4.4.3",
+        "_row": "datasets"
+      },
+      {
+        "License": "MIT + file LICENSE",
+        "Package": "docopt",
+        "Version": "0.7.2",
+        "_row": "docopt"
+      },
+      {
+        "License": "Apache License (== 2.0)",
+        "Package": "foreach",
+        "Version": "1.5.2",
+        "_row": "foreach"
+      },
+      {
+        "License": "GPL (>= 2)",
+        "Package": "foreign",
+        "Version": "0.8-88",
+        "_row": "foreign"
+      },
+      {
+        "License": "GPL-2",
+        "Package": "glmnet",
+        "Version": "4.1-8",
+        "_row": "glmnet"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "grDevices",
+        "Version": "4.4.3",
+        "_row": "grDevices"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "graphics",
+        "Version": "4.4.3",
+        "_row": "graphics"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "grid",
+        "Version": "4.4.3",
+        "_row": "grid"
+      },
+      {
+        "License": "Apache License (== 2.0)",
+        "Package": "iterators",
+        "Version": "1.0.14",
+        "_row": "iterators"
+      },
+      {
+        "License": "MIT + file LICENSE",
+        "Package": "jsonlite",
+        "Version": "1.9.1",
+        "_row": "jsonlite"
+      },
+      {
+        "License": "GPL (>= 2)",
+        "Package": "lattice",
+        "Version": "0.22-6",
+        "_row": "lattice"
+      },
+      {
+        "License": "GPL (>= 2)",
+        "Package": "littler",
+        "Version": "0.3.21",
+        "_row": "littler"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "methods",
+        "Version": "4.4.3",
+        "_row": "methods"
+      },
+      {
+        "License": "GPL (>= 2)",
+        "Package": "mgcv",
+        "Version": "1.9-1",
+        "_row": "mgcv"
+      },
+      {
+        "License": "GPL (>= 2)",
+        "Package": "nlme",
+        "Version": "3.1-167",
+        "_row": "nlme"
+      },
+      {
+        "License": "GPL-2 | GPL-3",
+        "Package": "nnet",
+        "Version": "7.3-20",
+        "_row": "nnet"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "parallel",
+        "Version": "4.4.3",
+        "_row": "parallel"
+      },
+      {
+        "License": "GPL (>= 2)",
+        "Package": "randomForest",
+        "Version": "4.7-1.2",
+        "_row": "randomForest"
+      },
+      {
+        "License": "GPL-2 | GPL-3",
+        "Package": "rpart",
+        "Version": "4.1.24",
+        "_row": "rpart"
+      },
+      {
+        "License": "GPL (>= 3)",
+        "Package": "shape",
+        "Version": "1.4.6.1",
+        "_row": "shape"
+      },
+      {
+        "License": "GPL-2 | GPL-3",
+        "Package": "spatial",
+        "Version": "7.3-18",
+        "_row": "spatial"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "splines",
+        "Version": "4.4.3",
+        "_row": "splines"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "stats",
+        "Version": "4.4.3",
+        "_row": "stats"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "stats4",
+        "Version": "4.4.3",
+        "_row": "stats4"
+      },
+      {
+        "License": "LGPL (>= 2)",
+        "Package": "survival",
+        "Version": "3.8-3",
+        "_row": "survival"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "tcltk",
+        "Version": "4.4.3",
+        "_row": "tcltk"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "tools",
+        "Version": "4.4.3",
+        "_row": "tools"
+      },
+      {
+        "License": "Part of R 4.4.3",
+        "Package": "utils",
+        "Version": "4.4.3",
+        "_row": "utils"
+      },
+      {
+        "License": "Apache License (== 2.0) | file LICENSE",
+        "Package": "xgboost",
+        "Version": "1.7.8.1",
+        "_row": "xgboost"
+      }
+    ],
+    "os_release": [
+      "PRETTY_NAME=\"Ubuntu 24.04.4 LTS\"",
+      "VERSION_ID=\"24.04\"",
+      "ID=ubuntu"
+    ],
+    "platform": "x86_64-pc-linux-gnu",
+    "r_version": "4.4.3",
+    "runtime_image_id": "sha256:9303744002de1f6788d83e2ca51f9cb7ed6afd70bf42edb46cf9dfe6f8584eef",
+    "thread_settings": {
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "RCPP_PARALLEL_NUM_THREADS": "1"
+    }
+  },
+  "execution_controls": {
+    "all_linux_capabilities_dropped": true,
+    "core_dump_limit": 0,
+    "cpu_limit": 2,
+    "memory_limit_gib": 8,
+    "network": "none",
+    "no_new_privileges": true,
+    "note": "Recorded invocation controls; does not establish Canadian hosting or certified erasure.",
+    "repository_mount": "read_only",
+    "root_filesystem": "read_only",
+    "swap_limit_gib": 0,
+    "temporary_storage": "256 MiB tmpfs; noexec,nosuid",
+    "wall_time_limit_seconds": 7200
+  },
+  "finished_at_utc": "2026-10-25T04:39:00.741246Z",
+  "implementation_sha256": {
+    "R/asma_core.R": "7aca51fa6e7adce59e0d4309a737fbe8706e8449610d5f1979e9675db1d27e2e",
+    "R/asma_input.R": "0b69c848765cbb7cc9af59efff9c6744f4772aa8931a3fc7bb136708f4ef6ed6",
+    "R/asma_models.R": "8702a14142b5779cedfbb9471dfcf858fbae647c6c9a3584cb60ef6aca7147b4",
+    "protocols/pilot-001-reconstruction-decisions.md": "30108f27b5a9bb3c32262050af760ca968fd65bd21b1330f093fb558ad0bed80",
+    "runtime/Dockerfile.synthetic": "0f17ef9ad85abe588bee1d8c9e3330958ad9a11001c09e72d8c85047e56fbb7d",
+    "runtime/install.R": "5e00aa34a84836c2915cecc4f452254589576b2de3d6c1b88625c5827f2f41be",
+    "runtime/synthetic-packages.json": "16148bb62730d34071abef3a408600dfe8109ea0bb553d1e26aa2b048596cbf0",
+    "tests/r/synthetic_fixture.R": "92d52f3d1a5e2504fe0a7eefb72091210c87e1d7d75c54d06bf6a7d060c8cd8f",
+    "tests/r/test_core.R": "92133bad21d963438958182807d3331a4dd45a76719f4fec67d3325ebafe504c",
+    "tests/r/test_input.R": "c3602cf212ec794e2ad777a5f54e5d224c8fb812a053422c8b00f386e2dbd2d0",
+    "tests/r/test_models.R": "8c306d532285f0bd83e04ad7eceec4e03e5d881ebdb198664bd15b89aa9a61d4",
+    "tests/test_synthetic_runtime.py": "5709358fd3160e455e08c140ac42fb71bd452d81e02d367b577925dca77dd716",
+    "tools/build_synthetic_runtime.py": "4ea40ee66cbf4b9648bfa8d00bd060a24e650ddffd94ec2b30f8ccb7d8637865",
+    "tools/run_synthetic_pipeline.R": "0025ffcf34f51a8b32bb625c9c764fecad74a33bf541f9ce173d26ad64983cf3",
+    "tools/run_synthetic_pipeline.py": "9bf188f68a36665332f22459f2acb1e779ded7242d9b8a2d7083733e96b894ea"
+  },
+  "integration": {
+    "clinical_reference_comparison_performed": false,
+    "complete_prediction_coverage": true,
+    "ensemble_predictions": 13500,
+    "executed": true,
+    "features": 64,
+    "final_scores": 135,
+    "metric_formulations_agree": true,
+    "model_backend": "pinned_R_packages",
+    "model_predictions": 40500,
+    "outer_folds": 500,
+    "patients": 135,
+    "positive_negative_pairs": 4316,
+    "repetitions": 100
+  },
+  "limitations": [
+    "All identities, feature names and numeric values are artificial fixtures, not simulated clinical evidence.",
+    "Synthetic fitting verifies implementation behavior, not source-file ingestion, historical equivalence or clinical validity.",
+    "No research data loader or research-execution CLI is enabled by this entry point.",
+    "The Canadian execution-context and research data-use conditions remain unverified by these tests.",
+    "The image pins the tested package/OS/toolchain inputs; bit-identical rebuilds or cross-platform scores are not asserted.",
+    "This process emits only software provenance and aggregate test/coverage evidence; no fixture-level scores or fitted models are retained."
+  ],
+  "schema_version": 1,
+  "scope": "Synthetic fixtures only; no source-study data or clinical performance result",
+  "started_at_utc": "2026-10-25T04:38:03.122469Z",
+  "synthetic_input": {
+    "clinical_NA_rows": 1,
+    "features": 64,
+    "ignored_measurement_columns": 2,
+    "measurements": 168,
+    "negative": 83,
+    "patients": 158,
+    "positive": 52,
+    "retained_missing_location": 1,
+    "samples": 158,
+    "selected": 135,
+    "selected_measurements": 145,
+    "singletons": 153,
+    "triplicate_groups": 5
+  }
+}

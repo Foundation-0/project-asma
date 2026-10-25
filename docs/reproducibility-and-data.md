@@ -36,6 +36,15 @@ there. Public reports should contain only reviewed aggregate counts, avoiding
 small-cell disclosure. Never try to re-identify participants or link data beyond
 the approved research purpose.
 
+The selected [bounded reconstruction](../protocols/pilot-001-reconstruction-decisions.md)
+instead keeps patient-level execution records in process memory and retains no
+private data files. It therefore needs no persistent data location. Applicable
+hosting, privacy and review conditions still require an assessment for the actual
+use and execution context; no institutional approval or exemption is implied.
+The [data-use disposition](pilot-001-data-use.md) distinguishes source terms,
+project choices and unresolved conditions. This exception does not authorize
+unresolved real-data analysis or apply to later work that retains patient data.
+
 The [.gitignore](../.gitignore) reduces accidental tracking; it is not a security
 boundary and cannot remove previously committed material. Review staged paths
 and contents before every commit. If sensitive data are found, stop publication

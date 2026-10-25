@@ -1,0 +1,20 @@
+FROM asma-synthetic:4.4.3
+
+# The builder verifies this local base tag's immutable image ID before and after
+# the build, and validates all supplied archives. RUN steps have no network.
+COPY development/ /tmp/asma-development/
+COPY notices/ /opt/python/share/licenses/
+COPY python-source.tar.gz /tmp/asma-python-source.tar.gz
+RUN dpkg -i /tmp/asma-development/*.deb && \
+    tar -xzf /tmp/asma-python-source.tar.gz -C /tmp && \
+    cd /tmp/Python-3.12.14 && \
+    ./configure --prefix=/opt/python --without-ensurepip --disable-test-modules && \
+    make -j2 && make install && \
+    mkdir -p /opt/python/share/licenses && \
+    cp LICENSE /opt/python/share/licenses/CPython-LICENSE && \
+    rm -rf /tmp/asma-development /tmp/asma-python-source.tar.gz /tmp/Python-3.12.14
+ENV PYTHONDONTWRITEBYTECODE=1
+RUN /opt/python/bin/python3 -I -B -c 'import sys, ssl, zlib, pyexpat, zipfile, hashlib, math, urllib.request, io; assert sys.version_info[:3] == (3, 12, 14); assert zlib.decompress(zlib.compress(b"abstract")) == b"abstract"; archive = io.BytesIO(); writer = zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED); writer.writestr("abstract", b"fixture"); writer.close(); assert zipfile.ZipFile(archive).read("abstract") == b"fixture"; assert ssl.create_default_context().verify_mode == ssl.CERT_REQUIRED; assert math.isfinite(1.0)' && \
+    Rscript --vanilla -e 'stopifnot(as.character(getRversion()) == "4.4.3", packageVersion("glmnet") == package_version("4.1-8"), packageVersion("randomForest") == package_version("4.7-1.2"), packageVersion("xgboost") == package_version("1.7.8.1"))'
+WORKDIR /work
+CMD ["/opt/python/bin/python3", "-I", "-B", "tools/check_source_adapter.py"]
