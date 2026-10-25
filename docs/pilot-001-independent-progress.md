@@ -4,6 +4,11 @@
 in-memory metadata diagnostics. External outreach remains on hold. These checks
 do not replace scientific review or complete model reproduction.
 
+Follow-up (2026-10-24): the user has since authorized putting the code-audit
+questions to the authors through the consolidated
+[source request](../templates/pilot-001-source-request.md), which the owner sends.
+Reviewer recruitment remains on hold.
+
 **A new public input was recovered:** the author-released imputed discovery
 matrix's header matches all 168 response-labelled measurement rows and all 135
 published discovery-score sample keys by exact equality. This closes candidate

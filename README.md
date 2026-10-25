@@ -21,6 +21,7 @@ clinical validity, or improved patient outcomes.
 | [Independent progress](docs/pilot-001-independent-progress.md) | Matrix-header diagnostic, score lineage and concrete supplement-legend mismatch |
 | [Preprocessing provenance](docs/pilot-001-preprocessing-provenance.md) | Located transformations, replicate-averaging example and unresolved execution history |
 | [Public-input reconstruction contract](protocols/pilot-001-independent-reconstruction.md) | Prospective discovery-only requirements and stop rules |
+| [Code-audit addendum — 2026-10-24](docs/pilot-001-code-audit-addendum.md) | Static code findings beyond the earlier audit, reconciled with it |
 | [Reconstruction decisions](protocols/pilot-001-reconstruction-decisions.md) | Fixed input assembly, folds, model settings, aggregation and runtime target |
 | [Synthetic pipeline validation](docs/pilot-001-synthetic-validation.md) | Executed fixture tests, complete model run and pinned runtime |
 | [Source adapter and execution conditions](docs/pilot-001-source-adapter.md) | Verified-byte parsing, source-format fixtures and observed runtime controls |
@@ -49,9 +50,23 @@ error or completed model reproduction. External scientific review remains pendin
 
 No full PDC abundance matrix was downloaded, no author analysis code was executed,
 and no model was trained on study data. Missing input/method provenance still
-prevents full reproduction. External outreach is now **on hold at the user's request**. No
-author message was posted. This phase will use public sources and internal
-checks; unresolved provenance and external-review questions remain explicit.
+prevents full reproduction. On 2026-10-24 the user authorized putting the
+code-audit questions to the authors through the consolidated
+[source request](templates/pilot-001-source-request.md), sent by the owner from
+their own account because GitHub refused automated posting. The later
+2026-10-25 reconstruction records, prepared on a branch without that record,
+describe external outreach as **on hold at the user's request**. Until the owner
+reconciles the two, treat the request as on hold: no author message has been
+posted, and automated sessions must not post or send it. Recruiting
+collaborators or reviewers remains on hold. Work continues from public sources
+and internal checks; unresolved provenance and external-review questions remain
+explicit.
+
+A [code-audit addendum](docs/pilot-001-code-audit-addendum.md) (2026-10-24) adds
+static findings, mostly beyond the earlier records. These cover which loaded
+objects can feed the plotted cross-validation, label orientation and operating
+points, the uncoded branches of panel selection, alignment details, and
+package-version sensitivity.
 
 Independent investigation recovered an author-released imputed discovery matrix
 whose header exactly matches **all 168 response-labelled measurement rows and

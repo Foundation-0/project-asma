@@ -12,10 +12,19 @@ Its [AUROC result](pilot-001-score-verification-result.md) is 0.8088507878,
 rounding to 0.81 and missing the fixed comparison against printed 0.83. This
 advances the reproduction investigation through a recorded discrepancy; it does
 not regenerate the original predictions or close Gate 2.
-External outreach is on hold at the user's request. The source request remains
-unsent; do not contact authors or recruit collaborators/reviewers without a new
-explicit instruction. Continue the early investigation using public sources and
-internal checks, recording limits without treating deferred review as completed.
+On 2026-10-24 the user authorized putting the code-audit questions to the
+authors through the consolidated
+[source request](../templates/pilot-001-source-request.md). GitHub refused
+automated posting, so the owner confirms the text and sends it. The 2026-10-25
+reconstruction records were prepared on a branch without that record and describe
+outreach as on hold; until the owner reconciles the two, the request stays unsent
+and automated sessions must not contact authors. Do not recruit
+collaborators or reviewers without a new explicit instruction. Continue the
+investigation using public sources and internal checks, recording limits without
+treating deferred review as completed. The
+[code-audit addendum](pilot-001-code-audit-addendum.md) adds static findings and
+the protocol/contract changes they motivate (numbered pilot 0.7 and contract 0.3
+on their branch; integrated as pilot 0.10 and contract 0.6).
 
 The [independent follow-up](pilot-001-independent-progress.md) tested the direct
 PDC header/design routes and then found a useful downstream citation to the

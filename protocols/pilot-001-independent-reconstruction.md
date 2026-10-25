@@ -1,11 +1,13 @@
 # Pilot 001: public-input reconstruction contract
 
-**Version:** 0.5. **Status:** pipeline and source adapter tested on fixtures; study-data
-model execution not started.
+**Version:** 0.6, 2026-10-25. **Status:** pipeline and source adapter tested on fixtures; study-data
+model execution not started. This version integrates the 2026-10-24 code-audit
+revision, numbered 0.3 on its own branch, with the 2026-10-25 revisions 0.3–0.5.
 The [decision record](pilot-001-reconstruction-decisions.md) now specifies the
 reconstruction choices, and the [data-use disposition](../docs/pilot-001-data-use.md)
 selects a conditional Canadian research-use basis and its execution-context checks.
-External outreach remains on hold. These records do not alter the executed
+The reconstruction is independent of any author response, and automated sessions
+must not contact authors. These records do not alter the executed
 [score-verification specification](pilot-001-score-verification.md) or its result.
 The [source investigation](../docs/pilot-001-independent-progress.md) records
 which input and method contracts are still unresolved.
@@ -84,6 +86,24 @@ and converts selected values into the in-memory input contract; its parsing and
 acquisition paths have been tested on generated source formats and mocks only.
 No tests on abstract fixtures establish scientific validity or close the data-use
 conditions. Do not fit research values while those conditions remain unresolved.
+
+The [code-audit addendum](../docs/pilot-001-code-audit-addendum.md) set further
+requirements for this freeze. Their status against the decision record and the
+fixture-tested implementation:
+
+| Code-audit requirement | Status |
+| --- | --- |
+| Explicit discovery input; no dependence on the FFPE-validation workspace or earlier session state | Met by design: only pinned released files are read; no author workspace is loaded. |
+| Declared `balanced_folds.R` replacement: patient-grouped, response-stratified, seeds 1–100, `RNGkind()` including `sample.kind`, and a decision on the per-forest `set.seed(1000000)` | Met: new folds with outer seed r, `RNGkind("Mersenne-Twister", "Inversion", "Rejection")`, and the reset kept before each forest. Inner elastic-net folds have their own seeds, so the source's coupling of those folds to the forest seed is not reproduced; this is a declared choice. |
+| Exact versions; xgboost 1.x or explicit `tree_method` and `base_score`; feature-selection and object-flow discrepancies resolved explicitly | Met: R 4.4.3 and xgboost 1.7.8.1 with `tree_method="exact"` and `base_score=.5`; fixed panel without selection. These form a new environment, not the original one. |
+| One alternative configuration fixed for sensitivity analysis before execution | **Open.** The decision record excludes alternative model search from the first run, and no sensitivity configuration is fixed. |
+| No missing labels or panel values; valid R names or the matrix interface | Met: every selected value must be finite, and the random forest uses the matrix interface. The `make.names` count remains an open aggregate check. |
+| Scope of every learned preprocessing step; globally preprocessed inputs not described as independent validation | Met for this track: released values are used as processed upstream, and only glmnet standardizes, within training subsets. Upstream processing scope remains unknown, and discovery cross-validation is not independent validation. |
+| Denominators, score direction, metric, comparison rule, compute limits, failure behavior and stop rules | Met: 135 patients (83/52), 4,316 pairs, 40,500 model predictions, a two-hour/8 GiB limit and explicit stop rules. |
+| Distribution of per-repetition AUROCs reported next to the repeat-averaged target | **Open.** The frozen decision record does not include it. Adding it needs a dated amendment before any research run. Each repetition's AUROC spans all 135 held-out scores; it is not an average of fold AUROCs. |
+
+The two open items do not change the primary target. Decide them, or record why
+they are declined, before any research run.
 
 ## Output and continuation decision
 

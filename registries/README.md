@@ -1,7 +1,7 @@
 # Registries
 
 - [sources.json](sources.json): dated primary-source metadata, claim locators,
-  takeaways, verification route, and limits. S01–S21 are stable local IDs.
+  takeaways, verification route, and limits. S01–S25 are stable local IDs.
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,
@@ -73,6 +73,10 @@ NCBI BioC and rechecked in byte-pinned NLM XML after publisher/PMC routes failed
 The pinned NLM S3 legend conflicts with the article's panel references; the
 [independent report](../docs/pilot-001-independent-progress.md) records the
 content evidence and remaining corrected-artifact gap. The code was inspected, not run.
+S18–S21 record the dependency sources read for the
+[code-audit addendum](../docs/pilot-001-code-audit-addendum.md); S19 and S21 are
+unofficial mirrors. S22–S25 record the data-use and runtime-selection sources
+for the reconstruction; they were numbered S18–S21 on their original branch.
 PDC ID/name mappings were verified through read-only metadata queries
 and the [official publication listing](https://pdc.cancer.gov/pdc/publications).
 

@@ -174,7 +174,13 @@ class Workbook:
     def xml(self, name):
         require(self.archive.getinfo(name).file_size <= 128 * 1024 * 1024,
                 "Unexpected XML member size")
-        return ET.fromstring(self.archive.read(name))
+        data = self.archive.read(name)
+        # Spreadsheet parts never carry a document type declaration. Reject one
+        # before parsing so entity declarations cannot reach the XML parser.
+        lowered = data.lower()
+        require(b"<!doctype" not in lowered and b"<!entity" not in lowered,
+                "Unexpected XML declaration in workbook part")
+        return ET.fromstring(data)
 
     def value(self, cell):
         value = cell.find("s:v", NS)

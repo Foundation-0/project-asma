@@ -45,6 +45,11 @@ could concern score versions, model/output provenance or another unresolved
 source relationship. This check does not identify a cause or establish an error
 in the original paper.
 
+Score direction does not explain the gap. With the direction reversed, the
+same scores give AUROC 825 / 4,316 = 0.191, further from the printed 0.83.
+Neither direction recovers the printed value, so the disagreement cannot be
+settled by relabelling the positive class.
+
 ## Execution and technical verification
 
 The [implementation](../tools/verify_published_auc.py) and specification were
@@ -110,7 +115,9 @@ establishes the cause of the AUROC discrepancy.
 The [source request](../templates/pilot-001-source-request.md) remains unsent.
 After the unsuccessful posting attempts, the user placed external outreach on
 hold; no authors or outside reviewers will be contacted without a new explicit
-instruction. Full reproduction also still needs the missing helper,
+instruction. Follow-up (2026-10-24): that instruction was given for the
+consolidated source request, which the owner sends; reviewer recruitment remains
+on hold. Full reproduction also still needs the missing helper,
 original execution environment, intended transformations and corrected-legend
 confirmation. No independent-patient validation or clinical/treatment claim
 follows from this result.
