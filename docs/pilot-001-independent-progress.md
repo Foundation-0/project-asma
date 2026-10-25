@@ -4,11 +4,19 @@
 in-memory metadata diagnostics. External outreach remains on hold. These checks
 do not replace scientific review or complete model reproduction.
 
+Follow-up (2026-10-24): the user has since authorized putting the code-audit
+questions to the authors through the consolidated
+[source request](../templates/pilot-001-source-request.md), which the owner sends.
+Owner decision (2026-10-25): the request is a draft only, sent solely by the owner at their discretion; it remains unsent (see the [README](../README.md)).
+Reviewer recruitment remains on hold.
+
 **A new public input was recovered:** the author-released imputed discovery
 matrix's header matches all 168 response-labelled measurement rows and all 135
 published discovery-score sample keys by exact equality. This closes candidate
 input naming. A subsequent complete-member audit verifies ZIP CRC and finds all
-64 panel symbols exactly once among 8,800 feature rows. Original workspace
+64 panel symbols exactly once among 8,800 feature rows. That coverage was checked
+in the discovery imputed member only; coverage in the frozen and FFPE-validation
+features is not recorded. Original workspace
 generation and later reuse conditions remain open. The existing supplied-score AUROC **0.8088507878**
 is retained unchanged. No alternative scores, cohorts or tolerances were tried
 to improve agreement with the printed 0.83.
@@ -20,10 +28,12 @@ All code observations below refer to author commit
 into this repository.
 
 In [Figure_3D_part3.R, lines 105–127](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/blob/48357fd63ccbfe3954f38c8efc558b4f88bd6051/Protein_prediction_refractoriness/Figure_3D_part3.R#L105-L127),
-the discovery calculation averages held-out ElasticNet, XGBoost and random-forest
+the intended discovery calculation averages held-out ElasticNet, XGBoost and random-forest
 probabilities within a repetition, then averages across 100 repetitions.
 `y.pred.avg.pool1.all` supplies the scores for `roc.all1`. This identifies the
 intended repeated-CV output object; it does not recover its values or inputs.
+The code alone does not show which loaded workspace supplies those objects; see
+[Which objects feed the plotted cross-validation](pilot-001-code-audit-addendum.md#which-objects-feed-the-plotted-cross-validation).
 
 The script contains no prediction export linking that object to the published
 workbook. A targeted scan of all **42 R/r/Rmd files** at the pinned commit found
@@ -130,7 +140,7 @@ Figure S3 caption conflicts with the article's own references:
 | Joint proteogenomic models | S3F/G | P37: S3I/J |
 
 The pinned S3 legend is therefore unsuitable as the authoritative source for
-these panel assignments. Use explicitly located main-text/methods passages for
+these figure-panel assignments. Use explicitly located main-text/methods passages for
 the limited source audit, while retaining corrected-artifact verification as
 open. This mismatch does not establish a change to Figure 3D or explain the
 supplied-score AUROC discrepancy.
@@ -337,19 +347,24 @@ analysis. Model fitting has not started.
 | Work | Disposition |
 | --- | --- |
 | Direct PDC matrix-to-clinical labels and PDC design route | Executed; exact equality does not supply patient linkage. |
-| Original author imputed discovery matrix | Header links all 168 measurement rows and all 135 score keys; complete member CRC verified and all 64 panel symbols appear once. Workspace generation and abundance correctness remain unverified. |
+| Original author imputed discovery matrix | Header links all 168 measurement rows and all 135 score keys; complete member CRC verified and all 64 panel symbols appear once in this discovery member; frozen and FFPE-validation coverage is not recorded. Workspace generation and abundance correctness remain unverified. |
 | Discovery score-generation lineage | Located; export to released score workbook remains absent from inspected code. |
 | Corrected S3 interpretation | Concrete mismatch documented; authoritative corrected artifact still needed. |
 | Public-input reconstruction | Specified prospectively; candidate naming, member integrity and exact panel coverage checked. Needs remaining reuse/transform contracts and a frozen implementation before fitting. |
 | Original predictions, independent validation and scientific review | Unresolved; no completion or clinical-performance claim. |
 
-The next independent work is to translate the recovered source instructions into
-an explicit reconstruction decision record: feature interpretation, sample-key
-averaging, ordering, processing scope and replacements for missing workspaces,
-helper and environment. Keep unresolved historical choices separate from new
-choices, and satisfy the remaining data-use conditions before abundance analysis.
+The **2026-10-25** [decision record](../protocols/pilot-001-reconstruction-decisions.md)
+now fixes feature interpretation, sample-key averaging, ordering, processing
+scope, replacement folds, model settings and aggregation. The
+[data-use disposition](pilot-001-data-use.md) selects independent noncommercial
+research, original code and no persistent patient-level files, with a conditional
+Canadian research-use basis and remaining execution-context checks. The next
+independent technical work is implementation and an isolated, tested dependency
+lock using abstract fixtures, before any research fitting.
 The member-integrity and exact-symbol coverage checks need not be repeated unless
-the source or implementation changes. The downstream 2025 result remains a
+the source or implementation changes; any rerun follows the bounded-inspection
+rule in the [agent guidance](../AGENTS.md). The shared loader has since changed only by a pre-parse guard (see
+the [registry note](../registries/README.md)), which does not alter accepted parts. The downstream 2025 result remains a
 separate fallback with its own unresolved contracts. No external contact is scheduled.
 
 The 21 new offline tests exercise exact joins, separation of clinical-NA rows,

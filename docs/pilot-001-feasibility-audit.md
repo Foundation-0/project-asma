@@ -168,7 +168,10 @@ explicit deviation.
    resets to 1,000,000 within each fold. The paper describes bootstrap AUC
    intervals, but `roc(..., ci=TRUE)` does not explicitly set the CI method.
    Resolve the pinned pROC behavior and separate the AUC interval from the
-   `ci.se` sensitivity ribbon. The plot's
+   `ci.se` sensitivity ribbon. Follow-up from the 2026-10-24 code audit:
+   `roc(ci = TRUE)` gives a DeLong AUC interval by default (registry S19), while
+   the paper describes a bootstrap (article S99). No interval has been
+   reproduced. The plot's
    [literal “AUC = 0.83”](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/blob/48357fd63ccbfe3954f38c8efc558b4f88bd6051/Protein_prediction_refractoriness/Figure_3D_part3.R#L182-L189)
    is not a numerical check; derive any reproduction annotation from predictions.
 

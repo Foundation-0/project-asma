@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-10-25",
+  "scope": "Selected direct source releases for a prospective original reconstruction; metadata inspection only",
+  "status": "source_releases_pinned_not_installed_or_tested",
+  "components": [
+    {
+      "component": "R",
+      "url": "https://cran.r-project.org/src/base/R-4/R-4.4.3.tar.gz",
+      "bytes": 40234425,
+      "sha256": "0d93d224442dea253c2b086f088db6d0d3cfd9b592cd5496e8cb2143e90fc9e8",
+      "metadata": {
+        "GPL_v2_text": true
+      }
+    },
+    {
+      "component": "glmnet",
+      "url": "https://cran.r-project.org/src/contrib/Archive/glmnet/glmnet_4.1-8.tar.gz",
+      "bytes": 2439515,
+      "sha256": "1ddbe5ce07076d1bdf58b0202ebd0ceac8eeb4796c5175681adb9e58c30ddcfe",
+      "metadata": {
+        "Package": "glmnet",
+        "Version": "4.1-8",
+        "License": "GPL-2",
+        "Depends": "R (>= 3.6.0), Matrix (>= 1.0-6)",
+        "Imports": "methods, utils, foreach, shape, survival, Rcpp",
+        "LinkingTo": "RcppEigen, Rcpp",
+        "SystemRequirements": "C++17"
+      }
+    },
+    {
+      "component": "randomForest",
+      "url": "https://cran.r-project.org/src/contrib/randomForest_4.7-1.2.tar.gz",
+      "bytes": 81974,
+      "sha256": "aad33227b648bad50412849d7e0fed00fd07f1d1d4a14fa015b4b9f939b04a11",
+      "metadata": {
+        "Package": "randomForest",
+        "Version": "4.7-1.2",
+        "License": "GPL (>= 2)",
+        "Depends": "R (>= 4.1.0), stats"
+      }
+    },
+    {
+      "component": "xgboost",
+      "url": "https://cran.r-project.org/src/contrib/Archive/xgboost/xgboost_1.7.8.1.tar.gz",
+      "bytes": 1086388,
+      "sha256": "394d6fd00b2fe97549c7a7e6598df86448cdfbd7c0af45b0c17f7b9e81bc1be9",
+      "metadata": {
+        "Package": "xgboost",
+        "Version": "1.7.8.1",
+        "License": "Apache License (== 2.0) | file LICENSE",
+        "Depends": "R (>= 3.3.0)",
+        "Imports": "Matrix (>= 1.1-0), methods, data.table (>= 1.9.6), jsonlite",
+        "SystemRequirements": "GNU make, C++17"
+      }
+    }
+  ],
+  "limitations": [
+    "Hashes are newly computed source fingerprints, not matches to independent publisher SHA-256 references.",
+    "R COPYING, package DESCRIPTION metadata and the pinned XGBoost R API seed handling were inspected; no downloaded package code was executed or redistributed.",
+    "R is not installed in the inspected workspace. This record is not an environment lock or compatibility result.",
+    "Transitive dependency versions, build system, compiler, BLAS, platform and full license notices remain to be fixed and tested before fitting.",
+    "These are new reconstruction versions, not recovered author runtime versions."
+  ]
+}

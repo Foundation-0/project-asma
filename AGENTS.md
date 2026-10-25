@@ -15,11 +15,22 @@ This repository is a research scaffold, not clinical decision support.
   Fit learned preprocessing only inside training folds for honest evaluation.
 - Do not ingest patient data/datasets, run third-party analysis code, train models,
   contact collaborators, or publish row-level outputs in a scaffold task. Future
-  ingestion needs verified rights and appropriate authorization.
-- External outreach is on hold at the user's request. Do not contact authors,
-  recruit collaborators/reviewers, or post the prepared source request without a
-  new explicit instruction. Earlier outreach authorization does not apply while
-  this hold is active.
+  ingestion needs verified rights and appropriate authorization. Bounded,
+  in-memory inspection of the pinned study sources, including rerunning the
+  recorded network audits, is part of autonomous research (owner decision,
+  2026-10-25): record what was read and why, keep only aggregates, and never
+  persist row-level data, identifiers or linkage keys. Live acquisition of study
+  files for a research run (the source adapter's `load_pinned_sources`), a
+  real-source input check or fitting on study values needs the owner's
+  dated attestation of the execution context and a new explicit instruction; a
+  session's own checks never satisfy it.
+- Outreach (owner decision, 2026-10-25): the consolidated
+  [source request](templates/pilot-001-source-request.md) is authorized as a
+  draft only. The owner alone decides whether and when to send it, from their
+  own account. Automated sessions must never post, retry posting, email or
+  otherwise send it, or contact authors by any route; the earlier automated
+  posting attempts should not have happened. Do not recruit
+  collaborators/reviewers without a new explicit instruction.
 - Keep this workspace lean. Prefer standard-library checks over new dependencies
   or empty architecture. Do not create CI or issue backlogs without need.
 - Run `python3 tools/validate.py` and

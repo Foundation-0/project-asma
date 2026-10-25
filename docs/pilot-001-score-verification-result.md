@@ -26,7 +26,7 @@ contains the exact statistic, source hashes, selection checks and environment.
 | Decimal half-up rounding to two places | 0.81; does not match 0.83 |
 | Absolute difference from printed 0.83 | 0.021149212233549583; exact fraction 1,141 / 53,950 |
 | Predeclared tolerance ≤0.02 | Not met |
-| Published confidence interval | Not recalculated or reproduced |
+| Published confidence interval | Not recalculated or reproduced. The pinned code's `roc(ci = TRUE)` defaults to a DeLong interval (registry S19); the paper describes a bootstrap (article S99). |
 
 The paper's S12 reports discovery fivefold-CV AUC 0.83 (95% CI 0.77–0.90).
 S99 supplies the 83 sensitive / 52 refractory denominator, and S95 describes
@@ -45,13 +45,21 @@ could concern score versions, model/output provenance or another unresolved
 source relationship. This check does not identify a cause or establish an error
 in the original paper.
 
+Follow-up (2026-10-23 review, arithmetic only): score direction does not explain
+the gap. From the recorded pair counts, with no re-run, reversing the direction
+gives AUROC 825 / 4,316 = 0.191, further from the printed 0.83.
+Neither direction recovers the printed value, so the disagreement cannot be
+settled by relabelling the positive class.
+
 ## Execution and technical verification
 
 The [implementation](../tools/verify_published_auc.py) and specification were
 committed **before execution** at
 `3ff523ffc1fc0750d4a82594f27f1d314c017b67`. Version 0.2 changed the execution/review
 record only; the numerical contract had already been set in version 0.1. The
-run's protocol, tool and shared-loader hashes match the retained files.
+run's protocol, tool and shared-loader hashes matched the retained files at the
+result commit. The shared loader later gained a pre-parse guard that only adds
+rejections; see the [registry note](../registries/README.md) on recorded hashes.
 
 Command:
 
@@ -110,7 +118,9 @@ establishes the cause of the AUROC discrepancy.
 The [source request](../templates/pilot-001-source-request.md) remains unsent.
 After the unsuccessful posting attempts, the user placed external outreach on
 hold; no authors or outside reviewers will be contacted without a new explicit
-instruction. Full reproduction also still needs the missing helper,
+instruction. Follow-up (2026-10-24): that instruction was given for the
+consolidated source request, which the owner sends; reviewer recruitment remains
+on hold. Owner decision (2026-10-25): the request is a draft only, sent solely by the owner at their discretion; it remains unsent (see the [README](../README.md)). Full reproduction also still needs the missing helper,
 original execution environment, intended transformations and corrected-legend
 confirmation. No independent-patient validation or clinical/treatment claim
 follows from this result.
