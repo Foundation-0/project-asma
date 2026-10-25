@@ -157,6 +157,8 @@ The next step is to choose an actual available execution setting, record its
 research location and applicable obligations, inspect the relevant account/host
 terms, and verify live acquisition plus the tested combined runtime on that host.
 Once those facts support the selected use basis, a bounded real-source input
-check can establish parser compatibility before fitting. No researcher contact
+check can establish parser compatibility before fitting. That check needs the
+owner's sign-off in Gate 0 of the [roadmap](roadmap.md): a dated attestation of the
+execution context and a new explicit instruction. No researcher contact
 is required merely to finish these technical and contextual checks. The prior
 supplied-score discrepancy and frozen scientific methods remain unchanged.

@@ -113,7 +113,10 @@ until it has been reviewed.
    and transitive dependencies now have a tested synthetic runtime with a pinned
    base image and installed inventory. This does not verify real input parsing
    or execution conditions. Use a small input smoke check after those conditions
-   are satisfied, before full study-data execution. The offline scaffold checks
+   are satisfied, before full study-data execution. That check and any fitting
+   need the owner's sign-off in Gate 0 of the [roadmap](../docs/roadmap.md): a
+   dated attestation of the execution context and a new explicit instruction.
+   The offline scaffold checks
    need only Python's standard library.
 3. **Faithful reproduction.** Implement the documented analysis as a distinct
    reproduction track, recording any upstream preprocessing shared across folds

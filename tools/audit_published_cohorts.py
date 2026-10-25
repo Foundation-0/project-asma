@@ -185,12 +185,13 @@ class Workbook:
 
         scanner = expat.ParserCreate()
         scanner.StartDoctypeDeclHandler = refuse
-        scanner.EntityDeclHandler = refuse
         try:
             scanner.Parse(data, True)
             return ET.fromstring(data)
-        except (expat.ExpatError, ET.ParseError):
-            pass
+        except AuditError:
+            raise
+        except (expat.ExpatError, ET.ParseError, LookupError, ValueError):
+            pass  # Unsupported encodings raise LookupError or ValueError.
         raise AuditError("Unreadable XML in workbook part")
 
     def value(self, cell):

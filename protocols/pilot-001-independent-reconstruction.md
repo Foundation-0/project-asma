@@ -105,7 +105,7 @@ fixture-tested implementation:
 
 The open items do not change the primary target, but each is required. Resolve
 each by a dated amendment before any research run; the decision record itself
-stays frozen. Before any study values are loaded for fitting, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
+stays frozen. Before a real-source input check or any fitting on study values, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
 
 ## Output and continuation decision
 

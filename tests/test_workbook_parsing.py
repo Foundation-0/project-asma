@@ -103,16 +103,20 @@ class WorkbookParsingChecks(unittest.TestCase):
             load(body, bytes=len(body) + 1)
 
     def test_document_type_declaration_is_rejected_before_parsing(self):
-        malicious = ('<!DOCTYPE sst [<!ENTITY probe "expanded">]>'
-                     + SHARED_STRINGS)
-        with self.assertRaises(audit.AuditError):
-            load(workbook_bytes(shared_strings=malicious))
+        # Entity-free declarations can still inject default attributes.
+        for declaration in ('<!DOCTYPE sst [<!ENTITY probe "expanded">]>',
+                            "<!DOCTYPE sst>",
+                            '<!DOCTYPE sst [<!ATTLIST si x CDATA "y">]>'):
+            with self.subTest(declaration=declaration), \
+                    self.assertRaisesRegex(audit.AuditError, "document type"):
+                load(workbook_bytes(shared_strings=declaration + SHARED_STRINGS))
 
     def test_utf16_part_cannot_hide_a_declaration(self):
         malicious = ('<!DOCTYPE sst [<!ENTITY probe "expanded">]>'
                      + SHARED_STRINGS.replace("label-alpha", "&probe;"))
-        for encoding in ("utf-16", "utf-16-le", "utf-32"):
-            with self.subTest(encoding=encoding), self.assertRaises(audit.AuditError):
+        for encoding in ("utf-16", "utf-16-le"):
+            with self.subTest(encoding=encoding), \
+                    self.assertRaisesRegex(audit.AuditError, "document type"):
                 load(workbook_bytes(shared_strings=malicious.encode(encoding)))
 
     def test_conformant_utf16_part_is_read(self):
@@ -123,8 +127,13 @@ class WorkbookParsingChecks(unittest.TestCase):
         self.assertEqual(book.rows("Data")[1], {"A": "label-alpha", "B": "0.25"})
 
     def test_unreadable_part_fails_with_audit_error(self):
-        with self.assertRaises(audit.AuditError):
-            load(workbook_bytes(shared_strings="<sst><si>"))
+        for part in ("<sst><si>",
+                     '<?xml version="1.0" encoding="no-such-codec"?>' + SHARED_STRINGS,
+                     '<?xml version="1.0" encoding="utf-7"?>' + SHARED_STRINGS,
+                     SHARED_STRINGS.encode("utf-32")):
+            with self.subTest(part=part[:40]), \
+                    self.assertRaisesRegex(audit.AuditError, "Unreadable"):
+                load(workbook_bytes(shared_strings=part))
 
 
 if __name__ == "__main__":

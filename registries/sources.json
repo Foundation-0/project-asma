@@ -298,7 +298,7 @@
       "reviewed_via": "https://cran.r-project.org/src/contrib/Archive/xgboost/xgboost_1.7.8.1.tar.gz",
       "locator": "R 4.4.3 COPYING; glmnet 4.1-8, randomForest 4.7-1.2 and xgboost 1.7.8.1 DESCRIPTION; xgboost R/xgb.train.R lines 318-319",
       "takeaway": "Direct source releases and declared license metadata are pinned. The selected XGBoost R API ignores native seed arguments and directs callers to set.seed(). These are newly selected reconstruction versions, not recovered author versions.",
-      "limitations": "No packages installed or executed; no compatibility result or complete dependency lock. Transitive dependencies, full license notices, build tools, compiler/BLAS/platform and synthetic smoke checks remain before fitting. Hashes are newly computed fingerprints. See registries/pilot-001-reconstruction-runtime.json.",
+      "limitations": "No packages installed or executed; no compatibility result or complete dependency lock. Transitive dependencies, full license notices, build tools, compiler/BLAS/platform and synthetic smoke checks remain before fitting. Hashes are newly computed fingerprints. See registries/pilot-001-reconstruction-runtime.json. This describes the pre-execution selection; the later synthetic validation installs and tests these releases with a pinned dependency inventory (docs/pilot-001-synthetic-validation.md).",
       "checked_on": "2026-10-25"
     }
   ]
