@@ -38,7 +38,8 @@ the panel anew.
 
 The user's next-step instruction authorized the recorded integrity and
 feature-annotation audit of the recovered discovery member. That instruction
-covered that run; a rerun needs a new explicit owner instruction. The paper's data-availability section
+covered that run; reruns follow the bounded-inspection rule in the
+[agent guidance](../AGENTS.md). The paper's data-availability section
 (article XML S27) explicitly offers the processed data at a publicly accessible
 URL. This supports the requested source inspection; it is not an inferred
 license for redistribution or general dataset reuse. No archive-specific reuse
@@ -98,7 +99,7 @@ fixture-tested implementation:
 | Declared `balanced_folds.R` replacement: patient-grouped, response-stratified, seeds 1–100, `RNGkind()` including `sample.kind`, and a decision on the per-forest `set.seed(1000000)` | Met: new folds with outer seed r, `RNGkind("Mersenne-Twister", "Inversion", "Rejection")`, and the reset kept before each forest. Inner elastic-net folds have their own seeds, so the source's coupling of those folds to the forest seed is not reproduced; this is a declared choice. |
 | Exact versions; xgboost 1.x or explicit `tree_method` and `base_score`; feature-selection and object-flow discrepancies resolved explicitly | Met: R 4.4.3 and xgboost 1.7.8.1 with `tree_method="exact"` and `base_score=.5`; fixed panel without selection. These form a new environment, not the original one. |
 | One alternative configuration fixed for sensitivity analysis before execution | **Open.** The decision record excludes alternative model search from the first run, and no sensitivity configuration is fixed. |
-| No missing labels or panel values; valid R names or the matrix interface | Met: every selected value must be finite, and the random forest uses the matrix interface. The `make.names` count remains an open aggregate check; it reads the pinned panel source and needs an explicit owner instruction. |
+| No missing labels or panel values; valid R names or the matrix interface | Met: every selected value must be finite, and the random forest uses the matrix interface. The `make.names` count remains an open aggregate check; it reads the pinned panel source under the bounded-inspection rule. |
 | Scope of every learned preprocessing step; globally preprocessed inputs not described as independent validation | Met for this track: released values are used as processed upstream, and only glmnet standardizes, within training subsets. Upstream processing scope remains unknown, and discovery cross-validation is not independent validation. |
 | Denominators, score direction, metric, comparison rule, compute limits, failure behavior and stop rules | Met: 135 patients (83/52), 4,316 pairs, 40,500 model predictions, a two-hour/8 GiB limit and explicit stop rules. |
 | Probability direction tested for each model (added at integration, from review of the synthetic validation) | **Open.** The model fixture has no label signal, so no test shows that each model scores refractory (class 1) higher. Add a planted-signal fixture and pass it per model before any research run; direction cannot be revisited after one. |

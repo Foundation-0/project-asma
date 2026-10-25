@@ -139,8 +139,9 @@ in memory for CRC, hashes and exact panel coverage under the documented bounded
 inspection scope; it emits no source rows or abundance values.
 These audits, like `python3 tools/verify_published_auc.py`, read patient-level
 clinical or linkage metadata, published scores or the full matrix member in
-memory. Run them only under a new explicit owner instruction (see the
-[agent guidance](AGENTS.md)); they are not routine checks.
+memory. They follow the bounded-inspection rule in the
+[agent guidance](AGENTS.md): in memory, aggregates only, recording what was read
+and why. They are not routine offline checks.
 
 To build and test the isolated R pipeline on abstract fixtures, follow the
 [synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands).

@@ -82,8 +82,8 @@ The observed 43 catalog matches are consistent with the paper's 29 overlapping
 samples plus 14 additional same-patient tumor pairs. That arithmetic does not
 establish their exact correspondence or the overlap remaining after exclusions.
 
-To rerun the public metadata check without writing linkage rows, only under an
-explicit owner instruction (see the [agent guidance](../AGENTS.md)):
+To rerun the public metadata check without writing linkage rows, under the
+bounded-inspection rule in the [agent guidance](../AGENTS.md):
 
 ```sh
 python3 tools/audit_pdc_metadata.py
@@ -166,8 +166,7 @@ Do not silently relabel the published groups, infer a performance change, or
 describe this as misconduct. Preserve the published groups in the reproduction
 track and reconcile the membership discrepancy before a revised evaluation.
 
-The reproducible, aggregate-only check, rerun only under an explicit owner
-instruction, is:
+The reproducible, aggregate-only check is:
 
 ```sh
 python3 tools/audit_published_cohorts.py

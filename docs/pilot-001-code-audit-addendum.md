@@ -245,8 +245,8 @@ matters only if DreamAI is installed or run.
 - **Aggregate checks that need no abundance values:**
   - Count how many pinned symbols `make.names` would change.
   - Check panel coverage in the frozen and FFPE-validation feature annotations.
-  - Both read the pinned supplement or author-archive members, so each needs an
-    explicit owner instruction (integration note, 2026-10-25; see the
+  - Both read the pinned supplement or author-archive members in memory, under
+    the bounded-inspection rule (integration note, 2026-10-25; see the
     [agent guidance](../AGENTS.md)).
 
 ## Limits
