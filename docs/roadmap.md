@@ -63,12 +63,16 @@ a per-model planted-signal direction test, a fixed sensitivity configuration and
 the per-repetition AUROC distribution. No researcher contact
 is needed for the software preparation. The 2025 fallback remains unadopted.
 
-Pending owner decision (2026-10-25): accept or reject
-[reconstruction amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md)
-before any research run. It covers A1, a per-repetition AUROC distribution as a
-descriptive secondary output, and A2, a proposal to decline an
-environment/version sensitivity configuration for the first run. Merging the
-file does not adopt it. The synthetic and source-adapter execution records also
+Pending owner decision (2026-10-25), required before any research run: accept or
+reject [reconstruction amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md).
+It covers two of the open items:
+- **A1:** the per-repetition AUROC distribution, as a descriptive secondary
+  output.
+- **A2:** a fixed sensitivity configuration, XGBoost `tree_method = "hist"` with
+  everything else identical, reported as exploratory.
+
+Merging the file does not adopt it. The direction test, the third open item, is
+added and passes in a development environment. The synthetic and source-adapter execution records also
 predate the 2026-10-25 test and core changes, and must be regenerated in the
 pinned image.
 

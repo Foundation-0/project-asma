@@ -65,8 +65,13 @@ validate_model_input <- function(x_train, y_train, x_test, inner_foldid,
   invisible(TRUE)
 }
 
-fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold,
+                       xgb_tree_method = "exact") {
   validate_model_input(x_train, y_train, x_test, inner_foldid, repetition, fold)
+  # "exact" is the declared primary setting. "hist" exists only for the proposed
+  # amendment 1 (A2) sensitivity configuration, and runs only if that is adopted.
+  asma_require(identical(xgb_tree_method, "exact") || identical(xgb_tree_method, "hist"),
+               "model_contract")
   check_model_versions()
 
   # Restore both the RNG algorithm and stream, including an initially absent seed.
@@ -111,7 +116,7 @@ fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold)
     testing <- xgboost::xgb.DMatrix(x_test, nthread = 1L)
     xgb_fit <- xgboost::xgb.train(
       params = list(objective = "binary:logistic", booster = "gbtree",
-                    tree_method = "exact", nthread = 1L, max_depth = 2L,
+                    tree_method = xgb_tree_method, nthread = 1L, max_depth = 2L,
                     eta = 0.1, base_score = 0.5, min_child_weight = 1,
                     gamma = 0, subsample = 1, colsample_bytree = 1,
                     colsample_bylevel = 1, colsample_bynode = 1,

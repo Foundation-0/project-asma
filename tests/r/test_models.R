@@ -134,5 +134,18 @@ run_model_tests <- function() {
     identical(signal[[model]][1L], signal_changed[[model]][1L])
   }, logical(1))))
 
+  # The default is the declared "exact" method. The proposed sensitivity setting
+  # ("hist") must give valid, correctly oriented probabilities, and only the
+  # XGBoost component may change. It must change on this fixture, so the setting
+  # cannot be silently ignored. Other values are rejected before any fit.
+  check(identical(fit_models(signal_train, y_train, signal_test, inner, 1L, 1L,
+                             xgb_tree_method = "exact"), signal))
+  hist <- fit_models(signal_train, y_train, signal_test, inner, 1L, 1L,
+                     xgb_tree_method = "hist")
+  check(identical(hist$en, signal$en) && identical(hist$rf, signal$rf) &&
+          !identical(hist$xgb, signal$xgb) && direction_holds(hist$xgb, signal_y_test))
+  rejects(fit_models(signal_train, y_train, signal_test, inner, 1L, 1L,
+                     xgb_tree_method = "approx"))
+
   count
 }

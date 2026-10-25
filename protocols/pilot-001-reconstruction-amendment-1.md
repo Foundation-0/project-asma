@@ -9,11 +9,13 @@ It does not edit the hash-pinned
 records must pin both files. No study data have been fitted, and nothing here
 changes after seeing a research result.
 
-The [reconstruction contract](pilot-001-independent-reconstruction.md) lists two
-open pre-run items from the
-[code-audit addendum](../docs/pilot-001-code-audit-addendum.md). Each must be
-resolved, or declined with a reason, before any research run. This amendment
-proposes how.
+The [reconstruction contract](pilot-001-independent-reconstruction.md) lists
+three open pre-run items, and each must be resolved by a dated amendment before
+any research run. This amendment proposes resolutions for two of them, both
+drawn from the [code-audit addendum](../docs/pilot-001-code-audit-addendum.md)
+and its review. The third, the per-model direction test, is a synthetic software
+test recorded in the [synthetic validation](../docs/pilot-001-synthetic-validation.md);
+its pinned-image run is still pending.
 
 ## A1. Per-repetition AUROC distribution (proposed secondary output)
 
@@ -42,35 +44,51 @@ Implementation: `run_reconstruction` already returns these values as
 only allow-listed fields, so nothing new is printed. If the owner rejects A1,
 remove the computation before any research run.
 
-## A2. Environment/version sensitivity configuration (proposed: decline for the first run)
+## A2. Environment sensitivity configuration (proposed configuration)
 
-The addendum asked for one alternative software/version configuration, fixed
-before execution. The chosen environment is new rather than the authors'. It
-includes declared departures, such as one XGBoost thread and inner elastic-net
-folds decoupled from the forest seed. A second configuration would show how much
-the AUROC depends on those choices.
+The contract requires one fixed sensitivity configuration, resolved by a dated
+amendment before any research run. The chosen environment is new rather than the
+authors', and it includes declared departures. One configuration fixed in advance
+shows how much the AUROC depends on one documented environment choice.
 
-Proposed: do not run one in the first research run.
+Proposed configuration:
 
-- **Compute and multiplicity.** It would double fitting on study values and add a
-  second performance number to interpret.
-- **Reproducibility.** Exact R and package versions are pinned, and XGBoost's
-  `tree_method` and `base_score` are explicit. The first run is therefore
-  reproducible, although it does not measure environment dependence.
-- **No post-hoc swaps.** Swapping configurations after seeing a result is already
-  forbidden.
+- **What changes.** XGBoost uses `tree_method = "hist"` instead of the declared
+  `"exact"`. Registry S20 records two default changes in XGBoost 2.0: the tree
+  method becomes `"hist"`, and the logistic intercept is estimated. This
+  configuration varies the first. It runs with the pinned packages, so no second
+  environment is built.
+- **What stays the same.** Inputs, folds, seeds, the elastic net, the random
+  forest, aggregation and all other XGBoost settings, including
+  `base_score = 0.5`, so the intercept change is not varied.
+- **Order.** It runs after the primary configuration and in the same execution
+  context.
+- **Reporting.** Its repeat-averaged AUROC, plus the A1 distribution if A1 is
+  adopted, is reported as exploratory beside the primary result. It is not
+  compared with 0.83, not used to choose a model, and does not replace the
+  primary result if the two differ.
 
-**What is lost.** The first run would give no estimate of how much the AUROC
-depends on the chosen environment and the declared departures. Any later
-sensitivity analysis must be specified and recorded here before it runs, and
-reported as exploratory, separately from the primary result.
+Implementation: `fit_models` takes `xgb_tree_method`, which must be `"exact"`
+(the default, used by the primary run) or `"hist"`. The synthetic tests check the
+following:
+- an explicit `"exact"` equals the default;
+- `"hist"` changes only the XGBoost component and keeps class 1 scored higher;
+- any other value is rejected before fitting.
+
+No research runner is enabled by this change.
+
+**Alternative the owner may choose.** Declining a sensitivity configuration for
+the first run would need the owner to waive the contract's requirement. It would
+save one more full fit on study values and one more number to interpret. What is
+lost: the first run would not measure how much the AUROC depends on the
+environment.
 
 ## Owner decision required
 
 Before any research run, the owner records a dated decision here:
 
 - **A1:** accept, or reject (the computation is then removed).
-- **A2:** accept the decline, or specify one environment/version configuration
-  to run.
+- **A2:** accept the proposed `"hist"` configuration, specify a different one,
+  or waive the requirement and decline it for the first run.
 
 No decision has been recorded.

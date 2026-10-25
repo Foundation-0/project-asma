@@ -72,7 +72,8 @@ alternating fixtures, giving 164: 41 input, 83 core and 40 model.
 
 [Amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md) (proposed,
 pending an owner decision) adds the per-repetition AUROC distribution and six core
-assertions, giving 166: 41 input, 85 core and 40 model. The fixtures are:
+assertions. It also adds three model assertions for the proposed `"hist"`
+sensitivity setting, giving 169: 41 input, 85 core and 43 model. The fixtures are:
 - constant scores;
 - alternating scores, where every repetition's AUROC is 0 or 1 but the averaged
   scores all tie;
@@ -80,7 +81,15 @@ assertions, giving 166: 41 input, 85 core and 40 model. The fixtures are:
   is lower. Every reported field must match an independent recomputation.
 
 Averaging fold AUROCs, using quantile type 6, swapping fields, reporting the
-median as the mean, or pooling repetitions each fail these assertions.
+median as the mean, or pooling repetitions each fail these assertions. For the
+`"hist"` setting, the explicit default must equal the declared `"exact"` fit.
+`"hist"` must change the XGBoost predictions on the planted-signal fixture, keep
+class 1 scored higher, and leave the elastic net and forest unchanged. Any other
+value must be rejected. Four mutations each fail these checks:
+- ignoring the setting;
+- removing the guard;
+- making `"hist"` the default;
+- letting the setting change the forest's seed.
 
 These results come from a development environment, not the pinned image. It used
 conda-forge R 4.4.3 with the pinned versions of glmnet (4.1-8), randomForest
@@ -91,7 +100,7 @@ matching build.
 Other components differ from the pinned image: Rcpp 1.1.2 (pinned 1.0.14),
 Matrix 1.7-6 (recorded 1.7-2), survival 3.8-12 and lattice 0.23-1, and the conda
 compiler toolchain. Each model's fixture AUROC was 1.0. The pinned-image runner
-must rerun all 166 assertions, and the execution record must be regenerated,
+must rerun all 169 assertions, and the execution record must be regenerated,
 before any research run.
 
 The full run, including all 149 assertions, took 57.619 seconds inside R on the
@@ -165,7 +174,7 @@ python3 -m unittest discover -s tests -v
 The first command downloads the pinned base image and package sources and may
 take several minutes. An optional `--source-cache` directory can supply package
 archives; each is still checked against the manifest. The second command runs
-all R assertions (149 in the recorded run; 166 after the 2026-10-25 additions);
+all R assertions (149 in the recorded run; 169 after the 2026-10-25 additions);
 `--full` also performs the complete 100-repeat integration.
 Each runner prints reviewed aggregate JSON only. The wrapper resolves the local
 image tag to its immutable image ID before execution. Input pins do not imply
