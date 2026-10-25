@@ -138,8 +138,9 @@ header linkage using bounded ZIP ranges and exact clinical/score-key joins.
 in memory for CRC, hashes and exact panel coverage under the documented bounded
 inspection scope; it emits no source rows or abundance values.
 `python3 tools/audit_panel_names.py` counts pinned panel symbols that R's
-`make.names` would alter. It reads only the panel worksheet and prints counts,
-no symbols.
+`make.names` would alter. It downloads the hash-pinned MMC4 workbook into memory,
+parses only the panel worksheet (and the workbook's shared-string table) and
+prints counts, no symbols.
 These audits, like `python3 tools/verify_published_auc.py`, read patient-level
 clinical or linkage metadata, published scores or the full matrix member in
 memory. They follow the bounded-inspection rule in the

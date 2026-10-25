@@ -164,7 +164,8 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
 
   Whether `make.names` would alter any of the 64 pinned symbols can be checked
   from the panel alone, as an aggregate count. Follow-up (2026-10-25): it alters
-  none (`tools/audit_panel_names.py`). For the published panel, the one-sided
+  none (`tools/audit_panel_names.py`;
+  [record](../registries/pilot-001-panel-name-summary.json)). For the published panel, the one-sided
   renaming and the formula interface would therefore not drop or rename
   proteins. The row names inside the absent author workspaces remain unknown.
 - **Failures.** Feasibility finding 3 records the `try()` and break. This adds

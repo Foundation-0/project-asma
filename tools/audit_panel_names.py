@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
 """Count pinned panel symbols that R's make.names would alter; aggregate output only.
 
-Reads only the `64_protein_predictors` worksheet of the hash-pinned MMC4 workbook,
-in memory, through the shared loader. No score or clinical sheet is parsed, and
-no symbol is printed or written. The result bears on name matching in the author
+Downloads the hash-pinned MMC4 workbook into memory through the shared loader,
+which also decodes the workbook-wide shared-string table, and parses only the
+`64_protein_predictors` worksheet. No score or clinical sheet is parsed, and no
+symbol is printed or written. The result bears on name matching in the author
 scripts (make.names and the formula interface); the reconstruction itself uses
 the matrix interface.
 """
 
 import argparse
+from datetime import datetime, timezone
 import hashlib
 import json
+from pathlib import Path
+import platform
 import re
 import sys
+import time
 
+import audit_published_cohorts
 from audit_published_cohorts import SOURCES, Workbook
 
 
@@ -63,16 +69,29 @@ def summarize(symbols, expected_sha256=None):
 
 
 def run_audit():
+    started, timer = datetime.now(timezone.utc).isoformat(), time.monotonic()
     rows = Workbook(SOURCES["panel_and_scores"]).rows("64_protein_predictors")
     if not rows or rows[0].get("A") != "Proteins":
         raise ValueError("Unexpected protein-panel header")
-    return summarize([row.get("A", "") for row in rows[1:]])
+    output = summarize([row.get("A", "") for row in rows[1:]])
+    source = SOURCES["panel_and_scores"]
+    output.update({
+        "started_at_utc": started,
+        "finished_at_utc": datetime.now(timezone.utc).isoformat(),
+        "elapsed_seconds": time.monotonic() - timer,
+        "source": {"filename": source["filename"], "sha256": source["sha256"],
+                   "worksheet": "64_protein_predictors"},
+        "environment": {"python": platform.python_version(), "platform": platform.platform()},
+        "implementation_sha256": {path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+                                  for path in (Path(__file__), Path(audit_published_cohorts.__file__))},
+    })
+    return output
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=(
-        "Count pinned panel symbols that R's make.names would alter. Reads only the "
-        "panel worksheet in memory and prints aggregate JSON without symbols."
+        "Count pinned panel symbols that R's make.names would alter. Parses only the "
+        "panel worksheet of the in-memory workbook and prints aggregate JSON without symbols."
     ))
     parser.parse_args(argv)
     try:

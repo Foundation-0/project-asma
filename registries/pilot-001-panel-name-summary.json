@@ -1,0 +1,30 @@
+{
+  "altered_by_r_make_names": 0,
+  "duplicate_symbols": 0,
+  "elapsed_seconds": 0.6953435759996864,
+  "environment": {
+    "platform": "Linux-6.18.44-fc-v153-x86_64-with-glibc2.39",
+    "python": "3.13.17"
+  },
+  "finished_at_utc": "2026-10-25T07:31:46.846012+00:00",
+  "implementation_sha256": {
+    "audit_panel_names.py": "fbcc22f272a70f078c93b4b51f1b7d9a2d191421a8e34c4a2c1cd3c93b2c4df3",
+    "audit_published_cohorts.py": "a67bf24c2a5de868c42c3498cdb3e23cdad256a49b161eaccab8fb6abf6f256a"
+  },
+  "limitations": [
+    "Mirrors R 4.4.3 make.names for ASCII names; non-ASCII names are rejected.",
+    "Unique symbols mean make.names(unique = TRUE) adds no suffixes.",
+    "Says nothing about the row names inside the absent author workspaces."
+  ],
+  "panel_canonical_sha256": "77329920b86dacaffc6778ed7e7c6b827683beed1aad7f2229b8bafe2f535144",
+  "schema_version": 1,
+  "scope": "Pinned 64-protein panel symbols only; counts, no symbols",
+  "source": {
+    "filename": "NIHMS1918576-supplement-MMC4.xlsx",
+    "sha256": "f318ed9d2fac341097a8b1be3e034753f6d427bdeeb0cd2b92eb715cadadb6ab",
+    "worksheet": "64_protein_predictors"
+  },
+  "started_at_utc": "2026-10-25T07:31:46.150668+00:00",
+  "symbols": 64,
+  "unchanged_by_r_make_names": 64
+}
