@@ -101,6 +101,42 @@ run_core_tests <- function() {
   })
   check(identical(result$scores, replay$scores) && identical(observed_pairs, replay_events))
 
+  # Folds and inner folds used inside the run match an independent recomputation
+  # from the declared seeds: outer r, inner 10000 + 100r + f.
+  # Both the observer's copy and the arguments the model adapter receives are
+  # checked, since the adapter's arguments decide the result.
+  plan_events <- list()
+  fit_events <- list()
+  capture_stub <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+    fit_events[[length(fit_events) + 1L]] <<- list(
+      repetition = repetition, fold = fold, train_ids = rownames(x_train),
+      test_ids = rownames(x_test), y_train = y_train, inner_foldid = inner_foldid)
+    stub(x_train, y_train, x_test, inner_foldid, repetition, fold)
+  }
+  run_reconstruction(assembled, capture_stub, 100L, function(event) {
+    plan_events[[length(plan_events) + 1L]] <<- event
+    invisible(NULL)
+  })
+  check(length(plan_events) == 500L && length(fit_events) == 500L)
+  wiring_ok <- TRUE
+  for (index in seq_along(plan_events)) {
+    event <- plan_events[[index]]
+    fitted <- fit_events[[index]]
+    outer_plan <- stratified_folds(keys, y, 5L, event$repetition)
+    expected_test <- keys[outer_plan == event$fold]
+    expected_train <- keys[outer_plan != event$fold]
+    expected_inner <- stratified_folds(expected_train, y[expected_train], 3L,
+                                       10000L + 100L * event$repetition + event$fold)
+    for (copy in list(event, fitted)) {
+      wiring_ok <- wiring_ok && identical(copy$test_ids, expected_test) &&
+        identical(copy$train_ids, expected_train) &&
+        identical(copy$inner_foldid, expected_inner)
+    }
+    wiring_ok <- wiring_ok && identical(fitted$y_train, y[expected_train]) &&
+      fitted$repetition == event$repetition && fitted$fold == event$fold
+  }
+  check(wiring_ok)
+
   changed <- assembled
   changed$x <- changed$x[rev(seq_len(135L)), , drop = FALSE]
   fails(function() run_reconstruction(changed, stub, 1L))
