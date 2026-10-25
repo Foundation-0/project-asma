@@ -35,17 +35,28 @@ an open pre-run requirement in the
   `run_reconstruction` must match an independent recomputation from the declared
   seeds: outer r, inner 10000 + 100r + f.
 
-The suite now has 160 assertions: 41 input, 79 core and 40 model. Five deliberate
-mutations each fail the new suite but pass the previous one: inverting each
-model's probability, reversing glmnet's factor levels, taking the forest's class-0
-column, and shifting the inner-fold seed.
+The suite now has 160 assertions: 41 input, 79 core and 40 model. The fold check
+covers both the observer's copy and the arguments the model adapter receives.
+
+Six deliberate mutations each fail the new suite but pass the previous one:
+- inverting the elastic net's probability;
+- inverting XGBoost's probability;
+- taking the forest's class-0 column;
+- reversing glmnet's factor levels;
+- shifting the inner-fold seed;
+- passing the model adapter different inner folds from the observer's.
 
 These results come from a development environment, not the pinned image. It used
-conda-forge R 4.4.3 with glmnet 4.1-8, randomForest 4.7-1.2, jsonlite 1.9.1 and
-data.table 1.17.0. xgboost 1.7.8.1 was built from the CRAN read-only GitHub
-mirror's tagged source, because conda-forge has no matching build. Each model's
-fixture AUROC was 1.0. The pinned-image runner must rerun all 160 assertions, and
-the execution record must be regenerated, before any research run.
+conda-forge R 4.4.3 with the pinned versions of glmnet (4.1-8), randomForest
+(4.7-1.2), jsonlite (1.9.1) and data.table (1.17.0). xgboost 1.7.8.1 was built
+from the CRAN read-only GitHub mirror's tagged source, because conda-forge has no
+matching build.
+
+Other components differ from the pinned image: Rcpp 1.1.2 (pinned 1.0.14),
+Matrix 1.7-6 (recorded 1.7-2), survival 3.8-12 and lattice 0.23-1, and the conda
+compiler toolchain. Each model's fixture AUROC was 1.0. The pinned-image runner
+must rerun all 160 assertions, and the execution record must be regenerated,
+before any research run.
 
 The full run, including all 149 assertions, took 57.619 seconds inside R on the
 recorded environment. This is an observed fixture runtime, not a compute estimate
