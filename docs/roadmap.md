@@ -29,16 +29,17 @@ Score export and corrected legend provenance also remain unresolved.
 The [public-input reconstruction contract](../protocols/pilot-001-independent-reconstruction.md)
 now links a concrete [decision record](../protocols/pilot-001-reconstruction-decisions.md)
 for feature interpretation, sample-key averaging, ordering, new folds, models and
-aggregation. A new runtime target has source hashes, but no installed or tested
-lock. The [data-use disposition](pilot-001-data-use.md) selects independent
-noncommercial research, original implementation and no persistent patient-level
+aggregation. The [synthetic validation](pilot-001-synthetic-validation.md) now
+records the original implementation, installed dependency inventory and complete
+100-repeat execution on abstract fixtures. The
+[data-use disposition](pilot-001-data-use.md) selects independent noncommercial research, original implementation and no persistent patient-level
 files. It clarifies private-computation and attribution conditions and selects a
 conditional Canadian research fair-dealing basis. Actual execution context and
 applicable hosting/review conditions must support that basis before fitting.
 
-The next independent technical step is to implement the specification and build
-an isolated, tested dependency lock using abstract fixtures. Keep historical
-uncertainties explicit; do not repair them silently to improve agreement. Research
+The next independent technical step is to specify a hash-checked source adapter
+and complete the research-execution preflight. The synthetic runner accepts no
+research data. Keep historical uncertainties explicit; do not repair them silently to improve agreement. Research
 fitting remains conditional on the data-use disposition. No researcher contact
 is needed for the software preparation. The 2025 fallback remains unadopted.
 

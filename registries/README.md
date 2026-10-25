@@ -35,9 +35,15 @@
   archive integrity, transformation history and later reuse terms remain open.
 - [pilot-001-reconstruction-runtime.json](pilot-001-reconstruction-runtime.json):
   selected R 4.4.3, glmnet 4.1-8, randomForest 4.7-1.2 and XGBoost 1.7.8.1 source
-  archives, computed hashes and declared license metadata. No package was
-  executed. This is a direct-component selection, not an installed/tested
-  environment or complete dependency lock.
+  archives, computed hashes and declared license metadata. This historical
+  selection record predates execution and remains unchanged.
+- [pilot-001-synthetic-validation.json](pilot-001-synthetic-validation.json):
+  executed synthetic-only assertions and full model-run coverage, installed
+  package/toolchain inventory, runtime identity and implementation hashes.
+  [Source pins](../runtime/synthetic-packages.json) include dependencies and
+  license metadata; the [report](../docs/pilot-001-synthetic-validation.md) gives
+  commands and limits. No fixture predictions, model weights or clinical metrics
+  are retained.
 
 The source and dataset registries use `schema_version: 1` and a list under
 `sources` or `datasets`.

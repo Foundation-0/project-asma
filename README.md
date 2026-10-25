@@ -22,6 +22,7 @@ clinical validity, or improved patient outcomes.
 | [Preprocessing provenance](docs/pilot-001-preprocessing-provenance.md) | Located transformations, replicate-averaging example and unresolved execution history |
 | [Public-input reconstruction contract](protocols/pilot-001-independent-reconstruction.md) | Prospective discovery-only requirements and stop rules |
 | [Reconstruction decisions](protocols/pilot-001-reconstruction-decisions.md) | Fixed input assembly, folds, model settings, aggregation and runtime target |
+| [Synthetic pipeline validation](docs/pilot-001-synthetic-validation.md) | Executed fixture tests, complete model run and pinned runtime |
 | [Data-use disposition](docs/pilot-001-data-use.md) | Noncommercial research scope, source terms and remaining execution conditions |
 | [Roadmap](docs/roadmap.md) | Small milestones and decision gates |
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
@@ -46,8 +47,8 @@ is a preliminary supplied-score discrepancy, not evidence of an original-paper
 error or completed model reproduction. External scientific review remains pending.
 
 No full PDC abundance matrix was downloaded, no author analysis code was executed,
-and no model was trained. Missing input/method provenance still prevents full
-reproduction. External outreach is now **on hold at the user's request**. No
+and no model was trained on study data. Missing input/method provenance still
+prevents full reproduction. External outreach is now **on hold at the user's request**. No
 author message was posted. This phase will use public sources and internal
 checks; unresolved provenance and external-review questions remain explicit.
 
@@ -68,13 +69,17 @@ records the recovered input, these limitations and the reconstruction path.
 On **2026-10-25**, the [decision record](protocols/pilot-001-reconstruction-decisions.md)
 specifies a discovery-only reconstruction with explicit replicate averaging,
 patient-stratified folds, seeds, model parameters and complete prediction checks.
-Direct R/package releases are hash-pinned; an installed, tested dependency lock
-is still needed. The selected phase is independent noncommercial research with
-no persistent patient-level files and no reuse of author analysis code. The
+Direct R/package releases are hash-pinned; the subsequent
+[synthetic validation](docs/pilot-001-synthetic-validation.md) records the installed
+dependency inventory and execution tests. The selected phase is independent
+noncommercial research with no persistent patient-level files and no reuse of author analysis code. The
 [data-use assessment](docs/pilot-001-data-use.md) separates those choices from
 a conditional Canadian research-use basis and its remaining execution-context
 checks. The current workspace is not yet verified for that research run.
-No new research result or model fit is claimed.
+The independently written pipeline has now been tested on artificial fixtures,
+including all 100 repetitions using the three pinned model packages. No study-data
+model fit or new clinical result is claimed. The frozen decision record remains
+unchanged; its prospective runtime status is superseded by the validation report.
 
 The scope starts with HGSOC. Primary refractory disease (failure of initial
 therapy) must be distinguished from later platinum-resistant recurrence. Other
@@ -106,6 +111,10 @@ header linkage using bounded ZIP ranges and exact clinical/score-key joins.
 `python3 tools/audit_author_features.py` checks the complete selected member
 in memory for CRC, hashes and exact panel coverage under the documented bounded
 inspection scope; it emits no source rows or abundance values.
+
+To build and test the isolated R pipeline on abstract fixtures, follow the
+[synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands).
+The synthetic runner has no dataset path or URL option.
 
 ## Decisions still needed
 

@@ -1,6 +1,7 @@
 # Pilot 001: public-input reconstruction contract
 
-**Version:** 0.3, 2026-10-25. **Status:** methods specified; model execution not started.
+**Version:** 0.4. **Status:** implementation tested on synthetic fixtures; study-data
+model execution not started.
 The [decision record](pilot-001-reconstruction-decisions.md) now specifies the
 reconstruction choices, and the [data-use disposition](../docs/pilot-001-data-use.md)
 selects a conditional Canadian research-use basis and its execution-context checks.
@@ -69,16 +70,18 @@ before fitting and preserved in the results.
 
 The [decision record](pilot-001-reconstruction-decisions.md) fixes input assembly,
 new patient-stratified fold rules, seeds, model parameters, score aggregation,
-comparison and failure behavior. The direct R/package source releases are
-selected and hash-pinned, but are not installed or tested. These choices do not
-recover the original runtime or missing workspaces.
+comparison and failure behavior. The [synthetic validation](../docs/pilot-001-synthetic-validation.md)
+now records an original implementation, installed package inventory, pinned base
+image and full fixture execution. The decision record remains frozen; these
+implementation results supersede its prospective runtime status without changing
+its scientific choices or recovering the original runtime and missing workspaces.
 
-Before fitting, implement the specification independently, pin the complete
-runtime and transitive dependency graph, and verify package behavior on abstract
-fixtures. Check patient-disjoint folds, complete held-out coverage, ordered
-identities and deterministic averaging. Preserve source/code/environment and
-specification hashes. No tests on abstract fixtures establish scientific validity
-or close the data-use conditions. Do not fit research values while those
+Fixture tests now check patient-disjoint folds, complete held-out coverage, ordered
+identities, deterministic averaging and actual package behavior. The executed
+record preserves implementation, runtime and specification hashes. Before study-data
+fitting, add and test a source adapter that revalidates pinned source bytes and
+converts them into the existing in-memory input contract. No tests on abstract
+fixtures establish scientific validity or close the data-use conditions. Do not fit research values while those
 conditions remain unresolved.
 
 ## Output and continuation decision
@@ -89,8 +92,9 @@ design persists only reviewed aggregate counts, metrics, hashes and discrepancie
 no private patient-level output files, model weights or caches are retained.
 The data-use disposition describes the remaining hosting/applicability checks.
 
-The next independent technical work is an original implementation and an
-isolated, tested environment using abstract fixtures. Keep the selected 64-protein
+The next independent technical work is the source-adapter specification and
+research-execution preflight. The synthetic-only entry point does not ingest
+study files or satisfy those conditions. Keep the selected 64-protein
 question; do not substitute the downstream combined CSV or its 60-protein target.
 Verify the planned Canadian execution context and remaining conditions of the
 selected research-use basis before research fitting. The exact member and panel

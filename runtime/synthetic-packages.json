@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "scope": "Synthetic-fixture runtime only; no research data",
+  "platform": "linux/amd64",
+  "base_image": "rocker/r-ver@sha256:3dae5d2eeddf74f10e0a81fb6b7ae350295e288000304f438b844b2c1e00fe2c",
+  "r_version": "4.4.3",
+  "packages_in_install_order": [
+    {
+      "package": "Rcpp",
+      "version": "1.0.14",
+      "url": "https://cran.r-project.org/src/contrib/Archive/Rcpp/Rcpp_1.0.14.tar.gz",
+      "bytes": 3013288,
+      "sha256": "74e84a52efb0e3e2713cdbbef5234b5ae1d44b33d32c3c337993e7fc423a8002",
+      "license": "GPL (>= 2)",
+      "dependency_fields": {
+        "Imports": "methods, utils"
+      },
+      "license_notices": []
+    },
+    {
+      "package": "RcppEigen",
+      "version": "0.3.4.0.2",
+      "url": "https://cran.r-project.org/src/contrib/RcppEigen_0.3.4.0.2.tar.gz",
+      "bytes": 1761745,
+      "sha256": "ecad7ba2129fd48b7ebb825558d38492ed1f3a8934959e27fcd6688175e542bb",
+      "license": "GPL (>= 2) | file LICENSE",
+      "dependency_fields": {
+        "Depends": "R (>= 3.6.0)",
+        "Imports": "Rcpp (>= 0.11.0), stats, utils",
+        "LinkingTo": "Rcpp"
+      },
+      "license_notices": [
+        {
+          "path": "RcppEigen/LICENSE",
+          "bytes": 325,
+          "sha256": "366b9d7d46bf82fb74c5f21a35c110a4f350481c056c488f3298f7fefd535667"
+        },
+        {
+          "path": "RcppEigen/inst/COPYRIGHTS",
+          "bytes": 27371,
+          "sha256": "2fd8191bf3ba1c208448823295b28339f7b05cc9c44f7aed893fd8ce5d67db67"
+        }
+      ]
+    },
+    {
+      "package": "iterators",
+      "version": "1.0.14",
+      "url": "https://cran.r-project.org/src/contrib/iterators_1.0.14.tar.gz",
+      "bytes": 300266,
+      "sha256": "cef3075a0930e1408c764e4da56bbadd4f7d14315809df8f38dd51f80ccc677b",
+      "license": "Apache License (== 2.0)",
+      "dependency_fields": {
+        "Depends": "R (>= 2.5.0), utils"
+      },
+      "license_notices": []
+    },
+    {
+      "package": "foreach",
+      "version": "1.5.2",
+      "url": "https://cran.r-project.org/src/contrib/foreach_1.5.2.tar.gz",
+      "bytes": 89758,
+      "sha256": "56338d8753f9f68f262cf532fd8a6d0fe25a71a2ff0107f3ce378feb926bafe4",
+      "license": "Apache License (== 2.0)",
+      "dependency_fields": {
+        "Depends": "R (>= 2.5.0)",
+        "Imports": "codetools, utils, iterators"
+      },
+      "license_notices": []
+    },
+    {
+      "package": "shape",
+      "version": "1.4.6.1",
+      "url": "https://cran.r-project.org/src/contrib/shape_1.4.6.1.tar.gz",
+      "bytes": 646412,
+      "sha256": "43f9bd0f997fd6cf1838efd8b2509c9a6396513f4e54a20360481634affd22a4",
+      "license": "GPL (>= 3)",
+      "dependency_fields": {
+        "Depends": "R (>= 2.01)",
+        "Imports": "stats, graphics, grDevices"
+      },
+      "license_notices": []
+    },
+    {
+      "package": "data.table",
+      "version": "1.17.0",
+      "url": "https://cran.r-project.org/src/contrib/Archive/data.table/data.table_1.17.0.tar.gz",
+      "bytes": 5833671,
+      "sha256": "82a7dd54fa583c20895b2d28fe07922f8f8aeb0ffbd94d1c143e79983bb9bcea",
+      "license": "MPL-2.0 | file LICENSE",
+      "dependency_fields": {
+        "Depends": "R (>= 3.3.0)",
+        "Imports": "methods"
+      },
+      "license_notices": [
+        {
+          "path": "data.table/LICENSE",
+          "bytes": 16726,
+          "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85"
+        }
+      ]
+    },
+    {
+      "package": "jsonlite",
+      "version": "1.9.1",
+      "url": "https://cran.r-project.org/src/contrib/Archive/jsonlite/jsonlite_1.9.1.tar.gz",
+      "bytes": 1055503,
+      "sha256": "a7c204449a1432b845628b3e408492a3345a4fdbc1a9aba962a96a22ae0ade2e",
+      "license": "MIT + file LICENSE",
+      "dependency_fields": {
+        "Depends": "methods"
+      },
+      "license_notices": [
+        {
+          "path": "jsonlite/LICENSE",
+          "bytes": 41,
+          "sha256": "008725198f645358cbb93366529f71300cdc33586bbd0f071e5879a16bacbdb1"
+        }
+      ]
+    },
+    {
+      "package": "glmnet",
+      "version": "4.1-8",
+      "url": "https://cran.r-project.org/src/contrib/Archive/glmnet/glmnet_4.1-8.tar.gz",
+      "bytes": 2439515,
+      "sha256": "1ddbe5ce07076d1bdf58b0202ebd0ceac8eeb4796c5175681adb9e58c30ddcfe",
+      "license": "GPL-2",
+      "dependency_fields": {
+        "Depends": "R (>= 3.6.0), Matrix (>= 1.0-6)",
+        "Imports": "methods, utils, foreach, shape, survival, Rcpp",
+        "LinkingTo": "RcppEigen, Rcpp"
+      },
+      "license_notices": []
+    },
+    {
+      "package": "randomForest",
+      "version": "4.7-1.2",
+      "url": "https://cran.r-project.org/src/contrib/randomForest_4.7-1.2.tar.gz",
+      "bytes": 81974,
+      "sha256": "aad33227b648bad50412849d7e0fed00fd07f1d1d4a14fa015b4b9f939b04a11",
+      "license": "GPL (>= 2)",
+      "dependency_fields": {
+        "Depends": "R (>= 4.1.0), stats"
+      },
+      "license_notices": [
+        {
+          "path": "randomForest/COPYING",
+          "bytes": 18009,
+          "sha256": "204d8eff92f95aac4df6c8122bc1505f468f3a901e5a4cc08940e0ede1938994"
+        }
+      ]
+    },
+    {
+      "package": "xgboost",
+      "version": "1.7.8.1",
+      "url": "https://cran.r-project.org/src/contrib/Archive/xgboost/xgboost_1.7.8.1.tar.gz",
+      "bytes": 1086388,
+      "sha256": "394d6fd00b2fe97549c7a7e6598df86448cdfbd7c0af45b0c17f7b9e81bc1be9",
+      "license": "Apache License (== 2.0) | file LICENSE",
+      "dependency_fields": {
+        "Depends": "R (>= 3.3.0)",
+        "Imports": "Matrix (>= 1.1-0), methods, data.table (>= 1.9.6), jsonlite (>= 1.0),"
+      },
+      "license_notices": [
+        {
+          "path": "xgboost/LICENSE",
+          "bytes": 11349,
+          "sha256": "b96f9cead5f4ea4c0a217bd9d879427443a353598fb72694f2d8c4428b53a6af"
+        }
+      ]
+    }
+  ],
+  "base_dependencies": {
+    "Matrix": "1.7-2",
+    "survival": "3.8-3",
+    "lattice": "0.22-6",
+    "codetools": "0.2-20"
+  },
+  "notes": [
+    "Base/recommended packages, OS and compiler binaries are pinned by the base image digest.",
+    "The complete installed-package inventory and toolchain are captured separately in the executed runtime record.",
+    "Package source archives and license notices are not redistributed by this repository. Preserve their notices if distributing a built runtime.",
+    "RcppEigen carries GPL integration and separately licensed bundled Eigen code; see its pinned LICENSE and COPYRIGHTS notices.",
+    "Inputs are pinned; byte-identical rebuilt images or cross-platform numerical identity are not asserted."
+  ]
+}

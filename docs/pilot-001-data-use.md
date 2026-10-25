@@ -204,7 +204,8 @@ metadata; it is not a newly discovered independent workbook license.
 
 The remaining execution condition is now specific: verify that the actual
 jurisdiction, host and applicable review/privacy context support the selected
-conditional research-use basis and the noncommercial scope. The next
-independent technical work can implement and test the
-[fixed reconstruction choices](../protocols/pilot-001-reconstruction-decisions.md)
-on abstract fixtures while those conditions remain open.
+conditional research-use basis and the noncommercial scope. The subsequent
+[synthetic validation](pilot-001-synthetic-validation.md) implements and tests the
+fixed reconstruction choices with original code and public software packages.
+It resolves the software-build step, including dependency/license inspection,
+without ingesting study values or closing these execution-context conditions.

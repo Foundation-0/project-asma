@@ -1,0 +1,11 @@
+FROM rocker/r-ver@sha256:3dae5d2eeddf74f10e0a81fb6b7ae350295e288000304f438b844b2c1e00fe2c
+
+# Package archives are supplied by the hash-checking builder. No network is
+# needed during installation; no study data or author analysis code is included.
+ENV OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+    VECLIB_MAXIMUM_THREADS=1 RCPP_PARALLEL_NUM_THREADS=1 MAKEFLAGS=-j2
+COPY packages/ /tmp/asma-packages/
+COPY install.R /tmp/asma-install.R
+RUN Rscript --vanilla /tmp/asma-install.R && rm -rf /tmp/asma-packages /tmp/asma-install.R
+WORKDIR /work
+CMD ["Rscript", "--vanilla", "tools/run_synthetic_pipeline.R", "--tests"]

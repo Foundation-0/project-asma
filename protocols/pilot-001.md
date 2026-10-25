@@ -1,7 +1,7 @@
 # Pilot 001: reproduce a primary platinum-refractoriness protein signature
 
 **Status:** full model reproduction proposed; input/linkage and preliminary
-published-score checks executed. **Version:** 0.7, 2026-10-25.
+published-score checks executed. **Version:** 0.8.
 **Scope:** research reproduction and robustness, not a novel classifier or new
 clinical validation. No treatment recommendations or patient-facing output.
 
@@ -53,8 +53,10 @@ the executed score check or treat internal checks as external scientific review.
 The [2026-10-25 decision record](pilot-001-reconstruction-decisions.md) now fixes
 a new reconstruction's methods and direct runtime target; the
 [data-use disposition](../docs/pilot-001-data-use.md) selects independent
-noncommercial research and lists the remaining conditions. No model fitting
-has started.
+noncommercial research and lists the remaining conditions. An original
+implementation has since passed [synthetic validation](../docs/pilot-001-synthetic-validation.md),
+including the full repeated-model pipeline. No model fitting on study values
+has started; the frozen decision record remains unchanged.
 
 ## Inputs and access gate
 
@@ -98,8 +100,11 @@ until it has been reviewed.
 2. **Reproducible environment.** Pin R and package versions from an inspected
    dependency inventory, author commit, seeds, and execution commands. Record OS,
    session information, CPU/memory/time and all deviations. Direct source releases
-   are now selected, but no installed or tested dependency lock is supplied. Use a small input smoke check after access approval, before
-   full execution. This scaffold itself needs only Python's standard library.
+   and transitive dependencies now have a tested synthetic runtime with a pinned
+   base image and installed inventory. This does not verify real input parsing
+   or execution conditions. Use a small input smoke check after those conditions
+   are satisfied, before full study-data execution. The offline scaffold checks
+   need only Python's standard library.
 3. **Faithful reproduction.** Implement the documented analysis as a distinct
    reproduction track, recording any upstream preprocessing shared across folds
    or cohorts. Recompute one ROC/AUC and its denominator from predictions; retain
