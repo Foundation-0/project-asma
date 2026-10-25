@@ -1,0 +1,87 @@
+{
+  "archive": {
+    "bytes": 70138965,
+    "bytes_fetched": 69770,
+    "central_directory": {
+      "bytes": 5694,
+      "entries": 42,
+      "offset": 70133249,
+      "sha256": "5dd3db7c674ab2952a148af474da6604c1daf88a4e2cf2ff45d939f7530ae5a0"
+    },
+    "full_archive_checksum_verified": false,
+    "url": "https://www.dropbox.com/s/7zul3j1vyrxo40c/processed_data.zip?e=1&dl=1"
+  },
+  "elapsed_seconds": 10.768110731999514,
+  "finished_at_utc": "2026-10-23T17:13:37.427304+00:00",
+  "implementation_sha256": {
+    "audit_author_archive.py": "adfda21bafb0536a43d3ab034aabbe6f1f73b46682bc12147972b7784a58f444",
+    "audit_matrix_headers.py": "c33206dbe7099dd46d468466b2f3b92b4b682cf3e4135d29ed0e732e3c0e501a",
+    "audit_published_cohorts.py": "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
+  },
+  "limitations": [
+    "Only the ZIP directory and first matrix line were verified; CRC and whole-file content integrity remain unverified.",
+    "Exact header linkage establishes available column labels, not matrix values, protein coverage, preprocessing or model equivalence.",
+    "Repeated measurement columns remain distinct; no replicate averaging or matrix reconstruction was performed.",
+    "Published score membership is checked without reading numeric scores; source score provenance and patient independence remain unresolved.",
+    "Public availability does not by itself establish reuse rights, approved retention or authority to execute third-party code.",
+    "No abundance values, patient/sample keys, workbooks or raw headers are emitted or retained; only aggregate results are output."
+  ],
+  "linkage": {
+    "all_response_labelled_rows_mapped": true,
+    "clinical_NA_rows": 63,
+    "clinical_rows": 231,
+    "clinical_rows_without_linkable_label": 0,
+    "duplicate_linkable_clinical_labels": 0,
+    "duplicate_matrix_headers": 0,
+    "exact_label_matches": 168,
+    "header_bytes": 4433,
+    "header_sha256": "e39ef0ffaafaa92ca6dd7351ed578856be22f4e03b2cf26111106790bd7521c9",
+    "matched_clinical_NA_rows": 0,
+    "matched_response_labelled_rows": 168,
+    "matched_unique_patient_keys": 158,
+    "matched_unique_sample_keys": 158,
+    "matrix_columns_without_exact_clinical_label": 10,
+    "matrix_header_columns": 178,
+    "published_score_keys_matching_header": 135,
+    "published_score_membership_equals_reconstructed_exclusions": true,
+    "published_score_patient_keys_mapped": 135,
+    "published_score_rows": 135,
+    "published_score_sample_keys_mapped": 135,
+    "response_labelled_clinical_rows": 168,
+    "unmatched_linkable_clinical_labels": 63,
+    "unmatched_response_labelled_rows": 0
+  },
+  "member": {
+    "basename": "FFPE_discovery_globalprotein_imputed.tsv",
+    "compressed_bytes": 7993706,
+    "compressed_header_bytes_fetched": 4096,
+    "crc32": 2674997073,
+    "crc32_hex": "9f713751",
+    "flags": 8,
+    "full_member_checksum_verified": false,
+    "full_member_crc_verified": false,
+    "full_member_downloaded": false,
+    "local_offset": 40809592,
+    "method": 8,
+    "uncompressed_bytes": 18498831
+  },
+  "schema_version": 1,
+  "scope": "Public author ZIP central directory and discovery header; exact clinical and score-membership joins only",
+  "source_workbooks": {
+    "clinical": {
+      "bytes": 41194360,
+      "filename": "NIHMS1918576-supplement-MMC1.xlsx",
+      "md5": "0255243711b1af3a3fab503d9abc725b",
+      "sha256": "6e46fa0cb3023173a3643e95ce0360c44cfabb0ed737e9a05f70473dad552340",
+      "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC1.xlsx"
+    },
+    "panel_and_scores": {
+      "bytes": 591065,
+      "filename": "NIHMS1918576-supplement-MMC4.xlsx",
+      "md5": "7ea4df8e1008cd19aa67442fe6ea3556",
+      "sha256": "f318ed9d2fac341097a8b1be3e034753f6d427bdeeb0cd2b92eb715cadadb6ab",
+      "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC4.xlsx"
+    }
+  },
+  "started_at_utc": "2026-10-23T17:13:26.659199+00:00"
+}

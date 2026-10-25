@@ -1,5 +1,11 @@
 # Pilot 001: input discovery and linkage resolution
 
+Follow-up: the [independent investigation](pilot-001-independent-progress.md)
+recovers an author imputed discovery matrix with exact clinical/score-key header
+matches, tests the raw PDC naming gap and documents a concrete S3 legend mismatch.
+The observations below preserve the initial input investigation, including the
+earlier incomplete interpretation of the Dropbox archive's contents.
+
 **Checked:** 2026-10-23. **Evidence class:** executed public-metadata and source
 checks; no model fitting or reproduced performance result. This follows the
 [static feasibility audit](pilot-001-feasibility-audit.md) and records what is

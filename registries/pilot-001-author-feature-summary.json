@@ -1,0 +1,91 @@
+{
+  "archive": {
+    "bytes": 70138965,
+    "bytes_fetched": 8124937,
+    "central_directory": {
+      "bytes": 5694,
+      "entries": 42,
+      "offset": 70133249,
+      "sha256": "5dd3db7c674ab2952a148af474da6604c1daf88a4e2cf2ff45d939f7530ae5a0"
+    },
+    "url": "https://www.dropbox.com/s/7zul3j1vyrxo40c/processed_data.zip?e=1&dl=1",
+    "whole_archive_checksum_verified": false
+  },
+  "elapsed_seconds": 9.689439515999766,
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+    "python": "3.12.14"
+  },
+  "features": {
+    "abundance_values_converted_or_used": false,
+    "all_panel_symbols_have_one_exact_row": true,
+    "annotation_fields": [
+      "uniprot",
+      "HGNC symbol",
+      "HGNC name",
+      "HGNC Location",
+      "Index",
+      "NumberPeptide",
+      "NumberPSM",
+      "Proteins",
+      "MaxPepProb"
+    ],
+    "duplicate_annotation_rows_beyond_first": 0,
+    "empty_symbol_rows": 0,
+    "feature_rows": 8800,
+    "matrix_columns": 178,
+    "nonempty_accessions_repeated_across_rows": 0,
+    "nonempty_distinct_symbols": 8800,
+    "nonempty_indices_repeated_across_rows": 0,
+    "panel_matching_rows": 64,
+    "panel_matching_rows_with_delimiter_markers_in_protein_annotations": 64,
+    "panel_symbols": 64,
+    "panel_symbols_absent": 0,
+    "panel_symbols_with_multiple_exact_rows": 0,
+    "panel_symbols_with_one_exact_row": 64,
+    "symbol_rows_with_delimiter_markers": 0,
+    "symbol_rows_with_outer_whitespace": 0,
+    "symbols_repeated_across_rows": 0
+  },
+  "finished_at_utc": "2026-10-23T17:39:10.961854+00:00",
+  "implementation_sha256": {
+    "audit_author_archive.py": "adfda21bafb0536a43d3ab034aabbe6f1f73b46682bc12147972b7784a58f444",
+    "audit_author_features.py": "7de1a42e698f629711d6a455e747a43f48c94dd5b82f11967176d11eb06b7aee",
+    "audit_published_cohorts.py": "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
+  },
+  "integrity": {
+    "compressed_bytes": 7993706,
+    "compressed_sha256": "38268f2c80a50562c7d102446136c71ab5e6e20a283813598610f148095a79c6",
+    "crc32_hex": "9f713751",
+    "crc32_matches_pinned_directory": true,
+    "deflate_stream_complete": true,
+    "header_sha256": "e39ef0ffaafaa92ca6dd7351ed578856be22f4e03b2cf26111106790bd7521c9",
+    "sha256": "b7eea435bb7fa65f31a6e8f50d977ff046f0f9bd851126e43cf9a5f52e62be62",
+    "sha256_is_new_observation_not_publisher_reference": true,
+    "uncompressed_bytes": 18498831
+  },
+  "limitations": [
+    "The full compressed member was transferred and decompressed in memory; abundance fields were discarded without numeric conversion or analysis.",
+    "No matrix, measurement keys, abundance rows, annotations or row-level outputs are written; only aggregate counts and fingerprints are emitted.",
+    "CRC verifies agreement with the pinned ZIP metadata; observed SHA-256 is not an independent publisher checksum.",
+    "Whole-archive integrity, preprocessing history, replicate collapse, model-workspace equivalence and general reuse rights remain unestablished.",
+    "Exact HGNC symbol equality does not resolve protein groups, isoforms, alias mappings or biological specificity; delimiter counts are diagnostics only.",
+    "Duplicate annotation rows do not establish duplicate abundance rows; no measurement fields are compared."
+  ],
+  "member_basename": "FFPE_discovery_globalprotein_imputed.tsv",
+  "panel": {
+    "canonical_sha256": "77329920b86dacaffc6778ed7e7c6b827683beed1aad7f2229b8bafe2f535144",
+    "range": "A2:A65",
+    "sheet": "64_protein_predictors",
+    "source": {
+      "bytes": 591065,
+      "filename": "NIHMS1918576-supplement-MMC4.xlsx",
+      "md5": "7ea4df8e1008cd19aa67442fe6ea3556",
+      "sha256": "f318ed9d2fac341097a8b1be3e034753f6d427bdeeb0cd2b92eb715cadadb6ab",
+      "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC4.xlsx"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Complete member integrity and exact protein annotation coverage; no abundance analysis",
+  "started_at_utc": "2026-10-23T17:39:01.272424+00:00"
+}
