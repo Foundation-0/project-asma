@@ -105,7 +105,7 @@
     <div class="wrap">
       <div class="sec-head"><p class="sec-label"><b>01</b><i>//</i>What has been checked</p><span class="chip">status on main · 2026-10-25</span></div>
       <h2 class="h2" id="checked-h">Audits are on main. No result is reproduced.</h2>
-      <p class="lede">Status on 25 October 2026, counting only work merged into the main branch. Each audit works in memory on public files and keeps only counts and fingerprints. No patient records, scores or linkage tables are stored in the repository.</p>
+      <p class="lede">Status on 25 October 2026, counting only work merged into the main branch. These are internal checks. None has had external scientific review, so every audit result below is preliminary. Each audit works in memory on public files and keeps only counts and fingerprints. No patient records, scores or linkage tables are stored in the repository.</p>
       <ul class="ledger">
         <li>
           <div class="ledger-main"><h3>Research scaffold and pilot protocol</h3>
@@ -114,8 +114,8 @@
         </li>
         <li>
           <div class="ledger-main"><h3>Feasibility and patient-linkage audit</h3>
-          <p>Recovers the 64-protein panel from the published supplements and rebuilds the score cohorts: 135 discovery, 61 frozen, 20 FFPE. Records a discrepancy: six patient keys in the frozen sheet labelled non-overlapping also occur in the discovery score set. What that does to the reported performance is unknown.</p></div>
-          <span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #2</span>
+          <p>Recovers the 64-protein panel from the published supplements and rebuilds the score cohorts: 135 discovery, 61 frozen, 20 FFPE. It also checks patient membership between the frozen sheet labelled non-overlapping and the discovery score set. That result awaits external scientific review, so this page does not report it.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #2</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
         </li>
         <li>
           <div class="ledger-main"><h3>Published-score check</h3>
@@ -125,7 +125,7 @@
         <li>
           <div class="ledger-main"><h3>Discovery input linkage</h3>
           <p>Links the author-released discovery matrix to the clinical records by exact name match: all 168 response-labelled rows and all 135 score keys are present as columns, the file's integrity check passes, and each of the 64 panel proteins occurs exactly once among 8,800 feature rows.</p></div>
-          <span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #4</span>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #4</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
         </li>
         <li>
           <div class="ledger-main"><h3>Model reproduction</h3>
@@ -172,7 +172,7 @@
         <p><strong>Aggregates only.</strong> Audits read public files in memory and publish counts, hashes and provenance. Patient-level records, scores and linkage maps never enter the repository.</p>
         <p><strong>Labels before numbers.</strong> Anything not independently verified is labelled as such, in the registries and on this page. A reproduced number and a printed reference value are never presented as the same kind of fact.</p>
         <p><strong>Fixed before run.</strong> Numerical checks are specified, with their tolerance, before they are executed. A disappointing result is recorded unchanged, not tuned away.</p>
-        <p><strong>Offline checks.</strong> <span class="mono">python3 tools/validate.py</span> and <span class="mono">python3 -m unittest discover -s tests</span> run on the Python standard library without network access. They check the repository's records and test the audit code on small made-up inputs. They do not rerun any audit or the published-score check, and passing them is not a scientific reproduction. The audits read public study files over the network and run only on the owner's explicit instruction. A model refit would also need its own locked, pinned environment.</p>
+        <p><strong>Offline checks.</strong> <span class="mono">python3 tools/validate.py</span> and <span class="mono">python3 -m unittest discover -s tests</span> run on the Python standard library without network access. They check the repository's records and test the audit code on small made-up inputs. They do not rerun any audit or the published-score check, and passing them is not a scientific reproduction. Separate network commands, listed in the <a href="https://github.com/Foundation-0/project-asma/blob/main/README.md#check-the-scaffold">README</a>, rerun the audits in memory and print aggregates only. They are not part of the offline checks. The published-score check ran under a recorded instruction, described in its <a href="https://github.com/Foundation-0/project-asma/blob/main/protocols/pilot-001-score-verification.md#execution-instruction-and-pending-external-review">protocol</a>. A model refit would also need its own locked, pinned environment.</p>
       </div>
       <div class="cta">
         <a class="btn primary" href="https://github.com/Foundation-0/project-asma">Open the repository <span class="arr" aria-hidden="true">&rarr;</span></a>

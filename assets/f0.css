@@ -135,6 +135,8 @@ button { font: inherit; color: inherit; }
 @media (max-width: 1140px) { .nav { display: none; } .menu { display: block; } .tools { margin-left: auto; } }
 @media (max-width: 760px) { .tbtn { height: 44px; min-width: 44px; } .tbtn .t-txt { display: none; } .site-head { height: 60px; } }
 @media (max-width: 380px) { .brand { letter-spacing: .16em; font-size: 13px; } .site-head .wrap { gap: 10px; } }
+/* 320px reflow: brand, two toggles and the menu button must fit 288px without scrolling sideways */
+@media (max-width: 340px) { .brand { gap: 8px; letter-spacing: .08em; font-size: 12px; } .site-head .wrap { gap: 8px; } .tools { gap: 4px; } }
 
 /* ---------- 4. Section scaffolding ---------- */
 .sec { padding-block: var(--sec-pad); border-top: 1px solid var(--line); position: relative; }
