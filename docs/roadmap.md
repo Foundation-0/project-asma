@@ -1,6 +1,6 @@
 # Roadmap
 
-Status: updated 2026-10-23. The scaffold,
+Status: updated 2026-10-25. The scaffold,
 [static feasibility audit](pilot-001-feasibility-audit.md), and
 [public input/linkage investigation](pilot-001-input-resolution.md) are completed.
 Executed metadata checks advance Gates 0–1; they do not close the remaining
@@ -28,15 +28,40 @@ Score export and corrected legend provenance also remain unresolved.
 
 The [public-input reconstruction contract](../protocols/pilot-001-independent-reconstruction.md)
 defines a prospective reconstruction target and its remaining requirements.
-The next independent step is an explicit reconstruction decision record using
-the [located preprocessing steps](pilot-001-preprocessing-provenance.md): fix
-feature interpretation, sample-key averaging, ordering, fit scope and replacements
-for missing helper/environment objects. The source review found an outlier
-threshold discrepancy and object-name mismatches; preserve them as unresolved
-history. Satisfy remaining data-use conditions before abundance analysis, and
-freeze an implementation before fitting. Source investigation does not
-require contacting researchers. The screened 2025 result remains a separate
-fallback; no replacement target has been adopted.
+The [reconstruction decision record](pilot-001-reconstruction-decisions.md)
+(2026-10-25) completes the step it called for: decisions D1–D12 fix the cohort,
+input columns, feature interpretation and order, replicate collapse, labels,
+the replacement for the absent fold helper, model settings, aggregation and
+metric, preprocessing fit scope, environment, stop rules and outputs, each
+separated from the unresolved history it cannot recover. The conventions that
+need no data are implemented and tested offline in
+`tools/reconstruction_contracts.py`. A metadata-only listing of the pinned
+archive directory also located a batch-corrected discovery member before
+imputation, the candidate input for a leakage-controlled track. The source
+review's outlier threshold discrepancy and object-name mismatches remain
+unresolved history. No abundance value was read and nothing was fitted.
+
+Before fitting, the remaining steps are: the owner's decision below on the
+archive reuse basis; a bounded header and integrity audit of the batch-corrected
+member; a separate imputation contract for the leakage-controlled track; a
+pinned R environment; and the freeze recorded with the contract command. Source
+investigation does not require contacting researchers. The screened 2025
+result remains a separate fallback; no replacement target has been adopted.
+
+## Decisions requested from the owner
+
+1. **Archive reuse basis.** The article's data-availability statement (S27)
+   offers the processed data publicly, but no archive-specific reuse grant was
+   found. Decide whether transient, in-memory analysis of the two discovery
+   global-protein members (imputed; batch-corrected before imputation) may
+   proceed on that statement with CPTAC/PTRC attribution, no row-level
+   retention in Git and private storage per the data rules, or whether author
+   confirmation is required first. Author contact is blocked by the outreach
+   hold, so the second option pauses Gate 2 until the hold is lifted.
+2. **Execution environment.** Approve an R environment with pinned package
+   versions for the private run, recorded as a new environment; no model code
+   is committed before one exists.
+3. **Repository license.** Unchanged and still open.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |

@@ -92,10 +92,10 @@
       "url": "https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response",
       "verification": "code_inspected",
       "reviewed_via": "https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/tree/48357fd63ccbfe3954f38c8efc558b4f88bd6051",
-      "locator": "Pinned current main; all 42 R/r/Rmd files; 69 reachable upstream commits and 66 distinct complete trees; three public forks; issue #1 and PR #3; Figure_3D_part3.R lines 105-127 and 154-175; preprocessing.R lines 3-22; preprocessing.R 51-165, 263-328; preprocess_markdown.Rmd 42-142",
+      "locator": "Pinned current main; all 42 R/r/Rmd files; 69 reachable upstream commits and 66 distinct complete trees; three public forks; issue #1 and PR #3; Figure_3D_part3.R lines 105-127 and 154-175; preprocessing.R lines 3-22; preprocessing.R 51-165, 263-328; preprocess_markdown.Rmd 42-142; re-fetched 2026-10-25 for the reconstruction decision record: Figure_3D_part3.R 23-27, 51-81, 105-127 and preprocessing.R 295-328 (SHA-256 of the four pinned files recorded in docs/pilot-001-reconstruction-decisions.md)",
       "takeaway": "Pinned commit 48357fd63ccbfe3954f38c8efc558b4f88bd6051: named pilot inputs/helper absent from its tree; static audit identifies unresolved cohort/object ownership, importance reduction, coefficient indexing, and metric provenance. Repeated-CV discovery scores feed roc.all1, but no score export connects them to the supplement. Column renaming depends on an absent annotation table with an earlier data-label field. Preprocessing review locates label-dependent filtering, temporary KNN/ComBat/missingness restoration, DreamAI and a commented after-imputation replicate-averaging example.",
       "limitations": "Read-only static search; no author code executed or redistributed. Missing helper/panel/input workspaces not found in inspected current/history/fork trees or indexed searches; this does not establish global unavailability. Reconstruction remains blocked by source files, transformations, label coding, and corrected supplements. See docs/pilot-001-input-resolution.md. The inspected 42 analysis files contain no supplement score-sheet names or Pred.scores references. The absence of a mapping does not identify the cause of the supplied-score AUROC discrepancy. See docs/pilot-001-independent-progress.md. Paper/code outlier thresholds differ (10^-7 versus 10^-10); object-name mismatches and absent archive/workspace export links prevent establishing executed transformation history. See docs/pilot-001-preprocessing-provenance.md.",
-      "checked_on": "2026-10-23"
+      "checked_on": "2026-10-25"
     },
     {
       "id": "S09",
@@ -200,10 +200,22 @@
       "url": "https://www.dropbox.com/s/7zul3j1vyrxo40c/processed_data.zip?e=1&dl=1",
       "verification": "metadata_reviewed",
       "reviewed_via": "https://github.com/csabaiBio/HGSOC_platinum_response/blob/962aaa8aa855ae9dfa50a27dd69baa9b0e7e45d7/README.md",
-      "locator": "ZIP central directory; complete FFPE_discovery_globalprotein_imputed.tsv member integrity and feature annotations; ReadMe_PTRC_data.docx; article XML S27 public-data availability",
-      "takeaway": "Recovered discovery header exactly covers 168 response-labelled measurement rows, 158 unique sample/patient keys and all 135 published score keys. Complete member CRC matches pinned ZIP metadata; newly observed SHA256 b7eea435bb7fa65f31a6e8f50d977ff046f0f9bd851126e43cf9a5f52e62be62. All 64 panel symbols occur exactly once among 8800 feature rows.",
+      "locator": "ZIP central directory; complete FFPE_discovery_globalprotein_imputed.tsv member integrity and feature annotations; ReadMe_PTRC_data.docx; article XML S27 public-data availability; metadata-only central-directory listing 2026-10-25 (42 entries; pinned directory SHA-256 matched) including FFPE_discovery_globalprotein_batchcorrected_before_imputation.tsv, CRC32 54a640b6, 7581063/17717677 bytes",
+      "takeaway": "Recovered discovery header exactly covers 168 response-labelled measurement rows, 158 unique sample/patient keys and all 135 published score keys. Complete member CRC matches pinned ZIP metadata; newly observed SHA256 b7eea435bb7fa65f31a6e8f50d977ff046f0f9bd851126e43cf9a5f52e62be62. All 64 panel symbols occur exactly once among 8800 feature rows. The archive also holds batch-corrected-before-imputation global-protein members for all three cohorts; the discovery one is the candidate leakage-controlled-track input, known from its directory entry only.",
       "limitations": "Bounded in-memory source inspection under the explicit next-step instruction and author public-download statement, not an archive license grant. Full member decompressed for CRC/hash and annotations; abundance fields discarded without numeric conversion, analysis or retention. Whole archive not hashed; SHA256 is newly observed rather than checked against an independent publisher reference. Exact symbol coverage does not establish biological specificity, original-workspace equivalence or transformation history. Later reuse terms remain unverified; do not inherit PDC or Figshare licensing. See docs/pilot-001-independent-progress.md and docs/pilot-001-preprocessing-provenance.md.",
-      "checked_on": "2026-10-23"
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S18",
+      "title": "CRAN package pamr 1.57: balanced.folds source",
+      "kind": "code",
+      "url": "https://cran.r-project.org/package=pamr",
+      "verification": "code_inspected",
+      "reviewed_via": "https://cran.r-project.org/src/contrib/pamr_1.57.tar.gz",
+      "locator": "pamr/R/balanced.folds.R lines 1-30; pamr/R/permute.rows.R; DESCRIPTION (version 1.57, GPL-2, published 2024-07-01); tarball SHA-256 01968f7620f1a5e4be1ce666f7ff52211b9dcf6cf5948112c7441aabae56af3d, 528934 bytes",
+      "takeaway": "A public function with the same base name as the absent author helper balanced.folds.vec: it splits indices by class, shuffles each class with sample, reshapes into folds and returns a list of index vectors. It supports the class-stratified, size-balanced convention declared in reconstruction decision D6.",
+      "limitations": "Read only; not executed or copied. The author .vec variant is unavailable, so equivalence is not established; R's sample changed in R 3.6.0, so even identical code would not reproduce original folds without the original R version. GPL-2 terms apply to pamr code; none is reused here.",
+      "checked_on": "2026-10-25"
     }
   ]
 }

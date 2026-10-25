@@ -1,7 +1,7 @@
 # Registries
 
 - [sources.json](sources.json): dated primary-source metadata, claim locators,
-  takeaways, verification route, and limits. S01–S17 are stable local IDs.
+  takeaways, verification route, and limits. S01–S18 are stable local IDs.
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,

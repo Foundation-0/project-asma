@@ -1,5 +1,10 @@
 # Pilot 001: independent source and reconstruction progress
 
+Follow-up: the [reconstruction decision record](pilot-001-reconstruction-decisions.md)
+(2026-10-25) fixes the declared choices requested at the end of this report and
+lists the archive's batch-corrected discovery member before imputation. The
+observations below are preserved as of 2026-10-23.
+
 **Checked:** 2026-10-23. **Evidence class:** public-source inspection and
 in-memory metadata diagnostics. External outreach remains on hold. These checks
 do not replace scientific review or complete model reproduction.

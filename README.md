@@ -21,6 +21,7 @@ clinical validity, or improved patient outcomes.
 | [Independent progress](docs/pilot-001-independent-progress.md) | Matrix-header diagnostic, score lineage and concrete supplement-legend mismatch |
 | [Preprocessing provenance](docs/pilot-001-preprocessing-provenance.md) | Located transformations, replicate-averaging example and unresolved execution history |
 | [Public-input reconstruction contract](protocols/pilot-001-independent-reconstruction.md) | Prospective discovery-only requirements and stop rules |
+| [Reconstruction decision record](docs/pilot-001-reconstruction-decisions.md) | Declared choices D1–D12, archive directory listing and open gates |
 | [Roadmap](docs/roadmap.md) | Small milestones and decision gates |
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
@@ -63,6 +64,18 @@ A content mismatch also makes the available Figure S3 legend unsuitable for
 authoritative panel assignments. The [progress report](docs/pilot-001-independent-progress.md)
 records the recovered input, these limitations and the reconstruction path.
 
+On **2026-10-25** the [reconstruction decision record](docs/pilot-001-reconstruction-decisions.md)
+turned the located source instructions into explicit choices: cohort and
+columns, exact feature matching and order, replicate collapse by explicit
+sample key, refractory-positive labels, a declared replacement for the absent
+fold helper, the cross-validation model settings, strict two-stage averaging,
+the AUROC definition, preprocessing fit scope, environment and stop rules. The
+conventions that need no data are implemented and tested offline. A
+metadata-only listing of the pinned archive directory also found a
+batch-corrected discovery member before imputation, the candidate input for a
+leakage-controlled track. No abundance value was read and nothing was fitted;
+the owner's decision on the archive reuse basis is requested in the roadmap.
+
 The scope starts with HGSOC. Primary refractory disease (failure of initial
 therapy) must be distinguished from later platinum-resistant recurrence. Other
 histotypes require their own questions, labels, and study designs.
@@ -93,13 +106,19 @@ header linkage using bounded ZIP ranges and exact clinical/score-key joins.
 `python3 tools/audit_author_features.py` checks the complete selected member
 in memory for CRC, hashes and exact panel coverage under the documented bounded
 inspection scope; it emits no source rows or abundance values.
+`python3 tools/reconstruction_contracts.py` is offline: it prints the declared
+reconstruction conventions with document and implementation hashes, and its
+module holds the tested fold, ordering, collapse, coverage and averaging rules.
 
 ## Decisions still needed
 
 The owner must choose repository licensing; **no license grant is supplied**.
 Third-party code and data retain their own terms. Before ingestion or execution,
 review access and reuse terms, pin corrected supplemental materials, resolve
-patient overlap, and assess computational requirements. Clinical interpretation
-and later validation will require domain review; recruiting reviewers is deferred.
+patient overlap, and assess computational requirements. The
+[roadmap](docs/roadmap.md) now lists the specific owner decisions that gate
+fitting: the archive reuse basis, the execution environment and the license.
+Clinical interpretation and later validation will require domain review;
+recruiting reviewers is deferred.
 Public-source investigation can continue independently under the
 [roadmap](docs/roadmap.md) and [reconstruction contract](protocols/pilot-001-independent-reconstruction.md).

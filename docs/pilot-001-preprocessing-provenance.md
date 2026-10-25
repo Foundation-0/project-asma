@@ -1,5 +1,10 @@
 # Pilot 001: preprocessing provenance
 
+Follow-up: the [reconstruction decision record](pilot-001-reconstruction-decisions.md)
+(2026-10-25) declares the replacement choices for the gaps recorded below
+without resolving the historical discrepancies. The observations below are
+preserved as of 2026-10-23.
+
 **Checked:** 2026-10-23. **Evidence class:** read-only source inspection.
 The recovered discovery matrix has a candidate patient-label bridge; its exact
 generation and conversion into the prediction workspaces remain unverified.
