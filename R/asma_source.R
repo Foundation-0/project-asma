@@ -19,7 +19,9 @@ decode_source_payload <- function(text) {
                    nchar(text, type = "bytes") > 0L &&
                    nchar(text, type = "bytes") <= 4L * 1024L * 1024L,
                  "source_payload_size")
-    payload <- jsonlite::fromJSON(text, simplifyVector = FALSE)
+    # parse_json only parses text; fromJSON would read a short string naming a
+    # file or URL from disk or the network.
+    payload <- jsonlite::parse_json(text, simplifyVector = FALSE)
     asma_require(source_fields(payload, c("schema_version", "measurements",
                    "clinical", "panel", "published_keys", "provenance")) &&
                    identical(payload$schema_version, 1L), "source_payload_schema")

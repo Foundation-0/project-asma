@@ -71,7 +71,10 @@ scores and AUROC values are not retained or compared with the paper.
 All **138 Python tests** passed, including 19 adapter/acquisition tests, 12
 execution-probe tests, four runner-boundary tests and nine runtime-builder tests.
 Acquisition tests mock every network dependency. The existing [100-repeat synthetic result](pilot-001-synthetic-validation.md)
-remains separate and unchanged. Independent code review found no blocking issue. This establishes source-format behavior on fixtures;
+remains separate and unchanged. An independent review of
+[PR #12](https://github.com/Foundation-0/project-asma/pull/12) (2026-10-25, at
+commit `ef1f522`) approved it with no blocking issues; its non-blocking items are
+addressed in the addition below. This establishes source-format behavior on fixtures;
 compatibility with the actual pinned bytes and current remote availability have
 not been tested by this adapter.
 
@@ -90,11 +93,55 @@ inputs. Required standard-library modules pass build checks; unused optional
 extension modules are listed as unavailable in the runtime record. No pip or
 third-party Python packages are installed, and the image is not redistributed.
 
+The builder prints only the two image IDs and its scope. No committed tool emits
+the runtime record's other fields, and the commands that produced them are not
+committed. Those fields include the `environment` block (with `compiler` and
+`missing_optional_extension_modules`), `r_package_versions` and
+`base_r_inventory_unchanged`. The validation record's `transport` block is
+written as constants by the [worker](../tools/check_source_adapter.py). It
+restates how the runner starts the container; it is not an observation. The probe
+observes the container's network and log driver separately.
+
 The outer launcher handles only software identity and aggregate output. A Python
 worker runs with `-I -B` inside the container, generates/parses fixtures and starts
 R through an internal stdin pipe. User-site initialization and bytecode writes
 are disabled. Parsing, private transfer and fitting now share the same bounded
 container; no fixture payload passes through the outer launcher.
+
+**Addition, 2026-10-25 (after the execution records above).** These changes
+address the non-blocking items of the PR #12 review. The records above predate
+them and must be regenerated in the pinned image.
+
+- **Direct tests for four checks.** New tests reject each of these:
+  - a duplicated matrix symbol while every panel symbol is present;
+  - a swapped panel order;
+  - a biological measurement with no matrix column;
+  - a replicate group of two.
+
+  Removing any of these checks makes its test fail.
+- **No file or URL loading in R.** The bridge decodes with `jsonlite::parse_json`.
+  `fromJSON` reads a short non-JSON string as a file path or URL. A new bridge
+  assertion, giving 19, passes the path of an existing file holding a valid
+  abstract payload and requires rejection. That assertion fails with `fromJSON`.
+- **No exception context.** `SourceAdapterError` is raised after the handler
+  ends, so neither `__cause__` nor `__context__` holds the original exception.
+- **Aggregate failure category.** Each failure carries one fixed `category`
+  naming the stage that failed. The message is unchanged, and no category carries
+  row data, symbols or values. The rejection rules are unchanged, including
+  rejecting any `..` relationship target and requiring gap-free row numbers.
+  The category makes such a failure diagnosable in a real-file check. The
+  fixture worker does not print it.
+
+| Category | Stage that failed |
+| --- | --- |
+| `contract` | Fixture-contract bounds (reachable only through the fixture seam) |
+| `source_bytes` | Size, hash, MD5, deflate stream, CRC or uncompressed hash of the pinned bytes |
+| `workbook` | Workbook container, relationships or sheet list |
+| `clinical` | Clinical sheet content, labels, replicate geometry, joins or counts |
+| `panel_membership` | Panel list, panel hash or published-score membership |
+| `matrix` | Matrix header, rows, symbols, label coverage or panel coverage |
+| `matrix_value` | A panel value fails the strict decimal rule, or a selected value is missing or non-finite |
+| `acquisition` | Range fetch, member length, directory recheck or HTTP response (acquisition only) |
 
 ## Observed execution conditions
 
@@ -118,6 +165,10 @@ erasure, unseen ancestor limits or future host configuration. The managed
 environment tool reports current connectivity and enforced HTTP policy; it
 exposes no processing region, governing hosting contract or retention evidence.
 Only this allowlisted observation is retained, without account or environment IDs.
+The probe does not emit it: `managed_environment_observation` was added to the
+record separately. It reports the outer machine's network policy mode as
+`unrestricted`. The container runs with networking disabled, but the machine that
+runs it has no network restriction.
 
 | Execution condition | Disposition |
 | --- | --- |

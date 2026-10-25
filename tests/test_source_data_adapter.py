@@ -178,13 +178,23 @@ def mocked_acquisition(chunks=(b"abc", b"de"), bad_response=None, drift=False):
 
 
 class SourceAdapterChecks(unittest.TestCase):
-    def rejects(self, fixture):
+    def fixed_failure(self, error, category=None):
+        # No input text, cause or context: error reporters that follow
+        # __context__ would otherwise reach the original exception.
+        self.assertEqual(error.args, (adapter.FAILURE,))
+        self.assertIsNone(error.__cause__)
+        self.assertIsNone(error.__context__)
+        self.assertTrue(error.__suppress_context__)
+        self.assertIn(error.category, adapter.CATEGORIES)
+        if category is not None:
+            self.assertEqual(error.category, category)
+
+    def rejects(self, fixture, category=None):
         out, err = io.StringIO(), io.StringIO()
         with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
             with self.assertRaises(adapter.SourceAdapterError) as caught:
                 parse(fixture)
-        self.assertEqual(str(caught.exception), adapter.FAILURE)
-        self.assertTrue(caught.exception.__suppress_context__)
+        self.fixed_failure(caught.exception, category)
         self.assertEqual(out.getvalue() + err.getvalue(), "")
 
     def test_exact_input_payload_keeps_all_replicates_in_panel_order(self):
@@ -266,6 +276,61 @@ class SourceAdapterChecks(unittest.TestCase):
         for mutation in mutations:
             self.rejects(make_fixture(mutation))
 
+    def test_duplicate_matrix_symbol_rejected_even_when_every_panel_symbol_is_present(self):
+        # Both panel symbols stay present, so only the uniqueness check can reject
+        # the duplicate; a distinct extra row with the same row count is accepted.
+        def extra(symbol):
+            return lambda c, p, h, r: r.append(["abstract-accession-Y", symbol, "name", "location", "index-y",
+                                                "1", "1", "protein", "1"] + ["1"] * 5 + ["unused-control"])
+        accepted = list(make_fixture(extra("abstract-unused-2"))); accepted[3]["matrix"]["rows"] = 4
+        self.assertEqual(parse(accepted)["measurements"]["values"][0][:4], [2, 6, 10, 9])
+        duplicate = list(make_fixture(extra("abstract-feature-A"))); duplicate[3]["matrix"]["rows"] = 4
+        self.rejects(duplicate, "matrix")
+
+    def test_swapped_panel_order_rejected_by_the_pinned_panel_hash(self):
+        def swap(c, p, h, r):
+            rows = p["64_protein_predictors"]
+            rows[1], rows[2] = rows[2], rows[1]
+        self.rejects(make_fixture(swap), "panel_membership")
+
+    def test_every_biological_measurement_needs_a_matrix_column(self):
+        # Dropping the explicit nonpatient column is accepted; dropping one
+        # replicate of a selected sample must be rejected.
+        def drop(label):
+            def change(c, p, h, r):
+                position = h.index(label)
+                for values in [h] + r:
+                    values.pop(position)
+            return change
+        accepted = list(make_fixture(drop("abstract-control"))); accepted[3]["matrix"]["columns"] = 14
+        self.assertEqual(len(parse(accepted)["measurements"]["column_names"]), 5)
+        missing = list(make_fixture(drop("abstract-a-3"))); missing[3]["matrix"]["columns"] = 14
+        self.rejects(missing, "matrix")
+
+    def test_replicate_groups_must_be_singletons_or_triplicates(self):
+        # Moving one replicate into another sample, with that sample's clinical
+        # fields, keeps every count except the group geometry.
+        def regroup(c, p, h, r):
+            c["FFPE_Discovery_clinical"][3].update(B="abstract-patient-b", C="abstract-sample-b",
+                                                   E="refractory", F="NA")
+        self.rejects(make_fixture(regroup), "clinical")
+
+    def test_failure_category_names_the_stage_without_input_details(self):
+        flipped = list(make_fixture()); flipped[0] = flipped[0][:-1] + bytes([flipped[0][-1] ^ 1])
+        self.rejects(flipped, "source_bytes")
+        bounded = list(make_fixture()); bounded[3]["matrix"]["rows"] = adapter.DEFAULT_CONTRACT["matrix"]["rows"] + 1
+        self.rejects(bounded, "contract")
+        outside = list(make_fixture())
+        outside[1] = rewrite_zip(outside[1], lambda files: files.__setitem__(
+            "xl/_rels/workbook.xml.rels", files["xl/_rels/workbook.xml.rels"].replace(b"worksheets/sheet1.xml", b"../sheet1.xml")))
+        outside[3]["workbooks"]["clinical"] = pin_workbook(outside[1])
+        self.rejects(outside, "workbook")
+        self.rejects(make_fixture(lambda c, p, h, r: c["FFPE_Discovery_clinical"][2].__setitem__("E", "refractory")), "clinical")
+        self.rejects(make_fixture(lambda c, p, h, r: p["FFPE_pred_scores"][1].__setitem__("A", "abstract-excluded")), "panel_membership")
+        self.rejects(make_fixture(lambda c, p, h, r: h.__setitem__(1, "renamed-feature-key")), "matrix")
+        for value in ("NA", "Inf", "1_000", "PRIVATE_SENTINEL"):
+            self.rejects(make_fixture(lambda c, p, h, r: r[0].__setitem__(9, value)), "matrix_value")
+
     def test_matrix_schema_feature_multiplicity_and_row_width_fail_closed(self):
         mutations = [lambda c, p, h, r: h.__setitem__(1, "renamed-feature-key"),
                      lambda c, p, h, r: r[0].__setitem__(1, "abstract-feature-A"),
@@ -333,27 +398,35 @@ class SourceAdapterChecks(unittest.TestCase):
             with mocked_acquisition(chunks=chunks, drift=drift) as state:
                 with self.assertRaises(adapter.SourceAdapterError) as error:
                     adapter.load_pinned_sources()
-            self.assertEqual(str(error.exception), adapter.FAILURE)
+            self.fixed_failure(error.exception, "acquisition")
             state["parser"].assert_not_called()
             self.assertEqual(state["requests"], [])
 
     def test_acquisition_rejects_malformed_redirect_encoding_status_or_overflow(self):
-        for failure in ("redirect", "encoding", "status", "overflow"):
+        for failure, category in (("redirect", "acquisition"), ("encoding", "acquisition"),
+                                  ("status", "acquisition"), ("overflow", "source_bytes")):
             with mocked_acquisition(bad_response=failure) as state:
                 with self.assertRaises(adapter.SourceAdapterError) as error:
                     adapter.load_pinned_sources()
-            self.assertEqual(str(error.exception), adapter.FAILURE)
+            self.fixed_failure(error.exception, category)
             state["parser"].assert_not_called()
         with mocked_acquisition() as state, mock.patch.object(adapter.archive, "fetch_range", side_effect=ValueError("PRIVATE_SENTINEL")):
             with self.assertRaises(adapter.SourceAdapterError) as error:
                 adapter.load_pinned_sources()
-            self.assertEqual(str(error.exception), adapter.FAILURE)
+            self.fixed_failure(error.exception, "acquisition")
             state["parser"].assert_not_called()
+        # A parser failure keeps the parser's stage rather than becoming acquisition.
+        with mocked_acquisition() as state:
+            state["parser"].side_effect = adapter.SourceAdapterError("matrix")
+            with self.assertRaises(adapter.SourceAdapterError) as error:
+                adapter.load_pinned_sources()
+            self.fixed_failure(error.exception, "matrix")
 
     def test_default_contract_rejects_fixture_pins_and_bounds_cannot_be_raised(self):
         fixture = make_fixture()
-        with self.assertRaises(adapter.SourceAdapterError):
+        with self.assertRaises(adapter.SourceAdapterError) as error:
             adapter.parse_sources(*fixture[:3])
+        self.fixed_failure(error.exception, "source_bytes")
         for group, field in (("member", "uncompressed_bytes"), ("matrix", "rows"), ("cohort", "selected")):
             changed = list(make_fixture()); changed[3][group][field] = adapter.DEFAULT_CONTRACT[group][field] + 1
             self.rejects(changed)

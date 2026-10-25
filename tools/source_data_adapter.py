@@ -25,6 +25,9 @@ import audit_author_features as features
 import audit_published_cohorts as cohorts
 
 FAILURE = "ERROR: source adapter failed; no row-level details emitted."
+# Fixed aggregate codes naming the stage that failed; never row data or values.
+CATEGORIES = ("contract", "source_bytes", "workbook", "clinical", "panel_membership",
+              "matrix", "matrix_value", "acquisition")
 CLINICAL_COLUMNS = [cohorts.LABEL_COLUMN] + cohorts.CRITICAL
 NS = cohorts.NS
 RELATIONSHIP_ID = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id"
@@ -48,12 +51,20 @@ DEFAULT_CONTRACT = {
 
 
 class SourceAdapterError(ValueError):
-    """Fixed-message failure; never include input values in exceptions."""
+    """Fixed-message failure; never include input values in exceptions.
+
+    category is None or one code from CATEGORIES; the public functions always
+    set it. The message stays FAILURE.
+    """
+
+    def __init__(self, category=None):
+        super().__init__(FAILURE)
+        self.category = category
 
 
-def require(condition):
+def require(condition, category=None):
     if not condition:
-        raise SourceAdapterError(FAILURE)
+        raise SourceAdapterError(category)
 
 
 def _identity(value, literal_na=False):
@@ -81,21 +92,21 @@ def _check_contract(contract):
 
 
 def _verify_bytes(body, source):
-    require(type(body) is bytes and len(body) == source["bytes"])
-    require(hashlib.sha256(body).hexdigest() == source["sha256"])
+    require(type(body) is bytes and len(body) == source["bytes"], "source_bytes")
+    require(hashlib.sha256(body).hexdigest() == source["sha256"], "source_bytes")
     if "md5" in source:
-        require(hashlib.md5(body).hexdigest() == source["md5"])
+        require(hashlib.md5(body).hexdigest() == source["md5"], "source_bytes")
 
 
 def _inflate(packed, contract):
-    require(type(packed) is bytes and len(packed) == contract["compressed_bytes"])
-    require(hashlib.sha256(packed).hexdigest() == contract["compressed_sha256"])
+    require(type(packed) is bytes and len(packed) == contract["compressed_bytes"], "source_bytes")
+    require(hashlib.sha256(packed).hexdigest() == contract["compressed_sha256"], "source_bytes")
     inflater = zlib.decompressobj(-15)
     body = inflater.decompress(packed, contract["uncompressed_bytes"] + 1)
-    require(inflater.eof and not inflater.unused_data and not inflater.unconsumed_tail)
-    require(len(body) == contract["uncompressed_bytes"])
-    require(zlib.crc32(body) == contract["crc32"])
-    require(hashlib.sha256(body).hexdigest() == contract["sha256"])
+    require(inflater.eof and not inflater.unused_data and not inflater.unconsumed_tail, "source_bytes")
+    require(len(body) == contract["uncompressed_bytes"], "source_bytes")
+    require(zlib.crc32(body) == contract["crc32"], "source_bytes")
+    require(hashlib.sha256(body).hexdigest() == contract["sha256"], "source_bytes")
     return body
 
 
@@ -235,11 +246,11 @@ def _field(raw):
 def _number(raw, selected):
     text = _field(raw)
     if text in ("", "NA", "NaN", "nan", "Inf", "+Inf", "-Inf", "inf", "+inf", "-inf"):
-        require(not selected)
+        require(not selected, "matrix_value")
         return None
-    require(NUMBER.fullmatch(text) is not None)
+    require(NUMBER.fullmatch(text) is not None, "matrix_value")
     value = float(text)
-    require(math.isfinite(value) or not selected)
+    require(math.isfinite(value) or not selected, "matrix_value")
     return value if math.isfinite(value) else None
 
 
@@ -291,18 +302,25 @@ def parse_sources(compressed_member, clinical_workbook, panel_workbook, contract
 
     contract is an explicit fixture seam, not a production bypass option. No CLI
     exposes it. The default requires the exact independently audited source bytes.
-    SourceAdapterError always has a fixed message and suppresses error chaining.
+    SourceAdapterError always has a fixed message, a category from CATEGORIES,
+    and no cause or context.
     """
+    stage = "contract"
     try:
         contract = copy.deepcopy(DEFAULT_CONTRACT if contract is None else contract)
         _check_contract(contract)
+        stage = "source_bytes"
         _verify_bytes(clinical_workbook, contract["workbooks"]["clinical"])
         _verify_bytes(panel_workbook, contract["workbooks"]["panel_and_scores"])
         body = _inflate(compressed_member, contract["member"])
+        stage = "workbook"
         clinical_book = MemoryWorkbook(clinical_workbook)
         panel_book = MemoryWorkbook(panel_workbook)
+        stage = "clinical"
         records, biological, eligible = _clinical(clinical_book, contract["cohort"])
+        stage = "panel_membership"
         panel, keys = _panel_membership(panel_book, contract, records, eligible)
+        stage = "matrix"
         measurements = _matrix(body, panel, biological, eligible, contract["matrix"])
         return {
             "schema_version": 1, "measurements": measurements,
@@ -325,8 +343,12 @@ def parse_sources(compressed_member, clinical_workbook, panel_workbook, contract
                 "published_score_values_read": False,
             },
         }
+    except SourceAdapterError as error:
+        stage = error.category or stage
     except Exception:
-        raise SourceAdapterError(FAILURE) from None
+        pass
+    # Raised after the handler ends, so the original exception is not kept as context.
+    raise SourceAdapterError(stage) from None
 
 
 def load_pinned_sources():
@@ -372,5 +394,8 @@ def load_pinned_sources():
                                     archive_directory_rechecked=True,
                                     whole_archive_checksum_verified=False)
         return result
+    except SourceAdapterError as error:
+        category = error.category or "acquisition"
     except Exception:
-        raise SourceAdapterError(FAILURE) from None
+        category = "acquisition"
+    raise SourceAdapterError(category) from None
