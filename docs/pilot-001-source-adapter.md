@@ -76,7 +76,11 @@ compatibility with the actual pinned bytes and current remote availability have
 not been tested by this adapter.
 
 The execution record preserves 25 implementation/runtime/protocol hashes and
-observed Python/Expat/zlib versions. A separate [combined runtime record](../registries/pilot-001-source-adapter-runtime.json)
+observed Python/Expat/zlib versions. It predates the 2026-10-25 changes to
+`R/asma_core.R`, which added the
+[amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md) output, and to
+the runner's hash list. The fixture must be rerun in the pinned image before any
+research run. A separate [combined runtime record](../registries/pilot-001-source-adapter-runtime.json)
 identifies the tested image. It extends the previously validated R image with
 CPython 3.12.14 from a hash-pinned official source archive and exact Ubuntu
 OpenSSL/zlib development packages matching the existing runtime libraries.

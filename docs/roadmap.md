@@ -63,6 +63,15 @@ a per-model planted-signal direction test, a fixed sensitivity configuration and
 the per-repetition AUROC distribution. No researcher contact
 is needed for the software preparation. The 2025 fallback remains unadopted.
 
+Pending owner decision (2026-10-25): accept or reject
+[reconstruction amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md)
+before any research run. It covers A1, a per-repetition AUROC distribution as a
+descriptive secondary output, and A2, a proposal to decline an
+environment/version sensitivity configuration for the first run. Merging the
+file does not adopt it. The synthetic and source-adapter execution records also
+predate the 2026-10-25 test and core changes, and must be regenerated in the
+pinned image.
+
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
 | 0. Agree scope and rights | Input-specific use disposition; applicable review requirements; code-licensing expectations | Original implementation can proceed. Bounded, in-memory source inspection, including rerunning the recorded audits, is part of autonomous research (owner decision, 2026-10-25) and keeps only aggregates; unresolved real-data use conditions stop fitting. Live acquisition of study files, a real-source input check or fitting on study values also needs the owner's dated attestation of the execution context and a new explicit instruction; automated checks never satisfy this. No collaborator has been recruited, and external scientific review remains pending; whether that review is waived or deferred is the owner's decision. |

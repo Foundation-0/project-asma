@@ -131,6 +131,31 @@ run_core_tests <- function() {
   check(identical(checked_auc(y, split$repetition_scores[, 2L])$auc, 1) &&
           identical(checked_auc(y, split$repetition_scores[, 1L])$auc, 0))
 
+  # Fold offsets make every within-fold AUROC 1 while the 135-score AUROC is
+  # lower, and a repetition-dependent shift spreads the quantiles apart. Every
+  # field must match an independent recomputation from the repetition scores.
+  offset <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+    ids <- rownames(x_test)
+    index <- as.integer(sub("fixture-patient-", "", ids, fixed = TRUE))
+    refractory <- index > 83L
+    # A deterministic jitter below 0.05 keeps class 1 above class 0 within a fold.
+    jitter <- ((index * 7919L + repetition * 104729L) %% 1000L) / 1000 * .05
+    shift <- if (fold == 1L) repetition * .006 else 0
+    probability <- stats::setNames(.15 * (fold - 1L) + .1 * refractory + jitter + shift, ids)
+    list(en = probability, xgb = probability, rf = probability)
+  }
+  offsets <- run_reconstruction(assembled, offset, 100L)
+  spread <- offsets$summary$repetition_auc
+  expected <- vapply(seq_len(100L), function(repetition) {
+    checked_auc(y, offsets$repetition_scores[, repetition])$auc
+  }, numeric(1))
+  quartiles <- stats::quantile(expected, c(0, .25, .5, .75, 1), type = 7L, names = FALSE)
+  check(spread$count == 100L &&
+          identical(c(spread$minimum, spread$lower_quartile, spread$median,
+                      spread$upper_quartile, spread$maximum), quartiles) &&
+          identical(spread$mean, mean(expected)))
+  check(spread$maximum < 1 && length(unique(quartiles)) == 5L)
+
   noisy_rng_stub <- function(...) {
     runif(500L)
     stub(...)
