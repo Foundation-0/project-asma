@@ -45,8 +45,9 @@ could concern score versions, model/output provenance or another unresolved
 source relationship. This check does not identify a cause or establish an error
 in the original paper.
 
-Score direction does not explain the gap. With the direction reversed, the
-same scores give AUROC 825 / 4,316 = 0.191, further from the printed 0.83.
+Follow-up (2026-10-23 review, arithmetic only): score direction does not explain
+the gap. From the recorded pair counts, with no re-run, reversing the direction
+gives AUROC 825 / 4,316 = 0.191, further from the printed 0.83.
 Neither direction recovers the printed value, so the disagreement cannot be
 settled by relabelling the positive class.
 
@@ -56,7 +57,9 @@ The [implementation](../tools/verify_published_auc.py) and specification were
 committed **before execution** at
 `3ff523ffc1fc0750d4a82594f27f1d314c017b67`. Version 0.2 changed the execution/review
 record only; the numerical contract had already been set in version 0.1. The
-run's protocol, tool and shared-loader hashes match the retained files.
+run's protocol, tool and shared-loader hashes matched the retained files at the
+result commit. The shared loader later gained a pre-parse guard that only adds
+rejections; see the [registry note](../registries/README.md) on recorded hashes.
 
 Command:
 

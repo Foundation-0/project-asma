@@ -2,7 +2,7 @@
 
 The fixture carries abstract tokens only. It exercises sheet resolution,
 shared-string, inline-string and numeric cell values, the column filter,
-checksum pinning and the XML declaration guard without any network access
+checksum pinning and the document-type-declaration guard without any network access
 or published supplement.
 """
 
@@ -102,11 +102,18 @@ class WorkbookParsingChecks(unittest.TestCase):
         with self.assertRaises(audit.AuditError):
             load(body, bytes=len(body) + 1)
 
-    def test_xml_declaration_is_rejected_before_parsing(self):
+    def test_document_type_declaration_is_rejected_before_parsing(self):
         malicious = ('<!DOCTYPE sst [<!ENTITY probe "expanded">]>'
                      + SHARED_STRINGS)
         with self.assertRaises(audit.AuditError):
             load(workbook_bytes(shared_strings=malicious))
+
+    def test_utf16_part_cannot_hide_a_declaration(self):
+        malicious = ('<!DOCTYPE sst [<!ENTITY probe "expanded">]>'
+                     + SHARED_STRINGS.replace("label-alpha", "&probe;"))
+        for encoding in ("utf-16", "utf-16-le", "utf-32"):
+            with self.subTest(encoding=encoding), self.assertRaises(audit.AuditError):
+                load(workbook_bytes(shared_strings=malicious.encode(encoding)))
 
 
 if __name__ == "__main__":

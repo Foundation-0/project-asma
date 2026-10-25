@@ -175,11 +175,13 @@ class Workbook:
         require(self.archive.getinfo(name).file_size <= 128 * 1024 * 1024,
                 "Unexpected XML member size")
         data = self.archive.read(name)
-        # Spreadsheet parts never carry a document type declaration. Reject one
-        # before parsing so entity declarations cannot reach the XML parser.
+        # Spreadsheet parts are UTF-8 and never carry a document type
+        # declaration. NUL bytes mark UTF-16/32 text, which would hide one from
+        # the byte search. The pinned workbook hash remains the primary control.
         lowered = data.lower()
-        require(b"<!doctype" not in lowered and b"<!entity" not in lowered,
-                "Unexpected XML declaration in workbook part")
+        require(b"\x00" not in data and b"<!doctype" not in lowered
+                and b"<!entity" not in lowered,
+                "Unexpected document type declaration or encoding in workbook part")
         return ET.fromstring(data)
 
     def value(self, cell):
