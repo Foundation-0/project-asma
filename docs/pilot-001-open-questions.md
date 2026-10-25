@@ -296,12 +296,11 @@ Sources: S01, S11, S14; NLM bucket README.
   association tables. All 64 panel symbols occur exactly once in each:
   discovery (8,800 features), frozen (8,272) and FFPE validation (8,237). All 64
   also lie in the 7,359-symbol three-way intersection. Exact string equality
-  was used; only counts were kept. Another agent is adding the repeatable audit
-  [tools/audit_validation_panel_coverage.py](https://github.com/Foundation-0/project-asma/blob/main/tools/audit_validation_panel_coverage.py)
-  and its record
-  [registries/pilot-001-validation-panel-coverage.json](https://github.com/Foundation-0/project-asma/blob/main/registries/pilot-001-validation-panel-coverage.json)
-  on a sibling branch. Those links resolve once that branch is merged; the
-  record there is authoritative for set fingerprints.
+  was used; only counts were kept. The repeatable audit
+  [tools/audit_validation_panel_coverage.py](../tools/audit_validation_panel_coverage.py)
+  reproduces these counts, and its
+  [record](../registries/pilot-001-validation-panel-coverage.json) is
+  authoritative for the set fingerprints.
 - **64/64 is expected by construction.** The article says: "In the end, we
   filtered away 8 protein markers not detected in the other proteomics data
   sets from human tumors such as the Frozen and FFPE validation datasets" (last
