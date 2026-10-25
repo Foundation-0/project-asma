@@ -59,9 +59,9 @@ run_core_tests <- function() {
   fails(function() stratified_folds(keys, stats::setNames(rep(0L, 135L), keys), 5L, 1L))
   fails(function() stratified_folds(keys, y, 5.5, 1L))
 
-  # Golden vectors pin which key lands in which fold, so a change to the fold
-  # algorithm or to R's sampling fails here. Small case by hand, under
-  # RNGkind("Mersenne-Twister", "Inversion", "Rejection") and set.seed(7):
+  # Golden vectors pin which key lands in which fold, so a change that alters
+  # these assignments, including one to R's sampling, fails here. Small case by
+  # hand, under RNGkind("Mersenne-Twister", "Inversion", "Rejection") and set.seed(7):
   # class 0 (keys 01 03 04 06 07 09 11): sample.int(7) = 2 3 4 6 7 1 5, so keys
   # 03 04 06 09 11 01 07 take folds 1 2 3 1 2 3 1; the offset becomes 7 %% 3 = 1.
   # Class 1 (keys 02 05 08 10): sample.int(4) = 2 3 4 1, so keys 05 08 10 02

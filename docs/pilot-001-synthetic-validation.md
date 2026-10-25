@@ -40,7 +40,7 @@ an open pre-run requirement in the
   135-key fixture (83/52, K=5, seed 1) is pinned as a literal string of fold
   digits; a separate base-R recomputation gave the same string. The fold-wiring
   check recomputes with the same function, so it cannot catch a change to the
-  algorithm itself; these can.
+  algorithm itself; these catch changes that alter the pinned assignments.
 
 The suite now has 162 assertions: 41 input, 81 core and 40 model. The fold check
 covers both the observer's copy and the arguments the model adapter receives.
@@ -60,10 +60,11 @@ Fold-algorithm mutations each fail both golden assertions:
 - permuting with `order(runif(n))` instead of `sample.int`;
 - a seed one higher or one lower.
 
-The previous suite already rejects the first two through its class-count checks.
-It passes the others. Replacing `members[sample.int(length(members))]` with
-`sample(members)` passes, as it should: for more than one element, base R's
-`sample(x)` is `x[sample.int(length(x))]`, so the draw is the same.
+The suite before the golden vectors (79 core assertions) already rejects the
+first two through its fold-size and class-count checks. It passes the others.
+Replacing `members[sample.int(length(members))]` with `sample(members)` passes,
+as it should: for more than one element, base R's `sample(x)` is
+`x[sample.int(length(x))]`, so the draw is the same.
 
 These results come from a development environment, not the pinned image. It used
 conda-forge R 4.4.3 with the pinned versions of glmnet (4.1-8), randomForest
