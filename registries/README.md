@@ -8,7 +8,8 @@
 The first six records below (linkage, supplement, score verification, matrix
 header, author archive and author feature) come from network audits that read
 study files or patient-level metadata in memory. Regenerating any of them needs an
-explicit owner instruction (see the [agent guidance](../AGENTS.md)).
+explicit owner instruction (see the [agent guidance](../AGENTS.md)); an earlier
+instruction covers only the run it was given for.
 
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,
   aggregate-only comparison of public version-1 PDC metadata. Regenerate with

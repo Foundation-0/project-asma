@@ -36,8 +36,9 @@ the panel anew.
 
 ## Bounded source inspection
 
-The user's next-step instruction authorizes an integrity and feature-annotation
-audit of the recovered discovery member. The paper's data-availability section
+The user's next-step instruction authorized the recorded integrity and
+feature-annotation audit of the recovered discovery member. That instruction
+covered that run; a rerun needs a new explicit owner instruction. The paper's data-availability section
 (article XML S27) explicitly offers the processed data at a publicly accessible
 URL. This supports the requested source inspection; it is not an inferred
 license for redistribution or general dataset reuse. No archive-specific reuse
