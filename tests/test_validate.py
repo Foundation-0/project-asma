@@ -24,6 +24,26 @@ class ScaffoldChecks(unittest.TestCase):
         for name, data in [("sources", self.sources), ("datasets", self.datasets)]:
             (self.root / "registries" / f"{name}.json").write_text(json.dumps(data))
 
+    def metadata_audited_fixture(self):
+        for identifier in ("S12", "S13"):
+            if not any(row["id"] == identifier for row in self.sources["sources"]):
+                source = copy.deepcopy(self.sources["sources"][0])
+                source.update(id=identifier, title="Abstract evidence fixture " + identifier,
+                              url="https://example.org/" + identifier,
+                              reviewed_via="https://example.org/" + identifier)
+                self.sources["sources"].append(source)
+        for row in self.datasets["datasets"]:
+            if row["id"] in {"PDC000358", "PDC000360", "PDC000362"}:
+                row.update(
+                    access_status="open_processed_file_metadata_verified",
+                    terms_status="pdc_public_data_terms_reviewed",
+                    download_status="headers_inspected_in_memory",
+                    provenance_status="study_version_and_linkage_metadata_verified",
+                    overlap_status="catalog_overlap_measured_analysis_membership_unresolved",
+                    release="1", sha256=None,
+                )
+                row["source_ids"] = list(dict.fromkeys(row["source_ids"] + ["S12", "S13"]))
+
     def test_final_tree(self):
         self.assertEqual(validate.validate(), [])
 
@@ -43,6 +63,33 @@ class ScaffoldChecks(unittest.TestCase):
         errors = validate.registry_errors(self.root)
         for phrase in ["invalid checked_on", "invalid HTTPS", "invalid download_status"]:
             self.assertTrue(any(phrase in error for error in errors), errors)
+
+    def test_complete_metadata_audit_transition_is_allowed(self):
+        self.metadata_audited_fixture()
+        self.write_registries()
+        self.assertEqual(validate.registry_errors(self.root), [])
+
+    def test_partial_or_unearned_metadata_audit_is_rejected(self):
+        self.metadata_audited_fixture()
+        complete = copy.deepcopy(self.datasets)
+        changes = (
+            ({"terms_status": "not_reviewed"}, "invalid terms_status"),
+            ({"id": "PDC999999"}, "not eligible"),
+            ({"assay": "phosphoproteome"}, "not eligible"),
+            ({"pilot_role": "context_only"}, "not eligible"),
+            ({"source_ids": ["S01", "S13"]}, "requires source references S12 and S13"),
+            ({"source_ids": ["S01", "S12"]}, "requires source references S12 and S13"),
+            ({"sha256": "a" * 64}, "invalid sha256"),
+            ({"release": 1}, "invalid release"),
+        )
+        for change, expected in changes:
+            with self.subTest(change=change):
+                self.datasets = copy.deepcopy(complete)
+                row = next(row for row in self.datasets["datasets"] if row["id"] == "PDC000360")
+                row.update(change)
+                self.write_registries()
+                errors = validate.registry_errors(self.root)
+                self.assertTrue(any(expected in error for error in errors), errors)
 
     def test_missing_fields_and_wrong_types(self):
         del self.sources["sources"][0]["limitations"]
