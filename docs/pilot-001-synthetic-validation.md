@@ -34,8 +34,15 @@ an open pre-run requirement in the
 - **Fold wiring.** Every fold, training set and inner fold captured inside
   `run_reconstruction` must match an independent recomputation from the declared
   seeds: outer r, inner 10000 + 100r + f.
+- **Fold assignment.** Golden vectors pin which key lands in which fold. An
+  11-key case (7/4 classes, K=3, seed 7) has an assignment derived by hand from
+  base-R `set.seed` and `sample.int` steps under the declared RNG kinds. The
+  135-key fixture (83/52, K=5, seed 1) is pinned as a literal string of fold
+  digits; a separate base-R recomputation gave the same string. The fold-wiring
+  check recomputes with the same function, so it cannot catch a change to the
+  algorithm itself; these can.
 
-The suite now has 160 assertions: 41 input, 79 core and 40 model. The fold check
+The suite now has 162 assertions: 41 input, 81 core and 40 model. The fold check
 covers both the observer's copy and the arguments the model adapter receives.
 
 Six deliberate mutations each fail the new suite but pass the previous one:
@@ -46,6 +53,18 @@ Six deliberate mutations each fail the new suite but pass the previous one:
 - shifting the inner-fold seed;
 - passing the model adapter different inner folds from the observer's.
 
+Fold-algorithm mutations each fail both golden assertions:
+- processing class 1 before class 0;
+- restarting the round-robin at fold 1 for class 1;
+- the "Rounding" sample kind;
+- permuting with `order(runif(n))` instead of `sample.int`;
+- a seed one higher or one lower.
+
+The previous suite already rejects the first two through its class-count checks.
+It passes the others. Replacing `members[sample.int(length(members))]` with
+`sample(members)` passes, as it should: for more than one element, base R's
+`sample(x)` is `x[sample.int(length(x))]`, so the draw is the same.
+
 These results come from a development environment, not the pinned image. It used
 conda-forge R 4.4.3 with the pinned versions of glmnet (4.1-8), randomForest
 (4.7-1.2), jsonlite (1.9.1) and data.table (1.17.0). xgboost 1.7.8.1 was built
@@ -55,7 +74,7 @@ matching build.
 Other components differ from the pinned image: Rcpp 1.1.2 (pinned 1.0.14),
 Matrix 1.7-6 (recorded 1.7-2), survival 3.8-12 and lattice 0.23-1, and the conda
 compiler toolchain. Each model's fixture AUROC was 1.0. The pinned-image runner
-must rerun all 160 assertions, and the execution record must be regenerated,
+must rerun all 162 assertions, and the execution record must be regenerated,
 before any research run.
 
 The full run, including all 149 assertions, took 57.619 seconds inside R on the
@@ -129,7 +148,7 @@ python3 -m unittest discover -s tests -v
 The first command downloads the pinned base image and package sources and may
 take several minutes. An optional `--source-cache` directory can supply package
 archives; each is still checked against the manifest. The second command runs
-all R assertions (149 in the recorded run; 160 since the 2026-10-25 addition);
+all R assertions (149 in the recorded run; 162 since the 2026-10-25 addition);
 `--full` also performs the complete 100-repeat integration.
 Each runner prints reviewed aggregate JSON only. The wrapper resolves the local
 image tag to its immutable image ID before execution. Input pins do not imply
