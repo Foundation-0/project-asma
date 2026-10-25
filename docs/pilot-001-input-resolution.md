@@ -256,8 +256,9 @@ three of these items. None is closed.
   Clarify the missing location annotation retained in discovery score
   membership. Narrowed on 2026-10-25: the six published `nonoverlap` patient
   keys found in eligible discovery follow from the paper's tumour-level overlap
-  definition (29 same-tumour pairs plus 14 same-patient pairs from different
-  tumours). Still open: lesion identity of the 29 pairs, PDC confirmation, and
+  definition (29 designed same-patient pairs that the paper treats as the same
+  tumour, plus 14 same-patient pairs it describes as from different tumours).
+  Still open: lesion identity of the 29 pairs, PDC confirmation, and
   any patient-independent evaluation, which needs a pre-specified protocol and
   the owner's decision.
 - Pin the publisher's corrected supplemental legends. Narrowed on 2026-10-25:

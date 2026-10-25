@@ -96,14 +96,15 @@ folds can be rebuilt.
     coding, refractory (52) is permuted first, while the project's rule
     permutes class 0 (sensitive, 83) first. Then even the first 135 draws would
     not line up with the project's rule.
-- **The helper's draws also reach the model fits.** The stream is reset only by
-  `set.seed(j)` before the helper and by `set.seed(1000000)` before each forest
-  (part 3 line 79). In outer fold 1 of every repeat, the inner `cv.glmnet` fold
-  draw and the xgboost fit use the stream left by the helper. So two helper
-  variants that gave identical folds would still change the fold-1 elastic-net
-  and xgboost fits. The [code-audit addendum](pilot-001-code-audit-addendum.md)
+- **The fold-1 fits start from the stream the helper leaves.** The stream is
+  reset only by `set.seed(j)` before the helper (part 3 lines 26–27) and by
+  `set.seed(1000000)` before each forest (line 79). Part 3 calls `cv.glmnet` at
+  line 51 and `xgboost` at line 66, both before line 79. So in outer fold 1 of
+  every repeat, any random draws these two calls make come from the stream the
+  helper left. The [code-audit addendum](pilot-001-code-audit-addendum.md)
   already records that `set.seed(j)` governs the fold draw and fold 1; the new
-  point is that the helper variant's draw count matters too.
+  point is this code order after the helper. Its effect on the fits is under
+  Likely.
 - **The paper names no R or package versions.** The key resources table lists
   pamr, XGBoost and RandomForest without versions. pamr is cited only for
   the subtype classifier (article XML, PMC10414761.1).
@@ -121,6 +122,11 @@ folds can be rebuilt.
   evidence: part 3 also calls glmnet, xgboost and randomForest without them.
 - The four variant × `sample.kind` combinations almost certainly give different
   folds for the same seed. This was not executed; R is not installed here.
+- The helper variant's draw count can change the fold-1 `cv.glmnet` inner
+  folds. It can also change xgboost's fold-1 fit if xgboost draws from R's RNG
+  at these settings (`max_depth = 2`, `eta = 0.1`, no subsample or
+  column-sampling argument). Neither was checked and nothing was run. No run
+  shows that a different inner split changes `lambda.min` or the predictions.
 
 ### Open
 
@@ -137,7 +143,7 @@ folds can be rebuilt.
   it was, and the R version and `RNGkind()` output. Even then, no per-repeat or
   per-fold output is public. Checking a candidate would need a full-pipeline
   match to the published averaged scores, which also depends on package
-  versions and the fold-1 stream.
+  versions and may depend on the fold-1 stream.
 - The part 2 feature-selection folds are a special case. They do not depend on
   `senref`, so their labels are computable from the seed and `sample.kind`
   alone. Mapping them to patients still needs the workspace column order.
@@ -203,7 +209,7 @@ existing pin). The TXT and PDF companions carry the same text.
   version query returns only `PMC10414761.1/` and `PMC10935576.1/`. A full
   listing of the article prefix returns 20 keys, all under `.1`. The figure
   supplement is byte-identical to the pin (13,076,963 bytes, SHA-256
-  `7726253a…6c26`), and its MD5 `3a749718f8525e7d814e69536fe69f03` equals the MD5
+  `7726253a…6c0c`), and its MD5 `3a749718f8525e7d814e69536fe69f03` equals the MD5
   in NLM's own version metadata. The bucket README (§6) says objects inside an
   existing version can be replaced in place, so this is a dated observation,
   not a permanent fact.
@@ -305,9 +311,11 @@ Sources: S01, S11, S14; NLM bucket README.
 - **These are association-test feature lists.** They are not the archive
   members' row sets or the prediction workspaces' rows.
 - **The archive host was refused today.** One HTTP Range request for the
-  central directory of `processed_data.zip` (S17) at 2026-10-25T14:56:11Z got
-  CONNECT 403 from the egress proxy; 0 bytes were received. The proxy log shows
-  another session refused at 15:25:30Z. It was not retried or routed around.
+  central directory of `processed_data.zip` (S17) at 2026-10-25T14:56:11Z
+  (reported by the investigation; that log entry had rotated out before the
+  skeptic's check) got CONNECT 403 from the egress proxy; 0 bytes were
+  received. The proxy log shows another session refused at 15:25:30Z. It was
+  not retried or routed around.
   ProTrack (`ptrc.cptac-data-view.org`) was also refused.
 - **The minimal metadata read is 5,716 bytes.** From the pinned registry values
   the archive has no ZIP comment and no ZIP64 records. So one range,
@@ -347,7 +355,9 @@ Sources: S01, S11, S14; NLM bucket README.
     `FFPE_validation_globalprotein_imputed.tsv`, not only feature lists;
   - whether the frozen member is aligned to discovery. `FZ_data_alignment.r`
     line 17 keeps only proteins shared with discovery, so an aligned file would
-    have at most 7,879 rows, not 8,272;
+    hold at most 8,272 rows and likely fewer (about 7,879 if the MMC1
+    symbol-level intersection carries over; not checked at accession level,
+    and the alignment intersects accession-keyed row names);
   - set fingerprints of both symbols and UniProt accessions, because the two
     symbol columns come from different annotation schemas;
   - a calibration: the same fingerprint on the already-audited discovery
@@ -438,8 +448,8 @@ Quotes from article XML PMC10414761.1 (paragraph IDs):
   - strictly independent, with no discovery record of any kind: **21 (13/8)**,
     all inside the nonoverlap sheet;
   - not in eligible discovery: **28 (17/11)**. The 7 beyond the 21 had "Mix"
-    discovery specimens and took part in discovery-wide preprocessing and the
-    alignment.
+    discovery specimens and took part in discovery-wide preprocessing and,
+    likely, in the alignment (see Likely).
 - **No site independence.** All 64 frozen patients and all 43 shared patients
   come from one institution (Fred Hutchinson; P68). Discovery has 62 patients
   from that institution, with 50 from Mayo and 46 from UAB. The frozen test is
@@ -487,7 +497,10 @@ Quotes from article XML PMC10414761.1 (paragraph IDs):
 
 Data note: one investigation's schema-listing call printed the header cells of
 four replicate-correlation sheets, which are sample data labels, into transient
-session output. They were not written to any file and are not reproduced here.
+tool output. They appeared in that investigation's session transcript, which
+the harness retains. The investigation wrote them to no file of its own, and
+they are not reproduced here. The owner may want to treat that transcript as
+holding sample labels.
 
 Sources: S01, S08, S10, S14; MMC1, MMC4 and MMC6 (S14).
 
@@ -597,8 +610,11 @@ Sources: S15, S16, S17, S29, S30, S31, S32; Chowdhury article XML (S01).
 
 All accesses were on 2026-10-25 by the five investigations, their skeptic
 reviews and the session that drafted this report. Reads served only the
-questions above. Python that read downloads ran with `-I`. Downloads went into
+questions above. Python that read downloads ran with `-I` where recorded
+(correction, archive and fallback investigations). Downloads went into
 separate scratch directories outside the checkout. Only aggregates were kept.
+MMC3 and some MMC4 reads touched scratch disk briefly before deletion; this
+departs from in-memory-only handling and is recorded here for that reason.
 The drafting session re-read the retained public article XML and correction
 text to check every quote here.
 
@@ -610,7 +626,7 @@ text to check every quote here.
 | `PMC10414761.1.xml` (article) | 449,678 | `1d88848c…187b` | Disk; most copies deleted, one public copy kept in scratch for quote checks |
 | `PMC10414761.1.json` | 2,395 | `804de66c4ca5e78af3b73530445b192132c53fff416a5ed6ee87d25bf6703bec` | Disk; public, kept in scratch |
 | `PMC10935576.1.xml` / `.txt` / `.pdf` / `.json` (correction) | 13,637 / 2,264 / 34,586 / 719 | `a59fe5c5…` / `ac940709577cd10b9456120297d980142a9c7371d129197c2712a579e0b675d1` / `9ff4dbf592a8dd6547ca8f57395047231b7790d8af0d906eb52a2088fa478338` / `06a253f2e3e0aef17f3019c57b4e14e22cef7ada42c01431761c526779cb94f1` | Disk; public, kept in scratch |
-| `NIHMS1918576-supplement-1.pdf` | 13,076,963 | `7726253a…6c26` | Disk; text extracted, 7 pages rendered and viewed; PDF and renders deleted |
+| `NIHMS1918576-supplement-1.pdf` | 13,076,963 | `7726253a…6c0c` | Disk; text extracted, 7 pages rendered and viewed; PDF and renders deleted |
 | `NIHMS1918576-supplement-MMC1.xlsx` | 41,194,360 | `6e46fa0cb3023173a3643e95ce0360c44cfabb0ed737e9a05f70473dad552340` | Memory only, via the repository's hash-checking loader |
 | `…-MMC3.xlsx` | 3,304,491 | `18e5bebe052e1a28abecb3927d93f1f30b83ab91c11f5c157e10ca16a6021fe1` | Disk briefly for one cluster-count join; deleted |
 | `…-MMC4.xlsx` | 591,065 | `f318ed9d…` | Memory in most runs; disk briefly in some; deleted |
@@ -710,7 +726,7 @@ dated roadmap paragraph; item names below give the wording before that edit.
 | Finding | Existing open item | Effect |
 | --- | --- | --- |
 | §1 fold helper: likely origin (CASPEN, pamr family), contract, geometry, RNG use | Input resolution: "Recover `balanced_folds.R`…"; roadmap Gate 2 | **Narrowed, still open.** A likely algorithm family and the call contract are known. The exact original folds need four unknowns (workspace label order and coding, helper shape, R version, RNG kind). The declared new-fold rule stays; any source-family sensitivity analysis needs an owner decision. |
-| §1 helper draws reach outer-fold-1 fits | Roadmap Gate 2; addendum "Random streams" | **Adds a condition:** a full-pipeline check against published scores also depends on the helper variant's draw count. |
+| §1 helper's stream reaches outer-fold-1 fits | Roadmap Gate 2; addendum "Random streams" | **Adds a possible condition:** a full-pipeline check against published scores may also depend on the helper variant's draw count. |
 | §2 correction scope and NLM state | Input resolution: "Confirm which available supplements incorporate the corrected legends" (now "Pin the publisher's corrected supplemental legends"); roadmap "corrected legend provenance" | **Narrowed, still open.** The NLM copy is the pre-correction supplement, and NLM held no later version on 2026-10-25. Publisher corrected legends remain unpinned. S3 panel assignments can be read from the image. Figure 3D is outside the stated scope. |
 | §2 S3K per-cluster targets | Roadmap "Score export … remain unresolved" | **Proposal only.** Five more published targets for the released scores; a check needs a protocol and the owner's instruction. |
 | §3 supplement-level panel coverage | Roadmap paragraph on feature availability; issue #9 | **Partly answered** at feature-list level (64/64 in each cohort), expected by construction. Member-level coverage stays open and needs an owner decision on scope. |
