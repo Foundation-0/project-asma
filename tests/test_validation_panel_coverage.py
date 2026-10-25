@@ -54,14 +54,27 @@ def panel_book(panel=PANEL):
     return FakeBook({audit.PANEL_SHEET: [{"A": audit.PANEL_HEADER}] + [{"A": item} for item in panel]})
 
 
+def without(token):
+    return [item for item in PANEL if item != token]
+
+
+# No cohort's set contains another's, so every intersection size differs from
+# the sizes a wrong set expression would give. Each cohort lacks a different
+# panel token (61 panel tokens are common to all three), has its own token, and
+# shares tok-common with both others. tok-shared-df is in discovery and frozen
+# only; tok-shared-fv-1 and tok-shared-fv-2 are in frozen and validation only.
 COLUMNS = {
-    # 64 panel tokens, a repeated token, an empty cell, a missing cell, a padded
-    # token and a numeric-looking cell.
-    "discovery": PANEL + ["tok-other-a", "tok-other-a", "tok-other-b", "", None,
-                          " tok-padded", "1.5"],
-    # One panel token absent and one repeated.
-    "frozen": PANEL[1:] + ["tok-panel-01", "tok-other-a"],
-    "ffpe_validation": PANEL + ["tok-other-c"],
+    # Also a repeated token, an empty cell, a missing cell, a padded token, a
+    # numeric-looking cell and a cell that only starts like a number.
+    "discovery": without("tok-panel-05") + [
+        "tok-other-a", "tok-other-a", "tok-only-d", "tok-shared-df", "tok-common",
+        "", None, " tok-padded", "1.5", "1.5x"],
+    # Also one panel token repeated.
+    "frozen": without("tok-panel-00") + [
+        "tok-panel-01", "tok-only-f", "tok-shared-df", "tok-shared-fv-1",
+        "tok-shared-fv-2", "tok-common"],
+    "ffpe_validation": without("tok-panel-10") + [
+        "tok-only-v", "tok-shared-fv-1", "tok-shared-fv-2", "tok-common"],
 }
 
 
@@ -94,17 +107,17 @@ class Counting(unittest.TestCase):
                 "panel_symbols_present_exactly_once", "panel_symbols_absent",
                 "panel_symbols_repeated")
         expected = {
-            "discovery": (71, 2, 68, 1, 1, 1, 1, 64, 0, 0),
-            "frozen": (65, 0, 64, 1, 1, 0, 0, 62, 1, 1),
-            "ffpe_validation": (65, 0, 65, 0, 0, 0, 0, 64, 0, 0),
+            "discovery": (73, 2, 70, 1, 1, 1, 1, 63, 1, 0),
+            "frozen": (69, 0, 68, 1, 1, 0, 0, 62, 1, 1),
+            "ffpe_validation": (67, 0, 67, 0, 0, 0, 0, 63, 1, 0),
         }
         for cohort, values in expected.items():
             with self.subTest(cohort=cohort):
                 self.assertEqual(tuple(cohorts[cohort][key] for key in keys), values)
                 self.assertEqual((cohorts[cohort]["sheet"], cohorts[cohort]["column"]), SHEETS[cohort])
         self.assertEqual(output["intersections"], {
-            "discovery_and_frozen": 64, "discovery_and_ffpe_validation": 64,
-            "frozen_and_ffpe_validation": 63, "all_three": 63, "panel_symbols_in_all_three": 63})
+            "discovery_and_frozen": 64, "discovery_and_ffpe_validation": 63,
+            "frozen_and_ffpe_validation": 65, "all_three": 62, "panel_symbols_in_all_three": 61})
         self.assertEqual(output["panel_symbols"], 64)
 
     def test_duplicates_empties_and_panel_multiplicity(self):
