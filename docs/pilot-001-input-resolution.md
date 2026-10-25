@@ -237,16 +237,32 @@ analysis code was executed or copied.
 
 ## What remains before numerical reproduction
 
+The [2026-10-25 open-questions report](pilot-001-open-questions.md) narrows
+three of these items. None is closed.
+
 - Obtain the actual prediction-workspace inputs, their generation steps and
   exact object/column ordering, or document a reviewed reconstruction from
-  sufficiently upstream data as a separate method.
-- Recover `balanced_folds.R`, the original execution environment and the intended
-  feature-selection/alignment implementations; reconcile the static discrepancies
-  already recorded in the first audit.
-- Resolve why six published `nonoverlap` patient keys occur in eligible discovery,
-  and establish which samples contributed to every preprocessing/alignment step.
-  Clarify the missing location annotation retained in discovery score membership.
-- Confirm which available supplements incorporate the corrected legends.
+  sufficiently upstream data as a separate method. Unchanged; an unverified
+  archive listing in open PR #18 suggests the author archive holds no
+  prediction workspace.
+- Recover the original `balanced_folds.R`, the original execution environment
+  and the intended feature-selection/alignment implementations; reconcile the
+  static discrepancies already recorded in the first audit. Narrowed on
+  2026-10-25: a later repository by the same GitHub account defines a helper
+  with the same name and call contract, from the pamr `balanced.folds` family.
+  The exact original folds still need the workspace label order and coding, the
+  helper variant, the R version and the RNG kind.
+- Establish which samples contributed to every preprocessing/alignment step.
+  Clarify the missing location annotation retained in discovery score
+  membership. Narrowed on 2026-10-25: the six published `nonoverlap` patient
+  keys found in eligible discovery follow from the paper's tumour-level overlap
+  definition (29 same-tumour pairs plus 14 same-patient pairs from different
+  tumours). Still open: lesion identity of the 29 pairs, PDC confirmation, and
+  any patient-independent evaluation, which needs a pre-specified protocol and
+  the owner's decision.
+- Pin the publisher's corrected supplemental legends. Narrowed on 2026-10-25:
+  the NLM figure supplement is the pre-correction version and NLM held no later
+  version on that date; publisher hosts were unreachable.
 
 The [unsent source-clarification request](../templates/pilot-001-source-request.md)
 asks for these specific items without publishing patient identifiers. No authors

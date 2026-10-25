@@ -300,6 +300,90 @@
       "takeaway": "Direct source releases and declared license metadata are pinned. The selected XGBoost R API ignores native seed arguments and directs callers to set.seed(). These are newly selected reconstruction versions, not recovered author versions.",
       "limitations": "No packages installed or executed; no compatibility result or complete dependency lock. Transitive dependencies, full license notices, build tools, compiler/BLAS/platform and synthetic smoke checks remain before fitting. Hashes are newly computed fingerprints. See registries/pilot-001-reconstruction-runtime.json. This describes the pre-execution selection; the later synthetic validation installs and tests these releases with a pinned dependency inventory (docs/pilot-001-synthetic-validation.md).",
       "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S26",
+      "title": "CASPEN R package source: later repository by the Figure 3D scripts' committer",
+      "kind": "code",
+      "url": "https://github.com/Shrabanti87/CASPEN",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/Shrabanti87/CASPEN/blob/3f8c8f44d0a88332b65bfd3a888206b30c9f5c8c/R/utils.R",
+      "locator": "R/utils.R header lines 3-6; balanced.folds (10-44), cv.folds (48-51), resample (55-61), permute.rows (65-69), permute.vector (73-75), balanced.folds.vec (103-109), identical from 410c32ae99a0231bd5e6e20cbc1967d428fbf4d3 (2026-07-14) to 3f8c8f44d0a88332b65bfd3a888206b30c9f5c8c (2026-07-16); R/training_functions.R lines 63-70 at 3f8c8f4; DESCRIPTION",
+      "takeaway": "First located public definition of balanced.folds.vec(y, k.folds), the helper the Figure 3D and 3C scripts call. It wraps a pamr-family stratified balanced.folds and returns a fold-label vector of length(y); the wrapper itself draws no random numbers. The training loop repeats the Figure 3D loop idioms.",
+      "limitations": "Created about three years after the paper; a likely stand-in for the missing 2023 balanced_folds.R, not proof of its content. Linked to the 2023 scripts only by GitHub handle and first-author name. Read as text; nothing executed or copied. DESCRIPTION states MIT + file LICENSE, but the helper is functionally identical to GPL-licensed package code without attribution; do not assume an MIT grant for that text. Example data documented as derived from internal study datasets were not opened; provenance and rights unknown. utils.R at 410c32a: 43994 bytes, SHA256 cc2d8ec0464807170450f0d45668ef3914a3cc4c4225727c5752fcb568d55feb; at 3f8c8f4: 64682 bytes, SHA256 a4733c76913a794ffec0f29a5a8f06c2fe207a6173e273f8bdd0c5629f1ae03d. See docs/pilot-001-open-questions.md.",
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S27",
+      "title": "pamr-family balanced.folds lineage in CRAN package sources (read-only GitHub mirror)",
+      "kind": "code",
+      "url": "https://github.com/cran",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/cran/SubgrpID/blob/b9132e1e62fb2a592c7ba3f86098233730359329/R/cross_validation_functions.R",
+      "locator": "pamr R/balanced.folds.R (blob 3e2704cb, identical 1.54 to 1.57; tag 1.57 commit 2c0fd189f448f25f4bb73c2a7276f986b334834d), R/permute.rows.R and NAMESPACE; pamr 1.12; randomSurvivalForest 3.6.0 R/varSel.R lines 186-225; randomForestSRC 1.0.0 to 3.9.0 (HEAD 56953e3038761f7a97082501d361bcf6397fa813) R/utilities_varselect.R; SubgrpID 0.10 (tag commit b9132e1e62fb2a592c7ba3f86098233730359329) R/cross_validation_functions.R lines 145-240; c060 0.2-3 to 0.3-1 R/balancedFolds.R; rda 1.2-1; superpc 1.09 and 1.12; about 25 packages searched for balanced.folds.vec",
+      "takeaway": "pamr balanced.folds permutes each class, cuts it into blocks of K and scatters each block across folds with a runif-based permute.rows; pamr does not export it. randomSurvivalForest 3.6.0 and randomForestSRC keep that variant and add NA-label imputation. SubgrpID 0.10 (2017-02-28) permutes rows with sample(), as CASPEN does. c060 wraps pamr's internal function as a fold vector. No CRAN package searched defines balanced.folds.vec.",
+      "limitations": "Unofficial mirror of CRAN releases, read statically; nothing installed or executed. The lineage rests on code text and release dates, not on any statement by the 2023 authors. pamr, randomForestSRC and SubgrpID are GPL-licensed; an independent project implementation must not copy this code. pamr 1.57 balanced.folds.R: 1164 bytes, SHA256 146dd46b68cd84a36999adcf3dcd2b845cdc4e2c29dce4a49818bdbcff23bd89. SubgrpID 0.10 cross_validation_functions.R: 58448 bytes, SHA256 6505f7147c001dfa50ef1d8c1d6c05792cc94af7cb79f7a2f2cbfcc53da41c29. See also S19 and docs/pilot-001-open-questions.md.",
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S28",
+      "title": "MCRestimate source (Bioconductor, read-only GitHub mirror): fold-vector wrapper over pamr balanced.folds",
+      "kind": "code",
+      "url": "https://github.com/bioc/MCRestimate",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/bioc/MCRestimate/blob/f6e227e70a8ccd6ffbbfa57763a38cdca25c3772/R/MCRestimate.R",
+      "locator": "R/MCRestimate.R lines 103-115 (my.balanced.folds), introduced in commit 5a3f446 (2008-01-07); HEAD f6e227e70a8ccd6ffbbfa57763a38cdca25c3772 (2020-04-27, version 2.45.0); github.com/bioc/CMA checked for comparison",
+      "takeaway": "A 2008 public precedent for a wrapper that calls pamr's internal balanced.folds and returns a length-n fold vector; c060's balancedFolds says it was taken from MCRestimate. This is a third plausible shape for the missing balanced_folds.R. CMA uses its own stratification, not balanced.folds.",
+      "limitations": "Unofficial mirror, read statically; nothing installed or executed. GPL (>= 2). Not evidence that the 2023 authors used it. R/MCRestimate.R at HEAD: 25276 bytes, SHA256 3faa784360dfb8f4cda4b68f3cee942028f4693aac4bdf537322a83e00f59b97. See docs/pilot-001-open-questions.md.",
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S29",
+      "title": "Code repository for the 2025 HGSOC histopathology-proteomics study",
+      "kind": "code",
+      "url": "https://github.com/csabaiBio/HGSOC_platinum_response",
+      "verification": "code_inspected",
+      "reviewed_via": "https://github.com/csabaiBio/HGSOC_platinum_response/tree/962aaa8aa855ae9dfa50a27dd69baa9b0e7e45d7",
+      "locator": "Only ref: HEAD = master = 962aaa8aa855ae9dfa50a27dd69baa9b0e7e45d7 (2024-05-27; 20 commits; no tags). HGSOC_TCGA_tasks_data_setup.py lines 17-31, 36-57, 90-118, 139-146, 190-214; classical_models_omics.py lines 17-67 and 73; results_to_tables.py lines 37-38, 43-80, 101-113; statistical_tests.py line 52; tables/main_tables/primary.tex; classical_results_stratified.json; 60 split CSVs (counts only)",
+      "takeaway": "Checked-in code and results give PTRC to TCGA proteomics 0.585 +/- 0.033 (mean and population SD of five per-fold, slide-level AUCs), not the published 0.61 +/- 0.05, and contain no bootstrap code. Per-fold AUC denominators imply a 155-row test set, not the 158 listed slides or the published 159 WSIs. Splits use GroupKFold by case_id without stratification; preprocessing is fitted on whole cohorts.",
+      "limitations": "Read as text from git objects; no code executed, no model fitted. Committed joblib pickles of processed patient-level tables were never loaded; split identifiers were read in memory for counts only, then deleted. No root licence (vendored CLAM GPLv3, topk MIT, openslide-python LGPL). The commit predates the paper's submission and revision. No environment file. The paper is S15. See docs/pilot-001-open-questions.md.",
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S30",
+      "title": "NLM versioned files for the 2025 HGSOC study and its medRxiv preprint",
+      "kind": "data_catalog",
+      "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11762732.1/PMC11762732.1.json",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://pmc-oa-opendata.s3.amazonaws.com/README.txt",
+      "locator": "PMC11762732.1 JSON and 41698_2025_808_MOESM1_ESM.pdf (Supplementary Tables 1 and 7); preprint PMC11177907.1 XML (doi 10.1101/2024.06.01.24308293, version 1), Table T1 and P50; ListObjectsV2 prefixes PMC11762732. and PMC11177907.",
+      "takeaway": "The published 0.61 +/- 0.05 proteomics value is unchanged from preprint v1 and repeated in Supplementary Table 1. The preprint describes an ElasticNet + RF + XGBoost ensemble; the published methods describe logistic regression + RF + XGBoost. Supplementary Table 7 lists TCGA as 159 WSIs (118/41). NLM holds only version 1 of each record and no correction link.",
+      "limitations": "Supplement PDF: 31754080 bytes, MD5 d843637beb2c930b921c35c53e19aa12 (equals NLM metadata), SHA256 b76e7ac6739bf6ebfef2e46b334f8adceba2d9e5688a5860eaec6fe78dcb8d20. Preprint XML: 100640 bytes, SHA256 ee842678f04e8c1ca81c86d99ac12863fbf4b2a6e757706ab8aa78fb649d8c82. Article licence CC BY-NC-ND. Publisher, Crossref and medRxiv hosts were unreachable, so publisher-side notices and later preprint versions are unchecked. The paper is S15. See docs/pilot-001-open-questions.md.",
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S31",
+      "title": "Integrated proteogenomic characterization of human high grade serous ovarian cancer",
+      "kind": "paper",
+      "url": "https://doi.org/10.1016/j.cell.2016.05.069",
+      "verification": "full_text_reviewed",
+      "reviewed_via": "https://pmc-oa-opendata.s3.amazonaws.com/PMC4967013.1/PMC4967013.1.xml",
+      "locator": "P5 (174 tumours with proteomics, 169 HGSC); P9-P11 (dual-centre analysis of 32 tumours, iTRAQ assay, pooled reference, Table S2 abundances); Data Repository statement (CPTAC Data Coordinating Center)",
+      "takeaway": "Source of the TCGA proteomics and PlatinumStatus labels used by the 2025 fallback's test arm. Its assay is iTRAQ against a pooled reference across two centres, unlike the PTRC TMT FFPE data.",
+      "limitations": "NLM copy is an author manuscript (license_code TDM, not in the open-access subset); the bucket holds no supplementary media, so supplement terms and the exact definition of PlatinumStatus were not read. CPTAC Data Coordinating Center deposit terms not checked. Article XML: 130050 bytes, SHA256 a2a8d1123427459c0255f03a6bcc70fb163af289a3e0584ebab9b66683f68c26. See docs/pilot-001-open-questions.md.",
+      "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S32",
+      "title": "Integrated genomic analyses of ovarian carcinoma",
+      "kind": "paper",
+      "url": "https://doi.org/10.1038/nature10166",
+      "verification": "partial",
+      "reviewed_via": "https://pmc-oa-opendata.s3.amazonaws.com/PMC3163504.1/PMC3163504.1.xml",
+      "locator": "P2 (background statement on platinum-resistant recurrence within 6 months); P12 (GISTIC focal deletions); Disease Working Group and Tissue Source Sites list",
+      "takeaway": "TCGA-OV source paper. Its tissue-source list includes Mayo Clinic staff, and the 2025 study's PTRC cohort has a Mayo sub-cohort, so same-patient overlap between the two cannot be excluded from published statements. No evidence of overlap was found.",
+      "limitations": "Read for the stated passages only. It does not define the PlatinumStatus field used by the 2025 study. Author manuscript, license_code TDM. Article XML: 109160 bytes, SHA256 490eba6e7912c8354bb1f2ed780f798038cbe07aaae8f952dcc660584849498a. See docs/pilot-001-open-questions.md.",
+      "checked_on": "2026-10-25"
     }
   ]
 }

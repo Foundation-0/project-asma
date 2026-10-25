@@ -37,6 +37,13 @@ symbols exactly once among 8,800 feature rows. This resolves naming and feature
 availability for the candidate input; transformation provenance remains open.
 Score export and corrected legend provenance also remain unresolved.
 
+On 2026-10-25 the [open-questions report](pilot-001-open-questions.md) narrowed,
+without closing, the fold-helper, frozen-overlap and corrected-legend items. It
+also found 64/64 panel coverage in the validation cohorts' published feature
+lists and assessed the 2025 fallback as not ready. It computed no new
+performance result; any patient-independent frozen metric still needs a
+pre-specified protocol and the owner's decision.
+
 The [public-input reconstruction contract](../protocols/pilot-001-independent-reconstruction.md)
 now links a concrete [decision record](../protocols/pilot-001-reconstruction-decisions.md)
 for feature interpretation, sample-key averaging, ordering, new folds, models and
