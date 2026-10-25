@@ -84,7 +84,7 @@
       <div class="prov">
         <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">status on main · 2026-10-25 · current state in the roadmap</a>
         <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tools"><span class="dot live" aria-hidden="true"></span>audits run in memory, aggregates only</a>
-        <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tests">tests on made-up inputs only</a>
+        <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tests">tests on records and made-up inputs</a>
       </div>
     </div>
   </header>
@@ -130,7 +130,7 @@
         <li>
           <div class="ledger-main"><h3>Code audit of the published analysis</h3>
           <p>A static reading of the authors' Figure 3D R code at a pinned commit, with package sources read at named versions. It records which saved objects can feed the plotted cross-validation, how labels and operating points are set, and where package versions matter. The code was read, never run, and no data were accessed. A consolidated request to the authors is authorized as a draft only. It is unsent, and only the owner decides whether to send it.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #7</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Static inspection · not run</span></span>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #7</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Static · not run</span></span>
         </li>
         <li>
           <div class="ledger-main"><h3>Reconstruction decisions and data-use route</h3>
@@ -148,8 +148,8 @@
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #12</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not run on study files</span></span>
         </li>
         <li>
-          <div class="ledger-main"><h3>Model reproduction</h3>
-          <p>Fitting the models on the released study data and comparing the result with the printed AUC. No model has been fitted on study data. A fit waits on the owner's dated attestation of the execution context and a new explicit instruction. It also waits on a rerun of the pipeline tests in the pinned image and on dated amendments for two open protocol items. Work in open pull requests is not counted until it is merged. Section 02 lists the gaps recorded on main.</p></div>
+          <div class="ledger-main"><h3>Reconstruction fit on study data</h3>
+          <p>Fitting the declared reconstruction's models on the released study data and comparing the result with the printed AUC. No model has been fitted on study data. A fit waits on the owner's dated attestation of the execution context and a new explicit instruction. It also waits on an actual execution host whose location, terms and applicable obligations support the selected data-use route, with the combined Python and R container rechecked on that host. It further waits on a rerun of the pipeline tests in the pinned image and on dated amendments for two open protocol items. Work in open pull requests is not counted until it is merged. Section 02 lists the key gaps recorded on main.</p></div>
           <span class="badge n"><span class="ladder" data-r="1" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not done</span>
         </li>
       </ul>
@@ -169,8 +169,8 @@
           <p>The authors' scripts call a helper file, <span class="mono">balanced_folds.R</span>, that decides how patients were split into folds. The searches so far did not find it: the authors' repository at the commit checked, its reachable history and three public forks. The main branch now declares a replacement fold rule. A rerun with it would be a new reconstruction, not a faithful rerun of the printed cross-validation.</p>
         </div>
         <div class="mini-card">
-          <h3>The workspaces</h3>
-          <p>The figure scripts load saved R workspaces (RData files) that the same searches did not find. Which objects they held, and in what order, decides what the printed figure actually averaged. The declared reconstruction starts from the released matrix instead and does not recover them.</p>
+          <h3>The workspaces and processing history</h3>
+          <p>The figure scripts load saved R workspaces (RData files) that the same searches did not find. Which objects they held, and in what order, decides what the printed figure actually averaged. The declared reconstruction starts from the released matrix instead and does not recover them. How that matrix was itself processed (normalisation, filtering, batch correction, imputation) is only partly documented. So even the declared reconstruction cannot claim that every processing step was fitted only inside training folds.</p>
         </div>
         <div class="mini-card">
           <h3>The corrected legends</h3>
