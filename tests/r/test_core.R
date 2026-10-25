@@ -107,6 +107,29 @@ run_core_tests <- function() {
   check(result$summary$auc == .5 && result$summary$tied_pairs == 4316L)
   check(identical(names(result$scores), keys) &&
           identical(dim(result$repetition_scores), c(135L, 100L)))
+  # Constant stub scores tie every pair, so each repetition's AUROC is 0.5.
+  spread <- result$summary$repetition_auc
+  check(spread$count == 100L && spread$minimum == .5 && spread$maximum == .5 &&
+          spread$mean == .5)
+
+  # Amendment 1: per-repetition AUROC differs from the AUROC of averaged scores.
+  # Separating scores in even repetitions and reversing them in odd ones gives
+  # per-repetition AUROCs of 1 and 0, while the averaged scores all tie at 0.5.
+  alternating <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+    ids <- rownames(x_test)
+    refractory <- as.integer(sub("fixture-patient-", "", ids, fixed = TRUE)) > 83L
+    high <- if (repetition %% 2L == 0L) refractory else !refractory
+    probability <- stats::setNames(ifelse(high, .9, .1), ids)
+    list(en = probability, xgb = probability, rf = probability)
+  }
+  split <- run_reconstruction(assembled, alternating, 100L)
+  spread <- split$summary$repetition_auc
+  check(split$summary$auc == .5 && split$summary$tied_pairs == 4316L)
+  check(spread$count == 100L && spread$minimum == 0 && spread$lower_quartile == 0 &&
+          spread$median == .5 && spread$upper_quartile == 1 && spread$maximum == 1 &&
+          spread$mean == .5)
+  check(identical(checked_auc(y, split$repetition_scores[, 2L])$auc, 1) &&
+          identical(checked_auc(y, split$repetition_scores[, 1L])$auc, 0))
 
   noisy_rng_stub <- function(...) {
     runif(500L)

@@ -66,6 +66,10 @@ Replacing `members[sample.int(length(members))]` with `sample(members)` passes,
 as it should: for more than one element, base R's `sample(x)` is
 `x[sample.int(length(x))]`, so the draw is the same.
 
+[Amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md) adds the
+per-repetition AUROC distribution and four core assertions on constant and
+alternating fixtures, giving 164: 41 input, 83 core and 40 model.
+
 These results come from a development environment, not the pinned image. It used
 conda-forge R 4.4.3 with the pinned versions of glmnet (4.1-8), randomForest
 (4.7-1.2), jsonlite (1.9.1) and data.table (1.17.0). xgboost 1.7.8.1 was built
@@ -75,7 +79,7 @@ matching build.
 Other components differ from the pinned image: Rcpp 1.1.2 (pinned 1.0.14),
 Matrix 1.7-6 (recorded 1.7-2), survival 3.8-12 and lattice 0.23-1, and the conda
 compiler toolchain. Each model's fixture AUROC was 1.0. The pinned-image runner
-must rerun all 162 assertions, and the execution record must be regenerated,
+must rerun all 164 assertions, and the execution record must be regenerated,
 before any research run.
 
 The full run, including all 149 assertions, took 57.619 seconds inside R on the
@@ -149,7 +153,7 @@ python3 -m unittest discover -s tests -v
 The first command downloads the pinned base image and package sources and may
 take several minutes. An optional `--source-cache` directory can supply package
 archives; each is still checked against the manifest. The second command runs
-all R assertions (149 in the recorded run; 162 since the 2026-10-25 addition);
+all R assertions (149 in the recorded run; 164 after the 2026-10-25 additions);
 `--full` also performs the complete 100-repeat integration.
 Each runner prints reviewed aggregate JSON only. The wrapper resolves the local
 image tag to its immutable image ID before execution. Input pins do not imply
