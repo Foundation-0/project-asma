@@ -72,6 +72,13 @@ memory, aggregates only, recording what was read and why.
   separately, not by the probe; it records the outer machine's network policy as
   `unrestricted`. It is not research-use clearance. See the
   [source-adapter report](../docs/pilot-001-source-adapter.md).
+- `pilot-001-owner-attestations.json` does not exist in this repository. Only
+  the owner creates or edits it; automated sessions must never do so. It holds
+  `schema_version: 1` and an `attestations` list. Each entry has exactly `id`,
+  `date` (YYYY-MM-DD), `execution_context` and `instruction`.
+  `load_pinned_sources()` refuses to run unless its `owner_attestation` matches
+  an entry `id`. This guards against accidental calls; it is not a security
+  boundary and does not replace Gate 0 of the [roadmap](../docs/roadmap.md).
 
 Recorded implementation hashes describe the code that ran. Five records (score
 verification, matrix header, author archive, author feature and source-adapter

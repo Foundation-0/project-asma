@@ -13,7 +13,8 @@ APIs. `parse_sources()` accepts bytes already held in memory; `load_pinned_sourc
 acquires only the fixed releases and passes their bytes to that parser. Neither
 is invoked on research sources by a command-line entry point in this change.
 Calling the acquisition API requires a supported execution context for the
-whole data path; the function is not an approval mechanism.
+whole data path; the function is not an approval mechanism. It also refuses to
+run without an entry in the owner's attestation file (see the addition below).
 
 The default contract preserves the prior [member audit](../registries/pilot-001-author-feature-summary.json)
 and [supplement pins](../registries/pilot-001-supplement-summary.json). Acquisition
@@ -37,9 +38,10 @@ hashes, CRC and complete single deflate stream. It then checks:
 
 Only column A of discovery-score rows is interpreted as membership; published
 prediction values are not decoded or used. The selected worksheet XML is still
-read to locate those cells. Nonfinite values in excluded measurements can remain
-missing; they cannot enter a selected sample's average. Nonpanel values and
-nonpatient matrix columns do not enter the payload.
+read to locate those cells. Excluded measurements keep their matrix columns,
+but their values are returned as missing without being decoded or converted;
+they cannot enter a selected sample's average. Nonpanel values and nonpatient
+matrix columns do not enter the payload.
 
 The [R bridge](../R/asma_source.R) validates the in-memory payload, preserves
 identities and feature order, and calls the previously tested `assemble_input()`.
@@ -109,8 +111,9 @@ are disabled. Parsing, private transfer and fitting now share the same bounded
 container; no fixture payload passes through the outer launcher.
 
 **Addition, 2026-10-25 (after the execution records above).** These changes
-address the non-blocking items of the PR #12 review. The records above predate
-them and must be regenerated in the pinned image.
+address the non-blocking items of the PR #12 reviews, the PR #16 review and a
+PR #10 comment on the data rules. The records above predate them and must be
+regenerated in the pinned image.
 
 - **Direct tests for four checks.** New tests reject each of these:
   - a duplicated matrix symbol while every panel symbol is present;
@@ -130,7 +133,38 @@ them and must be regenerated in the pinned image.
   row data, symbols or values. The rejection rules are unchanged, including
   rejecting any `..` relationship target and requiring gap-free row numbers.
   The category makes such a failure diagnosable in a real-file check. The
-  fixture worker does not print it.
+  fixture worker does not print it. Any other value given as a category, such
+  as stray message text, becomes `None`, so it never surfaces; the public
+  functions then report their current stage.
+- **Source-pin flag.** `source_pins_verified` is true only under the default
+  contract (omitted, or an equal copy). Any other contract sets
+  `fixture_contract` instead. Its echoed fingerprints, such as `member_sha256`,
+  are then the caller's pins, not the study's. The validation record above
+  shows `source_pins_verified: true` for fixture pins; a rerun reports
+  `fixture_contract: true`.
+- **Owner attestation for acquisition.** `load_pinned_sources()` needs a
+  keyword-only `owner_attestation` identifier. It must match an entry `id` in
+  `registries/pilot-001-owner-attestations.json`. Each entry has exactly `id`,
+  `date` (YYYY-MM-DD), `execution_context` and `instruction`. An absent or
+  malformed file, or an unknown identifier, fails as `authorization` before any
+  network access. Only the owner creates or edits that file; it does not exist
+  in this repository, and automated sessions must never create or edit it. This
+  guards against accidental calls. It is not a security boundary: code that can
+  edit files could forge an entry, which the [agent guidance](../AGENTS.md)
+  forbids. It does not replace the Gate 0 conditions.
+- **Excluded values stay missing.** Values of measurements outside the selected
+  samples are no longer decoded or converted; they are returned as `null`. The
+  R bridge already accepts missing excluded values, and identity and geometry
+  checks are unchanged.
+- **Key and label digest.** Provenance adds `selected_patient_labels_sha256`:
+  one SHA-256 over the selected patient keys, sorted by UTF-8 bytes. Each key
+  gives one line of the key, a tab, `1` (refractory) or `0` (sensitive) and a
+  newline. It is one aggregate value, not a per-patient hash. The
+  [data rules](reproducibility-and-data.md) say how it proves which folds ran.
+- **Rebuilt base image.** The runtime builder accepts a locally rebuilt base
+  only with `--accept-rebuilt-base` (see the commands below).
+
+The failure categories are:
 
 | Category | Stage that failed |
 | --- | --- |
@@ -140,8 +174,14 @@ them and must be regenerated in the pinned image.
 | `clinical` | Clinical sheet content, labels, replicate geometry, joins or counts |
 | `panel_membership` | Panel list, panel hash or published-score membership |
 | `matrix` | Matrix header, rows, symbols, label coverage or panel coverage |
-| `matrix_value` | A panel value fails the strict decimal rule, or a selected value is missing or non-finite |
+| `matrix_value` | A selected panel value is missing, non-finite or fails the strict decimal rule |
 | `acquisition` | Range fetch, member length, directory recheck or HTTP response (acquisition only) |
+| `authorization` | Missing or malformed owner attestation file, or no matching entry (acquisition only, before any network access) |
+
+Docker and the pinned image were not available for these changes. The Python
+tests and the fixture bridge ran only in a development environment (Python
+3.13, conda-forge R 4.4.3 with the pinned package versions), which is not
+pinned-image evidence.
 
 ## Observed execution conditions
 
@@ -207,6 +247,27 @@ base image is absent. The builder checks its exact identity and pins the new
 Python/header inputs. A rebuilt image has its own identity and must be recorded
 and tested rather than silently substituted for the executed image pin. Preserve
 historical records when recording and pinning a newly validated replacement.
+
+Docker image IDs are local to the daemon that built them. A base image rebuilt
+on another machine therefore has a new ID, and the builder refuses it by default.
+To build on such a base, run:
+
+```sh
+python3 tools/build_source_adapter_runtime.py --accept-rebuilt-base
+```
+
+Every other check still applies:
+
+- the Dockerfile `FROM` tag, and agreement between the two committed
+  base-image records;
+- an unchanged base ID before and after the build;
+- the base layers as a prefix of the new image's layers;
+- the source and notice pins.
+
+The output then sets `base_rebuilt` and prints both the local and the recorded
+base ID. The result is a new runtime: record and validate it before use. The
+fixture runner still uses the recorded image ID, so it refuses the new image
+until a new runtime record exists.
 
 The next step is to choose an actual available execution setting, record its
 research location and applicable obligations, inspect the relevant account/host

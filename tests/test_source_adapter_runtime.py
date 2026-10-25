@@ -1,5 +1,6 @@
 """Offline integrity checks for the source-adapter Python runtime builder."""
 
+import contextlib
 import gzip
 import hashlib
 import io
@@ -103,6 +104,77 @@ class SourceAdapterRuntimeTests(unittest.TestCase):
         download.assert_not_called()
         self.assertEqual(run.call_count, 1)
         self.assertIn("--host=unix:///var/run/docker.sock", run.call_args.args[0])
+
+    def mocked_build(self, base_ids, accept=False, base_layers=("layer-a",),
+                     image_layers=("layer-a", "layer-b"), lock=None):
+        """Run build() against mocked Docker; inspect returns queued base IDs."""
+        record = json.loads(builder.LOCK.read_text())
+        queue, commands = list(base_ids), []
+        def run(command, **options):
+            commands.append(command[2])
+            if command[2] == "build":
+                return subprocess.CompletedProcess(command, 0)
+            if command[-1] == record["base_image_tag"]:
+                body = {"Id": queue.pop(0), "RootFS": {"Layers": list(base_layers)}}
+            else:
+                body = {"Id": "sha256:" + "2" * 64, "RootFS": {"Layers": list(image_layers)}}
+            return subprocess.CompletedProcess(command, 0, json.dumps([body]), "")
+        out = io.StringIO()
+        with tempfile.TemporaryDirectory() as directory, contextlib.ExitStack() as stack:
+            if lock is not None:
+                path = Path(directory) / "lock.json"
+                path.write_text(json.dumps(dict(record, **lock)))
+                stack.enter_context(mock.patch.object(builder, "LOCK", path))
+            stack.enter_context(mock.patch.object(builder.subprocess, "run", side_effect=run))
+            stack.enter_context(mock.patch.object(builder, "checked_download", return_value=b"abstract"))
+            stack.enter_context(mock.patch.object(builder, "checked_python_tar", return_value=b"abstract"))
+            stack.enter_context(contextlib.redirect_stdout(out))
+            try:
+                builder.build(accept_rebuilt_base=accept)
+            except ValueError:
+                return None, commands, record
+        return json.loads(out.getvalue()), commands, record
+
+    def test_recorded_base_output_is_unchanged_with_or_without_opt_in(self):
+        recorded = json.loads(builder.LOCK.read_text())["base_image_id"]
+        for accept in (False, True):
+            printed, commands, _ = self.mocked_build([recorded, recorded], accept=accept)
+            self.assertEqual(set(printed), {"image_id", "base_image_id", "scope"})
+            self.assertEqual(printed["base_image_id"], recorded)
+            self.assertEqual(commands, ["image", "build", "image", "image"])
+
+    def test_rebuilt_base_needs_opt_in_and_is_marked_with_both_ids(self):
+        rebuilt = "sha256:" + "1" * 64
+        printed, commands, _ = self.mocked_build([rebuilt])
+        self.assertIsNone(printed)
+        self.assertEqual(commands, ["image"])
+        printed, commands, record = self.mocked_build([rebuilt, rebuilt], accept=True)
+        self.assertEqual(commands, ["image", "build", "image", "image"])
+        self.assertIs(printed["base_rebuilt"], True)
+        self.assertEqual(printed["base_image_id"], rebuilt)
+        self.assertEqual(printed["recorded_base_image_id"], record["base_image_id"])
+        self.assertNotEqual(printed["base_image_id"], printed["recorded_base_image_id"])
+        self.assertIn("new runtime", printed["status"])
+
+    def test_rebuilt_base_keeps_every_other_check(self):
+        rebuilt = "sha256:" + "1" * 64
+        cases = [dict(base_ids=["not-an-image-id"]),
+                 dict(base_ids=[rebuilt, "sha256:" + "3" * 64]),
+                 dict(base_ids=[rebuilt, rebuilt], base_layers=("layer-x",)),
+                 dict(base_ids=[rebuilt], lock={"base_image_tag": "abstract:tag"}),
+                 dict(base_ids=[rebuilt], lock={"base_image_id": rebuilt})]
+        for case in cases:
+            printed, commands, _ = self.mocked_build(accept=True, **case)
+            self.assertIsNone(printed)
+        # The tag and record checks stop before Docker is called at all.
+        for lock in ({"base_image_tag": "abstract:tag"}, {"base_image_id": rebuilt}):
+            self.assertEqual(self.mocked_build([rebuilt], accept=True, lock=lock)[1], [])
+
+    def test_cli_passes_the_rebuilt_base_opt_in(self):
+        for argv, accept in (([], False), (["--accept-rebuilt-base"], True)):
+            with mock.patch.object(builder, "build") as build:
+                self.assertEqual(builder.main(argv), 0)
+            build.assert_called_once_with(None, accept)
 
 
 if __name__ == "__main__":

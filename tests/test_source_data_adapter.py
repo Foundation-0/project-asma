@@ -1,4 +1,7 @@
-"""In-memory source-format fixtures; no study data, network or file writes."""
+"""In-memory source-format fixtures; no study data or network.
+
+The only file writes are stand-in owner attestations in temporary directories.
+"""
 
 import contextlib
 import copy
@@ -7,6 +10,7 @@ import io
 import json
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 from unittest import mock
 import warnings
@@ -16,11 +20,20 @@ from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
+sys.path.insert(0, str(ROOT / "tests"))
 import source_data_adapter as adapter
+import source_adapter_fixture
 
 MAIN = adapter.NS["s"]
 REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 DOC_REL = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+# Stand-in owner attestations, only ever written to temporary files.
+ATTESTED = "abstract-attestation"
+ATTESTATION = {"schema_version": 1, "attestations": [
+    {"id": "abstract-earlier", "date": "2026-01-01",
+     "execution_context": "abstract context", "instruction": "abstract instruction"},
+    {"id": ATTESTED, "date": "2026-01-02",
+     "execution_context": "abstract context", "instruction": "abstract instruction"}]}
 
 
 def workbook(sheets, shared=False):
@@ -138,7 +151,18 @@ def rewrite_zip(body, change):
 
 
 @contextlib.contextmanager
-def mocked_acquisition(chunks=(b"abc", b"de"), bad_response=None, drift=False):
+def attestation_file(content):
+    """Patch the owner-attestation path to a temporary file; None leaves it absent."""
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "attestations.json"
+        if content is not None:
+            path.write_bytes(content if isinstance(content, bytes) else json.dumps(content).encode())
+        with mock.patch.object(adapter, "ATTESTATIONS", path):
+            yield
+
+
+@contextlib.contextmanager
+def mocked_acquisition(chunks=(b"abc", b"de"), bad_response=None, drift=False, attestation=ATTESTATION):
     """All acquisition dependencies mocked; no live URL can be called."""
     bodies = {"clinical": b"abstract-clinical", "panel_and_scores": b"abstract-panel"}
     sources = {key: dict(pin_workbook(body), filename=adapter.cohorts.SOURCES[key]["filename"])
@@ -164,17 +188,18 @@ def mocked_acquisition(chunks=(b"abc", b"de"), bad_response=None, drift=False):
     directory = {"sha256": adapter.archive.CENTRAL_SHA256, "entries": 42}
     second = dict(directory, entries=41) if drift else directory
     with contextlib.ExitStack() as stack:
+        stack.enter_context(attestation_file(attestation))
         stack.enter_context(mock.patch.object(adapter, "DEFAULT_CONTRACT", contract))
         stack.enter_context(mock.patch.object(adapter.cohorts, "SOURCES", sources))
         fetch = stack.enter_context(mock.patch.object(adapter.archive, "fetch_range", return_value=b"abstract-tail"))
         inspect = stack.enter_context(mock.patch.object(adapter.archive, "inspect_directory", side_effect=[(b"abstract-member", directory), (b"abstract-member", second)]))
         offset = stack.enter_context(mock.patch.object(adapter.archive, "member_data_offset", return_value=123))
         member = stack.enter_context(mock.patch.object(adapter.features, "member_chunks", return_value=iter(chunks)))
-        stack.enter_context(mock.patch.object(adapter.urllib.request, "urlopen", side_effect=open_request))
+        urlopen = stack.enter_context(mock.patch.object(adapter.urllib.request, "urlopen", side_effect=open_request))
         parser = stack.enter_context(mock.patch.object(adapter, "parse_sources", return_value={"provenance": {}}))
         yield {"requests": requests, "reads": reads, "sources": sources, "fetch": fetch,
                "inspect": inspect, "offset": offset, "member": member, "parser": parser,
-               "bodies": bodies}
+               "bodies": bodies, "urlopen": urlopen}
 
 
 class SourceAdapterChecks(unittest.TestCase):
@@ -377,7 +402,7 @@ class SourceAdapterChecks(unittest.TestCase):
 
     def test_explicit_acquisition_uses_only_pinned_ranges_urls_and_bounded_reads(self):
         with mocked_acquisition() as state:
-            result = adapter.load_pinned_sources()
+            result = adapter.load_pinned_sources(owner_attestation=ATTESTED)
         start = adapter.archive.ARCHIVE_BYTES - adapter.archive.TAIL_BYTES
         self.assertEqual(state["fetch"].call_args_list,
                          [mock.call(start, adapter.archive.ARCHIVE_BYTES - 1)] * 2)
@@ -397,7 +422,7 @@ class SourceAdapterChecks(unittest.TestCase):
                               ((b"abc", b"de"), True)):
             with mocked_acquisition(chunks=chunks, drift=drift) as state:
                 with self.assertRaises(adapter.SourceAdapterError) as error:
-                    adapter.load_pinned_sources()
+                    adapter.load_pinned_sources(owner_attestation=ATTESTED)
             self.fixed_failure(error.exception, "acquisition")
             state["parser"].assert_not_called()
             self.assertEqual(state["requests"], [])
@@ -407,19 +432,19 @@ class SourceAdapterChecks(unittest.TestCase):
                                   ("status", "acquisition"), ("overflow", "source_bytes")):
             with mocked_acquisition(bad_response=failure) as state:
                 with self.assertRaises(adapter.SourceAdapterError) as error:
-                    adapter.load_pinned_sources()
+                    adapter.load_pinned_sources(owner_attestation=ATTESTED)
             self.fixed_failure(error.exception, category)
             state["parser"].assert_not_called()
         with mocked_acquisition() as state, mock.patch.object(adapter.archive, "fetch_range", side_effect=ValueError("PRIVATE_SENTINEL")):
             with self.assertRaises(adapter.SourceAdapterError) as error:
-                adapter.load_pinned_sources()
+                adapter.load_pinned_sources(owner_attestation=ATTESTED)
             self.fixed_failure(error.exception, "acquisition")
             state["parser"].assert_not_called()
         # A parser failure keeps the parser's stage rather than becoming acquisition.
         with mocked_acquisition() as state:
             state["parser"].side_effect = adapter.SourceAdapterError("matrix")
             with self.assertRaises(adapter.SourceAdapterError) as error:
-                adapter.load_pinned_sources()
+                adapter.load_pinned_sources(owner_attestation=ATTESTED)
             self.fixed_failure(error.exception, "matrix")
 
     def test_default_contract_rejects_fixture_pins_and_bounds_cannot_be_raised(self):
@@ -430,6 +455,112 @@ class SourceAdapterChecks(unittest.TestCase):
         for group, field in (("member", "uncompressed_bytes"), ("matrix", "rows"), ("cohort", "selected")):
             changed = list(make_fixture()); changed[3][group][field] = adapter.DEFAULT_CONTRACT[group][field] + 1
             self.rejects(changed)
+
+    def test_source_pins_flag_is_set_only_by_the_default_contract(self):
+        fixture = make_fixture()
+        provenance = parse(fixture)["provenance"]
+        self.assertIs(provenance["source_pins_verified"], False)
+        self.assertIs(provenance["fixture_contract"], True)
+        # Standing the fixture pins in for the default isolates the flag logic
+        # without study bytes: an omitted contract or an equal copy is the default.
+        with mock.patch.object(adapter, "DEFAULT_CONTRACT", copy.deepcopy(fixture[3])):
+            for contract in (None, copy.deepcopy(fixture[3])):
+                provenance = adapter.parse_sources(*fixture[:3], contract=contract)["provenance"]
+                self.assertIs(provenance["source_pins_verified"], True)
+                self.assertIs(provenance["fixture_contract"], False)
+            # Dropping an optional MD5 pin still parses, but is not the default.
+            changed = copy.deepcopy(fixture[3]); del changed["workbooks"]["clinical"]["md5"]
+            provenance = adapter.parse_sources(*fixture[:3], contract=changed)["provenance"]
+            self.assertIs(provenance["source_pins_verified"], False)
+            self.assertIs(provenance["fixture_contract"], True)
+
+    def test_unknown_failure_category_never_surfaces(self):
+        for value in ("PRIVATE_SENTINEL", adapter.FAILURE, "", ["matrix"], 1,
+                      type("Text", (str,), {})("matrix")):
+            self.assertIsNone(adapter.SourceAdapterError(value).category)
+        self.assertEqual(adapter.SourceAdapterError("matrix").category, "matrix")
+        # Inside the public functions an unknown code ends as the current stage.
+        with mock.patch.object(adapter, "_clinical", side_effect=adapter.SourceAdapterError("PRIVATE_SENTINEL")):
+            self.rejects(make_fixture(), "clinical")
+        with mocked_acquisition() as state:
+            state["parser"].side_effect = adapter.SourceAdapterError(adapter.FAILURE)
+            with self.assertRaises(adapter.SourceAdapterError) as error:
+                adapter.load_pinned_sources(owner_attestation=ATTESTED)
+            self.fixed_failure(error.exception, "acquisition")
+
+    def test_acquisition_refuses_without_a_valid_owner_attestation_before_any_network_access(self):
+        entry = ATTESTATION["attestations"][1]
+        def entries(*changed):
+            return {"schema_version": 1, "attestations": list(changed)}
+        def without(field):
+            return {key: value for key, value in entry.items() if key != field}
+        files = [None, b"PRIVATE_SENTINEL", b"\xff", json.dumps(ATTESTATION).encode()[:-1],
+                 dict(ATTESTATION, schema_version=2), dict(ATTESTATION, extra=True),
+                 {"attestations": ATTESTATION["attestations"]}, entries(), [entry],
+                 entries(without("instruction")), entries(dict(entry, extra="abstract")),
+                 entries(dict(entry, date="2026-02-30")), entries(dict(entry, date="2026-1-02")),
+                 entries(dict(entry, date="02-01-2026")), entries(dict(entry, date="20260102")),
+                 entries(dict(entry, date=20260102)),
+                 entries(dict(entry, id=" " + ATTESTED)), entries(dict(entry, id=1)),
+                 entries(dict(entry, execution_context=" ")), entries(dict(entry, instruction=None)),
+                 entries(entry, entry), entries(dict(entry, id="abstract-other")),
+                 json.dumps(entries(entry)).replace('"id"', '"id": "abstract-other", "id"').encode()]
+        cases = [(content, ATTESTED) for content in files]
+        matches_anything = type("MatchesAnything", (), {"__eq__": lambda self, other: True, "__hash__": None})()
+        cases += [(ATTESTATION, value) for value in (None, "", " " + ATTESTED, ATTESTED.encode(), 1,
+                                                     [ATTESTED], matches_anything)]
+        for content, identifier in cases:
+            with mocked_acquisition(attestation=content) as state:
+                with self.assertRaises(adapter.SourceAdapterError) as error:
+                    adapter.load_pinned_sources(owner_attestation=identifier)
+            self.fixed_failure(error.exception, "authorization")
+            for name in ("fetch", "inspect", "offset", "member", "urlopen", "parser"):
+                state[name].assert_not_called()
+        # A valid file one byte over the bound is refused too.
+        size = len(json.dumps(ATTESTATION).encode())
+        with mocked_acquisition() as state, mock.patch.object(adapter, "MAX_ATTESTATION_BYTES", size - 1):
+            with self.assertRaises(adapter.SourceAdapterError) as error:
+                adapter.load_pinned_sources(owner_attestation=ATTESTED)
+        self.fixed_failure(error.exception, "authorization")
+        state["fetch"].assert_not_called()
+        # The identifier is keyword-only and required.
+        with mocked_acquisition() as state:
+            for arguments in ((), (ATTESTED,)):
+                with self.assertRaises(TypeError):
+                    adapter.load_pinned_sources(*arguments)
+        state["fetch"].assert_not_called()
+        state["urlopen"].assert_not_called()
+
+    def test_excluded_measurement_values_are_neither_decoded_nor_returned(self):
+        # Column 13 is the excluded sample: one finite value, one non-UTF-8 field.
+        def excluded(c, p, h, r):
+            r[0][13], r[1][13] = "7", "UNDECODABLE"
+        fixture = list(make_fixture(excluded))
+        body = zlib.decompress(fixture[0], -15).replace(b"UNDECODABLE", b"\xff\xfe")
+        fixture[0], fixture[3] = pin_matrix(body, fixture[3])
+        with mock.patch.object(adapter, "_number", wraps=adapter._number) as number:
+            result = parse(fixture)
+        self.assertEqual(number.call_count, 8)  # Two panel rows, four selected columns.
+        self.assertEqual([row[4] for row in result["measurements"]["values"]], [None, None])
+        self.assertEqual(result["measurements"]["column_names"][4], "abstract-excluded")
+
+    def test_selected_patient_label_digest_uses_bytewise_key_order(self):
+        def digest(lines):
+            return hashlib.sha256("".join(lines).encode()).hexdigest()
+        result = parse(make_fixture())
+        self.assertEqual(result["provenance"]["selected_patient_labels_sha256"],
+                         digest(["abstract-patient-a\t0\n", "abstract-patient-b\t1\n"]))
+        # An upper-case key sorts first by bytes, unlike source or case-folded order.
+        def rename(c, p, h, r):
+            c["FFPE_Discovery_clinical"][4]["B"] = "Abstract-patient-b"
+        self.assertEqual(parse(make_fixture(rename))["provenance"]["selected_patient_labels_sha256"],
+                         digest(["Abstract-patient-b\t1\n", "abstract-patient-a\t0\n"]))
+        # The full-shape fixture: 135 selected keys, the first 83 sensitive.
+        packed, clinical, panel, contract = source_adapter_fixture.make_full_fixture()
+        result = adapter.parse_sources(packed, clinical, panel, contract=contract)
+        self.assertEqual(result["provenance"]["selected_patient_labels_sha256"],
+                         digest(f"fixture-patient-{number:03d}\t{int(number > 83)}\n"
+                                for number in range(1, 136)))
 
 
 if __name__ == "__main__":

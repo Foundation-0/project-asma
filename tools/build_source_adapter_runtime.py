@@ -8,6 +8,7 @@ import io
 import json
 import lzma
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -65,7 +66,7 @@ def checked_python_tar(body, record):
     return gzip.compress(tar, compresslevel=1, mtime=0)
 
 
-def build(cache=None):
+def build(cache=None, accept_rebuilt_base=False):
     record = json.loads(LOCK.read_text())
     prior = json.loads((ROOT / "registries/pilot-001-synthetic-validation.json").read_text())
     dockerfile = ROOT / "runtime/Dockerfile.source-adapter"
@@ -80,7 +81,10 @@ def build(cache=None):
                                 check=True, capture_output=True, text=True, timeout=60)
         return json.loads(result.stdout)[0]
     base = inspect(record["base_image_tag"])
-    if base["Id"] != record["base_image_id"]:
+    # Image IDs are local to the daemon that built them. A rebuilt base needs an
+    # explicit opt-in; every other check still applies, and the output is marked.
+    rebuilt = base["Id"] != record["base_image_id"]
+    if rebuilt and not (accept_rebuilt_base and re.fullmatch(r"sha256:[0-9a-f]{64}", base["Id"])):
         raise ValueError(FAILURE)
     source = checked_download(record["cpython"], cache)
     converted = checked_python_tar(source, record["cpython"])
@@ -101,16 +105,24 @@ def build(cache=None):
     if (inspect(record["base_image_tag"])["Id"] != base["Id"] or
             image["RootFS"]["Layers"][:len(base["RootFS"]["Layers"])] != base["RootFS"]["Layers"]):
         raise ValueError(FAILURE)
-    print(json.dumps({"image_id": image["Id"], "base_image_id": base["Id"],
-                      "scope": "Source-adapter software runtime only; no study data"}, sort_keys=True))
+    output = {"image_id": image["Id"], "base_image_id": base["Id"],
+              "scope": "Source-adapter software runtime only; no study data"}
+    if rebuilt:
+        output.update(base_rebuilt=True, recorded_base_image_id=record["base_image_id"],
+                      status="Rebuilt base: record and validate as a new runtime; "
+                             "never substitute it for the recorded image")
+    print(json.dumps(output, sort_keys=True))
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-cache", type=Path, help="Optional verified CPython/Ubuntu archive cache")
+    parser.add_argument("--accept-rebuilt-base", action="store_true",
+                        help="Allow a locally rebuilt base whose image ID differs from the recorded one; "
+                             "the result is a new runtime to record and validate")
     arguments = parser.parse_args(argv)
     try:
-        build(arguments.source_cache)
+        build(arguments.source_cache, arguments.accept_rebuilt_base)
         return 0
     except Exception:
         print(FAILURE, file=sys.stderr)

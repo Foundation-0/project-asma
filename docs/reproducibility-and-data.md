@@ -9,7 +9,8 @@ claim from our inference. A successful local validator is not a successful
 scientific reproduction.
 
 For any future analysis, retain a protocol version, exact source commit and
-input release/checksums, patient-grouped splits, fitted preprocessing scope,
+input release/checksums, patient-grouped splits (for a memory-only run, the
+fold evidence described under Data boundaries), fitted preprocessing scope,
 dependency lock/environment information, seeds, commands, compute/time record,
 and exclusions/deviations. Record failure and null results. Start with a small
 authorized feasibility run; do not download large datasets or train models as
@@ -44,6 +45,23 @@ use and execution context; no institutional approval or exemption is implied.
 The [data-use disposition](pilot-001-data-use.md) distinguishes source terms,
 project choices and unresolved conditions. This exception does not authorize
 unresolved real-data analysis or apply to later work that retains patient data.
+
+Such a run keeps its folds, scores and keys in memory, so its execution manifest
+retains what proves which folds were used:
+
+- the seeds and R RNG kinds;
+- the implementation hashes of the code and runtime that assign folds;
+- one SHA-256 of the selected patient keys and labels, from the source
+  adapter's `selected_patient_labels_sha256` provenance field.
+
+That digest covers the keys sorted by UTF-8 bytes. Each key gives one UTF-8
+line: the key, a tab, `1` (refractory) or `0` (sensitive) and a newline. It is
+one aggregate value, not a per-patient hash. Base R 4.4.3 has no in-memory hash
+function, so the fold table itself is not hashed. A later authorized check
+re-derives the keys and labels from the pinned sources, confirms the digest, and
+recomputes the fold table from the retained seeds and RNG kinds with the hashed
+implementation. The fold golden-vector test in `tests/r/test_core.R` pins the
+fold algorithm's behaviour in the runtime.
 
 The [.gitignore](../.gitignore) reduces accidental tracking; it is not a security
 boundary and cannot remove previously committed material. Review staged paths
