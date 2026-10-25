@@ -13,8 +13,13 @@ It contains no fixture predictions or clinical performance result.
 | --- | --- |
 | [Input assembly](../R/asma_input.R) | 41 assertions: exact identities, complete replicate groups, exclusions, panel/order checks, hand-calculated means, retained missing location, and rejection of conflicting or missing inputs |
 | [Folds and aggregation](../R/asma_core.R) | 77 assertions: patient-disjoint and balanced folds, RNG preservation, row-order invariance, complete prediction coverage, deterministic averaging, independent AUROC formulas, and sanitized errors/output |
-| [Model adapters](../R/asma_models.R) | 31 assertions with actual glmnet, XGBoost and randomForest fits: pinned versions, deterministic reruns, probability direction/order, input preservation, and unchanged predictions when unrelated held-out rows change |
+| [Model adapters](../R/asma_models.R) | 31 assertions with actual glmnet, XGBoost and randomForest fits: pinned versions, deterministic reruns, prediction order, input preservation, and unchanged predictions when unrelated held-out rows change |
 | Full integration | 135 artificial subjects × 64 features; 100 repetitions × 5 outer folds; 40,500 model predictions, 13,500 ensemble predictions and 135 final scores; complete coverage and agreement between pairwise and rank-based AUROC calculations |
+
+The model fixture carries no label signal, so these assertions do not show that
+each model scores refractory (class 1) higher. A planted-signal direction test is
+an open pre-run requirement in the
+[reconstruction contract](../protocols/pilot-001-independent-reconstruction.md).
 
 The full run, including all 149 assertions, took 57.619 seconds inside R on the
 recorded environment. This is an observed fixture runtime, not a compute estimate

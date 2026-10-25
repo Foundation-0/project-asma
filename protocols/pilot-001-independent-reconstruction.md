@@ -100,10 +100,11 @@ fixture-tested implementation:
 | No missing labels or panel values; valid R names or the matrix interface | Met: every selected value must be finite, and the random forest uses the matrix interface. The `make.names` count remains an open aggregate check. |
 | Scope of every learned preprocessing step; globally preprocessed inputs not described as independent validation | Met for this track: released values are used as processed upstream, and only glmnet standardizes, within training subsets. Upstream processing scope remains unknown, and discovery cross-validation is not independent validation. |
 | Denominators, score direction, metric, comparison rule, compute limits, failure behavior and stop rules | Met: 135 patients (83/52), 4,316 pairs, 40,500 model predictions, a two-hour/8 GiB limit and explicit stop rules. |
+| Probability direction tested for each model (added at integration, from review of the synthetic validation) | **Open.** The model fixture has no label signal, so no test shows that each model scores refractory (class 1) higher. Add a planted-signal fixture and pass it per model before any research run; direction cannot be revisited after one. |
 | Distribution of per-repetition AUROCs reported next to the repeat-averaged target | **Open.** The frozen decision record does not include it. Adding it needs a dated amendment before any research run. Each repetition's AUROC spans all 135 held-out scores; it is not an average of fold AUROCs. |
 
-The two open items do not change the primary target. Decide them, or record why
-they are declined, before any research run.
+The open items do not change the primary target. Resolve them, or record why
+they are declined, before any research run. Before any study values are loaded for fitting, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
 
 ## Output and continuation decision
 
