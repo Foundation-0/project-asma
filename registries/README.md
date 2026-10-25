@@ -61,10 +61,11 @@ Recorded implementation hashes describe the code that ran. Five records (score
 verification, matrix header, author archive, author feature and source-adapter
 validation) name the shared loader `tools/audit_published_cohorts.py` at SHA-256
 `b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52`. After those
-runs, its `Workbook.xml` gained a pre-parse guard that rejects workbook parts
-carrying a document type or entity declaration, or NUL bytes (UTF-16/32 text).
-Accepted parts parse unchanged, so the current file's hash differs while the
-records keep the hash that ran. A rerun records the new hash.
+runs, its `Workbook.xml` gained a pre-parse expat pass that rejects workbook
+parts carrying a document type or entity declaration, in any encoding expat
+reads, and reports unreadable XML with a fixed audit error. Accepted parts parse
+unchanged, so the current file's hash differs while the records keep the hash
+that ran. A rerun records the new hash.
 
 The source and dataset registries use `schema_version: 1` and a list under
 `sources` or `datasets`.

@@ -52,8 +52,8 @@ No full PDC abundance matrix was downloaded, no author analysis code was execute
 and no model was trained on study data. Missing input/method provenance still
 prevents full reproduction. On 2026-10-24 the user authorized putting the
 code-audit questions to the authors through the consolidated
-[source request](templates/pilot-001-source-request.md), sent by the owner from
-their own account because GitHub refused automated posting. The later
+[source request](templates/pilot-001-source-request.md), to be sent by the owner
+from their own account because GitHub refused automated posting. The later
 2026-10-25 reconstruction records, prepared on a branch without that record,
 describe external outreach as **on hold at the user's request**. Until the owner
 reconciles the two, treat the request as on hold: no author message has been

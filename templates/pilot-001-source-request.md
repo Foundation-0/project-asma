@@ -1,6 +1,6 @@
 # Pilot 001: source-clarification request
 
-**Ready for the owner to send (2026-10-24).**
+**Prepared for the owner (2026-10-24); unsent. See the 2026-10-25 status below.**
 - **Authorization.** On 2026-10-24 the user explicitly authorized putting the
   [code-audit addendum](../docs/pilot-001-code-audit-addendum.md) questions to the
   authors. This consolidated request also carries the questions held since

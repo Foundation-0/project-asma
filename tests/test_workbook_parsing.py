@@ -115,6 +115,17 @@ class WorkbookParsingChecks(unittest.TestCase):
             with self.subTest(encoding=encoding), self.assertRaises(audit.AuditError):
                 load(workbook_bytes(shared_strings=malicious.encode(encoding)))
 
+    def test_conformant_utf16_part_is_read(self):
+        # Open Packaging Conventions allow UTF-8 or UTF-16 XML parts.
+        declared = '<?xml version="1.0" encoding="UTF-16" standalone="yes"?>'
+        book = load(workbook_bytes(
+            shared_strings=(declared + SHARED_STRINGS).encode("utf-16")))
+        self.assertEqual(book.rows("Data")[1], {"A": "label-alpha", "B": "0.25"})
+
+    def test_unreadable_part_fails_with_audit_error(self):
+        with self.assertRaises(audit.AuditError):
+            load(workbook_bytes(shared_strings="<sst><si>"))
+
 
 if __name__ == "__main__":
     unittest.main()

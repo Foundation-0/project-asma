@@ -103,8 +103,9 @@ fixture-tested implementation:
 | Probability direction tested for each model (added at integration, from review of the synthetic validation) | **Open.** The model fixture has no label signal, so no test shows that each model scores refractory (class 1) higher. Add a planted-signal fixture and pass it per model before any research run; direction cannot be revisited after one. |
 | Distribution of per-repetition AUROCs reported next to the repeat-averaged target | **Open.** The frozen decision record does not include it. Adding it needs a dated amendment before any research run. Each repetition's AUROC spans all 135 held-out scores; it is not an average of fold AUROCs. |
 
-The open items do not change the primary target. Resolve them, or record why
-they are declined, before any research run. Before any study values are loaded for fitting, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
+The open items do not change the primary target, but each is required. Resolve
+each by a dated amendment before any research run; the decision record itself
+stays frozen. Before any study values are loaded for fitting, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
 
 ## Output and continuation decision
 

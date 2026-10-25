@@ -7,6 +7,7 @@ do not replace scientific review or complete model reproduction.
 Follow-up (2026-10-24): the user has since authorized putting the code-audit
 questions to the authors through the consolidated
 [source request](../templates/pilot-001-source-request.md), which the owner sends.
+A later 2026-10-25 record describes outreach as on hold; until the owner reconciles the two, the request is unsent (see the [README](../README.md)).
 Reviewer recruitment remains on hold.
 
 **A new public input was recovered:** the author-released imputed discovery

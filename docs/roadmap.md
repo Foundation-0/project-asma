@@ -47,12 +47,16 @@ conditional Canadian research fair-dealing basis. Actual execution context and
 applicable hosting/review conditions must support that basis before fitting.
 
 The [source adapter and execution check](pilot-001-source-adapter.md) now validate
-generated source-format files through the actual model pipeline. All 138 Python
-tests and 18 new R bridge assertions pass; 40 observed combined-runtime controls
-pass. The source adapter has not ingested study bytes. The next step is to select
+generated source-format files through the actual model pipeline. At that commit
+all 138 Python tests and 18 new R bridge assertions passed, and 40 observed
+combined-runtime controls passed. The source adapter has not ingested study bytes. The next step is to select
 and assess an actual execution context, including host terms and applicable
 obligations, then verify live acquisition and the combined runtime on that host. Keep historical uncertainties explicit; do not repair them silently
-to improve agreement. Research fitting remains conditional on the data-use disposition. No researcher contact
+to improve agreement. Research fitting remains conditional on the data-use disposition
+and on the owner's sign-off in Gate 0. Before any research run, also resolve the
+open items in the [reconstruction contract](../protocols/pilot-001-independent-reconstruction.md):
+a per-model planted-signal direction test, a fixed sensitivity configuration and
+the per-repetition AUROC distribution. No researcher contact
 is needed for the software preparation. The 2025 fallback remains unadopted.
 
 | Gate | Deliverable | Acceptance or stop rule |

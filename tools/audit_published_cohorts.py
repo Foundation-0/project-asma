@@ -18,6 +18,7 @@ import urllib.request
 import zipfile
 from datetime import datetime, timezone
 from xml.etree import ElementTree as ET
+from xml.parsers import expat
 
 
 BASE = "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/"
@@ -175,14 +176,22 @@ class Workbook:
         require(self.archive.getinfo(name).file_size <= 128 * 1024 * 1024,
                 "Unexpected XML member size")
         data = self.archive.read(name)
-        # Spreadsheet parts are UTF-8 and never carry a document type
-        # declaration. NUL bytes mark UTF-16/32 text, which would hide one from
-        # the byte search. The pinned workbook hash remains the primary control.
-        lowered = data.lower()
-        require(b"\x00" not in data and b"<!doctype" not in lowered
-                and b"<!entity" not in lowered,
-                "Unexpected document type declaration or encoding in workbook part")
-        return ET.fromstring(data)
+        # Spreadsheet parts never carry a document type declaration. A first
+        # expat pass reports one in any encoding expat reads, before entity
+        # declarations are processed. The pinned workbook hash remains the
+        # primary control.
+        def refuse(*_):
+            raise AuditError("Unexpected document type declaration in workbook part")
+
+        scanner = expat.ParserCreate()
+        scanner.StartDoctypeDeclHandler = refuse
+        scanner.EntityDeclHandler = refuse
+        try:
+            scanner.Parse(data, True)
+            return ET.fromstring(data)
+        except (expat.ExpatError, ET.ParseError):
+            pass
+        raise AuditError("Unreadable XML in workbook part")
 
     def value(self, cell):
         value = cell.find("s:v", NS)
