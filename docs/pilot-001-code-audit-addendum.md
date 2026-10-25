@@ -110,10 +110,11 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
   in validation data. Figure 1E only filters a precomputed, absent association
   table at FDR < 0.1 for plotting. Even a working part 2 would yield at most the
   metabolic subset, not the 64-protein panel.
-- Feasibility finding 2 records the wrong importance column and the lost feature
-  names. This adds the literal consequence: part 2 cannot reach its union (line
-  179) in a top-to-bottom run. The summary helper stops at line 148, before the
-  random-forest summary (152).
+- Feasibility finding 2 records that the summary helper reads a column
+  (`MeanDecreaseGini`) that `xgb.importance` does not produce, and that feature
+  names are lost. This adds the literal consequence: part 2 cannot reach its
+  union (line 179) in a top-to-bottom run. The summary helper stops at line 148,
+  before the random-forest summary (152).
 - Per-learner criteria are: a nonzero elastic-net coefficient at `lambda.min`
   (alpha 0.1, default 10 inner folds); random-forest `MeanDecreaseGini` > 0.9, an
   absolute and scale-dependent cutoff; and an apparently intended xgboost
