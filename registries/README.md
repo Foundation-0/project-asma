@@ -5,11 +5,11 @@
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 
-The first six records below (linkage, supplement, score verification, matrix
-header, author archive and author feature) come from network audits that read
-study files or patient-level metadata in memory. Regenerating them follows the
-bounded-inspection rule in the [agent guidance](../AGENTS.md): in memory,
-aggregates only, recording what was read and why.
+The first seven records below (linkage, supplement, score verification, matrix
+header, author archive, author feature and panel name) come from network audits
+that read study files or patient-level metadata in memory. Regenerating them
+follows the bounded-inspection rule in the [agent guidance](../AGENTS.md): in
+memory, aggregates only, recording what was read and why.
 
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,
   aggregate-only comparison of public version-1 PDC metadata. Regenerate with
@@ -42,8 +42,9 @@ aggregates only, recording what was read and why.
   archive integrity, transformation history and later reuse terms remain open.
 - [pilot-001-panel-name-summary.json](pilot-001-panel-name-summary.json): count of
   pinned panel symbols that R's `make.names` would alter (0 of 64), with source
-  and tool hashes. Regenerate with `python3 tools/audit_panel_names.py`; it prints
-  counts only, no symbols.
+  and tool hashes. Regenerate with `python3 tools/audit_panel_names.py`; it
+  prints counts only, no symbols. It was run to answer the `make.names` check in
+  issue #9.
 - [pilot-001-reconstruction-runtime.json](pilot-001-reconstruction-runtime.json):
   selected R 4.4.3, glmnet 4.1-8, randomForest 4.7-1.2 and XGBoost 1.7.8.1 source
   archives, computed hashes and declared license metadata. This historical
@@ -77,6 +78,13 @@ parts carrying a document type or entity declaration, in any encoding expat
 reads, and reports unreadable XML with a fixed audit error. Accepted parts parse
 unchanged, so the current file's hash differs while the records keep the hash
 that ran. A rerun records the new hash.
+
+The panel-name record names `tools/audit_panel_names.py` at SHA-256
+`fbcc22f272a70f078c93b4b51f1b7d9a2d191421a8e34c4a2c1cd3c93b2c4df3`. After that
+run, only its text changed: the docstring and `--help` text gained the
+owner-instruction rule, and a comment now names the R token check. The audit
+logic is unchanged. The current file's hash differs, and the record keeps the
+hash that ran.
 
 The source and dataset registries use `schema_version: 1` and a list under
 `sources` or `datasets`.

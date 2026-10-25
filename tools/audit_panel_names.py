@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Count pinned panel symbols that R's make.names would alter; aggregate output only.
 
+This reads a study file, the published workbook that holds the panel and the
+discovery scores, so it follows the bounded-inspection rule in AGENTS.md: in
+memory, aggregates only, recording what was read and why.
 Downloads the hash-pinned MMC4 workbook into memory through the shared loader,
 which also decodes the workbook-wide shared-string table, and parses only the
 `64_protein_predictors` worksheet. No score or clinical sheet is parsed, and no
@@ -28,7 +31,8 @@ FAILURE_MESSAGE = "ERROR: panel-name audit failed; no symbols emitted."
 
 # R 4.4.3 make.names keeps an ASCII name unchanged exactly when it is
 # syntactically valid and not reserved. "..." and "..1" are kept, so only these
-# words count as reserved here; verified against R on the cases in the tests.
+# words count as reserved here. tools/check_panel_name_tokens.R checks the test
+# cases (tests/panel_name_tokens.json) against R itself.
 R_RESERVED = frozenset({
     "if", "else", "repeat", "while", "function", "for", "in", "next", "break",
     "TRUE", "FALSE", "NULL", "Inf", "NaN", "NA", "NA_integer_", "NA_real_",
@@ -91,7 +95,8 @@ def run_audit():
 def main(argv=None):
     parser = argparse.ArgumentParser(description=(
         "Count pinned panel symbols that R's make.names would alter. Parses only the "
-        "panel worksheet of the in-memory workbook and prints aggregate JSON without symbols."
+        "panel worksheet of the in-memory workbook and prints aggregate JSON without symbols. "
+        "Follows the bounded-inspection rule in AGENTS.md."
     ))
     parser.parse_args(argv)
     try:

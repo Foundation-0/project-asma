@@ -124,6 +124,9 @@ python3 -m unittest discover -s tests -v
 The validator checks registry structure, cross-references, and local Markdown
 file/heading links. It does not check external availability, scientific truth,
 dataset contents, or access rights. See the [registry guide](registries/README.md).
+With R and jsonlite, `Rscript --vanilla tools/check_panel_name_tokens.R` checks
+the token expectations of the panel-name tests against R's own `make.names`. It
+is offline, prints only counts and is not part of the Python suite.
 
 The network commands `python3 tools/audit_pdc_metadata.py` and
 `python3 tools/audit_published_cohorts.py` rerun the public catalog comparison

@@ -1,6 +1,13 @@
-"""Offline tests for the panel-name audit, using abstract tokens only."""
+"""Offline tests for the panel-name audit, using abstract tokens only.
+
+The token expectations live in tests/panel_name_tokens.json. The R script
+tools/check_panel_name_tokens.R checks the same table against R's own make.names,
+including make.names(unique = TRUE) on the unchanged tokens. On 2026-10-25 it
+passed in a development R 4.4.3, not in the pinned image.
+"""
 
 import hashlib
+import json
 from pathlib import Path
 import sys
 import unittest
@@ -12,13 +19,8 @@ sys.path.insert(0, str(ROOT / "tools"))
 import audit_panel_names as audit
 
 
-# Each expectation was checked against make.names(x) == x in R 4.4.3.
-R_UNCHANGED = ["a1", "abc", "A.", ".a", ".", "..", "...", "..1", "..12", "...1",
-               ".._", "._", "..a", "a_b", "a.b", "T", "F", "X"]
-R_ALTERED = ["abc-d", "x2-1", "1a", "_a", ".2x", ".1", "a b", "a$b", "",
-             "if", "else", "repeat", "while", "function", "for", "in", "next",
-             "break", "TRUE", "FALSE", "NULL", "Inf", "NaN", "NA", "NA_integer_",
-             "NA_real_", "NA_character_", "NA_complex_"]
+TOKENS = json.loads((ROOT / "tests" / "panel_name_tokens.json").read_text(encoding="utf-8"))
+R_UNCHANGED, R_ALTERED = TOKENS["unchanged"], TOKENS["altered"]
 
 
 def digest(symbols):
@@ -27,6 +29,10 @@ def digest(symbols):
 
 class PanelNameRule(unittest.TestCase):
     def test_matches_r_make_names_cases(self):
+        # An empty or malformed table would make the loops below vacuous.
+        for values in (R_UNCHANGED, R_ALTERED):
+            self.assertTrue(values)
+            self.assertTrue(all(isinstance(value, str) for value in values))
         for name in R_UNCHANGED:
             with self.subTest(name=name):
                 self.assertTrue(audit.unchanged_by_make_names(name))
@@ -49,6 +55,15 @@ class PanelSummary(unittest.TestCase):
         text = repr(summary)
         for symbol in symbols:
             self.assertNotIn(f"'{symbol}'", text)
+
+    def test_unchanged_tokens_are_unique_and_unaltered(self):
+        # Distinct names that make.names keeps also get no suffix from
+        # unique = TRUE, which is what the summary states. The R script runs
+        # the same check in R on this list.
+        summary = audit.summarize(R_UNCHANGED, digest(R_UNCHANGED))
+        self.assertEqual(summary["altered_by_r_make_names"], 0)
+        self.assertIn("Unique symbols mean make.names(unique = TRUE) adds no suffixes.",
+                      summary["limitations"])
 
     def test_rejects_checksum_duplicates_and_blanks(self):
         with self.assertRaises(ValueError):
