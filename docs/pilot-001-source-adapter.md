@@ -118,7 +118,7 @@ Only this allowlisted observation is retained, without account or environment ID
 | Execution condition | Disposition |
 | --- | --- |
 | Combined runtime technical controls | Observed PASS on this run; rerun the probe on the actual execution host |
-| Python parsing, private transfer and R fitting | Tested together in the pinned container; repeat checks on the actual research host |
+| Python parsing, private transfer and R fitting | Tested together in the pinned container; repeat checks on the actual research host, on study values only after the owner's sign-off in Gate 0 |
 | Live acquisition | Implemented and mock-tested; network access, CA trust and data handling on the actual host still require verification, and the owner's sign-off in Gate 0, before study bytes are acquired |
 | Actual processing and operator research location | UNKNOWN; requires evidence of the actual research and processing setting |
 | Actual host/product terms and retention | UNKNOWN; generic cloud connectivity is insufficient evidence |
@@ -157,8 +157,8 @@ The next step is to choose an actual available execution setting, record its
 research location and applicable obligations, inspect the relevant account/host
 terms, and verify the tested combined runtime on that host. Once those facts
 support the selected use basis, live acquisition of study files and a bounded
-real-source input check can establish parser compatibility before fitting. Both
-need the owner's sign-off in Gate 0 of the [roadmap](roadmap.md): a dated
+real-source input check can establish parser compatibility before fitting. These
+steps, and any fitting on study values, need the owner's sign-off in Gate 0 of the [roadmap](roadmap.md): a dated
 attestation of the execution context and a new explicit instruction. No researcher contact
 is required merely to finish these technical and contextual checks. The prior
 supplied-score discrepancy and frozen scientific methods remain unchanged.

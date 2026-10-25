@@ -15,10 +15,11 @@ This repository is a research scaffold, not clinical decision support.
   Fit learned preprocessing only inside training folds for honest evaluation.
 - Do not ingest patient data/datasets, run third-party analysis code, train models,
   contact collaborators, or publish row-level outputs in a scaffold task. Future
-  ingestion needs verified rights and appropriate authorization. Live acquisition
-  of study files, a real-source input check or fitting on study values also needs
-  the owner's dated attestation of the execution context and a new explicit
-  instruction; a session's own checks never satisfy it.
+  ingestion needs verified rights and appropriate authorization. Reading study
+  files, including rerunning the recorded network audits, needs an explicit owner
+  instruction. Live acquisition on a research host, a real-source input check or
+  fitting on study values also needs the owner's dated attestation of the
+  execution context. A session's own checks never satisfy either condition.
 - On 2026-10-24 the user explicitly authorized putting the code-audit questions
   to the authors through the consolidated
   [source request](templates/pilot-001-source-request.md). The owner confirms its

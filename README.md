@@ -138,6 +138,9 @@ header linkage using bounded ZIP ranges and exact clinical/score-key joins.
 `python3 tools/audit_author_features.py` checks the complete selected member
 in memory for CRC, hashes and exact panel coverage under the documented bounded
 inspection scope; it emits no source rows or abundance values.
+These network audits read keyed clinical records or the full matrix member in
+memory. Run them only under an explicit owner instruction, as the recorded runs
+were; they are not routine checks.
 
 To build and test the isolated R pipeline on abstract fixtures, follow the
 [synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands).

@@ -4,6 +4,12 @@
   takeaways, verification route, and limits. S01–S25 are stable local IDs.
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
+
+The first six records below (linkage, supplement, score verification, matrix
+header, author archive and author feature) come from network audits that read
+study files or patient-level metadata in memory. Regenerating any of them needs an
+explicit owner instruction (see the [agent guidance](../AGENTS.md)).
+
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,
   aggregate-only comparison of public version-1 PDC metadata. Regenerate with
   `python3 tools/audit_pdc_metadata.py`; no row-level identifiers are emitted.
