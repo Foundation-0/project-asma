@@ -1,6 +1,7 @@
 # Pilot 001: reproduce a primary platinum-refractoriness protein signature
 
-**Status:** proposed; not executed. **Version:** 0.1, 2026-10-22.
+**Status:** full model reproduction proposed; input/linkage and preliminary
+published-score checks executed. **Version:** 0.6, 2026-10-23.
 **Scope:** research reproduction and robustness, not a novel classifier or new
 clinical validation. No treatment recommendations or patient-facing output.
 
@@ -11,8 +12,14 @@ and characterize performance on genuinely independent HGSOC patients?
 [S01](https://doi.org/10.1016/j.cell.2023.07.004)
 
 Start with the published 64-protein panel and primary refractory versus sensitive
-labels. Before analysis, extract the exact original endpoint, response criteria,
-timing, neoadjuvant exclusions, and specimen selection from methods and metadata.
+labels. The [static feasibility audit](../docs/pilot-001-feasibility-audit.md)
+records the paper's response definitions, published cohort counts, missing inputs,
+and code/method discrepancies. The
+[input/linkage follow-up](../docs/pilot-001-input-resolution.md) recovers the panel
+and reconciles the published prediction membership to explicit clinical fields.
+Literal missing location annotations remain unresolved; matching published
+membership does not establish complete clinical eligibility. The original
+analysis workspaces and execution remain unverified.
 Primary refractory disease concerns failure of initial platinum therapy; later
 platinum-resistant recurrence is a different endpoint. Do not substitute one for
 the other or pool histotypes.
@@ -26,14 +33,34 @@ reference values, not results from this project. Proposed agreement tolerance:
 absolute AUC difference ≤0.02 with matching endpoint and population; departures
 must be explained rather than tuned away.
 
+A [narrower published-score verification](pilot-001-score-verification.md) ran
+under the user's explicit instruction while external scientific review remains
+pending. The [result](../docs/pilot-001-score-verification-result.md), AUROC
+0.8088507878, rounds to 0.81 and misses the fixed comparison against printed 0.83.
+It does not regenerate models, establish original out-of-fold score provenance,
+reproduce the repeated-CV procedure or close the full reproduction gates.
+
+The [independent follow-up](../docs/pilot-001-independent-progress.md) adds a
+repeatable matrix-header diagnostic, score-lineage inspection and a concrete
+supplement-legend mismatch. A separate
+[public-input reconstruction contract](pilot-001-independent-reconstruction.md)
+specifies prospective work while external outreach is on hold. A subsequent
+complete-member inspection verifies the recovered author matrix's ZIP CRC and
+finds all 64 panel symbols exactly once among 8,800 feature rows. The
+[preprocessing history review](../docs/pilot-001-preprocessing-provenance.md)
+records remaining transformation and workspace gaps. This does not change
+the executed score check or treat internal checks as external scientific review.
+
 ## Inputs and access gate
 
 Candidate proteome studies: discovery **PDC000360**, FFPE validation **PDC000358**,
 frozen validation **PDC000362**. Matched phosphoproteomes (359/357/361) are
 registered for context and are outside the first analysis. See the
-[dataset registry](../registries/datasets.json); study names were verified using
-PDC metadata, but file-level access, terms, releases, and contents remain unchecked.
-No datasets have been downloaded.
+[dataset registry](../registries/datasets.json). Version-1 study and open
+processed-file metadata, PDC public-data terms, and catalog overlap were checked;
+only file headers were read, not full PDC abundance matrices. Published clinical
+and panel/score workbooks were inspected in memory, with only aggregate findings
+retained. The follow-up report pins exact source files, sheets, hashes and limits.
 
 Author code was inspected, not executed: commit
 `48357fd63ccbfe3954f38c8efc558b4f88bd6051`,
@@ -51,10 +78,18 @@ until it has been reviewed.
    releases, checksums, transformation history, label sources, participant,
    specimen and aliquot relationships, including primary/metastatic pairs.
    The paper reports discovery/frozen overlap and uses shared samples for assay
-   alignment. Reconcile those counts with eligibility exclusions. Explicitly
+   alignment, including 14 additional pairs from different tumors of the same
+   patients. Exact supplemental joins now identify six patient keys in the
+   published 34-row frozen `nonoverlap` score sheet also present in the eligible
+   135-row discovery score set. There are 28 frozen patient keys with no observed
+   eligible-discovery match, and 21 with no observed match to any discovery
+   record; neither is yet proven independent of upstream fitting/alignment.
+   Preserve published and revised membership separately and resolve this
+   discrepancy with scientific review before evaluation. Explicitly
    classify each validation patient as independent, overlapping, or unresolved;
-   unresolved patients cannot enter independent-patient metrics. The overlap is
-   disclosed by the authors, not evidence of misconduct.
+   unresolved patients cannot enter independent-patient metrics. The paper
+   discloses cross-cohort overlap and assay alignment; the six-key score-membership
+   discrepancy remains to be clarified.
 2. **Reproducible environment.** Pin R and package versions from an inspected
    dependency inventory, author commit, seeds, and execution commands. Record OS,
    session information, CPU/memory/time and all deviations. No unverified lockfile
@@ -83,6 +118,14 @@ until it has been reviewed.
    labels. Use patient-level bootstrap 95% intervals (proposed 2,000 resamples,
    fixed seed), disclose class-empty resamples and instability. Small cohorts
    cannot support precise high-specificity estimates.
+
+The cohorts deliberately select refractory and long-term-sensitive tumors.
+Their class balance is not population prevalence; interpret AUPRC, Brier score,
+and calibration within that selection scheme, without claiming population-risk
+calibration. The published panel also used validation-set protein detectability
+in its construction; distinguish fixed-panel transfer evaluation from validation
+that was untouched throughout model development. The
+[audit](../docs/pilot-001-feasibility-audit.md) provides source locators.
 
 Retain FFPE and frozen evaluations separately. FFPE validation used model
 re-estimation and CV in the paper; report it as such, not a locked external model
@@ -115,4 +158,6 @@ Do not replace missing evidence with synthetic patient records or invented resul
 
 Publish only safe aggregate outputs after disclosure review; keep row-level data
 and patient keys out of Git. The [roadmap](../docs/roadmap.md) gives a conditional
-2–4 week estimate, not a commitment. Current executed research results: **none**.
+2–4 week estimate, not a commitment. Executed results include input/membership
+checks and the preliminary supplied-score AUROC discrepancy. The original model
+and reported performance have not been reproduced; external review is pending.

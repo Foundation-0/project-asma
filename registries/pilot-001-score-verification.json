@@ -1,0 +1,98 @@
+{
+  "execution": {
+    "architecture": "x86_64",
+    "command": "python3 tools/verify_published_auc.py",
+    "completed_at_utc": "2026-10-23T16:02:50.669046+00:00",
+    "dependencies": "Python standard library only",
+    "elapsed_seconds": 2.797448,
+    "membership_helper_sha256": "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52",
+    "os": "Linux",
+    "os_release": "6.18.55",
+    "python_implementation": "CPython",
+    "python_version": "3.12.14",
+    "random_seed": null,
+    "started_at_utc": "2026-10-23T16:02:47.871599+00:00",
+    "stochastic_procedure": false,
+    "tool_sha256": "1faf21e896f9ca2df8d6f0595f551080364c81b808f32e73571886d65307f95f"
+  },
+  "limitations": [
+    "Score provenance as the original averaged out-of-fold Figure 3D predictions is not established by this arithmetic check.",
+    "Original model objects, fold assignments, preprocessing, corrected legends, and execution environment remain unresolved.",
+    "An AUC discrepancy is reported unchanged; the tool never reverses direction or changes membership to improve agreement.",
+    "No inference about patient independence, clinical validity, treatment benefit, or a cancer cure follows from this check.",
+    "Raw workbooks, identifiers, response labels, prediction scores, and linkage rows are never emitted or persisted."
+  ],
+  "metric": {
+    "auc": 0.8088507877664504,
+    "auc_exact": {
+      "denominator": 4316,
+      "numerator": 3491
+    },
+    "comparison": {
+      "absolute_difference": 0.021149212233549583,
+      "absolute_difference_exact": {
+        "denominator": 53950,
+        "numerator": 1141
+      },
+      "interpretation": "These arithmetic comparisons do not establish model reproduction or close Gate 2.",
+      "model_reproduction_comparison_tolerance": 0.02,
+      "published_reference_auc": 0.83,
+      "reproduces_displayed_0_83": false,
+      "rounded_auc_2dp_half_up": "0.81",
+      "within_0_02_model_tolerance": false
+    },
+    "confidence_interval": null,
+    "confidence_interval_status": "Not calculated; original interval procedure is unresolved",
+    "direction_source": "Paper STAR Methods S95: probability of being refractory",
+    "higher_score_means": "refractory",
+    "independent_average_rank_check_passed": true,
+    "name": "AUROC",
+    "pair_counts": {
+      "concordant_pairs": 3491,
+      "discordant_pairs": 825,
+      "positive_negative_pairs": 4316,
+      "tied_pairs": 0
+    },
+    "tie_rule": "Exact source-number equality receives one-half credit; no score rounding"
+  },
+  "review_contract": {
+    "path": "protocols/pilot-001-score-verification.md",
+    "requirement": "The protocol records the execution basis and pending external scientific review; this tool does not attest review completion.",
+    "sha256": "d9d192051e10759f9a3a4af42c7d60d63aa4a059b628252ba798348f2369bfb3"
+  },
+  "scope": "Arithmetic verification of AUROC from released discovery predictions; no model refit or cross-validation reconstruction",
+  "selection": {
+    "clinical_response_NA_rows": 63,
+    "clinical_sheet": "FFPE_Discovery_clinical",
+    "exact_join": "prediction Samples equals clinical Data Label 2; no normalization or row-position join",
+    "membership_rule": "Literal Neo-adjuvant == no and Tumor Location Group != Mix, then exact equality to published score membership; location NA remains unresolved and is retained, not classified as known nonmixed tissue.",
+    "negative_class": "sensitive",
+    "negative_count": 83,
+    "positive_class": "refractory",
+    "positive_count": 52,
+    "prediction_range": "A2:B136",
+    "prediction_sheet": "FFPE_pred_scores",
+    "published_prediction_rows": 135,
+    "retained_score_cohort_location_group_NA": 1,
+    "unique_patient_keys": 135,
+    "unique_response_labelled_clinical_samples": 158,
+    "unique_sample_keys": 135,
+    "unique_sample_location_group_NA": 2
+  },
+  "sources": {
+    "clinical": {
+      "bytes": 41194360,
+      "filename": "NIHMS1918576-supplement-MMC1.xlsx",
+      "md5": "0255243711b1af3a3fab503d9abc725b",
+      "sha256": "6e46fa0cb3023173a3643e95ce0360c44cfabb0ed737e9a05f70473dad552340",
+      "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC1.xlsx"
+    },
+    "panel_and_scores": {
+      "bytes": 591065,
+      "filename": "NIHMS1918576-supplement-MMC4.xlsx",
+      "md5": "7ea4df8e1008cd19aa67442fe6ea3556",
+      "sha256": "f318ed9d2fac341097a8b1be3e034753f6d427bdeeb0cd2b92eb715cadadb6ab",
+      "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC4.xlsx"
+    }
+  }
+}

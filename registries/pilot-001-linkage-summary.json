@@ -1,0 +1,116 @@
+{
+  "endpoint": "https://pdc.cancer.gov/graphql",
+  "interpretation": "Exact PDC case_id overlap among non-reference rows only. No overlap observed does not establish patient independence. Pooled non-reference rows are retained. Counts do not establish the paper's eligible analysis population. Response hashes identify received content, not patient independence.",
+  "overlap": [
+    {
+      "a": "PDC000360",
+      "a_no_overlap_observed_cases": 158,
+      "b": "PDC000358",
+      "b_no_overlap_observed_cases": 20,
+      "shared_non_reference_cases": 0
+    },
+    {
+      "a": "PDC000360",
+      "a_no_overlap_observed_cases": 115,
+      "b": "PDC000362",
+      "b_no_overlap_observed_cases": 21,
+      "shared_non_reference_cases": 43
+    },
+    {
+      "a": "PDC000358",
+      "a_no_overlap_observed_cases": 20,
+      "b": "PDC000362",
+      "b_no_overlap_observed_cases": 64,
+      "shared_non_reference_cases": 0
+    }
+  ],
+  "query_sha256": {
+    "biospecimen": "d084bd1392f99009e06656ac9168a890411d4c01d135b85214730090c1f8e4b9",
+    "study": "2e5f7122878a783536ecced4b10ad1bd77096d9e417a6e55285d9dda1bcd7410"
+  },
+  "response_sha256": {
+    "PDC000358": {
+      "biospecimen_response_sha256": "88b8d93d470072e997d95ac2145b85966e73ed9a5949535639767f465b7b689b",
+      "study_after_sha256": "573b0da8a4a28f2ff28cdc9bd928645dc6eb5842db2d8b89a084732383335c5f",
+      "study_before_sha256": "573b0da8a4a28f2ff28cdc9bd928645dc6eb5842db2d8b89a084732383335c5f"
+    },
+    "PDC000360": {
+      "biospecimen_response_sha256": "6d123d591f73585e9612ca56b83cdf9a0f0968c782e104f904804979533e3ee1",
+      "study_after_sha256": "3f251e7e731b758d1fc732a2a9a95de3a97d969fdb82cfc382d2acb869a028b4",
+      "study_before_sha256": "3f251e7e731b758d1fc732a2a9a95de3a97d969fdb82cfc382d2acb869a028b4"
+    },
+    "PDC000362": {
+      "biospecimen_response_sha256": "b15525ca04066a5df3816b7f30ec1cc033f1b81c580fbff0f8c2758d470d36d0",
+      "study_after_sha256": "4b2730a218906089f9ee0fdbac985732c3c1da7750dc8b552b13455f875f8b29",
+      "study_before_sha256": "4b2730a218906089f9ee0fdbac985732c3c1da7750dc8b552b13455f875f8b29"
+    }
+  },
+  "retrieved_at_utc": "2026-10-23T15:22:04.367796+00:00",
+  "schema_version": 1,
+  "studies": {
+    "PDC000358": {
+      "non_reference_rows": 20,
+      "pdc_study_id": "PDC000358",
+      "pooled_non_reference_rows": 0,
+      "reference_rows": 1,
+      "rows": 21,
+      "study_id": "a729bd45-38c5-4144-b340-ee6f51a5d6d7",
+      "study_version": "1",
+      "unique_counts": {
+        "all": {
+          "aliquot_id": 21,
+          "case_id": 21,
+          "sample_id": 21
+        },
+        "non_reference": {
+          "aliquot_id": 20,
+          "case_id": 20,
+          "sample_id": 20
+        }
+      }
+    },
+    "PDC000360": {
+      "non_reference_rows": 158,
+      "pdc_study_id": "PDC000360",
+      "pooled_non_reference_rows": 16,
+      "reference_rows": 3,
+      "rows": 161,
+      "study_id": "97332d25-b8bb-4094-8bed-92290c729599",
+      "study_version": "1",
+      "unique_counts": {
+        "all": {
+          "aliquot_id": 161,
+          "case_id": 161,
+          "sample_id": 161
+        },
+        "non_reference": {
+          "aliquot_id": 158,
+          "case_id": 158,
+          "sample_id": 158
+        }
+      }
+    },
+    "PDC000362": {
+      "non_reference_rows": 64,
+      "pdc_study_id": "PDC000362",
+      "pooled_non_reference_rows": 0,
+      "reference_rows": 2,
+      "rows": 66,
+      "study_id": "196aabca-0e36-46ca-9096-339aee1471da",
+      "study_version": "1",
+      "unique_counts": {
+        "all": {
+          "aliquot_id": 66,
+          "case_id": 66,
+          "sample_id": 66
+        },
+        "non_reference": {
+          "aliquot_id": 64,
+          "case_id": 64,
+          "sample_id": 64
+        }
+      }
+    }
+  },
+  "study_version": "1"
+}

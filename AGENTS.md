@@ -16,6 +16,10 @@ This repository is a research scaffold, not clinical decision support.
 - Do not ingest patient data/datasets, run third-party analysis code, train models,
   contact collaborators, or publish row-level outputs in a scaffold task. Future
   ingestion needs verified rights and appropriate authorization.
+- External outreach is on hold at the user's request. Do not contact authors,
+  recruit collaborators/reviewers, or post the prepared source request without a
+  new explicit instruction. Earlier outreach authorization does not apply while
+  this hold is active.
 - Keep this workspace lean. Prefer standard-library checks over new dependencies
   or empty architecture. Do not create CI or issue backlogs without need.
 - Run `python3 tools/validate.py` and
