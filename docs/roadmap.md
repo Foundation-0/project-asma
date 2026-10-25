@@ -37,10 +37,13 @@ files. It clarifies private-computation and attribution conditions and selects a
 conditional Canadian research fair-dealing basis. Actual execution context and
 applicable hosting/review conditions must support that basis before fitting.
 
-The next independent technical step is to specify a hash-checked source adapter
-and complete the research-execution preflight. The synthetic runner accepts no
-research data. Keep historical uncertainties explicit; do not repair them silently to improve agreement. Research
-fitting remains conditional on the data-use disposition. No researcher contact
+The [source adapter and execution check](pilot-001-source-adapter.md) now validate
+generated source-format files through the actual model pipeline. All 138 Python
+tests and 18 new R bridge assertions pass; 40 observed combined-runtime controls
+pass. The source adapter has not ingested study bytes. The next step is to select
+and assess an actual execution context, including host terms and applicable
+obligations, then verify live acquisition and the combined runtime on that host. Keep historical uncertainties explicit; do not repair them silently
+to improve agreement. Research fitting remains conditional on the data-use disposition. No researcher contact
 is needed for the software preparation. The 2025 fallback remains unadopted.
 
 | Gate | Deliverable | Acceptance or stop rule |

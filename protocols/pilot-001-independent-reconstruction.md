@@ -1,6 +1,6 @@
 # Pilot 001: public-input reconstruction contract
 
-**Version:** 0.4. **Status:** implementation tested on synthetic fixtures; study-data
+**Version:** 0.5. **Status:** pipeline and source adapter tested on fixtures; study-data
 model execution not started.
 The [decision record](pilot-001-reconstruction-decisions.md) now specifies the
 reconstruction choices, and the [data-use disposition](../docs/pilot-001-data-use.md)
@@ -78,11 +78,12 @@ its scientific choices or recovering the original runtime and missing workspaces
 
 Fixture tests now check patient-disjoint folds, complete held-out coverage, ordered
 identities, deterministic averaging and actual package behavior. The executed
-record preserves implementation, runtime and specification hashes. Before study-data
-fitting, add and test a source adapter that revalidates pinned source bytes and
-converts them into the existing in-memory input contract. No tests on abstract
-fixtures establish scientific validity or close the data-use conditions. Do not fit research values while those
-conditions remain unresolved.
+record preserves implementation, runtime and specification hashes. A
+[source adapter](../docs/pilot-001-source-adapter.md) now revalidates pinned bytes
+and converts selected values into the in-memory input contract; its parsing and
+acquisition paths have been tested on generated source formats and mocks only.
+No tests on abstract fixtures establish scientific validity or close the data-use
+conditions. Do not fit research values while those conditions remain unresolved.
 
 ## Output and continuation decision
 
@@ -92,10 +93,11 @@ design persists only reviewed aggregate counts, metrics, hashes and discrepancie
 no private patient-level output files, model weights or caches are retained.
 The data-use disposition describes the remaining hosting/applicability checks.
 
-The next independent technical work is the source-adapter specification and
-research-execution preflight. The synthetic-only entry point does not ingest
-study files or satisfy those conditions. Keep the selected 64-protein
-question; do not substitute the downstream combined CSV or its 60-protein target.
+The next work is to establish the actual research-execution context and verify
+live acquisition there. Python parsing, transfer and fitting now share a pinned
+container; its probe passes 40 checks but does not establish those wider
+conditions. The adapter has not been executed on study files. Keep the selected
+64-protein question; do not substitute the downstream combined CSV or its 60-protein target.
 Verify the planned Canadian execution context and remaining conditions of the
 selected research-use basis before research fitting. The exact member and panel
 audits need not be rerun for this methods step; a future run must revalidate their pinned bytes.

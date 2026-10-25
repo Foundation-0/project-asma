@@ -45,6 +45,18 @@
   commands and limits. No fixture predictions, model weights or clinical metrics
   are retained.
 
+- [pilot-001-source-adapter-runtime.json](pilot-001-source-adapter-runtime.json):
+  executed build and inventory for the combined CPython/R image, including required
+  modules, preserved R versions, missing optional modules and source/notice pins.
+- [pilot-001-source-adapter-validation.json](pilot-001-source-adapter-validation.json):
+  generated XLSX/deflate fixtures parsed into the R pipeline, 18 bridge assertions,
+  a complete fivefold model repetition, observed parser environment and source
+  hashes. Input fingerprints under `fixture_provenance` belong to artificial fixtures.
+- [pilot-001-execution-conditions.json](pilot-001-execution-conditions.json):
+  40 observed combined-runtime controls, limited outer-executor observations and
+  explicit unresolved context. It is not research-use clearance. See the
+  [source-adapter report](../docs/pilot-001-source-adapter.md).
+
 The source and dataset registries use `schema_version: 1` and a list under
 `sources` or `datasets`.
 IDs must be unique; dataset `source_ids` must resolve to source IDs. URLs use

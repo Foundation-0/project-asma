@@ -23,6 +23,7 @@ clinical validity, or improved patient outcomes.
 | [Public-input reconstruction contract](protocols/pilot-001-independent-reconstruction.md) | Prospective discovery-only requirements and stop rules |
 | [Reconstruction decisions](protocols/pilot-001-reconstruction-decisions.md) | Fixed input assembly, folds, model settings, aggregation and runtime target |
 | [Synthetic pipeline validation](docs/pilot-001-synthetic-validation.md) | Executed fixture tests, complete model run and pinned runtime |
+| [Source adapter and execution conditions](docs/pilot-001-source-adapter.md) | Verified-byte parsing, source-format fixtures and observed runtime controls |
 | [Data-use disposition](docs/pilot-001-data-use.md) | Noncommercial research scope, source terms and remaining execution conditions |
 | [Roadmap](docs/roadmap.md) | Small milestones and decision gates |
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
@@ -81,6 +82,15 @@ including all 100 repetitions using the three pinned model packages. No study-da
 model fit or new clinical result is claimed. The frozen decision record remains
 unchanged; its prospective runtime status is superseded by the validation report.
 
+The [source adapter](docs/pilot-001-source-adapter.md) now validates pinned source
+bytes, exact clinical membership and selected values before R assembly. Generated
+XLSX/matrix fixtures passed the complete adapter-to-model path. A separate runtime
+probe passed 40 technical checks. Python parsing, private transfer and R fitting
+now share a pinned container with Docker logging disabled. Live acquisition,
+processing jurisdiction and hosting/use conditions remain unverified.
+No study sources were ingested by the adapter. Those remaining conditions must
+cover acquisition, parsing, transfer and fitting before research execution.
+
 The scope starts with HGSOC. Primary refractory disease (failure of initial
 therapy) must be distinguished from later platinum-resistant recurrence. Other
 histotypes require their own questions, labels, and study designs.
@@ -114,7 +124,9 @@ inspection scope; it emits no source rows or abundance values.
 
 To build and test the isolated R pipeline on abstract fixtures, follow the
 [synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands).
-The synthetic runner has no dataset path or URL option.
+The synthetic runner has no dataset path or URL option. The
+[source-adapter and runtime-probe commands](docs/pilot-001-source-adapter.md#commands-and-continuation)
+also operate without research inputs.
 
 ## Decisions still needed
 

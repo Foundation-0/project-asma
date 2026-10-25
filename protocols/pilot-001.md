@@ -1,7 +1,7 @@
 # Pilot 001: reproduce a primary platinum-refractoriness protein signature
 
 **Status:** full model reproduction proposed; input/linkage and preliminary
-published-score checks executed. **Version:** 0.8.
+published-score checks executed. **Version:** 0.9.
 **Scope:** research reproduction and robustness, not a novel classifier or new
 clinical validation. No treatment recommendations or patient-facing output.
 
@@ -56,7 +56,10 @@ a new reconstruction's methods and direct runtime target; the
 noncommercial research and lists the remaining conditions. An original
 implementation has since passed [synthetic validation](../docs/pilot-001-synthetic-validation.md),
 including the full repeated-model pipeline. No model fitting on study values
-has started; the frozen decision record remains unchanged.
+has started; the frozen decision record remains unchanged. The
+[source adapter and execution check](../docs/pilot-001-source-adapter.md) now add
+source-format fixture integration and observed container controls. Actual
+source parsing and the wider research-execution context remain unverified.
 
 ## Inputs and access gate
 
