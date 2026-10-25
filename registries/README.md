@@ -5,11 +5,12 @@
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 
-The first six records below (linkage, supplement, score verification, matrix
-header, author archive and author feature) come from network audits that read
-study files or patient-level metadata in memory. Regenerating them follows the
-bounded-inspection rule in the [agent guidance](../AGENTS.md): in memory,
-aggregates only, recording what was read and why.
+The first seven records below (linkage, supplement, score verification, matrix
+header, author archive, author feature and validation panel coverage) come from
+network audits that read study files or patient-level metadata in memory.
+Regenerating them follows the bounded-inspection rule in the
+[agent guidance](../AGENTS.md): in memory, aggregates only, recording what was
+read and why.
 
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,
   aggregate-only comparison of public version-1 PDC metadata. Regenerate with
@@ -40,6 +41,17 @@ aggregates only, recording what was read and why.
   bounded source-inspection contract with `python3 tools/audit_author_features.py`.
   Abundance fields are discarded without numerical conversion or analysis; full
   archive integrity, transformation history and later reuse terms remain open.
+- [pilot-001-validation-panel-coverage.json](pilot-001-validation-panel-coverage.json):
+  exact coverage of the 64 panel symbols in the published MMC1 protein
+  association feature lists for discovery (8,800 features), frozen (8,272) and
+  FFPE validation (8,237). All 64 occur exactly once in each list and lie among
+  the 7,359 symbols common to all three. Regenerate with
+  `python3 tools/audit_validation_panel_coverage.py`. It was run on
+  2026-10-25 for the remaining issue #9 coverage check. It reads MMC1 and MMC4 in
+  memory, decodes one symbol column per sheet plus the panel column, and prints
+  counts, set sizes and fingerprints, no symbols. These are the features tested
+  for association, not proof of the rows in the archive members or the
+  prediction workspaces.
 - [pilot-001-reconstruction-runtime.json](pilot-001-reconstruction-runtime.json):
   selected R 4.4.3, glmnet 4.1-8, randomForest 4.7-1.2 and XGBoost 1.7.8.1 source
   archives, computed hashes and declared license metadata. This historical
