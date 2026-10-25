@@ -17,8 +17,10 @@ below as a **conditional analysis-use route** for the exact archive. This is not
 a discovered license grant or an automatic legal clearance. Before relying on
 it, verify that the actual execution and governing context support that basis.
 The current managed workspace's processing jurisdiction is not established here.
-Metadata inspection and methods/software preparation can continue now; no
-research fitting is executed by this record. External outreach stays on hold.
+Methods and software preparation can continue now. Metadata inspection that
+reads study files or patient-level metadata needs an explicit owner instruction
+(see the [agent guidance](../AGENTS.md)); no research fitting is executed by this
+record. External outreach stays on hold.
 
 ## Input-specific decisions
 

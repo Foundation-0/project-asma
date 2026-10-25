@@ -126,7 +126,7 @@ The validator checks registry structure, cross-references, and local Markdown
 file/heading links. It does not check external availability, scientific truth,
 dataset contents, or access rights. See the [registry guide](registries/README.md).
 
-The optional network commands `python3 tools/audit_pdc_metadata.py` and
+The network commands `python3 tools/audit_pdc_metadata.py` and
 `python3 tools/audit_published_cohorts.py` rerun the public catalog comparison
 and pinned supplemental membership checks in memory. They print aggregate JSON
 only and are separate from the offline checks. Neither establishes independence
@@ -138,9 +138,10 @@ header linkage using bounded ZIP ranges and exact clinical/score-key joins.
 `python3 tools/audit_author_features.py` checks the complete selected member
 in memory for CRC, hashes and exact panel coverage under the documented bounded
 inspection scope; it emits no source rows or abundance values.
-These network audits read keyed clinical records or the full matrix member in
-memory. Run them only under an explicit owner instruction, as the recorded runs
-were; they are not routine checks.
+These audits, like `python3 tools/verify_published_auc.py`, read patient-level
+clinical or linkage metadata, published scores or the full matrix member in
+memory. Run them only under an explicit owner instruction (see the
+[agent guidance](AGENTS.md)); they are not routine checks.
 
 To build and test the isolated R pipeline on abstract fixtures, follow the
 [synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands).
@@ -156,4 +157,5 @@ review access and reuse terms, pin corrected supplemental materials, resolve
 patient overlap, and assess computational requirements. Clinical interpretation
 and later validation will require domain review; recruiting reviewers is deferred.
 Public-source investigation can continue independently under the
-[roadmap](docs/roadmap.md) and [reconstruction contract](protocols/pilot-001-independent-reconstruction.md).
+[roadmap](docs/roadmap.md) and [reconstruction contract](protocols/pilot-001-independent-reconstruction.md),
+within the owner conditions in the [agent guidance](AGENTS.md).
