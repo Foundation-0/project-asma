@@ -47,12 +47,13 @@ conditional Canadian research fair-dealing basis. Actual execution context and
 applicable hosting/review conditions must support that basis before fitting.
 
 The [source adapter and execution check](pilot-001-source-adapter.md) now validate
-generated source-format files through the actual model pipeline. In the source-adapter
-validation record (commit `ef1f522`), all 138 Python tests and 18 new R bridge assertions passed, and 40 observed
-combined-runtime controls passed. The source adapter has not ingested study bytes. The next step is to select
+generated source-format files through the actual model pipeline. At commit `ef1f522`, which
+added the adapter, all 138 Python tests and 18 new R bridge assertions passed; the
+[execution-conditions record](../registries/pilot-001-execution-conditions.json)
+lists 40 observed combined-runtime controls, all passed. The source adapter has not ingested study bytes. The next step is to select
 and assess an actual execution context, including host terms and applicable
-obligations, then, after the owner's sign-off in Gate 0, verify live acquisition and the
-combined runtime on that host. Keep historical uncertainties explicit; do not repair them silently
+obligations, and verify the combined runtime on that host. Live acquisition of study
+files follows only after the owner's sign-off in Gate 0. Keep historical uncertainties explicit; do not repair them silently
 to improve agreement. Research fitting remains conditional on the data-use disposition
 and on the owner's sign-off in Gate 0. Before any research run, also resolve the
 open items in the [reconstruction contract](../protocols/pilot-001-independent-reconstruction.md):
@@ -62,7 +63,7 @@ is needed for the software preparation. The 2025 fallback remains unadopted.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
-| 0. Agree scope and rights | Input-specific use disposition; applicable review requirements; code-licensing expectations | Original implementation and source inspection can proceed; unresolved real-data use conditions stop fitting. A real-source input check or fitting on study values also needs the owner's dated attestation of the execution context and a new explicit instruction; automated checks never satisfy this. No collaborator has been recruited, and external scientific review remains pending; whether that review is waived or deferred is the owner's decision. |
+| 0. Agree scope and rights | Input-specific use disposition; applicable review requirements; code-licensing expectations | Original implementation and source inspection can proceed; unresolved real-data use conditions stop fitting. Live acquisition of study files, a real-source input check or fitting on study values also needs the owner's dated attestation of the execution context and a new explicit instruction; automated checks never satisfy this. No collaborator has been recruited, and external scientific review remains pending; whether that review is waived or deferred is the owner's decision. |
 | 1. Establish provenance | Release/file/checksum manifest; private patient/aliquot overlap map; exclusion counts; pinned author commit and environment | Every cohort has a traceable source and independent-patient status. Unresolved identity, labels, or terms stop analysis. |
 | 2. Reproduce one result | One specified Figure 3D result with commands, locked dependencies, seeds, inputs, and discrepancy log | Numerical agreement within a declared tolerance, or a reproducible explanation of failure. No performance claim from a hard-coded plot label. |
 | 3. Stress-test | Patient-independent metrics with uncertainty; simple baselines; leakage and assay sensitivity analyses | Separate preservation/batch/cohort effects and original reproduction from revised evaluation. Report null and negative findings. |

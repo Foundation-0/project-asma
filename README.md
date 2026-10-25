@@ -105,6 +105,8 @@ now share a pinned container with Docker logging disabled. Live acquisition,
 processing jurisdiction and hosting/use conditions remain unverified.
 No study sources were ingested by the adapter. Those remaining conditions must
 cover acquisition, parsing, transfer and fitting before research execution.
+Live acquisition of study files, a real-source input check and fitting each need
+the owner's sign-off in Gate 0 of the [roadmap](docs/roadmap.md).
 
 The scope starts with HGSOC. Primary refractory disease (failure of initial
 therapy) must be distinguished from later platinum-resistant recurrence. Other

@@ -204,7 +204,7 @@ metadata; it is not a newly discovered independent workbook license.
 
 The remaining execution condition is now specific: verify that the actual
 jurisdiction, host and applicable review/privacy context support the selected
-conditional research-use basis and the noncommercial scope. Before a real-source input check or any fitting on study values, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
+conditional research-use basis and the noncommercial scope. Before live acquisition of study files, a real-source input check or any fitting on study values, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
 The subsequent
 [synthetic validation](pilot-001-synthetic-validation.md) implements and tests the
 fixed reconstruction choices with original code and public software packages.

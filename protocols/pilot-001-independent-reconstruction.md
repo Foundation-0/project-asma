@@ -105,7 +105,7 @@ fixture-tested implementation:
 
 The open items do not change the primary target, but each is required. Resolve
 each by a dated amendment before any research run; the decision record itself
-stays frozen. Before a real-source input check or any fitting on study values, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
+stays frozen. Before live acquisition of study files, a real-source input check or any fitting on study values, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
 
 ## Output and continuation decision
 
@@ -115,8 +115,8 @@ design persists only reviewed aggregate counts, metrics, hashes and discrepancie
 no private patient-level output files, model weights or caches are retained.
 The data-use disposition describes the remaining hosting/applicability checks.
 
-The next work is to establish the actual research-execution context and verify
-live acquisition there. Python parsing, transfer and fitting now share a pinned
+The next work is to establish the actual research-execution context. Live
+acquisition there follows only after the owner's sign-off stated above. Python parsing, transfer and fitting now share a pinned
 container; its probe passes 40 checks but does not establish those wider
 conditions. The adapter has not been executed on study files. Keep the selected
 64-protein question; do not substitute the downstream combined CSV or its 60-protein target.

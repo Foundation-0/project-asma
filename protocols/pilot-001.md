@@ -113,8 +113,8 @@ until it has been reviewed.
    and transitive dependencies now have a tested synthetic runtime with a pinned
    base image and installed inventory. This does not verify real input parsing
    or execution conditions. Use a small input smoke check after those conditions
-   are satisfied, before full study-data execution. That check and any fitting
-   need the owner's sign-off in Gate 0 of the [roadmap](../docs/roadmap.md): a
+   are satisfied, before full study-data execution. Live acquisition of study
+   files, that check and any fitting need the owner's sign-off in Gate 0 of the [roadmap](../docs/roadmap.md): a
    dated attestation of the execution context and a new explicit instruction.
    The offline scaffold checks
    need only Python's standard library.
