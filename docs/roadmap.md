@@ -1,6 +1,6 @@
 # Roadmap
 
-Status: updated 2026-10-23. The scaffold,
+Status: updated 2026-10-25. The scaffold,
 [static feasibility audit](pilot-001-feasibility-audit.md), and
 [public input/linkage investigation](pilot-001-input-resolution.md) are completed.
 Executed metadata checks advance Gates 0–1; they do not close the remaining
@@ -27,20 +27,24 @@ availability for the candidate input; transformation provenance remains open.
 Score export and corrected legend provenance also remain unresolved.
 
 The [public-input reconstruction contract](../protocols/pilot-001-independent-reconstruction.md)
-defines a prospective reconstruction target and its remaining requirements.
-The next independent step is an explicit reconstruction decision record using
-the [located preprocessing steps](pilot-001-preprocessing-provenance.md): fix
-feature interpretation, sample-key averaging, ordering, fit scope and replacements
-for missing helper/environment objects. The source review found an outlier
-threshold discrepancy and object-name mismatches; preserve them as unresolved
-history. Satisfy remaining data-use conditions before abundance analysis, and
-freeze an implementation before fitting. Source investigation does not
-require contacting researchers. The screened 2025 result remains a separate
-fallback; no replacement target has been adopted.
+now links a concrete [decision record](../protocols/pilot-001-reconstruction-decisions.md)
+for feature interpretation, sample-key averaging, ordering, new folds, models and
+aggregation. A new runtime target has source hashes, but no installed or tested
+lock. The [data-use disposition](pilot-001-data-use.md) selects independent
+noncommercial research, original implementation and no persistent patient-level
+files. It clarifies private-computation and attribution conditions and selects a
+conditional Canadian research fair-dealing basis. Actual execution context and
+applicable hosting/review conditions must support that basis before fitting.
+
+The next independent technical step is to implement the specification and build
+an isolated, tested dependency lock using abstract fixtures. Keep historical
+uncertainties explicit; do not repair them silently to improve agreement. Research
+fitting remains conditional on the data-use disposition. No researcher contact
+is needed for the software preparation. The 2025 fallback remains unadopted.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
-| 0. Agree scope and rights | Owner license decision; collaborator review; correction and reuse/access review | No data ingestion or third-party code reuse until requirements are understood. No collaborator has been recruited. |
+| 0. Agree scope and rights | Input-specific use disposition; applicable review requirements; code-licensing expectations | Original implementation and source inspection can proceed; unresolved real-data use conditions stop fitting. No collaborator has been recruited and external scientific review remains pending. |
 | 1. Establish provenance | Release/file/checksum manifest; private patient/aliquot overlap map; exclusion counts; pinned author commit and environment | Every cohort has a traceable source and independent-patient status. Unresolved identity, labels, or terms stop analysis. |
 | 2. Reproduce one result | One specified Figure 3D result with commands, locked dependencies, seeds, inputs, and discrepancy log | Numerical agreement within a declared tolerance, or a reproducible explanation of failure. No performance claim from a hard-coded plot label. |
 | 3. Stress-test | Patient-independent metrics with uncertainty; simple baselines; leakage and assay sensitivity analyses | Separate preservation/batch/cohort effects and original reproduction from revised evaluation. Report null and negative findings. |

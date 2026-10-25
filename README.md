@@ -21,6 +21,8 @@ clinical validity, or improved patient outcomes.
 | [Independent progress](docs/pilot-001-independent-progress.md) | Matrix-header diagnostic, score lineage and concrete supplement-legend mismatch |
 | [Preprocessing provenance](docs/pilot-001-preprocessing-provenance.md) | Located transformations, replicate-averaging example and unresolved execution history |
 | [Public-input reconstruction contract](protocols/pilot-001-independent-reconstruction.md) | Prospective discovery-only requirements and stop rules |
+| [Reconstruction decisions](protocols/pilot-001-reconstruction-decisions.md) | Fixed input assembly, folds, model settings, aggregation and runtime target |
+| [Data-use disposition](docs/pilot-001-data-use.md) | Noncommercial research scope, source terms and remaining execution conditions |
 | [Roadmap](docs/roadmap.md) | Small milestones and decision gates |
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
@@ -62,6 +64,17 @@ score lineage is located, but its export to the released scores remains untraced
 A content mismatch also makes the available Figure S3 legend unsuitable for
 authoritative panel assignments. The [progress report](docs/pilot-001-independent-progress.md)
 records the recovered input, these limitations and the reconstruction path.
+
+On **2026-10-25**, the [decision record](protocols/pilot-001-reconstruction-decisions.md)
+specifies a discovery-only reconstruction with explicit replicate averaging,
+patient-stratified folds, seeds, model parameters and complete prediction checks.
+Direct R/package releases are hash-pinned; an installed, tested dependency lock
+is still needed. The selected phase is independent noncommercial research with
+no persistent patient-level files and no reuse of author analysis code. The
+[data-use assessment](docs/pilot-001-data-use.md) separates those choices from
+a conditional Canadian research-use basis and its remaining execution-context
+checks. The current workspace is not yet verified for that research run.
+No new research result or model fit is claimed.
 
 The scope starts with HGSOC. Primary refractory disease (failure of initial
 therapy) must be distinguished from later platinum-resistant recurrence. Other

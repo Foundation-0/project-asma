@@ -1,8 +1,10 @@
 # Pilot 001: public-input reconstruction contract
 
-**Version:** 0.2, 2026-10-23. **Status:** prospective; model execution not started.
-This specifies a possible reconstruction from public inputs while outreach is
-on hold. It does not alter the executed
+**Version:** 0.3, 2026-10-25. **Status:** methods specified; model execution not started.
+The [decision record](pilot-001-reconstruction-decisions.md) now specifies the
+reconstruction choices, and the [data-use disposition](../docs/pilot-001-data-use.md)
+selects a conditional Canadian research-use basis and its execution-context checks.
+External outreach remains on hold. These records do not alter the executed
 [score-verification specification](pilot-001-score-verification.md) or its result.
 The [source investigation](../docs/pilot-001-independent-progress.md) records
 which input and method contracts are still unresolved.
@@ -51,12 +53,12 @@ not satisfy the separate reuse, storage or transformation contracts below.
 
 | Contract | Acceptance evidence | Current state / stop rule |
 | --- | --- | --- |
-| Source identity and reuse | Verified access/reuse conditions for each specific input; attributable release, full-file checksum, permitted storage and retention | The bounded source inspection verified member CRC and established a full member SHA-256 without retaining data. PDC and downstream Figshare terms remain distinct; archive-specific later reuse conditions and any retention location remain unverified. |
+| Source identity and reuse | Verified access/reuse conditions for each specific input; attributable release, full-file checksum, permitted storage and retention | Member identity is pinned. The selected run retains no patient-level files, so no persistent location is needed. A conditional Canadian fair-dealing assessment is selected for the noncommercial phase. Actual execution context and applicable hosting/review conditions must support it before fitting. No archive license or blanket clearance is inferred. |
 | Matrix column identity | Source-backed column → measurement → explicit sample/patient relationship; no conflicting joins; complete selected-cohort coverage | The recovered author imputed-matrix header matches all 168 response-labelled measurement rows, 158 unique sample/patient keys and all 135 published score keys by exact equality. The complete-member audit verifies the same header hash and member CRC. This does not establish raw-PDC equivalence or correctness of abundance values. |
-| Repeated measurements | Explicit repeated-sample relationships and a documented stage/rule for collapse; no patient split across train/test | Clinical replicate consistency is checked (five groups of three measurements). A commented author example averages after imputation, but its group identities and execution are unverified. Do not assume it generated the released input. |
-| Protein identity | All 64 fixed panel symbols map to documented features with explicit duplicate/protein-group handling | All 64 fixed symbols occur exactly once among 8,800 HGNC-symbol rows in the recovered member. No symbol substitution or collapse is needed for row selection. Biological protein-group interpretation and conversion to original workspace row names remain unverified. |
-| Transformation history | Evidence for input scale, reference channels, normalization, missingness/filtering, batch correction and imputation; declared order and fit population | Static source review locates label-dependent missingness filtering, provisional imputation, batch correction, missingness restoration and final imputation. The archive-to-workspace chain and fit population remain unproven; replacement choices must be explicit. |
-| Labels and ordering | Exact joins to the fixed membership, explicit positive class, ordered features and samples verified before every model call | Published-score and matrix-header joins are known; every panel symbol has one exact row. A future loader must enforce panel order and explicit sample-key averaging; historical workspace ordering and collapse remain unverified. No positional label assignment. |
+| Repeated measurements | Explicit repeated-sample relationships and a documented stage/rule for collapse; no patient split across train/test | Choose arithmetic means of all finite measurements grouped by exact Sample ID, on the released scale; require one selected sample per patient. Missing values stop the run. This is a declared replacement, not recovery of the commented author example. |
+| Protein identity | All 64 fixed panel symbols map to documented features with explicit duplicate/protein-group handling | Choose each exact HGNC-symbol row as the operational feature and enforce published panel order. All 64 occur exactly once. No duplicate collapse, aliases or accession splitting. Isoform specificity and historical workspace equivalence are not claimed. |
+| Transformation history | Evidence for input scale, reference channels, normalization, missingness/filtering, batch correction and imputation; declared order and fit population | Start from the released processed matrix; choose no additional transformation, filtering or imputation. The unknown upstream chain remains a disclosed limitation. No fully training-only evaluation claim is allowed. |
+| Labels and ordering | Exact joins to the fixed membership, explicit positive class, ordered features and samples verified before every model call | The decision record fixes exact eligibility, sensitive=0/refractory=1, bytewise UTF-8 patient order and source panel order. Require ordered identity checks and complete measurement groups at execution. No positional label assignment. |
 
 The current discovery protocol must not be presented as a faithful original
 reproduction until the relevant input and method lineage is established. A
@@ -65,47 +67,34 @@ before fitting and preserved in the results.
 
 ## Freeze the implementation before fitting
 
-Once the input contracts are satisfied, record one execution specification with:
+The [decision record](pilot-001-reconstruction-decisions.md) fixes input assembly,
+new patient-stratified fold rules, seeds, model parameters, score aggregation,
+comparison and failure behavior. The direct R/package source releases are
+selected and hash-pinned, but are not installed or tested. These choices do not
+recover the original runtime or missing workspaces.
 
-- Explicit discovery workspace selection; no implicit overwrite by the FFPE
-  validation workspace. Pin input, implementation and specification hashes.
-- A declared replacement for `balanced_folds.R` if it remains unavailable. Group
-  by explicit patient key and stratify by response; preserve seeds 1–100 as a
-  documented starting convention, without claiming to recover original folds.
-- Exact R/package versions, model parameters and training-only tuning rules.
-  Resolve the recorded feature-selection/object-flow discrepancies explicitly.
-  Newly chosen versions are a new environment, not the original environment.
-- The scope of every learned preprocessing step. A separate evaluation must fit
-  these steps within training folds. Do not describe globally preprocessed
-  inputs as proving fully independent validation.
-- Expected denominators, score direction, metric definition, comparison rule,
-  compute limits and failure behavior. Stop on missing features, ambiguous
-  identities, class-empty folds or incomplete prediction coverage.
-
-Small offline tests with abstract tokens can then check patient-disjoint splits,
-one held-out prediction per patient per repetition, complete coverage, stable
-ordering, deterministic averaging and rejection of missing/duplicate scores.
-They cannot establish scientific validity or equivalence to the absent helper.
-Build these checks alongside the implementation they will validate; an unused
-general pipeline or speculative environment is not needed now.
+Before fitting, implement the specification independently, pin the complete
+runtime and transitive dependency graph, and verify package behavior on abstract
+fixtures. Check patient-disjoint folds, complete held-out coverage, ordered
+identities and deterministic averaging. Preserve source/code/environment and
+specification hashes. No tests on abstract fixtures establish scientific validity
+or close the data-use conditions. Do not fit research values while those
+conditions remain unresolved.
 
 ## Output and continuation decision
 
-Private execution records must link each score to input identity, patient,
-repetition, fold, model and preprocessing fit. Public outputs contain reviewed
-aggregate counts, source/code/environment hashes and discrepancies only.
-No new row-level prediction file belongs in Git.
+During execution, in-memory records must link each score to input identity,
+patient, repetition, fold, model and preprocessing fit. The chosen no-retention
+design persists only reviewed aggregate counts, metrics, hashes and discrepancies;
+no private patient-level output files, model weights or caches are retained.
+The data-use disposition describes the remaining hosting/applicability checks.
 
-Continue source checks against specific unresolved contracts. The bounded
-readiness screen found a 2025 follow-up that led back to the original processed
-archive and resolved candidate-input naming. Prioritize that recovered discovery
-matrix: member CRC and exact panel coverage now pass. Use the
-[preprocessing provenance report](../docs/pilot-001-preprocessing-provenance.md)
-to record explicit reconstruction choices for feature interpretation, sample-key
-averaging, ordering, preprocessing scope and missing helper/environment
-replacements. Satisfy the remaining data-use conditions and freeze the
-implementation before fitting. Do not substitute the downstream combined CSV
-or its 60-protein target for the original 64-protein question.
+The next independent technical work is an original implementation and an
+isolated, tested environment using abstract fixtures. Keep the selected 64-protein
+question; do not substitute the downstream combined CSV or its 60-protein target.
+Verify the planned Canadian execution context and remaining conditions of the
+selected research-use basis before research fitting. The exact member and panel
+audits need not be rerun for this methods step; a future run must revalidate their pinned bytes.
 
 If the remaining original-input contracts cannot be met, retain this pilot's
 feasibility findings and finish the separate 2025 candidate's readiness checks

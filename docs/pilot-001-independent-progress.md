@@ -343,11 +343,14 @@ analysis. Model fitting has not started.
 | Public-input reconstruction | Specified prospectively; candidate naming, member integrity and exact panel coverage checked. Needs remaining reuse/transform contracts and a frozen implementation before fitting. |
 | Original predictions, independent validation and scientific review | Unresolved; no completion or clinical-performance claim. |
 
-The next independent work is to translate the recovered source instructions into
-an explicit reconstruction decision record: feature interpretation, sample-key
-averaging, ordering, processing scope and replacements for missing workspaces,
-helper and environment. Keep unresolved historical choices separate from new
-choices, and satisfy the remaining data-use conditions before abundance analysis.
+The **2026-10-25** [decision record](../protocols/pilot-001-reconstruction-decisions.md)
+now fixes feature interpretation, sample-key averaging, ordering, processing
+scope, replacement folds, model settings and aggregation. The
+[data-use disposition](pilot-001-data-use.md) selects independent noncommercial
+research, original code and no persistent patient-level files, with a conditional
+Canadian research-use basis and remaining execution-context checks. The next
+independent technical work is implementation and an isolated, tested dependency
+lock using abstract fixtures, before any research fitting.
 The member-integrity and exact-symbol coverage checks need not be repeated unless
 the source or implementation changes. The downstream 2025 result remains a
 separate fallback with its own unresolved contracts. No external contact is scheduled.

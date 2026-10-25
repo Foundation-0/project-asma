@@ -1,7 +1,7 @@
 # Registries
 
 - [sources.json](sources.json): dated primary-source metadata, claim locators,
-  takeaways, verification route, and limits. S01–S17 are stable local IDs.
+  takeaways, verification route, and limits. S01–S21 are stable local IDs.
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,
@@ -33,6 +33,11 @@
   bounded source-inspection contract with `python3 tools/audit_author_features.py`.
   Abundance fields are discarded without numerical conversion or analysis; full
   archive integrity, transformation history and later reuse terms remain open.
+- [pilot-001-reconstruction-runtime.json](pilot-001-reconstruction-runtime.json):
+  selected R 4.4.3, glmnet 4.1-8, randomForest 4.7-1.2 and XGBoost 1.7.8.1 source
+  archives, computed hashes and declared license metadata. No package was
+  executed. This is a direct-component selection, not an installed/tested
+  environment or complete dependency lock.
 
 The source and dataset registries use `schema_version: 1` and a list under
 `sources` or `datasets`.
