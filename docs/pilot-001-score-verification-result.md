@@ -26,7 +26,7 @@ contains the exact statistic, source hashes, selection checks and environment.
 | Decimal half-up rounding to two places | 0.81; does not match 0.83 |
 | Absolute difference from printed 0.83 | 0.021149212233549583; exact fraction 1,141 / 53,950 |
 | Predeclared tolerance ≤0.02 | Not met |
-| Published confidence interval | Not recalculated or reproduced |
+| Published confidence interval | Not recalculated or reproduced. The pinned code's `roc(ci = TRUE)` defaults to a DeLong interval (registry S19); the paper describes a bootstrap (article S99). |
 
 The paper's S12 reports discovery fivefold-CV AUC 0.83 (95% CI 0.77–0.90).
 S99 supplies the 83 sensitive / 52 refractory denominator, and S95 describes

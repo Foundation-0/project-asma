@@ -79,7 +79,7 @@ into the original model workspaces and later reuse conditions remain unresolved.
 The direct PDC header route did not supply patient links. The code's discovery
 score lineage is located, but its export to the released scores remains untraced.
 A content mismatch also makes the available Figure S3 legend unsuitable for
-authoritative panel assignments. The [progress report](docs/pilot-001-independent-progress.md)
+authoritative figure-panel assignments. The [progress report](docs/pilot-001-independent-progress.md)
 records the recovered input, these limitations and the reconstruction path.
 
 On **2026-10-25**, the [decision record](protocols/pilot-001-reconstruction-decisions.md)

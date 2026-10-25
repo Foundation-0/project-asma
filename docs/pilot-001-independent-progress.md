@@ -13,7 +13,9 @@ Reviewer recruitment remains on hold.
 matrix's header matches all 168 response-labelled measurement rows and all 135
 published discovery-score sample keys by exact equality. This closes candidate
 input naming. A subsequent complete-member audit verifies ZIP CRC and finds all
-64 panel symbols exactly once among 8,800 feature rows. Original workspace
+64 panel symbols exactly once among 8,800 feature rows. That coverage was checked
+in the discovery imputed member only; coverage in the frozen and FFPE-validation
+features is not recorded. Original workspace
 generation and later reuse conditions remain open. The existing supplied-score AUROC **0.8088507878**
 is retained unchanged. No alternative scores, cohorts or tolerances were tried
 to improve agreement with the printed 0.83.
@@ -25,10 +27,12 @@ All code observations below refer to author commit
 into this repository.
 
 In [Figure_3D_part3.R, lines 105–127](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/blob/48357fd63ccbfe3954f38c8efc558b4f88bd6051/Protein_prediction_refractoriness/Figure_3D_part3.R#L105-L127),
-the discovery calculation averages held-out ElasticNet, XGBoost and random-forest
+the intended discovery calculation averages held-out ElasticNet, XGBoost and random-forest
 probabilities within a repetition, then averages across 100 repetitions.
 `y.pred.avg.pool1.all` supplies the scores for `roc.all1`. This identifies the
 intended repeated-CV output object; it does not recover its values or inputs.
+The code alone does not show which loaded workspace supplies those objects; see
+[Which objects feed the plotted cross-validation](pilot-001-code-audit-addendum.md#which-objects-feed-the-plotted-cross-validation).
 
 The script contains no prediction export linking that object to the published
 workbook. A targeted scan of all **42 R/r/Rmd files** at the pinned commit found
@@ -135,7 +139,7 @@ Figure S3 caption conflicts with the article's own references:
 | Joint proteogenomic models | S3F/G | P37: S3I/J |
 
 The pinned S3 legend is therefore unsuitable as the authoritative source for
-these panel assignments. Use explicitly located main-text/methods passages for
+these figure-panel assignments. Use explicitly located main-text/methods passages for
 the limited source audit, while retaining corrected-artifact verification as
 open. This mismatch does not establish a change to Figure 3D or explain the
 supplied-score AUROC discrepancy.
@@ -342,7 +346,7 @@ analysis. Model fitting has not started.
 | Work | Disposition |
 | --- | --- |
 | Direct PDC matrix-to-clinical labels and PDC design route | Executed; exact equality does not supply patient linkage. |
-| Original author imputed discovery matrix | Header links all 168 measurement rows and all 135 score keys; complete member CRC verified and all 64 panel symbols appear once. Workspace generation and abundance correctness remain unverified. |
+| Original author imputed discovery matrix | Header links all 168 measurement rows and all 135 score keys; complete member CRC verified and all 64 panel symbols appear once in this discovery member; frozen and FFPE-validation coverage is not recorded. Workspace generation and abundance correctness remain unverified. |
 | Discovery score-generation lineage | Located; export to released score workbook remains absent from inspected code. |
 | Corrected S3 interpretation | Concrete mismatch documented; authoritative corrected artifact still needed. |
 | Public-input reconstruction | Specified prospectively; candidate naming, member integrity and exact panel coverage checked. Needs remaining reuse/transform contracts and a frozen implementation before fitting. |
