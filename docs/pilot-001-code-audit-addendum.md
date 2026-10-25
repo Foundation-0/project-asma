@@ -163,7 +163,10 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
     non-syntactic names.
 
   Whether `make.names` would alter any of the 64 pinned symbols can be checked
-  from the panel alone, as an aggregate count.
+  from the panel alone, as an aggregate count. Follow-up (2026-10-25): it alters
+  none (`tools/audit_panel_names.py`). For the published panel, the one-sided
+  renaming and the formula interface would therefore not drop or rename
+  proteins. The row names inside the absent author workspaces remain unknown.
 - **Failures.** Feasibility finding 3 records the `try()` and break. This adds
   the consequences. Only `cv.glmnet` is protected, so errors in the other models
   halt the script. A failure skips that fold and all later folds of the repeat
@@ -244,7 +247,8 @@ matters only if DreamAI is installed or run.
   - Note that the 64/64 panel coverage covers the discovery member only.
   - Write "figure-panel assignments" where Figure S3 letters are meant.
 - **Aggregate checks that need no abundance values:**
-  - Count how many pinned symbols `make.names` would change.
+  - Count how many pinned symbols `make.names` would change (done 2026-10-25:
+    none).
   - Check panel coverage in the frozen and FFPE-validation feature annotations.
   - Both read the pinned supplement or author-archive members in memory, under
     the bounded-inspection rule (integration note, 2026-10-25; see the
