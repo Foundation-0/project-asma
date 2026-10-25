@@ -17,7 +17,8 @@ This repository is a research scaffold, not clinical decision support.
   contact collaborators, or publish row-level outputs in a scaffold task. Future
   ingestion needs verified rights and appropriate authorization. Reading study
   files or patient-level metadata, including rerunning the recorded network
-  audits, needs an explicit owner instruction. Live acquisition of study files, a
+  audits, needs an explicit owner instruction; an earlier instruction covers only
+  the run it was given for. Live acquisition of study files, a
   real-source input check or fitting on study values also needs the owner's dated
   attestation of the execution context and a new explicit instruction. A
   session's own checks never satisfy either condition.

@@ -362,7 +362,9 @@ Canadian research-use basis and remaining execution-context checks. The next
 independent technical work is implementation and an isolated, tested dependency
 lock using abstract fixtures, before any research fitting.
 The member-integrity and exact-symbol coverage checks need not be repeated unless
-the source or implementation changes. The downstream 2025 result remains a
+the source or implementation changes; any rerun needs a new explicit owner
+instruction. The shared loader has since changed only by a pre-parse guard (see
+the [registry note](../registries/README.md)), which does not alter accepted parts. The downstream 2025 result remains a
 separate fallback with its own unresolved contracts. No external contact is scheduled.
 
 The 21 new offline tests exercise exact joins, separation of clinical-NA rows,
