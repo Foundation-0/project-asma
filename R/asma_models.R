@@ -34,7 +34,9 @@ xgb_parameters <- function(tree_method) {
 # Compares a fitted booster's own configuration with the declaration. XGBoost
 # 1.7.8.1 reports an unused (for example misspelled) parameter only as console
 # text, never as an R warning, so a declared value that did not take effect is
-# caught here instead. Training values are float32, hence the tolerance.
+# caught here instead. Training values are float32, hence the tolerance. The
+# JSON layout read here is xgboost 1.7.8.1's, which check_model_versions pins;
+# another version may fail this check closed.
 xgb_settings_hold <- function(booster, tree_method, rounds = 100L) {
   config <- tryCatch(jsonlite::parse_json(xgboost::xgb.config(booster)),
                      error = function(error) NULL)
@@ -143,7 +145,10 @@ fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold,
     )
     # cv.glmnet keeps no foldid when keep = FALSE; the fold-wiring test checks
     # the folds passed in. Class names "0","1" make the response probability
-    # refer to class 1.
+    # refer to class 1. The fitted object does not report alpha: call$alpha only
+    # restates the literal passed above. It fails closed if that argument stops
+    # being the literal 0.2, but unlike the other checks it is not evidence read
+    # from the fit.
     asma_require(inherits(en_fit$glmnet.fit, "lognet") &&
                    identical(en_fit$glmnet.fit$classnames, c("0", "1")) &&
                    identical(unname(en_fit$name), "Binomial Deviance") &&

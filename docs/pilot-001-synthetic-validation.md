@@ -107,9 +107,11 @@ non-blocking item 1 of the
 - **Random forest.** It must be a classification forest with `mtry` 8, class
   importance and a 108 × 108 proximity matrix.
 - **Elastic net.** It must be a binomial fit with class names `"0","1"`, the
-  deviance measure, at most 100 λ values and the recorded `alpha` of 0.2.
-  `cv.glmnet` keeps no fold IDs with the declared `keep = FALSE`, so the fold
-  wiring test checks the folds passed in instead.
+  deviance measure and at most 100 λ values. The fitted object does not report
+  `alpha`, so the check reads it from the recorded call. That only restates the
+  literal 0.2 passed in; it is not evidence read from the fit. `cv.glmnet` keeps
+  no fold IDs with the declared `keep = FALSE`, so the fold wiring test checks
+  the folds passed in instead.
 
 Seven model assertions test the XGBoost check directly, giving 179: 41 input,
 87 core and 51 model. Fits with the declared exact and `"hist"` settings must
