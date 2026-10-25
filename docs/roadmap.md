@@ -72,7 +72,9 @@ It covers two of the open items and one addition:
   `tree_method = "hist"` with everything else identical, reported as
   exploratory. With 108 training rows this mainly moves split thresholds, so its
   leverage is limited. The owner may instead choose a second block of fold seeds,
-  run both, or waive the requirement.
+  run both, or waive the requirement. The seed block measures dependence on fold
+  assignment, so alone it leaves the environment question open, as a waiver
+  would.
 - **A3:** which warnings and messages from model calls stop a run. It proposes
   that every warning stays fatal, that messages become fatal and that a fixed
   aggregate code records what stopped a run. The alternative counts glmnet's

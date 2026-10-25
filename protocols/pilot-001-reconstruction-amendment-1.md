@@ -134,7 +134,10 @@ The same review suggested this as having more leverage.
   cannot show how much the 100-repetition average varies, because scores are
   averaged before the AUROC is computed. Option B shows one such difference
   directly. If A1 is adopted, the block's own distribution can be reported too.
-- **Reporting.** As for option A.
+- **What is lost if chosen alone.** The code-audit addendum's question of
+  environment and version sensitivity stays unmeasured, as under the waiver.
+- **Order and reporting.** As for option A. If both options run, option A runs
+  first and option B second, both after the primary configuration.
 - **Implementation.** Proposed work, not done. `run_reconstruction` uses the
   repetition number as its outer seed, and the model adapter accepts repetitions
   1–100 only. A seed-block argument, tests and a regenerated execution record
@@ -187,51 +190,64 @@ sites lie on the declared call paths:
 | xgboost `check.booster.params`, `check.deprecation`, `xgb.train` | A repeated parameter; a partially matched deprecated argument; a native `seed` | Impossible: a fixed list of unique parameters, no extra arguments, no `seed` |
 
 Other sites and limits:
-- The only `message()` sites are package startup messages. The adapter calls the
-  packages through `::`, which loads them without attaching, so these are not
-  reached.
+- In the three packages' R code, the only `message()` sites are package startup
+  messages. The adapter calls the packages through `::`, which loads them without
+  attaching, so these are not reached.
 - Other sites (Cox and relaxed fits, glmnet's family-object path, plots,
   `xgb.cv`, model loading) are not on the declared call paths.
-- Not covered: warnings from base R or Matrix functions that these packages call.
-  In the development build, none of the three compiled libraries imports R's
-  C-level warning function. Console text from compiled code stops the run.
+- Not covered: warnings and messages from base R, Matrix or other dependencies
+  that these packages call. The development environment's Matrix (1.7-6) differs
+  from the pinned image's (1.7-2), so the fixture runs below do not cover the
+  pinned Matrix either. In the development build, none of the three compiled
+  libraries imports R's C-level warning function. Console text from compiled code
+  stops the run.
 
-**Fixture runs.** With the declared settings, 210 elastic-net, 210 XGBoost and 48
-random-forest fits raised no warning, message or console text. The abstract
-`rnorm` fixtures had no signal, planted signals up to complete separation, or
-collinear, duplicated, constant, heavy-tailed or rescaled columns. Every outer
-glmnet error code was 0. With settings that are not declared, `maxit = 1` and
-`pmax = 3` raised the convergence and `pmax` warnings, so the check could see
-them. The saturation code could not be induced, even on a separable fixture with
-glmnet's deviance stopping rules switched off. Fixture runs cannot show what
-study values will raise.
+**Fixture runs.** In the development environment (not the pinned image), with the
+declared settings, 210 elastic-net, 210 XGBoost and 48 random-forest fits raised
+no warning, message or console text. The abstract `rnorm` fixtures had no
+signal, planted signals up to complete separation, or collinear, duplicated,
+constant, heavy-tailed or rescaled columns. Every outer glmnet error code was 0.
+With settings that are not declared, `maxit = 1` and `pmax = 3` raised the
+convergence and `pmax` warnings, so the check could see them. The saturation
+code could not be induced, even on a separable fixture with glmnet's deviance
+stopping rules switched off. Fixture runs cannot show what study values will
+raise.
 
 **Proposed policy:**
 - **Fatal, as now:** every error, every R warning from a model call, any console
-  text, and any nonzero glmnet error code on the outer fit. Every reachable
-  warning except saturation is either a convergence failure, which the record
-  already makes fatal, or impossible with the validated inputs. Saturation could
-  not be induced on fixtures.
+  text, and any nonzero glmnet error code on the outer fit. Every `warning()`
+  site found on the declared paths in the three packages' R code, except
+  saturation, is either a convergence failure, which the record already makes
+  fatal, or impossible with the validated inputs. Saturation could not be
+  induced on fixtures.
 - **Messages:** an R message inside a model call also stops the run, instead of
-  being discarded. None is reachable, so this should cost nothing, and an
-  unexpected one is no longer lost silently.
+  being discarded. No `message()` site on the declared paths was found in the
+  three packages' R code, and none appeared in fixture runs. Messages from base
+  R, Matrix or other dependencies were not enumerated. An unexpected message is
+  no longer lost silently.
 - **Failure code:** a stopped run records a fixed aggregate code. It names the
   model, the step (fitting or prediction) and the condition class (error,
   warning, message, console text or glmnet error code). It holds no condition
-  text, patient keys or values.
+  text, patient keys or values. It would also meet the decision record's
+  existing requirement to record aggregate failure reasons without patient keys
+  or values. The current implementation does not meet that requirement, so
+  rejecting the code would leave it unmet.
 
 What is lost: one saturation warning in any of the run's 2,000 elastic-net path
-fits (four per outer fold) discards the run. The run gives no AUROC, so revising
+fits (four per outer fold) discards the run. So does a benign warning or message
+from a source not enumerated above. The run gives no AUROC, so revising
 the policy afterwards involves no choice made after seeing performance. A rerun
 still needs a new amendment and the owner's instruction, and it repeats the
 fitting on study values.
 
 **Alternative the owner may choose.** Count saturation codes instead of stopping;
-all other conditions stay fatal. An affected fit keeps glmnet's shorter lambda
-path, and `lambda.min` is chosen from what remains. The aggregate record gives
-the number of affected fits. What is lost: affected fits depart from the declared
-path, and the result reports this only as a count. A misclassified condition
-could also pass unnoticed.
+all other conditions stay fatal. If the outer fit saturates, its lambda path is
+shorter, and `lambda.min` is chosen from the remaining lambdas. If an inner-fold
+fit saturates, `cv.glmnet` still scores every outer lambda; for lambdas beyond
+that fold's shorter path, its held-out predictions are held at its last fitted
+solution. The aggregate record gives the number of affected fits. What is lost:
+affected fits depart from the declared path, and the result reports this only as
+a count. A misclassified condition could also pass unnoticed.
 
 **Implementation.** Proposed work, not done. The message change, the failure
 code and the counting alternative each need changes to the model adapters, the
