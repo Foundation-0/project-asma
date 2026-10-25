@@ -12,13 +12,13 @@ Its [AUROC result](pilot-001-score-verification-result.md) is 0.8088507878,
 rounding to 0.81 and missing the fixed comparison against printed 0.83. This
 advances the reproduction investigation through a recorded discrepancy; it does
 not regenerate the original predictions or close Gate 2.
-On 2026-10-24 the user authorized putting the code-audit questions to the
-authors through the consolidated
-[source request](../templates/pilot-001-source-request.md). GitHub refused
-automated posting, so the owner confirms the text and sends it. The 2026-10-25
-reconstruction records were prepared on a branch without that record and describe
-outreach as on hold; until the owner reconciles the two, the request stays unsent
-and automated sessions must not contact authors. Do not recruit
+Owner decision (2026-10-25): the consolidated
+[source request](../templates/pilot-001-source-request.md) is authorized as a
+draft only. The owner alone decides whether and when to send it; automated
+sessions never send it or contact authors, and the earlier automated posting
+attempts should not have happened. The owner confirmed that the recorded data
+inspections (#2, #4) and synthetic model runs (#11) were intended results of
+autonomous research. Do not recruit
 collaborators or reviewers without a new explicit instruction. Continue the
 investigation using public sources and internal checks, within the owner
 conditions in Gate 0, recording limits without treating deferred review as

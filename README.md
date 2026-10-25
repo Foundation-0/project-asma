@@ -50,15 +50,14 @@ error or completed model reproduction. External scientific review remains pendin
 
 No full PDC abundance matrix was downloaded, no author analysis code was executed,
 and no model was trained on study data. Missing input/method provenance still
-prevents full reproduction. On 2026-10-24 the user authorized putting the
-code-audit questions to the authors through the consolidated
-[source request](templates/pilot-001-source-request.md), to be sent by the owner
-from their own account because GitHub refused automated posting. The later
-2026-10-25 reconstruction records, prepared on a branch without that record,
-describe external outreach as **on hold at the user's request**. Until the owner
-reconciles the two, treat the request as on hold: no author message has been
-posted, and automated sessions must not post or send it. Recruiting
-collaborators or reviewers remains on hold. Work continues from public sources
+prevents full reproduction. On 2026-10-25 the owner decided that the
+consolidated [source request](templates/pilot-001-source-request.md) is
+authorized **as a draft only**: the owner alone decides whether and when to send
+it, from their own account. No author message has been posted. Automated
+sessions never post or send it, and the earlier automated posting attempts
+should not have happened. The owner also confirmed that the recorded data
+inspections and synthetic model runs were intended results of autonomous
+research. Recruiting collaborators or reviewers remains on hold. Work continues from public sources
 and internal checks; unresolved provenance and external-review questions remain
 explicit.
 

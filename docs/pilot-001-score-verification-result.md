@@ -120,7 +120,7 @@ After the unsuccessful posting attempts, the user placed external outreach on
 hold; no authors or outside reviewers will be contacted without a new explicit
 instruction. Follow-up (2026-10-24): that instruction was given for the
 consolidated source request, which the owner sends; reviewer recruitment remains
-on hold. A later 2026-10-25 record describes outreach as on hold; until the owner reconciles the two, the request is unsent (see the [README](../README.md)). Full reproduction also still needs the missing helper,
+on hold. Owner decision (2026-10-25): the request is a draft only, sent solely by the owner at their discretion; it remains unsent (see the [README](../README.md)). Full reproduction also still needs the missing helper,
 original execution environment, intended transformations and corrected-legend
 confirmation. No independent-patient validation or clinical/treatment claim
 follows from this result.

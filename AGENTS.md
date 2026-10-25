@@ -22,15 +22,13 @@ This repository is a research scaffold, not clinical decision support.
   real-source input check or fitting on study values also needs the owner's dated
   attestation of the execution context and a new explicit instruction. A
   session's own checks never satisfy either condition.
-- On 2026-10-24 the user explicitly authorized putting the code-audit questions
-  to the authors through the consolidated
-  [source request](templates/pilot-001-source-request.md). The owner confirms its
-  full text and sends it from their own account. Automated sessions must not
-  post, retry posting or email it. Do not contact authors beyond that request, or
-  recruit collaborators/reviewers, without a new explicit instruction. The
-  2026-10-25 reconstruction records, prepared without this record, describe
-  outreach as on hold; until the owner reconciles the two, treat the request as
-  unsent and on hold.
+- Outreach (owner decision, 2026-10-25): the consolidated
+  [source request](templates/pilot-001-source-request.md) is authorized as a
+  draft only. The owner alone decides whether and when to send it, from their
+  own account. Automated sessions must never post, retry posting, email or
+  otherwise send it, or contact authors by any route; the earlier automated
+  posting attempts should not have happened. Do not recruit
+  collaborators/reviewers without a new explicit instruction.
 - Keep this workspace lean. Prefer standard-library checks over new dependencies
   or empty architecture. Do not create CI or issue backlogs without need.
 - Run `python3 tools/validate.py` and

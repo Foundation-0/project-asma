@@ -1,6 +1,6 @@
 # Pilot 001: source-clarification request
 
-**Prepared for the owner (2026-10-24); unsent. See the 2026-10-25 status below.**
+**Draft authorized by the owner; only the owner sends it (owner decision, 2026-10-25).**
 - **Authorization.** On 2026-10-24 the user explicitly authorized putting the
   [code-audit addendum](../docs/pilot-001-code-audit-addendum.md) questions to the
   authors. This consolidated request also carries the questions held since
@@ -11,15 +11,16 @@
 - **Destination.** A comment on the existing
   [upstream data-availability issue](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/issues/1)
   from the owner's own account, or an email to the corresponding author.
-- **Who sends it.** GitHub rejected automated posting earlier (“Resource not
-  accessible by integration”), and a 2026-10-24 access check was also refused.
-  Automated sessions must not post, retry or email it. The code-audit pull
+- **Who sends it.** Only the owner, from their own account, if and when they
+  choose. Automated sessions must never post, retry or email it. Earlier
+  automated posting attempts (refused by GitHub as “Resource not accessible by
+  integration”, then retried by another route) should not have happened. The code-audit pull
   request is open ([#7](https://github.com/Foundation-0/project-asma/pull/7)).
   Track sending in [issue #8](https://github.com/Foundation-0/project-asma/issues/8),
   and record the date and link there once sent.
-- **Status (2026-10-25).** Unsent. The 2026-10-25 reconstruction records describe
-  outreach as on hold; the owner decides between that hold and this
-  authorization before sending.
+- **Status (2026-10-25).** Unsent. The owner decided that this request is
+  authorized as a draft only and that the owner alone decides whether and when
+  to send it.
 
 No patient identifiers, labels, scores or linkage rows are included. Recruiting
 collaborators or reviewers remains on hold.
