@@ -79,13 +79,6 @@ reads, and reports unreadable XML with a fixed audit error. Accepted parts parse
 unchanged, so the current file's hash differs while the records keep the hash
 that ran. A rerun records the new hash.
 
-The panel-name record names `tools/audit_panel_names.py` at SHA-256
-`fbcc22f272a70f078c93b4b51f1b7d9a2d191421a8e34c4a2c1cd3c93b2c4df3`. After that
-run, only its text changed: the docstring and `--help` text gained the
-owner-instruction rule, and a comment now names the R token check. The audit
-logic is unchanged. The current file's hash differs, and the record keeps the
-hash that ran.
-
 The source and dataset registries use `schema_version: 1` and a list under
 `sources` or `datasets`.
 IDs must be unique; dataset `source_ids` must resolve to source IDs. URLs use
