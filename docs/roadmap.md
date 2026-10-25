@@ -17,7 +17,8 @@ Owner decision (2026-10-25): the consolidated
 draft only. The owner alone decides whether and when to send it; automated
 sessions never send it or contact authors, and the earlier automated posting
 attempts should not have happened. The owner confirmed that the recorded data
-inspections (#2, #4) and synthetic model runs (#11) were intended results of
+inspections ([#2](https://github.com/Foundation-0/project-asma/pull/2), [#4](https://github.com/Foundation-0/project-asma/pull/4)) and synthetic model runs
+([#11](https://github.com/Foundation-0/project-asma/pull/11)) were intended results of
 autonomous research. Do not recruit
 collaborators or reviewers without a new explicit instruction. Continue the
 investigation using public sources and internal checks, within the owner

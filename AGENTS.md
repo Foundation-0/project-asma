@@ -20,7 +20,8 @@ This repository is a research scaffold, not clinical decision support.
   recorded network audits, is part of autonomous research (owner decision,
   2026-10-25): record what was read and why, keep only aggregates, and never
   persist row-level data, identifiers or linkage keys. Live acquisition of study
-  files, a real-source input check or fitting on study values needs the owner's
+  files for a research run (the source adapter's `load_pinned_sources`), a
+  real-source input check or fitting on study values needs the owner's
   dated attestation of the execution context and a new explicit instruction; a
   session's own checks never satisfy it.
 - Outreach (owner decision, 2026-10-25): the consolidated

@@ -166,7 +166,8 @@ Do not silently relabel the published groups, infer a performance change, or
 describe this as misconduct. Preserve the published groups in the reproduction
 track and reconcile the membership discrepancy before a revised evaluation.
 
-The reproducible, aggregate-only check is:
+The reproducible, aggregate-only check, under the bounded-inspection rule in the
+[agent guidance](../AGENTS.md), is:
 
 ```sh
 python3 tools/audit_published_cohorts.py
