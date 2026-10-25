@@ -18,9 +18,6 @@
 <meta name="theme-color" content="#070b0e" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f5f0e6" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
 <link rel="stylesheet" href="assets/f0.css">
 <link rel="stylesheet" href="page.css">
 <script>
@@ -62,7 +59,14 @@
     </details>
   </div>
 </header>
-<nav class="hud" data-hud aria-label="On this page"></nav>
+<nav class="hud" data-hud aria-label="On this page">
+  <ol>
+    <li><a href="#question" aria-label="00 The question"><span class="bar" aria-hidden="true"></span><span class="n">00</span><span class="t">The question</span></a></li>
+    <li><a href="#checked" aria-label="01 What has been checked"><span class="bar" aria-hidden="true"></span><span class="n">01</span><span class="t">What has been checked</span></a></li>
+    <li><a href="#missing" aria-label="02 Still missing"><span class="bar" aria-hidden="true"></span><span class="n">02</span><span class="t">Still missing</span></a></li>
+    <li><a href="#rules" aria-label="03 Rules of the workspace"><span class="bar" aria-hidden="true"></span><span class="n">03</span><span class="t">Rules of the workspace</span></a></li>
+  </ol>
+</nav>
 
 <main id="main">
   <header class="page-hero" style="--acc:var(--bio)">

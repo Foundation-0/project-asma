@@ -5,8 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script>
 /* GitHub Pages serves this file at any missing path, so relative links need a base: the project root
-   (/<repo>/ on *.github.io, / elsewhere). Runs before any other URL in this document is read. */
-(function(){var b='/';if(/\.github\.io$/.test(location.hostname)){var s=location.pathname.split('/')[1];if(s&&s!=='404.html')b='/'+s+'/';}var e=document.createElement('base');e.href=b;document.head.appendChild(e);})();
+   (/<repo>/ on *.github.io, / elsewhere). Runs before any other URL in this document is read.
+   The base would also send same-page links ("Skip to content", #main) to the project root, so once the
+   page is parsed they are pointed back at this document. */
+(function(){var b='/';if(/\.github\.io$/.test(location.hostname)){var s=location.pathname.split('/')[1];if(s&&s!=='404.html')b='/'+s+'/';}var e=document.createElement('base');e.href=b;document.head.appendChild(e);
+document.addEventListener('DOMContentLoaded',function(){var here=location.href.split('#')[0];[].forEach.call(document.querySelectorAll('a[href^="#"]'),function(a){a.setAttribute('href',here+a.getAttribute('href'));});});})();
 </script>
 <title>Not in the record · project-asma · Foundation0</title>
 <meta name="description" content="This page is not in the record. Find your way back to Project Asma.">
@@ -23,9 +26,6 @@
 <meta name="theme-color" content="#070b0e" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f5f0e6" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
 <link rel="stylesheet" href="assets/f0.css">
 <script>
 /* theme + motion bootstrap, before paint: ?theme=dark|light and ?motion=on|off override the stored choice */
