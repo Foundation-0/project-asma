@@ -56,7 +56,10 @@ retains what proves which folds were used:
 
 That digest covers the keys sorted by UTF-8 bytes. Each key gives one UTF-8
 line: the key, a tab, `1` (refractory) or `0` (sensitive) and a newline. It is
-one aggregate value, not a per-patient hash. Base R 4.4.3 has no in-memory hash
+one aggregate value, not one of the per-patient hashes that the decision
+record's [retention rules](../protocols/pilot-001-reconstruction-decisions.md#retention-and-review)
+forbid. Their list of persisted items does not name this digest yet; adding it
+there awaits the owner's confirmation. Base R 4.4.3 has no in-memory hash
 function, so the fold table itself is not hashed. A later authorized check
 re-derives the keys and labels from the pinned sources, confirms the digest, and
 recomputes the fold table from the retained seeds and RNG kinds with the hashed

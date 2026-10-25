@@ -269,6 +269,15 @@ base ID. The result is a new runtime: record and validate it before use. The
 fixture runner still uses the recorded image ID, so it refuses the new image
 until a new runtime record exists.
 
+The option accepts any well-formed base ID under the recorded tag; it does not
+check how that base was built. Rebuild the base only with
+`tools/build_synthetic_runtime.py` from the committed lock. Before either image
+is used or pinned, validate and record the rebuilt base with the synthetic
+pipeline as well as the new combined runtime. The builder requires
+[the synthetic-validation record](../registries/pilot-001-synthetic-validation.json)
+and [the Python lock](../runtime/source-adapter-python.json) to name the same
+base ID.
+
 The next step is to choose an actual available execution setting, record its
 research location and applicable obligations, inspect the relevant account/host
 terms, and verify the tested combined runtime on that host. Once those facts

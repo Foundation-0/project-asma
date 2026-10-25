@@ -495,20 +495,26 @@ class SourceAdapterChecks(unittest.TestCase):
         def without(field):
             return {key: value for key, value in entry.items() if key != field}
         files = [None, b"PRIVATE_SENTINEL", b"\xff", json.dumps(ATTESTATION).encode()[:-1],
-                 dict(ATTESTATION, schema_version=2), dict(ATTESTATION, extra=True),
+                 dict(ATTESTATION, schema_version=2), dict(ATTESTATION, schema_version=True),
+                 dict(ATTESTATION, schema_version=1.0), dict(ATTESTATION, extra=True),
                  {"attestations": ATTESTATION["attestations"]}, entries(), [entry],
                  entries(without("instruction")), entries(dict(entry, extra="abstract")),
                  entries(dict(entry, date="2026-02-30")), entries(dict(entry, date="2026-1-02")),
                  entries(dict(entry, date="02-01-2026")), entries(dict(entry, date="20260102")),
                  entries(dict(entry, date=20260102)),
                  entries(dict(entry, id=" " + ATTESTED)), entries(dict(entry, id=1)),
+                 # A valid matching entry does not excuse a malformed id elsewhere.
+                 entries(entry, dict(entry, id=1)), entries(entry, dict(entry, id="NA")),
+                 entries(entry, dict(entry, id="abstract\tother")),
                  entries(dict(entry, execution_context=" ")), entries(dict(entry, instruction=None)),
                  entries(entry, entry), entries(dict(entry, id="abstract-other")),
                  json.dumps(entries(entry)).replace('"id"', '"id": "abstract-other", "id"').encode()]
         cases = [(content, ATTESTED) for content in files]
         matches_anything = type("MatchesAnything", (), {"__eq__": lambda self, other: True, "__hash__": None})()
+        text_matching_anything = type("Text", (str,), {"__eq__": lambda self, other: True,
+                                                       "__hash__": str.__hash__})("abstract-other")
         cases += [(ATTESTATION, value) for value in (None, "", " " + ATTESTED, ATTESTED.encode(), 1,
-                                                     [ATTESTED], matches_anything)]
+                                                     [ATTESTED], matches_anything, text_matching_anything)]
         for content, identifier in cases:
             with mocked_acquisition(attestation=content) as state:
                 with self.assertRaises(adapter.SourceAdapterError) as error:

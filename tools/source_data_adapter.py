@@ -390,7 +390,8 @@ def _check_attestation(identifier):
     "authorization". Nothing here touches the network.
     """
     try:
-        require(_identity(identifier))
+        # An exact str, so a subclass cannot redefine equality and match any entry.
+        require(type(identifier) is str and _identity(identifier))
         with open(ATTESTATIONS, "rb") as source:
             data = source.read(MAX_ATTESTATION_BYTES + 1)
         require(len(data) <= MAX_ATTESTATION_BYTES)
