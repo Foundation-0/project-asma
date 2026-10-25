@@ -274,7 +274,7 @@
       "reviewed_via": "https://www.wipo.int/wipolex/en/text/600136",
       "locator": "Copyright Act s.29; CCH paragraphs 50-60 and 70; WIPO judgment record 3721",
       "takeaway": "Research is an eligible fair-dealing purpose, followed by a case-specific fairness assessment using purpose, character, amount, alternatives, nature and effect. License availability is not itself determinative of fairness. Supports a conditional narrow research-use assessment for the selected Canadian execution route.",
-      "limitations": "Does not establish a universal license, automatic fairness, privacy exemption or governing law based on citizenship/server location alone. Direct SCC document retrieval failed; full judgment inspected through official WIPO distribution. Source fingerprints and conditional assessment are in docs/pilot-001-data-use.md.",
+      "limitations": "Does not establish a universal license, automatic fairness, privacy exemption or governing law based on nationality or server location alone. Direct SCC document retrieval failed; full judgment inspected through official WIPO distribution. Source fingerprints and conditional assessment are in docs/pilot-001-data-use.md.",
       "checked_on": "2026-10-25"
     },
     {
@@ -285,7 +285,7 @@
       "verification": "page_reviewed",
       "reviewed_via": "https://ethics.gc.ca/eng/policy-politique_interpretations_scope-portee.html",
       "locator": "Introduction/applicability; scope interpretations 1 and 17; chapter 2 articles 2.2 and 2.4; chapter 5 anonymous/coded information definitions; OPC commercial-activity guidance",
-      "takeaway": "Applicability follows funding, institutional auspices or adoption rather than citizenship. Publicly available deidentified repository data do not automatically satisfy public-information or anonymous-information exceptions. Assess applicable requirements for the actual independent research context.",
+      "takeaway": "Applicability follows funding, institutional auspices or adoption rather than nationality. Publicly available deidentified repository data do not automatically satisfy public-information or anonymous-information exceptions. Assess applicable requirements for the actual independent research context.",
       "limitations": "No institutional determination or exemption is asserted. Canadian server location alone does not establish all applicable privacy or contractual obligations. The noncommercial design does not establish exemption from every privacy law. See docs/pilot-001-data-use.md for source URLs and fingerprints.",
       "checked_on": "2026-10-25"
     },
