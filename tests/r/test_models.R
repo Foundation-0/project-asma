@@ -100,5 +100,39 @@ run_model_tests <- function() {
     identical(first[[model]][1L], changed[[model]][1L])
   }, logical(1))))
 
+  # Planted-signal direction check: a fixed shift on eight artificial features
+  # for class 1. It shows each model scores class 1 (refractory) higher; it is
+  # not simulated clinical evidence and asserts no expected performance.
+  signal_y_test <- setNames(c(rep(0L, 17L), rep(1L, 10L)), rownames(x_test))
+  signal_train <- x_train
+  signal_test <- x_test
+  signal_train[, 1:8] <- signal_train[, 1:8] + 1.5 * y_train
+  signal_test[, 1:8] <- signal_test[, 1:8] + 1.5 * signal_y_test
+  direction_holds <- function(probability, labels) {
+    mean(probability[labels == 1L]) > mean(probability[labels == 0L]) &&
+      checked_auc(labels, probability)$auc >= 0.8
+  }
+  signal <- fit_models(signal_train, y_train, signal_test, inner, 1L, 1L)
+  for (model in c("en", "xgb", "rf")) {
+    check(direction_holds(signal[[model]], signal_y_test))
+    # The same check rejects a flipped probability, so it cannot pass by accident.
+    check(!direction_holds(1 - signal[[model]], signal_y_test))
+  }
+
+  # With signal present the elastic net keeps predictors, so the order and
+  # isolation checks are not satisfied trivially by a constant prediction.
+  check(stats::sd(signal$en) > 0)
+  signal_reversed <- fit_models(signal_train, y_train,
+                                signal_test[27:1, , drop = FALSE], inner, 1L, 1L)
+  check(all(vapply(names(signal), function(model) {
+    identical(signal[[model]], signal_reversed[[model]][27:1])
+  }, logical(1))))
+  signal_changed_test <- signal_test
+  signal_changed_test[2:27, ] <- signal_changed_test[2:27, ] * 10 + 50
+  signal_changed <- fit_models(signal_train, y_train, signal_changed_test, inner, 1L, 1L)
+  check(all(vapply(names(signal), function(model) {
+    identical(signal[[model]][1L], signal_changed[[model]][1L])
+  }, logical(1))))
+
   count
 }

@@ -21,6 +21,32 @@ each model scores refractory (class 1) higher. A planted-signal direction test i
 an open pre-run requirement in the
 [reconstruction contract](../protocols/pilot-001-independent-reconstruction.md).
 
+**Addition, 2026-10-25 (after the execution record above).** The record and the
+149-assertion count predate these tests.
+
+- **Direction.** A planted-signal fixture adds a fixed shift of 1.5 on eight
+  artificial features for class 1. For the elastic net, XGBoost and the random
+  forest separately, class-1 held-out rows must receive a higher mean probability
+  and a fixture AUROC of at least 0.8. A flipped probability must fail the same
+  check. These are software checks, not simulated clinical evidence.
+- **Non-trivial order checks.** The elastic net's predictions must vary on that
+  fixture, and the held-out reordering and isolation checks are repeated on it.
+- **Fold wiring.** Every fold, training set and inner fold captured inside
+  `run_reconstruction` must match an independent recomputation from the declared
+  seeds: outer r, inner 10000 + 100r + f.
+
+The suite now has 160 assertions: 41 input, 79 core and 40 model. Five deliberate
+mutations each fail the new suite but pass the previous one: inverting each
+model's probability, reversing glmnet's factor levels, taking the forest's class-0
+column, and shifting the inner-fold seed.
+
+These results come from a development environment, not the pinned image. It used
+conda-forge R 4.4.3 with glmnet 4.1-8, randomForest 4.7-1.2, jsonlite 1.9.1 and
+data.table 1.17.0. xgboost 1.7.8.1 was built from the CRAN read-only GitHub
+mirror's tagged source, because conda-forge has no matching build. Each model's
+fixture AUROC was 1.0. The pinned-image runner must rerun all 160 assertions, and
+the execution record must be regenerated, before any research run.
+
 The full run, including all 149 assertions, took 57.619 seconds inside R on the
 recorded environment. This is an observed fixture runtime, not a compute estimate
 for source ingestion or a scientific performance measurement. No artificial
@@ -92,7 +118,8 @@ python3 -m unittest discover -s tests -v
 The first command downloads the pinned base image and package sources and may
 take several minutes. An optional `--source-cache` directory can supply package
 archives; each is still checked against the manifest. The second command runs
-all 149 R assertions; `--full` also performs the complete 100-repeat integration.
+all R assertions (149 in the recorded run; 160 since the 2026-10-25 addition);
+`--full` also performs the complete 100-repeat integration.
 Each runner prints reviewed aggregate JSON only. The wrapper resolves the local
 image tag to its immutable image ID before execution. Input pins do not imply
 bit-identical rebuilds or identical scores across platforms.

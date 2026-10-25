@@ -101,6 +101,27 @@ run_core_tests <- function() {
   })
   check(identical(result$scores, replay$scores) && identical(observed_pairs, replay_events))
 
+  # Folds and inner folds used inside the run match an independent recomputation
+  # from the declared seeds: outer r, inner 10000 + 100r + f.
+  plan_events <- list()
+  run_reconstruction(assembled, stub, 100L, function(event) {
+    plan_events[[length(plan_events) + 1L]] <<- event
+    invisible(NULL)
+  })
+  check(length(plan_events) == 500L)
+  wiring_ok <- TRUE
+  for (event in plan_events) {
+    outer_plan <- stratified_folds(keys, y, 5L, event$repetition)
+    expected_test <- keys[outer_plan == event$fold]
+    expected_train <- keys[outer_plan != event$fold]
+    expected_inner <- stratified_folds(expected_train, y[expected_train], 3L,
+                                       10000L + 100L * event$repetition + event$fold)
+    wiring_ok <- wiring_ok && identical(event$test_ids, expected_test) &&
+      identical(event$train_ids, expected_train) &&
+      identical(event$inner_foldid, expected_inner)
+  }
+  check(wiring_ok)
+
   changed <- assembled
   changed$x <- changed$x[rev(seq_len(135L)), , drop = FALSE]
   fails(function() run_reconstruction(changed, stub, 1L))
