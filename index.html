@@ -84,7 +84,7 @@
       <div class="prov">
         <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">status on main · 2026-10-25 · current state in the roadmap</a>
         <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tools"><span class="dot live" aria-hidden="true"></span>audits run in memory, aggregates only</a>
-        <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tests">offline unit tests for the audit code</a>
+        <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tests">tests on made-up inputs only</a>
       </div>
     </div>
   </header>
@@ -104,8 +104,8 @@
   <section class="sec alt" id="checked" data-index="What has been checked" data-num="01" aria-labelledby="checked-h">
     <div class="wrap">
       <div class="sec-head"><p class="sec-label"><b>01</b><i>//</i>What has been checked</p><span class="chip">status on main · 2026-10-25</span></div>
-      <h2 class="h2" id="checked-h">Audits are on main. No result is reproduced.</h2>
-      <p class="lede">Status on 25 October 2026, counting only work merged into the main branch. These are internal checks. None has had external scientific review, so every audit result below is preliminary. Each audit works in memory on public files and keeps only counts and fingerprints. No patient records, scores or linkage tables are stored in the repository.</p>
+      <h2 class="h2" id="checked-h">Audits and tests are on main. No result is reproduced.</h2>
+      <p class="lede">Status on 25 October 2026, counting only work merged into the main branch. These are internal checks. None has had external scientific review, so every result below is preliminary. The data audits work in memory on public files and keep only counts and fingerprints. The pipeline and source adapter were tested on made-up inputs only. No patient records, scores or linkage tables are stored in the repository.</p>
       <ul class="ledger">
         <li>
           <div class="ledger-main"><h3>Research scaffold and pilot protocol</h3>
@@ -128,8 +128,28 @@
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #4</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
         </li>
         <li>
+          <div class="ledger-main"><h3>Code audit of the published analysis</h3>
+          <p>A static reading of the authors' Figure 3D R code at a pinned commit, with package sources read at named versions. It records which saved objects can feed the plotted cross-validation, how labels and operating points are set, and where package versions matter. The code was read, never run, and no data were accessed. A consolidated request to the authors is authorized as a draft only. It is unsent, and only the owner decides whether to send it.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #7</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Static inspection · not run</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Reconstruction decisions and data-use route</h3>
+          <p>Fixes, before any fit, how a new discovery-only reconstruction would run: input assembly, new patient-stratified folds, seeds, model settings and score averaging. It is a new method on the released inputs, not a recovery of the original runs. A separate record selects a conditional, noncommercial research-use route for the data. It is not a licence, and the actual execution context must support it before any fit.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #10</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Declared · not executed</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Synthetic pipeline and direction test</h3>
+          <p>An original R implementation of those decisions, tested on artificial fixtures only. In a pinned container it passed 149 assertions and a complete 100-repeat run with the pinned model packages. A later planted-signal test checks that each model gives higher probabilities to the class coded as refractory. It has passed in a development environment; the rerun in the pinned image is pending. No fixture result is compared with the paper.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #11, #13</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Fixtures only · no study data</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Source adapter</h3>
+          <p>Code that would check the pinned workbooks and matrix member against their recorded hashes and turn the selected values into the pipeline's input. It was tested on generated files in the same formats, through the full model path, with network access mocked. A probe of the combined Python and R container passed all 40 of its technical checks. The adapter has never been run on study files.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #12</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not run on study files</span></span>
+        </li>
+        <li>
           <div class="ledger-main"><h3>Model reproduction</h3>
-          <p>Refitting the published models and recovering the printed AUC. No model has been fitted. Proposed work in open pull requests is not counted here until it is merged. Section 02 lists the gaps recorded on main.</p></div>
+          <p>Fitting the models on the released study data and comparing the result with the printed AUC. No model has been fitted on study data. A fit waits on the owner's dated attestation of the execution context and a new explicit instruction. It also waits on a rerun of the pipeline tests in the pinned image and on dated amendments for two open protocol items. Work in open pull requests is not counted until it is merged. Section 02 lists the gaps recorded on main.</p></div>
           <span class="badge n"><span class="ladder" data-r="1" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not done</span>
         </li>
       </ul>
@@ -142,15 +162,15 @@
   <section class="sec" id="missing" data-index="Still missing" data-num="02" aria-labelledby="missing-h">
     <div class="wrap">
       <div class="sec-head"><p class="sec-label"><b>02</b><i>//</i>Still missing</p><span class="chip">recorded on main · 2026-10-25</span></div>
-      <h2 class="h2" id="missing-h">Gaps recorded before any refit.</h2>
+      <h2 class="h2" id="missing-h">Gaps recorded before any fit on study data.</h2>
       <div class="cards4">
         <div class="mini-card">
           <h3>The fold helper</h3>
-          <p>The authors' scripts call a helper file, <span class="mono">balanced_folds.R</span>, that decides how patients were split into folds. The searches so far did not find it: the authors' repository at the commit checked, its reachable history and three public forks. Without it or a declared replacement, the printed cross-validation cannot be rerun faithfully.</p>
+          <p>The authors' scripts call a helper file, <span class="mono">balanced_folds.R</span>, that decides how patients were split into folds. The searches so far did not find it: the authors' repository at the commit checked, its reachable history and three public forks. The main branch now declares a replacement fold rule. A rerun with it would be a new reconstruction, not a faithful rerun of the printed cross-validation.</p>
         </div>
         <div class="mini-card">
           <h3>The workspaces</h3>
-          <p>The figure scripts load saved R workspaces (RData files) that the same searches did not find. Which objects they held, and in what order, decides what the printed figure actually averaged.</p>
+          <p>The figure scripts load saved R workspaces (RData files) that the same searches did not find. Which objects they held, and in what order, decides what the printed figure actually averaged. The declared reconstruction starts from the released matrix instead and does not recover them.</p>
         </div>
         <div class="mini-card">
           <h3>The corrected legends</h3>
@@ -158,7 +178,7 @@
         </div>
         <div class="mini-card">
           <h3>People and permissions</h3>
-          <p>No gynaecologic oncologist or proteomics/biostatistics collaborator has been recruited, and recruiting is deferred. The repository licence is undecided. Public-source checks can continue, but clinical interpretation and validation need domain review first.</p>
+          <p>No gynaecologic oncologist or proteomics/biostatistics collaborator has been recruited. Recruiting needs a new explicit instruction. The repository licence is undecided, and external scientific review is pending. Downloading study files for a research run, a real-source input check or any fit on study values needs the owner's dated attestation of the execution context and a new explicit instruction. Clinical interpretation and validation need domain review first.</p>
         </div>
       </div>
     </div>
@@ -172,7 +192,7 @@
         <p><strong>Aggregates only.</strong> Audits read public files in memory and publish counts, hashes and provenance. Patient-level records, scores and linkage maps never enter the repository.</p>
         <p><strong>Labels before numbers.</strong> Anything not independently verified is labelled as such, in the registries and on this page. A reproduced number and a printed reference value are never presented as the same kind of fact.</p>
         <p><strong>Fixed before run.</strong> Numerical checks are specified, with their tolerance, before they are executed. A disappointing result is recorded unchanged, not tuned away.</p>
-        <p><strong>Offline checks.</strong> <span class="mono">python3 tools/validate.py</span> and <span class="mono">python3 -m unittest discover -s tests</span> run on the Python standard library without network access. They check the repository's records and test the audit code on small made-up inputs. They do not rerun any audit or the published-score check, and passing them is not a scientific reproduction. Separate network commands, listed in the <a href="https://github.com/Foundation-0/project-asma/blob/main/README.md#check-the-scaffold">README</a>, rerun the audits in memory and print aggregates only. They are not part of the offline checks. The published-score check ran under a recorded instruction, described in its <a href="https://github.com/Foundation-0/project-asma/blob/main/protocols/pilot-001-score-verification.md#execution-instruction-and-pending-external-review">protocol</a>. A model refit would also need its own locked, pinned environment.</p>
+        <p><strong>Offline checks.</strong> <span class="mono">python3 tools/validate.py</span> and <span class="mono">python3 -m unittest discover -s tests</span> run on the Python standard library without network access. They check the repository's records and test the audit code, the source adapter and the runtime tooling on small made-up inputs. They do not rerun any audit or the published-score check, and passing them is not a scientific reproduction. The R pipeline tests run separately, on artificial fixtures in a pinned Docker container with networking off; the <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/pilot-001-synthetic-validation.md#commands">synthetic validation</a> lists the commands. That container has not yet been checked on an actual research host. Separate network commands, listed in the <a href="https://github.com/Foundation-0/project-asma/blob/main/README.md#check-the-scaffold">README</a>, rerun the audits. They follow the bounded-inspection rule: in memory, aggregates only, with a record of what was read and why. Neither the R tests nor the network commands are part of the offline checks. The published-score check ran under a recorded instruction, described in its <a href="https://github.com/Foundation-0/project-asma/blob/main/protocols/pilot-001-score-verification.md#execution-instruction-and-pending-external-review">protocol</a>.</p>
       </div>
       <div class="cta">
         <a class="btn primary" href="https://github.com/Foundation-0/project-asma">Open the repository <span class="arr" aria-hidden="true">&rarr;</span></a>
