@@ -48,10 +48,11 @@ read and why.
   the 7,359 symbols common to all three. Regenerate with
   `python3 tools/audit_validation_panel_coverage.py`. It was run on
   2026-10-25 for the remaining issue #9 coverage check. It reads MMC1 and MMC4 in
-  memory, decodes one symbol column per sheet plus the panel column, and prints
-  counts, set sizes and fingerprints, no symbols. These are the features tested
-  for association, not proof of the rows in the archive members or the
-  prediction workspaces.
+  memory. The shared loader decodes each workbook's shared-string table, which
+  holds text from every sheet, clinical sheets included. Only one symbol column
+  per sheet and the panel column are used. It prints counts, set sizes and
+  fingerprints, no symbols. These are the features tested for association, not
+  proof of the rows in the archive members or the prediction workspaces.
 - [pilot-001-reconstruction-runtime.json](pilot-001-reconstruction-runtime.json):
   selected R 4.4.3, glmnet 4.1-8, randomForest 4.7-1.2 and XGBoost 1.7.8.1 source
   archives, computed hashes and declared license metadata. This historical

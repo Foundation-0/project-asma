@@ -16,7 +16,11 @@ published discovery-score sample keys by exact equality. This closes candidate
 input naming. A subsequent complete-member audit verifies ZIP CRC and finds all
 64 panel symbols exactly once among 8,800 feature rows. That coverage was checked
 in the discovery imputed member only; coverage in the frozen and FFPE-validation
-features is not recorded. Original workspace
+features is not recorded. Update (2026-10-25): supplement-level coverage is now
+recorded. All 64 occur exactly once in the MMC1 frozen and FFPE-validation
+protein association lists ([record](../registries/pilot-001-validation-panel-coverage.json)).
+Member-level coverage in the archive members or prediction workspaces is still
+open. Original workspace
 generation and later reuse conditions remain open. The existing supplied-score AUROC **0.8088507878**
 is retained unchanged. No alternative scores, cohorts or tolerances were tried
 to improve agreement with the printed 0.83.
@@ -347,7 +351,7 @@ analysis. Model fitting has not started.
 | Work | Disposition |
 | --- | --- |
 | Direct PDC matrix-to-clinical labels and PDC design route | Executed; exact equality does not supply patient linkage. |
-| Original author imputed discovery matrix | Header links all 168 measurement rows and all 135 score keys; complete member CRC verified and all 64 panel symbols appear once in this discovery member; frozen and FFPE-validation coverage is not recorded. Workspace generation and abundance correctness remain unverified. |
+| Original author imputed discovery matrix | Header links all 168 measurement rows and all 135 score keys; complete member CRC verified and all 64 panel symbols appear once in this discovery member; frozen and FFPE-validation coverage is not recorded. Update (2026-10-25): supplement-level coverage is now recorded, 64/64 once each in the MMC1 frozen and FFPE-validation association lists ([record](../registries/pilot-001-validation-panel-coverage.json)); member-level coverage in the archive members or prediction workspaces is still open. Workspace generation and abundance correctness remain unverified. |
 | Discovery score-generation lineage | Located; export to released score workbook remains absent from inspected code. |
 | Corrected S3 interpretation | Concrete mismatch documented; authoritative corrected artifact still needed. |
 | Public-input reconstruction | Specified prospectively; candidate naming, member integrity and exact panel coverage checked. Needs remaining reuse/transform contracts and a frozen implementation before fitting. |
