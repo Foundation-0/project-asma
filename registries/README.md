@@ -5,11 +5,11 @@
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 
-The first six records below (linkage, supplement, score verification, matrix
-header, author archive and author feature) come from network audits that read
-study files or patient-level metadata in memory. Regenerating them follows the
-bounded-inspection rule in the [agent guidance](../AGENTS.md): in memory,
-aggregates only, recording what was read and why.
+The first seven records below (linkage, supplement, score verification, matrix
+header, author archive, author feature and panel name) come from network audits
+that read study files or patient-level metadata in memory. Regenerating them
+follows the bounded-inspection rule in the [agent guidance](../AGENTS.md): in
+memory, aggregates only, recording what was read and why.
 
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,
   aggregate-only comparison of public version-1 PDC metadata. Regenerate with
@@ -40,6 +40,11 @@ aggregates only, recording what was read and why.
   bounded source-inspection contract with `python3 tools/audit_author_features.py`.
   Abundance fields are discarded without numerical conversion or analysis; full
   archive integrity, transformation history and later reuse terms remain open.
+- [pilot-001-panel-name-summary.json](pilot-001-panel-name-summary.json): count of
+  pinned panel symbols that R's `make.names` would alter (0 of 64), with source
+  and tool hashes. Regenerate with `python3 tools/audit_panel_names.py`; it
+  prints counts only, no symbols. It was run to answer the `make.names` check in
+  issue #9.
 - [pilot-001-reconstruction-runtime.json](pilot-001-reconstruction-runtime.json):
   selected R 4.4.3, glmnet 4.1-8, randomForest 4.7-1.2 and XGBoost 1.7.8.1 source
   archives, computed hashes and declared license metadata. This historical

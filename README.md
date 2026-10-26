@@ -124,6 +124,9 @@ python3 -m unittest discover -s tests -v
 The validator checks registry structure, cross-references, and local Markdown
 file/heading links. It does not check external availability, scientific truth,
 dataset contents, or access rights. See the [registry guide](registries/README.md).
+With R and jsonlite, `Rscript --vanilla tools/check_panel_name_tokens.R` checks
+the token expectations of the panel-name tests against R's own `make.names`. It
+is offline, prints only counts and is not part of the Python suite.
 
 The network commands `python3 tools/audit_pdc_metadata.py` and
 `python3 tools/audit_published_cohorts.py` rerun the public catalog comparison
@@ -137,6 +140,10 @@ header linkage using bounded ZIP ranges and exact clinical/score-key joins.
 `python3 tools/audit_author_features.py` checks the complete selected member
 in memory for CRC, hashes and exact panel coverage under the documented bounded
 inspection scope; it emits no source rows or abundance values.
+`python3 tools/audit_panel_names.py` counts pinned panel symbols that R's
+`make.names` would alter. It downloads the hash-pinned MMC4 workbook into memory,
+parses only the panel worksheet (and the workbook's shared-string table) and
+prints counts, no symbols.
 These audits, like `python3 tools/verify_published_auc.py`, read patient-level
 clinical or linkage metadata, published scores or the full matrix member in
 memory. They follow the bounded-inspection rule in the
