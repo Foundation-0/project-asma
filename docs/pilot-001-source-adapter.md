@@ -113,7 +113,16 @@ container; no fixture payload passes through the outer launcher.
 **Addition, 2026-10-25 (after the execution records above).** These changes
 address the non-blocking items of the PR #12 reviews, the PR #16 review and a
 PR #10 comment on the data rules. The records above predate them and must be
-regenerated in the pinned image.
+regenerated in the pinned image. Ten files hashed by the
+[validation record](../registries/pilot-001-source-adapter-validation.json) now
+differ from it:
+- changed here: `tools/source_data_adapter.py`, `R/asma_source.R`,
+  `tools/build_source_adapter_runtime.py`, `tests/test_source_data_adapter.py`,
+  `tests/r/test_source.R` and `tests/test_source_adapter_runtime.py`;
+- changed by amendment 1 (#15): `R/asma_core.R`, `R/asma_models.R` and
+  `tools/run_source_adapter_fixture.py`;
+- changed by the shared loader's guard: `tools/audit_published_cohorts.py`
+  (see the [registry guide](../registries/README.md)).
 
 - **Direct tests for four checks.** New tests reject each of these:
   - a duplicated matrix symbol while every panel symbol is present;
@@ -126,6 +135,8 @@ regenerated in the pinned image.
   `fromJSON` reads a short non-JSON string as a file path or URL. A new bridge
   assertion, giving 19, passes the path of an existing file holding a valid
   abstract payload and requires rejection. That assertion fails with `fromJSON`.
+  The temporary file exists only in this test and holds abstract values; the
+  transfer itself still uses no payload file.
 - **No exception context.** `SourceAdapterError` is raised after the handler
   ends, so neither `__cause__` nor `__context__` holds the original exception.
 - **Aggregate failure category.** Each failure carries one fixed `category`

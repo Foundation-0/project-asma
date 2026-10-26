@@ -334,7 +334,10 @@ class SourceAdapterChecks(unittest.TestCase):
 
     def test_replicate_groups_must_be_singletons_or_triplicates(self):
         # Moving one replicate into another sample, with that sample's clinical
-        # fields, keeps every count except the group geometry.
+        # fields, turns one triplicate and two singletons into two pairs and a
+        # singleton, so the singleton and triplicate counts reject it. With the
+        # measurement total, those counts imply the {1, 3} clause, so no fixture
+        # that keeps them can isolate that clause.
         def regroup(c, p, h, r):
             c["FFPE_Discovery_clinical"][3].update(B="abstract-patient-b", C="abstract-sample-b",
                                                    E="refractory", F="NA")

@@ -212,6 +212,8 @@ def _clinical(book, contract):
     for row in biological:
         groups[row["Sample ID"]].append(row)
     sizes = collections.Counter(map(len, groups.values()))
+    # The {1, 3} clause is implied by the measurement total and the two counts;
+    # it states the rule directly.
     require(set(sizes) <= {1, 3} and sizes[1] == contract["singletons"]
             and sizes[3] == contract["triplicate_groups"])
     unique = cohorts.collapse_replicates(biological)
