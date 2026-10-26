@@ -5,10 +5,10 @@
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 
-The first seven records below (linkage, supplement, score verification, matrix
-header, author archive, author feature and validation panel coverage) come from
-network audits that read study files or patient-level metadata in memory.
-Regenerating them follows the bounded-inspection rule in the
+The first eight records below (linkage, supplement, score verification, matrix
+header, author archive, author feature, panel name and validation panel
+coverage) come from network audits that read study files or patient-level
+metadata in memory. Regenerating them follows the bounded-inspection rule in the
 [agent guidance](../AGENTS.md): in memory, aggregates only, recording what was
 read and why.
 
@@ -41,6 +41,11 @@ read and why.
   bounded source-inspection contract with `python3 tools/audit_author_features.py`.
   Abundance fields are discarded without numerical conversion or analysis; full
   archive integrity, transformation history and later reuse terms remain open.
+- [pilot-001-panel-name-summary.json](pilot-001-panel-name-summary.json): count of
+  pinned panel symbols that R's `make.names` would alter (0 of 64), with source
+  and tool hashes. Regenerate with `python3 tools/audit_panel_names.py`; it
+  prints counts only, no symbols. It was run to answer the `make.names` check in
+  issue #9.
 - [pilot-001-validation-panel-coverage.json](pilot-001-validation-panel-coverage.json):
   exact coverage of the 64 panel symbols in the published MMC1 protein
   association feature lists for discovery (8,800 features), frozen (8,272) and
