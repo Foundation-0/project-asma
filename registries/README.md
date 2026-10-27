@@ -73,13 +73,17 @@ read and why.
 - [pilot-001-source-adapter-runtime.json](pilot-001-source-adapter-runtime.json):
   executed build and inventory for the combined CPython/R image, including required
   modules, preserved R versions, missing optional modules and source/notice pins.
-  The builder prints only the image IDs; no committed tool emits the other
-  fields (see the [source-adapter report](../docs/pilot-001-source-adapter.md)).
+  The builder prints only the image IDs. The 2026-10-27 rebuild's inventory
+  fields were observed with the `docker run` commands listed in the
+  [source-adapter report](../docs/pilot-001-source-adapter.md#pinned-image-rerun-2026-10-27);
+  no committed tool emits them.
 - [pilot-001-source-adapter-validation.json](pilot-001-source-adapter-validation.json):
-  generated XLSX/deflate fixtures parsed into the R pipeline, 18 bridge assertions,
+  generated XLSX/deflate fixtures parsed into the R pipeline, 19 bridge assertions (2026-10-27 pinned-image rerun),
   a complete fivefold model repetition, observed parser environment and source
   hashes. Input fingerprints under `fixture_provenance` belong to artificial fixtures.
 - [pilot-001-execution-conditions.json](pilot-001-execution-conditions.json):
+  the 2026-10-25 observation of the earlier runtime image (not the 2026-10-27
+  rebuild, whose probe could not run on a cgroup v1 host):
   40 observed combined-runtime controls, limited outer-executor observations and
   explicit unresolved context. `managed_environment_observation` was added
   separately, not by the probe; it records the outer machine's network policy as

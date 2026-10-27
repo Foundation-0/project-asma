@@ -87,10 +87,13 @@ It covers two of the open items and one addition:
   aggregate code records what stopped a run. The alternative counts glmnet's
   saturation warnings. The implementation follows the decision.
 
-Merging the file does not adopt it. The direction test, the third open item, is
-added and passes in a development environment. The synthetic and source-adapter execution records also
-predate the 2026-10-25 test and core changes, and must be regenerated in the
-pinned image.
+Merging the file does not adopt it. The direction test, the third open item,
+passed in the pinned image on 2026-10-27. That rerun regenerated the synthetic
+and source-adapter execution records (179 R assertions, the full 100-repeat run
+and 19 bridge assertions; see the
+[synthetic validation](pilot-001-synthetic-validation.md#pinned-image-rerun-2026-10-27)).
+The execution-condition probe could not run on that cgroup v1 host and still
+needs a cgroup v2 execution context.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |

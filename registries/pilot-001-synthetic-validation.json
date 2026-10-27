@@ -1,11 +1,11 @@
 {
   "assertions": {
-    "core": 77,
+    "core": 87,
     "input": 41,
-    "models": 31,
-    "total": 149
+    "models": 51,
+    "total": 179
   },
-  "elapsed_seconds": 57.619,
+  "elapsed_seconds": 104.858,
   "environment": {
     "BLAS": "/usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3",
     "LAPACK": "/usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so",
@@ -266,7 +266,7 @@
     ],
     "platform": "x86_64-pc-linux-gnu",
     "r_version": "4.4.3",
-    "runtime_image_id": "sha256:9303744002de1f6788d83e2ca51f9cb7ed6afd70bf42edb46cf9dfe6f8584eef",
+    "runtime_image_id": "sha256:c7592401eca5fe569ddda577aa9b26504d85930333af7482b8d0adcd569d073c",
     "thread_settings": {
       "MKL_NUM_THREADS": "1",
       "OMP_NUM_THREADS": "1",
@@ -288,22 +288,23 @@
     "temporary_storage": "256 MiB tmpfs; noexec,nosuid",
     "wall_time_limit_seconds": 7200
   },
-  "finished_at_utc": "2026-10-25T04:39:00.741246Z",
+  "finished_at_utc": "2026-10-27T05:40:10.648806Z",
   "implementation_sha256": {
-    "R/asma_core.R": "7aca51fa6e7adce59e0d4309a737fbe8706e8449610d5f1979e9675db1d27e2e",
+    "R/asma_core.R": "7e7923ee477f57172c5af6ec7c9a0b56ca7120fa5cd3274e2fd4f5708eb10c91",
     "R/asma_input.R": "0b69c848765cbb7cc9af59efff9c6744f4772aa8931a3fc7bb136708f4ef6ed6",
-    "R/asma_models.R": "8702a14142b5779cedfbb9471dfcf858fbae647c6c9a3584cb60ef6aca7147b4",
+    "R/asma_models.R": "6fe794b994677f761dcddda64ad234999db6f44708cece82f0614e523370db5c",
+    "protocols/pilot-001-reconstruction-amendment-1.md": "112c3ad93e8685abc2b10de450dab6bf49bc9e95a7a0e32d897a0e8b3a9618cc",
     "protocols/pilot-001-reconstruction-decisions.md": "30108f27b5a9bb3c32262050af760ca968fd65bd21b1330f093fb558ad0bed80",
     "runtime/Dockerfile.synthetic": "0f17ef9ad85abe588bee1d8c9e3330958ad9a11001c09e72d8c85047e56fbb7d",
     "runtime/install.R": "5e00aa34a84836c2915cecc4f452254589576b2de3d6c1b88625c5827f2f41be",
     "runtime/synthetic-packages.json": "16148bb62730d34071abef3a408600dfe8109ea0bb553d1e26aa2b048596cbf0",
     "tests/r/synthetic_fixture.R": "92d52f3d1a5e2504fe0a7eefb72091210c87e1d7d75c54d06bf6a7d060c8cd8f",
-    "tests/r/test_core.R": "92133bad21d963438958182807d3331a4dd45a76719f4fec67d3325ebafe504c",
+    "tests/r/test_core.R": "21e56027759974cff6c38a65d54398cd59f72cc9c43f124f3a9faa017518a272",
     "tests/r/test_input.R": "c3602cf212ec794e2ad777a5f54e5d224c8fb812a053422c8b00f386e2dbd2d0",
-    "tests/r/test_models.R": "8c306d532285f0bd83e04ad7eceec4e03e5d881ebdb198664bd15b89aa9a61d4",
+    "tests/r/test_models.R": "22f91e0f42f37a18f4139f62a425cd313151b53a5e6a3512a042fdde892b0639",
     "tests/test_synthetic_runtime.py": "5709358fd3160e455e08c140ac42fb71bd452d81e02d367b577925dca77dd716",
     "tools/build_synthetic_runtime.py": "4ea40ee66cbf4b9648bfa8d00bd060a24e650ddffd94ec2b30f8ccb7d8637865",
-    "tools/run_synthetic_pipeline.R": "0025ffcf34f51a8b32bb625c9c764fecad74a33bf541f9ce173d26ad64983cf3",
+    "tools/run_synthetic_pipeline.R": "935600b2e3a8ed09dc483f8cdf1a86fd7b9a10c26856d687bb40b4c819eb0c6d",
     "tools/run_synthetic_pipeline.py": "9bf188f68a36665332f22459f2acb1e779ded7242d9b8a2d7083733e96b894ea"
   },
   "integration": {
@@ -331,7 +332,7 @@
   ],
   "schema_version": 1,
   "scope": "Synthetic fixtures only; no source-study data or clinical performance result",
-  "started_at_utc": "2026-10-25T04:38:03.122469Z",
+  "started_at_utc": "2026-10-27T05:38:25.788949Z",
   "synthetic_input": {
     "clinical_NA_rows": 1,
     "features": 64,

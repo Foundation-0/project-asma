@@ -2,8 +2,9 @@
 
 **Executed software validation; no study-data model fit.** An original R
 implementation of the frozen [reconstruction decisions](../protocols/pilot-001-reconstruction-decisions.md)
-passed 149 assertions and a complete 100-repeat run using the actual pinned
-model packages. The [execution record](../registries/pilot-001-synthetic-validation.json)
+passed all 179 assertions and a complete 100-repeat run in the pinned image on
+2026-10-27 (see [Pinned-image rerun](#pinned-image-rerun-2026-10-27)); the first
+record (2026-10-25) covered 149. The [execution record](../registries/pilot-001-synthetic-validation.json)
 contains aggregate coverage, UTC timing, package/toolchain inventory and hashes.
 It contains no fixture predictions or clinical performance result.
 
@@ -143,9 +144,35 @@ matching build.
 
 Other components differ from the pinned image: Rcpp 1.1.2 (pinned 1.0.14),
 Matrix 1.7-6 (recorded 1.7-2), survival 3.8-12 and lattice 0.23-1, and the conda
-compiler toolchain. Each model's fixture AUROC was 1.0. The pinned-image runner
-must rerun all 179 assertions, and the execution record must be regenerated,
-before any research run.
+compiler toolchain. Each model's fixture AUROC was 1.0. The pinned-image rerun
+below supersedes this requirement.
+
+## Pinned-image rerun, 2026-10-27
+
+The runtime was rebuilt from the same pinned inputs (`rocker/r-ver` base by
+digest, hash-checked CRAN sources, build networking disabled) and both runners
+were executed in it. Results, now in the
+[execution record](../registries/pilot-001-synthetic-validation.json):
+
+- **All 179 R assertions passed** (41 input, 87 core, 51 model) in 14.7 seconds,
+  including the planted-signal direction test, the golden fold vectors, the
+  fold-wiring check, the fitted-settings checks and the amendment 1 code. This is
+  the first run of those tests on the pinned toolchain (Rcpp 1.0.14, Matrix 1.7-2).
+- **The full 100-repeat integration passed** in 104.9 seconds: 40,500 model
+  predictions, 13,500 ensemble predictions and 135 final scores, complete
+  coverage, and agreement between the pairwise and rank-based AUROC calculations.
+  No AUROC value is emitted or compared with the paper.
+- **Rebuild fidelity.** The installed package inventory and toolchain equal the
+  2026-10-25 record exactly. The image ID differs (`sha256:c7592401…` versus
+  `sha256:93037440…`): the rebuild used Docker 29 with the containerd image store,
+  and pinned inputs do not imply bit-identical images. It is recorded as a new
+  runtime, not substituted for the old one.
+- All 16 implementation hashes in the new record match the committed files,
+  including both hash-pinned protocol files.
+
+The development-environment results above (mutation runs, the 1.0 fixture
+AUROCs and the amendment 1 fixture probes) were not repeated here; only the
+committed suites were run.
 
 The full run, including all 149 assertions, took 57.619 seconds inside R on the
 recorded environment. This is an observed fixture runtime, not a compute estimate
@@ -221,7 +248,7 @@ python3 -m unittest discover -s tests -v
 The first command downloads the pinned base image and package sources and may
 take several minutes. An optional `--source-cache` directory can supply package
 archives; each is still checked against the manifest. The second command runs
-all R assertions (149 in the recorded run; 179 after the 2026-10-25 additions);
+all R assertions (179 in the 2026-10-27 record);
 `--full` also performs the complete 100-repeat integration.
 Each runner prints reviewed aggregate JSON only. The wrapper resolves the local
 image tag to its immutable image ID before execution. Input pins do not imply
