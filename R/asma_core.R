@@ -227,12 +227,24 @@ run_reconstruction <- function(assembled, fit_predict, repetitions = 100L,
     }, numeric(1)), keys)
     metric <- checked_auc(y, scores)
     asma_require(metric$positive_negative_pairs == 4316L, "run_metric_denominator")
+    # Amendment 1: a descriptive secondary output. Each repetition's AUROC spans
+    # all 135 held-out ensemble scores; it is not a fold AUROC or a pooled value.
+    repetition_auc <- vapply(seq_len(repetitions), function(repetition) {
+      checked_auc(y, ensemble[, repetition])$auc
+    }, numeric(1))
+    spread <- stats::quantile(repetition_auc, probs = c(0, .25, .5, .75, 1),
+                              type = 7L, names = FALSE)
     list(scores = scores, repetition_scores = ensemble,
          summary = c(list(patients = 135L, features = 64L,
                           repetitions = repetitions, outer_folds = fold_count,
                           model_predictions = prediction_count,
                           ensemble_predictions = length(ensemble),
                           final_scores = length(scores),
-                          complete_prediction_coverage = TRUE), metric))
+                          complete_prediction_coverage = TRUE), metric,
+                     list(repetition_auc = list(
+                       count = repetitions, minimum = spread[1L],
+                       lower_quartile = spread[2L], median = spread[3L],
+                       upper_quartile = spread[4L], maximum = spread[5L],
+                       mean = mean(repetition_auc)))))
   })
 }

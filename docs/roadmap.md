@@ -63,6 +63,28 @@ a per-model planted-signal direction test, a fixed sensitivity configuration and
 the per-repetition AUROC distribution. No researcher contact
 is needed for the software preparation. The 2025 fallback remains unadopted.
 
+Pending owner decision (2026-10-25), required before any research run: accept or
+reject [reconstruction amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md).
+It covers two of the open items and one addition:
+- **A1:** the per-repetition AUROC distribution, as a descriptive secondary
+  output.
+- **A2:** a fixed sensitivity configuration. It proposes XGBoost
+  `tree_method = "hist"` with everything else identical, reported as
+  exploratory. With 108 training rows this mainly moves split thresholds, so its
+  leverage is limited. The owner may instead choose a second block of fold seeds,
+  run both, or waive the requirement. The seed block measures dependence on fold
+  assignment, so alone it leaves the environment question open, as a waiver
+  would.
+- **A3:** which warnings and messages from model calls stop a run. It proposes
+  that every warning stays fatal, that messages become fatal and that a fixed
+  aggregate code records what stopped a run. The alternative counts glmnet's
+  saturation warnings. The implementation follows the decision.
+
+Merging the file does not adopt it. The direction test, the third open item, is
+added and passes in a development environment. The synthetic and source-adapter execution records also
+predate the 2026-10-25 test and core changes, and must be regenerated in the
+pinned image.
+
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
 | 0. Agree scope and rights | Input-specific use disposition; applicable review requirements; code-licensing expectations | Original implementation can proceed. Bounded, in-memory source inspection, including rerunning the recorded audits, is part of autonomous research (owner decision, 2026-10-25) and keeps only aggregates; unresolved real-data use conditions stop fitting. Live acquisition of study files, a real-source input check or fitting on study values also needs the owner's dated attestation of the execution context and a new explicit instruction; automated checks never satisfy this. No collaborator has been recruited, and external scientific review remains pending; whether that review is waived or deferred is the owner's decision. |

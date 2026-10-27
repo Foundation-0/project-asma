@@ -134,5 +134,28 @@ run_model_tests <- function() {
     identical(signal[[model]][1L], signal_changed[[model]][1L])
   }, logical(1))))
 
+  # The default is the declared "exact" method. The proposed sensitivity setting
+  # ("hist") must give valid, correctly oriented probabilities, and only the
+  # XGBoost component may change. It must change on this fixture, so the setting
+  # cannot be silently ignored. Other values are rejected before any fit.
+  check(identical(fit_models(signal_train, y_train, signal_test, inner, 1L, 1L,
+                             xgb_tree_method = "exact"), signal))
+  hist <- fit_models(signal_train, y_train, signal_test, inner, 1L, 1L,
+                     xgb_tree_method = "hist")
+  check(identical(hist$en, signal$en) && identical(hist$rf, signal$rf) &&
+          !identical(hist$xgb, signal$xgb) && direction_holds(hist$xgb, signal_y_test))
+  rejects(fit_models(signal_train, y_train, signal_test, inner, 1L, 1L,
+                     xgb_tree_method = "approx"))
+
+  # A2 premise: 108 training rows give at most 108 distinct values per feature,
+  # below the default 256 bins, so "hist" has the same candidate splits as
+  # "exact". Here it splits training rows identically and moves only thresholds
+  # between training values, so rows that copy training values score the same.
+  copies <- signal_train[1:27, , drop = FALSE]
+  rownames(copies) <- rownames(signal_test)
+  check(identical(
+    fit_models(signal_train, y_train, copies, inner, 1L, 1L)$xgb,
+    fit_models(signal_train, y_train, copies, inner, 1L, 1L, xgb_tree_method = "hist")$xgb))
+
   count
 }
