@@ -4,6 +4,7 @@ import datetime as dt
 import json
 from pathlib import Path
 import re
+import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
 
@@ -38,6 +39,8 @@ METADATA_AUDITED_STATE = {
 }
 METADATA_AUDITED_IDS = {"PDC000358", "PDC000360", "PDC000362"}
 METADATA_AUDIT_SOURCES = {"S12", "S13"}
+# Created only by the owner, in the checkout that runs; never committed.
+OWNER_ATTESTATIONS = "registries/pilot-001-owner-attestations.json"
 
 
 def https_url(value):
@@ -179,8 +182,29 @@ def local_link_errors(root):
     return errors
 
 
+def attestation_errors(root):
+    """Fail if Git tracks or stages the owner's attestation file, in any letter case."""
+    if not (root / ".git").exists():
+        return []
+    reason = ""
+    try:
+        listed = subprocess.run(["git", "-C", str(root), "ls-files", "-z", "--", ":(icase)registries"],
+                                capture_output=True, timeout=60)
+        if listed.returncode != 0:
+            reason = next(iter(listed.stderr.decode("utf-8", "replace").strip().splitlines()), "")
+    except (OSError, subprocess.SubprocessError) as error:
+        listed, reason = None, str(error)
+    if listed is None or listed.returncode != 0:
+        return [f"{OWNER_ATTESTATIONS}: cannot check whether Git tracks it"
+                + (f" (git: {reason})" if reason else "")]
+    tracked = listed.stdout.decode("utf-8", "replace").split("\0")
+    if any(name.casefold() == OWNER_ATTESTATIONS.casefold() for name in tracked):
+        return [f"{OWNER_ATTESTATIONS}: owner-only file is tracked or staged; remove it from Git"]
+    return []
+
+
 def validate(root=ROOT):
-    return registry_errors(root) + local_link_errors(root)
+    return registry_errors(root) + local_link_errors(root) + attestation_errors(root)
 
 
 if __name__ == "__main__":
@@ -188,4 +212,5 @@ if __name__ == "__main__":
     if problems:
         print("\n".join(problems), file=sys.stderr)
         sys.exit(1)
-    print("PASS: source/dataset registries and local Markdown links (offline scaffold checks only).")
+    print("PASS: source/dataset registries, local Markdown links and untracked owner attestations "
+          "(offline scaffold checks only).")

@@ -73,25 +73,33 @@ read and why.
 - [pilot-001-source-adapter-runtime.json](pilot-001-source-adapter-runtime.json):
   executed build and inventory for the combined CPython/R image, including required
   modules, preserved R versions, missing optional modules and source/notice pins.
-  The builder prints only the image IDs; no committed tool emits the other
-  fields (see the [source-adapter report](../docs/pilot-001-source-adapter.md)).
+  The builder prints only the image IDs. The 2026-10-27 rebuild's inventory
+  fields were observed with the `docker run` commands listed in the
+  [source-adapter report](../docs/pilot-001-source-adapter.md#pinned-image-rerun-2026-10-27);
+  no committed tool emits them.
 - [pilot-001-source-adapter-validation.json](pilot-001-source-adapter-validation.json):
-  generated XLSX/deflate fixtures parsed into the R pipeline, 18 bridge assertions,
+  generated XLSX/deflate fixtures parsed into the R pipeline, 19 bridge assertions (2026-10-27 pinned-image rerun),
   a complete fivefold model repetition, observed parser environment and source
   hashes. Input fingerprints under `fixture_provenance` belong to artificial fixtures.
 - [pilot-001-execution-conditions.json](pilot-001-execution-conditions.json):
+  the 2026-10-25 observation of the earlier runtime image (not the 2026-10-27
+  rebuild, whose probe could not run on a cgroup v1 host):
   40 observed combined-runtime controls, limited outer-executor observations and
   explicit unresolved context. `managed_environment_observation` was added
   separately, not by the probe; it records the outer machine's network policy as
   `unrestricted`. It is not research-use clearance. See the
   [source-adapter report](../docs/pilot-001-source-adapter.md).
 - `pilot-001-owner-attestations.json` does not exist in this repository. Only
-  the owner creates or edits it; automated sessions must never do so. It holds
-  `schema_version: 1` and an `attestations` list. Each entry has exactly `id`,
-  `date` (YYYY-MM-DD), `execution_context` and `instruction`.
-  `load_pinned_sources()` refuses to run unless its `owner_attestation` matches
-  an entry `id`. This guards against accidental calls; it is not a security
-  boundary and does not replace Gate 0 of the [roadmap](../docs/roadmap.md).
+  the owner creates or edits it, by hand in the checkout that runs; automated
+  sessions must never do so. Git ignores it, and `tools/validate.py` fails if Git
+  tracks or stages it. It holds `schema_version: 2` and an `attestations` list.
+  Each entry has exactly `id`, `date` and `expires` (YYYY-MM-DD),
+  `execution_context` and `instruction`. `load_pinned_sources()`, and
+  `parse_sources()` under any of the study's SHA-256 pins, refuse to run unless
+  their `owner_attestation` matches an entry `id` whose `expires` day has not
+  passed (UTC). This guards against accidental calls; it is not a security
+  boundary and does not replace Gate 0 of the [roadmap](../docs/roadmap.md). The
+  [source-adapter report](../docs/pilot-001-source-adapter.md) gives the format.
 
 Recorded implementation hashes describe the code that ran. Five records (score
 verification, matrix header, author archive, author feature and source-adapter
@@ -141,7 +149,8 @@ Run `python3 tools/validate.py` from the root after edits. The current validator
 enforces the original scaffold state and this specific metadata-audited state;
 intentionally extend its rules and tests for later authorized stages. It checks required fields,
 types, ID/reference/date/status rules, and simple inline local Markdown file and
-heading links. It skips fenced code, external URLs, and reference-style links.
+heading links. In a Git checkout it also fails if Git tracks or stages the
+owner's attestation file, using the `git` executable. It skips fenced code, external URLs, and reference-style links.
 It does not verify external availability, source accuracy, access terms, data
 integrity, patient overlap, or scientific validity. Keep links simple and review
 external sources manually before making new claims.

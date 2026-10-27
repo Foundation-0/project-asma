@@ -101,7 +101,9 @@ unchanged; its prospective runtime status is superseded by the validation report
 The [source adapter](docs/pilot-001-source-adapter.md) now validates pinned source
 bytes, exact clinical membership and selected values before R assembly. Generated
 XLSX/matrix fixtures passed the complete adapter-to-model path. A separate runtime
-probe passed 40 technical checks. Python parsing, private transfer and R fitting
+probe passed 40 technical checks on 2026-10-25. A 2026-10-27 pinned-image rerun
+passed all 179 R assertions, the full 100-repeat run and the adapter fixture; its
+probe could not run on that cgroup v1 host. Python parsing, private transfer and R fitting
 now share a pinned container with Docker logging disabled. Live acquisition,
 processing jurisdiction and hosting/use conditions remain unverified.
 No study sources were ingested by the adapter. Those remaining conditions must
@@ -115,8 +117,8 @@ histotypes require their own questions, labels, and study designs.
 
 ## Check the scaffold
 
-Python 3.10+ and its standard library are sufficient; no package installation or
-network access is needed:
+Python 3.10+ and its standard library are sufficient, plus the `git` executable
+in a Git checkout; no package installation or network access is needed:
 
 ```sh
 python3 tools/validate.py
@@ -124,7 +126,9 @@ python3 -m unittest discover -s tests -v
 ```
 
 The validator checks registry structure, cross-references, and local Markdown
-file/heading links. It does not check external availability, scientific truth,
+file/heading links. In a Git checkout it also checks that Git neither tracks nor
+stages the owner's attestation file, and fails if `git` is missing or refuses
+the repository. It does not check external availability, scientific truth,
 dataset contents, or access rights. See the [registry guide](registries/README.md).
 With R and jsonlite, `Rscript --vanilla tools/check_panel_name_tokens.R` checks
 the token expectations of the panel-name tests against R's own `make.names`. It
