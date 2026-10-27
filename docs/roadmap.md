@@ -1,6 +1,6 @@
 # Roadmap
 
-Status: updated 2026-10-25. The scaffold,
+Status: updated 2026-10-27. The scaffold,
 [static feasibility audit](pilot-001-feasibility-audit.md), and
 [public input/linkage investigation](pilot-001-input-resolution.md) are completed.
 Executed metadata checks advance Gates 0–1; they do not close the remaining
@@ -65,9 +65,9 @@ obligations, and verify the combined runtime on that host. Live acquisition of s
 files follows only after the owner's sign-off in Gate 0. Keep historical uncertainties explicit; do not repair them silently
 to improve agreement. Research fitting remains conditional on the data-use disposition
 and on the owner's sign-off in Gate 0. Before any research run, also resolve the
-open items in the [reconstruction contract](../protocols/pilot-001-independent-reconstruction.md):
-a per-model planted-signal direction test, a fixed sensitivity configuration and
-the per-repetition AUROC distribution. No researcher contact
+remaining open items in the [reconstruction contract](../protocols/pilot-001-independent-reconstruction.md):
+a fixed sensitivity configuration and the per-repetition AUROC distribution. The
+per-model planted-signal direction test passed in the pinned image on 2026-10-27. No researcher contact
 is needed for the software preparation. The 2025 fallback remains unadopted.
 
 Pending owner decision (2026-10-25), required before any research run: accept or
