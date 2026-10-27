@@ -186,13 +186,17 @@ def attestation_errors(root):
     """Fail if Git tracks or stages the owner's attestation file, in any letter case."""
     if not (root / ".git").exists():
         return []
+    reason = ""
     try:
-        listed = subprocess.run(["git", "-C", str(root), "ls-files", "-z", "--", "registries"],
+        listed = subprocess.run(["git", "-C", str(root), "ls-files", "-z", "--", ":(icase)registries"],
                                 capture_output=True, timeout=60)
-    except (OSError, subprocess.SubprocessError):
-        listed = None
+        if listed.returncode != 0:
+            reason = next(iter(listed.stderr.decode("utf-8", "replace").strip().splitlines()), "")
+    except (OSError, subprocess.SubprocessError) as error:
+        listed, reason = None, str(error)
     if listed is None or listed.returncode != 0:
-        return [f"{OWNER_ATTESTATIONS}: cannot check whether Git tracks it"]
+        return [f"{OWNER_ATTESTATIONS}: cannot check whether Git tracks it"
+                + (f" (git: {reason})" if reason else "")]
     tracked = listed.stdout.decode("utf-8", "replace").split("\0")
     if any(name.casefold() == OWNER_ATTESTATIONS.casefold() for name in tracked):
         return [f"{OWNER_ATTESTATIONS}: owner-only file is tracked or staged; remove it from Git"]

@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 import sys
 import tempfile
+import types
 import unittest
 from unittest import mock
 import warnings
@@ -24,6 +25,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "tests"))
 import source_data_adapter as adapter
 import source_adapter_fixture
+import validate
 
 MAIN = adapter.NS["s"]
 REL = "http://schemas.openxmlformats.org/package/2006/relationships"
@@ -494,9 +496,12 @@ class SourceAdapterChecks(unittest.TestCase):
         # The fixture pins stand in for the study's, so no study bytes are needed.
         pins = (("member", "compressed_sha256"), ("member", "sha256"),
                 ("workbooks", "clinical"), ("workbooks", "panel_and_scores"))
+        def fresh():
+            """An equal contract whose pins are distinct str objects, as a file would give."""
+            return json.loads(json.dumps(fixture[3]))
         def foreign(keep=None):
             """The fixture contract with every byte pin replaced except keep."""
-            contract = copy.deepcopy(fixture[3])
+            contract = fresh()
             for index, (group, field) in enumerate(pins):
                 if (group, field) == keep:
                     continue
@@ -519,14 +524,19 @@ class SourceAdapterChecks(unittest.TestCase):
             dict(ATTESTATION["attestations"][1], expires=str(TODAY - datetime.timedelta(days=1)))]}
         # The default contract, an equal copy or a near-default one without its MD5 pin.
         near = copy.deepcopy(fixture[3]); del near["workbooks"]["clinical"]["md5"]
-        for contract in (None, copy.deepcopy(fixture[3]), near):
+        for contract in (None, copy.deepcopy(fixture[3]), fresh(), near):
             gated(contract)
             gated(contract, ATTESTATION, None)
             gated(contract, ATTESTATION, "abstract-earlier")
             gated(contract, expired)
-        # Any single study pin is enough, and so is a pin that is not an exact str.
+        # Any single study pin is enough, in any slot, and so is a pin that is not an exact str.
         for keep in pins:
             gated(foreign(keep))
+        swapped = foreign()
+        swapped["workbooks"]["clinical"]["sha256"] = fixture[3]["workbooks"]["panel_and_scores"]["sha256"]
+        gated(swapped)
+        swapped = foreign(); swapped["member"]["sha256"] = fixture[3]["workbooks"]["clinical"]["sha256"]
+        gated(swapped)
         text = type("Text", (str,), {"__eq__": lambda self, other: False, "__hash__": str.__hash__})
         disguised = foreign(); disguised["member"]["sha256"] = text(fixture[3]["member"]["sha256"])
         gated(disguised)
@@ -542,10 +552,29 @@ class SourceAdapterChecks(unittest.TestCase):
             self.assertIs(adapter.parse_sources(*fixture[:3], owner_attestation=ATTESTED)
                           ["provenance"]["source_pins_verified"], True)
         gated(None, ATTESTATION, today=last_day + datetime.timedelta(days=1))
-        # The real clock reads the UTC date (bracketed in case midnight passes).
-        before = datetime.datetime.now(datetime.timezone.utc).date()
-        observed = adapter._today()
-        self.assertIn(observed, {before, datetime.datetime.now(datetime.timezone.utc).date()})
+        # An entry may start and end on the same day, and a byte-order mark is accepted.
+        same_day = {"schema_version": 2, "attestations": [
+            dict(ATTESTATION["attestations"][1], date=str(TODAY), expires=str(TODAY))]}
+        for content in (same_day, b"\xef\xbb\xbf" + json.dumps(ATTESTATION).encode()):
+            with mock.patch.object(adapter, "DEFAULT_CONTRACT", copy.deepcopy(fixture[3])), \
+                    attestation_file(content):
+                self.assertIs(adapter.parse_sources(*fixture[:3], owner_attestation=ATTESTED)
+                              ["provenance"]["source_pins_verified"], True)
+        # The identifier is keyword-only here too.
+        with self.assertRaises(TypeError):
+            adapter.parse_sources(*fixture[:3], fixture[3], ATTESTED)
+        # The real clock takes the UTC date: just after UTC midnight, local dates west of UTC differ.
+        instant = datetime.datetime(2001, 2, 3, 0, 30, tzinfo=datetime.timezone.utc)
+        west = datetime.timezone(datetime.timedelta(hours=-12))
+        class Clock(datetime.datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return instant.astimezone(tz) if tz else instant.astimezone(west).replace(tzinfo=None)
+        clock = types.SimpleNamespace(datetime=Clock, date=datetime.date, timezone=datetime.timezone)
+        with mock.patch.object(adapter, "datetime", clock):
+            self.assertEqual(adapter._today(), datetime.date(2001, 2, 3))
+        # The adapter reads the same path that Git ignores and the validator guards.
+        self.assertEqual(adapter.ATTESTATIONS, validate.ROOT / validate.OWNER_ATTESTATIONS)
 
     def test_unknown_failure_category_never_surfaces(self):
         for value in ("PRIVATE_SENTINEL", adapter.FAILURE, "", ["matrix"], 1,
@@ -580,6 +609,9 @@ class SourceAdapterChecks(unittest.TestCase):
                  entries(without("expires")), entries(dict(entry, expires="2026-06-31")),
                  entries(dict(entry, expires="2026-6-30")), entries(dict(entry, expires=20260630)),
                  entries(dict(entry, expires="2026-01-01")), entries(dict(entry, expires="2026-05-31")),
+                 entries(dict(entry, expires="20260630")), entries(dict(entry, expires="2026-W26-2")),
+                 # Expires before its date, though not yet passed on TODAY.
+                 entries(dict(entry, date="2026-07-01", expires="2026-06-30")),
                  # The schema-1 entry shape, with no expiry, is refused.
                  {"schema_version": 1, "attestations": [without("expires")]},
                  entries(dict(entry, id=" " + ATTESTED)), entries(dict(entry, id=1)),

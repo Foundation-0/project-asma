@@ -91,10 +91,10 @@ read and why.
   tracks or stages it. It holds `schema_version: 2` and an `attestations` list.
   Each entry has exactly `id`, `date` and `expires` (YYYY-MM-DD),
   `execution_context` and `instruction`. `load_pinned_sources()`, and
-  `parse_sources()` under any study byte pin, refuse to run unless their
-  `owner_attestation` matches an entry `id` whose `expires` day has not passed
-  (UTC). This guards against accidental calls; it is not a security boundary
-  and does not replace Gate 0 of the [roadmap](../docs/roadmap.md). The
+  `parse_sources()` under any of the study's SHA-256 pins, refuse to run unless
+  their `owner_attestation` matches an entry `id` whose `expires` day has not
+  passed (UTC). This guards against accidental calls; it is not a security
+  boundary and does not replace Gate 0 of the [roadmap](../docs/roadmap.md). The
   [source-adapter report](../docs/pilot-001-source-adapter.md) gives the format.
 
 Recorded implementation hashes describe the code that ran. Five records (score
@@ -145,7 +145,8 @@ Run `python3 tools/validate.py` from the root after edits. The current validator
 enforces the original scaffold state and this specific metadata-audited state;
 intentionally extend its rules and tests for later authorized stages. It checks required fields,
 types, ID/reference/date/status rules, and simple inline local Markdown file and
-heading links. It skips fenced code, external URLs, and reference-style links.
+heading links. In a Git checkout it also fails if Git tracks or stages the
+owner's attestation file, using the `git` executable. It skips fenced code, external URLs, and reference-style links.
 It does not verify external availability, source accuracy, access terms, data
 integrity, patient overlap, or scientific validity. Keep links simple and review
 external sources manually before making new claims.

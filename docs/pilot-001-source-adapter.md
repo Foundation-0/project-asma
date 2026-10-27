@@ -15,7 +15,7 @@ is invoked on research sources by a command-line entry point in this change.
 Calling the acquisition API requires a supported execution context for the
 whole data path; the function is not an approval mechanism. It also refuses to
 run without a current entry in the owner's attestation file, and so does the
-parser under any study byte pin (see the additions below).
+parser under any of the study's SHA-256 pins (see the additions below).
 
 The default contract preserves the prior [member audit](../registries/pilot-001-author-feature-summary.json)
 and [supplement pins](../registries/pilot-001-supplement-summary.json). Acquisition
@@ -189,7 +189,7 @@ The failure categories are:
 | `matrix` | Matrix header, rows, symbols, label coverage or panel coverage |
 | `matrix_value` | A selected panel value is missing, non-finite or fails the strict decimal rule |
 | `acquisition` | Range fetch, member length, directory recheck or HTTP response (acquisition only) |
-| `authorization` | Missing or malformed owner attestation file, or no current matching entry (acquisition, or parsing under any study byte pin; before any network access or byte check) |
+| `authorization` | Missing or malformed owner attestation file, or no current matching entry. Checked before any network access (acquisition) or byte check (parsing under any of the study's SHA-256 pins). Acquisition checks again before parsing, so an entry that expires or is removed mid-run fails after the fetch |
 
 Docker and the pinned image were not available for these changes. The Python
 tests and the fixture bridge ran only in a development environment (Python
@@ -202,14 +202,15 @@ They change `tools/source_data_adapter.py` and
 `tests/test_source_data_adapter.py` again; both were already listed above as
 differing from the validation record.
 - **The real-source input check needs the attestation too.** `parse_sources()`
-  takes a keyword-only `owner_attestation`. If any byte pin in its contract
-  (the member's compressed or uncompressed SHA-256, or either workbook's
-  SHA-256) equals the study's, or is not an exact string, it requires a current
-  attestation entry and otherwise fails as `authorization` before any byte is
-  checked. Every input's SHA-256 is verified, so study bytes parse only under
-  their own pins: dropping an optional pin such as an MD5 does not avoid the
-  gate. Fixture contracts with their own pins need no attestation.
-  `load_pinned_sources()` passes its identifier on.
+  takes a keyword-only `owner_attestation`. If any SHA-256 pin in its contract
+  (the member's compressed or uncompressed SHA-256, or either workbook's), in
+  any slot, is one of the study's four, or is not an exact string, it requires
+  a current attestation entry and otherwise fails as `authorization` before any
+  byte is checked. Every input's SHA-256 is verified, so study bytes parse only
+  under their own pins, wherever they are placed: dropping an optional pin such
+  as an MD5 does not avoid the gate. Fixture contracts with their own pins need
+  no attestation. `load_pinned_sources()` passes its identifier on, so the
+  parser checks the entry a second time after the fetch.
 - **Attestations expire.** The file is now `schema_version: 2`. Each entry has
   exactly `id`, `date` and `expires` (both YYYY-MM-DD, `date` no later than
   `expires`), `execution_context` and `instruction`. The matching entry is
@@ -218,8 +219,10 @@ differing from the validation record.
   identifier can be reused; whether a run also has a new explicit instruction
   still rests on the agent guidance.
 - **How the owner adds it.** In the checkout that will run, the owner creates
-  `registries/pilot-001-owner-attestations.json` by hand and passes the entry's
-  `id` to the run:
+  `registries/pilot-001-owner-attestations.json` by hand as UTF-8 JSON (a
+  leading byte-order mark is accepted) and passes the entry's `id` to the run.
+  An `id` has no leading or trailing spaces, tabs, line breaks or NUL, and is
+  not `NA`:
 
   ```json
   {"schema_version": 2, "attestations": [
@@ -229,8 +232,9 @@ differing from the validation record.
   ```
 
   Git ignores the path. `tools/validate.py` fails if Git tracks or stages a file
-  at that path in any letter case, or if Git cannot answer in a checkout. A
-  copy of the repository without `.git` is not checked.
+  at that path in any letter case, directory included, or if Git cannot answer
+  in a checkout; it then shows Git's reason. A copy of the repository without
+  `.git` is not checked.
 - **Fitting has no gate of its own.** The R pipeline fits whatever payload it is
   given. The supported route to study values goes through `parse_sources()`,
   which is now gated. Anything else, such as values read through the audit

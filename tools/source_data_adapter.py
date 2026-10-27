@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Parse pinned source bytes into an in-memory reconstruction payload.
 
-parse_sources performs no network I/O. With any study byte pin it reads only
-the owner's attestation file and refuses to run without a current entry there.
+parse_sources performs no network I/O. When any SHA-256 pin in its contract is
+one of the study's, it reads only the owner's attestation file and refuses to run
+without a current entry there.
 load_pinned_sources is an explicit network acquisition function, without a CLI,
 under the same requirement. Callers must still establish actual
 data-use/execution conditions before calling it or supplying study bytes.
@@ -327,10 +328,11 @@ def parse_sources(compressed_member, clinical_workbook, panel_workbook, contract
 
     contract is an explicit fixture seam, not a production bypass option. No CLI
     exposes it. The default requires the exact independently audited source bytes.
-    A contract that shares any byte pin with the default is a real-source input
-    check, so it needs owner_attestation to name a current entry in ATTESTATIONS
-    and fails as "authorization" before any byte is read. Fixture contracts do
-    not. Provenance reports source_pins_verified only for the default contract.
+    A contract with any of the study's SHA-256 pins (member compressed or
+    uncompressed, or either workbook), in any slot, is a real-source input check.
+    It needs owner_attestation to name a current entry in ATTESTATIONS and
+    otherwise fails as "authorization" before any byte is read. Fixture contracts
+    with their own pins do not. Provenance reports source_pins_verified only for the default contract.
     Any other contract sets fixture_contract, and its echoed fingerprints are then
     the caller's pins, not the study's. SourceAdapterError always has a fixed
     message, a category from CATEGORIES, and no cause or context.
@@ -388,17 +390,18 @@ def parse_sources(compressed_member, clinical_workbook, panel_workbook, contract
 
 
 def _uses_study_pins(contract):
-    """True if any byte pin is the study's, so some study input could pass.
+    """True if any SHA-256 pin, in any slot, is one of the study's.
 
     Every input's SHA-256 is verified, so study bytes parse only under their own
-    pins; dropping an optional pin such as an MD5 does not avoid the gate. A pin
-    that is not an exact str counts as the study's.
+    pins, wherever they are placed; dropping an optional pin such as an MD5 does
+    not avoid the gate. A pin that is not an exact str counts as the study's.
     """
-    pins = [(contract["member"].get(field), DEFAULT_CONTRACT["member"][field])
-            for field in ("compressed_sha256", "sha256")]
-    pins += [(contract["workbooks"][key].get("sha256"), DEFAULT_CONTRACT["workbooks"][key]["sha256"])
-             for key in cohorts.SOURCES]
-    return any(type(value) is not str or value == study for value, study in pins)
+    member, workbooks = DEFAULT_CONTRACT["member"], DEFAULT_CONTRACT["workbooks"]
+    study = {member["compressed_sha256"], member["sha256"]}
+    study |= {workbooks[key]["sha256"] for key in cohorts.SOURCES}
+    pins = [contract["member"].get(field) for field in ("compressed_sha256", "sha256")]
+    pins += [contract["workbooks"][key].get("sha256") for key in cohorts.SOURCES]
+    return any(type(value) is not str or value in study for value in pins)
 
 
 def _today():
@@ -413,11 +416,12 @@ def _no_duplicate_keys(pairs):
 def _check_attestation(identifier):
     """Require identifier as a current entry id in the owner's attestation file.
 
-    The file holds {"schema_version": 2, "attestations": [...]}; each entry has
-    exactly id, date and expires (YYYY-MM-DD, date <= expires), execution_context
-    and instruction. The matching entry must not have expired (UTC date, last day
-    inclusive). An absent, oversized or malformed file, an unknown identifier or
-    an expired entry fails as "authorization". Nothing here touches the network.
+    The file is UTF-8 JSON (a leading byte-order mark is accepted) holding
+    {"schema_version": 2, "attestations": [...]}; each entry has exactly id, date
+    and expires (YYYY-MM-DD, date <= expires), execution_context and instruction.
+    The matching entry must not have expired (UTC date, last day inclusive). An
+    absent, oversized or malformed file, an unknown identifier or an expired
+    entry fails as "authorization". Nothing here touches the network.
     """
     try:
         # An exact str, so a subclass cannot redefine equality and match any entry.
@@ -425,7 +429,7 @@ def _check_attestation(identifier):
         with open(ATTESTATIONS, "rb") as source:
             data = source.read(MAX_ATTESTATION_BYTES + 1)
         require(len(data) <= MAX_ATTESTATION_BYTES)
-        record = json.loads(data.decode("utf-8"), object_pairs_hook=_no_duplicate_keys)
+        record = json.loads(data.decode("utf-8-sig"), object_pairs_hook=_no_duplicate_keys)
         require(type(record) is dict and set(record) == {"schema_version", "attestations"}
                 and type(record["schema_version"]) is int
                 and record["schema_version"] == ATTESTATION_SCHEMA
@@ -455,9 +459,11 @@ def load_pinned_sources(*, owner_attestation):
     owner_attestation must be the id of a current entry in ATTESTATIONS, a file
     that only the owner creates or edits; automated sessions must never create or
     edit it. Without a valid file and a matching unexpired entry, the call fails
-    as "authorization" before any network access. This guards against accidental calls; it is not a
-    security boundary, since code that can edit files could forge an entry, which
-    the agent guidance forbids. It is not an approval mechanism either. The caller
+    as "authorization" before any network access. parse_sources checks again
+    after acquisition, so an entry that expires or is removed mid-run fails as
+    "authorization" after the fetch and before parsing. This guards against
+    accidental calls; it is not a security boundary, since code that can edit
+    files could forge an entry, which the agent guidance forbids. It is not an approval mechanism either. The caller
     must first establish data-use applicability and technical controls for
     acquisition, Python parsing, transfer and model execution. No paths,
     alternate URLs or fixture contracts are accepted. This module does not

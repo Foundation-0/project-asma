@@ -2,6 +2,7 @@
 
 import copy
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -136,10 +137,25 @@ class ScaffoldChecks(unittest.TestCase):
         self.assertTrue(any("kind/verification" in error for error in errors))
         self.assertTrue(any("invalid HTTPS" in error for error in errors))
 
+    def isolated_git(self):
+        """Ignore a surrounding Git command's repository settings, e.g. inside a commit hook."""
+        patcher = mock.patch.dict(os.environ)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        for key in ("GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_OBJECT_DIRECTORY",
+                    "GIT_ALTERNATE_OBJECT_DIRECTORIES", "GIT_COMMON_DIR"):
+            os.environ.pop(key, None)
+
     @unittest.skipUnless(shutil.which("git"), "git is not installed")
     def test_owner_attestation_file_must_not_be_tracked_or_staged(self):
+        self.isolated_git()
         def git(*arguments):
             subprocess.run(["git", "-C", str(self.root), *arguments], check=True, capture_output=True)
+        def flagged(root):
+            errors = validate.attestation_errors(root)
+            return bool(errors) and all("tracked or staged" in error for error in errors)
+        commit = ("-c", "user.name=abstract", "-c", "user.email=abstract@example.invalid",
+                  "-c", "commit.gpgsign=false", "commit", "-q", "--no-verify", "-m", "abstract")
         name = validate.OWNER_ATTESTATIONS
         # Without a repository there is nothing to commit, so nothing to check.
         self.assertEqual(validate.attestation_errors(self.root), [])
@@ -149,27 +165,48 @@ class ScaffoldChecks(unittest.TestCase):
         git("add", "registries/sources.json")
         # Present but untracked is how the owner keeps it.
         self.assertEqual(validate.attestation_errors(self.root), [])
-        for spelling in (name, name.replace("pilot", "Pilot")):
+        # Committed and unchanged: nothing is staged, but Git still tracks it.
+        git("add", "--", name)
+        git(*commit)
+        self.assertTrue(flagged(self.root))
+        self.assertTrue(any("tracked or staged" in error for error in validate.validate(self.root)))
+        git("rm", "-q", "--cached", "--", name)
+        git(*commit)
+        self.assertEqual(validate.attestation_errors(self.root), [])
+        for spelling in (name, name.replace("pilot", "Pilot"), name.replace("registries", "Registries")):
+            (self.root / spelling).parent.mkdir(exist_ok=True)
             (self.root / name).rename(self.root / spelling)
             git("add", "--", spelling)
-            errors = validate.attestation_errors(self.root)
-            self.assertTrue(errors and all("tracked or staged" in error for error in errors))
+            self.assertTrue(flagged(self.root), spelling)
             git("rm", "-q", "--cached", "--", spelling)
             (self.root / spelling).rename(self.root / name)
         self.assertEqual(validate.attestation_errors(self.root), [])
-        # If Git cannot answer, the check fails closed.
-        with mock.patch.object(validate.subprocess, "run", side_effect=OSError):
-            self.assertTrue(validate.attestation_errors(self.root))
-        failed = subprocess.CompletedProcess([], 128, b"", b"")
-        with mock.patch.object(validate.subprocess, "run", return_value=failed):
-            self.assertTrue(validate.attestation_errors(self.root))
+        # A checkout whose .git is a file, as in a worktree, is checked too.
+        separate = self.root / "separate"
+        (separate / "registries").mkdir(parents=True)
+        subprocess.run(["git", "-C", str(separate), "init", "-q", "--separate-git-dir",
+                        str(self.root / "separate.git")], check=True, capture_output=True)
+        self.assertTrue((separate / ".git").is_file())
+        (separate / name).write_text("{}")
+        subprocess.run(["git", "-C", str(separate), "add", "--", name], check=True, capture_output=True)
+        self.assertTrue(flagged(separate))
+        # If Git cannot answer, the check fails closed and says why when it can.
+        with mock.patch.object(validate.subprocess, "run", side_effect=OSError("abstract reason")):
+            self.assertIn("(git: abstract reason)", validate.attestation_errors(self.root)[0])
+        for stderr, shown in ((b"fatal: abstract reason\nmore\n", "(git: fatal: abstract reason)"), (b"", "")):
+            failed = subprocess.CompletedProcess([], 128, b"", stderr)
+            with mock.patch.object(validate.subprocess, "run", return_value=failed):
+                errors = validate.attestation_errors(self.root)
+            message = f"{name}: cannot check whether Git tracks it"
+            self.assertEqual(errors, [message + (f" {shown}" if shown else "")])
 
     @unittest.skipUnless(shutil.which("git") and (validate.ROOT / ".git").exists(), "no Git checkout")
     def test_repository_ignores_the_owner_attestation_file(self):
-        ignored = subprocess.run(["git", "-C", str(validate.ROOT), "check-ignore", "-q", "--no-index",
-                                  "--", validate.OWNER_ATTESTATIONS], capture_output=True)
-        self.assertEqual(ignored.returncode, 0)
-
+        ignored = subprocess.run(["git", "-C", str(validate.ROOT), "check-ignore", "-v", "--no-index",
+                                  "--", validate.OWNER_ATTESTATIONS], capture_output=True, text=True)
+        self.assertEqual(ignored.returncode, 0, ignored.stderr)
+        # The rule must come from the committed .gitignore, not a local exclude file.
+        self.assertTrue(ignored.stdout.startswith(".gitignore:"), ignored.stdout)
 
 if __name__ == "__main__":
     unittest.main()
