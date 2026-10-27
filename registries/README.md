@@ -60,14 +60,25 @@ memory, aggregates only, recording what was read and why.
 - [pilot-001-source-adapter-runtime.json](pilot-001-source-adapter-runtime.json):
   executed build and inventory for the combined CPython/R image, including required
   modules, preserved R versions, missing optional modules and source/notice pins.
+  The builder prints only the image IDs; no committed tool emits the other
+  fields (see the [source-adapter report](../docs/pilot-001-source-adapter.md)).
 - [pilot-001-source-adapter-validation.json](pilot-001-source-adapter-validation.json):
   generated XLSX/deflate fixtures parsed into the R pipeline, 18 bridge assertions,
   a complete fivefold model repetition, observed parser environment and source
   hashes. Input fingerprints under `fixture_provenance` belong to artificial fixtures.
 - [pilot-001-execution-conditions.json](pilot-001-execution-conditions.json):
   40 observed combined-runtime controls, limited outer-executor observations and
-  explicit unresolved context. It is not research-use clearance. See the
+  explicit unresolved context. `managed_environment_observation` was added
+  separately, not by the probe; it records the outer machine's network policy as
+  `unrestricted`. It is not research-use clearance. See the
   [source-adapter report](../docs/pilot-001-source-adapter.md).
+- `pilot-001-owner-attestations.json` does not exist in this repository. Only
+  the owner creates or edits it; automated sessions must never do so. It holds
+  `schema_version: 1` and an `attestations` list. Each entry has exactly `id`,
+  `date` (YYYY-MM-DD), `execution_context` and `instruction`.
+  `load_pinned_sources()` refuses to run unless its `owner_attestation` matches
+  an entry `id`. This guards against accidental calls; it is not a security
+  boundary and does not replace Gate 0 of the [roadmap](../docs/roadmap.md).
 
 Recorded implementation hashes describe the code that ran. Five records (score
 verification, matrix header, author archive, author feature and source-adapter

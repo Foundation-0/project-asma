@@ -40,6 +40,12 @@ run_source_tests <- function() {
             identical(conditionMessage(error), "ASMA contract failed; no row-level details emitted."))
   }
   rejects("PRIVATE_TEST_SENTINEL")
+  # A short string naming an existing file holding a valid abstract payload must
+  # be rejected as non-JSON, never read. The temporary file is removed on exit.
+  path <- tempfile(fileext = ".json")
+  on.exit(unlink(path), add = TRUE)
+  writeLines(encode(payload), path)
+  rejects(path)
   rejects(paste0('{"private":"', strrep("x", 4L * 1024L * 1024L), '"}'))
   changed <- payload; changed$schema_version <- 2L; rejects(encode(changed))
   changed <- payload; changed$extra <- "PRIVATE_TEST_SENTINEL"; rejects(encode(changed))
