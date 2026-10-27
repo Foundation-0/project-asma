@@ -82,7 +82,7 @@
         <div class="stat"><dt class="k">results reproduced so far</dt><dd class="v" style="margin:0">0</dd></div>
       </dl>
       <div class="prov">
-        <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">status on main · 2026-10-25 · current state in the roadmap</a>
+        <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">status on main · 2026-10-27 · current state in the roadmap</a>
         <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tools"><span class="dot live" aria-hidden="true"></span>audits run in memory, aggregates only</a>
         <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tests">tests on records and made-up inputs</a>
       </div>
@@ -103,9 +103,9 @@
 
   <section class="sec alt" id="checked" data-index="What has been checked" data-num="01" aria-labelledby="checked-h">
     <div class="wrap">
-      <div class="sec-head"><p class="sec-label"><b>01</b><i>//</i>What has been checked</p><span class="chip">status on main · 2026-10-25</span></div>
+      <div class="sec-head"><p class="sec-label"><b>01</b><i>//</i>What has been checked</p><span class="chip">status on main · 2026-10-27</span></div>
       <h2 class="h2" id="checked-h">Audits and tests are on main. No result is reproduced.</h2>
-      <p class="lede">Status on 25 October 2026, counting only work merged into the main branch. These are internal checks. None has had external scientific review, so every result below is preliminary. The data audits work in memory on public files and keep only counts and fingerprints. The pipeline and source adapter were tested on made-up inputs only. No patient records, scores or linkage tables are stored in the repository.</p>
+      <p class="lede">Status on 27 October 2026, counting only work merged into the main branch. These are internal checks. None has had external scientific review, so every result below is preliminary. The data audits work in memory on public files and keep only counts and fingerprints. The pipeline and source adapter were tested on made-up inputs only. No patient records, scores or linkage tables are stored in the repository.</p>
       <ul class="ledger">
         <li>
           <div class="ledger-main"><h3>Research scaffold and pilot protocol</h3>
@@ -114,7 +114,7 @@
         </li>
         <li>
           <div class="ledger-main"><h3>Feasibility and patient-linkage audit</h3>
-          <p>Recovers the 64-protein panel from the published supplements and rebuilds the score cohorts: 135 discovery, 61 frozen, 20 FFPE. It also checks patient membership between the frozen sheet labelled non-overlapping and the discovery score set. That result awaits external scientific review, so this page does not report it.</p></div>
+          <p>Recovers the 64-protein panel from the published supplements and rebuilds the discovery, frozen and FFPE score cohorts. It also checks patient membership between the frozen sheet labelled non-overlapping and the discovery score set. These results await external scientific review, so this page does not report them.</p></div>
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #2</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
         </li>
         <li>
@@ -124,13 +124,13 @@
         </li>
         <li>
           <div class="ledger-main"><h3>Discovery input linkage</h3>
-          <p>Links the author-released discovery matrix to the clinical records by exact name match: all 168 response-labelled rows and all 135 score keys are present as columns, the file's integrity check passes, and each of the 64 panel proteins occurs exactly once among 8,800 feature rows.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #4</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
+          <p>Links the author-released discovery matrix to the clinical records by exact name match, checks the file's integrity, and checks how often each panel protein occurs among its feature rows. A later check asks whether R's name cleaning, which the authors' scripts apply, would alter any panel symbol. These results await external scientific review, so this page does not report them.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #4, #14</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
         </li>
         <li>
           <div class="ledger-main"><h3>Code audit of the published analysis</h3>
           <p>A static reading of the authors' Figure 3D R code at a pinned commit, with package sources read at named versions. It records which saved objects can feed the plotted cross-validation, how labels and operating points are set, and where package versions matter. The code was read, never run, and no data were accessed. A consolidated request to the authors is authorized as a draft only. It is unsent, and only the owner decides whether to send it.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #7</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Static · not run</span></span>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #7, #20</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Static · not run</span></span>
         </li>
         <li>
           <div class="ledger-main"><h3>Reconstruction decisions and data-use route</h3>
@@ -139,17 +139,27 @@
         </li>
         <li>
           <div class="ledger-main"><h3>Synthetic pipeline and direction test</h3>
-          <p>An original R implementation of those decisions, tested on artificial fixtures only. In a pinned container it passed 149 assertions and a complete 100-repeat run with the pinned model packages. A later planted-signal test checks that each model gives higher probabilities to the class coded as refractory. It has passed in a development environment; the rerun in the pinned image is pending. No fixture result is compared with the paper.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #11, #13</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Fixtures only · no study data</span></span>
+          <p>An original R implementation of those decisions, tested on artificial fixtures only. In a pinned container it passed 149 assertions and a complete 100-repeat run with the pinned model packages. Later tests check that each model gives higher probabilities to the class coded as refractory, pin the fold assignment to fixed reference vectors, and read each fitted model's own settings back against the declaration. These have passed in a development environment; the rerun in the pinned image is pending. No fixture result is compared with the paper.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #11, #13, #17, #20</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Fixtures only · no study data</span></span>
         </li>
         <li>
           <div class="ledger-main"><h3>Source adapter</h3>
-          <p>Code that would check the pinned workbooks and matrix member against their recorded hashes and turn the selected values into the pipeline's input. It was tested on generated files in the same formats, through the full model path, with network access mocked. A probe of the combined Python and R container passed all 40 of its technical checks. The adapter has never been run on study files.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #12</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not run on study files</span></span>
+          <p>Code that would check the pinned workbooks and matrix member against their recorded hashes and turn the selected values into the pipeline's input. It was tested on generated files in the same formats, through the full model path, with network access mocked. A probe of the combined Python and R container passed all 40 of its technical checks. Since then it refuses to download the study files unless the call names an entry in an attestation file that only the owner creates. The adapter has never been run on study files.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #12, #16</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not run on study files</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Proposed protocol amendment</h3>
+          <p>Proposes three additions to the declared reconstruction: a per-repetition AUROC distribution as a descriptive output, options for the sensitivity check, and a policy for warnings and messages during fitting. It is merged as a proposal only. Nothing in it takes effect until the owner records a dated decision.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #15</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Proposed · owner decision</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Open-questions report</h3>
+          <p>Narrows five open questions using public sources, static reading and bounded in-memory checks: the likely origin of the missing fold helper, the scope of the 2024 correction, panel coverage in the validation cohorts' published feature lists, what "non-overlapping" means for the frozen cohort, and whether a 2025 follow-up study could serve as a fallback. It computed no performance result, and none of the questions is closed. Its findings await external scientific review.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #21</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
         </li>
         <li>
           <div class="ledger-main"><h3>Reconstruction fit on study data</h3>
-          <p>Fitting the declared reconstruction's models on the released study data and comparing the result with the printed AUC. No model has been fitted on study data. A fit waits on the owner's dated attestation of the execution context and a new explicit instruction. It also waits on an actual execution host whose location, terms and applicable obligations support the selected data-use route, with the combined Python and R container rechecked on that host. It further waits on a rerun of the pipeline tests in the pinned image and on dated amendments for two open protocol items. Work in open pull requests is not counted until it is merged. Section 02 lists the key gaps recorded on main.</p></div>
+          <p>Fitting the declared reconstruction's models on the released study data and comparing the result with the printed AUC. No model has been fitted on study data. A fit waits on the owner's dated attestation of the execution context and a new explicit instruction. It also waits on an actual execution host whose location, terms and applicable obligations support the selected data-use route, with the combined Python and R container rechecked on that host. It further waits on a rerun of the pipeline tests in the pinned image and on the owner's dated decision on the proposed amendment. Work in open pull requests is not counted until it is merged. Section 02 lists the key gaps recorded on main.</p></div>
           <span class="badge n"><span class="ladder" data-r="1" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not done</span>
         </li>
       </ul>
@@ -161,12 +171,12 @@
 
   <section class="sec" id="missing" data-index="Still missing" data-num="02" aria-labelledby="missing-h">
     <div class="wrap">
-      <div class="sec-head"><p class="sec-label"><b>02</b><i>//</i>Still missing</p><span class="chip">recorded on main · 2026-10-25</span></div>
+      <div class="sec-head"><p class="sec-label"><b>02</b><i>//</i>Still missing</p><span class="chip">recorded on main · 2026-10-27</span></div>
       <h2 class="h2" id="missing-h">Gaps recorded before any fit on study data.</h2>
       <div class="cards4">
         <div class="mini-card">
           <h3>The fold helper</h3>
-          <p>The authors' scripts call a helper file, <span class="mono">balanced_folds.R</span>, that decides how patients were split into folds. The searches so far did not find it: the authors' repository at the commit checked, its reachable history and three public forks. The main branch now declares a replacement fold rule. A rerun with it would be a new reconstruction, not a faithful rerun of the printed cross-validation.</p>
+          <p>The authors' scripts call a helper file, <span class="mono">balanced_folds.R</span>, that decides how patients were split into folds. The searches so far did not find it: the authors' repository at the commit checked, its reachable history and three public forks. A later public repository from the same GitHub account defines a helper of the same kind. It is a likely stand-in, not proof: its 2023 version, shuffle details and the original label order remain unknown. The main branch declares a replacement fold rule. A rerun with it would be a new reconstruction, not a faithful rerun of the printed cross-validation.</p>
         </div>
         <div class="mini-card">
           <h3>The workspaces and processing history</h3>
@@ -174,7 +184,7 @@
         </div>
         <div class="mini-card">
           <h3>The corrected legends</h3>
-          <p>A 2024 correction fixes the supplemental figure legends, and the Figure S3 legend in the copy inspected so far disagrees with the article's own references at several points. Which legend is authoritative has to be settled before a reproduction target can be frozen.</p>
+          <p>A 2024 correction fixes the supplemental figure legends only; Figure 3D is outside its stated scope. The supplement copy pinned here predates the correction, and its legends disagree with the figure images at several points. The corrected legends have not been pinned yet, because the publisher's hosts were unreachable from the research environment.</p>
         </div>
         <div class="mini-card">
           <h3>People and permissions</h3>
