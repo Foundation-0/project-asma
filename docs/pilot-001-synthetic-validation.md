@@ -35,8 +35,8 @@ an open pre-run requirement in the
   `run_reconstruction` must match an independent recomputation from the declared
   seeds: outer r, inner 10000 + 100r + f.
 - **Fold assignment.** Golden vectors pin which key lands in which fold. An
-  11-key case (7/4 classes, K=3, seed 7) has an assignment derived by hand from
-  base-R `set.seed` and `sample.int` steps under the declared RNG kinds. The
+  11-key case (7/4 classes, K=3, seed 7) has a fold mapping derived by hand from
+  R's `sample.int` output after `set.seed(7)` under the declared RNG kinds. The
   135-key fixture (83/52, K=5, seed 1) is pinned as a literal string of fold
   digits; a separate base-R recomputation gave the same string. The fold-wiring
   check recomputes with the same function, so it cannot catch a change to the
