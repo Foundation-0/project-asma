@@ -199,8 +199,9 @@ pinned-image evidence.
 **Addition, 2026-10-27.** These changes address the three follow-up notes of the
 [#16 approving review](https://github.com/Foundation-0/project-asma/pull/16#pullrequestreview-5660779406).
 They change `tools/source_data_adapter.py` and
-`tests/test_source_data_adapter.py` again; both were already listed above as
-differing from the validation record.
+`tests/test_source_data_adapter.py`, so both differ from any validation record
+made before this change; a pinned-image rerun after it is needed before any
+real-file check.
 - **The real-source input check needs the attestation too.** `parse_sources()`
   takes a keyword-only `owner_attestation`. If any SHA-256 pin in its contract
   (the member's compressed or uncompressed SHA-256, or either workbook's), in
