@@ -92,6 +92,49 @@ values must get identical `"exact"` and `"hist"` XGBoost probabilities. Three
 mutations fail it and pass the rest of the suite. Each changes `"hist"`
 fits only: 16 bins, a different `eta`, or a different `min_child_weight`.
 
+**Fitted settings.** `fit_models` now checks each fitted object against the
+declaration and stops before predicting if any check fails. This addresses
+non-blocking item 1 of the
+[#11 review](https://github.com/Foundation-0/project-asma/pull/11#pullrequestreview-5641905944).
+- **XGBoost.** The booster's own configuration (`xgb.config`) must show:
+  - the objective, booster and tree method;
+  - all eleven declared training values;
+  - `base_score`, one thread and 100 trees.
+
+  In xgboost 1.7.8.1's R package, an unused (for example misspelled) parameter
+  is reported only as console text, never as an R warning, at any verbosity. So
+  the warnings-as-errors rule cannot catch it, but this check can.
+- **Random forest.** It must be a classification forest with `mtry` 8, class
+  importance and a 108 × 108 proximity matrix.
+- **Elastic net.** It must be a binomial fit with class names `"0","1"`, the
+  deviance measure and at most 100 λ values. The fitted object does not report
+  `alpha`, so the check reads it from the recorded call. That only restates the
+  literal 0.2 passed in; it is not evidence read from the fit. `cv.glmnet` keeps
+  no fold IDs with the declared `keep = FALSE`, so the fold wiring test checks
+  the folds passed in instead.
+
+Seven model assertions test the XGBoost check directly, giving 179: 41 input,
+87 core and 51 model. Fits with the declared exact and `"hist"` settings must
+pass. Each of these must fail it:
+- a changed `eta`;
+- a changed `base_score`;
+- a misspelled `max_depth`;
+- the wrong tree method;
+- 99 rounds.
+
+Nine mutations fail the new suite:
+- in the forest, `mtry` 7 or no importance;
+- in the elastic net, `alpha` 0.5 or the classification-error measure;
+- in XGBoost, a misspelled `max_depth`, `eta` 0.3, `base_score` 0.6 or 99
+  rounds;
+- removing the check's training-value comparison.
+
+The first eight also pass the previous suite; the ninth removes code that suite
+does not have. The check compares against a second copy of the declared values, so it
+detects a setting that did not take effect or drifted from that copy. A
+consistent edit of both copies would still need review against the decision
+record.
+
 These results come from a development environment, not the pinned image. It used
 conda-forge R 4.4.3 with the pinned versions of glmnet (4.1-8), randomForest
 (4.7-1.2), jsonlite (1.9.1) and data.table (1.17.0). xgboost 1.7.8.1 was built
@@ -101,7 +144,7 @@ matching build.
 Other components differ from the pinned image: Rcpp 1.1.2 (pinned 1.0.14),
 Matrix 1.7-6 (recorded 1.7-2), survival 3.8-12 and lattice 0.23-1, and the conda
 compiler toolchain. Each model's fixture AUROC was 1.0. The pinned-image runner
-must rerun all 172 assertions, and the execution record must be regenerated,
+must rerun all 179 assertions, and the execution record must be regenerated,
 before any research run.
 
 The full run, including all 149 assertions, took 57.619 seconds inside R on the
@@ -126,8 +169,8 @@ control-flow tests use stubs to verify exact aggregation and failure behavior.
 Integration corrected an adapter guard to accept 66/42 or 67/41 training-class
 counts after a 27-subject held-out fold. Package checks normalize R's equivalent
 hyphen/dot version notation. The silent-call boundary captures both R output
-streams, and the container runs as the checkout owner so private file permissions
-work with all capabilities dropped. These are implementation fixes; the frozen
+streams, and the container runs with the invoking user's UID and GID (`--user`),
+so private file permissions work with all capabilities dropped. These are implementation fixes; the frozen
 scientific choices and earlier score-verification result are unchanged.
 
 ## Runtime and boundaries
@@ -155,9 +198,12 @@ failures, bounded downloads, source selection, local daemon configuration,
 execution controls, timeout cleanup, sanitized cleanup failures and rejection
 of dataset arguments. They run offline without Docker; the separate R run
 provides actual package and container integration evidence. The final offline
-validator and all 94 Python tests passed. Independent implementation review
-found no blocking issue and verified all 15 recorded source/specification hashes;
-this internal software review is not external scientific review.
+validator and all 94 Python tests passed. An independent
+[review of the pipeline PR](https://github.com/Foundation-0/project-asma/pull/11#pullrequestreview-5641905944)
+(2026-10-25, at `2c9d68a`) verified all 15 recorded implementation hashes and the
+package pins. Its one blocking finding was that probability direction was
+claimed but untested; the planted-signal test above now covers it. This internal
+software review is not external scientific review.
 
 ## Commands
 
@@ -175,7 +221,7 @@ python3 -m unittest discover -s tests -v
 The first command downloads the pinned base image and package sources and may
 take several minutes. An optional `--source-cache` directory can supply package
 archives; each is still checked against the manifest. The second command runs
-all R assertions (149 in the recorded run; 172 after the 2026-10-25 additions);
+all R assertions (149 in the recorded run; 179 after the 2026-10-25 additions);
 `--full` also performs the complete 100-repeat integration.
 Each runner prints reviewed aggregate JSON only. The wrapper resolves the local
 image tag to its immutable image ID before execution. Input pins do not imply
