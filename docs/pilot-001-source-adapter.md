@@ -2,7 +2,9 @@
 
 **Executed software and runtime checks; no study-data ingestion or fitting.**
 The source adapter is implemented and tested with generated source-format files.
-The combined Python/R container passed 40 observed technical checks. Actual
+The combined Python/R container passed 40 observed technical checks on
+2026-10-25. A 2026-10-27 rebuild passed the fixture validation, but its probe
+could not run on that host (see [Pinned-image rerun](#pinned-image-rerun-2026-10-27)). Actual
 processing jurisdiction, hosting terms and applicable research/privacy obligations remain
 unverified, so these checks do not open study-data execution.
 
@@ -189,10 +191,48 @@ The failure categories are:
 | `acquisition` | Range fetch, member length, directory recheck or HTTP response (acquisition only) |
 | `authorization` | Missing or malformed owner attestation file, or no matching entry (acquisition only, before any network access) |
 
-Docker and the pinned image were not available for these changes. The Python
-tests and the fixture bridge ran only in a development environment (Python
-3.13, conda-forge R 4.4.3 with the pinned package versions), which is not
-pinned-image evidence.
+Docker and the pinned image were not available for these changes when they were
+made. The Python tests and the fixture bridge then ran only in a development
+environment (Python 3.13, conda-forge R 4.4.3 with the pinned package versions).
+The pinned-image rerun below now covers them.
+
+## Pinned-image rerun, 2026-10-27
+
+The combined runtime was rebuilt on the rebuilt, validated R base
+(`sha256:c7592401…`). [`runtime/source-adapter-python.json`](../runtime/source-adapter-python.json)
+was repointed to that base, and `python3 tools/build_source_adapter_runtime.py`
+then built image `sha256:405da986…` from the committed files without
+`--accept-rebuilt-base`. The
+[runtime record](../registries/pilot-001-source-adapter-runtime.json) now names
+these images, keeps the 2026-10-25 IDs under `prior_runtime`, and records how its
+inventory was observed. These commands ran with networking disabled and a
+read-only root:
+
+```sh
+docker run --rm --network none --read-only --entrypoint /opt/python/bin/python3 <image> -I -B -c '<print versions, flags, imported and missing modules>'
+docker run --rm --network none --read-only --tmpfs /tmp --entrypoint Rscript <image> -e 'installed.packages()[, c("Package", "Version")]'
+```
+
+Every observed Python field and all 41 R package versions equal the 2026-10-25
+record. That shows inventory equality, not bit-identical binaries.
+
+- **Fixture validation passed.** `python3 tools/run_source_adapter_fixture.py`
+  ran all **19 R bridge assertions** (18 before #16), the independent value
+  oracle and one complete fivefold repetition: 405 model predictions, 135
+  ensemble predictions and 135 final scores, complete coverage and agreeing
+  AUROC formulations. All 26 implementation hashes in the new
+  [validation record](../registries/pilot-001-source-adapter-validation.json)
+  match the committed files.
+- **The probe could not run on this host.** `python3 tools/probe_execution_conditions.py`
+  failed closed, as designed. The host's Docker uses cgroup v1, so
+  `/sys/fs/cgroup/{memory,cpu,pids}.max` do not exist inside the container and the
+  probe's R side cannot read the enforced limits; its warnings make the wrapper
+  stop without output. The tool was not changed to pass. That host is therefore
+  not a qualifying execution context under this probe. The
+  [execution-conditions record](../registries/pilot-001-execution-conditions.json)
+  remains the 2026-10-25 observation of the earlier runtime on a cgroup v2 host;
+  it does not describe the rebuilt image. A probe of the current runtime on a
+  cgroup v2 host is still needed before any research run.
 
 ## Observed execution conditions
 
