@@ -260,6 +260,11 @@ matters only if DreamAI is installed or run.
   - Count how many pinned symbols `make.names` would change (done 2026-10-25:
     none).
   - Check panel coverage in the frozen and FFPE-validation feature annotations.
+    Update (2026-10-25): supplement-level coverage is now recorded, 64/64 once
+    each in the MMC1 frozen and FFPE-validation association lists
+    ([record](../registries/pilot-001-validation-panel-coverage.json)).
+    Member-level coverage in the archive members or prediction workspaces is
+    still open.
   - Both read the pinned supplement or author-archive members in memory, under
     the bounded-inspection rule (integration note, 2026-10-25; see the
     [agent guidance](../AGENTS.md)).

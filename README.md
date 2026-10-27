@@ -144,6 +144,9 @@ inspection scope; it emits no source rows or abundance values.
 `make.names` would alter. It downloads the hash-pinned MMC4 workbook into memory,
 parses only the panel worksheet (and the workbook's shared-string table) and
 prints counts, no symbols.
+`python3 tools/audit_validation_panel_coverage.py` counts exact 64-panel
+coverage in the pinned MMC1 per-cohort protein association lists in memory and
+prints counts and fingerprints only.
 These audits, like `python3 tools/verify_published_auc.py`, read patient-level
 clinical or linkage metadata, published scores or the full matrix member in
 memory. They follow the bounded-inspection rule in the
