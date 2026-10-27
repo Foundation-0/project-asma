@@ -59,6 +59,24 @@ run_core_tests <- function() {
   fails(function() stratified_folds(keys, stats::setNames(rep(0L, 135L), keys), 5L, 1L))
   fails(function() stratified_folds(keys, y, 5.5, 1L))
 
+  # Golden vectors pin which key lands in which fold, so a change that alters
+  # these assignments, including one to R's sampling, fails here. Small case by
+  # hand, under RNGkind("Mersenne-Twister", "Inversion", "Rejection") and set.seed(7):
+  # class 0 (keys 01 03 04 06 07 09 11): sample.int(7) = 2 3 4 6 7 1 5, so keys
+  # 03 04 06 09 11 01 07 take folds 1 2 3 1 2 3 1; the offset becomes 7 %% 3 = 1.
+  # Class 1 (keys 02 05 08 10): sample.int(4) = 2 3 4 1, so keys 05 08 10 02
+  # take folds 2 3 1 2.
+  small_keys <- sprintf("fixture-key-%02d", 1:11)
+  small_y <- stats::setNames(c(0L, 1L, 0L, 0L, 1L, 0L, 0L, 1L, 0L, 1L, 0L), small_keys)
+  check(identical(stratified_folds(small_keys, small_y, 3L, 7L),
+                  stats::setNames(c(3L, 2L, 1L, 2L, 2L, 3L, 1L, 3L, 1L, 1L, 2L), small_keys)))
+  # The 135-key fixture (83/52, K=5, seed 1): one fold digit per key, in bytewise
+  # key order.
+  check(identical(names(outer), keys) && identical(paste(outer, collapse = ""), paste0(
+    "344133131235512245314121132255121423242443551",
+    "254553515221421153134515343224253444334154233",
+    "212442155431513125432145451334354332452211552")))
+
   stub <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
     ids <- rownames(x_test)
     list(en = stats::setNames(rep(.1 + repetition / 1000, nrow(x_test)), ids),

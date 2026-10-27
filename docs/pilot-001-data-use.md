@@ -34,8 +34,9 @@ research fitting is executed by this record. External outreach stays on hold.
 
 No explicit archive license was found. A license or terms statement covering
 the exact release, or a licensed byte-identical release, would be additional
-evidence; neither is necessary merely because an applicable exception is used.
-The selected route is the documented, conditional exception assessment below.
+evidence. If an exception applies, neither is required for that use; whether
+one applies is the documented, conditional assessment below, which is the
+selected route.
 Repository ownership and organization names do not establish third-party rights.
 
 ## Conditional Canadian research-use assessment
@@ -109,9 +110,9 @@ not approve this project's secondary use or establish a broad-secondary-consent
 statement; none was located in the inspected article paragraphs.
 
 For the planned Canadian route, [TCPS 2 applicability](https://ethics.gc.ca/eng/tcps2-eptc2_2022_introduction.html)
-depends on agency funding, eligible institutional auspices or adoption; citizenship
-does not create those conditions. No applicable institutional obligation has
-been established for this independent phase. The official
+depends on agency funding, eligible institutional auspices or adoption; a
+person's nationality does not create those conditions. Whether any institutional
+obligation applies to this independent phase has not been determined. The official
 [scope interpretations, items 1 and 17](https://ethics.gc.ca/eng/policy-politique_interpretations_scope-portee.html)
 must be read with [articles 2.2 and 2.4](https://ethics.gc.ca/eng/tcps2-eptc2_2022_chapter2-chapitre2.html):
 public availability does not itself establish an exemption for deidentified
@@ -134,12 +135,12 @@ distinguishes work that does not involve human subjects, where identities cannot
 readily be ascertained, from research potentially exempt under
 [46.104(d)(4)](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-A/part-46/subpart-A/section-46.104).
 OHRP recommends institution-designated determinations; this is not a universal
-instruction to recruit an IRB for unaffiliated work. Applicable institutional
+instruction to recruit an IRB for work without an institutional affiliation. Applicable institutional
 policy may require its own determination. No exemption is asserted here.
 
 Noncommercial independent research is the selected use for this phase. Actual
 processing jurisdiction and any applicable affiliation/funding or hosting
-policy must be established for the execution environment; citizenship alone
+policy must be established for the execution environment; nationality alone
 does not establish them. No institutional affiliation or funding arrangement is
 created or assumed by this decision. No access to identifying keys is part of this plan;
 any outside ability to identify participants would require reassessing the scope.
