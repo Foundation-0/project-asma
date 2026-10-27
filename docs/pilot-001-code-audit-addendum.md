@@ -19,19 +19,25 @@ It covers the author code (S08) at commit
 `48357fd63ccbfe3954f38c8efc558b4f88bd6051`: [part 2][p2], [part 3][p3],
 [preprocessing notebook][rmd], [helpers][pre], [alignment][align] and
 [Figure 3C][f3c]. Line numbers refer to that commit. Package behaviour was read in
-source at named tags (S18–S21). Five static reviews by AI agents produced 89
+source at named tags (S18–S21). Paper quotes were rechecked in the pinned article
+XML (SHA-256 `1d88848c…`, as in the independent progress report). Registry IDs
+are written "registry S19"; article sections are written "article S99". No human
+expert has reviewed this yet.
+
+**Process note, not evidence.** This paragraph records how the text was drafted.
+The intermediate review outputs (candidate findings, refutations and
+classifications) are not retained in the repository, so the counts that follow
+cannot be checked from it. Each finding in the sections below rests on the cited
+lines, sources and records. Five static reviews by AI agents produced 89
 candidate findings. Two further reviews tried to refute each one, and three more
 checked the written text. A final comparison classified every item against the
-earlier records. Ten items conflicted with or were superseded by newer evidence
-there: the recovered panel and its freeze, the recovered discovery matrix,
-patient and overlap keys, identifier type, published-score direction, the
-paper's selection population, one-to-one sample–patient keys, column-name
-governance, and the protocol version. Most were partly right on both sides. This
-text adopts the earlier records' evidence, and no factual error was found in
-them. Paper quotes were rechecked in the pinned article XML (SHA-256
-`1d88848c…`, as in the independent progress report). Registry IDs are written
-"registry S19"; article sections are written "article S99". No human expert has
-reviewed this yet.
+earlier records. Ten items, on the following topics, conflicted with or were
+superseded by newer evidence there: the recovered panel and its freeze, the
+recovered discovery matrix, patient and overlap keys, identifier type,
+published-score direction, the paper's selection population, one-to-one
+sample–patient keys, column-name governance, and the protocol version. Most were
+partly right on both sides. This text adopts the earlier records' evidence, and
+that comparison found no factual error in them.
 
 ## Which objects feed the plotted cross-validation
 
@@ -88,10 +94,11 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
   question concerns operating points only. The printed 0.35 cannot settle it:
   18/52 and 29/83 both round to 0.35.
 - No line computes sensitivity at 98% specificity. The only related computation is
-  an unseeded 2,000-replicate stratified `ci.se` bootstrap over a grid that
-  includes 0.98. It is drawn as the plotted band (lines 129–132, 189). In an
-  uninterrupted run its random state follows the last `set.seed(1000000)` and the
-  final forest's draws, so a piecewise run changes the band. If 0.35 (0.19–0.52)
+  a 2,000-replicate stratified `ci.se` bootstrap over a grid that includes 0.98,
+  with no seed of its own. It is drawn as the plotted band (lines 129–132, 189).
+  In an uninterrupted run its random state follows the last line-79
+  `set.seed(1000000)` and the final cross-validation forest's draws (the frozen
+  block runs later), so a piecewise run changes the band. If 0.35 (0.19–0.52)
   came from it, the middle value is a bootstrap median.
 - `roc(ci = TRUE)` gives a DeLong AUC interval by default (registry S19), while
   the paper describes bootstrap AUC intervals (article S99). This answers the
@@ -163,7 +170,11 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
     non-syntactic names.
 
   Whether `make.names` would alter any of the 64 pinned symbols can be checked
-  from the panel alone, as an aggregate count.
+  from the panel alone, as an aggregate count. Follow-up (2026-10-25): it alters
+  none (`tools/audit_panel_names.py`;
+  [record](../registries/pilot-001-panel-name-summary.json)). For the published panel, the one-sided
+  renaming and the formula interface would therefore not drop or rename
+  proteins. The row names inside the absent author workspaces remain unknown.
 - **Failures.** Feasibility finding 3 records the `try()` and break. This adds
   the consequences. Only `cv.glmnet` is protected, so errors in the other models
   halt the script. A failure skips that fold and all later folds of the repeat
@@ -175,12 +186,14 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
 - **Unused results.** Feasibility finding 3 notes the unused stacked logistic
   model; it is fitted on in-sample training predictions (lines 93–100), so it
   would be optimistic if used.
-- **Random streams.** `set.seed(1000000)` before every forest (line 79) means the
-  inner `cv.glmnet` folds of outer folds 2–5 follow that fixed stream, advanced
-  by the previous forest's draws. `set.seed(j)` governs only the fold draw and
-  fold 1. The frozen-block forest is unseeded and depends on how many draws
-  `cv.glmnet` and xgboost consumed. Preserving seeds 1–100 alone therefore does
-  not reproduce the original stream structure.
+- **Random streams.** `set.seed(1000000)` before every cross-validation forest
+  (line 79) means the inner `cv.glmnet` folds of outer folds 2–5 follow that fixed
+  stream, advanced by the previous forest's draws. `set.seed(j)` governs only the
+  fold draw and fold 1. The frozen block calls `set.seed(1000000)` at line 154,
+  before its `cv.glmnet`, but does not reseed before its forest (line 172). That
+  forest follows the seeded stream after `cv.glmnet` and xgboost have drawn from
+  it, so it depends on how many draws they consumed. Preserving seeds 1–100 alone
+  therefore does not reproduce the original stream structure.
 
 ## Upstream details
 
@@ -244,8 +257,14 @@ matters only if DreamAI is installed or run.
   - Note that the 64/64 panel coverage covers the discovery member only.
   - Write "figure-panel assignments" where Figure S3 letters are meant.
 - **Aggregate checks that need no abundance values:**
-  - Count how many pinned symbols `make.names` would change.
+  - Count how many pinned symbols `make.names` would change (done 2026-10-25:
+    none).
   - Check panel coverage in the frozen and FFPE-validation feature annotations.
+    Update (2026-10-25): supplement-level coverage is now recorded, 64/64 once
+    each in the MMC1 frozen and FFPE-validation association lists
+    ([record](../registries/pilot-001-validation-panel-coverage.json)).
+    Member-level coverage in the archive members or prediction workspaces is
+    still open.
   - Both read the pinned supplement or author-archive members in memory, under
     the bounded-inspection rule (integration note, 2026-10-25; see the
     [agent guidance](../AGENTS.md)).

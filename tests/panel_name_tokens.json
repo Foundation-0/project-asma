@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "scope": "Abstract tokens only. Expected R make.names(x) == x for each token; the unchanged tokens are distinct.",
+  "unchanged": ["a1", "abc", "A.", ".a", ".", "..", "...", "..1", "..12", "...1",
+                ".._", "._", "..a", "a_b", "a.b", "T", "F", "X"],
+  "altered": ["abc-d", "x2-1", "1a", "_a", ".2x", ".1", "a b", "a$b", "",
+              "if", "else", "repeat", "while", "function", "for", "in", "next",
+              "break", "TRUE", "FALSE", "NULL", "Inf", "NaN", "NA", "NA_integer_",
+              "NA_real_", "NA_character_", "NA_complex_"]
+}

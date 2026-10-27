@@ -46,7 +46,8 @@ main <- function(arguments) {
              "tools/build_synthetic_runtime.py", "tests/test_synthetic_runtime.py",
              "runtime/synthetic-packages.json",
              "runtime/Dockerfile.synthetic", "runtime/install.R",
-             "protocols/pilot-001-reconstruction-decisions.md")
+             "protocols/pilot-001-reconstruction-decisions.md",
+             "protocols/pilot-001-reconstruction-amendment-1.md")
   sha256 <- function(path) {
     text <- system2("sha256sum", shQuote(path), stdout = TRUE, stderr = FALSE)
     asma_require(length(text) == 1L && grepl("^[0-9a-f]{64} ", text), "software_hash")

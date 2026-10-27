@@ -21,6 +21,51 @@ model_operation <- function(operation) {
     error = function(error) stop("Model operation failed.", call. = FALSE))
 }
 
+# Declared XGBoost settings; "hist" is only for the proposed amendment 1 (A2).
+xgb_parameters <- function(tree_method) {
+  list(objective = "binary:logistic", booster = "gbtree",
+       tree_method = tree_method, nthread = 1L, max_depth = 2L,
+       eta = 0.1, base_score = 0.5, min_child_weight = 1,
+       gamma = 0, subsample = 1, colsample_bytree = 1,
+       colsample_bylevel = 1, colsample_bynode = 1,
+       lambda = 1, alpha = 0, max_delta_step = 0, verbosity = 0L)
+}
+
+# Compares a fitted booster's own configuration with the declaration. XGBoost
+# 1.7.8.1 reports an unused (for example misspelled) parameter only as console
+# text, never as an R warning, so a declared value that did not take effect is
+# caught here instead. Training values are float32, hence the tolerance. The
+# JSON layout read here is xgboost 1.7.8.1's, which check_model_versions pins;
+# another version may fail this check closed.
+xgb_settings_hold <- function(booster, tree_method, rounds = 100L) {
+  config <- tryCatch(jsonlite::parse_json(xgboost::xgb.config(booster)),
+                     error = function(error) NULL)
+  learner <- config$learner
+  gbtree <- learner$gradient_booster
+  same <- function(value, expected) {
+    number <- suppressWarnings(as.numeric(value))
+    length(number) == 1L && isTRUE(abs(number - expected) <= 1e-6)
+  }
+  declared <- c(max_depth = 2, eta = 0.1, min_child_weight = 1, gamma = 0,
+                subsample = 1, colsample_bytree = 1, colsample_bylevel = 1,
+                colsample_bynode = 1, lambda = 1, alpha = 0, max_delta_step = 0)
+  updaters <- Filter(function(updater) !is.null(updater$train_param), gbtree$updater)
+  identical(learner$learner_train_param$objective, "binary:logistic") &&
+    identical(learner$learner_train_param$booster, "gbtree") &&
+    identical(gbtree$name, "gbtree") &&
+    identical(gbtree$gbtree_train_param$tree_method, tree_method) &&
+    same(gbtree$gbtree_model_param$num_trees, rounds) &&
+    same(gbtree$gbtree_model_param$num_parallel_tree, 1) &&
+    same(learner$learner_model_param$base_score, 0.5) &&
+    same(learner$generic_param$nthread, 1) &&
+    length(updaters) >= 1L &&
+    all(vapply(updaters, function(updater) {
+      all(vapply(names(declared), function(name) {
+        same(updater$train_param[[name]], declared[[name]])
+      }, logical(1)))
+    }, logical(1)))
+}
+
 validate_model_input <- function(x_train, y_train, x_test, inner_foldid,
                                  repetition, fold) {
   valid_names <- function(keys, size) {
@@ -65,8 +110,13 @@ validate_model_input <- function(x_train, y_train, x_test, inner_foldid,
   invisible(TRUE)
 }
 
-fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold,
+                       xgb_tree_method = "exact") {
   validate_model_input(x_train, y_train, x_test, inner_foldid, repetition, fold)
+  # "exact" is the declared primary setting. "hist" exists only for the proposed
+  # amendment 1 (A2) sensitivity configuration, and runs only if that is adopted.
+  asma_require(identical(xgb_tree_method, "exact") || identical(xgb_tree_method, "hist"),
+               "model_contract")
   check_model_versions()
 
   # Restore both the RNG algorithm and stream, including an initially absent seed.
@@ -93,7 +143,18 @@ fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold)
       maxit = 100000L, penalty.factor = rep(1, 64L), parallel = FALSE,
       keep = FALSE
     )
-    asma_require(identical(en_fit$glmnet.fit$jerr, 0L) &&
+    # cv.glmnet keeps no foldid when keep = FALSE; the fold-wiring test checks
+    # the folds passed in. Class names "0","1" make the response probability
+    # refer to class 1. The fitted object does not report alpha: call$alpha only
+    # restates the literal passed above. It fails closed if that argument stops
+    # being the literal 0.2, but unlike the other checks it is not evidence read
+    # from the fit.
+    asma_require(inherits(en_fit$glmnet.fit, "lognet") &&
+                   identical(en_fit$glmnet.fit$classnames, c("0", "1")) &&
+                   identical(unname(en_fit$name), "Binomial Deviance") &&
+                   identical(en_fit$call$alpha, 0.2) &&
+                   length(en_fit$lambda) <= 100L &&
+                   identical(en_fit$glmnet.fit$jerr, 0L) &&
                    length(en_fit$lambda.min) == 1L &&
                    is.finite(en_fit$lambda.min) && en_fit$lambda.min > 0 &&
                    all(is.finite(en_fit$cvm)), "model_fit")
@@ -110,16 +171,12 @@ fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold)
     training <- xgboost::xgb.DMatrix(x_train, label = unname(y_train), nthread = 1L)
     testing <- xgboost::xgb.DMatrix(x_test, nthread = 1L)
     xgb_fit <- xgboost::xgb.train(
-      params = list(objective = "binary:logistic", booster = "gbtree",
-                    tree_method = "exact", nthread = 1L, max_depth = 2L,
-                    eta = 0.1, base_score = 0.5, min_child_weight = 1,
-                    gamma = 0, subsample = 1, colsample_bytree = 1,
-                    colsample_bylevel = 1, colsample_bynode = 1,
-                    lambda = 1, alpha = 0, max_delta_step = 0, verbosity = 0L),
+      params = xgb_parameters(xgb_tree_method),
       data = training, nrounds = 100L, watchlist = list(), verbose = 0L,
       callbacks = list()
     )
-    asma_require(inherits(xgb_fit, "xgb.Booster"), "model_fit")
+    asma_require(inherits(xgb_fit, "xgb.Booster") &&
+                   xgb_settings_hold(xgb_fit, xgb_tree_method), "model_fit")
     xgb_probability <- stats::predict(xgb_fit, testing)
 
     set.seed(1000000L)
@@ -131,7 +188,11 @@ fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold)
       norm.votes = TRUE, keep.forest = TRUE, do.trace = FALSE
     )
     asma_require(identical(rf_fit$classes, c("0", "1")) &&
-                   rf_fit$ntree == 100L && !is.null(rf_fit$forest), "model_fit")
+                   identical(rf_fit$type, "classification") &&
+                   rf_fit$ntree == 100L && rf_fit$mtry == 8L &&
+                   "MeanDecreaseAccuracy" %in% colnames(rf_fit$importance) &&
+                   identical(dim(rf_fit$proximity), c(108L, 108L)) &&
+                   !is.null(rf_fit$forest), "model_fit")
     rf_matrix <- stats::predict(rf_fit, newdata = x_test, type = "prob")
     asma_require(is.matrix(rf_matrix) && identical(dim(rf_matrix), c(27L, 2L)) &&
                    identical(rownames(rf_matrix), rownames(x_test)) &&

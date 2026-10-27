@@ -134,5 +134,49 @@ run_model_tests <- function() {
     identical(signal[[model]][1L], signal_changed[[model]][1L])
   }, logical(1))))
 
+  # The default is the declared "exact" method. The proposed sensitivity setting
+  # ("hist") must give valid, correctly oriented probabilities, and only the
+  # XGBoost component may change. It must change on this fixture, so the setting
+  # cannot be silently ignored. Other values are rejected before any fit.
+  check(identical(fit_models(signal_train, y_train, signal_test, inner, 1L, 1L,
+                             xgb_tree_method = "exact"), signal))
+  hist <- fit_models(signal_train, y_train, signal_test, inner, 1L, 1L,
+                     xgb_tree_method = "hist")
+  check(identical(hist$en, signal$en) && identical(hist$rf, signal$rf) &&
+          !identical(hist$xgb, signal$xgb) && direction_holds(hist$xgb, signal_y_test))
+  rejects(fit_models(signal_train, y_train, signal_test, inner, 1L, 1L,
+                     xgb_tree_method = "approx"))
+
+  # A2 premise: 108 training rows give at most 108 distinct values per feature,
+  # below the default 256 bins, so "hist" has the same candidate splits as
+  # "exact". Here it splits training rows identically and moves only thresholds
+  # between training values, so rows that copy training values score the same.
+  copies <- signal_train[1:27, , drop = FALSE]
+  rownames(copies) <- rownames(signal_test)
+  check(identical(
+    fit_models(signal_train, y_train, copies, inner, 1L, 1L)$xgb,
+    fit_models(signal_train, y_train, copies, inner, 1L, 1L, xgb_tree_method = "hist")$xgb))
+
+  # The fitted booster's own configuration must match the declaration. Changed
+  # values, a misspelled parameter (silent at verbosity 0), another tree method
+  # and another round count are each rejected.
+  booster <- function(params, rounds = 100L) {
+    xgboost::xgb.train(params = params, nrounds = rounds, watchlist = list(),
+                       verbose = 0L,
+                       data = xgboost::xgb.DMatrix(x_train, label = unname(y_train),
+                                                   nthread = 1L))
+  }
+  declared <- xgb_parameters("exact")
+  check(xgb_settings_hold(booster(declared), "exact"))
+  check(xgb_settings_hold(booster(xgb_parameters("hist")), "hist"))
+  misspelled <- declared[names(declared) != "max_depth"]
+  misspelled$max_dpeth <- 2L
+  for (params in list(modifyList(declared, list(eta = 0.3)),
+                      modifyList(declared, list(base_score = 0.6)), misspelled)) {
+    check(!xgb_settings_hold(booster(params), "exact"))
+  }
+  check(!xgb_settings_hold(booster(declared), "hist"))
+  check(!xgb_settings_hold(booster(declared, 99L), "exact"))
+
   count
 }

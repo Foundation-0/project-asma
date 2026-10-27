@@ -61,7 +61,8 @@ def run_fixture():
              'tools/probe_execution_conditions.py', 'tools/build_synthetic_runtime.py',
              'tools/audit_author_archive.py', 'tools/audit_author_features.py',
              'tools/audit_matrix_headers.py', 'tools/audit_published_cohorts.py',
-             'protocols/pilot-001-reconstruction-decisions.md']
+             'protocols/pilot-001-reconstruction-decisions.md',
+             'protocols/pilot-001-reconstruction-amendment-1.md']
     return {
         'schema_version': 1, 'scope': R_SCOPE,
         'started_at_utc': started, 'finished_at_utc': datetime.now(timezone.utc).isoformat(),

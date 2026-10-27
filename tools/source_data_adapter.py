@@ -2,16 +2,20 @@
 """Parse pinned source bytes into an in-memory reconstruction payload.
 
 parse_sources performs no file/network I/O. load_pinned_sources is an explicit
-network acquisition function, without a CLI; callers must establish actual
+network acquisition function, without a CLI. It refuses to run without an entry
+in the owner's attestation file; callers must still establish actual
 data-use/execution conditions before calling it or supplying study bytes.
 Only the provenance field of a returned payload is safe to print.
 """
 
 import collections
 import copy
+import datetime
 import hashlib
 import io
+import json
 import math
+from pathlib import Path
 import posixpath
 import re
 import urllib.parse
@@ -25,6 +29,13 @@ import audit_author_features as features
 import audit_published_cohorts as cohorts
 
 FAILURE = "ERROR: source adapter failed; no row-level details emitted."
+# Fixed aggregate codes naming the stage that failed; never row data or values.
+CATEGORIES = ("contract", "source_bytes", "workbook", "clinical", "panel_membership",
+              "matrix", "matrix_value", "acquisition", "authorization")
+# Created and edited only by the owner; this repository does not contain it.
+ATTESTATIONS = Path(__file__).resolve().parents[1] / "registries/pilot-001-owner-attestations.json"
+ATTESTATION_FIELDS = {"id", "date", "execution_context", "instruction"}
+MAX_ATTESTATION_BYTES = 64 * 1024
 CLINICAL_COLUMNS = [cohorts.LABEL_COLUMN] + cohorts.CRITICAL
 NS = cohorts.NS
 RELATIONSHIP_ID = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id"
@@ -48,12 +59,21 @@ DEFAULT_CONTRACT = {
 
 
 class SourceAdapterError(ValueError):
-    """Fixed-message failure; never include input values in exceptions."""
+    """Fixed-message failure; never include input values in exceptions.
+
+    category is None or one code from CATEGORIES; any other value becomes None,
+    so stray text never surfaces. The public functions always set a code from
+    CATEGORIES. The message stays FAILURE.
+    """
+
+    def __init__(self, category=None):
+        super().__init__(FAILURE)
+        self.category = category if type(category) is str and category in CATEGORIES else None
 
 
-def require(condition):
+def require(condition, category=None):
     if not condition:
-        raise SourceAdapterError(FAILURE)
+        raise SourceAdapterError(category)
 
 
 def _identity(value, literal_na=False):
@@ -81,21 +101,21 @@ def _check_contract(contract):
 
 
 def _verify_bytes(body, source):
-    require(type(body) is bytes and len(body) == source["bytes"])
-    require(hashlib.sha256(body).hexdigest() == source["sha256"])
+    require(type(body) is bytes and len(body) == source["bytes"], "source_bytes")
+    require(hashlib.sha256(body).hexdigest() == source["sha256"], "source_bytes")
     if "md5" in source:
-        require(hashlib.md5(body).hexdigest() == source["md5"])
+        require(hashlib.md5(body).hexdigest() == source["md5"], "source_bytes")
 
 
 def _inflate(packed, contract):
-    require(type(packed) is bytes and len(packed) == contract["compressed_bytes"])
-    require(hashlib.sha256(packed).hexdigest() == contract["compressed_sha256"])
+    require(type(packed) is bytes and len(packed) == contract["compressed_bytes"], "source_bytes")
+    require(hashlib.sha256(packed).hexdigest() == contract["compressed_sha256"], "source_bytes")
     inflater = zlib.decompressobj(-15)
     body = inflater.decompress(packed, contract["uncompressed_bytes"] + 1)
-    require(inflater.eof and not inflater.unused_data and not inflater.unconsumed_tail)
-    require(len(body) == contract["uncompressed_bytes"])
-    require(zlib.crc32(body) == contract["crc32"])
-    require(hashlib.sha256(body).hexdigest() == contract["sha256"])
+    require(inflater.eof and not inflater.unused_data and not inflater.unconsumed_tail, "source_bytes")
+    require(len(body) == contract["uncompressed_bytes"], "source_bytes")
+    require(zlib.crc32(body) == contract["crc32"], "source_bytes")
+    require(hashlib.sha256(body).hexdigest() == contract["sha256"], "source_bytes")
     return body
 
 
@@ -192,6 +212,8 @@ def _clinical(book, contract):
     for row in biological:
         groups[row["Sample ID"]].append(row)
     sizes = collections.Counter(map(len, groups.values()))
+    # The {1, 3} clause is implied by the measurement total and the two counts;
+    # it states the rule directly.
     require(set(sizes) <= {1, 3} and sizes[1] == contract["singletons"]
             and sizes[3] == contract["triplicate_groups"])
     unique = cohorts.collapse_replicates(biological)
@@ -232,15 +254,12 @@ def _field(raw):
     return raw.decode("utf-8")
 
 
-def _number(raw, selected):
+def _number(raw):
     text = _field(raw)
-    if text in ("", "NA", "NaN", "nan", "Inf", "+Inf", "-Inf", "inf", "+inf", "-inf"):
-        require(not selected)
-        return None
-    require(NUMBER.fullmatch(text) is not None)
+    require(NUMBER.fullmatch(text) is not None, "matrix_value")
     value = float(text)
-    require(math.isfinite(value) or not selected)
-    return value if math.isfinite(value) else None
+    require(math.isfinite(value), "matrix_value")
+    return value
 
 
 def _matrix(body, panel, biological, eligible, contract):
@@ -279,11 +298,25 @@ def _matrix(body, panel, biological, eligible, contract):
         count += 1
         require(count <= contract["rows"])
         if symbol in panel:
-            found[symbol] = [_number(fields[position], include)
+            # Excluded measurements stay missing; their fields are never decoded.
+            found[symbol] = [_number(fields[position]) if include else None
                              for position, include in zip(positions, selected)]
     require(count == contract["rows"] and set(found) == set(panel))
     return {"row_names": list(panel), "column_names": columns,
             "values": [found[symbol] for symbol in panel]}
+
+
+def _key_label_digest(eligible):
+    """Return one SHA-256 over the selected patient keys and their 0/1 labels.
+
+    Keys are sorted by their UTF-8 bytes. Each key gives one line: the key, a
+    tab, "1" for refractory or "0" for sensitive, and a newline, all UTF-8.
+    Checked keys hold no tab or newline. No per-patient hash is formed.
+    """
+    rows = sorted((row["Patient ID"].encode("utf-8"), row["Tumor response"] == "refractory")
+                  for row in eligible)
+    return hashlib.sha256(b"".join(key + (b"\t1\n" if positive else b"\t0\n")
+                                   for key, positive in rows)).hexdigest()
 
 
 def parse_sources(compressed_member, clinical_workbook, panel_workbook, contract=None):
@@ -291,18 +324,29 @@ def parse_sources(compressed_member, clinical_workbook, panel_workbook, contract
 
     contract is an explicit fixture seam, not a production bypass option. No CLI
     exposes it. The default requires the exact independently audited source bytes.
-    SourceAdapterError always has a fixed message and suppresses error chaining.
+    Provenance reports source_pins_verified only for the default contract. Any
+    other contract sets fixture_contract, and its echoed fingerprints are then
+    the caller's pins, not the study's. SourceAdapterError always has a fixed
+    message, a category from CATEGORIES, and no cause or context.
     """
+    stage = "contract"
     try:
         contract = copy.deepcopy(DEFAULT_CONTRACT if contract is None else contract)
         _check_contract(contract)
+        pinned = contract == DEFAULT_CONTRACT
+        stage = "source_bytes"
         _verify_bytes(clinical_workbook, contract["workbooks"]["clinical"])
         _verify_bytes(panel_workbook, contract["workbooks"]["panel_and_scores"])
         body = _inflate(compressed_member, contract["member"])
+        stage = "workbook"
         clinical_book = MemoryWorkbook(clinical_workbook)
         panel_book = MemoryWorkbook(panel_workbook)
+        stage = "clinical"
         records, biological, eligible = _clinical(clinical_book, contract["cohort"])
+        key_label_digest = _key_label_digest(eligible)
+        stage = "panel_membership"
         panel, keys = _panel_membership(panel_book, contract, records, eligible)
+        stage = "matrix"
         measurements = _matrix(body, panel, biological, eligible, contract["matrix"])
         return {
             "schema_version": 1, "measurements": measurements,
@@ -310,7 +354,7 @@ def parse_sources(compressed_member, clinical_workbook, panel_workbook, contract
                          "rows": [[row[key] for key in CLINICAL_COLUMNS] for row in records]},
             "panel": panel, "published_keys": keys,
             "provenance": {
-                "source_pins_verified": True,
+                "source_pins_verified": pinned, "fixture_contract": not pinned,
                 "member_sha256": contract["member"]["sha256"],
                 "compressed_sha256": contract["member"]["compressed_sha256"],
                 "member_crc32": f"{contract['member']['crc32']:08x}",
@@ -322,22 +366,73 @@ def parse_sources(compressed_member, clinical_workbook, panel_workbook, contract
                 "matrix_columns": contract["matrix"]["columns"],
                 "biological_measurements": len(biological),
                 "selected_samples": len(eligible),
+                "selected_patient_labels_sha256": key_label_digest,
                 "published_score_values_read": False,
             },
         }
+    except SourceAdapterError as error:
+        stage = error.category or stage
     except Exception:
-        raise SourceAdapterError(FAILURE) from None
+        pass
+    # Raised after the handler ends, so the original exception is not kept as context.
+    raise SourceAdapterError(stage) from None
 
 
-def load_pinned_sources():
-    """Explicitly acquire and parse the fixed sources in a suitable execution context.
+def _no_duplicate_keys(pairs):
+    require(len({key for key, _ in pairs}) == len(pairs))
+    return dict(pairs)
 
-    This function is not an approval mechanism. The caller must first establish
-    data-use applicability and technical controls for acquisition, Python parsing,
-    transfer and model execution. No paths, alternate URLs or fixture contracts
-    are accepted. This module does not expose a command-line acquisition option.
+
+def _check_attestation(identifier):
+    """Require identifier as an entry id in the owner's attestation file.
+
+    The file holds {"schema_version": 1, "attestations": [...]}; each entry has
+    exactly id, date (YYYY-MM-DD), execution_context and instruction. An absent,
+    oversized or malformed file, or an unknown identifier, fails as
+    "authorization". Nothing here touches the network.
     """
     try:
+        # An exact str, so a subclass cannot redefine equality and match any entry.
+        require(type(identifier) is str and _identity(identifier))
+        with open(ATTESTATIONS, "rb") as source:
+            data = source.read(MAX_ATTESTATION_BYTES + 1)
+        require(len(data) <= MAX_ATTESTATION_BYTES)
+        record = json.loads(data.decode("utf-8"), object_pairs_hook=_no_duplicate_keys)
+        require(type(record) is dict and set(record) == {"schema_version", "attestations"}
+                and type(record["schema_version"]) is int and record["schema_version"] == 1
+                and type(record["attestations"]) is list and record["attestations"])
+        ids = []
+        for entry in record["attestations"]:
+            require(type(entry) is dict and set(entry) == ATTESTATION_FIELDS and _identity(entry["id"])
+                    and all(type(entry[field]) is str and entry[field].strip()
+                            for field in ("execution_context", "instruction")))
+            require(type(entry["date"]) is str
+                    and re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", entry["date"]) is not None)
+            datetime.date.fromisoformat(entry["date"])
+            ids.append(entry["id"])
+        require(len(ids) == len(set(ids)) and identifier in ids)
+        return
+    except Exception:
+        pass
+    raise SourceAdapterError("authorization") from None
+
+
+def load_pinned_sources(*, owner_attestation):
+    """Explicitly acquire and parse the fixed sources in a suitable execution context.
+
+    owner_attestation must be the id of an entry in ATTESTATIONS, a file that only
+    the owner creates or edits; automated sessions must never create or edit it.
+    Without a valid file and a matching entry, the call fails as "authorization"
+    before any network access. This guards against accidental calls; it is not a
+    security boundary, since code that can edit files could forge an entry, which
+    the agent guidance forbids. It is not an approval mechanism either. The caller
+    must first establish data-use applicability and technical controls for
+    acquisition, Python parsing, transfer and model execution. No paths,
+    alternate URLs or fixture contracts are accepted. This module does not
+    expose a command-line acquisition option.
+    """
+    try:
+        _check_attestation(owner_attestation)
         start = archive.ARCHIVE_BYTES - archive.TAIL_BYTES
         name, directory = archive.inspect_directory(archive.fetch_range(start, archive.ARCHIVE_BYTES - 1))
         offset = archive.member_data_offset(archive.fetch_range, name)
@@ -372,5 +467,8 @@ def load_pinned_sources():
                                     archive_directory_rechecked=True,
                                     whole_archive_checksum_verified=False)
         return result
+    except SourceAdapterError as error:
+        category = error.category or "acquisition"
     except Exception:
-        raise SourceAdapterError(FAILURE) from None
+        category = "acquisition"
+    raise SourceAdapterError(category) from None

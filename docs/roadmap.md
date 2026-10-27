@@ -37,6 +37,13 @@ symbols exactly once among 8,800 feature rows. This resolves naming and feature
 availability for the candidate input; transformation provenance remains open.
 Score export and corrected legend provenance also remain unresolved.
 
+On 2026-10-25 the [open-questions report](pilot-001-open-questions.md) narrowed,
+without closing, the fold-helper, frozen-overlap and corrected-legend items. It
+also found 64/64 panel coverage in the validation cohorts' published feature
+lists and assessed the 2025 fallback as not ready. It computed no new
+performance result; any patient-independent frozen metric still needs a
+pre-specified protocol and the owner's decision.
+
 The [public-input reconstruction contract](../protocols/pilot-001-independent-reconstruction.md)
 now links a concrete [decision record](../protocols/pilot-001-reconstruction-decisions.md)
 for feature interpretation, sample-key averaging, ordering, new folds, models and
@@ -62,6 +69,28 @@ open items in the [reconstruction contract](../protocols/pilot-001-independent-r
 a per-model planted-signal direction test, a fixed sensitivity configuration and
 the per-repetition AUROC distribution. No researcher contact
 is needed for the software preparation. The 2025 fallback remains unadopted.
+
+Pending owner decision (2026-10-25), required before any research run: accept or
+reject [reconstruction amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md).
+It covers two of the open items and one addition:
+- **A1:** the per-repetition AUROC distribution, as a descriptive secondary
+  output.
+- **A2:** a fixed sensitivity configuration. It proposes XGBoost
+  `tree_method = "hist"` with everything else identical, reported as
+  exploratory. With 108 training rows this mainly moves split thresholds, so its
+  leverage is limited. The owner may instead choose a second block of fold seeds,
+  run both, or waive the requirement. The seed block measures dependence on fold
+  assignment, so alone it leaves the environment question open, as a waiver
+  would.
+- **A3:** which warnings and messages from model calls stop a run. It proposes
+  that every warning stays fatal, that messages become fatal and that a fixed
+  aggregate code records what stopped a run. The alternative counts glmnet's
+  saturation warnings. The implementation follows the decision.
+
+Merging the file does not adopt it. The direction test, the third open item, is
+added and passes in a development environment. The synthetic and source-adapter execution records also
+predate the 2026-10-25 test and core changes, and must be regenerated in the
+pinned image.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
