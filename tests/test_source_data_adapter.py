@@ -5,12 +5,14 @@ The only file writes are stand-in owner attestations in temporary directories.
 
 import contextlib
 import copy
+import datetime
 import hashlib
 import io
 import json
 from pathlib import Path
 import sys
 import tempfile
+import types
 import unittest
 from unittest import mock
 import warnings
@@ -23,17 +25,20 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "tests"))
 import source_data_adapter as adapter
 import source_adapter_fixture
+import validate
 
 MAIN = adapter.NS["s"]
 REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 DOC_REL = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 # Stand-in owner attestations, only ever written to temporary files.
 ATTESTED = "abstract-attestation"
-ATTESTATION = {"schema_version": 1, "attestations": [
-    {"id": "abstract-earlier", "date": "2026-01-01",
+# The earlier entry has expired by TODAY, which must not affect the current one.
+ATTESTATION = {"schema_version": 2, "attestations": [
+    {"id": "abstract-earlier", "date": "2026-01-01", "expires": "2026-01-31",
      "execution_context": "abstract context", "instruction": "abstract instruction"},
-    {"id": ATTESTED, "date": "2026-01-02",
+    {"id": ATTESTED, "date": "2026-01-02", "expires": "2026-06-30",
      "execution_context": "abstract context", "instruction": "abstract instruction"}]}
+TODAY = datetime.date(2026, 6, 1)
 
 
 def workbook(sheets, shared=False):
@@ -151,13 +156,17 @@ def rewrite_zip(body, change):
 
 
 @contextlib.contextmanager
-def attestation_file(content):
-    """Patch the owner-attestation path to a temporary file; None leaves it absent."""
+def attestation_file(content, today=TODAY):
+    """Patch the owner-attestation path to a temporary file and fix the UTC date.
+
+    None leaves the file absent.
+    """
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "attestations.json"
         if content is not None:
             path.write_bytes(content if isinstance(content, bytes) else json.dumps(content).encode())
-        with mock.patch.object(adapter, "ATTESTATIONS", path):
+        with mock.patch.object(adapter, "ATTESTATIONS", path), \
+                mock.patch.object(adapter, "_today", return_value=today):
             yield
 
 
@@ -415,7 +424,8 @@ class SourceAdapterChecks(unittest.TestCase):
                          [adapter.cohorts.BASE + source["filename"] for source in state["sources"].values()])
         self.assertEqual(state["reads"], [source["bytes"] + 1 for source in state["sources"].values()])
         state["parser"].assert_called_once_with(b"abcde", state["bodies"]["clinical"],
-                                               state["bodies"]["panel_and_scores"])
+                                               state["bodies"]["panel_and_scores"],
+                                               owner_attestation=ATTESTED)
         self.assertTrue(result["provenance"]["archive_directory_rechecked"])
         self.assertFalse(result["provenance"]["whole_archive_checksum_verified"])
 
@@ -452,8 +462,9 @@ class SourceAdapterChecks(unittest.TestCase):
 
     def test_default_contract_rejects_fixture_pins_and_bounds_cannot_be_raised(self):
         fixture = make_fixture()
-        with self.assertRaises(adapter.SourceAdapterError) as error:
-            adapter.parse_sources(*fixture[:3])
+        with attestation_file(ATTESTATION):
+            with self.assertRaises(adapter.SourceAdapterError) as error:
+                adapter.parse_sources(*fixture[:3], owner_attestation=ATTESTED)
         self.fixed_failure(error.exception, "source_bytes")
         for group, field in (("member", "uncompressed_bytes"), ("matrix", "rows"), ("cohort", "selected")):
             changed = list(make_fixture()); changed[3][group][field] = adapter.DEFAULT_CONTRACT[group][field] + 1
@@ -466,16 +477,104 @@ class SourceAdapterChecks(unittest.TestCase):
         self.assertIs(provenance["fixture_contract"], True)
         # Standing the fixture pins in for the default isolates the flag logic
         # without study bytes: an omitted contract or an equal copy is the default.
-        with mock.patch.object(adapter, "DEFAULT_CONTRACT", copy.deepcopy(fixture[3])):
+        with mock.patch.object(adapter, "DEFAULT_CONTRACT", copy.deepcopy(fixture[3])), \
+                attestation_file(ATTESTATION):
             for contract in (None, copy.deepcopy(fixture[3])):
-                provenance = adapter.parse_sources(*fixture[:3], contract=contract)["provenance"]
+                provenance = adapter.parse_sources(*fixture[:3], contract=contract,
+                                                   owner_attestation=ATTESTED)["provenance"]
                 self.assertIs(provenance["source_pins_verified"], True)
                 self.assertIs(provenance["fixture_contract"], False)
             # Dropping an optional MD5 pin still parses, but is not the default.
             changed = copy.deepcopy(fixture[3]); del changed["workbooks"]["clinical"]["md5"]
-            provenance = adapter.parse_sources(*fixture[:3], contract=changed)["provenance"]
+            provenance = adapter.parse_sources(*fixture[:3], contract=changed,
+                                               owner_attestation=ATTESTED)["provenance"]
             self.assertIs(provenance["source_pins_verified"], False)
             self.assertIs(provenance["fixture_contract"], True)
+
+    def test_real_source_input_check_needs_a_current_owner_attestation(self):
+        fixture = make_fixture()
+        # The fixture pins stand in for the study's, so no study bytes are needed.
+        pins = (("member", "compressed_sha256"), ("member", "sha256"),
+                ("workbooks", "clinical"), ("workbooks", "panel_and_scores"))
+        def fresh():
+            """An equal contract whose pins are distinct str objects, as a file would give."""
+            return json.loads(json.dumps(fixture[3]))
+        def foreign(keep=None):
+            """The fixture contract with every byte pin replaced except keep."""
+            contract = fresh()
+            for index, (group, field) in enumerate(pins):
+                if (group, field) == keep:
+                    continue
+                if group == "member":
+                    contract[group][field] = f"{index:064x}"
+                else:
+                    contract[group][field]["sha256"] = f"{index:064x}"
+            return contract
+        def gated(contract, attestation=None, identifier=ATTESTED, today=TODAY):
+            with mock.patch.object(adapter, "DEFAULT_CONTRACT", copy.deepcopy(fixture[3])), \
+                    attestation_file(attestation, today), \
+                    mock.patch.object(adapter, "_verify_bytes", wraps=adapter._verify_bytes) as verify, \
+                    mock.patch.object(adapter, "_inflate", wraps=adapter._inflate) as inflate:
+                with self.assertRaises(adapter.SourceAdapterError) as error:
+                    adapter.parse_sources(*fixture[:3], contract=contract, owner_attestation=identifier)
+            self.fixed_failure(error.exception, "authorization")
+            verify.assert_not_called()
+            inflate.assert_not_called()
+        expired = {"schema_version": 2, "attestations": [
+            dict(ATTESTATION["attestations"][1], expires=str(TODAY - datetime.timedelta(days=1)))]}
+        # The default contract, an equal copy or a near-default one without its MD5 pin.
+        near = copy.deepcopy(fixture[3]); del near["workbooks"]["clinical"]["md5"]
+        for contract in (None, copy.deepcopy(fixture[3]), fresh(), near):
+            gated(contract)
+            gated(contract, ATTESTATION, None)
+            gated(contract, ATTESTATION, "abstract-earlier")
+            gated(contract, expired)
+        # Any single study pin is enough, in any slot, and so is a pin that is not an exact str.
+        for keep in pins:
+            gated(foreign(keep))
+        swapped = foreign()
+        swapped["workbooks"]["clinical"]["sha256"] = fixture[3]["workbooks"]["panel_and_scores"]["sha256"]
+        gated(swapped)
+        swapped = foreign(); swapped["member"]["sha256"] = fixture[3]["workbooks"]["clinical"]["sha256"]
+        gated(swapped)
+        text = type("Text", (str,), {"__eq__": lambda self, other: False, "__hash__": str.__hash__})
+        disguised = foreign(); disguised["member"]["sha256"] = text(fixture[3]["member"]["sha256"])
+        gated(disguised)
+        # With no study pin the gate stays out of the way; these bytes then fail as source_bytes.
+        with mock.patch.object(adapter, "DEFAULT_CONTRACT", copy.deepcopy(fixture[3])):
+            with self.assertRaises(adapter.SourceAdapterError) as error:
+                adapter.parse_sources(*fixture[:3], contract=foreign())
+        self.fixed_failure(error.exception, "source_bytes")
+        # The last day is inclusive.
+        last_day = datetime.date.fromisoformat(ATTESTATION["attestations"][1]["expires"])
+        with mock.patch.object(adapter, "DEFAULT_CONTRACT", copy.deepcopy(fixture[3])), \
+                attestation_file(ATTESTATION, last_day):
+            self.assertIs(adapter.parse_sources(*fixture[:3], owner_attestation=ATTESTED)
+                          ["provenance"]["source_pins_verified"], True)
+        gated(None, ATTESTATION, today=last_day + datetime.timedelta(days=1))
+        # An entry may start and end on the same day, and a byte-order mark is accepted.
+        same_day = {"schema_version": 2, "attestations": [
+            dict(ATTESTATION["attestations"][1], date=str(TODAY), expires=str(TODAY))]}
+        for content in (same_day, b"\xef\xbb\xbf" + json.dumps(ATTESTATION).encode()):
+            with mock.patch.object(adapter, "DEFAULT_CONTRACT", copy.deepcopy(fixture[3])), \
+                    attestation_file(content):
+                self.assertIs(adapter.parse_sources(*fixture[:3], owner_attestation=ATTESTED)
+                              ["provenance"]["source_pins_verified"], True)
+        # The identifier is keyword-only here too.
+        with self.assertRaises(TypeError):
+            adapter.parse_sources(*fixture[:3], fixture[3], ATTESTED)
+        # The real clock takes the UTC date: just after UTC midnight, local dates west of UTC differ.
+        instant = datetime.datetime(2001, 2, 3, 0, 30, tzinfo=datetime.timezone.utc)
+        west = datetime.timezone(datetime.timedelta(hours=-12))
+        class Clock(datetime.datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return instant.astimezone(tz) if tz else instant.astimezone(west).replace(tzinfo=None)
+        clock = types.SimpleNamespace(datetime=Clock, date=datetime.date, timezone=datetime.timezone)
+        with mock.patch.object(adapter, "datetime", clock):
+            self.assertEqual(adapter._today(), datetime.date(2001, 2, 3))
+        # The adapter reads the same path that Git ignores and the validator guards.
+        self.assertEqual(adapter.ATTESTATIONS, validate.ROOT / validate.OWNER_ATTESTATIONS)
 
     def test_unknown_failure_category_never_surfaces(self):
         for value in ("PRIVATE_SENTINEL", adapter.FAILURE, "", ["matrix"], 1,
@@ -494,17 +593,27 @@ class SourceAdapterChecks(unittest.TestCase):
     def test_acquisition_refuses_without_a_valid_owner_attestation_before_any_network_access(self):
         entry = ATTESTATION["attestations"][1]
         def entries(*changed):
-            return {"schema_version": 1, "attestations": list(changed)}
+            return {"schema_version": 2, "attestations": list(changed)}
         def without(field):
             return {key: value for key, value in entry.items() if key != field}
         files = [None, b"PRIVATE_SENTINEL", b"\xff", json.dumps(ATTESTATION).encode()[:-1],
-                 dict(ATTESTATION, schema_version=2), dict(ATTESTATION, schema_version=True),
-                 dict(ATTESTATION, schema_version=1.0), dict(ATTESTATION, extra=True),
+                 dict(ATTESTATION, schema_version=1), dict(ATTESTATION, schema_version=3),
+                 dict(ATTESTATION, schema_version=True),
+                 dict(ATTESTATION, schema_version=2.0), dict(ATTESTATION, extra=True),
                  {"attestations": ATTESTATION["attestations"]}, entries(), [entry],
                  entries(without("instruction")), entries(dict(entry, extra="abstract")),
                  entries(dict(entry, date="2026-02-30")), entries(dict(entry, date="2026-1-02")),
                  entries(dict(entry, date="02-01-2026")), entries(dict(entry, date="20260102")),
                  entries(dict(entry, date=20260102)),
+                 # Expiry: required, well formed, not before the date and not passed.
+                 entries(without("expires")), entries(dict(entry, expires="2026-06-31")),
+                 entries(dict(entry, expires="2026-6-30")), entries(dict(entry, expires=20260630)),
+                 entries(dict(entry, expires="2026-01-01")), entries(dict(entry, expires="2026-05-31")),
+                 entries(dict(entry, expires="20260630")), entries(dict(entry, expires="2026-W26-2")),
+                 # Expires before its date, though not yet passed on TODAY.
+                 entries(dict(entry, date="2026-07-01", expires="2026-06-30")),
+                 # The schema-1 entry shape, with no expiry, is refused.
+                 {"schema_version": 1, "attestations": [without("expires")]},
                  entries(dict(entry, id=" " + ATTESTED)), entries(dict(entry, id=1)),
                  # A valid matching entry does not excuse a malformed id elsewhere.
                  entries(entry, dict(entry, id=1)), entries(entry, dict(entry, id="NA")),

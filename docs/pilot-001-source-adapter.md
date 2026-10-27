@@ -16,7 +16,8 @@ acquires only the fixed releases and passes their bytes to that parser. Neither
 is invoked on research sources by a command-line entry point in this change.
 Calling the acquisition API requires a supported execution context for the
 whole data path; the function is not an approval mechanism. It also refuses to
-run without an entry in the owner's attestation file (see the addition below).
+run without a current entry in the owner's attestation file, and so does the
+parser under any of the study's SHA-256 pins (see the additions below).
 
 The default contract preserves the prior [member audit](../registries/pilot-001-author-feature-summary.json)
 and [supplement pins](../registries/pilot-001-supplement-summary.json). Acquisition
@@ -121,7 +122,8 @@ differ from it:
 - changed here: `tools/source_data_adapter.py`, `R/asma_source.R`,
   `tools/build_source_adapter_runtime.py`, `tests/test_source_data_adapter.py`,
   `tests/r/test_source.R` and `tests/test_source_adapter_runtime.py`;
-- changed by amendment 1 (#15): `R/asma_core.R`, `R/asma_models.R` and
+- changed by amendment 1 (#15): `R/asma_core.R`, `R/asma_models.R` (changed
+  again by the fitted-settings checks, #17) and
   `tools/run_source_adapter_fixture.py`;
 - changed by the shared loader's guard: `tools/audit_published_cohorts.py`
   (see the [registry guide](../registries/README.md)).
@@ -157,14 +159,14 @@ differ from it:
   `fixture_contract: true`.
 - **Owner attestation for acquisition.** `load_pinned_sources()` needs a
   keyword-only `owner_attestation` identifier. It must match an entry `id` in
-  `registries/pilot-001-owner-attestations.json`. Each entry has exactly `id`,
-  `date` (YYYY-MM-DD), `execution_context` and `instruction`. An absent or
-  malformed file, or an unknown identifier, fails as `authorization` before any
-  network access. Only the owner creates or edits that file; it does not exist
-  in this repository, and automated sessions must never create or edit it. This
-  guards against accidental calls. It is not a security boundary: code that can
-  edit files could forge an entry, which the [agent guidance](../AGENTS.md)
-  forbids. It does not replace the Gate 0 conditions.
+  `registries/pilot-001-owner-attestations.json`. An absent or malformed file,
+  or an unknown identifier, fails as `authorization` before any network access.
+  Only the owner creates or edits that file; it does not exist in this
+  repository, and automated sessions must never create or edit it. This guards
+  against accidental calls. It is not a security boundary: code that can edit
+  files could forge an entry, which the [agent guidance](../AGENTS.md) forbids.
+  It does not replace the Gate 0 conditions. The 2026-10-27 addition below
+  extends it and gives the current file format.
 - **Excluded values stay missing.** Values of measurements outside the selected
   samples are no longer decoded or converted; they are returned as `null`. The
   R bridge already accepts missing excluded values, and identity and geometry
@@ -189,7 +191,7 @@ The failure categories are:
 | `matrix` | Matrix header, rows, symbols, label coverage or panel coverage |
 | `matrix_value` | A selected panel value is missing, non-finite or fails the strict decimal rule |
 | `acquisition` | Range fetch, member length, directory recheck or HTTP response (acquisition only) |
-| `authorization` | Missing or malformed owner attestation file, or no matching entry (acquisition only, before any network access) |
+| `authorization` | Missing or malformed owner attestation file, or no current matching entry. Checked before any network access (acquisition) or byte check (parsing under any of the study's SHA-256 pins). Acquisition checks again before parsing, so an entry that expires or is removed mid-run fails after the fetch |
 
 Docker and the pinned image were not available for these changes when they were
 made. The Python tests and the fixture bridge then ran only in a development
@@ -233,6 +235,51 @@ record. That shows inventory equality, not bit-identical binaries.
   remains the 2026-10-25 observation of the earlier runtime on a cgroup v2 host;
   it does not describe the rebuilt image. A probe of the current runtime on a
   cgroup v2 host is still needed before any research run.
+
+**Addition, 2026-10-27.** These changes address the three follow-up notes of the
+[#16 approving review](https://github.com/Foundation-0/project-asma/pull/16#pullrequestreview-5660779406).
+They change `tools/source_data_adapter.py` and
+`tests/test_source_data_adapter.py`, so both differ from any validation record
+made before this change; a pinned-image rerun after it is needed before any
+real-file check.
+- **The real-source input check needs the attestation too.** `parse_sources()`
+  takes a keyword-only `owner_attestation`. If any SHA-256 pin in its contract
+  (the member's compressed or uncompressed SHA-256, or either workbook's), in
+  any slot, is one of the study's four, or is not an exact string, it requires
+  a current attestation entry and otherwise fails as `authorization` before any
+  byte is checked. Every input's SHA-256 is verified, so study bytes parse only
+  under their own pins, wherever they are placed: dropping an optional pin such
+  as an MD5 does not avoid the gate. Fixture contracts with their own pins need
+  no attestation. `load_pinned_sources()` passes its identifier on, so the
+  parser checks the entry a second time after the fetch.
+- **Attestations expire.** The file is now `schema_version: 2`. Each entry has
+  exactly `id`, `date` and `expires` (both YYYY-MM-DD, `date` no later than
+  `expires`), `execution_context` and `instruction`. The matching entry is
+  refused after its `expires` day, judged by the UTC date. Other entries may
+  have expired. A schema-1 file is refused. Expiry limits how long an old
+  identifier can be reused; whether a run also has a new explicit instruction
+  still rests on the agent guidance.
+- **How the owner adds it.** In the checkout that will run, the owner creates
+  `registries/pilot-001-owner-attestations.json` by hand as UTF-8 JSON (a
+  leading byte-order mark is accepted) and passes the entry's `id` to the run.
+  An `id` has no leading or trailing spaces, tabs, line breaks or NUL, and is
+  not `NA`:
+
+  ```json
+  {"schema_version": 2, "attestations": [
+    {"id": "<identifier>", "date": "YYYY-MM-DD", "expires": "YYYY-MM-DD",
+     "execution_context": "<where and how the run executes>",
+     "instruction": "<the explicit instruction this run follows>"}]}
+  ```
+
+  Git ignores the path. `tools/validate.py` fails if Git tracks or stages a file
+  at that path in any letter case, directory included, or if Git cannot answer
+  in a checkout; it then shows Git's reason. A copy of the repository without
+  `.git` is not checked.
+- **Fitting has no gate of its own.** The R pipeline fits whatever payload it is
+  given. The supported route to study values goes through `parse_sources()`,
+  which is now gated. Anything else, such as values read through the audit
+  loaders, rests on the agent guidance alone.
 
 ## Observed execution conditions
 

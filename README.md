@@ -115,8 +115,8 @@ histotypes require their own questions, labels, and study designs.
 
 ## Check the scaffold
 
-Python 3.10+ and its standard library are sufficient; no package installation or
-network access is needed:
+Python 3.10+ and its standard library are sufficient, plus the `git` executable
+in a Git checkout; no package installation or network access is needed:
 
 ```sh
 python3 tools/validate.py
@@ -124,7 +124,9 @@ python3 -m unittest discover -s tests -v
 ```
 
 The validator checks registry structure, cross-references, and local Markdown
-file/heading links. It does not check external availability, scientific truth,
+file/heading links. In a Git checkout it also checks that Git neither tracks nor
+stages the owner's attestation file, and fails if `git` is missing or refuses
+the repository. It does not check external availability, scientific truth,
 dataset contents, or access rights. See the [registry guide](registries/README.md).
 With R and jsonlite, `Rscript --vanilla tools/check_panel_name_tokens.R` checks
 the token expectations of the panel-name tests against R's own `make.names`. It

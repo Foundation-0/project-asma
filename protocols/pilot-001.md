@@ -117,7 +117,8 @@ until it has been reviewed.
    files, that check and any fitting need the owner's sign-off in Gate 0 of the [roadmap](../docs/roadmap.md): a
    dated attestation of the execution context and a new explicit instruction.
    The offline scaffold checks
-   need only Python's standard library.
+   need only Python's standard library and, in a Git checkout, the `git`
+   executable.
 3. **Faithful reproduction.** Implement the documented analysis as a distinct
    reproduction track, recording any upstream preprocessing shared across folds
    or cohorts. Recompute one ROC/AUC and its denominator from predictions; retain
