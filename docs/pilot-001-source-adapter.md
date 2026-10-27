@@ -67,18 +67,21 @@ prediction cells. No study identities, symbols or measurements are included.
 The first [execution record](../registries/pilot-001-source-adapter-validation.json),
 from 2026-10-25, recorded the complete path from these bytes through Python
 parsing, private stdin transfer, R assembly and the actual three model packages.
-All **18 R bridge assertions** passed. An independent formula verified all 135 × 64 assembled values,
-with exact identity and outcome checks. One full fivefold repetition produced
-**405 model predictions, 135 ensemble predictions and 135 final scores**, with
-complete coverage and agreement between both AUROC calculations. Artificial
-scores and AUROC values are not retained or compared with the paper. The record
-now holds the 2026-10-27 [pinned-image rerun](#pinned-image-rerun-2026-10-27)
-instead: 19 bridge assertions and the same prediction counts.
+All **18 R bridge assertions** passed. An independent formula verified all
+135 × 64 assembled values, with exact identity and outcome checks. One full
+fivefold repetition produced **405 model predictions, 135 ensemble predictions
+and 135 final scores**, with complete coverage and agreement between both AUROC
+calculations. Artificial scores and AUROC values are not retained or compared
+with the paper. The record now holds the 2026-10-27
+[pinned-image rerun](#pinned-image-rerun-2026-10-27) instead: 19 bridge
+assertions and the same prediction counts.
 
-At commit `ef1f522`, all **138 Python tests** passed, including 19 adapter/acquisition tests, 12
-execution-probe tests, four runner-boundary tests and nine runtime-builder tests.
-Acquisition tests mock every network dependency. The existing [100-repeat synthetic result](pilot-001-synthetic-validation.md)
-remains separate and unchanged. An independent review of
+At commit `ef1f522`, all **138 Python tests** passed, including 19
+adapter/acquisition tests, 12 execution-probe tests, four runner-boundary tests
+and nine runtime-builder tests. Acquisition tests mock every network dependency.
+The [100-repeat synthetic result](pilot-001-synthetic-validation.md) stayed
+separate and was not changed by this work; the 2026-10-27 pinned-image rerun
+later regenerated it with the same integration counts. An independent review of
 [PR #12](https://github.com/Foundation-0/project-asma/pull/12) (2026-10-25, at
 commit `ef1f522`) approved it with no blocking issues; its non-blocking items are
 addressed in the addition below. This establishes source-format behavior on fixtures;
@@ -90,7 +93,8 @@ and observed Python/Expat/zlib versions. It predated the 2026-10-25 changes to
 `R/asma_core.R`, which added the
 [amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md) output, and to
 the runner's hash list, so the fixture had to be rerun in the pinned image. The
-2026-10-27 rerun did so; its record holds 26 hashes, now including amendment 1. A separate [combined runtime record](../registries/pilot-001-source-adapter-runtime.json)
+2026-10-27 rerun did so; its record holds 26 hashes, now including amendment 1.
+A separate [combined runtime record](../registries/pilot-001-source-adapter-runtime.json)
 identifies the tested image. It extends the previously validated R image with
 CPython 3.12.14 from a hash-pinned official source archive and exact Ubuntu
 OpenSSL/zlib development packages matching the existing runtime libraries.
@@ -103,7 +107,8 @@ third-party Python packages are installed, and the image is not redistributed.
 The builder prints only the two image IDs and its scope. No committed tool emits
 the runtime record's other fields. The commands that produced the 2026-10-25
 fields were not committed; the 2026-10-27 rerun below lists its commands, with
-the Python inventory command given only in outline. Those fields include the `environment` block (with `compiler` and
+the Python inventory command given only in outline. Those fields include the
+`environment` block (with `compiler` and
 `missing_optional_extension_modules`), `r_package_versions` and
 `base_r_inventory_unchanged`. The validation record's `transport` block is
 written as constants by the [worker](../tools/check_source_adapter.py). It
@@ -116,10 +121,10 @@ R through an internal stdin pipe. User-site initialization and bytecode writes
 are disabled. Parsing, private transfer and fitting now share the same bounded
 container; no fixture payload passes through the outer launcher.
 
-**Addition, 2026-10-25 (after the execution records above).** These changes
-address the non-blocking items of the PR #12 reviews, the PR #16 review and a
-PR #10 comment on the data rules. The records above predated them. At the time,
-ten files hashed by the
+**Addition, 2026-10-25 (after the first execution records above).** These
+changes address the non-blocking items of the PR #12 reviews, the PR #16 review
+and a PR #10 comment on the data rules. The 2026-10-25 records predated them. At
+the time, ten files hashed by the
 [validation record](../registries/pilot-001-source-adapter-validation.json)
 differed from it:
 - changed here: `tools/source_data_adapter.py`, `R/asma_source.R`,
@@ -203,7 +208,9 @@ The failure categories are:
 Docker and the pinned image were not available for these changes when they were
 made. The Python tests and the fixture bridge then ran only in a development
 environment (Python 3.13, conda-forge R 4.4.3 with the pinned package versions).
-The pinned-image rerun below now covers them.
+The pinned-image rerun below covers the fixture bridge and the adapter's
+parsing of the generated fixture inside the image; the Python unit tests were not
+run inside the image.
 
 ## Pinned-image rerun, 2026-10-27
 
@@ -300,8 +307,10 @@ The [technical probe](../tools/probe_execution_conditions.py) reads actual kerne
 and Docker state, rather than accepting invocation flags alone. Its
 [aggregate record](../registries/pilot-001-execution-conditions.json) reports
 **40/40 checks passed** for the 2026-10-25 combined runtime (`sha256:e1bd961e…`,
-now under `prior_runtime`). The 2026-10-27 rebuild has no probe record yet (see
-the [pinned-image rerun](#pinned-image-rerun-2026-10-27)). The earlier probe
+now under `prior_runtime` in the
+[runtime record](../registries/pilot-001-source-adapter-runtime.json)). The
+2026-10-27 rebuild has no probe record yet (see the
+[pinned-image rerun](#pinned-image-rerun-2026-10-27)). The earlier probe
 observed:
 
 - Read-only root and checkout, owner UID, all capabilities dropped and no new
@@ -313,16 +322,16 @@ observed:
 - Python 3.12.14 and isolated/no-user-site/no-bytecode startup, with matching
   cgroup, mount namespace and network namespace for the Python and R processes.
 
-The outer executor exposes no active swap devices, but its parent swap ceiling
-is unbounded. That observation does not certify provider snapshots, monitoring,
-erasure, unseen ancestor limits or future host configuration. The managed
-environment tool reports current connectivity and enforced HTTP policy; it
-exposes no processing region, governing hosting contract or retention evidence.
-Only this allowlisted observation is retained, without account or environment IDs.
-The probe does not emit it: `managed_environment_observation` was added to the
-record separately. It reports the outer machine's network policy mode as
-`unrestricted`. The container runs with networking disabled, but the machine that
-runs it has no network restriction.
+On 2026-10-25 the outer executor exposed no active swap devices, but its parent
+swap ceiling was unbounded. That observation does not certify provider snapshots,
+monitoring, erasure, unseen ancestor limits or future host configuration. The
+managed environment tool reported connectivity and an enforced HTTP policy at
+that time; it exposed no processing region, governing hosting contract or
+retention evidence. Only this allowlisted observation is retained, without
+account or environment IDs. The probe does not emit it:
+`managed_environment_observation` was added to the record separately. It records
+the outer machine's network policy mode then as `unrestricted`: the container ran
+with networking disabled, but the machine that ran it had no network restriction.
 
 | Execution condition | Disposition |
 | --- | --- |

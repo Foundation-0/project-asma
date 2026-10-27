@@ -101,8 +101,10 @@ bytes, exact clinical membership and selected values before R assembly. Generate
 XLSX/matrix fixtures passed the complete adapter-to-model path. A separate runtime
 probe passed 40 technical checks on 2026-10-25. A 2026-10-27 pinned-image rerun
 passed all 179 R assertions, the full 100-repeat run and the adapter fixture; its
-probe could not run on that cgroup v1 host. Python parsing, private transfer and R fitting
-now share a pinned container with Docker logging disabled. Live acquisition,
+probe could not run on that cgroup v1 host. Two adapter files changed after that
+rerun (#22), so the adapter fixture needs another pinned-image run before any
+real-file check. Python parsing, private transfer and R fitting now share a pinned
+container with Docker logging disabled. Live acquisition,
 processing jurisdiction and hosting/use conditions remain unverified.
 No study sources were ingested by the adapter. Those remaining conditions must
 cover acquisition, parsing, transfer and fitting before research execution.

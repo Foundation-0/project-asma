@@ -83,13 +83,13 @@ read and why.
   hashes. Input fingerprints under `fixture_provenance` belong to artificial fixtures.
 - [pilot-001-execution-conditions.json](pilot-001-execution-conditions.json):
   the 2026-10-25 observation of the earlier runtime image (not the 2026-10-27
-  rebuild, whose probe could not run on a cgroup v1 host). Its pin of the
-  runtime record (`f87b575d…`) is that file's 2026-10-25 version, which the
-  rebuild replaced:
-  40 observed combined-runtime controls, limited outer-executor observations and
-  explicit unresolved context. `managed_environment_observation` was added
-  separately, not by the probe; it records the outer machine's network policy as
-  `unrestricted`. It is not research-use clearance. See the
+  rebuild, whose probe could not run on a cgroup v1 host): 40 observed
+  combined-runtime controls, limited outer-executor observations and explicit
+  unresolved context. Its pin of the runtime record (`f87b575d…`) is that file's
+  2026-10-25 version, which the rebuild replaced.
+  `managed_environment_observation` was added separately, not by the probe; it
+  records the outer machine's network policy as `unrestricted`. It is not
+  research-use clearance. See the
   [source-adapter report](../docs/pilot-001-source-adapter.md).
 - `pilot-001-owner-attestations.json` does not exist in this repository. Only
   the owner creates or edits it, by hand in the checkout that runs; automated
@@ -104,8 +104,9 @@ read and why.
   [source-adapter report](../docs/pilot-001-source-adapter.md) gives the format.
 
 Recorded implementation hashes describe the code that ran. Four records (score
-verification, as `execution.membership_helper_sha256`, matrix header, author
-archive and author feature) name the shared loader `tools/audit_published_cohorts.py` at SHA-256
+verification, matrix header, author archive and author feature; the first under
+`execution.membership_helper_sha256`) name the shared loader
+`tools/audit_published_cohorts.py` at SHA-256
 `b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52`. After those
 runs, its `Workbook.xml` gained a pre-parse expat pass that rejects workbook
 parts carrying a document type or entity declaration, in any encoding expat

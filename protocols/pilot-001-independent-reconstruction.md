@@ -118,10 +118,11 @@ no private patient-level output files, model weights or caches are retained.
 The data-use disposition describes the remaining hosting/applicability checks.
 
 The next work is to establish the actual research-execution context. Live
-acquisition there follows only after the owner's sign-off stated above. Python parsing, transfer and fitting now share a pinned
-container. Its probe passed 40 checks on 2026-10-25 for the earlier image; the
-2026-10-27 rebuild has no probe record yet and needs one on a cgroup v2 host.
-Neither establishes those wider conditions. The adapter has not been executed on study files. Keep the selected
+acquisition there follows only after the owner's sign-off stated above. Python
+parsing, transfer and fitting now share a pinned container. Its probe passed 40
+checks on 2026-10-25 for the earlier image; the 2026-10-27 rebuild has no probe
+record yet and needs one on a cgroup v2 host. Neither image's checks establish
+those wider conditions. The adapter has not been executed on study files. Keep the selected
 64-protein question; do not substitute the downstream combined CSV or its 60-protein target.
 Verify the planned Canadian execution context and remaining conditions of the
 selected research-use basis before research fitting. The exact member and panel

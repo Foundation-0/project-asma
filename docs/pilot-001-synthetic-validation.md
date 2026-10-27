@@ -158,10 +158,10 @@ were executed in it. Results, now in the
 
 - **All 179 R assertions passed** (41 input, 87 core, 51 model), including the
   planted-signal direction test, the golden fold vectors, the fold-wiring check,
-  the fitted-settings checks and the amendment 1 code. A separate `--tests` run
-  took 14.7 seconds; its output was not committed, and the record is the `--full`
-  run below. This is the first run of those tests on the pinned toolchain (Rcpp
-  1.0.14, Matrix 1.7-2).
+  the fitted-settings checks and the amendment 1 code. A separate run without
+  `--full` (the R runner's `--tests` mode) took 14.7 seconds; its output was not
+  committed, and the record is the `--full` run below. These are the first runs
+  of those tests on the pinned toolchain (Rcpp 1.0.14, Matrix 1.7-2).
 - **The full 100-repeat integration passed** in 104.9 seconds: 40,500 model
   predictions, 13,500 ensemble predictions and 135 final scores, complete
   coverage, and agreement between the pairwise and rank-based AUROC calculations.
@@ -179,8 +179,9 @@ AUROCs and the amendment 1 fixture probes) were not repeated here; only the
 committed suites were run.
 
 The first full run (2026-10-25), including 149 assertions, took 57.619 seconds
-inside R; the 2026-10-27 recorded run, including 179, took 104.858 seconds. This is an observed fixture runtime, not a compute estimate
-for source ingestion or a scientific performance measurement. No artificial
+inside R; the 2026-10-27 recorded run, including 179, took 104.858 seconds.
+These are observed fixture runtimes, not compute estimates for source ingestion
+or a scientific performance measurement. No artificial
 AUROC is compared with the paper's 0.83 or the existing supplied-score result.
 
 The [fixture generator](../tests/r/synthetic_fixture.R) constructs abstract keys,
@@ -228,8 +229,8 @@ The [Python runtime tests](../tests/test_synthetic_runtime.py) check hash/size
 failures, bounded downloads, source selection, local daemon configuration,
 execution controls, timeout cleanup, sanitized cleanup failures and rejection
 of dataset arguments. They run offline without Docker; the separate R run
-provides actual package and container integration evidence. The final offline
-validator and all 94 Python tests passed. An independent
+provides actual package and container integration evidence. At `2c9d68a`
+(2026-10-25), the offline validator and all 94 Python tests passed. An independent
 [review of the pipeline PR](https://github.com/Foundation-0/project-asma/pull/11#pullrequestreview-5641905944)
 (2026-10-25, at `2c9d68a`) verified all 15 recorded implementation hashes and the
 package pins. Its one blocking finding was that probability direction was
@@ -260,15 +261,18 @@ bit-identical rebuilds or identical scores across platforms.
 
 ## Remaining work
 
-The synthetic entry point accepts no study-file path or URL. A future source
-adapter must revalidate the pinned member/workbook bytes, parse values without
-persistent patient files, and pass the existing exact input contracts. The
+The synthetic entry point accepts no study-file path or URL. The
+[source adapter](pilot-001-source-adapter.md) revalidates the pinned
+member/workbook bytes, parses values in memory and passes them to the same input
+contracts. It has been tested only with generated fixtures, most recently in the
+2026-10-27 pinned-image rerun, and has not read study bytes. The
 [data-use disposition](pilot-001-data-use.md) still requires a supported actual
 jurisdiction, host and applicable review/privacy context before study-data fitting.
 The current fixture run does not establish those conditions.
 
 Unknown upstream preprocessing and workspace history, the corrected-legend gap,
 validation-patient independence and external scientific review remain open.
-External outreach stays on hold. The next independent step is to specify and
-test the source adapter and complete the research-execution preflight. Synthetic
+External outreach stays on hold. The next independent step is to complete the
+research-execution preflight: a probe of the current runtime on a cgroup v2 host
+and a pinned-image rerun of the adapter fixture after the attestation changes. Synthetic
 success neither reproduces the published result nor establishes clinical validity.
