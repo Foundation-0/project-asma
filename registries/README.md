@@ -86,12 +86,16 @@ read and why.
   `unrestricted`. It is not research-use clearance. See the
   [source-adapter report](../docs/pilot-001-source-adapter.md).
 - `pilot-001-owner-attestations.json` does not exist in this repository. Only
-  the owner creates or edits it; automated sessions must never do so. It holds
-  `schema_version: 1` and an `attestations` list. Each entry has exactly `id`,
-  `date` (YYYY-MM-DD), `execution_context` and `instruction`.
-  `load_pinned_sources()` refuses to run unless its `owner_attestation` matches
-  an entry `id`. This guards against accidental calls; it is not a security
-  boundary and does not replace Gate 0 of the [roadmap](../docs/roadmap.md).
+  the owner creates or edits it, by hand in the checkout that runs; automated
+  sessions must never do so. Git ignores it, and `tools/validate.py` fails if Git
+  tracks or stages it. It holds `schema_version: 2` and an `attestations` list.
+  Each entry has exactly `id`, `date` and `expires` (YYYY-MM-DD),
+  `execution_context` and `instruction`. `load_pinned_sources()`, and
+  `parse_sources()` under any study byte pin, refuse to run unless their
+  `owner_attestation` matches an entry `id` whose `expires` day has not passed
+  (UTC). This guards against accidental calls; it is not a security boundary
+  and does not replace Gate 0 of the [roadmap](../docs/roadmap.md). The
+  [source-adapter report](../docs/pilot-001-source-adapter.md) gives the format.
 
 Recorded implementation hashes describe the code that ran. Five records (score
 verification, matrix header, author archive, author feature and source-adapter
