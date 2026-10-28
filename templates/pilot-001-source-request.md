@@ -15,7 +15,7 @@
   choose. Automated sessions must never post, retry or email it. Earlier
   automated posting attempts (refused by GitHub as “Resource not accessible by
   integration”, then retried by another route) should not have happened. The code-audit pull
-  request is open ([#7](https://github.com/Foundation-0/project-asma/pull/7)).
+  request is merged ([#7](https://github.com/Foundation-0/project-asma/pull/7)).
   Track sending in [issue #8](https://github.com/Foundation-0/project-asma/issues/8),
   and record the date and link there once sent.
 - **Status (2026-10-25).** Unsent. The owner decided that this request is
@@ -24,6 +24,9 @@
 
 No patient identifiers, labels, scores or linkage rows are included. Recruiting
 collaborators or reviewers remains on hold.
+
+The [handoff record](../docs/pilot-001-source-request-handoff.md) keeps the
+owner's final text review, sending evidence and any later answers together.
 
 ---
 
