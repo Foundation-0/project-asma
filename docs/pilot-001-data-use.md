@@ -215,7 +215,8 @@ without ingesting study values or closing these execution-context conditions.
 
 The [source-adapter follow-up](pilot-001-source-adapter.md) implements pinned-byte
 acquisition and parsing and tests them with artificial files and mocked requests.
-Its executed probe verifies 40 combined-runtime controls, including disabled Docker
-logs, while keeping processing location, actual host terms and applicable
+Its probe verified 40 combined-runtime controls on 2026-10-25 for the earlier image,
+including disabled Docker logs (the 2026-10-27 rebuild still needs its own probe),
+while keeping processing location, actual host terms and applicable
 obligations explicitly unverified. Those conditions must cover acquisition and
 Python parsing as well as R execution; no study-data run is opened by these checks.

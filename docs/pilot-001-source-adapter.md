@@ -64,31 +64,37 @@ subjects. It reverses matrix-feature, measurement and membership orders, include
 excluded missing values, and puts deliberately uninterpretable formulas in unused
 prediction cells. No study identities, symbols or measurements are included.
 
-The [execution record](../registries/pilot-001-source-adapter-validation.json)
-records the complete path from these bytes through Python parsing, private stdin
-transfer, R assembly and the actual three model packages. All **18 R bridge
-assertions** passed. An independent formula verified all 135 × 64 assembled values,
-with exact identity and outcome checks. One full fivefold repetition produced
-**405 model predictions, 135 ensemble predictions and 135 final scores**, with
-complete coverage and agreement between both AUROC calculations. Artificial
-scores and AUROC values are not retained or compared with the paper.
+The first [execution record](../registries/pilot-001-source-adapter-validation.json),
+from 2026-10-25, recorded the complete path from these bytes through Python
+parsing, private stdin transfer, R assembly and the actual three model packages.
+All **18 R bridge assertions** passed. An independent formula verified all
+135 × 64 assembled values, with exact identity and outcome checks. One full
+fivefold repetition produced **405 model predictions, 135 ensemble predictions
+and 135 final scores**, with complete coverage and agreement between both AUROC
+calculations. Artificial scores and AUROC values are not retained or compared
+with the paper. The record now holds the 2026-10-27
+[pinned-image rerun](#pinned-image-rerun-2026-10-27) instead: 19 bridge
+assertions and the same prediction counts.
 
-All **138 Python tests** passed, including 19 adapter/acquisition tests, 12
-execution-probe tests, four runner-boundary tests and nine runtime-builder tests.
-Acquisition tests mock every network dependency. The existing [100-repeat synthetic result](pilot-001-synthetic-validation.md)
-remains separate and unchanged. An independent review of
+At commit `ef1f522`, all **138 Python tests** passed, including 19
+adapter/acquisition tests, 12 execution-probe tests, four runner-boundary tests
+and nine runtime-builder tests. Acquisition tests mock every network dependency.
+The [100-repeat synthetic result](pilot-001-synthetic-validation.md) stayed
+separate and was not changed by this work; the 2026-10-27 pinned-image rerun
+later regenerated it with the same integration counts. An independent review of
 [PR #12](https://github.com/Foundation-0/project-asma/pull/12) (2026-10-25, at
 commit `ef1f522`) approved it with no blocking issues; its non-blocking items are
 addressed in the addition below. This establishes source-format behavior on fixtures;
 compatibility with the actual pinned bytes and current remote availability have
 not been tested by this adapter.
 
-The execution record preserves 25 implementation/runtime/protocol hashes and
-observed Python/Expat/zlib versions. It predates the 2026-10-25 changes to
+The first execution record preserved 25 implementation/runtime/protocol hashes
+and observed Python/Expat/zlib versions. It predated the 2026-10-25 changes to
 `R/asma_core.R`, which added the
 [amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md) output, and to
-the runner's hash list. The fixture must be rerun in the pinned image before any
-research run. A separate [combined runtime record](../registries/pilot-001-source-adapter-runtime.json)
+the runner's hash list, so the fixture had to be rerun in the pinned image. The
+2026-10-27 rerun did so; its record holds 26 hashes, now including amendment 1.
+A separate [combined runtime record](../registries/pilot-001-source-adapter-runtime.json)
 identifies the tested image. It extends the previously validated R image with
 CPython 3.12.14 from a hash-pinned official source archive and exact Ubuntu
 OpenSSL/zlib development packages matching the existing runtime libraries.
@@ -99,8 +105,10 @@ extension modules are listed as unavailable in the runtime record. No pip or
 third-party Python packages are installed, and the image is not redistributed.
 
 The builder prints only the two image IDs and its scope. No committed tool emits
-the runtime record's other fields, and the commands that produced them are not
-committed. Those fields include the `environment` block (with `compiler` and
+the runtime record's other fields. The commands that produced the 2026-10-25
+fields were not committed; the 2026-10-27 rerun below lists its commands, with
+the Python inventory command given only in outline. Those fields include the
+`environment` block (with `compiler` and
 `missing_optional_extension_modules`), `r_package_versions` and
 `base_r_inventory_unchanged`. The validation record's `transport` block is
 written as constants by the [worker](../tools/check_source_adapter.py). It
@@ -113,12 +121,12 @@ R through an internal stdin pipe. User-site initialization and bytecode writes
 are disabled. Parsing, private transfer and fitting now share the same bounded
 container; no fixture payload passes through the outer launcher.
 
-**Addition, 2026-10-25 (after the execution records above).** These changes
-address the non-blocking items of the PR #12 reviews, the PR #16 review and a
-PR #10 comment on the data rules. The records above predate them and must be
-regenerated in the pinned image. Ten files hashed by the
-[validation record](../registries/pilot-001-source-adapter-validation.json) now
-differ from it:
+**Addition, 2026-10-25 (after the first execution records above).** These
+changes address the non-blocking items of the PR #12 reviews, the PR #16 review
+and a PR #10 comment on the data rules. The 2026-10-25 records predated them. At
+the time, ten files hashed by the
+[validation record](../registries/pilot-001-source-adapter-validation.json)
+differed from it:
 - changed here: `tools/source_data_adapter.py`, `R/asma_source.R`,
   `tools/build_source_adapter_runtime.py`, `tests/test_source_data_adapter.py`,
   `tests/r/test_source.R` and `tests/test_source_adapter_runtime.py`;
@@ -127,6 +135,9 @@ differ from it:
   `tools/run_source_adapter_fixture.py`;
 - changed by the shared loader's guard: `tools/audit_published_cohorts.py`
   (see the [registry guide](../registries/README.md)).
+
+The 2026-10-27 [pinned-image rerun](#pinned-image-rerun-2026-10-27) regenerated
+the record, after which all of its hashes matched.
 
 - **Direct tests for four checks.** New tests reject each of these:
   - a duplicated matrix symbol while every panel symbol is present;
@@ -154,9 +165,9 @@ differ from it:
 - **Source-pin flag.** `source_pins_verified` is true only under the default
   contract (omitted, or an equal copy). Any other contract sets
   `fixture_contract` instead. Its echoed fingerprints, such as `member_sha256`,
-  are then the caller's pins, not the study's. The validation record above
-  shows `source_pins_verified: true` for fixture pins; a rerun reports
-  `fixture_contract: true`.
+  are then the caller's pins, not the study's. The 2026-10-25 validation record
+  showed `source_pins_verified: true` for fixture pins; the 2026-10-27 rerun
+  record shows `source_pins_verified: false` and `fixture_contract: true`.
 - **Owner attestation for acquisition.** `load_pinned_sources()` needs a
   keyword-only `owner_attestation` identifier. It must match an entry `id` in
   `registries/pilot-001-owner-attestations.json`. An absent or malformed file,
@@ -165,8 +176,9 @@ differ from it:
   repository, and automated sessions must never create or edit it. This guards
   against accidental calls. It is not a security boundary: code that can edit
   files could forge an entry, which the [agent guidance](../AGENTS.md) forbids.
-  It does not replace the Gate 0 conditions. The 2026-10-27 addition below
-  extends it and gives the current file format.
+  It does not replace the Gate 0 conditions. The
+  [owner-attestation follow-ups](#owner-attestation-follow-ups-2026-10-27) below
+  extend it and give the current file format.
 - **Excluded values stay missing.** Values of measurements outside the selected
   samples are no longer decoded or converted; they are returned as `null`. The
   R bridge already accepts missing excluded values, and identity and geometry
@@ -196,7 +208,9 @@ The failure categories are:
 Docker and the pinned image were not available for these changes when they were
 made. The Python tests and the fixture bridge then ran only in a development
 environment (Python 3.13, conda-forge R 4.4.3 with the pinned package versions).
-The pinned-image rerun below now covers them.
+The pinned-image rerun below covers the fixture bridge and the adapter's
+parsing of the generated fixture inside the image; the Python unit tests were not
+run inside the image.
 
 ## Pinned-image rerun, 2026-10-27
 
@@ -216,7 +230,10 @@ docker run --rm --network none --read-only --tmpfs /tmp --entrypoint Rscript <im
 ```
 
 Every observed Python field and all 41 R package versions equal the 2026-10-25
-record. That shows inventory equality, not bit-identical binaries.
+record. That shows inventory equality, not bit-identical binaries. The record's
+`rebuild` block is written by hand. Its `base_rebuilt: true` means the R base was
+rebuilt since the prior runtime. It is not the builder's field of that name,
+which marks a build made with `--accept-rebuilt-base`; this build did not use it.
 
 - **Fixture validation passed.** `python3 tools/run_source_adapter_fixture.py`
   ran all **19 R bridge assertions** (18 before #16), the independent value
@@ -224,7 +241,8 @@ record. That shows inventory equality, not bit-identical binaries.
   ensemble predictions and 135 final scores, complete coverage and agreeing
   AUROC formulations. All 26 implementation hashes in the new
   [validation record](../registries/pilot-001-source-adapter-validation.json)
-  match the committed files.
+  matched the committed files at that commit (`566b605`). The attestation
+  follow-ups below have since changed two of them.
 - **The probe could not run on this host.** `python3 tools/probe_execution_conditions.py`
   failed closed, as designed. The host's Docker uses cgroup v1, so
   `/sys/fs/cgroup/{memory,cpu,pids}.max` do not exist inside the container and the
@@ -236,12 +254,14 @@ record. That shows inventory equality, not bit-identical binaries.
   it does not describe the rebuilt image. A probe of the current runtime on a
   cgroup v2 host is still needed before any research run.
 
-**Addition, 2026-10-27.** These changes address the three follow-up notes of the
+## Owner-attestation follow-ups, 2026-10-27
+
+These changes address the three follow-up notes of the
 [#16 approving review](https://github.com/Foundation-0/project-asma/pull/16#pullrequestreview-5660779406).
-They change `tools/source_data_adapter.py` and
-`tests/test_source_data_adapter.py`, so both differ from any validation record
-made before this change; a pinned-image rerun after it is needed before any
-real-file check.
+They merged after the pinned-image rerun above and change
+`tools/source_data_adapter.py` and `tests/test_source_data_adapter.py`, so both
+differ from its validation record. A pinned-image rerun after them is needed
+before any real-file check.
 - **The real-source input check needs the attestation too.** `parse_sources()`
   takes a keyword-only `owner_attestation`. If any SHA-256 pin in its contract
   (the member's compressed or uncompressed SHA-256, or either workbook's), in
@@ -286,7 +306,12 @@ real-file check.
 The [technical probe](../tools/probe_execution_conditions.py) reads actual kernel
 and Docker state, rather than accepting invocation flags alone. Its
 [aggregate record](../registries/pilot-001-execution-conditions.json) reports
-**40/40 checks passed** for the combined runtime:
+**40/40 checks passed** for the 2026-10-25 combined runtime (`sha256:e1bd961e…`,
+now under `prior_runtime` in the
+[runtime record](../registries/pilot-001-source-adapter-runtime.json)). The
+2026-10-27 rebuild has no probe record yet (see the
+[pinned-image rerun](#pinned-image-rerun-2026-10-27)). The earlier probe
+observed:
 
 - Read-only root and checkout, owner UID, all capabilities dropped and no new
   privileges; only loopback interfaces and no IPv4 routes.
@@ -297,20 +322,20 @@ and Docker state, rather than accepting invocation flags alone. Its
 - Python 3.12.14 and isolated/no-user-site/no-bytecode startup, with matching
   cgroup, mount namespace and network namespace for the Python and R processes.
 
-The outer executor exposes no active swap devices, but its parent swap ceiling
-is unbounded. That observation does not certify provider snapshots, monitoring,
-erasure, unseen ancestor limits or future host configuration. The managed
-environment tool reports current connectivity and enforced HTTP policy; it
-exposes no processing region, governing hosting contract or retention evidence.
-Only this allowlisted observation is retained, without account or environment IDs.
-The probe does not emit it: `managed_environment_observation` was added to the
-record separately. It reports the outer machine's network policy mode as
-`unrestricted`. The container runs with networking disabled, but the machine that
-runs it has no network restriction.
+On 2026-10-25 the outer executor exposed no active swap devices, but its parent
+swap ceiling was unbounded. That observation does not certify provider snapshots,
+monitoring, erasure, unseen ancestor limits or future host configuration. The
+managed environment tool reported connectivity and an enforced HTTP policy at
+that time; it exposed no processing region, governing hosting contract or
+retention evidence. Only this allowlisted observation is retained, without
+account or environment IDs. The probe does not emit it:
+`managed_environment_observation` was added to the record separately. It records
+the outer machine's network policy mode then as `unrestricted`: the container ran
+with networking disabled, but the machine that ran it had no network restriction.
 
 | Execution condition | Disposition |
 | --- | --- |
-| Combined runtime technical controls | Observed PASS on this run; rerun the probe on the actual execution host |
+| Combined runtime technical controls | Observed PASS for the 2026-10-25 runtime; the current runtime needs its own probe on a cgroup v2 host, then on the actual execution host |
 | Python parsing, private transfer and R fitting | Tested together in the pinned container; repeat checks on the actual research host, on study values only after the owner's sign-off in Gate 0 |
 | Live acquisition | Implemented and mock-tested; network access, CA trust and data handling on the actual host still require verification, and the owner's sign-off in Gate 0, before study bytes are acquired |
 | Actual processing and operator research location | UNKNOWN; requires evidence of the actual research and processing setting |

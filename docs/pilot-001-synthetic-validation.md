@@ -13,17 +13,18 @@ It contains no fixture predictions or clinical performance result.
 | Component | Executed checks |
 | --- | --- |
 | [Input assembly](../R/asma_input.R) | 41 assertions: exact identities, complete replicate groups, exclusions, panel/order checks, hand-calculated means, retained missing location, and rejection of conflicting or missing inputs |
-| [Folds and aggregation](../R/asma_core.R) | 77 assertions: patient-disjoint and balanced folds, RNG preservation, row-order invariance, complete prediction coverage, deterministic averaging, independent AUROC formulas, and sanitized errors/output |
-| [Model adapters](../R/asma_models.R) | 31 assertions with actual glmnet, XGBoost and randomForest fits: pinned versions, deterministic reruns, prediction order, input preservation, and unchanged predictions when unrelated held-out rows change |
+| [Folds and aggregation](../R/asma_core.R) | 87 assertions (77 in the first record; the additions are described below): patient-disjoint and balanced folds, RNG preservation, row-order invariance, complete prediction coverage, deterministic averaging, independent AUROC formulas, and sanitized errors/output |
+| [Model adapters](../R/asma_models.R) | 51 assertions (31 in the first record; the additions are described below) with actual glmnet, XGBoost and randomForest fits: pinned versions, deterministic reruns, prediction order, input preservation, and unchanged predictions when unrelated held-out rows change |
 | Full integration | 135 artificial subjects × 64 features; 100 repetitions × 5 outer folds; 40,500 model predictions, 13,500 ensemble predictions and 135 final scores; complete coverage and agreement between pairwise and rank-based AUROC calculations |
 
 The model fixture carries no label signal, so these assertions do not show that
-each model scores refractory (class 1) higher. A planted-signal direction test is
-an open pre-run requirement in the
-[reconstruction contract](../protocols/pilot-001-independent-reconstruction.md).
+each model scores refractory (class 1) higher. A planted-signal direction test
+was added as a pre-run requirement of the
+[reconstruction contract](../protocols/pilot-001-independent-reconstruction.md);
+it passed in the pinned image on 2026-10-27 (see below).
 
-**Addition, 2026-10-25 (after the execution record above).** The record and the
-149-assertion count predate these tests.
+**Addition, 2026-10-25 (after the first execution record).** The first record and
+its 149-assertion count predated these tests; the 2026-10-27 rerun covers them.
 
 - **Direction.** A planted-signal fixture adds a fixed shift of 1.5 on eight
   artificial features for class 1. For the elastic net, XGBoost and the random
@@ -144,8 +145,9 @@ matching build.
 
 Other components differ from the pinned image: Rcpp 1.1.2 (pinned 1.0.14),
 Matrix 1.7-6 (recorded 1.7-2), survival 3.8-12 and lattice 0.23-1, and the conda
-compiler toolchain. Each model's fixture AUROC was 1.0. The pinned-image rerun
-below supersedes this requirement.
+compiler toolchain. Each model's fixture AUROC was 1.0. A pinned-image rerun of
+all 179 assertions, with a regenerated execution record, was required before any
+research run; the 2026-10-27 rerun below meets it.
 
 ## Pinned-image rerun, 2026-10-27
 
@@ -154,10 +156,12 @@ digest, hash-checked CRAN sources, build networking disabled) and both runners
 were executed in it. Results, now in the
 [execution record](../registries/pilot-001-synthetic-validation.json):
 
-- **All 179 R assertions passed** (41 input, 87 core, 51 model) in 14.7 seconds,
-  including the planted-signal direction test, the golden fold vectors, the
-  fold-wiring check, the fitted-settings checks and the amendment 1 code. This is
-  the first run of those tests on the pinned toolchain (Rcpp 1.0.14, Matrix 1.7-2).
+- **All 179 R assertions passed** (41 input, 87 core, 51 model), including the
+  planted-signal direction test, the golden fold vectors, the fold-wiring check,
+  the fitted-settings checks and the amendment 1 code. A separate run without
+  `--full` (the R runner's `--tests` mode) took 14.7 seconds; its output was not
+  committed, and the record is the `--full` run below. These are the first runs
+  of those tests on the pinned toolchain (Rcpp 1.0.14, Matrix 1.7-2).
 - **The full 100-repeat integration passed** in 104.9 seconds: 40,500 model
   predictions, 13,500 ensemble predictions and 135 final scores, complete
   coverage, and agreement between the pairwise and rank-based AUROC calculations.
@@ -174,9 +178,10 @@ The development-environment results above (mutation runs, the 1.0 fixture
 AUROCs and the amendment 1 fixture probes) were not repeated here; only the
 committed suites were run.
 
-The full run, including all 149 assertions, took 57.619 seconds inside R on the
-recorded environment. This is an observed fixture runtime, not a compute estimate
-for source ingestion or a scientific performance measurement. No artificial
+The first full run (2026-10-25), including 149 assertions, took 57.619 seconds
+inside R; the 2026-10-27 recorded run, including 179, took 104.858 seconds.
+These are observed fixture runtimes, not compute estimates for source ingestion
+or a scientific performance measurement. No artificial
 AUROC is compared with the paper's 0.83 or the existing supplied-score result.
 
 The [fixture generator](../tests/r/synthetic_fixture.R) constructs abstract keys,
@@ -224,8 +229,8 @@ The [Python runtime tests](../tests/test_synthetic_runtime.py) check hash/size
 failures, bounded downloads, source selection, local daemon configuration,
 execution controls, timeout cleanup, sanitized cleanup failures and rejection
 of dataset arguments. They run offline without Docker; the separate R run
-provides actual package and container integration evidence. The final offline
-validator and all 94 Python tests passed. An independent
+provides actual package and container integration evidence. At `2c9d68a`
+(2026-10-25), the offline validator and all 94 Python tests passed. An independent
 [review of the pipeline PR](https://github.com/Foundation-0/project-asma/pull/11#pullrequestreview-5641905944)
 (2026-10-25, at `2c9d68a`) verified all 15 recorded implementation hashes and the
 package pins. Its one blocking finding was that probability direction was
@@ -256,15 +261,18 @@ bit-identical rebuilds or identical scores across platforms.
 
 ## Remaining work
 
-The synthetic entry point accepts no study-file path or URL. A future source
-adapter must revalidate the pinned member/workbook bytes, parse values without
-persistent patient files, and pass the existing exact input contracts. The
+The synthetic entry point accepts no study-file path or URL. The
+[source adapter](pilot-001-source-adapter.md) revalidates the pinned
+member/workbook bytes, parses values in memory and passes them to the same input
+contracts. It has been tested only with generated fixtures, most recently in the
+2026-10-27 pinned-image rerun, and has not read study bytes. The
 [data-use disposition](pilot-001-data-use.md) still requires a supported actual
 jurisdiction, host and applicable review/privacy context before study-data fitting.
 The current fixture run does not establish those conditions.
 
 Unknown upstream preprocessing and workspace history, the corrected-legend gap,
 validation-patient independence and external scientific review remain open.
-External outreach stays on hold. The next independent step is to specify and
-test the source adapter and complete the research-execution preflight. Synthetic
+External outreach stays on hold. The next independent step is to complete the
+research-execution preflight: a probe of the current runtime on a cgroup v2 host
+and a pinned-image rerun of the adapter fixture after the attestation changes. Synthetic
 success neither reproduces the published result nor establishes clinical validity.

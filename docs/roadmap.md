@@ -1,6 +1,6 @@
 # Roadmap
 
-Status: updated 2026-10-25. The scaffold,
+Status: updated 2026-10-27. The scaffold,
 [static feasibility audit](pilot-001-feasibility-audit.md), and
 [public input/linkage investigation](pilot-001-input-resolution.md) are completed.
 Executed metadata checks advance Gates 0–1; they do not close the remaining
@@ -59,16 +59,19 @@ The [source adapter and execution check](pilot-001-source-adapter.md) now valida
 generated source-format files through the actual model pipeline. At commit `ef1f522`, which
 added the adapter, all 138 Python tests and 18 new R bridge assertions passed; the
 [execution-conditions record](../registries/pilot-001-execution-conditions.json)
-lists 40 observed combined-runtime controls, all passed. The source adapter has not ingested study bytes. The next step is to select
+lists 40 observed combined-runtime controls, all passed, for the 2026-10-25 image
+(now `prior_runtime`); the 2026-10-27 rebuild has no probe record yet. The source
+adapter has not ingested study bytes. The next step is to select
 and assess an actual execution context, including host terms and applicable
 obligations, and verify the combined runtime on that host. Live acquisition of study
 files follows only after the owner's sign-off in Gate 0. Keep historical uncertainties explicit; do not repair them silently
 to improve agreement. Research fitting remains conditional on the data-use disposition
 and on the owner's sign-off in Gate 0. Before any research run, also resolve the
-open items in the [reconstruction contract](../protocols/pilot-001-independent-reconstruction.md):
-a per-model planted-signal direction test, a fixed sensitivity configuration and
-the per-repetition AUROC distribution. No researcher contact
-is needed for the software preparation. The 2025 fallback remains unadopted.
+remaining open items in the [reconstruction contract](../protocols/pilot-001-independent-reconstruction.md):
+a fixed sensitivity configuration and the per-repetition AUROC distribution. The
+per-model planted-signal direction test passed in the pinned image on
+2026-10-27. No researcher contact is needed for the software preparation. The
+2025 fallback remains unadopted.
 
 Pending owner decision (2026-10-25), required before any research run: accept or
 reject [reconstruction amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md).
@@ -93,7 +96,11 @@ and source-adapter execution records (179 R assertions, the full 100-repeat run
 and 19 bridge assertions; see the
 [synthetic validation](pilot-001-synthetic-validation.md#pinned-image-rerun-2026-10-27)).
 The execution-condition probe could not run on that cgroup v1 host and still
-needs a cgroup v2 execution context.
+needs a cgroup v2 execution context. The owner-attestation follow-ups
+([#22](https://github.com/Foundation-0/project-asma/pull/22)) then changed
+`tools/source_data_adapter.py` and `tests/test_source_data_adapter.py`, so the
+adapter fixture validation needs another pinned-image rerun before any real-file
+check.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
