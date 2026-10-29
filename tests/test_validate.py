@@ -166,10 +166,16 @@ class ScaffoldChecks(unittest.TestCase):
         git("add", "registries/sources.json")
         # Present but untracked is how the owner keeps it.
         self.assertEqual(validate.attestation_errors(self.root), [])
-        # Committed and unchanged: nothing is staged, but Git still tracks it.
-        git("add", "--", name)
+        # Committed and unchanged: nothing is staged, but Git still tracks it. -f gets past a global
+        # excludes file that lists it.
+        git("add", "-f", "--", name)
         git(*commit)
         self.assertTrue(flagged(self.root))
+        # Pathspec settings that a surrounding Git command exports, e.g. to its hooks, change nothing.
+        for variable in ("GIT_LITERAL_PATHSPECS", "GIT_GLOB_PATHSPECS", "GIT_NOGLOB_PATHSPECS",
+                         "GIT_ICASE_PATHSPECS"):
+            with mock.patch.dict(os.environ, {variable: "1"}):
+                self.assertTrue(flagged(self.root), variable)
         self.assertTrue(any("tracked or staged" in error for error in validate.validate(self.root)))
         git("rm", "-q", "--cached", "--", name)
         git(*commit)
@@ -198,7 +204,7 @@ class ScaffoldChecks(unittest.TestCase):
                         str(self.root / "separate.git")], check=True, capture_output=True)
         self.assertTrue((separate / ".git").is_file())
         (separate / name).write_text("{}")
-        subprocess.run(["git", "-C", str(separate), "add", "--", name], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(separate), "add", "-f", "--", name], check=True, capture_output=True)
         self.assertTrue(flagged(separate))
         # If Git cannot answer, the check fails closed and says why when it can.
         with mock.patch.object(validate.subprocess, "run", side_effect=OSError("abstract reason")):

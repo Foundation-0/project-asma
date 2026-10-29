@@ -188,8 +188,9 @@ def attestation_errors(root):
         return []
     reason = ""
     try:
-        listed = subprocess.run(["git", "-C", str(root), "ls-files", "-z", "--", ":(icase)registries"],
-                                capture_output=True, timeout=60)
+        # No pathspec: under GIT_LITERAL_PATHSPECS, which `git --literal-pathspecs` exports to hooks,
+        # a magic pathspec would match nothing and the check would pass.
+        listed = subprocess.run(["git", "-C", str(root), "ls-files", "-z"], capture_output=True, timeout=60)
         if listed.returncode != 0:
             reason = next(iter(listed.stderr.decode("utf-8", "replace").strip().splitlines()), "")
     except (OSError, subprocess.SubprocessError) as error:
