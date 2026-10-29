@@ -2,6 +2,7 @@
 
 import datetime as dt
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -184,18 +185,23 @@ def local_link_errors(root):
 
 def attestation_errors(root):
     """Fail if Git tracks or stages the owner's attestation file, in any letter case."""
-    if not (root / ".git").exists():
-        return []
     reason = ""
     try:
         # No pathspec: under GIT_LITERAL_PATHSPECS, which `git --literal-pathspecs` exports to hooks,
-        # a magic pathspec would match nothing and the check would pass.
-        listed = subprocess.run(["git", "-C", str(root), "ls-files", "-z"], capture_output=True, timeout=60)
+        # a magic pathspec would match nothing and the check would pass. LC_ALL=C keeps Git's
+        # messages in English for the check below.
+        listed = subprocess.run(["git", "-C", str(root), "ls-files", "-z"], capture_output=True, timeout=60,
+                                env={**os.environ, "LC_ALL": "C", "LANGUAGE": "C"})
         if listed.returncode != 0:
             reason = next(iter(listed.stderr.decode("utf-8", "replace").strip().splitlines()), "")
     except (OSError, subprocess.SubprocessError) as error:
         listed, reason = None, str(error)
     if listed is None or listed.returncode != 0:
+        # A tree outside any repository, e.g. an export, has nothing to commit. Git decides that, not
+        # the lack of a .git entry in root: a parent repository can track root too.
+        outside = listed is None or reason.startswith("fatal: not a git repository")
+        if outside and not (root / ".git").exists():
+            return []
         return [f"{OWNER_ATTESTATIONS}: cannot check whether Git tracks it"
                 + (f" (git: {reason})" if reason else "")]
     tracked = listed.stdout.decode("utf-8", "replace").split("\0")

@@ -163,7 +163,7 @@ class ScaffoldChecks(unittest.TestCase):
         git("init", "-q")
         (self.root / name).write_text("{}")
         (self.root / "registries/sources.json").write_text("{}")
-        git("add", "registries/sources.json")
+        git("add", "-f", "registries/sources.json")
         # Present but untracked is how the owner keeps it.
         self.assertEqual(validate.attestation_errors(self.root), [])
         # Committed and unchanged: nothing is staged, but Git still tracks it. -f gets past a global
@@ -206,6 +206,14 @@ class ScaffoldChecks(unittest.TestCase):
         (separate / name).write_text("{}")
         subprocess.run(["git", "-C", str(separate), "add", "-f", "--", name], check=True, capture_output=True)
         self.assertTrue(flagged(separate))
+        # A parent repository can track root, which then has no .git entry of its own.
+        parent = self.root / "parent"
+        (parent / "asma/registries").mkdir(parents=True)
+        (parent / "asma" / name).write_text("{}")
+        for arguments in (("init", "-q"), ("add", "-f", "--", f"asma/{name}")):
+            subprocess.run(["git", "-C", str(parent), *arguments], check=True, capture_output=True)
+        self.assertFalse((parent / "asma/.git").exists())
+        self.assertTrue(flagged(parent / "asma"))
         # If Git cannot answer, the check fails closed and says why when it can.
         with mock.patch.object(validate.subprocess, "run", side_effect=OSError("abstract reason")):
             self.assertIn("(git: abstract reason)", validate.attestation_errors(self.root)[0])
@@ -215,6 +223,14 @@ class ScaffoldChecks(unittest.TestCase):
                 errors = validate.attestation_errors(self.root)
             message = f"{name}: cannot check whether Git tracks it"
             self.assertEqual(errors, [message + (f" {shown}" if shown else "")])
+        # Without a .git entry, only Git's own "not a git repository" means there is nothing to check.
+        exported = self.root / "exported"
+        exported.mkdir()
+        outside = b"fatal: not a git repository (or any of the parent directories): .git\n"
+        for stderr, expected in ((outside, 0), (b"fatal: detected dubious ownership in repository\n", 1)):
+            failed = subprocess.CompletedProcess([], 128, b"", stderr)
+            with mock.patch.object(validate.subprocess, "run", return_value=failed):
+                self.assertEqual(len(validate.attestation_errors(exported)), expected, stderr)
 
     @unittest.skipUnless(shutil.which("git") and (validate.ROOT / ".git").exists(), "no Git checkout")
     def test_repository_ignores_the_owner_attestation_file(self):
