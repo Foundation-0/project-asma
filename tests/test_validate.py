@@ -150,7 +150,8 @@ class ScaffoldChecks(unittest.TestCase):
     def test_owner_attestation_file_must_not_be_tracked_or_staged(self):
         self.isolated_git()
         def git(*arguments):
-            subprocess.run(["git", "-C", str(self.root), *arguments], check=True, capture_output=True)
+            return subprocess.run(["git", "-C", str(self.root), *arguments], check=True, capture_output=True,
+                                  text=True).stdout
         def flagged(root):
             errors = validate.attestation_errors(root)
             return bool(errors) and all("tracked or staged" in error for error in errors)
@@ -173,13 +174,22 @@ class ScaffoldChecks(unittest.TestCase):
         git("rm", "-q", "--cached", "--", name)
         git(*commit)
         self.assertEqual(validate.attestation_errors(self.root), [])
-        for spelling in (name, name.replace("pilot", "Pilot"), name.replace("registries", "Registries")):
-            (self.root / spelling).parent.mkdir(exist_ok=True)
-            (self.root / name).rename(self.root / spelling)
-            git("add", "--", spelling)
-            self.assertTrue(flagged(self.root), spelling)
-            git("rm", "-q", "--cached", "--", spelling)
-            (self.root / spelling).rename(self.root / name)
+        # Any letter case is caught. The entries go straight into the index: on a case-insensitive
+        # filesystem, where Git sets core.ignorecase, `git add` would fold Registries/ into the
+        # registries/ directory Git already tracks. Both settings are tried, as either checkout has it.
+        # Appended last to GIT_CONFIG_PARAMETERS, each beats any setting from the environment and also
+        # reaches the validator's own Git call.
+        blob = git("hash-object", "-w", "--", name).strip()
+        spellings = (name, name.replace("pilot", "Pilot"), name.replace("registries", "Registries"))
+        outer = os.environ.get("GIT_CONFIG_PARAMETERS", "")
+        for ignorecase in ("false", "true"):
+            parameters = f"{outer} 'core.ignorecase={ignorecase}'".strip()
+            with mock.patch.dict(os.environ, GIT_CONFIG_PARAMETERS=parameters):
+                for spelling in spellings:
+                    git("update-index", "--add", "--cacheinfo", "100644", blob, spelling)
+                    self.assertIn(spelling, git("ls-files", "-z").split("\0"), (ignorecase, spelling))
+                    self.assertTrue(flagged(self.root), (ignorecase, spelling))
+                    git("update-index", "--force-remove", "--", spelling)
         self.assertEqual(validate.attestation_errors(self.root), [])
         # A checkout whose .git is a file, as in a worktree, is checked too.
         separate = self.root / "separate"
