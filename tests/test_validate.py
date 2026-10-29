@@ -176,14 +176,16 @@ class ScaffoldChecks(unittest.TestCase):
         self.assertEqual(validate.attestation_errors(self.root), [])
         # Any letter case is caught. The entries go straight into the index: on a case-insensitive
         # filesystem, where Git sets core.ignorecase, `git add` would fold Registries/ into the
-        # registries/ directory Git already tracks. Both settings are tried, as either checkout has it.
+        # registries/ directory Git already tracks. Both settings are tried, as either checkout has it;
+        # -c takes precedence over any setting from the environment.
         blob = git("hash-object", "-w", "--", name).strip()
         for ignorecase in ("false", "true"):
-            git("config", "core.ignorecase", ignorecase)
+            setting = ("-c", f"core.ignorecase={ignorecase}")
             for spelling in (name, name.replace("pilot", "Pilot"), name.replace("registries", "Registries")):
-                git("update-index", "--add", "--cacheinfo", "100644", blob, spelling)
+                git(*setting, "update-index", "--add", "--cacheinfo", "100644", blob, spelling)
+                self.assertIn(spelling, git(*setting, "ls-files", "-z").split("\0"), (ignorecase, spelling))
                 self.assertTrue(flagged(self.root), (ignorecase, spelling))
-                git("update-index", "--force-remove", "--", spelling)
+                git(*setting, "update-index", "--force-remove", "--", spelling)
         self.assertEqual(validate.attestation_errors(self.root), [])
         # A checkout whose .git is a file, as in a worktree, is checked too.
         separate = self.root / "separate"
