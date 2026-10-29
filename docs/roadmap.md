@@ -1,10 +1,22 @@
 # Roadmap
 
-Status: updated 2026-10-27. The scaffold,
+Status: updated 2026-10-29. The scaffold,
 [static feasibility audit](pilot-001-feasibility-audit.md), and
 [public input/linkage investigation](pilot-001-input-resolution.md) are completed.
 Executed metadata checks advance Gates 0–1; they do not close the remaining
 method, input, corrected-supplement or scientific-review requirements.
+
+The [validation-capacity analysis](pilot-001-validation-capacity.md) now makes
+the high-specificity limitation quantitative using existing aggregate counts.
+The candidate subset has 13 sensitive patients. Even perfect observed
+specificity would give a one-sided 95% lower bound of 79.4%, under independent
+binomial sampling and a fixed threshold. The favorable-outcome minimum for a
+98% lower bound is 149 independent sensitive patients with zero false positives.
+Use the current cohort for exploratory work; a future confirmatory design needs
+more independent patients and a separate power calculation. The
+[held-out evaluation library](heldout-evaluation.md) prepares the comparisons
+and uncertainty calculations in steps 4–5 of the pilot. It has artificial tests
+only and does not resolve input independence or authorize study-data execution.
 
 The [published-score verification](../protocols/pilot-001-score-verification.md)
 ran under the user's explicit instruction, with external review still pending.

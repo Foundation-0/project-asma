@@ -1,7 +1,7 @@
 # Registries
 
 - [sources.json](sources.json): dated primary-source metadata, claim locators,
-  takeaways, verification route, and limits. S01–S25 are stable local IDs.
+  takeaways, verification route, and limits. Source IDs remain stable.
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 
@@ -11,6 +11,14 @@ coverage) come from network audits that read study files or patient-level
 metadata in memory. Regenerating them follows the bounded-inspection rule in the
 [agent guidance](../AGENTS.md): in memory, aggregates only, recording what was
 read and why.
+
+- [pilot-001-validation-capacity.json](pilot-001-validation-capacity.json):
+  deterministic offline calculation from existing documented cohort counts.
+  It reports exact best-case specificity limits and minimum all-correct sample
+  sizes, not observed model performance. Regenerate with
+  `python3 tools/analyze_validation_capacity.py`; no study files are acquired.
+  The [report](../docs/pilot-001-validation-capacity.md) records the assumptions
+  and distinguishes the inherited class counts from a new patient-level join.
 
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,
   aggregate-only comparison of public version-1 PDC metadata. Regenerate with
