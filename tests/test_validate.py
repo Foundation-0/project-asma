@@ -176,16 +176,20 @@ class ScaffoldChecks(unittest.TestCase):
         self.assertEqual(validate.attestation_errors(self.root), [])
         # Any letter case is caught. The entries go straight into the index: on a case-insensitive
         # filesystem, where Git sets core.ignorecase, `git add` would fold Registries/ into the
-        # registries/ directory Git already tracks. Both settings are tried, as either checkout has it;
-        # -c takes precedence over any setting from the environment.
+        # registries/ directory Git already tracks. Both settings are tried, as either checkout has it.
+        # Appended last to GIT_CONFIG_PARAMETERS, each beats any setting from the environment and also
+        # reaches the validator's own Git call.
         blob = git("hash-object", "-w", "--", name).strip()
+        spellings = (name, name.replace("pilot", "Pilot"), name.replace("registries", "Registries"))
+        outer = os.environ.get("GIT_CONFIG_PARAMETERS", "")
         for ignorecase in ("false", "true"):
-            setting = ("-c", f"core.ignorecase={ignorecase}")
-            for spelling in (name, name.replace("pilot", "Pilot"), name.replace("registries", "Registries")):
-                git(*setting, "update-index", "--add", "--cacheinfo", "100644", blob, spelling)
-                self.assertIn(spelling, git(*setting, "ls-files", "-z").split("\0"), (ignorecase, spelling))
-                self.assertTrue(flagged(self.root), (ignorecase, spelling))
-                git(*setting, "update-index", "--force-remove", "--", spelling)
+            parameters = f"{outer} 'core.ignorecase={ignorecase}'".strip()
+            with mock.patch.dict(os.environ, GIT_CONFIG_PARAMETERS=parameters):
+                for spelling in spellings:
+                    git("update-index", "--add", "--cacheinfo", "100644", blob, spelling)
+                    self.assertIn(spelling, git("ls-files", "-z").split("\0"), (ignorecase, spelling))
+                    self.assertTrue(flagged(self.root), (ignorecase, spelling))
+                    git("update-index", "--force-remove", "--", spelling)
         self.assertEqual(validate.attestation_errors(self.root), [])
         # A checkout whose .git is a file, as in a worktree, is checked too.
         separate = self.root / "separate"
