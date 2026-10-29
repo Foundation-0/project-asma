@@ -1,5 +1,6 @@
 """Static checks for the two site pages: no third-party requests, working same-page links, withheld values."""
 
+import html
 from html.parser import HTMLParser
 from pathlib import Path
 import re
@@ -10,7 +11,8 @@ PAGES = ("index.html", "404.html")
 STYLES = ("assets/f0.css", "page.css")
 # Public reports carry only reviewed aggregates (docs/reproducibility-and-data.md). Until external review is
 # recorded, the site withholds the preliminary AUROC and the pair counts behind it, the rebuilt cohort counts,
-# the linkage and feature counts, and the panel-coverage results.
+# the linkage and feature counts, and the panel-coverage results. Drop or narrow a pattern once a reviewed aggregate
+# legitimately contains it; until then any match fails.
 WITHHELD = (r"0\.8088", r"(?<![\d.])0\.81(?!\d)", r"(?<![\d.])0\.191(?!\d)", r"0\.0211", r"3,491",
             r"(?<![\d.,])168(?![\d,])", r"8,?800", r"(?<![\d.,])61 frozen", r"(?<![\d.,])20 FFPE",
             r"64 ?/ ?64", r"(?<![\d.,])0 of 64")
@@ -35,6 +37,8 @@ class Page(HTMLParser):
             self.loads.append(attrs.get("href", ""))
         if attrs.get("src"):
             self.loads.append(attrs["src"])
+        if attrs.get("srcset"):
+            self.loads.extend(candidate.split()[0] for candidate in attrs["srcset"].split(",") if candidate.strip())
 
 
 def page(name):
@@ -48,7 +52,9 @@ class SiteChecks(unittest.TestCase):
             for url in page(name).loads:
                 self.assertNotRegex(url.strip(), REMOTE, f"{name} loads {url}")
         for name in PAGES + STYLES:
-            found = CSS_REMOTE.search((ROOT / name).read_text(encoding="utf-8"))
+            text = (ROOT / name).read_text(encoding="utf-8")
+            # Decode character references, as a browser does before reading an inline style.
+            found = CSS_REMOTE.search(html.unescape(text) if name in PAGES else text)
             self.assertIsNone(found, f"{name} loads {found and found.group()}")
 
     def test_same_page_links_have_targets(self):
