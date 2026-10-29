@@ -29,9 +29,11 @@ The owner fills these fields only after sending:
 Keep recipient addresses and private correspondence outside this repository.
 This table is the canonical sending record. Once it is filled,
 [issue #8](https://github.com/Foundation-0/project-asma/issues/8) and the request
-header should point to it (for example, "sent YYYY-MM-DD, see handoff record")
-rather than duplicating the date and link. This draft must not close that issue
-before sending is recorded.
+header should point to it (for example, "sent; see handoff record")
+rather than duplicating the date and link. Automated sessions never infer or
+record a send; the table, the header and issue #8 change only on the owner's
+explicit instruction, with the owner's evidence. Keep issue #8 open until this
+table records the send.
 
 ## Recording an answer
 
@@ -51,4 +53,7 @@ not belong in the request, replies, issue, or repository.
 - Unresolved source provenance and the score discrepancy retain their limits.
 - The owner confirms the final text and chooses whether and when to send.
 - The sending record remains empty until the owner provides evidence.
-
+- Before sending, the addendum link in the message still matches main: if
+  `docs/pilot-001-code-audit-addendum.md` changed after the pinned commit,
+  repin the link to a main commit that contains the current version and note
+  that commit under "Differences from that committed text".

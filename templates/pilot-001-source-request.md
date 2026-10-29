@@ -17,7 +17,8 @@
   integration”, then retried by another route) should not have happened. The code-audit pull
   request is merged ([#7](https://github.com/Foundation-0/project-asma/pull/7)).
   Track sending in the [handoff record](../docs/pilot-001-source-request-handoff.md),
-  and record the date and link there once sent; [issue #8](https://github.com/Foundation-0/project-asma/issues/8)
+  and record the sending details there once sent;
+  [issue #8](https://github.com/Foundation-0/project-asma/issues/8)
   should point to that record.
 - **Status (2026-10-25).** Unsent. The owner decided that this request is
   authorized as a draft only and that the owner alone decides whether and when
@@ -97,7 +98,7 @@ Could you clarify these remaining reproduction inputs?
 
 Our reproducibility record and aggregate-only checking code are in the
 [Project Asma repository](https://github.com/Foundation-0/project-asma).
-The code-level questions above are documented in the code-audit addendum
-([docs/pilot-001-code-audit-addendum.md](https://github.com/Foundation-0/project-asma/blob/76bba4d4b6cc23878044bc95379f6e5417aa42b8/docs/pilot-001-code-audit-addendum.md)). Please do not share patient-level files or linkage rows publicly (for
-example, in the GitHub issue); any restricted material would need an
+The code-level questions above are documented in our [code-audit addendum](https://github.com/Foundation-0/project-asma/blob/76bba4d4b6cc23878044bc95379f6e5417aa42b8/docs/pilot-001-code-audit-addendum.md) and the records it links.
+Please do not share patient-level files or linkage rows publicly (for
+example, in a public GitHub issue); any restricted material would need an
 appropriately authorized private route.
