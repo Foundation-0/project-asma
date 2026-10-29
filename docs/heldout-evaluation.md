@@ -20,7 +20,7 @@ specificity, then freeze its return before accessing evaluation outcomes.
 Prediction is positive at `score >= threshold`. The cutoff is the smallest
 representable value above the negative-score boundary allowing at most the
 specified false-positive count. All boundary ties are excluded conservatively.
-It uses no positive calibration scores. A cutoff just above 1 means predict none.
+Positive calibration scores do not set the cutoff, but both classes are still required, so a mislabeled calibration set fails instead of passing silently. A cutoff just above 1 means predict none.
 Empirical calibration specificity is not a population guarantee. The evaluator
 accepts externally frozen thresholds. It cannot prove their selection history.
 
@@ -30,7 +30,9 @@ PR area**), Brier score, sensitivity, specificity and confusion counts. All
 inputs must be probabilities in [0,1]. A prevalence comparator uses a separately
 supplied classifier-training patient set and labels, which must be contained in the broad development
 inventory. It uses a fixed 0.5 classification threshold. Sensitivity/specificity
-differences against it are not comparisons at the same specificity target.
+differences against it are not comparisons at the same specificity target. When training prevalence is below 0.5, its thresholded sensitivity is always 0 and its specificity always 1, so those fields and their differences are structural, not model comparisons. Ranking and probability metrics remain meaningful.
+This module has no loader by design. A caller supplies keyed predictions in memory, so patient-level scores need not be persisted to reach it. Its AUROC uses half credit for ties, matching `checked_auc` in `R/asma_core.R`, which also checks pairwise agreement against rank agreement.
+
 Supply additional keyed predictions for a separately trained regularized logistic baseline. This module
 does not fit it. Set `reference_model` to a supplied model key (for example a
 regularized logistic baseline) or the default `"prevalence"`. Fix this choice
@@ -68,6 +70,8 @@ the bootstrap specificity interval is [1,1] and flagged `degenerate`, while the
 one-sided exact 95% lower specificity bound is about 79.42%. See the separate
 [validation-capacity analysis](pilot-001-validation-capacity.md) for exact
 binomial planning, source references and cohort-denominator limitations.
+
+The bootstrap block records the Python version and implementation alongside the seed, because the bootstrap index sequence is not guaranteed across interpreter versions.
 
 Before real evaluation, prospectively register cohort/endpoint eligibility,
 upstream independence evidence, model definitions, calibration design, threshold

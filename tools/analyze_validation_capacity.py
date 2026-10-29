@@ -15,9 +15,12 @@ OUTPUT = 'registries/pilot-001-validation-capacity.json'
 PINS = {
     'registries/pilot-001-supplement-summary.json':
         '69c155976f824caaec4238f968d6ddd51a332b4a366bbf70dd77c656cd57353d',
-    'docs/pilot-001-open-questions.md':
-        'dc063156d69e2289d44d861d175d057fab63c4ed85d0a6d6bca190374ae699ce',
 }
+# Exact phrase carrying the candidate split in section 4 of the
+# open-questions report. Checking this phrase, not the whole file hash,
+# means unrelated edits to that living report do not break this tool.
+SPLIT_PHRASE = 'strictly independent, with no discovery record of any kind: **21 (13/8)**'
+SPLIT_SOURCE = 'docs/pilot-001-open-questions.md'
 
 
 def positive_integer(n):
@@ -65,12 +68,19 @@ def build_result(root=ROOT):
     for path, expected in PINS.items():
         if hashlib.sha256((root / path).read_bytes()).hexdigest() != expected:
             raise ValueError('aggregate source fingerprint changed')
+    try:
+        report = (root / SPLIT_SOURCE).read_text()
+    except OSError:
+        raise ValueError('candidate split phrase changed')
+    if SPLIT_PHRASE not in report:
+        raise ValueError('candidate split phrase changed')
     source = json.loads((root / 'registries/pilot-001-supplement-summary.json').read_text())
     subset = source['published_score_subsets']['Frozen_nonoverlap_pred_scores']
     if (subset['class_counts'] != {'refractory': 12, 'sensitive': 22}
             or subset['patient_keys_not_observed_in_all_discovery'] != 21):
         raise ValueError('aggregate source counts differ')
-    # 13/8 is recorded in the pinned prose section 4, not in the JSON registry.
+    # 13/8 is checked by exact phrase in prose section 4, not by whole-file
+    # hash and not in the JSON registry.
     cohorts = [
         ('candidate_no_discovery_record', 13, 8,
          'docs/pilot-001-open-questions.md, section 4, Candidate patient-independent subsets; inherited aggregate, linkage not rerun'),

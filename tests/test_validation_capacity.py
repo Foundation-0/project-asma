@@ -61,6 +61,21 @@ class ValidationCapacityTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, '^aggregate source fingerprint changed$'):
                 capacity.build_result(root)
 
+    def test_candidate_split_phrase_drift_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            supplement = ROOT / 'registries/pilot-001-supplement-summary.json'
+            dest = root / 'registries/pilot-001-supplement-summary.json'
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_bytes(supplement.read_bytes())
+            report = (ROOT / 'docs/pilot-001-open-questions.md').read_text()
+            self.assertIn(capacity.SPLIT_PHRASE, report)
+            dest = root / 'docs/pilot-001-open-questions.md'
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_text(report.replace(capacity.SPLIT_PHRASE, 'candidate split removed'))
+            with self.assertRaisesRegex(ValueError, 'candidate split phrase changed'):
+                capacity.build_result(root)
+
     def test_committed_artifact_matches(self):
         result = capacity.build_result()
         self.assertEqual(result, json.loads((ROOT / capacity.OUTPUT).read_text()))

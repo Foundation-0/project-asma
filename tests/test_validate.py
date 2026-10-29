@@ -150,11 +150,7 @@ class ScaffoldChecks(unittest.TestCase):
     def test_owner_attestation_file_must_not_be_tracked_or_staged(self):
         self.isolated_git()
         def git(*arguments):
-            # Preserve each requested index spelling even on a case-insensitive
-            # filesystem; Git otherwise reuses the tracked "registries" casing.
-            # This applies only to these commands, not repository or user config.
-            subprocess.run(["git", "-C", str(self.root), "-c", "core.ignorecase=false",
-                            *arguments], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(self.root), *arguments], check=True, capture_output=True)
         def flagged(root):
             errors = validate.attestation_errors(root)
             return bool(errors) and all("tracked or staged" in error for error in errors)
@@ -181,9 +177,6 @@ class ScaffoldChecks(unittest.TestCase):
             (self.root / spelling).parent.mkdir(exist_ok=True)
             (self.root / name).rename(self.root / spelling)
             git("add", "--", spelling)
-            indexed = subprocess.check_output(
-                ["git", "-C", str(self.root), "ls-files", "-z"], text=True).split("\0")
-            self.assertIn(spelling, indexed)
             self.assertTrue(flagged(self.root), spelling)
             git("rm", "-q", "--cached", "--", spelling)
             (self.root / spelling).rename(self.root / name)

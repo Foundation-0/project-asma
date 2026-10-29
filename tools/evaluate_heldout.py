@@ -5,7 +5,9 @@ All outputs are aggregate; callers still need a disclosure review before release
 """
 
 import math
+import platform
 import random
+import sys
 from fractions import Fraction
 
 
@@ -46,6 +48,8 @@ def calibrate_threshold(patient_ids, labels, probabilities, specificity=0.98):
     Move just above the negative boundary, conservatively excluding all ties.
     The return can exceed 1 when a negative probability is 1 (predict none).
     This controls empirical calibration specificity, not population specificity.
+    Positive labels are required only as a sanity check that the calibration
+    labels are the intended ones; they do not set the threshold.
     """
     patients = keys(patient_ids)
     y = keyed(labels, patients, True)
@@ -184,6 +188,8 @@ def evaluate_heldout(*, patient_ids, labels, predictions, thresholds,
                 for name in differences},
             "bootstrap": {"requested": bootstrap_draws, "valid": bootstrap_draws - invalid,
                           "class_empty": invalid, "seed": seed,
+                          "python_version": platform.python_version(),
+                          "python_implementation": sys.implementation.name,
                           "interval_status": ("computed" if bootstrap_draws - invalid >= 1000
                                               else "insufficient_valid_draws"),
                           "minimum_valid_draws": 1000,

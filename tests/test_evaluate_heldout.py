@@ -2,6 +2,7 @@
 
 import copy
 from pathlib import Path
+import platform
 import random
 import sys
 import unittest
@@ -51,6 +52,11 @@ class EvaluationTests(unittest.TestCase):
         args["thresholds"]["constant"] = .5
         difference = ev.evaluate_heldout(**args)["bootstrap"]["paired_difference_95_intervals"]["constant"]
         self.assertTrue(all(interval == [0, 0] for interval in difference.values()))
+
+    def test_bootstrap_records_python_version(self):
+        result = ev.evaluate_heldout(**fixture())["bootstrap"]
+        self.assertEqual(result["python_version"], platform.python_version())
+        self.assertEqual(result["python_implementation"], sys.implementation.name)
 
     def test_order_invariance_and_rng_isolation(self):
         args = fixture()
