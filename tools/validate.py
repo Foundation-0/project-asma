@@ -185,7 +185,7 @@ def local_link_errors(root):
 
 def attestation_errors(root):
     """Fail if Git tracks or stages the owner's attestation file, in any letter case."""
-    reason = ""
+    reason, error = "", None
     try:
         # No pathspec: under GIT_LITERAL_PATHSPECS, which `git --literal-pathspecs` exports to hooks,
         # a magic pathspec would match nothing and the check would pass. LC_ALL=C keeps Git's
@@ -193,19 +193,25 @@ def attestation_errors(root):
         listed = subprocess.run(["git", "-C", str(root), "ls-files", "-z"], capture_output=True, timeout=60,
                                 env={**os.environ, "LC_ALL": "C", "LANGUAGE": "C"})
         if listed.returncode != 0:
-            reason = next(iter(listed.stderr.decode("utf-8", "replace").strip().splitlines()), "")
-    except (OSError, subprocess.SubprocessError) as error:
-        listed, reason = None, str(error)
+            # Trace output, e.g. from GIT_TRACE2, can come before Git's own message.
+            lines = listed.stderr.decode("utf-8", "replace").strip().splitlines()
+            reason = next((line for line in lines if line.startswith("fatal: ")), next(iter(lines), ""))
+    except (OSError, subprocess.SubprocessError) as caught:
+        listed, error, reason = None, caught, str(caught)
     if listed is None or listed.returncode != 0:
-        # A tree outside any repository, e.g. an export, has nothing to commit. Git decides that, not
-        # the lack of a .git entry in root: a parent repository can track root too.
-        outside = listed is None or reason.startswith("fatal: not a git repository")
+        # A tree outside any repository, e.g. an export, or on a host without Git has nothing to
+        # commit. Git decides that, not the lack of a .git entry in root: a parent repository can
+        # track root too, and so can one that GIT_DIR names.
+        outside = isinstance(error, OSError) or (reason.startswith("fatal: not a git repository")
+                                                 and "GIT_DIR" not in os.environ)
         if outside and not (root / ".git").exists():
             return []
         return [f"{OWNER_ATTESTATIONS}: cannot check whether Git tracks it"
                 + (f" (git: {reason})" if reason else "")]
-    tracked = listed.stdout.decode("utf-8", "replace").split("\0")
-    if any(name.casefold() == OWNER_ATTESTATIONS.casefold() for name in tracked):
+    # With GIT_DIR set and no work tree, Git lists paths from the repository's top, not from root.
+    target = OWNER_ATTESTATIONS.casefold()
+    tracked = listed.stdout.decode("utf-8", "replace").casefold().split("\0")
+    if any(name == target or name.endswith("/" + target) for name in tracked):
         return [f"{OWNER_ATTESTATIONS}: owner-only file is tracked or staged; remove it from Git"]
     return []
 
