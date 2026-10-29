@@ -69,12 +69,12 @@ def build_result(root=ROOT):
         if hashlib.sha256((root / path).read_bytes()).hexdigest() != expected:
             raise ValueError('aggregate source fingerprint changed')
     try:
-        report = (root / SPLIT_SOURCE).read_text()
-    except OSError:
+        report = (root / SPLIT_SOURCE).read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
         raise ValueError('candidate split phrase changed')
     if SPLIT_PHRASE not in report:
         raise ValueError('candidate split phrase changed')
-    source = json.loads((root / 'registries/pilot-001-supplement-summary.json').read_text())
+    source = json.loads((root / 'registries/pilot-001-supplement-summary.json').read_text(encoding="utf-8"))
     subset = source['published_score_subsets']['Frozen_nonoverlap_pred_scores']
     if (subset['class_counts'] != {'refractory': 12, 'sensitive': 22}
             or subset['patient_keys_not_observed_in_all_discovery'] != 21):

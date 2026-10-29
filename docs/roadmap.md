@@ -12,7 +12,7 @@ The candidate subset has 13 sensitive patients. Even perfect observed
 specificity would give a one-sided 95% lower bound of 79.4%, under independent
 binomial sampling and a fixed threshold. The favorable-outcome minimum for a
 98% lower bound is 149 independent sensitive patients with zero false positives.
-Proposed (pending owner decision): treat the current candidate cohort as
+Pending owner decision (2026-10-29): treat the current candidate cohort as
 exploratory only; a future confirmatory design needs more independent
 patients and a separate power calculation. The
 [held-out evaluation library](heldout-evaluation.md) prepares the comparisons

@@ -40,7 +40,7 @@ clinical validity, or improved patient outcomes.
 
 The **2026-10-29 [validation-capacity analysis](docs/pilot-001-validation-capacity.md)**
 uses existing aggregate counts to quantify a study-design limit. Even a hypothetical
-13 correct results out of 13 sensitive (non-refractory) patients gives a one-sided
+13 correct results out of 13 long-term-sensitive patients gives a one-sided
 95% lower specificity bound of only **79.4%**. A lower bound of 98% requires at
 least **149 independent sensitive patients with zero false positives**, under a
 fixed test threshold and binomial sampling assumptions. This is a best-case

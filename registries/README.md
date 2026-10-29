@@ -12,14 +12,6 @@ metadata in memory. Regenerating them follows the bounded-inspection rule in the
 [agent guidance](../AGENTS.md): in memory, aggregates only, recording what was
 read and why.
 
-- [pilot-001-validation-capacity.json](pilot-001-validation-capacity.json):
-  deterministic offline calculation from existing documented cohort counts.
-  It reports exact best-case specificity limits and minimum all-correct sample
-  sizes, not observed model performance. Regenerate with
-  `python3 tools/analyze_validation_capacity.py`; no study files are acquired.
-  The [report](../docs/pilot-001-validation-capacity.md) records the assumptions
-  and distinguishes the inherited class counts from a new patient-level join.
-
 - [pilot-001-linkage-summary.json](pilot-001-linkage-summary.json): executed,
   aggregate-only comparison of public version-1 PDC metadata. Regenerate with
   `python3 tools/audit_pdc_metadata.py`; no row-level identifiers are emitted.
@@ -66,6 +58,14 @@ read and why.
   per sheet and the panel column are used. It prints counts, set sizes and
   fingerprints, no symbols. These are the features tested for association, not
   proof of the rows in the archive members or the prediction workspaces.
+- [pilot-001-validation-capacity.json](pilot-001-validation-capacity.json):
+  deterministic offline calculation from existing documented cohort counts.
+  It reports exact best-case specificity limits and minimum all-correct sample
+  sizes, not observed model performance. Regenerate with
+  `python3 tools/analyze_validation_capacity.py`; no study files are acquired.
+  The [report](../docs/pilot-001-validation-capacity.md) records the assumptions
+  and distinguishes the inherited class counts from a new patient-level join.
+
 - [pilot-001-reconstruction-runtime.json](pilot-001-reconstruction-runtime.json):
   selected R 4.4.3, glmnet 4.1-8, randomForest 4.7-1.2 and XGBoost 1.7.8.1 source
   archives, computed hashes and declared license metadata. This historical

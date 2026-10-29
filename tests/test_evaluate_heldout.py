@@ -56,7 +56,7 @@ class EvaluationTests(unittest.TestCase):
     def test_bootstrap_records_python_version(self):
         result = ev.evaluate_heldout(**fixture())["bootstrap"]
         self.assertEqual(result["python_version"], platform.python_version())
-        self.assertEqual(result["python_implementation"], sys.implementation.name)
+        self.assertEqual(result["python_implementation"], "CPython")
 
     def test_order_invariance_and_rng_isolation(self):
         args = fixture()

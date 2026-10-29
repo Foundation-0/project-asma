@@ -20,24 +20,33 @@ specificity, then freeze its return before accessing evaluation outcomes.
 Prediction is positive at `score >= threshold`. The cutoff is the smallest
 representable value above the negative-score boundary allowing at most the
 specified false-positive count. All boundary ties are excluded conservatively.
-Positive calibration scores do not set the cutoff, but both classes are still required, so a mislabeled calibration set fails instead of passing silently. A cutoff just above 1 means predict none.
+Positive calibration scores do not set the cutoff. Both classes are still
+required, so a calibration set missing a class is rejected; this does not detect
+swapped or partly wrong labels. A cutoff just above 1 means predict none.
 Empirical calibration specificity is not a population guarantee. The evaluator
 accepts externally frozen thresholds. It cannot prove their selection history.
 
-`evaluate_heldout` reports AUROC (half credit for ties), grouped average precision
-(sum of precision times recall increments at distinct scores, **not trapezoidal
-PR area**), Brier score, sensitivity, specificity and confusion counts. All
-inputs must be probabilities in [0,1]. A prevalence comparator uses a separately
-supplied classifier-training patient set and labels, which must be contained in the broad development
-inventory. It uses a fixed 0.5 classification threshold. Sensitivity/specificity
-differences against it are not comparisons at the same specificity target. When training prevalence is below 0.5, its thresholded sensitivity is always 0 and its specificity always 1, so those fields and their differences are structural, not model comparisons. Ranking and probability metrics remain meaningful.
-This module has no loader by design. A caller supplies keyed predictions in memory, so patient-level scores need not be persisted to reach it. Its AUROC uses half credit for ties, matching `checked_auc` in `R/asma_core.R`, which also checks pairwise agreement against rank agreement.
+`evaluate_heldout` reports AUROC (half credit for ties), grouped average
+precision (sum of precision times recall increments at distinct scores, **not
+trapezoidal PR area**), Brier score, sensitivity, specificity and confusion
+counts. All inputs must be probabilities in [0,1]. A prevalence comparator uses
+a separately supplied classifier-training patient set and labels, which must be
+contained in the broad development inventory. It uses a fixed 0.5 classification
+threshold. Sensitivity/specificity differences against it are not comparisons at
+the same specificity target. Because the comparator is constant, its thresholded
+sensitivity/specificity and their differences are always structural: 0/1 below
+0.5, 1/0 at 0.5 or above. Ranking and probability metrics remain meaningful.
+This module has no loader by design. A caller supplies keyed predictions in
+memory, so patient-level scores need not be persisted to reach it. Its AUROC
+uses half credit for ties, matching `checked_auc` in `R/asma_core.R`, which also
+checks pairwise agreement against rank agreement.
 
-Supply additional keyed predictions for a separately trained regularized logistic baseline. This module
-does not fit it. Set `reference_model` to a supplied model key (for example a
-regularized logistic baseline) or the default `"prevalence"`. Fix this choice
-before evaluation, never select it using outcomes. `differences_from_reference`
-and paired intervals are model minus the named reference. Lower Brier is better.
+Supply additional keyed predictions for a separately trained regularized
+logistic baseline. This module does not fit it. Set `reference_model` to a
+supplied model key (for example a regularized logistic baseline) or the default
+`"prevalence"`. Fix this choice before evaluation, never select it using
+outcomes. `differences_from_reference` and paired intervals are model minus the
+named reference. Lower Brier is better.
 
 The ordinary patient bootstrap uses the same sampled patient indices for every
 model and the prevalence comparator. Models, baseline prevalence and thresholds
@@ -71,12 +80,15 @@ one-sided exact 95% lower specificity bound is about 79.42%. See the separate
 [validation-capacity analysis](pilot-001-validation-capacity.md) for exact
 binomial planning, source references and cohort-denominator limitations.
 
-The bootstrap block records the Python version and implementation alongside the seed, because the bootstrap index sequence is not guaranteed across interpreter versions.
+The bootstrap block records the Python version and implementation alongside the
+seed, because the bootstrap index sequence is not guaranteed across interpreter
+versions.
 
 Before real evaluation, prospectively register cohort/endpoint eligibility,
 upstream independence evidence, model definitions, calibration design, threshold
-target, comparator, bootstrap seed/count, handling of invalid draws, and intended
-claims. The default is 2,000 draws and seed 1729. These are software defaults,
+target, comparator, bootstrap seed/count, handling of invalid draws, intended
+claims, and a tested, non-persisting transfer route from the R pipeline at
+full precision. The default is 2,000 draws and seed 1729. These are software defaults,
 not adoption of a research protocol. Resolve the repository's separate data-use,
 execution and scientific review gates. The API returns aggregates only, but
 small-cell disclosure review remains necessary before publication. No patient

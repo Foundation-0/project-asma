@@ -68,11 +68,11 @@ class ValidationCapacityTests(unittest.TestCase):
             dest = root / 'registries/pilot-001-supplement-summary.json'
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_bytes(supplement.read_bytes())
-            report = (ROOT / 'docs/pilot-001-open-questions.md').read_text()
+            report = (ROOT / 'docs/pilot-001-open-questions.md').read_text(encoding="utf-8")
             self.assertIn(capacity.SPLIT_PHRASE, report)
             dest = root / 'docs/pilot-001-open-questions.md'
             dest.parent.mkdir(parents=True, exist_ok=True)
-            dest.write_text(report.replace(capacity.SPLIT_PHRASE, 'candidate split removed'))
+            dest.write_text(report.replace(capacity.SPLIT_PHRASE, 'candidate split removed'), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, 'candidate split phrase changed'):
                 capacity.build_result(root)
 

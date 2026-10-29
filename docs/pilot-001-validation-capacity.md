@@ -45,9 +45,11 @@ which calculation produced the paper's point. Sensitivity likewise changes in
 steps of 1/8 or 1/12 for these refractory denominators.
 
 For the sensitivity side, the binding constraint is the 8 refractory patients.
-Exact 95% intervals are about 3.2%-65.1% for 2/8 and about 8.5%-75.5% for 3/8.
-The published frozen value, 0.25 = 3/12, would be about 5.5%-57.2% on its own
-denominator.
+Exact 95% intervals, two-sided exact Clopper-Pearson computed outside the tool,
+are about 3.2–65.1% for a hypothetical 2/8 and about 8.5–75.5% for a
+hypothetical 3/8. The published frozen value, 0.25 = 3/12, would be about
+5.5–57.2% on its own denominator; that row is illustrative, as the 22/12 set
+overlaps discovery.
 
 The practical implication is to retain exploratory discrimination and honest
 uncertainty as attainable objectives. Repeated folds, bootstrap resamples,
@@ -83,7 +85,7 @@ population prevalence or transportability.
 ## Provenance and reproduction
 
 The [aggregate result](../registries/pilot-001-validation-capacity.json) records
-source-file SHA-256 hashes, the calculation's implementation hash, counts,
+a source-file SHA-256 hash, the calculation's implementation hash, counts,
 complete specificity grids and assumptions. It contains no patient records,
 identifiers, scores, or per-patient hashes.
 
@@ -97,7 +99,7 @@ identifiers, scores, or per-patient hashes.
 - The supplement JSON is hash-pinned. The candidate split is checked by an
   exact phrase in section 4 of the open-questions report, so unrelated edits
   to that living report do not stop the calculation, while rewording or
-  removing the split does. A changed source stops the calculation rather
+  removing the split does. A changed supplement source stops the calculation rather
   than silently changing the scientific inputs. Future revisions require
   reviewing and deliberately updating the pin or the phrase.
 

@@ -259,7 +259,7 @@
   ],
   "command": "python3 tools/analyze_validation_capacity.py",
   "evidence_class": "executed aggregate-only design calculation; no model performance measured",
-  "implementation_sha256": "e481cf7dbb211f975e756107543ec7cdf18bbeda3981cf36fb9853f6547bd4f7",
+  "implementation_sha256": "0678a244e6205559b9977c89490bca22d66c11b9bfd96d30dceadab7b3e64be0",
   "method": "Clopper-Pearson all-success lower bound L=tail_probability**(1/n); minimum n satisfies target**n <= tail_probability",
   "methods_source": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbino.htm",
   "methods_source_checked_on": "2026-10-29",
