@@ -10,9 +10,9 @@ questions and the intended destination. Its introduction and all five items need
 the owner's review as one message. The earlier authorization of the code-audit
 questions did not approve every part of the consolidated text.
 
-The code-audit addendum is now on main through merged PR 7. The request still
-asks for missing source information. The synthetic and adapter runs on main
-used generated inputs and did not reproduce the study's clinical result.
+The code-audit addendum is now on main through merged
+[#7](https://github.com/Foundation-0/project-asma/pull/7). The request still
+asks for missing source information.
 
 ## Sending record
 
@@ -27,8 +27,11 @@ The owner fills these fields only after sending:
 | Differences from that committed text | Not applicable |
 
 Keep recipient addresses and private correspondence outside this repository.
-Record the sending date and public link, if any, in issue 8 and in the request
-header. This draft must not close that issue before sending is recorded.
+This table is the canonical sending record. Once it is filled,
+[issue #8](https://github.com/Foundation-0/project-asma/issues/8) and the request
+header should point to it (for example, "sent YYYY-MM-DD, see handoff record")
+rather than duplicating the date and link. This draft must not close that issue
+before sending is recorded.
 
 ## Recording an answer
 
@@ -49,4 +52,3 @@ not belong in the request, replies, issue, or repository.
 - The owner confirms the final text and chooses whether and when to send.
 - The sending record remains empty until the owner provides evidence.
 
-Prepared by gpt-forge using gpt-6.1-sol for Ahraz Arifuddin.
