@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Asma · Foundation0</title>
+<meta name="description" content="An open reproduction study of a published 64-protein signature for primary platinum-refractory ovarian cancer (HGSOC). Research only, not clinical advice, not peer reviewed.">
+<link rel="canonical" href="https://foundation-0.github.io/project-asma/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Project Asma: can a published cancer signature be reproduced?">
+<meta property="og:description" content="An open reproduction study of a published 64-protein signature for primary platinum-refractory ovarian cancer. Research only, not peer reviewed.">
+<meta property="og:image" content="https://foundation-0.github.io/project-asma/assets/og.png">
+<meta property="og:url" content="https://foundation-0.github.io/project-asma/">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Project Asma. Ovarian cancer research, checked in the open.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#070b0e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f0e6" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/f0.css">
+<link rel="stylesheet" href="page.css">
+<script>
+/* theme + motion bootstrap, before paint: ?theme=dark|light and ?motion=on|off override the stored choice */
+(function(){var d=document.documentElement;d.classList.add('js');try{var q=new URLSearchParams(location.search),t=q.get('theme')||localStorage.getItem('f0-theme'),m=q.get('motion')||localStorage.getItem('f0-motion');if(t==='dark'||t==='light')d.setAttribute('data-theme',t);if(m==='on'||m==='off')d.setAttribute('data-motion-pref',m);}catch(e){}var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,p=d.getAttribute('data-motion-pref');d.setAttribute('data-motion',p?p:(r?'off':'on'));})();
+</script>
+<script defer src="assets/f0.js"></script>
+</head>
+<body data-page="project-asma">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="zero" viewBox="-50 -50 100 100">
+      <!-- The incentre mark: a square, its diagonals, and the incircle of each triangle (r = (sqrt2 - 1) x half-side).
+           Neighbouring incircles touch at one point: gold (biological) meets cyan (digital). -->
+      <path d="M-40-40L40 40M40-40L-40 40" fill="none" stroke-width="2" style="stroke:var(--ink-3)"/>
+      <g fill="none" stroke-width="4"><circle cy="-23.431" r="16.569" style="stroke:var(--bio)"/><circle cy="23.431" r="16.569" style="stroke:var(--bio)"/><circle cx="-23.431" r="16.569" style="stroke:var(--dig)"/><circle cx="23.431" r="16.569" style="stroke:var(--dig)"/></g>
+      <g><circle cy="-23.431" r="3.4" style="fill:var(--bio)"/><circle cy="23.431" r="3.4" style="fill:var(--bio)"/><circle cx="-23.431" r="3.4" style="fill:var(--dig)"/><circle cx="23.431" r="3.4" style="fill:var(--dig)"/></g>
+      <rect x="-40" y="-40" width="80" height="80" fill="none" stroke-width="4.4" style="stroke:var(--ink)"/>
+    </symbol>
+  </defs>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Project Asma home"><svg aria-hidden="true"><use href="#zero"/></svg>project-asma</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#question">The question</a><a href="#checked">What has been checked</a><a href="#missing">Still missing</a><a href="https://github.com/Foundation-0/project-asma">Repository</a><a href="https://foundation-0.github.io/f0/">Foundation0</a>
+    </nav>
+    <div class="tools">
+      <button class="tbtn" type="button" data-motion-toggle aria-pressed="true" aria-label="Motion"><span class="ico"></span><span class="t-txt">Motion</span></button>
+      <button class="tbtn" type="button" data-theme-toggle aria-label="Theme: switch"><span class="ico"></span><span class="t-txt">Theme</span></button>
+    </div>
+    <details class="menu">
+      <summary class="tbtn" aria-label="Menu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.4"/></svg><span class="t-txt">Menu</span></summary>
+      <nav class="menu-panel" aria-label="Main (compact)">
+        <a href="#question">The question <span>01</span></a><a href="#checked">What has been checked <span>02</span></a><a href="#missing">Still missing <span>03</span></a><a href="https://github.com/Foundation-0/project-asma">Repository <span>04</span></a><a href="https://foundation-0.github.io/f0/">Foundation0 <span>05</span></a>
+      </nav>
+    </details>
+  </div>
+</header>
+<nav class="hud" data-hud aria-label="On this page">
+  <ol>
+    <li><a href="#question" aria-label="00 The question"><span class="bar" aria-hidden="true"></span><span class="n">00</span><span class="t">The question</span></a></li>
+    <li><a href="#checked" aria-label="01 What has been checked"><span class="bar" aria-hidden="true"></span><span class="n">01</span><span class="t">What has been checked</span></a></li>
+    <li><a href="#missing" aria-label="02 Still missing"><span class="bar" aria-hidden="true"></span><span class="n">02</span><span class="t">Still missing</span></a></li>
+    <li><a href="#rules" aria-label="03 Rules of the workspace"><span class="bar" aria-hidden="true"></span><span class="n">03</span><span class="t">Rules of the workspace</span></a></li>
+  </ol>
+</nav>
+
+<main id="main">
+  <header class="page-hero" style="--acc:var(--bio)">
+    <div class="wrap">
+      <p class="kicker"><span class="pair" aria-hidden="true"><i></i><i></i></span>project-asma · ovarian cancer research · a reproduction study</p>
+      <h1 class="display">Project Asma</h1>
+      <p class="promise">A 2023 study reported a set of 64 proteins that marks the ovarian cancers most resistant to first treatment. This project rebuilds that result from the public data, step by step, and reports what holds.</p>
+      <p class="hint">Research only. Not clinical advice, not a diagnostic service, and not peer reviewed. No scientific result has been reproduced yet. By Ahraz Arifuddin, Aska Digital. Assisted by an array of digital intelligences.</p>
+      <dl class="stats" aria-label="The study in numbers">
+        <div class="stat"><dt class="k">proteins in the published panel</dt><dd class="v" style="margin:0">64</dd></div>
+        <div class="stat"><dt class="k">cohorts in the study</dt><dd class="v" style="margin:0">3</dd></div>
+        <div class="stat"><dt class="k">printed result under test</dt><dd class="v" style="margin:0">AUC 0.83</dd></div>
+        <div class="stat"><dt class="k">results reproduced so far</dt><dd class="v" style="margin:0">0</dd></div>
+      </dl>
+      <div class="prov">
+        <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">status on main · 2026-10-27 · current state in the roadmap</a>
+        <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/README.md#check-the-scaffold"><span class="dot live" aria-hidden="true"></span>audits run in memory, aggregates only</a>
+        <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tests">tests on records and made-up inputs</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="sec" id="question" data-index="The question" data-num="00" aria-labelledby="question-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="sec-label"><b>00</b><i>//</i>The question</p><span class="chip">Chowdhury et al., Cell 2023</span></div>
+      <h2 class="h2" id="question-h">One published result, rebuilt from scratch.</h2>
+      <p class="lede">High-grade serous ovarian cancer (HGSOC) is the most common and most lethal form of ovarian cancer. First treatment is usually platinum chemotherapy. The study behind this project compares two deliberately extreme groups. Refractory tumours showed persistent or growing disease on imaging after six cycles of first platinum/taxane chemotherapy. Sensitive tumours did not progress for at least two years. This is primary platinum-refractory disease, and it is not the same as cancer that responds first and resists later.</p>
+      <div class="prose">
+        <p>In 2023, Chowdhury and colleagues <a href="https://doi.org/10.1016/j.cell.2023.07.004">published a proteogenomic study of HGSOC</a>. Among its results was a signature: levels of 64 proteins, measured in tumour tissue, that separated refractory from sensitive cancers in the study's own data. The headline measure was an AUC of 0.83. AUC is a ranking score: 1.0 ranks every refractory tumour above every sensitive one, and 0.5 is no better than chance. At the study's strictest operating point it caught about a third of refractory tumours (sensitivity 0.35) while almost never flagging a sensitive one (specificity 98%).</p>
+        <p>A result like that matters only if it survives outside the data it was built on. Project Asma's first pilot takes the published panel exactly as printed and asks whether the reported numbers can be recovered from the public data, and whether the patients counted as a separate validation group really are separate. It does not build a new test, and it makes no claim about patient care.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="checked" data-index="What has been checked" data-num="01" aria-labelledby="checked-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="sec-label"><b>01</b><i>//</i>What has been checked</p><span class="chip">status on main · 2026-10-27</span></div>
+      <h2 class="h2" id="checked-h">Audits and tests are on main. No result is reproduced.</h2>
+      <p class="lede">Status on 27 October 2026, counting only work merged into the main branch. These are internal checks. None has had external scientific review, so every result below is preliminary. The data audits work in memory on public files and keep only counts and fingerprints. The pipeline and source adapter were tested on made-up inputs only. No patient records, scores or linkage tables are stored in the repository.</p>
+      <ul class="ledger">
+        <li>
+          <div class="ledger-main"><h3>Research scaffold and pilot protocol</h3>
+          <p>The workspace, evidence map, registries and the pilot design. Defines the target (one printed result, Figure 3D), the cohorts and the stop rules.</p></div>
+          <span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #1</span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Feasibility and patient-linkage audit</h3>
+          <p>Recovers the 64-protein panel from the published supplements and rebuilds the discovery, frozen and FFPE score cohorts. It also checks patient membership between the frozen sheet labelled non-overlapping and the discovery score set. These results await external scientific review, so this page does not report them.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #2</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Published-score check</h3>
+          <p>Recomputes the discovery AUC from the released scores and labels alone, under a specification fixed before the run. It refits no model. The result is recorded in the repository as a preliminary internal check. It awaits external scientific review, so this page does not report a value.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #3</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Discovery input linkage</h3>
+          <p>Links the author-released discovery matrix to the clinical records by exact name match, checks the file's integrity, and checks how often each panel protein occurs among its feature rows. A later check asks whether R's name cleaning, which the authors' scripts apply, would alter any panel symbol. These results await external scientific review, so this page does not report them.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #4, #14</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Code audit of the published analysis</h3>
+          <p>A static reading of the authors' Figure 3D R code at a pinned commit, with package sources read at named versions. It records which saved objects can feed the plotted cross-validation, how labels and operating points are set, and where package versions matter. The code was read, never run, and no data were accessed. A consolidated request to the authors is authorized as a draft only. It is unsent, and only the owner decides whether to send it.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #7, #20</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Static · not run</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Reconstruction decisions and data-use route</h3>
+          <p>Fixes, before any fit, how a new discovery-only reconstruction would run: input assembly, new patient-stratified folds, seeds, model settings and score averaging. It is a new method on the released inputs, not a recovery of the original runs. A separate record selects a conditional, noncommercial research-use route for the data. It is not a licence, and the actual execution context must support it before any fit.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #10</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Declared · not executed</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Synthetic pipeline and direction test</h3>
+          <p>An original R implementation of those decisions, tested on artificial fixtures only. In a pinned container it passed 149 assertions and a complete 100-repeat run with the pinned model packages. Later tests check that each model gives higher probabilities to the class coded as refractory, pin the fold assignment to fixed reference vectors, and read each fitted model's own settings back against the declaration. On 27 October the whole suite, now 179 assertions, and the full 100-repeat run passed again in a rebuilt pinned container. No fixture result is compared with the paper.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #11, #13, #17, #20, #23</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Fixtures only · no study data</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Source adapter</h3>
+          <p>Code that would check the pinned workbooks and matrix member against their recorded hashes and turn the selected values into the pipeline's input. It was tested on generated files in the same formats, through the full model path, with network access mocked. A probe of the first combined Python and R container passed all 40 of its technical checks; the container rebuilt on 27 October passed the same fixture checks but still needs its own probe. The adapter refuses to download or parse the study files unless the call names a current entry in an attestation file that only the owner creates. The refusal to parse and the expiry dates on entries were added after the 27 October run, so the fixture checks need another run in the pinned container. The adapter has never been run on study files.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #12, #16, #22, #23</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not run on study files</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Proposed protocol amendment</h3>
+          <p>Proposes three additions to the declared reconstruction: a per-repetition AUROC distribution as a descriptive output, options for the sensitivity check, and a policy for warnings and messages during fitting. It is merged as a proposal only. Nothing in it takes effect until the owner records a dated decision.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #15</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Proposed · owner decision</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Open-questions report</h3>
+          <p>Narrows five open questions using public sources, static reading and bounded in-memory checks: the likely origin of the missing fold helper, the scope of the 2024 correction, panel coverage in the validation cohorts' published feature lists, what "non-overlapping" means for the frozen cohort, and whether a 2025 follow-up study could serve as a fallback. It computed no performance result, and none of the questions is closed. Its findings await external scientific review.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #21</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
+        </li>
+        <li>
+          <div class="ledger-main"><h3>Reconstruction fit on study data</h3>
+          <p>Fitting the declared reconstruction's models on the released study data and comparing the result with the printed AUC. No model has been fitted on study data. A fit waits on the owner's dated attestation of the execution context and a new explicit instruction. It also waits on an actual execution host whose location, terms and applicable obligations support the selected data-use route, with the combined Python and R container rechecked on that host. It further waits on the owner's dated decision on the proposed amendment. Work in open pull requests is not counted until it is merged. Section 02 lists the key gaps recorded on main.</p></div>
+          <span class="badge n"><span class="ladder" data-r="1" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not done</span>
+        </li>
+      </ul>
+      <div class="prose ledger-note">
+        <p>This list is dated and will age. The <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">roadmap</a> holds the current state and the next gates.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="missing" data-index="Still missing" data-num="02" aria-labelledby="missing-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="sec-label"><b>02</b><i>//</i>Still missing</p><span class="chip">recorded on main · 2026-10-27</span></div>
+      <h2 class="h2" id="missing-h">Gaps recorded before any fit on study data.</h2>
+      <div class="cards4">
+        <div class="mini-card">
+          <h3>The fold helper</h3>
+          <p>The authors' scripts call a helper file, <span class="mono">balanced_folds.R</span>, that decides how patients were split into folds. The searches so far did not find it: the authors' repository at the commit checked, its reachable history and three public forks. A later public repository from the same GitHub account defines a helper of the same kind. It is a likely stand-in, not proof: its 2023 version, shuffle details and the original label order remain unknown. The main branch declares a replacement fold rule. A rerun with it would be a new reconstruction, not a faithful rerun of the printed cross-validation.</p>
+        </div>
+        <div class="mini-card">
+          <h3>The workspaces and processing history</h3>
+          <p>The figure scripts load saved R workspaces (RData files) that the same searches did not find. Which objects they held, and in what order, decides what the printed figure actually averaged. The declared reconstruction starts from the released matrix instead and does not recover them. How that matrix was itself processed (normalisation, filtering, batch correction, imputation) is only partly documented. So even the declared reconstruction cannot claim that every processing step was fitted only inside training folds.</p>
+        </div>
+        <div class="mini-card">
+          <h3>The corrected legends</h3>
+          <p>A 2024 correction fixes the supplemental figure legends only; Figure 3D is outside its stated scope. The supplement copy pinned here predates the correction, and its legends disagree with the figure images at several points. The corrected legends have not been pinned yet, because the publisher's hosts were unreachable from the research environment.</p>
+        </div>
+        <div class="mini-card">
+          <h3>People and permissions</h3>
+          <p>No gynaecologic oncologist or proteomics/biostatistics collaborator has been recruited. Recruiting needs a new explicit instruction. The repository licence is undecided, and external scientific review is pending. Downloading study files for a research run, a real-source input check or any fit on study values needs the owner's dated attestation of the execution context and a new explicit instruction. Clinical interpretation and validation need domain review first.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="rules" data-index="Rules of the workspace" data-num="03" aria-labelledby="rules-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="sec-label"><b>03</b><i>//</i>Rules of the workspace</p><span class="chip">how claims are kept honest</span></div>
+      <h2 class="h2" id="rules-h">Small rules, applied every time.</h2>
+      <div class="prose">
+        <p><strong>Aggregates only.</strong> Audits read public files in memory and publish counts, hashes and provenance. Patient-level records, scores and linkage maps never enter the repository.</p>
+        <p><strong>Labels before numbers.</strong> Anything not independently verified is labelled as such, in the registries and on this page. A reproduced number and a printed reference value are never presented as the same kind of fact.</p>
+        <p><strong>Fixed before run.</strong> Numerical checks are specified, with their tolerance, before they are executed. A disappointing result is recorded unchanged, not tuned away.</p>
+        <p><strong>Offline checks.</strong> <span class="mono">python3 tools/validate.py</span> and <span class="mono">python3 -m unittest discover -s tests</span> run on the Python standard library, plus <span class="mono">git</span> in a checkout, without network access. They check the repository's records and test the audit code, the source adapter and the runtime tooling on small made-up inputs. They do not rerun any audit or the published-score check, and passing them is not a scientific reproduction. The R pipeline tests run separately, on artificial fixtures in a pinned Docker container with networking off; the <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/pilot-001-synthetic-validation.md#commands">synthetic validation</a> lists the commands. That container has not yet been checked on an actual research host. Separate network commands, listed in the <a href="https://github.com/Foundation-0/project-asma/blob/main/README.md#check-the-scaffold">README</a>, rerun the audits. They follow the bounded-inspection rule: in memory, aggregates only, with a record of what was read and why. Neither the R tests nor the network commands are part of the offline checks. The published-score check ran under a recorded instruction, described in its <a href="https://github.com/Foundation-0/project-asma/blob/main/protocols/pilot-001-score-verification.md#execution-instruction-and-pending-external-review">protocol</a>.</p>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/Foundation-0/project-asma">Open the repository <span class="arr" aria-hidden="true">&rarr;</span></a>
+        <a class="btn" href="https://github.com/Foundation-0/project-asma/pulls">Open pull requests</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><svg aria-hidden="true"><use href="#zero"/></svg>project-asma</div>
+        <p>An open reproduction study of a published ovarian cancer protein signature. Exploration, not peer reviewed; every executed number on this page comes from a check in the repository, and open questions stay labelled as open.</p>
+        <p>No licence has been chosen for this repository yet. Third-party code and data keep their own terms.</p>
+      </div>
+      <div class="foot-cols">
+        <div><h2 class="foot-h">Study</h2><ul><li><a href="#question">The question</a></li><li><a href="#checked">What has been checked</a></li><li><a href="#missing">Still missing</a></li><li><a href="#rules">Rules of the workspace</a></li></ul></div>
+        <div><h2 class="foot-h">Record</h2><ul><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">Roadmap and current state</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/frontier-2026-10-22.md">Research frontier</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/protocols/pilot-001.md">Pilot protocol</a></li><li><a href="https://github.com/Foundation-0/project-asma/tree/main/registries">Registries</a></li></ul></div>
+        <div><h2 class="foot-h">Source</h2><ul><li><a href="https://github.com/Foundation-0/project-asma">Repository</a></li><li><a href="https://github.com/Foundation-0/project-asma/pulls">Pull requests</a></li><li><a href="https://foundation-0.github.io/f0/">Foundation0</a></li></ul></div>
+      </div>
+    </div>
+    <div class="stamp">
+      <span>project-asma colophon</span>
+      <span>Checks and records in the repository; design system shared with the Foundation0 site</span>
+      <span class="who"><i style="background:var(--bio)" aria-hidden="true"></i>Human: Ahraz Arifuddin, Aska Digital</span>
+      <span class="who"><i style="background:var(--dig)" aria-hidden="true"></i>Digital: an array of digital intelligences</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
