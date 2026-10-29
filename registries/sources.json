@@ -384,6 +384,54 @@
       "takeaway": "TCGA-OV source paper. Its tissue-source list includes Mayo Clinic staff, and the 2025 study's PTRC cohort has a Mayo sub-cohort, so same-patient overlap between the two cannot be excluded from published statements. No evidence of overlap was found.",
       "limitations": "Read for the stated passages only. It does not define the PlatinumStatus field used by the 2025 study. Author manuscript, license_code TDM. Article XML: 109160 bytes, SHA256 490eba6e7912c8354bb1f2ed780f798038cbe07aaae8f952dcc660584849498a. See docs/pilot-001-open-questions.md.",
       "checked_on": "2026-10-25"
+    },
+    {
+      "id": "S33",
+      "title": "NIST exact binomial confidence limits",
+      "kind": "data_documentation",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbino.htm",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbino.htm",
+      "locator": "One-sided and two-sided exact binomial confidence limits; linked NIST handbook section 7.2.4.1, Exact Intervals for Small Numbers of Failures and/or Small Sample Sizes",
+      "takeaway": "Supports the binomial-tail inversion used for the all-success specificity lower bound. Project calculations apply the formula to existing aggregate cohort counts and verify best-case sample-size minima with rational arithmetic.",
+      "limitations": "Method reference, not study evidence. Coverage requires the stated sampling assumptions. Perfect outcomes are hypothetical; minimum zero-error counts are not power or assurance calculations. See docs/pilot-001-validation-capacity.md.",
+      "checked_on": "2026-10-29"
+    },
+    {
+      "id": "S34",
+      "title": "Cross-validation: what does it estimate and how well does it do it?",
+      "kind": "paper",
+      "url": "https://doi.org/10.1080/01621459.2023.2197686",
+      "verification": "partial",
+      "reviewed_via": "https://arxiv.org/abs/2104.00673v4",
+      "locator": "Bates, Hastie and Tibshirani; abstract of arXiv version 4 (2022-07-18), with journal DOI",
+      "takeaway": "The authors distinguish error estimands and describe undercoverage from correlations between cross-validation folds. This motivates keeping fixed-model held-out resampling separate from uncertainty in model development and cross-validation.",
+      "limitations": "Abstract reviewed, not an audit of the full proof or every estimator. Does not validate this project implementation or establish interval coverage for its small selected cohorts. See docs/heldout-evaluation.md.",
+      "checked_on": "2026-10-29"
+    },
+    {
+      "id": "S35",
+      "title": "scikit-learn official average_precision_score documentation",
+      "kind": "data_documentation",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html",
+      "locator": "average_precision_score metric definition and notes",
+      "takeaway": "Defines average precision as recall-increment weighted precision, distinct from trapezoidal precision-recall area.",
+      "limitations": "Definition reference only. The project uses original standard-library code, not scikit-learn. Agreement of conventions does not establish scientific validity or population calibration.",
+      "checked_on": "2026-10-29"
+    },
+    {
+      "id": "S36",
+      "title": "scikit-learn official brier_score_loss documentation",
+      "kind": "data_documentation",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.brier_score_loss.html",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.brier_score_loss.html",
+      "locator": "brier_score_loss metric definition and notes",
+      "takeaway": "Documents the binary mean squared probability-error convention used here, with range zero to one.",
+      "limitations": "Definition reference only. The project uses original standard-library code, not scikit-learn. Agreement of conventions does not establish scientific validity or population calibration.",
+      "checked_on": "2026-10-29"
     }
   ]
 }

@@ -1,0 +1,275 @@
+{
+  "assumptions_and_limits": [
+    "All-perfect outcomes are hypothetical, not observed classifier results.",
+    "Binomial inference assumes independent negative patients with a common specificity and a fixed threshold chosen independently of test outcomes.",
+    "Candidate patient independence remains unresolved; no-source-match is not proof of an untouched validation cohort.",
+    "The published nonoverlap cohort contains patients overlapping discovery; its calculation is illustrative and does not certify binomial coverage there.",
+    "Cross-validation folds, repeated fits, bootstrap samples and multiple specimens do not increase the independent patient count.",
+    "149 and 183 are best-case zero-error minima, not sample sizes achieving specified power or assurance.",
+    "The specificity grid describes deterministic empirical confusion counts; interpolated ROC operating points need not be attainable by a fixed threshold.",
+    "No source data were acquired, no threshold was selected and no model, AUROC, calibration or clinical utility was evaluated."
+  ],
+  "cohorts": [
+    {
+      "cohort": "candidate_no_discovery_record",
+      "count_locator": "docs/pilot-001-open-questions.md, section 4, Candidate patient-independent subsets; inherited aggregate, linkage not rerun",
+      "hypothetical_false_positives": 0,
+      "perfect_specificity_lower_95_one_sided": 0.7941833348134493,
+      "perfect_specificity_lower_95_two_sided": 0.752947361999529,
+      "refractory_positive_count": 8,
+      "sensitive_negative_count": 13,
+      "sensitivity_step_exact": "1/8",
+      "specificity_grid": [
+        {
+          "false_positives": 0,
+          "specificity": 1.0,
+          "specificity_exact": "1",
+          "true_negatives": 13
+        },
+        {
+          "false_positives": 1,
+          "specificity": 0.9230769230769231,
+          "specificity_exact": "12/13",
+          "true_negatives": 12
+        },
+        {
+          "false_positives": 2,
+          "specificity": 0.8461538461538461,
+          "specificity_exact": "11/13",
+          "true_negatives": 11
+        },
+        {
+          "false_positives": 3,
+          "specificity": 0.7692307692307693,
+          "specificity_exact": "10/13",
+          "true_negatives": 10
+        },
+        {
+          "false_positives": 4,
+          "specificity": 0.6923076923076923,
+          "specificity_exact": "9/13",
+          "true_negatives": 9
+        },
+        {
+          "false_positives": 5,
+          "specificity": 0.6153846153846154,
+          "specificity_exact": "8/13",
+          "true_negatives": 8
+        },
+        {
+          "false_positives": 6,
+          "specificity": 0.5384615384615384,
+          "specificity_exact": "7/13",
+          "true_negatives": 7
+        },
+        {
+          "false_positives": 7,
+          "specificity": 0.46153846153846156,
+          "specificity_exact": "6/13",
+          "true_negatives": 6
+        },
+        {
+          "false_positives": 8,
+          "specificity": 0.38461538461538464,
+          "specificity_exact": "5/13",
+          "true_negatives": 5
+        },
+        {
+          "false_positives": 9,
+          "specificity": 0.3076923076923077,
+          "specificity_exact": "4/13",
+          "true_negatives": 4
+        },
+        {
+          "false_positives": 10,
+          "specificity": 0.23076923076923078,
+          "specificity_exact": "3/13",
+          "true_negatives": 3
+        },
+        {
+          "false_positives": 11,
+          "specificity": 0.15384615384615385,
+          "specificity_exact": "2/13",
+          "true_negatives": 2
+        },
+        {
+          "false_positives": 12,
+          "specificity": 0.07692307692307693,
+          "specificity_exact": "1/13",
+          "true_negatives": 1
+        },
+        {
+          "false_positives": 13,
+          "specificity": 0.0,
+          "specificity_exact": "0",
+          "true_negatives": 0
+        }
+      ]
+    },
+    {
+      "cohort": "published_frozen_nonoverlap",
+      "count_locator": "registries/pilot-001-supplement-summary.json, published_score_subsets.Frozen_nonoverlap_pred_scores.class_counts",
+      "hypothetical_false_positives": 0,
+      "perfect_specificity_lower_95_one_sided": 0.8726945683451612,
+      "perfect_specificity_lower_95_two_sided": 0.8456274871844254,
+      "refractory_positive_count": 12,
+      "sensitive_negative_count": 22,
+      "sensitivity_step_exact": "1/12",
+      "specificity_grid": [
+        {
+          "false_positives": 0,
+          "specificity": 1.0,
+          "specificity_exact": "1",
+          "true_negatives": 22
+        },
+        {
+          "false_positives": 1,
+          "specificity": 0.9545454545454546,
+          "specificity_exact": "21/22",
+          "true_negatives": 21
+        },
+        {
+          "false_positives": 2,
+          "specificity": 0.9090909090909091,
+          "specificity_exact": "10/11",
+          "true_negatives": 20
+        },
+        {
+          "false_positives": 3,
+          "specificity": 0.8636363636363636,
+          "specificity_exact": "19/22",
+          "true_negatives": 19
+        },
+        {
+          "false_positives": 4,
+          "specificity": 0.8181818181818182,
+          "specificity_exact": "9/11",
+          "true_negatives": 18
+        },
+        {
+          "false_positives": 5,
+          "specificity": 0.7727272727272727,
+          "specificity_exact": "17/22",
+          "true_negatives": 17
+        },
+        {
+          "false_positives": 6,
+          "specificity": 0.7272727272727273,
+          "specificity_exact": "8/11",
+          "true_negatives": 16
+        },
+        {
+          "false_positives": 7,
+          "specificity": 0.6818181818181818,
+          "specificity_exact": "15/22",
+          "true_negatives": 15
+        },
+        {
+          "false_positives": 8,
+          "specificity": 0.6363636363636364,
+          "specificity_exact": "7/11",
+          "true_negatives": 14
+        },
+        {
+          "false_positives": 9,
+          "specificity": 0.5909090909090909,
+          "specificity_exact": "13/22",
+          "true_negatives": 13
+        },
+        {
+          "false_positives": 10,
+          "specificity": 0.5454545454545454,
+          "specificity_exact": "6/11",
+          "true_negatives": 12
+        },
+        {
+          "false_positives": 11,
+          "specificity": 0.5,
+          "specificity_exact": "1/2",
+          "true_negatives": 11
+        },
+        {
+          "false_positives": 12,
+          "specificity": 0.45454545454545453,
+          "specificity_exact": "5/11",
+          "true_negatives": 10
+        },
+        {
+          "false_positives": 13,
+          "specificity": 0.4090909090909091,
+          "specificity_exact": "9/22",
+          "true_negatives": 9
+        },
+        {
+          "false_positives": 14,
+          "specificity": 0.36363636363636365,
+          "specificity_exact": "4/11",
+          "true_negatives": 8
+        },
+        {
+          "false_positives": 15,
+          "specificity": 0.3181818181818182,
+          "specificity_exact": "7/22",
+          "true_negatives": 7
+        },
+        {
+          "false_positives": 16,
+          "specificity": 0.2727272727272727,
+          "specificity_exact": "3/11",
+          "true_negatives": 6
+        },
+        {
+          "false_positives": 17,
+          "specificity": 0.22727272727272727,
+          "specificity_exact": "5/22",
+          "true_negatives": 5
+        },
+        {
+          "false_positives": 18,
+          "specificity": 0.18181818181818182,
+          "specificity_exact": "2/11",
+          "true_negatives": 4
+        },
+        {
+          "false_positives": 19,
+          "specificity": 0.13636363636363635,
+          "specificity_exact": "3/22",
+          "true_negatives": 3
+        },
+        {
+          "false_positives": 20,
+          "specificity": 0.09090909090909091,
+          "specificity_exact": "1/11",
+          "true_negatives": 2
+        },
+        {
+          "false_positives": 21,
+          "specificity": 0.045454545454545456,
+          "specificity_exact": "1/22",
+          "true_negatives": 1
+        },
+        {
+          "false_positives": 22,
+          "specificity": 0.0,
+          "specificity_exact": "0",
+          "true_negatives": 0
+        }
+      ]
+    }
+  ],
+  "command": "python3 tools/analyze_validation_capacity.py",
+  "evidence_class": "executed aggregate-only design calculation; no model performance measured",
+  "implementation_sha256": "0678a244e6205559b9977c89490bca22d66c11b9bfd96d30dceadab7b3e64be0",
+  "method": "Clopper-Pearson all-success lower bound L=tail_probability**(1/n); minimum n satisfies target**n <= tail_probability",
+  "methods_source": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbino.htm",
+  "methods_source_checked_on": "2026-10-29",
+  "minimum_zero_false_positive_negatives": {
+    "one_sided_95": 149,
+    "two_sided_95": 183
+  },
+  "schema_version": 1,
+  "source_sha256": {
+    "registries/pilot-001-supplement-summary.json": "69c155976f824caaec4238f968d6ddd51a332b4a366bbf70dd77c656cd57353d"
+  },
+  "target_specificity": 0.98
+}

@@ -1,7 +1,7 @@
 # Registries
 
 - [sources.json](sources.json): dated primary-source metadata, claim locators,
-  takeaways, verification route, and limits. S01–S25 are stable local IDs.
+  takeaways, verification route, and limits. Source IDs remain stable.
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 
@@ -58,6 +58,14 @@ read and why.
   per sheet and the panel column are used. It prints counts, set sizes and
   fingerprints, no symbols. These are the features tested for association, not
   proof of the rows in the archive members or the prediction workspaces.
+- [pilot-001-validation-capacity.json](pilot-001-validation-capacity.json):
+  deterministic offline calculation from existing documented cohort counts.
+  It reports exact best-case specificity limits and minimum all-correct sample
+  sizes, not observed model performance. Regenerate with
+  `python3 tools/analyze_validation_capacity.py`; no study files are acquired.
+  The [report](../docs/pilot-001-validation-capacity.md) records the assumptions
+  and distinguishes the inherited class counts from a new patient-level join.
+
 - [pilot-001-reconstruction-runtime.json](pilot-001-reconstruction-runtime.json):
   selected R 4.4.3, glmnet 4.1-8, randomForest 4.7-1.2 and XGBoost 1.7.8.1 source
   archives, computed hashes and declared license metadata. This historical

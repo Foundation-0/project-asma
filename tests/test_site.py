@@ -11,11 +11,14 @@ PAGES = ("index.html", "404.html")
 STYLES = ("assets/f0.css", "page.css")
 # Public reports carry only reviewed aggregates (docs/reproducibility-and-data.md). Until external review is
 # recorded, the site withholds the preliminary AUROC and the pair counts behind it, the rebuilt cohort counts,
-# the linkage and feature counts, and the panel-coverage results. Drop or narrow a pattern once a reviewed aggregate
-# legitimately contains it; until then any match fails.
+# the linkage and feature counts, the panel-coverage results, and the validation-capacity class splits and bounds
+# derived from those counts. Drop or narrow a pattern once a reviewed aggregate legitimately contains it;
+# until then any match fails.
 WITHHELD = (r"0\.8088", r"(?<![\d.])0\.81(?!\d)", r"(?<![\d.])0\.191(?!\d)", r"0\.0211", r"3,491",
             r"(?<![\d.,])168(?![\d,])", r"8,?800", r"(?<![\d.,])61 frozen", r"(?<![\d.,])20 FFPE",
-            r"64 ?/ ?64", r"(?<![\d.,])0 of 64")
+            r"64 ?/ ?64", r"(?<![\d.,])0 of 64",
+            r"(?<![\d.,])13 ?/ ?8(?!\d)", r"(?<![\d.,])22 ?/ ?12(?!\d)",
+            r"79\.4", r"75\.29", r"87\.27", r"84\.56")
 # A URL with a scheme or a leading // reaches another host; data: URIs make no request.
 REMOTE = re.compile(r"^(?!data:)(?:[a-z][a-z0-9+.-]*:|//)", re.I)
 CSS_REMOTE = re.compile(r"(?:@import|url\()\s*(?:url\()?\s*['\"]?(?!data:)(?:[a-z][a-z0-9+.-]*:|//)", re.I)

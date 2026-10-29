@@ -20,6 +20,8 @@ clinical validity, or improved patient outcomes.
 | [Input and linkage resolution — 2026-10-23](docs/pilot-001-input-resolution.md) | Executed metadata checks, recovered source locations, and remaining reproduction gaps |
 | [Published-score verification specification](protocols/pilot-001-score-verification.md) | Fixed numerical check and recorded execution basis |
 | [Discovery-score AUROC result](docs/pilot-001-score-verification-result.md) | Executed preliminary result, comparison failure and remaining provenance limits |
+| [Validation capacity](docs/pilot-001-validation-capacity.md) | Executed aggregate calculation of what the available cohort can establish at 98% specificity |
+| [Held-out evaluation tools](docs/heldout-evaluation.md) | Original evaluation code tested on artificial cases, with patient separation and paired comparisons |
 | [Independent progress](docs/pilot-001-independent-progress.md) | Matrix-header diagnostic, score lineage and concrete supplement-legend mismatch |
 | [Preprocessing provenance](docs/pilot-001-preprocessing-provenance.md) | Located transformations, replicate-averaging example and unresolved execution history |
 | [Public-input reconstruction contract](protocols/pilot-001-independent-reconstruction.md) | Prospective discovery-only requirements and stop rules |
@@ -35,6 +37,17 @@ clinical validity, or improved patient outcomes.
 | [Question](templates/research-question.md), [experiment](templates/experiment.md), [manifest](templates/provenance-manifest.md) templates | Reusable working records |
 
 ## Current state
+
+The **2026-10-29 [validation-capacity analysis](docs/pilot-001-validation-capacity.md)**
+uses existing aggregate counts to quantify a study-design limit. Even a hypothetical
+13 correct results out of 13 long-term-sensitive patients gives a one-sided
+95% lower specificity bound of only **79.4%**. A lower bound of 98% requires at
+least **149 independent sensitive patients with zero false positives**, under a
+fixed test threshold and binomial sampling assumptions. This is a best-case
+minimum, not a powered recruitment target. The candidate cohort's independence
+remains unresolved; no new patient scores or model performance were evaluated.
+The separate [evaluation library](docs/heldout-evaluation.md) prepares patient
+checks, simple comparisons and uncertainty calculations using artificial tests.
 
 The scaffold and static audit were followed by public-source investigation on
 **2026-10-23**. PDC metadata and processed-file headers were inspected in memory;
