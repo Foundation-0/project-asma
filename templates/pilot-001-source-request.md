@@ -15,15 +15,20 @@
   choose. Automated sessions must never post, retry or email it. Earlier
   automated posting attempts (refused by GitHub as “Resource not accessible by
   integration”, then retried by another route) should not have happened. The code-audit pull
-  request is open ([#7](https://github.com/Foundation-0/project-asma/pull/7)).
-  Track sending in [issue #8](https://github.com/Foundation-0/project-asma/issues/8),
-  and record the date and link there once sent.
+  request is merged ([#7](https://github.com/Foundation-0/project-asma/pull/7)).
+  Track sending in the [handoff record](../docs/pilot-001-source-request-handoff.md),
+  and record the sending details there once sent;
+  [issue #8](https://github.com/Foundation-0/project-asma/issues/8)
+  should point to that record.
 - **Status (2026-10-25).** Unsent. The owner decided that this request is
   authorized as a draft only and that the owner alone decides whether and when
   to send it.
 
 No patient identifiers, labels, scores or linkage rows are included. Recruiting
 collaborators or reviewers remains on hold.
+
+The [handoff record](../docs/pilot-001-source-request-handoff.md) keeps the
+owner's final text review, sending evidence and any later answers together.
 
 ---
 
@@ -92,8 +97,8 @@ Could you clarify these remaining reproduction inputs?
    the corrected legends associated with DOI `10.1016/j.cell.2024.01.016`?
 
 Our reproducibility record and aggregate-only checking code are in the
-[Project Asma pull requests](https://github.com/Foundation-0/project-asma/pulls).
-The code-level questions above are documented in the code-audit addendum in
-[pull request #7](https://github.com/Foundation-0/project-asma/pull/7). Please do not share patient-level files or linkage rows publicly (for
-example, in the GitHub issue); any restricted material would need an
+[Project Asma repository](https://github.com/Foundation-0/project-asma).
+The code-level questions above are documented in our [code-audit addendum](https://github.com/Foundation-0/project-asma/blob/76bba4d4b6cc23878044bc95379f6e5417aa42b8/docs/pilot-001-code-audit-addendum.md) and the records it links.
+Please do not share patient-level files or linkage rows publicly (for
+example, in a public GitHub issue); any restricted material would need an
 appropriately authorized private route.
