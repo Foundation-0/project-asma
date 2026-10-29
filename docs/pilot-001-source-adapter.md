@@ -293,9 +293,11 @@ before any real-file check.
   ```
 
   Git ignores the path. `tools/validate.py` fails if Git tracks or stages a file
-  at that path in any letter case, directory included, or if Git cannot answer
-  in a checkout; it then shows Git's reason. A copy of the repository without
-  `.git` is not checked.
+  at that path in any letter case, directory included, or if Git cannot answer;
+  it then shows Git's reason. Git decides whether a repository covers the tree,
+  so a copy without its own `.git` is checked when a parent repository, or one
+  that `GIT_DIR` names, tracks it. Only a tree outside any repository, such as
+  an export, or a host without Git, skips the check.
 - **Fitting has no gate of its own.** The R pipeline fits whatever payload it is
   given. The supported route to study values goes through `parse_sources()`,
   which is now gated. Anything else, such as values read through the audit

@@ -163,13 +163,19 @@ class ScaffoldChecks(unittest.TestCase):
         git("init", "-q")
         (self.root / name).write_text("{}")
         (self.root / "registries/sources.json").write_text("{}")
-        git("add", "registries/sources.json")
+        git("add", "-f", "registries/sources.json")
         # Present but untracked is how the owner keeps it.
         self.assertEqual(validate.attestation_errors(self.root), [])
-        # Committed and unchanged: nothing is staged, but Git still tracks it.
-        git("add", "--", name)
+        # Committed and unchanged: nothing is staged, but Git still tracks it. -f gets past a global
+        # excludes file that lists it.
+        git("add", "-f", "--", name)
         git(*commit)
         self.assertTrue(flagged(self.root))
+        # Pathspec settings that a surrounding Git command exports, e.g. to its hooks, change nothing.
+        for variable in ("GIT_LITERAL_PATHSPECS", "GIT_GLOB_PATHSPECS", "GIT_NOGLOB_PATHSPECS",
+                         "GIT_ICASE_PATHSPECS"):
+            with mock.patch.dict(os.environ, {variable: "1"}):
+                self.assertTrue(flagged(self.root), variable)
         self.assertTrue(any("tracked or staged" in error for error in validate.validate(self.root)))
         git("rm", "-q", "--cached", "--", name)
         git(*commit)
@@ -198,17 +204,66 @@ class ScaffoldChecks(unittest.TestCase):
                         str(self.root / "separate.git")], check=True, capture_output=True)
         self.assertTrue((separate / ".git").is_file())
         (separate / name).write_text("{}")
-        subprocess.run(["git", "-C", str(separate), "add", "--", name], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(separate), "add", "-f", "--", name], check=True, capture_output=True)
         self.assertTrue(flagged(separate))
         # If Git cannot answer, the check fails closed and says why when it can.
         with mock.patch.object(validate.subprocess, "run", side_effect=OSError("abstract reason")):
             self.assertIn("(git: abstract reason)", validate.attestation_errors(self.root)[0])
-        for stderr, shown in ((b"fatal: abstract reason\nmore\n", "(git: fatal: abstract reason)"), (b"", "")):
+        for stderr, shown in ((b"fatal: abstract reason\nmore\n", "(git: fatal: abstract reason)"),
+                              (b"abstract trace\nfatal: abstract reason\n", "(git: fatal: abstract reason)"),
+                              (b"", "")):
             failed = subprocess.CompletedProcess([], 128, b"", stderr)
             with mock.patch.object(validate.subprocess, "run", return_value=failed):
                 errors = validate.attestation_errors(self.root)
             message = f"{name}: cannot check whether Git tracks it"
             self.assertEqual(errors, [message + (f" {shown}" if shown else "")])
+
+    @unittest.skipUnless(shutil.which("git"), "git is not installed")
+    def test_owner_attestation_check_asks_git_whether_a_repository_tracks_root(self):
+        self.isolated_git()
+        def git(directory, *arguments):
+            subprocess.run(["git", "-C", str(directory), *arguments], check=True, capture_output=True)
+        def flagged(root):
+            errors = validate.attestation_errors(root)
+            return bool(errors) and all("tracked or staged" in error for error in errors)
+        name = validate.OWNER_ATTESTATIONS
+        # A parent repository can track root, which then has no .git entry of its own.
+        parent, vendored = self.root / "parent", self.root / "parent/asma"
+        (vendored / "registries").mkdir(parents=True)
+        (vendored / name).write_text("{}")
+        git(parent, "init", "-q")
+        git(parent, "add", "-f", "--", f"asma/{name}")
+        self.assertFalse((vendored / ".git").exists())
+        self.assertTrue(flagged(vendored))
+        # A hook can name the repository with GIT_DIR. Without a work tree, as in a parent repository's
+        # linked worktree, Git then lists paths from the repository's top.
+        with mock.patch.dict(os.environ, GIT_DIR=str(parent / ".git")):
+            self.assertTrue(flagged(vendored))
+        work = self.root / "work"
+        (work / "registries").mkdir(parents=True)
+        (work / name).write_text("{}")
+        with mock.patch.dict(os.environ, GIT_DIR=str(self.root / "work.git"), GIT_WORK_TREE=str(work)):
+            git(work, "init", "-q")
+            git(work, "add", "-f", "--", name)
+            self.assertTrue(flagged(work))
+        # Outside any repository, e.g. in an export, there is nothing to commit, unless GIT_DIR names one.
+        exported = self.root / "exported"
+        exported.mkdir()
+        self.assertEqual(validate.attestation_errors(exported), [])
+        with mock.patch.dict(os.environ, GIT_DIR=str(self.root / "missing.git")):
+            self.assertIn("cannot check whether Git tracks it", validate.attestation_errors(exported)[0])
+        # Only Git's own "not a git repository", after any trace output, or no Git at all means that.
+        outside = b"fatal: not a git repository (or any of the parent directories): .git\n"
+        def failed(stderr):
+            return {"return_value": subprocess.CompletedProcess([], 128, b"", stderr)}
+        for behaviour, expected in ((failed(outside), 0), (failed(b"abstract trace\n" + outside), 0),
+                                    ({"side_effect": FileNotFoundError("abstract reason")}, 0),
+                                    (failed(b"fatal: abstract reason\n"), 1),
+                                    ({"side_effect": subprocess.TimeoutExpired("git", 60)}, 1)):
+            with mock.patch.object(validate.subprocess, "run", **behaviour) as run:
+                self.assertEqual(len(validate.attestation_errors(exported)), expected, behaviour)
+            self.assertEqual((run.call_args.kwargs["env"]["LC_ALL"], run.call_args.kwargs["env"]["LANGUAGE"]),
+                             ("C", "C"))
 
     @unittest.skipUnless(shutil.which("git") and (validate.ROOT / ".git").exists(), "no Git checkout")
     def test_repository_ignores_the_owner_attestation_file(self):
