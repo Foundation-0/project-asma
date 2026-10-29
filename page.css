@@ -1,0 +1,18 @@
+/* Project Asma · page-specific components on top of the shared f0.css.
+   Tokens only from the design system; no new colours. */
+
+/* status ledger (section 01) */
+.ledger { list-style: none; margin: var(--s-6) 0 0; padding: 0; border-top: 1px solid var(--line); }
+.ledger li { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--s-3) var(--s-5); padding: var(--s-5) 0; border-bottom: 1px solid var(--line); }
+.ledger-main { max-width: 68ch; min-width: min(52ch, 100%); flex: 1 1 52ch; }
+.ledger-main h3 { font: 600 var(--fs-h3)/1.2 var(--f-sans); letter-spacing: -.02em; }
+.ledger-main p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
+.ledger .badge { margin-top: 4px; }
+.ledger + .ledger-note { margin-top: var(--s-5); }
+
+/* missing-gap cards (section 02) */
+.cards4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); margin-top: var(--s-6); }
+.mini-card { background: var(--bg-2); border: 1px solid var(--line); border-top: 2px solid var(--bio); padding: var(--s-5); }
+.mini-card h3 { font: 600 19px/1.25 var(--f-sans); letter-spacing: -.015em; }
+.mini-card p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
+@media (max-width: 720px) { .cards4 { grid-template-columns: minmax(0, 1fr); } }
