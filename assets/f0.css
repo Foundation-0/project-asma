@@ -1,6 +1,7 @@
 /* Foundation0 · Concept A "The Radiant at night", trimmed for the Project Asma pages.
    Tokens, base, layout, components. Plain CSS, no build step.
-   Taken from the shared Foundation0 site stylesheet (source commit not recorded here) and cut on 2026-10-25 to
+   Taken from docs/assets/f0.css in Foundation-0/f0 at commit e41f7be8705c86232e0c2a0abc56574869be1e50 (Apache License 2.0; see
+   assets/README.md) and cut on 2026-10-25 to
    the rules index.html, 404.html and f0.js use. Removed: web-font fallback faces, the home-page figures, cards,
    tooltips and the inner-page components the two pages do not use. Fonts are the visitor's system fonts, so the
    pages make no font requests.

@@ -1,5 +1,6 @@
 /* Foundation0 runtime (window.F0), trimmed for the Project Asma pages. Plain script, no modules, no dependencies.
-   Taken from the shared Foundation0 site runtime (source commit not recorded here) and cut on 2026-10-25 to what
+   Taken from docs/assets/f0.js in Foundation-0/f0 at commit e41f7be8705c86232e0c2a0abc56574869be1e50 (Apache License 2.0; see
+   assets/README.md) and cut on 2026-10-25 to what
    index.html and 404.html use: the theme and motion toggles, the header menu, and the "On this page" index (the
    rail is static markup in the page; this marks the current section and adds a compact bar below 960px).
    Removed: data fetchers, figure and chart helpers, status-badge builders and the AI-role ledger. It makes no
