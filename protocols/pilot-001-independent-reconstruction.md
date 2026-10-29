@@ -103,7 +103,7 @@ fixture-tested implementation:
 | Scope of every learned preprocessing step; globally preprocessed inputs not described as independent validation | Met for this track: released values are used as processed upstream, and only glmnet standardizes, within training subsets. Upstream processing scope remains unknown, and discovery cross-validation is not independent validation. |
 | Denominators, score direction, metric, comparison rule, compute limits, failure behavior and stop rules | **Met for the decision record; A3 proposed; owner decision required.** 135 patients (83/52), 4,316 pairs, 40,500 model predictions, a two-hour/8 GiB limit and explicit stop rules. [Amendment 1](pilot-001-reconstruction-amendment-1.md) (A3) proposes which warnings and messages from model calls stop a run. It proposes that every warning stays fatal, that messages become fatal and that a fixed aggregate code records what stopped a run; the alternative counts glmnet's saturation warnings. A3's implementation is not done and precedes any research run. The record's aggregate failure reasons are not yet emitted; the proposed code would provide them. |
 | Probability direction tested for each model (added at integration, from review of the synthetic validation) | **Met in the pinned image.** A planted-signal fixture requires, for each model separately, a higher class-1 mean probability and a fixture AUROC of at least 0.8, and rejects flipped probabilities. It passed in the pinned image on 2026-10-27 with the rest of the 179-assertion suite (see the [synthetic validation](../docs/pilot-001-synthetic-validation.md#pinned-image-rerun-2026-10-27)). |
-| Distribution of per-repetition AUROCs reported next to the repeat-averaged target | **Proposed; owner decision required; implemented.** [Amendment 1](pilot-001-reconstruction-amendment-1.md) (A1) proposes reporting the count, minimum, quartiles, maximum and mean of the per-repetition AUROCs as a descriptive secondary output that is not compared with 0.83. Each repetition's AUROC spans all 135 held-out scores; it is not an average of fold AUROCs. It is not adopted until the owner records a dated decision. If the owner rejects it, remove the computation before any research run. A pinned-image run is pending. |
+| Distribution of per-repetition AUROCs reported next to the repeat-averaged target | **Proposed; owner decision required; implemented.** [Amendment 1](pilot-001-reconstruction-amendment-1.md) (A1) proposes reporting the count, minimum, quartiles, maximum and mean of the per-repetition AUROCs as a descriptive secondary output that is not compared with 0.83. Each repetition's AUROC spans all 135 held-out scores; it is not an average of fold AUROCs. It is not adopted until the owner records a dated decision. If the owner rejects it, remove the computation before any research run. Its synthetic assertions passed in the pinned image on 2026-10-27 (see the [synthetic validation](../docs/pilot-001-synthetic-validation.md#pinned-image-rerun-2026-10-27)); adoption still needs the owner's decision. |
 
 The open items do not change the primary target, but each is required. Resolve
 each by a dated amendment before any research run; the decision record itself
@@ -118,9 +118,11 @@ no private patient-level output files, model weights or caches are retained.
 The data-use disposition describes the remaining hosting/applicability checks.
 
 The next work is to establish the actual research-execution context. Live
-acquisition there follows only after the owner's sign-off stated above. Python parsing, transfer and fitting now share a pinned
-container; its probe passes 40 checks but does not establish those wider
-conditions. The adapter has not been executed on study files. Keep the selected
+acquisition there follows only after the owner's sign-off stated above. Python
+parsing, transfer and fitting now share a pinned container. Its probe passed 40
+checks on 2026-10-25 for the earlier image; the 2026-10-27 rebuild has no probe
+record yet and needs one on a cgroup v2 host. Neither image's checks establish
+those wider conditions. The adapter has not been executed on study files. Keep the selected
 64-protein question; do not substitute the downstream combined CSV or its 60-protein target.
 Verify the planned Canadian execution context and remaining conditions of the
 selected research-use basis before research fitting. The exact member and panel
