@@ -1,5 +1,8 @@
 # Project Asma
 
+> Named in honour of loving mother Asma Ansari who lost her life as a result of ovarian cancer. 
+
+
 A small, evidence-led workspace for ovarian cancer research. The first proposed
 contribution is to reproduce and stress-test a published protein signature for
 **primary platinum-refractory high-grade serous ovarian cancer (HGSOC)**.
@@ -9,6 +12,7 @@ contribution is to reproduce and stress-test a published protein signature for
 **Research only.** This repository is not clinical advice, a diagnostic service,
 or clinical decision support. Reproduction does not establish a new classifier,
 clinical validity, or improved patient outcomes.
+
 
 ## Start here
 
