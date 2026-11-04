@@ -13,10 +13,10 @@ from probe_execution_conditions import execution_options
 FAILURE = "ERROR: offline pinned-runtime checks failed."
 
 
-def docker_run(image, *command, extra_env=()):
+def docker_run(image, *command, extra_env=(), extra_volumes=()):
     arguments = (["docker", "--host=unix:///var/run/docker.sock", "run", "--rm"]
                  + execution_options(log_driver_none=False)
-                 + list(extra_env) + [image] + list(command))
+                 + list(extra_volumes) + list(extra_env) + [image] + list(command))
     completed = subprocess.run(arguments, env=local_docker_env(), check=False,
                                capture_output=True, text=True)
     if completed.stdout:
@@ -45,12 +45,23 @@ def image_id(tag):
     return identity
 
 
+def git_bind_mounts():
+    if os.environ.get("CI") != "true":
+        return []
+    mounts = []
+    for path in ("/usr/bin/git", "/usr/lib/git-core", "/usr/share/git-core"):
+        if os.path.exists(path):
+            mounts.extend(["--volume", f"{path}:{path}:ro"])
+    return mounts
+
+
 def main(argv=None):
     adapter = os.environ.get("ADAPTER_IMAGE", "").strip()
     if not re.fullmatch(r"sha256:[0-9a-f]{64}", adapter):
         raise SystemExit(FAILURE)
 
-    validate = docker_run(adapter, "/opt/python/bin/python3", "-I", "-B", "tools/validate.py")
+    validate = docker_run(adapter, "/opt/python/bin/python3", "-I", "-B", "tools/validate.py",
+                        extra_volumes=git_bind_mounts())
     if validate.returncode != 0 or not re.search(r"^PASS:", validate.stdout, re.MULTILINE):
         raise SystemExit(FAILURE)
 
