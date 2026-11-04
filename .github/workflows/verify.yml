@@ -19,6 +19,8 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+        with:
+          driver: docker
 
       - name: Cache pinned build archives
         uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
@@ -78,8 +80,7 @@ jobs:
               "$@"
           }
 
-          log=$(asma_offline_run "$ADAPTER_IMAGE" bash -lc \
-            'git config --global safe.directory /work && /opt/python/bin/python3 -I -B tools/validate.py' \
+          log=$(asma_offline_run "$ADAPTER_IMAGE" /opt/python/bin/python3 -I -B tools/validate.py \
             2>&1 | tee validate.log)
           echo "$log"
           grep -q '^PASS:' validate.log
