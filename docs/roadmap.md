@@ -4,6 +4,14 @@ Status: updated 2026-11-04. The [project mission](mission.md) defines useful
 progress across **open-ended** ovarian cancer research. Pilot 001 keeps its
 existing gates and endpoint; other work enters through the process below.
 
+**Research continuation, 2026-11-04:** the
+[preservation record](research-continuation.md) retains the broader public-source
+work for the team. The current frontier proposal focuses on human anti-Yo
+antigen recognition, presenting context and effector role, with two documented
+exploration cycles and an executed synthetic identifiability check. It has no
+patient-data execution result and does not close Gate 0. Its prior-art search,
+competing models, stop rules and next literature task are recorded explicitly.
+
 ## Candidate directions (new tracks)
 
 Ranked public-data possibilities live in [directions.md](directions.md). Any

@@ -5,6 +5,12 @@
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
   gaps. These are catalog records, not downloaded datasets or patient manifests.
 
+Sources S37–S76 support the [2026-11-04 research continuation](../docs/research-continuation.md).
+They include article, review, code-license and data-catalog metadata. Non-PDC
+candidate routes are source catalog records, not promoted execution-ready rows
+in the pilot-specific dataset schema. Read the linked handoffs for access gates,
+review depth and unexecuted work. No frontier study datasets were acquired.
+
 The first eight records below (linkage, supplement, score verification, matrix
 header, author archive, author feature, panel name and validation panel
 coverage) come from network audits that read study files or patient-level

@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-04):** PROVEN **0** · VERIFIED **18** · KNOWN **14** · CONJECTURE **8**
+**Counts (2026-11-04):** PROVEN **0** · VERIFIED **19** · KNOWN **24** · CONJECTURE **14**
 
 ---
 
@@ -51,6 +51,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | V16 | MMC1 validation cohort feature lists contain all 64 panel symbols once each | `python3 tools/audit_validation_panel_coverage.py` (network) |
 | V17 | Held-out evaluation helpers behave on **artificial** test cases | `python3 -m unittest tests.test_evaluate_heldout -v` |
 | V18 | Git does not track or stage owner attestation file (when `git` available) | `python3 tools/validate.py` |
+| V19 | Original synthetic two-state counterexamples, a hypothetical selection-bound calculation, exact sign-flip enumeration and a missing-clone sampling example give the values in the [identifiability record](docs/compartment-identifiability.md) | `python3 tools/analyze_compartment_identifiability.py`; invented inputs, not study analysis or a new biological result |
 
 **PR #30 runtime summary (2026-11-04):** the **207** `unittest` cases, **179** R
 assertions, and **40** execution controls are **VERIFIED only on synthetic or fixture
@@ -78,6 +79,16 @@ and do **not** substitute for study-data execution.
 | K12 | 64/64 panel symbols in published MMC1 association lists for three cohort feature sets | [Validation panel registry](registries/pilot-001-validation-panel-coverage.json) |
 | K13 | Copyright Act s. 29 fair-dealing framework described for conditional Canadian research-use assessment | *CCH Canadian Ltd. v. Law Society of Upper Canada*, 2004 SCC 13 (quoted in [data-use](docs/pilot-001-data-use.md)) |
 | K14 | Mission tribute: project honours Asma Ansari | [README](README.md) opening — biographical, not a research cohort claim |
+| K15 | Petitpré study methods/access qualifications and review history are documented in the [source audit](docs/anti-yo-frontier-2026-11-04.md#source-audit) | S37–S38; exact PDF pages and hashes in [sources.json](registries/sources.json) |
+| K16 | Anti-Yo antigen biology, HLA associations and context-dependent immune responses have substantial prior art | S39–S45, S48, S50–S51, S76; [frontier prior-art table](docs/anti-yo-frontier-2026-11-04.md#prior-art-and-the-remaining-gap) and molecular handoff |
+| K17 | ALS compartment methods and the ROHHAD AEGIS preprint are cross-disease precedents, not anti-Yo validation | S46–S47; AEGIS is explicitly a preprint; [frontier](docs/anti-yo-frontier-2026-11-04.md) |
+| K18 | Longitudinal clone tracking, KELIM and CA125-triggered intervention studies address different evidence questions | S02, S52–S53; [handoff](docs/research-handoff-2026-11-04.md) H01–H03 |
+| K19 | Spatial/perturbational profiling and small organoid studies motivate further evaluation without establishing assay-guided clinical benefit | S03, S54–S55; handoff H04–H06 |
+| K20 | TrialGPT workflow findings and PRO-TECT clinical workflow outcomes do not establish benefit from a new standalone application | S56–S57; handoff H07–H08 |
+| K21 | Anti-Yo checkpoint-inhibitor case evidence is a limited safety research signal | S49; five selected cases, no incidence estimate or individual treatment inference |
+| K22 | FDA notices describe dated, assay/context-specific US indications; target-heterogeneity studies are separate evidence | S04–S05, S59–S62; [molecular handoff](docs/molecular-research-handoff-2026-11-04.md) |
+| K23 | MUC16, replication-stress, adaptive-resistance, ADC and ascites leads span preclinical, observational and prospective evidence | S58, S63–S64, S66–S69; molecular handoff; no new target validation |
+| K24 | Reviewed code licenses and catalog pointers have source-specific limits | S65, S70–S75; handoffs and registry record what was inspected; no dataset-use grant inferred |
 
 ---
 
@@ -89,10 +100,16 @@ and do **not** substitute for study-data execution.
 | C02 | Independent reconstruction will agree with published metrics within ≤0.02 AUC when fairly compared | Predeclared tolerance; not tested on study data |
 | C03 | Author-released matrix can support the selected reconstruction after transformation gaps close | Naming/feature coverage improved; workspace provenance open |
 | C04 | Conditional Canadian fair-dealing route applies to a future narrow research run | Requires verified execution context ([data-use](docs/pilot-001-data-use.md)) |
-| C05 | Consolidated [source request](templates/pilot-001-source-request.md) may resolve missing inputs if sent by owner | Draft only; no message sent |
+| C05 | The owner's consolidated [source request](templates/pilot-001-source-request.md) may resolve missing inputs | Sent by owner; canonical [sending record](docs/pilot-001-source-request-handoff.md); answers and research gates remain open |
 | C06 | Future confirmatory validation could meet a 98% specificity lower bound | Requires ~149 independent sensitive patients ([validation capacity](docs/pilot-001-validation-capacity.md)) |
 | C07 | Independent evaluation could eventually inform research decisions with appropriate review | Mission aspiration; no current clinical result |
 | C08 | Prior-art searches listed in audits did not locate a corrected MMC4 artifact | Documented as "not found", **not** "novel" |
+| C09 | Validated receptor/antigen/presenter evidence would help resolve competing anti-Yo CD4 explanations | Proposed H1–H5 matrix in the [frontier proposal](docs/anti-yo-frontier-2026-11-04.md); untested |
+| C10 | Presenting context may separate tumor response from neural injury | Mechanistic comparison proposed, no separation or safe intervention demonstrated |
+| C11 | Antigen processing may uncouple abundance from immune recognition | Conditional hypothesis; no empirical chain established here |
+| C12 | Synthetic identifiability checks and proposed annotation/control sensitivities can improve the next study's design | Calculations executed; their practical research value is a judgment; no study reanalysis |
+| C13 | Broader longitudinal, spatial, organoid, navigation and symptom avenues merit the ranked next tasks | [Research handoff](docs/research-handoff-2026-11-04.md); prioritization is not measured benefit or novelty |
+| C14 | Assay-aware molecular, perturbation and adaptive-resistance work may contribute to the expanded mission | [Molecular handoff](docs/molecular-research-handoff-2026-11-04.md); proposals and stop rules, no individual target assignment |
 
 ---
 

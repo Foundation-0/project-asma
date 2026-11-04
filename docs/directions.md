@@ -15,6 +15,12 @@ here is called novel without that search.
 
 ## How to adopt a direction
 
+The [2026-11-04 continuation record](research-continuation.md) supplements this
+feasibility shortlist with broader evidence handoffs and a focused anti-Yo
+frontier proposal. Its literature review and synthetic checks have run;
+mechanistic hypotheses and study-data analyses remain unexecuted. Feasibility
+ranking here must not be interpreted as a novelty ranking.
+
 1. Open a **protocol pull request** (population, endpoint, permitted inputs, stop
    rules) mirroring the rigor of [Pilot 001](../protocols/pilot-001.md).
 2. Pass the **owner gate** in [roadmap](roadmap.md) Gate 0 before live acquisition,
