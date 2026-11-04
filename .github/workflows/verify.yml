@@ -35,7 +35,28 @@ jobs:
           set -euo pipefail
           ASMA_PACKAGE_CACHE="${RUNNER_TEMP}/asma-package-cache"
           mkdir -p "$ASMA_PACKAGE_CACHE"
-          python3 tools/build_synthetic_runtime.py --source-cache "$ASMA_PACKAGE_CACHE"
+          build_synthetic() {
+            python3 - <<'PY'
+          import os
+          import sys
+          import traceback
+          from pathlib import Path
+          sys.path.insert(0, "tools")
+          import build_synthetic_runtime as builder
+          cache = Path(os.environ["ASMA_PACKAGE_CACHE"])
+          try:
+              builder.build("asma-synthetic:4.4.3", cache)
+          except Exception:
+              traceback.print_exc()
+              raise SystemExit(1)
+          PY
+          }
+          if ! build_synthetic; then
+            echo "Retrying synthetic build without archive cache" >&2
+            rm -rf "$ASMA_PACKAGE_CACHE"
+            mkdir -p "$ASMA_PACKAGE_CACHE"
+            build_synthetic
+          fi
           docker image inspect asma-synthetic:4.4.3 --format '{{.Id}}' | tee synthetic-image-id.txt
 
       - name: Build source-adapter runtime image
