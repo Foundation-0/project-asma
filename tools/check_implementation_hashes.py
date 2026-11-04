@@ -13,10 +13,12 @@ Also handles a string ``implementation_sha256`` on the validation-capacity regis
 Command-line exit codes:
 
 - **0** — inside a git work tree and every entry is OK or an allowlisted stale hash.
-- **1** — not inside a git work tree (stale detection needs history), or one or
-  more entries failed. When ``.git`` is absent (e.g. a GitHub/Zenodo source
-  archive), prints ``ERROR: git checkout required for stale-hash detection.``
-  to stderr and exits **1** without scanning registries.
+- **1** — the repository root is not the git work-tree top level (stale detection
+  needs this project's history), or one or more entries failed. When ``.git`` is
+  absent or the tree sits inside another repository (e.g. a GitHub/Zenodo source
+  archive unpacked under a foreign ``.git``), prints
+  ``ERROR: git checkout required for stale-hash detection.`` to stderr and exits
+  **1** without scanning registries.
 """
 
 from __future__ import annotations
@@ -55,11 +57,25 @@ def file_sha256(path: Path) -> str:
 
 
 def is_inside_git_work_tree(root: Path | None = None) -> bool:
-    """Return True when ``root`` is inside a git work tree (``git`` may be absent)."""
-    root = root or ROOT
+    """Return True when ``root`` is the top level of the git work tree containing it.
+
+    Returns False when ``git`` is missing, when ``root`` is not in a work tree, or
+    when ``root`` lies inside another repository (e.g. a source archive directory
+    nested under an unrelated checkout).
+    """
+    root = (root or ROOT).resolve()
     try:
-        proc = subprocess.run(
+        inside = subprocess.run(
             ["git", "rev-parse", "--is-inside-work-tree"],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if inside.returncode != 0 or inside.stdout.strip() != "true":
+            return False
+        top = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
             cwd=root,
             capture_output=True,
             text=True,
@@ -67,7 +83,9 @@ def is_inside_git_work_tree(root: Path | None = None) -> bool:
         )
     except OSError:
         return False
-    return proc.returncode == 0 and proc.stdout.strip() == "true"
+    if top.returncode != 0 or not top.stdout.strip():
+        return False
+    return Path(top.stdout.strip()).resolve() == root
 
 
 def resolve_implementation_path(key: str, root: Path) -> Path:

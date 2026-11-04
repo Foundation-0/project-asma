@@ -1,6 +1,8 @@
 """Tests for registry implementation hash verification."""
 
 import json
+import shutil
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -19,6 +21,29 @@ from tools.check_implementation_hashes import (
 ROOT = Path(__file__).resolve().parents[1]
 GIT_WORK_TREE = is_inside_git_work_tree(ROOT)
 SKIP_WITHOUT_GIT = "not inside a git work tree (stale-hash detection needs history)"
+
+
+class GitWorkTreeDetection(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("git"), "git is not installed")
+    def test_nested_tree_in_foreign_git_repo_is_not_checkout(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            outer = Path(tmp) / "foreign"
+            outer.mkdir()
+            subprocess.run(["git", "init", "-q"], cwd=outer, check=True)
+            nested = outer / "project-asma"
+            nested.mkdir()
+            archive = subprocess.run(
+                ["git", "archive", "--format=tar", "HEAD"],
+                cwd=ROOT,
+                capture_output=True,
+                check=True,
+            )
+            subprocess.run(
+                ["tar", "-x", "-C", str(nested)],
+                input=archive.stdout,
+                check=True,
+            )
+            self.assertFalse(is_inside_git_work_tree(nested))
 
 
 class ImplementationHashChecks(unittest.TestCase):
