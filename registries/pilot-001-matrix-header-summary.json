@@ -146,7 +146,7 @@
     "study": "2e5f7122878a783536ecced4b10ad1bd77096d9e417a6e55285d9dda1bcd7410",
     "url": "db19a9e91b3ec33f6827b10b4b814b33901e48d5a9b529546a8a3253859925b0"
   },
-  "re_executed_at_commit": null,
+  "re_executed_at_commit": "afe12b351a5b2e08f61f9db544db98046d789659",
   "re_executed_at_utc": "2026-11-04T10:03:21Z",
   "response_sha256": {
     "PDC000358": {

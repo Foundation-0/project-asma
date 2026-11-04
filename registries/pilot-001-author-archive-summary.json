@@ -72,7 +72,7 @@
     "method": 8,
     "uncompressed_bytes": 18498831
   },
-  "re_executed_at_commit": null,
+  "re_executed_at_commit": "afe12b351a5b2e08f61f9db544db98046d789659",
   "re_executed_at_utc": "2026-11-04T10:03:21Z",
   "schema_version": 1,
   "scope": "Public author ZIP central directory and discovery header; exact clinical and score-membership joins only",
