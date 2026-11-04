@@ -73,7 +73,8 @@
     <div class="wrap">
       <p class="kicker"><span class="pair" aria-hidden="true"><i></i><i></i></span>project-asma · ovarian cancer research · a reproduction study</p>
       <h1 class="display">Project Asma</h1>
-      <p class="promise">A 2023 study reported a set of 64 proteins that marks the ovarian cancers most resistant to first treatment. This project rebuilds that result from the public data, step by step, and reports what holds.</p>
+      <p class="promise">In honour of Asma Ansari, this project works toward less suffering and loss from ovarian cancer through trustworthy, useful research.</p>
+      <p>The first pilot investigates a published 64-protein signature for failure of initial platinum treatment in high-grade serous ovarian cancer. It is one contribution to the broader <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/mission.md">purpose and measures of success</a>.</p>
       <p class="hint">Research only. Not clinical advice, not a diagnostic service, and not peer reviewed. No scientific result has been reproduced yet. By Ahraz Arifuddin, Aska Digital. Assisted by an array of digital intelligences.</p>
       <dl class="stats" aria-label="The study in numbers">
         <div class="stat"><dt class="k">proteins in the published panel</dt><dd class="v" style="margin:0">64</dd></div>
@@ -82,7 +83,7 @@
         <div class="stat"><dt class="k">results reproduced so far</dt><dd class="v" style="margin:0">0</dd></div>
       </dl>
       <div class="prov">
-        <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">status on main · 2026-10-29 · current state in the roadmap</a>
+        <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">status on main · 2026-11-04 · current state in the roadmap</a>
         <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/README.md#check-the-scaffold"><span class="dot live" aria-hidden="true"></span>audits run in memory, aggregates only</a>
         <a class="chip" href="https://github.com/Foundation-0/project-asma/tree/main/tests">tests on records and made-up inputs</a>
       </div>
@@ -139,12 +140,12 @@
         </li>
         <li>
           <div class="ledger-main"><h3>Synthetic pipeline and direction test</h3>
-          <p>An original R implementation of those decisions, tested on artificial fixtures only. In a pinned container it passed 149 assertions and a complete 100-repeat run with the pinned model packages. Later tests check that each model gives higher probabilities to the class coded as refractory, pin the fold assignment to fixed reference vectors, and read each fitted model's own settings back against the declaration. On 27 October the whole suite, now 179 assertions, and the full 100-repeat run passed again in a rebuilt pinned container. No fixture result is compared with the paper.</p></div>
+          <p>An original R implementation of those decisions, tested on artificial fixtures only. Tests check model direction, fold assignments against fixed reference vectors, and fitted settings against the declaration. On 4 November all 179 assertions and the full 100-repeat run passed in a rebuilt pinned container. The validation report gives the commands; the execution record retains hashes, software inventory and aggregate prediction coverage. No fixture result is compared with the paper.</p></div>
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #11, #13, #17, #20, #23</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Fixtures only · no study data</span></span>
         </li>
         <li>
           <div class="ledger-main"><h3>Source adapter</h3>
-          <p>Code that would check the pinned workbooks and matrix member against their recorded hashes and turn the selected values into the pipeline's input. It was tested on generated files in the same formats, through the full model path, with network access mocked. A probe of the first combined Python and R container passed all 40 of its technical checks; the container rebuilt on 27 October passed the same fixture checks but still needs its own probe. The adapter refuses to download or parse the study files unless the call names a current entry in an attestation file that only the owner creates. The refusal to parse and the expiry dates on entries were added after the 27 October run, so the fixture checks need another run in the pinned container. The adapter has never been run on study files.</p></div>
+          <p>Code that would check the pinned workbooks and matrix member against their recorded hashes and turn the selected values into the pipeline's input. On 4 November the rebuilt combined Python and R container passed the generated-file fixture through the model path, all 19 R bridge assertions, 30 adapter Python tests and all 40 technical execution checks. This covers the attestation changes made after the October run. The adapter refuses to download or parse study files without a current owner-created attestation. Research location, hosting terms and applicable obligations remain unverified, and the adapter has never been run on study files.</p></div>
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #12, #16, #22, #23</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not run on study files</span></span>
         </li>
         <li>

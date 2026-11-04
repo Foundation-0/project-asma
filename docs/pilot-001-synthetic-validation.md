@@ -2,11 +2,47 @@
 
 **Executed software validation; no study-data model fit.** An original R
 implementation of the frozen [reconstruction decisions](../protocols/pilot-001-reconstruction-decisions.md)
-passed all 179 assertions and a complete 100-repeat run in the pinned image on
-2026-10-27 (see [Pinned-image rerun](#pinned-image-rerun-2026-10-27)); the first
+passed all 179 assertions and a complete 100-repeat run in the rebuilt pinned
+runtime on 2026-11-04 (see [Latest rerun](#pinned-image-rerun-2026-11-04)); the first
 record (2026-10-25) covered 149. The [execution record](../registries/pilot-001-synthetic-validation.json)
 contains aggregate coverage, UTC timing, package/toolchain inventory and hashes.
 It contains no fixture predictions or clinical performance result.
+
+## Pinned-image rerun, 2026-11-04
+
+The same digest-pinned base and ten size/SHA-256-verified package archives built
+successfully with Docker 28.4.0; compilation ran with networking disabled.
+Initial CRAN requests returned transient HTTP 503 errors. Subsequent downloads
+matched every existing pin and supplied a temporary software-only cache; no
+source URL, package version or hash was changed.
+
+Executed from the repository root:
+
+```sh
+python3 tools/build_synthetic_runtime.py --source-cache /tmp/asma-package-cache
+python3 tools/run_synthetic_pipeline.py
+python3 tools/run_synthetic_pipeline.py --full
+```
+
+The named cache was populated for this run with the manifest's verified package
+archives. On a fresh host, omit `--source-cache /tmp/asma-package-cache` to let
+the builder fetch and verify the same pinned archives itself.
+
+The test-only run passed **179 assertions in 16.080 seconds**. The full run
+passed the same assertions and **100 repetitions / 500 outer folds** in
+**165.889 seconds**: 40,500 model predictions, 13,500 ensemble predictions and
+135 final scores, with complete coverage and agreement of both AUROC formulas.
+The full run overlapped compilation of the separate Python extension image;
+its duration is an observed software-test runtime, not a research compute estimate.
+
+The new R image is `sha256:ffc2f55117d54c3978eaa6d0bb242e6d5526e1667a70e78c724b2a59f3789e35`.
+All observed package versions and toolchain fields equal the 2026-10-27 record;
+the new image identity is recorded explicitly, without asserting identical
+binaries. All 16 implementation hashes match. The current execution record is
+the full-run output; the earlier record remains in Git history at `6043881`.
+The [source-adapter report](pilot-001-source-adapter.md) records the separate
+combined-runtime fixture and execution-condition work. Neither these checks nor
+the historical checks below establish clinical performance or authorize study use.
 
 ## Implementation and evidence
 
@@ -265,14 +301,14 @@ The synthetic entry point accepts no study-file path or URL. The
 [source adapter](pilot-001-source-adapter.md) revalidates the pinned
 member/workbook bytes, parses values in memory and passes them to the same input
 contracts. It has been tested only with generated fixtures, most recently in the
-2026-10-27 pinned-image rerun, and has not read study bytes. The
+2026-11-04 pinned-image rerun, and has not read study bytes. The
 [data-use disposition](pilot-001-data-use.md) still requires a supported actual
 jurisdiction, host and applicable review/privacy context before study-data fitting.
 The current fixture run does not establish those conditions.
 
 Unknown upstream preprocessing and workspace history, the corrected-legend gap,
 validation-patient independence and external scientific review remain open.
-External outreach stays on hold. The next independent step is to complete the
-research-execution preflight: a probe of the current runtime on a cgroup v2 host
-and a pinned-image rerun of the adapter fixture after the attestation changes. Synthetic
-success neither reproduces the published result nor establishes clinical validity.
+External outreach stays on hold. The current-runtime probe and adapter fixture
+after the attestation changes passed on 2026-11-04; the actual execution context,
+data-use assessment and owner decisions remain open. Synthetic success neither
+reproduces the published result nor establishes clinical validity.

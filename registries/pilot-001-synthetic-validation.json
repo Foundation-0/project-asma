@@ -5,7 +5,7 @@
     "models": 51,
     "total": 179
   },
-  "elapsed_seconds": 104.858,
+  "elapsed_seconds": 165.889,
   "environment": {
     "BLAS": "/usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3",
     "LAPACK": "/usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so",
@@ -266,7 +266,7 @@
     ],
     "platform": "x86_64-pc-linux-gnu",
     "r_version": "4.4.3",
-    "runtime_image_id": "sha256:c7592401eca5fe569ddda577aa9b26504d85930333af7482b8d0adcd569d073c",
+    "runtime_image_id": "sha256:ffc2f55117d54c3978eaa6d0bb242e6d5526e1667a70e78c724b2a59f3789e35",
     "thread_settings": {
       "MKL_NUM_THREADS": "1",
       "OMP_NUM_THREADS": "1",
@@ -288,7 +288,7 @@
     "temporary_storage": "256 MiB tmpfs; noexec,nosuid",
     "wall_time_limit_seconds": 7200
   },
-  "finished_at_utc": "2026-10-27T05:40:10.648806Z",
+  "finished_at_utc": "2026-11-04T09:21:48.008309Z",
   "implementation_sha256": {
     "R/asma_core.R": "7e7923ee477f57172c5af6ec7c9a0b56ca7120fa5cd3274e2fd4f5708eb10c91",
     "R/asma_input.R": "0b69c848765cbb7cc9af59efff9c6744f4772aa8931a3fc7bb136708f4ef6ed6",
@@ -332,7 +332,7 @@
   ],
   "schema_version": 1,
   "scope": "Synthetic fixtures only; no source-study data or clinical performance result",
-  "started_at_utc": "2026-10-27T05:38:25.788949Z",
+  "started_at_utc": "2026-11-04T09:19:02.119431Z",
   "synthetic_input": {
     "clinical_NA_rows": 1,
     "features": 64,

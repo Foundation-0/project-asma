@@ -2,11 +2,80 @@
 
 **Executed software and runtime checks; no study-data ingestion or fitting.**
 The source adapter is implemented and tested with generated source-format files.
-The combined Python/R container passed 40 observed technical checks on
-2026-10-25. A 2026-10-27 rebuild passed the fixture validation, but its probe
-could not run on that host (see [Pinned-image rerun](#pinned-image-rerun-2026-10-27)). Actual
+The rebuilt combined Python/R container passed all 40 observed technical checks
+and the current adapter fixture on **2026-11-04** (see [Latest rerun](#pinned-image-rerun-2026-11-04)).
+This covers the attestation changes made after the October fixture run. Actual
 processing jurisdiction, hosting terms and applicable research/privacy obligations remain
 unverified, so these checks do not open study-data execution.
+
+## Pinned-image rerun, 2026-11-04
+
+The validated R base and combined Python/R image were rebuilt from the same
+pinned software sources, with Docker build networking disabled. The R base
+passed 179 assertions before the combined build; its full 100-repeat synthetic
+run then passed while Python compiled. The base-image pin was updated explicitly
+before the combined build, which did not use `--accept-rebuilt-base`.
+
+The combined image is `sha256:819e4f4124903a495dbfcf072cdf9ab94b21e017d3d086b536709b68d688d647`,
+on R base `sha256:ffc2f55117d54c3978eaa6d0bb242e6d5526e1667a70e78c724b2a59f3789e35`.
+The [runtime record](../registries/pilot-001-source-adapter-runtime.json) names
+both, preserves the October image identities and records the exact inventory
+method below. All observed Python fields and all 41 R package versions equal
+the October record; the R base layers and package inventory are preserved.
+Equal inventories do not establish identical binaries.
+
+Executed from the repository root, after the base validation:
+
+```sh
+python3 tools/build_source_adapter_runtime.py --source-cache /tmp/asma-source-runtime-cache
+python3 tools/run_source_adapter_fixture.py
+python3 tools/probe_execution_conditions.py
+```
+
+The cache contained only size/SHA-256-verified pinned CPython, Ubuntu development
+package and notice files. On a fresh host, omit
+`--source-cache /tmp/asma-source-runtime-cache` to let the builder fetch and
+verify those files itself. The fixture and probe ran concurrently. Results:
+
+- **Adapter fixture:** all 19 R bridge assertions and the independent 135 × 64
+  value oracle passed. One complete fivefold repetition produced 405 model
+  predictions, 135 ensemble predictions and 135 final scores, with complete
+  coverage and agreeing AUROC formulas. The launcher took 78.929 seconds.
+  All 26 implementation hashes match, including both adapter files changed
+  after the October run. The [fixture record](../registries/pilot-001-source-adapter-validation.json)
+  is the unmodified runner output, with no artificial scores or AUROC value.
+- **Pinned Python unit tests:** all 30 source-adapter tests passed in 0.893
+  seconds under CPython 3.12.14. These use generated fixtures and temporary
+  abstract attestations, never the owner's real attestation file. They exercise
+  the expiry and parsing guards inside the actual runtime, closing the earlier
+  interpreter-coverage gap.
+- **Technical probe:** all 40 checks passed on the current image and this cgroup
+  v2 host. The [probe record](../registries/pilot-001-execution-conditions.json)
+  is the unmodified tool output. Processing country, operator location,
+  hosting/retention terms and applicable obligations remain UNKNOWN. No study
+  source was acquired or fitted, and no owner attestation was created.
+
+The unit-test command was:
+
+```sh
+python3 - <<'PY'
+import subprocess, sys
+sys.path.insert(0, 'tools')
+from build_synthetic_runtime import local_docker_env
+from probe_execution_conditions import execution_options
+image = 'sha256:819e4f4124903a495dbfcf072cdf9ab94b21e017d3d086b536709b68d688d647'
+subprocess.run(['docker', '--host=unix:///var/run/docker.sock', 'run', '--rm'] +
+               execution_options() + [image, '/opt/python/bin/python3', '-I', '-B',
+               '-m', 'unittest', 'discover', '-s', 'tests', '-p',
+               'test_source_data_adapter.py', '-q'],
+               env=local_docker_env(), check=True, timeout=120)
+PY
+```
+
+The earlier execution records remain in Git at `6043881`. The dated sections
+below describe their historical evidence; this rerun closes the stale fixture
+and technical-probe items only. The owner decisions and study-use conditions in
+[Gate 0](roadmap.md) still apply.
 
 ## Source adapter
 
@@ -72,8 +141,8 @@ All **18 R bridge assertions** passed. An independent formula verified all
 fivefold repetition produced **405 model predictions, 135 ensemble predictions
 and 135 final scores**, with complete coverage and agreement between both AUROC
 calculations. Artificial scores and AUROC values are not retained or compared
-with the paper. The record now holds the 2026-10-27
-[pinned-image rerun](#pinned-image-rerun-2026-10-27) instead: 19 bridge
+with the paper. The record now holds the 2026-11-04
+[pinned-image rerun](#pinned-image-rerun-2026-11-04) instead: 19 bridge
 assertions and the same prediction counts.
 
 At commit `ef1f522`, all **138 Python tests** passed, including 19
@@ -107,7 +176,8 @@ third-party Python packages are installed, and the image is not redistributed.
 The builder prints only the two image IDs and its scope. No committed tool emits
 the runtime record's other fields. The commands that produced the 2026-10-25
 fields were not committed; the 2026-10-27 rerun below lists its commands, with
-the Python inventory command given only in outline. Those fields include the
+the Python inventory command given only in outline. The November rerun supplies
+the exact [inventory command](#inventory-command-2026-11-04). Those fields include the
 `environment` block (with `compiler` and
 `missing_optional_extension_modules`), `r_package_versions` and
 `base_r_inventory_unchanged`. The validation record's `transport` block is
@@ -250,18 +320,19 @@ which marks a build made with `--accept-rebuilt-base`; this build did not use it
   stop without output. The tool was not changed to pass. That host is therefore
   not a qualifying execution context under this probe. The
   [execution-conditions record](../registries/pilot-001-execution-conditions.json)
-  remains the 2026-10-25 observation of the earlier runtime on a cgroup v2 host;
-  it does not describe the rebuilt image. A probe of the current runtime on a
-  cgroup v2 host is still needed before any research run.
+  at that time retained the 2026-10-25 observation of the earlier runtime on a
+  cgroup v2 host; it did not describe the rebuilt image. The
+  [November rerun](#pinned-image-rerun-2026-11-04) now supplies the current-image
+  probe and supersedes that record. The October observation remains in Git history.
 
 ## Owner-attestation follow-ups, 2026-10-27
 
 These changes address the three follow-up notes of the
 [#16 approving review](https://github.com/Foundation-0/project-asma/pull/16#pullrequestreview-5660779406).
-They merged after the pinned-image rerun above and change
+They merged after the October pinned-image rerun and changed
 `tools/source_data_adapter.py` and `tests/test_source_data_adapter.py`, so both
-differ from its validation record. A pinned-image rerun after them is needed
-before any real-file check.
+differed from that validation record. The [November rerun](#pinned-image-rerun-2026-11-04)
+now covers both changes; it does not authorize a real-file check.
 - **The real-source input check needs the attestation too.** `parse_sources()`
   takes a keyword-only `owner_attestation`. If any SHA-256 pin in its contract
   (the member's compressed or uncompressed SHA-256, or either workbook's), in
@@ -306,12 +377,9 @@ before any real-file check.
 The [technical probe](../tools/probe_execution_conditions.py) reads actual kernel
 and Docker state, rather than accepting invocation flags alone. Its
 [aggregate record](../registries/pilot-001-execution-conditions.json) reports
-**40/40 checks passed** for the 2026-10-25 combined runtime (`sha256:e1bd961e…`,
-now under `prior_runtime` in the
-[runtime record](../registries/pilot-001-source-adapter-runtime.json)). The
-2026-10-27 rebuild has no probe record yet (see the
-[pinned-image rerun](#pinned-image-rerun-2026-10-27)). The earlier probe
-observed:
+**40/40 checks passed** for the 2026-11-04 combined runtime (`sha256:819e4f41…`)
+on the current host. The earlier 2026-10-25 pass and the 2026-10-27 host's
+cgroup v1 failure remain historical observations. The current probe observed:
 
 - Read-only root and checkout, owner UID, all capabilities dropped and no new
   privileges; only loopback interfaces and no IPv4 routes.
@@ -322,20 +390,18 @@ observed:
 - Python 3.12.14 and isolated/no-user-site/no-bytecode startup, with matching
   cgroup, mount namespace and network namespace for the Python and R processes.
 
-On 2026-10-25 the outer executor exposed no active swap devices, but its parent
+On 2026-11-04 the outer executor exposed no active swap devices, but its parent
 swap ceiling was unbounded. That observation does not certify provider snapshots,
-monitoring, erasure, unseen ancestor limits or future host configuration. The
-managed environment tool reported connectivity and an enforced HTTP policy at
-that time; it exposed no processing region, governing hosting contract or
-retention evidence. Only this allowlisted observation is retained, without
-account or environment IDs. The probe does not emit it:
-`managed_environment_observation` was added to the record separately. It records
-the outer machine's network policy mode then as `unrestricted`: the container ran
-with networking disabled, but the machine that ran it had no network restriction.
+monitoring, erasure, unseen ancestor limits or future host configuration. Its
+visible memory ceiling was 16 GiB and its CPU ceiling four cores; the probe's
+own container limits remained 8 GiB, zero swap and two CPUs. The new record
+contains only observations emitted by the probe. The separate managed-environment
+observation manually added in October remains in that historical record, not
+carried forward as evidence of current processing region or hosting terms.
 
 | Execution condition | Disposition |
 | --- | --- |
-| Combined runtime technical controls | Observed PASS for the 2026-10-25 runtime; the current runtime needs its own probe on a cgroup v2 host, then on the actual execution host |
+| Combined runtime technical controls | Observed PASS for the 2026-11-04 runtime on this cgroup v2 host; repeat on the actual research host if it differs |
 | Python parsing, private transfer and R fitting | Tested together in the pinned container; repeat checks on the actual research host, on study values only after the owner's sign-off in Gate 0 |
 | Live acquisition | Implemented and mock-tested; network access, CA trust and data handling on the actual host still require verification, and the owner's sign-off in Gate 0, before study bytes are acquired |
 | Actual processing and operator research location | UNKNOWN; requires evidence of the actual research and processing setting |
@@ -348,6 +414,49 @@ The Canadian execution plan is a project choice, not a universal legal
 requirement established here. A different actual execution setting needs its own
 applicability assessment. No new blanket author-license or institutional-review
 requirement has been imposed by this software step.
+
+## Inventory command (2026-11-04)
+
+This is the exact runnable inventory code used for the November rebuild, shown
+as a here-doc rather than a temporary script. Run it from the repository root
+after both local images have been built. It prints observations only; it does
+not rewrite the registry or establish research-use conditions. It checks the
+required imports and enumerates the same optional extensions as the prior
+record. The two R inventories and base-layer relationship are observed separately.
+
+```sh
+python3 - <<'PY'
+from pathlib import Path
+import sys,json,subprocess,hashlib
+from datetime import datetime,timezone
+ROOT=Path.cwd()
+sys.path.insert(0,str(ROOT/'tools'))
+from build_synthetic_runtime import local_docker_env
+def docker(args):
+ p=subprocess.run(['docker','--host=unix:///var/run/docker.sock']+args,env=local_docker_env(),check=True,capture_output=True,text=True,timeout=60)
+ if p.stderr: raise RuntimeError('Unexpected Docker stderr')
+ return p.stdout
+lock=json.loads((ROOT/'runtime/source-adapter-python.json').read_text())
+base=json.loads(docker(['image','inspect',lock['base_image_tag']]))[0]
+image=json.loads(docker(['image','inspect',lock['image_tag']]))[0]
+controls=['run','--rm','--network=none','--read-only','--cap-drop=ALL','--log-driver=none','--security-opt=no-new-privileges','--tmpfs=/tmp:rw,noexec,nosuid,size=256m']
+code='''import sys,platform,json,ssl,zlib,pyexpat,importlib
+required=["ssl","zlib","pyexpat","zipfile","hashlib","math","urllib.request"]
+for name in required: importlib.import_module(name)
+optional=["_bz2","_ctypes","_curses","_curses_panel","_dbm","_gdbm","_lzma","_tkinter","_uuid","nis","readline","_sqlite3"]
+missing=[]
+for name in optional:
+ try: importlib.import_module(name)
+ except ImportError: missing.append(name)
+print(json.dumps(dict(compiler=platform.python_compiler(),dont_write_bytecode=bool(sys.dont_write_bytecode),expat=pyexpat.EXPAT_VERSION,ignore_environment=bool(sys.flags.ignore_environment),isolated_mode=bool(sys.flags.isolated),missing_optional_extension_modules=missing,no_user_site=bool(sys.flags.no_user_site),openssl=ssl.OPENSSL_VERSION,python_executable=sys.executable,python_version=platform.python_version(),required_modules_imported=required,zlib_compile_version=zlib.ZLIB_VERSION,zlib_runtime_version=zlib.ZLIB_RUNTIME_VERSION)))'''
+observed=json.loads(docker(controls+[image['Id'],'/opt/python/bin/python3','-I','-B','-c',code]))
+observed.update(platform=image['Os']+'/'+image['Architecture'],runtime_image_id=image['Id'])
+r_code='p <- installed.packages()[, c("Package", "Version")]; cat(jsonlite::toJSON(as.list(setNames(p[, "Version"], p[, "Package"])), auto_unbox=TRUE))'
+packages=json.loads(docker(controls+[image['Id'],'Rscript','--vanilla','-e',r_code]))
+base_packages=json.loads(docker(controls+[base['Id'],'Rscript','--vanilla','-e',r_code]))
+print(json.dumps({'environment':observed,'r_package_versions':packages,'base_image_id':base['Id'],'base_image_layers_preserved':image['RootFS']['Layers'][:len(base['RootFS']['Layers'])]==base['RootFS']['Layers'],'base_r_inventory_unchanged':packages==base_packages,'recorded_at_utc':datetime.now(timezone.utc).isoformat()},indent=2,sort_keys=True))
+PY
+```
 
 ## Commands and continuation
 
