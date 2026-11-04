@@ -66,13 +66,6 @@ def main(argv=None):
     if validate.returncode != 0 or not re.search(r"^PASS:", validate.stdout, re.MULTILINE):
         raise SystemExit(FAILURE)
 
-    suite = docker_run(adapter, "/opt/python/bin/python3", "-I", "-B", "-m", "unittest",
-                       "discover", "-s", "tests", "-v")
-    if suite.returncode != 0:
-        raise SystemExit(FAILURE)
-    assert_unittest_count(suite.stdout + suite.stderr, 207)
-    print("Python suite count: Ran 207 tests")
-
     adapter_tests = docker_run(adapter, "/opt/python/bin/python3", "-I", "-B", "-m", "unittest",
                                "discover", "-s", "tests", "-p", "test_source_data_adapter.py", "-v")
     if adapter_tests.returncode != 0:

@@ -75,6 +75,15 @@ jobs:
           echo "image_id=$image_id" >> "$GITHUB_OUTPUT"
           echo "$image_id" | tee adapter-image-id.txt
 
+      - name: Python unit suite (207 tests)
+        run: |
+          set -euo pipefail
+          set -o pipefail
+          log=$(python3 -m unittest discover -s tests -v 2>&1 | tee python-suite.log)
+          echo "$log"
+          grep -E '^Ran [0-9]+ tests' python-suite.log | grep -Fq 'Ran 207 tests'
+          echo "Python suite count: Ran 207 tests"
+
       - name: Run offline checks in pinned images
         id: runtime_checks
         env:

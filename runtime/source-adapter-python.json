@@ -60,27 +60,6 @@
         "sha256": "9e5b96d63773a5d177ba264254390f792be07e41748ebd94730981c6cac31cc6",
         "note": "Official source-package copyright record; kept in the new image because base-image documentation was pruned."
       }
-    },
-    {
-      "package": "liblzma-dev",
-      "version": "5.6.1+really5.4.5-1ubuntu0.2",
-      "url": "https://snapshot.ubuntu.com/ubuntu/20260401T000000Z/pool/main/x/xz-utils/liblzma-dev_5.6.1+really5.4.5-1ubuntu0.2_amd64.deb",
-      "filename": "liblzma-dev_5.6.1+really5.4.5-1ubuntu0.2_amd64.deb",
-      "bytes": 176212,
-      "sha256": "f32c9c79c0d9eb88a3267fea803b4ae9f295c9e2a5cc69f030a298d8a238fa79",
-      "control": {
-        "Package": "liblzma-dev",
-        "Version": "5.6.1+really5.4.5-1ubuntu0.2",
-        "Architecture": "amd64",
-        "Depends": "liblzma5 (= 5.6.1+really5.4.5-1ubuntu0.2)"
-      },
-      "license_notice": {
-        "filename": "liblzma-dev-copyright",
-        "url": "https://changelogs.ubuntu.com/changelogs/pool/main/x/xz-utils/xz-utils_5.6.1+really5.4.5-1/copyright",
-        "bytes": 15465,
-        "sha256": "a2dc8fac0f496e1c58aff67018cf0c6b88336316afa5642f9335b71642e28aa8",
-        "note": "Official source-package copyright record; kept in the new image because base-image documentation was pruned."
-      }
     }
   ],
   "configure_options": [
