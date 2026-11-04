@@ -30,18 +30,21 @@ class GitWorkTreeDetection(unittest.TestCase):
             outer = Path(tmp) / "foreign"
             outer.mkdir()
             subprocess.run(["git", "init", "-q"], cwd=outer, check=True)
-            nested = outer / "project-asma"
-            nested.mkdir()
-            archive = subprocess.run(
-                ["git", "archive", "--format=tar", "HEAD"],
-                cwd=ROOT,
-                capture_output=True,
+            subprocess.run(
+                ["git", "config", "user.email", "test@example.com"],
+                cwd=outer,
                 check=True,
             )
             subprocess.run(
-                ["tar", "-x", "-C", str(nested)],
-                input=archive.stdout,
+                ["git", "config", "user.name", "test"],
+                cwd=outer,
                 check=True,
+            )
+            nested = outer / "project-asma"
+            shutil.copytree(
+                ROOT,
+                nested,
+                ignore=shutil.ignore_patterns(".git", "__pycache__", "*.pyc"),
             )
             self.assertFalse(is_inside_git_work_tree(nested))
 
