@@ -58,7 +58,6 @@ jobs:
               --network=none \
               --read-only \
               --cap-drop=ALL \
-              --log-driver=none \
               --user "$(id -u):$(id -g)" \
               --security-opt=no-new-privileges \
               --ulimit=core=0 \
@@ -67,6 +66,7 @@ jobs:
               --memory-swap=8g \
               --cpus=2 \
               --tmpfs=/tmp:rw,noexec,nosuid,size=256m \
+              --env HOME=/tmp \
               --volume "${GITHUB_WORKSPACE}:/work:ro" \
               --workdir /work \
               --env R_HISTFILE=/dev/null \
@@ -75,7 +75,9 @@ jobs:
               "$@"
           }
 
-          log=$(asma_offline_run "$ADAPTER_IMAGE" /opt/python/bin/python3 -I -B tools/validate.py 2>&1 | tee validate.log)
+          log=$(asma_offline_run "$ADAPTER_IMAGE" bash -lc \
+            'git config --global safe.directory /work && /opt/python/bin/python3 -I -B tools/validate.py' \
+            2>&1 | tee validate.log)
           echo "$log"
           grep -q '^PASS:' validate.log
 
