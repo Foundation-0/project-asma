@@ -6,12 +6,23 @@ reviewable. Cite primary evidence, verify corrections, and record access dates.
 Use [experiment records](templates/experiment.md) to distinguish proposals from
 executed work. Include negative findings and explain deviations from the protocol.
 
+Claim labels (Foundation-0 [repository standard](https://github.com/Foundation-0/.github/blob/main/REPO-STANDARD.md)):
+
+- **PROVEN** — written proof in-repo
+- **VERIFIED** — finite check with a recorded re-run command (not a proof)
+- **KNOWN** — cited primary source with exact citation
+- **CONJECTURE** — hypothesis or open target; "not found" is never "new"
+
+Record new public claims in [CLAIMS.md](CLAIMS.md). Disclose AI assistance and
+models in the pull request and update [CONTRIBUTORS.md](CONTRIBUTORS.md) when credit
+changes.
+
 Before submitting:
 
 1. Follow the [data and reproducibility rules](docs/reproducibility-and-data.md).
    Inspect `git diff --cached` for private context, data, and secrets.
 2. Update registry records when adding a source or dataset. Check reuse terms;
-   no project license grant has been chosen.
+   third-party study files keep their own licences ([NOTICE](NOTICE)).
 3. Run `python3 tools/validate.py` and
    `python3 -m unittest discover -s tests -v` from the repository root.
 4. Explain the question, evidence class, methods, checks actually run, unrun

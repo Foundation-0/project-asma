@@ -8,7 +8,10 @@
   confirms the full text before sending.
 - **Superseded draft.** The request replaces the earlier held draft; the
   2026-10-23 text remains in git history, for example at commit `6489425`.
-- **Destination.** A comment on the existing
+- **Destination.** Sent 2026-11-04 as a standalone issue on the upstream
+  repository:
+  [issue #4 — Reproducing Figure 3D: questions on inputs, label coding and environment](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/issues/4)
+  (not a comment on issue #1). Previously planned as a comment on the existing
   [upstream data-availability issue](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/issues/1)
   from the owner's own account, or an email to the corresponding author.
 - **Who sends it.** Only the owner, from their own account, if and when they
@@ -20,6 +23,10 @@
   and record the sending details there once sent;
   [issue #8](https://github.com/Foundation-0/project-asma/issues/8)
   should point to that record.
+- **Status (2026-11-04).** Sent by the owner from GitHub account `ahrazzle` as
+  WangLab
+  [#4](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/issues/4);
+  awaiting answers. See the [handoff record](../docs/pilot-001-source-request-handoff.md).
 - **Status (2026-10-25).** Unsent. The owner decided that this request is
   authorized as a draft only and that the owner alone decides whether and when
   to send it.

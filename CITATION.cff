@@ -1,0 +1,172 @@
+cff-version: 1.2.0
+message: >-
+  If you use this work, please cite the manuscript scaffold when a DOI is
+  assigned; until then cite this repository for code and aggregate research records.
+title: "Project Asma: reproducible investigation of a primary platinum-refractory HGSOC protein signature"
+type: software
+authors:
+  - family-names: Arifuddin
+    given-names: Alkindus
+  - family-names: Arif
+    given-names: Raz
+  - name: Foundation Zero
+version: "0.1.0"
+date-released: 2026-11-04
+repository-code: "https://github.com/Foundation-0/project-asma"
+url: "https://github.com/Foundation-0/project-asma"
+license:
+  - MIT
+  - CC-BY-4.0
+abstract: >-
+  Research scaffold honouring Asma Ansari: reproduce and stress-test the
+  Chowdhury et al. (Cell 2023) primary platinum-refractory high-grade serous
+  ovarian cancer protein signature with labelled claims (PROVEN, VERIFIED,
+  KNOWN, CONJECTURE), pinned software checks on synthetic inputs, and bounded
+  public-source audits. Not clinical decision support. Code is MIT; text and
+  figures are CC BY 4.0; third-party study files retain their own terms (NOTICE).
+keywords:
+  - ovarian cancer
+  - proteomics
+  - reproducibility
+  - platinum refractory
+  - high-grade serous carcinoma
+  - research scaffold
+references:
+  - type: article
+    title: "Proteogenomic analysis of chemo-refractory high-grade serous ovarian cancer"
+    authors:
+      - family-names: Chowdhury
+        given-names: "Shrabanti"
+      - family-names: Kennedy
+        given-names: "Jacob J."
+      - family-names: Ivey
+        given-names: "Richard G."
+      - family-names: Murillo
+        given-names: "Oscar D."
+      - family-names: Hosseini
+        given-names: "Noshad"
+      - family-names: Song
+        given-names: "Xiaoyu"
+      - family-names: Petralia
+        given-names: "Francesca"
+      - family-names: Calinawan
+        given-names: "Anna"
+      - family-names: Savage
+        given-names: "Sara R."
+      - family-names: Berry
+        given-names: "Anna B."
+      - family-names: Reva
+        given-names: "Boris"
+      - family-names: Ozbek
+        given-names: "Umut"
+      - family-names: Krek
+        given-names: "Azra"
+      - family-names: Ma
+        given-names: "Weiping"
+      - family-names: da Veiga Leprevost
+        given-names: "Felipe"
+      - family-names: Ji
+        given-names: "Jiayi"
+      - family-names: Yoo
+        given-names: "Seungyeul"
+      - family-names: Lin
+        given-names: "Chenwei"
+      - family-names: Voytovich
+        given-names: "Uliana J."
+      - family-names: Huang
+        given-names: "Yajue"
+      - family-names: Lee
+        given-names: "Sun-Hee"
+      - family-names: Bergan
+        given-names: "Lindsay"
+      - family-names: Lorentzen
+        given-names: "Travis D."
+      - family-names: Mesri
+        given-names: "Mehdi"
+      - family-names: Rodriguez
+        given-names: "Henry"
+      - family-names: Hoofnagle
+        given-names: "Andrew N."
+      - family-names: Herbert
+        given-names: "Zachary T."
+      - family-names: Nesvizhskii
+        given-names: "Alexey I."
+      - family-names: Zhang
+        given-names: "Bing"
+      - family-names: Whiteaker
+        given-names: "Jeffrey R."
+      - family-names: Fenyo
+        given-names: "David"
+      - family-names: McKerrow
+        given-names: "Wilson"
+      - family-names: Wang
+        given-names: "Joshua"
+      - family-names: Schürer
+        given-names: "Stephan C."
+      - family-names: Stathias
+        given-names: "Vasileios"
+      - family-names: Chen
+        given-names: "X. Steven"
+      - family-names: Barcellos-Hoff
+        given-names: "Mary Helen"
+      - family-names: Starr
+        given-names: "Timothy K."
+      - family-names: Winterhoff
+        given-names: "Boris J."
+      - family-names: Nelson
+        given-names: "Andrew C."
+      - family-names: Mok
+        given-names: "Samuel C."
+      - family-names: Kaufmann
+        given-names: "Scott H."
+      - family-names: Drescher
+        given-names: "Charles"
+      - family-names: Cieslik
+        given-names: "Marcin"
+      - family-names: Wang
+        given-names: "Pei"
+      - family-names: Birrer
+        given-names: "Michael J."
+      - family-names: Paulovich
+        given-names: "Amanda G."
+    journal: Cell
+    volume: 186
+    issue: 16
+    start: 3476
+    end: "3498.e35"
+    year: 2023
+    doi: 10.1016/j.cell.2023.07.004
+  - type: article
+    title: "Proteogenomic analysis of chemo-refractory high-grade serous ovarian cancer"
+    authors:
+      - family-names: Chowdhury
+        given-names: Shrabanti
+    journal: Cell
+    volume: 187
+    start: 1016
+    year: 2024
+    doi: 10.1016/j.cell.2024.01.016
+    notes: "Publisher correction (erratum) to the 2023 article; supplemental legend fixes."
+  - type: data
+    title: "PDC PTRC HGSOC studies PDC000357-PDC000362 (proteome and phosphoproteome)"
+    authors:
+      - name: National Cancer Institute Proteome Data Commons
+    notes: "PDC000358/360/362 proteome; PDC000357/359/361 phosphoproteome; CC BY 4.0; see registries/datasets.json"
+    url: "https://pdc.cancer.gov/"
+  - type: data
+    title: "NLM supplemental MMC1 and MMC4 workbooks (Chowdhury et al.)"
+    authors:
+      - name: National Library of Medicine
+    notes: "Article-associated CC BY-NC-ND 4.0; not redistributed from this repository"
+    url: "https://doi.org/10.1016/j.cell.2023.07.004"
+preferred-citation:
+  type: generic
+  title: "Reproducing and stress-testing a primary platinum-refractory HGSOC protein signature"
+  authors:
+    - family-names: Arifuddin
+      given-names: Alkindus
+  year: 2026
+  url: "https://github.com/Foundation-0/project-asma/blob/main/paper/manuscript.md"
+  notes: >-
+    Manuscript scaffold not peer reviewed; no Zenodo DOI until first release.
+    Repository cites upstream Cell 2023 paper for original science.
