@@ -34,6 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           ASMA_PACKAGE_CACHE="${RUNNER_TEMP}/asma-package-cache"
+          export ASMA_PACKAGE_CACHE
           mkdir -p "$ASMA_PACKAGE_CACHE"
           build_synthetic() {
             python3 - <<'PY'
