@@ -112,10 +112,10 @@ def executor_observations(root=Path("/")):
     return result
 
 
-def run_probe():
+def run_probe(runtime_image_id=None):
     docker = ["docker", "--host=unix:///var/run/docker.sock"]
     environment = local_docker_env()
-    pinned = json.loads(IMAGE_RECORD.read_text())["environment"]["runtime_image_id"]
+    pinned = runtime_image_id or json.loads(IMAGE_RECORD.read_text())["environment"]["runtime_image_id"]
     if not re.fullmatch(r"sha256:[0-9a-f]{64}", pinned):
         raise ValueError(FAILURE)
     def command(arguments, timeout=60):
@@ -174,9 +174,14 @@ def run_probe():
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.parse_args(argv)
+    parser.add_argument(
+        "--runtime-image-id",
+        help="Observe controls on this image ID instead of the recorded runtime pin "
+             "(for freshly built CI images only)",
+    )
+    args = parser.parse_args(argv)
     try:
-        result = run_probe()
+        result = run_probe(args.runtime_image_id)
         print(json.dumps(result, sort_keys=True, indent=2, allow_nan=False))
         return 0 if result["technical_checks_status"] == "PASS" else 2
     except Exception:
