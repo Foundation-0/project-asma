@@ -5,10 +5,10 @@
 
 A small, evidence-led workspace working toward less suffering and loss from
 ovarian cancer, in honour of Asma Ansari. The [purpose and measures of
-success](docs/mission.md) connect that mission to concrete research outcomes.
-The first proposed contribution is to reproduce and stress-test a published
-protein signature for
-**primary platinum-refractory high-grade serous ovarian cancer (HGSOC)**.
+success](docs/mission.md) define an **open-ended** research scope: any rigorous,
+permitted contribution across histotypes — reproductions, open-data analyses,
+methods, curated resources, and negative results — under the project's data and
+claim-label rules.
 
 **Website:** [foundation-0.github.io/project-asma](https://foundation-0.github.io/project-asma/)
 
@@ -16,12 +16,20 @@ protein signature for
 or clinical decision support. Reproduction does not establish a new classifier,
 clinical validity, or improved patient outcomes.
 
+## Scope summary (2026-11-04)
+
+| Layer | What it covers |
+| --- | --- |
+| **Mission** | Trustworthy ovarian cancer research outputs; no clinical decision support. |
+| **Active track** | [Pilot 001](protocols/pilot-001.md) — primary platinum-refractory **HGSOC** signature reproduction (endpoint and gates unchanged). |
+| **Future tracks** | Ranked [candidate directions](docs/directions.md); each needs a protocol PR and owner Gate 0 before study-data execution. |
 
 ## Start here
 
 | Read | Purpose |
 | --- | --- |
-| [Purpose and measures of success](docs/mission.md) | The mission, the first pilot's role, and what would establish useful progress |
+| [Purpose and measures of success](docs/mission.md) | Open-ended mission, guardrails, and measures of progress |
+| [Candidate research directions](docs/directions.md) | Ranked public-data directions and verification log |
 | [Research frontier — 2026-10-22](docs/frontier-2026-10-22.md) | Evidence, open questions, and limits |
 | [Pilot protocol](protocols/pilot-001.md) | Proposed reproduction and robustness study |
 | [Pilot feasibility audit](docs/pilot-001-feasibility-audit.md) | Source-checked inputs, methods, patient-independence questions, and execution blockers |
