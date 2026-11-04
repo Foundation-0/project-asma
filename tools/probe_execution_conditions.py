@@ -31,6 +31,7 @@ def execution_options(root=ROOT, uid=None, gid=None, *, log_driver_none=True):
             "--ulimit=core=0", "--pids-limit=256", "--memory=8g", "--memory-swap=8g",
             "--cpus=2", "--tmpfs=/tmp:rw,noexec,nosuid,size=256m",
             "--env", "HOME=/tmp",
+            "--env", "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
             "--env", "GIT_CONFIG_COUNT=1",
             "--env", "GIT_CONFIG_KEY_0=safe.directory",
             "--env", "GIT_CONFIG_VALUE_0=/work",
