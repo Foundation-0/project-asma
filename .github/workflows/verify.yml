@@ -13,8 +13,6 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    env:
-      ASMA_PACKAGE_CACHE: ${{ runner.temp }}/asma-package-cache
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -25,7 +23,7 @@ jobs:
       - name: Cache pinned build archives
         uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
         with:
-          path: ${{ env.ASMA_PACKAGE_CACHE }}
+          path: ${{ runner.temp }}/asma-package-cache
           key: asma-package-cache-${{ hashFiles('runtime/synthetic-packages.json', 'runtime/source-adapter-python.json') }}
           restore-keys: |
             asma-package-cache-
@@ -33,6 +31,7 @@ jobs:
       - name: Build synthetic runtime image
         run: |
           set -euo pipefail
+          ASMA_PACKAGE_CACHE="${RUNNER_TEMP}/asma-package-cache"
           mkdir -p "$ASMA_PACKAGE_CACHE"
           python3 tools/build_synthetic_runtime.py --source-cache "$ASMA_PACKAGE_CACHE"
           docker image inspect asma-synthetic:4.4.3 --format '{{.Id}}' | tee synthetic-image-id.txt
@@ -41,6 +40,7 @@ jobs:
         id: adapter_build
         run: |
           set -euo pipefail
+          ASMA_PACKAGE_CACHE="${RUNNER_TEMP}/asma-package-cache"
           json=$(python3 tools/build_source_adapter_runtime.py --accept-rebuilt-base --source-cache "$ASMA_PACKAGE_CACHE")
           echo "$json"
           image_id=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["image_id"])' <<<"$json")
