@@ -19,17 +19,26 @@ IMAGE_RECORD = ROOT / "registries/pilot-001-source-adapter-runtime.json"
 MEMORY_BYTES = 8 * 1024**3
 
 
-def execution_options(root=ROOT, uid=None, gid=None):
+def execution_options(root=ROOT, uid=None, gid=None, *, log_driver_none=True):
     """Controls for a local, offline process; no data or secrets in arguments."""
     uid = os.getuid() if uid is None else uid
     gid = os.getgid() if gid is None else gid
-    return ["--network=none", "--read-only", "--cap-drop=ALL", "--log-driver=none",
+    opts = ["--network=none", "--read-only", "--cap-drop=ALL"]
+    if log_driver_none:
+        opts.append("--log-driver=none")
+    opts.extend([
             "--user", f"{uid}:{gid}", "--security-opt=no-new-privileges",
             "--ulimit=core=0", "--pids-limit=256", "--memory=8g", "--memory-swap=8g",
             "--cpus=2", "--tmpfs=/tmp:rw,noexec,nosuid,size=256m",
+            "--env", "HOME=/tmp",
+            "--env", "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "--env", "GIT_CONFIG_COUNT=1",
+            "--env", "GIT_CONFIG_KEY_0=safe.directory",
+            "--env", "GIT_CONFIG_VALUE_0=/work",
             "--mount", f"type=bind,src={root},dst=/work,readonly", "-w", "/work",
             "--env", "R_HISTFILE=/dev/null", "--env", "XDG_CACHE_HOME=/tmp/asma-cache",
-            "--env", "R_USER_CACHE_DIR=/tmp/asma-cache"]
+            "--env", "R_USER_CACHE_DIR=/tmp/asma-cache"])
+    return opts
 
 
 def observed_status(value, expected=True):
@@ -112,10 +121,10 @@ def executor_observations(root=Path("/")):
     return result
 
 
-def run_probe():
+def run_probe(runtime_image_id=None):
     docker = ["docker", "--host=unix:///var/run/docker.sock"]
     environment = local_docker_env()
-    pinned = json.loads(IMAGE_RECORD.read_text())["environment"]["runtime_image_id"]
+    pinned = runtime_image_id or json.loads(IMAGE_RECORD.read_text())["environment"]["runtime_image_id"]
     if not re.fullmatch(r"sha256:[0-9a-f]{64}", pinned):
         raise ValueError(FAILURE)
     def command(arguments, timeout=60):
@@ -174,9 +183,14 @@ def run_probe():
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.parse_args(argv)
+    parser.add_argument(
+        "--runtime-image-id",
+        help="Observe controls on this image ID instead of the recorded runtime pin "
+             "(for freshly built CI images only)",
+    )
+    args = parser.parse_args(argv)
     try:
-        result = run_probe()
+        result = run_probe(args.runtime_image_id)
         print(json.dumps(result, sort_keys=True, indent=2, allow_nan=False))
         return 0 if result["technical_checks_status"] == "PASS" else 2
     except Exception:

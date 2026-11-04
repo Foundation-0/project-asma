@@ -1,0 +1,143 @@
+name: Verify
+
+"on":
+  pull_request:
+  push:
+    branches:
+      - main
+  merge_group:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Python unit suite (214 tests)
+        run: |
+          set -euo pipefail
+          set -o pipefail
+          python3 -m unittest discover -s tests -v 2>&1 | tee python-suite.log
+          grep -E '^Ran [0-9]+ tests' python-suite.log | grep -Fq 'Ran 214 tests'
+          echo "Python suite count: Ran 214 tests"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+        with:
+          driver: docker
+
+      - name: Cache pinned build archives
+        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
+        with:
+          path: ${{ runner.temp }}/asma-package-cache
+          key: asma-package-cache-${{ hashFiles('runtime/synthetic-packages.json', 'runtime/source-adapter-python.json') }}
+          restore-keys: |
+            asma-package-cache-
+
+      - name: Build synthetic runtime image
+        run: |
+          set -euo pipefail
+          ASMA_PACKAGE_CACHE="${RUNNER_TEMP}/asma-package-cache"
+          mkdir -p "$ASMA_PACKAGE_CACHE"
+          attempt=1
+          while [ "$attempt" -le 5 ]; do
+            if python3 tools/build_synthetic_runtime.py --source-cache "$ASMA_PACKAGE_CACHE"; then
+              break
+            fi
+            echo "Synthetic build attempt ${attempt} failed" >&2
+            if [ "$attempt" -eq 5 ]; then
+              exit 1
+            fi
+            rm -rf "$ASMA_PACKAGE_CACHE"
+            mkdir -p "$ASMA_PACKAGE_CACHE"
+            sleep $((attempt * 20))
+            attempt=$((attempt + 1))
+          done
+          docker image inspect asma-synthetic:4.4.3 --format '{{.Id}}' | tee synthetic-image-id.txt
+
+      - name: Build source-adapter runtime image
+        id: adapter_build
+        run: |
+          set -euo pipefail
+          ASMA_PACKAGE_CACHE="${RUNNER_TEMP}/asma-package-cache"
+          mkdir -p "$ASMA_PACKAGE_CACHE"
+          max_attempts=4
+          attempt=1
+          while [ "$attempt" -le "$max_attempts" ]; do
+            set +e
+            python3 tools/build_source_adapter_runtime.py --accept-rebuilt-base --source-cache "$ASMA_PACKAGE_CACHE" 2>&1 | tee "adapter-build-${attempt}.log"
+            status=${PIPESTATUS[0]}
+            set -e
+            if [ "$status" -eq 0 ]; then
+              cp "adapter-build-${attempt}.log" adapter-build.log
+              break
+            fi
+            echo "Source-adapter build attempt ${attempt}/${max_attempts} failed (exit ${status}); full log:" >&2
+            cat "adapter-build-${attempt}.log" >&2
+            if [ "$attempt" -eq "$max_attempts" ]; then
+              echo "Source-adapter build failed after ${max_attempts} attempts; last log above." >&2
+              exit 1
+            fi
+            sleep $((attempt * 30))
+            attempt=$((attempt + 1))
+          done
+          json=$(tail -1 adapter-build.log)
+          echo "$json"
+          image_id=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["image_id"])' <<<"$json")
+          echo "image_id=$image_id" >> "$GITHUB_OUTPUT"
+          echo "$image_id" | tee adapter-image-id.txt
+
+      - name: Run offline checks in pinned images
+        id: runtime_checks
+        env:
+          ADAPTER_IMAGE: ${{ steps.adapter_build.outputs.image_id }}
+        run: python3 tools/ci_run_offline_checks.py
+
+      - name: Execution controls (40 technical checks)
+        id: execution_controls
+        env:
+          ADAPTER_IMAGE: ${{ steps.adapter_build.outputs.image_id }}
+        run: |
+          set -euo pipefail
+          python3 tools/probe_execution_conditions.py --runtime-image-id "$ADAPTER_IMAGE" | tee execution-controls.json
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          data = json.loads(Path("execution-controls.json").read_text())
+          checks = data["checks"]
+          excluded = []
+          if os.environ.get("CI_EXCLUDED_CONTROLS"):
+              excluded = [item.strip() for item in os.environ["CI_EXCLUDED_CONTROLS"].split(",") if item.strip()]
+
+          lines = [
+              "## Execution controls",
+              "",
+              f"Technical status: **{data['technical_checks_status']}**",
+              f"Runtime image: `{data['runtime_image_id']}`",
+              "",
+              "| Control | Status |",
+              "| --- | --- |",
+          ]
+          for name in sorted(checks):
+              if name in excluded:
+                  lines.append(f"| {name} | EXCLUDED (CI) |")
+              else:
+                  lines.append(f"| {name} | {checks[name]['status']} |")
+          if excluded:
+              lines.extend(["", "### Excluded on this runner", ""])
+              for item in excluded:
+                  lines.append(f"- {item}")
+          summary = "\n".join(lines) + "\n"
+          Path(os.environ["GITHUB_STEP_SUMMARY"]).write_text(summary, encoding="utf-8")
+          print(summary)
+          if data["technical_checks_status"] != "PASS":
+              raise SystemExit("Execution controls did not pass")
+          PY

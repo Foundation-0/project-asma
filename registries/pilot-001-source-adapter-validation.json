@@ -46,6 +46,12 @@
     "tools/run_source_adapter_fixture.py": "ea155d5ebf05af77973ae9cee8ecb96adb23f364a029472dfcf087bcd17cd2ee",
     "tools/source_data_adapter.py": "9be789544cf2c1c6d675d98b80914d219e5c50355a9a34c0ed8b80cf3ee1ee2b"
   },
+  "implementation_hash_drift": {
+    "tools/probe_execution_conditions.py": {
+      "allowed_recorded_hash": "0410d3f4294dfeb3d69e1a88c9f8d1c58c6900b8f926a97b16da14961db26bd3",
+      "git_commit": "ef1f5226e279721da4f669c84fb1def0b2156ee1"
+    }
+  },
   "limitations": [
     "Generated XLSX and deflate bytes only; no source-study data were acquired or processed.",
     "Fixture contracts substitute artificial hashes; production defaults still require the pinned study bytes.",

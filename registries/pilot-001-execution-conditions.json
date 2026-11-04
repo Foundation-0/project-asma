@@ -217,6 +217,12 @@
     "tools/probe_execution_conditions.R": "6eac46576662333a7c51976ecf5d2d89818dbb66ee29498ad1aacb0ecfc742ab",
     "tools/probe_execution_conditions.py": "0410d3f4294dfeb3d69e1a88c9f8d1c58c6900b8f926a97b16da14961db26bd3"
   },
+  "implementation_hash_drift": {
+    "tools/probe_execution_conditions.py": {
+      "allowed_recorded_hash": "0410d3f4294dfeb3d69e1a88c9f8d1c58c6900b8f926a97b16da14961db26bd3",
+      "git_commit": "ef1f5226e279721da4f669c84fb1def0b2156ee1"
+    }
+  },
   "limitations": [
     "A passing technical probe does not authorize data use or establish any legal or ethics determination.",
     "The no-log driver prevents Docker log persistence for this probe, not provider monitoring or retention.",
