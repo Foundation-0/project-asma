@@ -1,0 +1,64 @@
+cff-version: 1.2.0
+message: >-
+  If you use this work, please cite the manuscript scaffold when a DOI is
+  assigned; until then cite this repository for code and aggregate research records.
+title: "Project Asma: reproducible investigation of a primary platinum-refractory HGSOC protein signature"
+type: software
+authors:
+  - family-names: Arifuddin
+    given-names: Alkindus
+  - family-names: Arif
+    given-names: Raz
+  - name: Foundation Zero
+version: "0.1.0"
+date-released: 2026-11-04
+repository-code: "https://github.com/Foundation-0/project-asma"
+url: "https://github.com/Foundation-0/project-asma"
+license:
+  - MIT
+  - CC-BY-4.0
+abstract: >-
+  Research scaffold honouring Asma Ansari: reproduce and stress-test the
+  Chowdhury et al. (Cell 2023) primary platinum-refractory high-grade serous
+  ovarian cancer protein signature with labelled claims (PROVEN, VERIFIED,
+  KNOWN, CONJECTURE), pinned software checks on synthetic inputs, and bounded
+  public-source audits. Not clinical decision support. Code is MIT; text and
+  figures are CC BY 4.0; third-party study files retain their own terms (NOTICE).
+keywords:
+  - ovarian cancer
+  - proteomics
+  - reproducibility
+  - platinum refractory
+  - high-grade serous carcinoma
+  - research scaffold
+references:
+  - type: article
+    title: "Proteogenomic analysis of chemo-refractory high-grade serous ovarian cancer"
+    authors:
+      - family-names: Chowdhury
+        given-names: S
+    year: 2023
+    doi: 10.1016/j.cell.2023.07.004
+  - type: data
+    title: "Proteome Data Commons open proteomics (studies PDC000357-PDC000362)"
+    authors:
+      - name: National Cancer Institute Proteome Data Commons
+    notes: "PDC public data terms CC BY 4.0; catalog records in registries/datasets.json"
+    url: "https://pdc.cancer.gov/"
+  - type: data
+    title: "NLM supplemental MMC1 and MMC4 workbooks (Chowdhury et al.)"
+    authors:
+      - name: National Library of Medicine
+    notes: "Article-associated CC BY-NC-ND 4.0; not redistributed from this repository"
+    url: "https://doi.org/10.1016/j.cell.2023.07.004"
+preferred-citation:
+  type: generic
+  title: "Reproducing and stress-testing a primary platinum-refractory HGSOC protein signature"
+  authors:
+    - family-names: Arifuddin
+      given-names: Alkindus
+  year: 2026
+  url: "https://github.com/Foundation-0/project-asma/blob/main/paper/manuscript.md"
+  notes: >-
+    Manuscript scaffold not peer reviewed; no Zenodo DOI until first release.
+    Repository cites upstream Cell 2023 paper for original science.

@@ -42,7 +42,17 @@ clinical validity, or improved patient outcomes.
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
 | [Contributing](CONTRIBUTING.md) / [agent guidance](AGENTS.md) | Review and evidence standards |
+| [Claims ledger](CLAIMS.md) | PROVEN / VERIFIED / KNOWN / CONJECTURE labels for public statements |
+| [Paper scaffold](paper/manuscript.md) | Working manuscript: question, pre-registered methods, Results not yet run |
 | [Question](templates/research-question.md), [experiment](templates/experiment.md), [manifest](templates/provenance-manifest.md) templates | Reusable working records |
+
+## Paper
+
+Working manuscript source: [paper/manuscript.md](paper/manuscript.md) (scaffold only —
+not peer reviewed, no invented results). Methods follow
+[pilot 001](protocols/pilot-001.md). Claim labels: [CLAIMS.md](CLAIMS.md).
+Citation metadata: [CITATION.cff](CITATION.cff) and [.zenodo.json](.zenodo.json)
+(DOI badge after first Zenodo release).
 
 ## Current state
 
@@ -200,8 +210,9 @@ also operate without research inputs.
 
 ## Decisions still needed
 
-The owner must choose repository licensing; **no license grant is supplied**.
-Third-party code and data retain their own terms. Before ingestion or execution,
+Repository **code** is MIT and **text/site content** is CC BY 4.0 ([LICENSE](LICENSE));
+third-party study files and upstream paper content retain their own terms
+([NOTICE](NOTICE)). Before ingestion or execution,
 review access and reuse terms, pin corrected supplemental materials, resolve
 patient overlap, and assess computational requirements. Clinical interpretation
 and later validation will require domain review; recruiting reviewers is deferred.

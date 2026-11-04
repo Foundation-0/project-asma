@@ -1,0 +1,35 @@
+{
+  "title": "Project Asma: reproducible investigation of a primary platinum-refractory HGSOC protein signature",
+  "upload_type": "software",
+  "publication_type": "software",
+  "description": "Research scaffold (not clinical decision support) to reproduce and stress-test the Chowdhury et al. Cell 2023 primary platinum-refractory HGSOC protein signature. Contains labelled claims (CLAIMS.md), a paper scaffold (paper/manuscript.md), aggregate registries from bounded public-source audits, and pinned software verified on synthetic and fixture inputs only. Upstream data: PDC studies PDC000357-PDC000362 (CC BY 4.0); NLM MMC1/MMC4 supplemental workbooks (CC BY-NC-ND 4.0, not redistributed). One executed preliminary check records discovery AUROC 0.8088507878 versus printed 0.83 (tolerance 0.02 not met) as a reproduction discrepancy under investigation. Licences: code MIT, text/site CC BY 4.0 (LICENSE); third-party study content see NOTICE. AI assistance documented in CONTRIBUTORS.md. Not peer reviewed.",
+  "creators": [
+    {
+      "name": "Arifuddin, Alkindus"
+    },
+    {
+      "name": "Arif, Raz"
+    },
+    {
+      "name": "Foundation Zero"
+    }
+  ],
+  "keywords": [
+    "ovarian cancer",
+    "proteomics",
+    "reproducibility",
+    "platinum refractory",
+    "high-grade serous carcinoma",
+    "research scaffold"
+  ],
+  "license": "cc-by-4.0",
+  "notes": "Zenodo GitHub integration accepts one licence field; MIT for code is stated in LICENSE and CITATION.cff. Match CITATION.cff title, authors, and version on first Zenodo release. Preferred scientific citation remains Chowdhury et al. Cell 2023 doi:10.1016/j.cell.2023.07.004 for the original signature.",
+  "version": "0.1.0",
+  "related_identifiers": [
+    {
+      "identifier": "10.1016/j.cell.2023.07.004",
+      "relation": "cites",
+      "scheme": "doi"
+    }
+  ]
+}
