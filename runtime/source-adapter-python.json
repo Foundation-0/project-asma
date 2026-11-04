@@ -63,16 +63,16 @@
     },
     {
       "package": "liblzma-dev",
-      "version": "5.6.1+really5.4.5-1",
-      "url": "https://snapshot.ubuntu.com/ubuntu/20260401T000000Z/pool/main/x/xz-utils/liblzma-dev_5.6.1+really5.4.5-1_amd64.deb",
-      "filename": "liblzma-dev_5.6.1+really5.4.5-1_amd64.deb",
-      "bytes": 176242,
-      "sha256": "4e1aa1d1d475fbc3fbed957a88eac90b3abbeefd48e878efef351e8e893d5000",
+      "version": "5.6.1+really5.4.5-1ubuntu0.2",
+      "url": "https://snapshot.ubuntu.com/ubuntu/20260401T000000Z/pool/main/x/xz-utils/liblzma-dev_5.6.1+really5.4.5-1ubuntu0.2_amd64.deb",
+      "filename": "liblzma-dev_5.6.1+really5.4.5-1ubuntu0.2_amd64.deb",
+      "bytes": 176212,
+      "sha256": "f32c9c79c0d9eb88a3267fea803b4ae9f295c9e2a5cc69f030a298d8a238fa79",
       "control": {
         "Package": "liblzma-dev",
-        "Version": "5.6.1+really5.4.5-1",
+        "Version": "5.6.1+really5.4.5-1ubuntu0.2",
         "Architecture": "amd64",
-        "Depends": "liblzma5 (= 5.6.1+really5.4.5-1)"
+        "Depends": "liblzma5 (= 5.6.1+really5.4.5-1ubuntu0.2)"
       },
       "license_notice": {
         "filename": "liblzma-dev-copyright",
