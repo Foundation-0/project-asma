@@ -1,6 +1,6 @@
 {
-  "elapsed_seconds": 24.712130064999883,
-  "finished_at_utc": "2026-10-27T05:50:34.132687+00:00",
+  "elapsed_seconds": 78.92892435900012,
+  "finished_at_utc": "2026-11-04T09:26:30.153047+00:00",
   "fixture_provenance": {
     "biological_measurements": 168,
     "canonical_panel_sha256": "2e6bcaee08aa0a09827ea298b9d528814a88edc3893c202de2e3281f91918807",
@@ -25,15 +25,15 @@
     "R/asma_source.R": "c4859eee30e7bcbd7f5151f387ae702f16701d3786244b0cafdcea3b4b3b2f28",
     "protocols/pilot-001-reconstruction-amendment-1.md": "112c3ad93e8685abc2b10de450dab6bf49bc9e95a7a0e32d897a0e8b3a9618cc",
     "protocols/pilot-001-reconstruction-decisions.md": "30108f27b5a9bb3c32262050af760ca968fd65bd21b1330f093fb558ad0bed80",
-    "registries/pilot-001-source-adapter-runtime.json": "50b19f4be792d9abf0a0b0720a6a4d376cd4240bc23345ff0d349ebbf26fce2d",
+    "registries/pilot-001-source-adapter-runtime.json": "84eacad90fdfcc2eaf7997e75bcbb45820e0e62bde48af1e7369d9e8d2754813",
     "runtime/Dockerfile.source-adapter": "4ec8f4246b9415b3406c389ceea1c2af645e90606c2a774fd91d892907a89734",
-    "runtime/source-adapter-python.json": "9d584581355a119c8879cd34e473082f5c723d5629391c99b9cb92eee37fc910",
+    "runtime/source-adapter-python.json": "ba3c90a5ad2fbd546cd10df3115e85657d841a00b902317df16760c0d02f6a68",
     "tests/r/synthetic_fixture.R": "92d52f3d1a5e2504fe0a7eefb72091210c87e1d7d75c54d06bf6a7d060c8cd8f",
     "tests/r/test_source.R": "aa5efec31a51c5f2234c99d3d961fc3003467dcfeaa3149b13d7904a23687c7b",
     "tests/source_adapter_fixture.py": "94f84bd0405ed7224b39f8fcf73d3c9e6b4349b62c10250f71802b0c68e085be",
     "tests/test_source_adapter_runner.py": "bec679937cd50f6b9c705e5f492a579a545c8bd515aea87bc5be8c46723d245d",
     "tests/test_source_adapter_runtime.py": "53e02db134b314b489f30621930fc803c99a79972281494c35d818569c1adcbe",
-    "tests/test_source_data_adapter.py": "a71840f08b966ff1641840fcb15fbc89d1861f8652fe35f3b2f374f81d258047",
+    "tests/test_source_data_adapter.py": "61923f03f99f9bc0fd138c26d97263a43c56889d65076997ae40ca8705c43a8d",
     "tools/audit_author_archive.py": "adfda21bafb0536a43d3ab034aabbe6f1f73b46682bc12147972b7784a58f444",
     "tools/audit_author_features.py": "7de1a42e698f629711d6a455e747a43f48c94dd5b82f11967176d11eb06b7aee",
     "tools/audit_matrix_headers.py": "c33206dbe7099dd46d468466b2f3b92b4b682cf3e4135d29ed0e732e3c0e501a",
@@ -44,7 +44,7 @@
     "tools/check_source_adapter.py": "3533c56265537f2f5b9d5d848d035fdcf526254b84c283902512d3c447749ecc",
     "tools/probe_execution_conditions.py": "0410d3f4294dfeb3d69e1a88c9f8d1c58c6900b8f926a97b16da14961db26bd3",
     "tools/run_source_adapter_fixture.py": "ea155d5ebf05af77973ae9cee8ecb96adb23f364a029472dfcf087bcd17cd2ee",
-    "tools/source_data_adapter.py": "d263a058060fa344bb84583374e2805b4e6c875d9b9b45cd6784d3e61fc1fa39"
+    "tools/source_data_adapter.py": "9be789544cf2c1c6d675d98b80914d219e5c50355a9a34c0ed8b80cf3ee1ee2b"
   },
   "limitations": [
     "Generated XLSX and deflate bytes only; no source-study data were acquired or processed.",
@@ -60,7 +60,7 @@
     "float_mantissa_bits": 53,
     "implementation": "CPython",
     "isolated_mode": true,
-    "platform": "Linux-6.18.44-fc-v165-x86_64-with-glibc2.39",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
     "python": "3.12.14",
     "scope": "Python parsing and its R child execute inside the same isolated container.",
     "user_site_disabled": true,
@@ -84,10 +84,10 @@
     "scope": "Synthetic source-adapter integration only",
     "source_value_oracle_passed": true
   },
-  "runtime_image_id": "sha256:405da986948e70460662d14f5f0d2aa7ccde569426ac4daa8cc05983c2c402b0",
+  "runtime_image_id": "sha256:819e4f4124903a495dbfcf072cdf9ab94b21e017d3d086b536709b68d688d647",
   "schema_version": 1,
   "scope": "Synthetic source-adapter integration only",
-  "started_at_utc": "2026-10-27T05:50:09.420542+00:00",
+  "started_at_utc": "2026-11-04T09:25:11.224135+00:00",
   "transport": {
     "channel": "in-memory stdin pipe inside the container; no payload file or command argument",
     "container_network": "none",

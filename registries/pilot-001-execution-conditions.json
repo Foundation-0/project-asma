@@ -209,9 +209,9 @@
     "pids.max": "max",
     "scope": "Current executor view; unseen ancestor limits and provider memory/storage policies are not verified."
   },
-  "finished_at_utc": "2026-10-25T05:09:20.285276+00:00",
+  "finished_at_utc": "2026-11-04T09:25:52.960285+00:00",
   "implementation_sha256": {
-    "registries/pilot-001-source-adapter-runtime.json": "f87b575d1ba826bd01963677745780dfc2d70c6c532bbe318d84a54f942489d5",
+    "registries/pilot-001-source-adapter-runtime.json": "84eacad90fdfcc2eaf7997e75bcbb45820e0e62bde48af1e7369d9e8d2754813",
     "tests/test_execution_conditions.py": "6e95c4521ff4ac073398797b8b0c112b0868c64668007b504181c108b1361ee8",
     "tools/build_synthetic_runtime.py": "4ea40ee66cbf4b9648bfa8d00bd060a24e650ddffd94ec2b30f8ccb7d8637865",
     "tools/probe_execution_conditions.R": "6eac46576662333a7c51976ecf5d2d89818dbb66ee29498ad1aacb0ecfc742ab",
@@ -224,21 +224,10 @@
     "No external network connection was attempted; network isolation is assessed from configuration and kernel interfaces/routes.",
     "Visible zero swap and tmpfs do not certify memory erasure or absent provider snapshots."
   ],
-  "managed_environment_observation": {
-    "connectivity": "connected",
-    "network_policy_mode": "unrestricted",
-    "network_policy_state": "enforced",
-    "observations_current": true,
-    "processing_region_exposed": false,
-    "provider_label": "cloud",
-    "provider_terms_or_retention_exposed": false,
-    "scope": "Allowlisted tool observation during this task; not a hosting contract or jurisdiction determination.",
-    "source": "cloud_environment.environment_status"
-  },
-  "runtime_image_id": "sha256:e1bd961e58ed6d5725c179bec96c5a39a059ecad890c3e01c8558042abf57737",
+  "runtime_image_id": "sha256:819e4f4124903a495dbfcf072cdf9ab94b21e017d3d086b536709b68d688d647",
   "schema_version": 1,
   "scope": "Technical runtime probe only; no study data or research clearance",
-  "started_at_utc": "2026-10-25T05:09:10.957850+00:00",
+  "started_at_utc": "2026-11-04T09:25:11.288949+00:00",
   "technical_checks_status": "PASS",
   "unverified_context": {
     "actual_processing_country": "UNKNOWN",

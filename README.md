@@ -3,8 +3,11 @@
 > Named in honour of loving mother Asma Ansari who lost her life as a result of ovarian cancer. 
 
 
-A small, evidence-led workspace for ovarian cancer research. The first proposed
-contribution is to reproduce and stress-test a published protein signature for
+A small, evidence-led workspace working toward less suffering and loss from
+ovarian cancer, in honour of Asma Ansari. The [purpose and measures of
+success](docs/mission.md) connect that mission to concrete research outcomes.
+The first proposed contribution is to reproduce and stress-test a published
+protein signature for
 **primary platinum-refractory high-grade serous ovarian cancer (HGSOC)**.
 
 **Website:** [foundation-0.github.io/project-asma](https://foundation-0.github.io/project-asma/)
@@ -18,6 +21,7 @@ clinical validity, or improved patient outcomes.
 
 | Read | Purpose |
 | --- | --- |
+| [Purpose and measures of success](docs/mission.md) | The mission, the first pilot's role, and what would establish useful progress |
 | [Research frontier — 2026-10-22](docs/frontier-2026-10-22.md) | Evidence, open questions, and limits |
 | [Pilot protocol](protocols/pilot-001.md) | Proposed reproduction and robustness study |
 | [Pilot feasibility audit](docs/pilot-001-feasibility-audit.md) | Source-checked inputs, methods, patient-independence questions, and execution blockers |
@@ -41,6 +45,18 @@ clinical validity, or improved patient outcomes.
 | [Question](templates/research-question.md), [experiment](templates/experiment.md), [manifest](templates/provenance-manifest.md) templates | Reusable working records |
 
 ## Current state
+
+The **2026-11-04 software rerun** closes the stale source-adapter fixture and
+current-runtime probe gaps. The rebuilt pinned environment passed 179 R
+assertions and the full 100-repeat synthetic pipeline, 19 R bridge assertions
+through the adapter, 30 adapter Python tests under pinned CPython, and all 40
+technical execution checks. The current validation records' implementation
+hashes match the tested files. See the [synthetic validation](docs/pilot-001-synthetic-validation.md#pinned-image-rerun-2026-11-04)
+and [source-adapter report](docs/pilot-001-source-adapter.md). These are software
+results on artificial inputs; no study files were acquired or fitted. Actual
+research-use conditions and the owner's pre-run decisions remain unresolved.
+A [GitHub source recheck](docs/pilot-001-open-questions.md#github-follow-up-2026-11-04)
+found no new upstream release resolving the missing inputs.
 
 The **2026-10-29 [validation-capacity analysis](docs/pilot-001-validation-capacity.md)**
 uses existing aggregate counts to quantify a study-design limit. Even a hypothetical
@@ -117,13 +133,11 @@ unchanged; its prospective runtime status is superseded by the validation report
 
 The [source adapter](docs/pilot-001-source-adapter.md) now validates pinned source
 bytes, exact clinical membership and selected values before R assembly. Generated
-XLSX/matrix fixtures passed the complete adapter-to-model path. A separate runtime
-probe passed 40 technical checks on 2026-10-25. A 2026-10-27 pinned-image rerun
-passed all 179 R assertions, the full 100-repeat run and the adapter fixture; its
-probe could not run on that cgroup v1 host. Two adapter files changed after that
-rerun (#22), so the adapter fixture needs another pinned-image run before any
-real-file check. Python parsing, private transfer and R fitting now share a pinned
-container with Docker logging disabled. Live acquisition,
+XLSX/matrix fixtures passed the complete adapter-to-model path. The
+2026-11-04 rerun verifies the adapter changes made after the 2026-10-27 run and
+passes the current runtime's probe on a cgroup v2 host. Python parsing, private
+transfer and R fitting share a pinned container with Docker logging disabled.
+Live acquisition,
 processing jurisdiction and hosting/use conditions remain unverified.
 No study sources were ingested by the adapter. Those remaining conditions must
 cover acquisition, parsing, transfer and fitting before research execution.

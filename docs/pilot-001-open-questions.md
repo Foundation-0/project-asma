@@ -22,6 +22,26 @@ Registry IDs (S01, S26, …) point to [sources.json](../registries/sources.json)
 No patient or sample keys, identifiers, linkage maps, scores or abundance values
 appear here. All counts are aggregates.
 
+## GitHub follow-up, 2026-11-04
+
+A bounded recheck at 09:12 UTC found the author repository's `main` still at
+[the pinned commit `48357fd`](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/commit/48357fd63ccbfe3954f38c8efc558b4f88bd6051),
+dated 2024-03-14. The branch listing returned only `main`, and the releases
+collection was empty. The complete recursive tree was untruncated at 77
+entries; it contained no `balanced_folds.R`, RData prediction workspace or
+corrected-supplement artifact. The README supplied no new input route.
+
+The all-state issue/PR listing returned #1, #2 and merged #3, with no update
+after 2024-03-14. The open
+[data-availability issue #1](https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/issues/1)
+still had its single original image comment and no author text answer. That
+image was not fetched. This check resolves none of the missing-source items.
+
+This was a GitHub metadata and text check only. Publisher and NLM supplements,
+linked archives and tag contents were not rechecked; their state cannot be
+inferred from an unchanged GitHub branch. No study files were acquired, no code
+was executed and no message was posted.
+
 ## 1. The missing fold helper: likely origin and contract
 
 The Figure 3D and 3C scripts source `balanced_folds.R` and call

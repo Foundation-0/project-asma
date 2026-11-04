@@ -1,9 +1,16 @@
 {
-  "base_image_id": "sha256:c7592401eca5fe569ddda577aa9b26504d85930333af7482b8d0adcd569d073c",
+  "base_image_id": "sha256:ffc2f55117d54c3978eaa6d0bb242e6d5526e1667a70e78c724b2a59f3789e35",
   "base_image_layers_preserved": true,
   "base_r_inventory_unchanged": true,
-  "base_validation_record_sha256": "786e4ee6b93d7b9eba78769148e55e7e6772273f547abbbcd172f943b49a9844",
+  "base_validation_record_sha256": "37d6c6adea22ea4f99cc03f5f56c705bb99dbf6c380681c27678f31d332fbdff",
   "build_network": "none",
+  "earlier_runtimes": [
+    {
+      "base_image_id": "sha256:9303744002de1f6788d83e2ca51f9cb7ed6afd70bf42edb46cf9dfe6f8584eef",
+      "recorded_at_utc": "2026-10-25T05:09:06.997475+00:00",
+      "runtime_image_id": "sha256:e1bd961e58ed6d5725c179bec96c5a39a059ecad890c3e01c8558042abf57737"
+    }
+  ],
   "environment": {
     "compiler": "GCC 13.3.0",
     "dont_write_bytecode": true,
@@ -38,14 +45,14 @@
       "math",
       "urllib.request"
     ],
-    "runtime_image_id": "sha256:405da986948e70460662d14f5f0d2aa7ccde569426ac4daa8cc05983c2c402b0",
+    "runtime_image_id": "sha256:819e4f4124903a495dbfcf072cdf9ab94b21e017d3d086b536709b68d688d647",
     "zlib_compile_version": "1.3",
     "zlib_runtime_version": "1.3"
   },
   "image_published": false,
   "implementation_sha256": {
     "runtime/Dockerfile.source-adapter": "4ec8f4246b9415b3406c389ceea1c2af645e90606c2a774fd91d892907a89734",
-    "runtime/source-adapter-python.json": "9d584581355a119c8879cd34e473082f5c723d5629391c99b9cb92eee37fc910",
+    "runtime/source-adapter-python.json": "ba3c90a5ad2fbd546cd10df3115e85657d841a00b902317df16760c0d02f6a68",
     "tests/test_source_adapter_runtime.py": "53e02db134b314b489f30621930fc803c99a79972281494c35d818569c1adcbe",
     "tools/build_source_adapter_runtime.py": "838f5cb39353b103f6154db22288465ed3592172585426bc566e73378ef80c76"
   },
@@ -54,12 +61,12 @@
     "Only required Python modules were exercised; missing optional extension modules and deliberately disabled test modules are not supported.",
     "Source/base inputs are pinned; bit-identical rebuilds and cross-platform numerical identity are not asserted.",
     "Live acquisition requires appropriate network/proxy/CA configuration and supported research-use context; it has not been executed.",
-    "Rebuilt 2026-10-27 from the same pinned inputs; image IDs differ from the 2026-10-25 runtime and are not interchangeable with it. Equality of the observed Python and R inventories does not establish bit-identical binaries."
+    "Rebuilt 2026-11-04 from the same pinned software inputs. Image identities differ from the earlier runtimes; equal observed inventories do not establish identical binaries."
   ],
   "prior_runtime": {
-    "base_image_id": "sha256:9303744002de1f6788d83e2ca51f9cb7ed6afd70bf42edb46cf9dfe6f8584eef",
-    "recorded_at_utc": "2026-10-25T05:09:06.997475+00:00",
-    "runtime_image_id": "sha256:e1bd961e58ed6d5725c179bec96c5a39a059ecad890c3e01c8558042abf57737"
+    "base_image_id": "sha256:c7592401eca5fe569ddda577aa9b26504d85930333af7482b8d0adcd569d073c",
+    "recorded_at_utc": "2026-10-27T05:50:09.322164+00:00",
+    "runtime_image_id": "sha256:405da986948e70460662d14f5f0d2aa7ccde569426ac4daa8cc05983c2c402b0"
   },
   "r_package_versions": {
     "KernSmooth": "2.23-26",
@@ -106,10 +113,10 @@
   },
   "rebuild": {
     "base_rebuilt": true,
-    "inventory_observation": "Python fields observed with `docker run --rm --network none --read-only <image> /opt/python/bin/python3 -I -B -c ...`; R package versions with `Rscript -e installed.packages()` under the same isolation plus a private tmpfs /tmp. Both matched the prior record exactly.",
-    "reason": "Pinned-image rerun of the 2026-10-25 test and core changes. The R base was rebuilt with Docker 29 (containerd image store) from the same pinned inputs and validated; runtime/source-adapter-python.json was then repointed to that validated base and this image built from the committed files without --accept-rebuilt-base."
+    "inventory_observation": "Python fields, module imports, R package inventories and image/layer identities observed using the exact Python here-doc in docs/pilot-001-source-adapter.md, Inventory command (2026-11-04). Containers had no network, read-only roots and private tmpfs. Observed Python fields and all 41 R package versions match the 2026-10-27 record.",
+    "reason": "Rebuild and fixture validation after the source-adapter attestation changes; current combined-runtime probe on a cgroup v2 host. The R base passed 179 assertions and the full 100-repeat run; runtime/source-adapter-python.json was updated to that validated base before building this image without --accept-rebuilt-base."
   },
-  "recorded_at_utc": "2026-10-27T05:50:09.322164+00:00",
+  "recorded_at_utc": "2026-11-04T09:24:52.294398+00:00",
   "schema_version": 1,
   "scope": "Executed source-adapter software runtime build; no study data"
 }

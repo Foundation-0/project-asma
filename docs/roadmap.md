@@ -1,10 +1,24 @@
 # Roadmap
 
-Status: updated 2026-10-29. The scaffold,
+Status: updated 2026-11-04. The [project mission](mission.md) defines useful
+progress and the broader questions beyond this pilot. The scaffold,
 [static feasibility audit](pilot-001-feasibility-audit.md), and
 [public input/linkage investigation](pilot-001-input-resolution.md) are completed.
 Executed metadata checks advance Gates 0–1; they do not close the remaining
 method, input, corrected-supplement or scientific-review requirements.
+
+The **2026-11-04 software rerun** passed all 179 R assertions, the full
+100-repeat synthetic pipeline, the current adapter fixture (19 bridge
+assertions), 30 adapter Python tests under pinned CPython, and all 40
+execution-condition checks on the rebuilt combined runtime. It closes the
+post-October-27 fixture rerun and cgroup-probe gaps; it uses artificial inputs
+only and does not close the owner's pre-run decisions or the research-use
+conditions. The [source-adapter report](pilot-001-source-adapter.md) records the
+commands, hashes and remaining unknowns. The same day's
+[GitHub source check](pilot-001-open-questions.md#github-follow-up-2026-11-04)
+found no new upstream input release. Software preparation and bounded public
+evidence reviews can continue while these scientific and execution questions
+remain open.
 
 The [validation-capacity analysis](pilot-001-validation-capacity.md) now makes
 the high-specificity limitation quantitative using existing aggregate counts.
@@ -72,8 +86,8 @@ The [source adapter and execution check](pilot-001-source-adapter.md) now valida
 generated source-format files through the actual model pipeline. At commit `ef1f522`, which
 added the adapter, all 138 Python tests and 18 new R bridge assertions passed; the
 [execution-conditions record](../registries/pilot-001-execution-conditions.json)
-lists 40 observed combined-runtime controls, all passed, for the 2026-10-25 image
-(now `prior_runtime`); the 2026-10-27 rebuild has no probe record yet. The source
+now lists 40 passed controls for the 2026-11-04 combined runtime, superseding
+the earlier 2026-10-25 observation. The source
 adapter has not ingested study bytes. The next step is to select
 and assess an actual execution context, including host terms and applicable
 obligations, and verify the combined runtime on that host. Live acquisition of study
@@ -108,12 +122,13 @@ passed in the pinned image on 2026-10-27. That rerun regenerated the synthetic
 and source-adapter execution records (179 R assertions, the full 100-repeat run
 and 19 bridge assertions; see the
 [synthetic validation](pilot-001-synthetic-validation.md#pinned-image-rerun-2026-10-27)).
-The execution-condition probe could not run on that cgroup v1 host and still
-needs a cgroup v2 execution context. The owner-attestation follow-ups
+The execution-condition probe could not run on that cgroup v1 host. The
+2026-11-04 rerun passes it on a cgroup v2 host. The owner-attestation follow-ups
 ([#22](https://github.com/Foundation-0/project-asma/pull/22)) then changed
-`tools/source_data_adapter.py` and `tests/test_source_data_adapter.py`, so the
-adapter fixture validation needs another pinned-image rerun before any real-file
-check.
+`tools/source_data_adapter.py` and `tests/test_source_data_adapter.py`; both
+are covered by the 2026-11-04 pinned-image fixture and unit-test rerun. A
+real-file check still requires the owner's execution-context attestation and
+explicit instruction in Gate 0.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |

@@ -2,6 +2,10 @@
 
 This repository is a research scaffold, not clinical decision support.
 
+Read the [purpose and measures of success](docs/mission.md) before choosing new
+work. Connect each task to an explicit research uncertainty or deliverable;
+reproducible negative findings and justified stops count as progress.
+
 - Inspect current instructions and Git status; preserve concurrent work. Keep
   changes in a branch/PR. Do not merge, deploy, change permissions/settings,
   enable auto-merge, or use paid services without explicit authorization.
@@ -33,6 +37,11 @@ This repository is a research scaffold, not clinical decision support.
   collaborators/reviewers without a new explicit instruction.
 - Keep this workspace lean. Prefer standard-library checks over new dependencies
   or empty architecture. Do not create CI or issue backlogs without need.
+- Personal correspondence is private orientation, not research data or clinical
+  evidence. Do not copy messages, attachments, histories, contact details or
+  mailbox links into this public repository, PRs, issues or the site. Reading
+  permission does not grant publication or model-training permission. Preserve
+  the distinction between the broad mission and the pilot's specific endpoint.
 - Run `python3 tools/validate.py` and
   `python3 -m unittest discover -s tests -v` on the final tree. Report what these
   checks cannot establish. Review staged files for data, secrets, and private text.
