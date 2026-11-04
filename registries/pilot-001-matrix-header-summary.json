@@ -80,10 +80,17 @@
   "elapsed_seconds": 4.823403493999649,
   "finished_at_utc": "2026-10-23T16:59:26.889896+00:00",
   "full_matrices_downloaded": false,
+  "implementation_hash_provenance": {
+    "audit_published_cohorts.py": {
+      "aggregate_output_unchanged_on_rerun": true,
+      "original_execution_commit": "4fdfd530e9e8d519eebc699f5e0e8f6a6363a955",
+      "original_execution_hash": "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
+    }
+  },
   "implementation_sha256": {
     "audit_matrix_headers.py": "c33206dbe7099dd46d468466b2f3b92b4b682cf3e4135d29ed0e732e3c0e501a",
     "audit_pdc_metadata.py": "25c68461631de1fab8b73cd52b552019d351c0fb7c452a5a8947402dd357804e",
-    "audit_published_cohorts.py": "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
+    "audit_published_cohorts.py": "f253ad327506c815d1accfe55839a3f0a0af7a0149f38290f9d1e66626ab0141"
   },
   "join": "Unmodified matrix column equals clinical Data Label 2; literal NA is never a key",
   "limitations": [
@@ -139,6 +146,8 @@
     "study": "2e5f7122878a783536ecced4b10ad1bd77096d9e417a6e55285d9dda1bcd7410",
     "url": "db19a9e91b3ec33f6827b10b4b814b33901e48d5a9b529546a8a3253859925b0"
   },
+  "re_executed_at_commit": "b7cf9f9f484116ecffaf2edee40ac91e6c9028f7",
+  "re_executed_at_utc": "2026-11-04T10:03:21Z",
   "response_sha256": {
     "PDC000358": {
       "file_after_sha256": "e4bf88f05f1c78f2c69c2977d223f9779397eaf26475e2e7f43347d28b267af8",

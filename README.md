@@ -42,7 +42,17 @@ clinical validity, or improved patient outcomes.
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
 | [Contributing](CONTRIBUTING.md) / [agent guidance](AGENTS.md) | Review and evidence standards |
+| [Claims ledger](CLAIMS.md) | PROVEN / VERIFIED / KNOWN / CONJECTURE labels for public statements |
+| [Paper scaffold](paper/manuscript.md) | Working manuscript: question, pre-registered methods, Results not yet run |
 | [Question](templates/research-question.md), [experiment](templates/experiment.md), [manifest](templates/provenance-manifest.md) templates | Reusable working records |
+
+## Paper
+
+Working manuscript source: [paper/manuscript.md](paper/manuscript.md) (scaffold only —
+not peer reviewed, no invented results). Methods follow
+[pilot 001](protocols/pilot-001.md). Claim labels: [CLAIMS.md](CLAIMS.md).
+Citation metadata: [CITATION.cff](CITATION.cff) and [.zenodo.json](.zenodo.json)
+(DOI badge after first Zenodo release).
 
 ## Current state
 
@@ -156,7 +166,16 @@ in a Git checkout; no package installation or network access is needed:
 ```sh
 python3 tools/validate.py
 python3 -m unittest discover -s tests -v
+python3 tools/check_implementation_hashes.py
 ```
+
+In a Git checkout, ``check_implementation_hashes.py`` exits 0 when every registry
+hash is current or an allowlisted stale revision. Without a matching git top level
+(for example a GitHub/Zenodo source archive, or the same archive unpacked inside
+another git repository), it prints an error and exits 1 because stale-hash
+detection needs this project's history; run it from a clone for claim **V07**.
+The unittest suite still passes in those cases but skips git-only cases (see
+**V02** in [CLAIMS.md](CLAIMS.md)).
 
 The validator checks registry structure, cross-references, and local Markdown
 file/heading links. In a Git checkout it also checks that Git neither tracks nor
@@ -200,8 +219,9 @@ also operate without research inputs.
 
 ## Decisions still needed
 
-The owner must choose repository licensing; **no license grant is supplied**.
-Third-party code and data retain their own terms. Before ingestion or execution,
+Repository **code** is MIT and **text/site content** is CC BY 4.0 ([LICENSE](LICENSE));
+third-party study files and upstream paper content retain their own terms
+([NOTICE](NOTICE)). Before ingestion or execution,
 review access and reuse terms, pin corrected supplemental materials, resolve
 patient overlap, and assess computational requirements. Clinical interpretation
 and later validation will require domain review; recruiting reviewers is deferred.

@@ -1,0 +1,48 @@
+Project Asma
+Copyright (c) 2026 Project Asma contributors.
+Code: MIT License. Text, figures and site content: CC BY 4.0 (see LICENSE).
+
+This repository is a research scaffold, not clinical decision support. Substantial
+work was prepared with AI assistance under human direction; see CONTRIBUTORS.md.
+
+Third-party material and licences. Nothing below is relicensed by this
+repository's own licences for redistribution of the underlying files.
+
+1. **Chowdhury et al., *Cell* 2023** — published methods, figures, and reference
+   performance values. https://doi.org/10.1016/j.cell.2023.07.004  
+   Cite the paper for scientific claims about the original study. Do not treat
+   Project Asma reproduction work as author-endorsed.
+
+2. **NLM supplemental workbooks (MMC1 clinical, MMC4 panel/membership)** — article
+   version record associates these media with **CC BY-NC-ND 4.0**. Noncommercial
+   use with attribution; no derivatives redistributed from this project. See
+   [data-use disposition](docs/pilot-001-data-use.md).
+
+3. **Proteome Data Commons studies** — PDC public data terms (**CC BY 4.0**).
+   Catalog metadata only here: **PDC000358**, **PDC000360**, **PDC000362** (proteome,
+   pilot candidates) and **PDC000357**, **PDC000359**, **PDC000361** (phosphoproteome,
+   context only). See [registries/datasets.json](registries/datasets.json).
+
+4. **Author-processed discovery matrix (Dropbox archive)** — offered for download
+   in the article; no archive-specific licence grant was located in project records.
+   Do not commit matrix bytes, abundance values, or derived tables. Bounded
+   in-memory audits retain aggregates only ([AGENTS.md](AGENTS.md)).
+
+5. **WangLab-MSSM/CPTAC_Ovarian_Chemo_Response** — author R scripts inspected, not
+   executed; no explicit repository licence established in project records. Do not
+   copy or run without separate rights review.
+
+6. **Foundation-0 site assets** (`assets/f0.css`, `assets/f0.js`) — copied from
+   [Foundation-0/f0](https://github.com/Foundation-0/f0) under Apache License 2.0;
+   see [assets/README.md](assets/README.md).
+
+7. **R and Python third-party packages** — installed only in optional container
+   images; licences recorded in [runtime/synthetic-packages.json](runtime/synthetic-packages.json)
+   and source-adapter pins. Binaries are not redistributed in git.
+
+8. **Patient-level scores and clinical fields** used in verification audits — read
+   transiently in memory for arithmetic checks; must not be republished from this
+   repository.
+
+If you rely on a dataset here, read the primary terms at the source before any
+reuse outside private research.
