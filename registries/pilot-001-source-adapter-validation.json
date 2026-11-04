@@ -42,9 +42,15 @@
     "tools/build_synthetic_runtime.py": "4ea40ee66cbf4b9648bfa8d00bd060a24e650ddffd94ec2b30f8ccb7d8637865",
     "tools/check_source_adapter.R": "0e3b005acb7bf12abee70ff3cc5957af189ff50b715d013978884e0596783625",
     "tools/check_source_adapter.py": "3533c56265537f2f5b9d5d848d035fdcf526254b84c283902512d3c447749ecc",
-    "tools/probe_execution_conditions.py": "746306979247f6d3bd220c25c2bc0e33c692619dba04c17e3b1284113607055a",
+    "tools/probe_execution_conditions.py": "0410d3f4294dfeb3d69e1a88c9f8d1c58c6900b8f926a97b16da14961db26bd3",
     "tools/run_source_adapter_fixture.py": "ea155d5ebf05af77973ae9cee8ecb96adb23f364a029472dfcf087bcd17cd2ee",
     "tools/source_data_adapter.py": "9be789544cf2c1c6d675d98b80914d219e5c50355a9a34c0ed8b80cf3ee1ee2b"
+  },
+  "implementation_hash_drift": {
+    "tools/probe_execution_conditions.py": {
+      "allowed_recorded_hash": "0410d3f4294dfeb3d69e1a88c9f8d1c58c6900b8f926a97b16da14961db26bd3",
+      "git_commit": "ef1f5226e279721da4f669c84fb1def0b2156ee1"
+    }
   },
   "limitations": [
     "Generated XLSX and deflate bytes only; no source-study data were acquired or processed.",
