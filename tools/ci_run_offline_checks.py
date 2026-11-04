@@ -13,7 +13,9 @@ from probe_execution_conditions import execution_options
 FAILURE = "ERROR: offline pinned-runtime checks failed."
 
 
-def docker_run(image, *command, extra_env=(), extra_volumes=()):
+def docker_run(image, *command, extra_env=(), extra_volumes=None):
+    if extra_volumes is None:
+        extra_volumes = git_bind_mounts()
     arguments = (["docker", "--host=unix:///var/run/docker.sock", "run", "--rm"]
                  + execution_options(log_driver_none=False)
                  + list(extra_volumes) + list(extra_env) + [image] + list(command))
@@ -60,8 +62,7 @@ def main(argv=None):
     if not re.fullmatch(r"sha256:[0-9a-f]{64}", adapter):
         raise SystemExit(FAILURE)
 
-    validate = docker_run(adapter, "/opt/python/bin/python3", "-I", "-B", "tools/validate.py",
-                        extra_volumes=git_bind_mounts())
+    validate = docker_run(adapter, "/opt/python/bin/python3", "-I", "-B", "tools/validate.py")
     if validate.returncode != 0 or not re.search(r"^PASS:", validate.stdout, re.MULTILINE):
         raise SystemExit(FAILURE)
 
