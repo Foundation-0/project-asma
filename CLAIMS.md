@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | **207** Python unit tests pass on the committed tree (includes adapter and scaffold tests) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes on the committed tree | `python3 -m unittest discover -s tests -v` |
 | V03 | **179** R test assertions pass on **synthetic fixtures** (41 input, 87 core, 51 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
