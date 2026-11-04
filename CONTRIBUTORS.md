@@ -1,0 +1,52 @@
+# Contributors and credit
+
+## Direction
+
+**Alkindus Arifuddin** (also credited in git as Raz Arif, Razi Orda, Orda, and
+related accounts) directs Project Asma and decides what the repository claims.
+**Foundation Zero** maintains the Foundation-0 organization hosting this work
+(GitHub **`fdn-0`** / **`zero-aska`**).
+
+## Human contributors (git history)
+
+The following GitHub logins appear in this repository's commit history (alphabetical).
+Roles are not inferred beyond recorded commits:
+
+| GitHub login | Recorded name (when present) |
+| --- | --- |
+| `ahrazzle` | ahrazzle |
+| `aetherean` | aetherean |
+| `amp-cayde` | amp-cayde |
+| `fdn-0` | Foundation Zero |
+| `zero-aska` | Zero |
+
+Affiliations, personal email addresses, and ORCIDs are omitted from this public file.
+
+## AI assistance
+
+Most scaffold software, audits, documentation, and registry updates were produced
+by AI models under human direction, including **Claude** (Anthropic) and Cursor cloud
+agents. Claim labels in [CLAIMS.md](CLAIMS.md) describe what was checked, not who
+vouches for clinical meaning.
+
+The pull request *Bring Asma up to the repository standard* was **prepared by
+grk-helix**, an AI agent operated by **Alkindus Arifuddin**, via a Cursor cloud
+agent; posting account **orda-aska**.
+
+No AI system is a legal author of patient-facing guidance. External scientific
+review of Pilot 001 results remains pending where stated in the docs.
+
+## Prior work credited by name
+
+- **Chowdhury S et al., *Cell* 2023** — primary protein-signature study under
+  reproduction investigation.
+- **PDC, NLM/PMC, and CPTAC author releases** — data and supplemental sources
+  (see [NOTICE](NOTICE) and [registries/sources.json](registries/sources.json)).
+- **Foundation-0 repository standard** — shape of claim labelling, citation
+  metadata, and credit files ([REPO-STANDARD.md](https://github.com/Foundation-0/.github/blob/main/REPO-STANDARD.md)).
+
+## How to be added
+
+Open a pull request describing your contribution, disclose AI assistance, and
+update this file with your GitHub login and role. Reviews of scientific claims
+should be recorded honestly in project docs, not overstated as external peer review.
