@@ -66,20 +66,25 @@ jobs:
         run: |
           set -euo pipefail
           ASMA_PACKAGE_CACHE="${RUNNER_TEMP}/asma-package-cache"
+          mkdir -p "$ASMA_PACKAGE_CACHE"
           attempt=1
-          while [ "$attempt" -le 5 ]; do
-            if json=$(python3 tools/build_source_adapter_runtime.py --accept-rebuilt-base --source-cache "$ASMA_PACKAGE_CACHE"); then
+          while [ "$attempt" -le 8 ]; do
+            set +e
+            python3 tools/build_source_adapter_runtime.py --accept-rebuilt-base --source-cache "$ASMA_PACKAGE_CACHE" 2>&1 | tee adapter-build.log
+            status=${PIPESTATUS[0]}
+            set -e
+            if [ "$status" -eq 0 ]; then
               break
             fi
             echo "Source-adapter build attempt ${attempt} failed" >&2
-            if [ "$attempt" -eq 5 ]; then
+            tail -20 adapter-build.log >&2 || true
+            if [ "$attempt" -eq 8 ]; then
               exit 1
             fi
-            rm -rf "$ASMA_PACKAGE_CACHE"
-            mkdir -p "$ASMA_PACKAGE_CACHE"
-            sleep $((attempt * 20))
+            sleep $((attempt * 30))
             attempt=$((attempt + 1))
           done
+          json=$(tail -1 adapter-build.log)
           echo "$json"
           image_id=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["image_id"])' <<<"$json")
           echo "image_id=$image_id" >> "$GITHUB_OUTPUT"
