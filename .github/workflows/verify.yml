@@ -67,6 +67,9 @@ jobs:
               --cpus=2 \
               --tmpfs=/tmp:rw,noexec,nosuid,size=256m \
               --env HOME=/tmp \
+              --env GIT_CONFIG_COUNT=1 \
+              --env GIT_CONFIG_KEY_0=safe.directory \
+              --env GIT_CONFIG_VALUE_0=/work \
               --volume "${GITHUB_WORKSPACE}:/work:ro" \
               --workdir /work \
               --env R_HISTFILE=/dev/null \
