@@ -169,6 +169,13 @@ python3 -m unittest discover -s tests -v
 python3 tools/check_implementation_hashes.py
 ```
 
+In a Git checkout, ``check_implementation_hashes.py`` exits 0 when every registry
+hash is current or an allowlisted stale revision. Without ``.git`` (for example a
+GitHub or Zenodo source archive), it prints an error and exits 1 because stale-hash
+detection needs history; run it from a clone for claim **V07**. The unittest suite
+still passes from an archive but skips git-only cases (see **V02** in
+[CLAIMS.md](CLAIMS.md)).
+
 The validator checks registry structure, cross-references, and local Markdown
 file/heading links. In a Git checkout it also checks that Git neither tracks nor
 stages the owner's attestation file, and fails if `git` is missing or refuses

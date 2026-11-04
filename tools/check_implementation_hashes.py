@@ -9,6 +9,14 @@ Statuses per entry:
 
 Also handles a string ``implementation_sha256`` on the validation-capacity registry
 (hash of ``tools/analyze_validation_capacity.py``).
+
+Command-line exit codes:
+
+- **0** — inside a git work tree and every entry is OK or an allowlisted stale hash.
+- **1** — not inside a git work tree (stale detection needs history), or one or
+  more entries failed. When ``.git`` is absent (e.g. a GitHub/Zenodo source
+  archive), prints ``ERROR: git checkout required for stale-hash detection.``
+  to stderr and exits **1** without scanning registries.
 """
 
 from __future__ import annotations
@@ -44,6 +52,22 @@ class EntryResult:
 
 def file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def is_inside_git_work_tree(root: Path | None = None) -> bool:
+    """Return True when ``root`` is inside a git work tree (``git`` may be absent)."""
+    root = root or ROOT
+    try:
+        proc = subprocess.run(
+            ["git", "rev-parse", "--is-inside-work-tree"],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError:
+        return False
+    return proc.returncode == 0 and proc.stdout.strip() == "true"
 
 
 def resolve_implementation_path(key: str, root: Path) -> Path:
@@ -203,7 +227,7 @@ def failures(results: list[EntryResult]) -> list[EntryResult]:
 
 def main(argv=None) -> int:
     _ = argv
-    if not (ROOT / ".git").is_dir():
+    if not is_inside_git_work_tree(ROOT):
         print("ERROR: git checkout required for stale-hash detection.", file=sys.stderr)
         return 1
 

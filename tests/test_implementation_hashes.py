@@ -13,10 +13,12 @@ from tools.check_implementation_hashes import (
     check_implementation_hashes,
     failures,
     file_sha256,
+    is_inside_git_work_tree,
 )
 
-
 ROOT = Path(__file__).resolve().parents[1]
+GIT_WORK_TREE = is_inside_git_work_tree(ROOT)
+SKIP_WITHOUT_GIT = "not inside a git work tree (stale-hash detection needs history)"
 
 
 class ImplementationHashChecks(unittest.TestCase):
@@ -54,6 +56,7 @@ class ImplementationHashChecks(unittest.TestCase):
             )
             self.assertEqual(result.status, STATUS_UNKNOWN)
 
+    @unittest.skipUnless(GIT_WORK_TREE, SKIP_WITHOUT_GIT)
     def test_stale_hash_without_allowlist_fails(self):
         tool = ROOT / "tools" / "audit_published_cohorts.py"
         stale = "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
@@ -69,6 +72,7 @@ class ImplementationHashChecks(unittest.TestCase):
         self.assertTrue(result.stale_commit)
         self.assertIn(failures([result]), [[result]])
 
+    @unittest.skipUnless(GIT_WORK_TREE, SKIP_WITHOUT_GIT)
     def test_stale_hash_with_allowlist_passes_failures_filter(self):
         stale = "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
         data = {
