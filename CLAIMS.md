@@ -34,12 +34,12 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes on the committed tree | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`214` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **179** R test assertions pass on **synthetic fixtures** (41 input, 87 core, 51 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
 | V06 | **40** combined-runtime execution-condition checks observed on rebuilt image (2026-11-04 rerun) | Source-adapter doc; `python3 -m unittest tests.test_execution_conditions -v` covers probe logic offline |
-| V07 | Registry `implementation_sha256` entries match **current** file bytes, or a **documented stale** hash (`implementation_hash_drift`) tied to a verifiable git revision | `python3 tools/check_implementation_hashes.py` (requires git; reports OK / STALE / UNKNOWN) |
+| V07 | Registry `implementation_sha256` entries match **current** file bytes, or a **documented stale** hash (`implementation_hash_drift`) tied to a verifiable git revision | `python3 tools/check_implementation_hashes.py` (**git checkout** with top level equal to the repository root; exits **1** with an error otherwise; reports OK / STALE / UNKNOWN when history is available) |
 | V08 | Published discovery-score AUROC **0.8088507878** vs printed **0.83**; tolerance **0.02** not met | `python3 tools/verify_published_auc.py` (network; reads pinned public workbooks in memory; see [result](docs/pilot-001-score-verification-result.md)) |
 | V09 | Validation-capacity binomial bounds from documented cohort counts (e.g. 13 sensitive → 79.4% one-sided 95% LB if perfect) | `python3 tools/analyze_validation_capacity.py` and `python3 -m unittest tests.test_validation_capacity -v` |
 | V10 | PDC catalog overlap aggregates match registry | `python3 tools/audit_pdc_metadata.py` (network) |

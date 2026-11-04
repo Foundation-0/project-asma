@@ -1,6 +1,8 @@
 """Tests for registry implementation hash verification."""
 
 import json
+import shutil
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -13,10 +15,38 @@ from tools.check_implementation_hashes import (
     check_implementation_hashes,
     failures,
     file_sha256,
+    is_inside_git_work_tree,
 )
 
-
 ROOT = Path(__file__).resolve().parents[1]
+GIT_WORK_TREE = is_inside_git_work_tree(ROOT)
+SKIP_WITHOUT_GIT = "not inside a git work tree (stale-hash detection needs history)"
+
+
+class GitWorkTreeDetection(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("git"), "git is not installed")
+    def test_nested_tree_in_foreign_git_repo_is_not_checkout(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            outer = Path(tmp) / "foreign"
+            outer.mkdir()
+            subprocess.run(["git", "init", "-q"], cwd=outer, check=True)
+            subprocess.run(
+                ["git", "config", "user.email", "test@example.com"],
+                cwd=outer,
+                check=True,
+            )
+            subprocess.run(
+                ["git", "config", "user.name", "test"],
+                cwd=outer,
+                check=True,
+            )
+            nested = outer / "project-asma"
+            shutil.copytree(
+                ROOT,
+                nested,
+                ignore=shutil.ignore_patterns(".git", "__pycache__", "*.pyc"),
+            )
+            self.assertFalse(is_inside_git_work_tree(nested))
 
 
 class ImplementationHashChecks(unittest.TestCase):
@@ -54,6 +84,7 @@ class ImplementationHashChecks(unittest.TestCase):
             )
             self.assertEqual(result.status, STATUS_UNKNOWN)
 
+    @unittest.skipUnless(GIT_WORK_TREE, SKIP_WITHOUT_GIT)
     def test_stale_hash_without_allowlist_fails(self):
         tool = ROOT / "tools" / "audit_published_cohorts.py"
         stale = "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
@@ -69,6 +100,7 @@ class ImplementationHashChecks(unittest.TestCase):
         self.assertTrue(result.stale_commit)
         self.assertIn(failures([result]), [[result]])
 
+    @unittest.skipUnless(GIT_WORK_TREE, SKIP_WITHOUT_GIT)
     def test_stale_hash_with_allowlist_passes_failures_filter(self):
         stale = "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
         data = {

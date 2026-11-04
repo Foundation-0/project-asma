@@ -9,6 +9,16 @@ Statuses per entry:
 
 Also handles a string ``implementation_sha256`` on the validation-capacity registry
 (hash of ``tools/analyze_validation_capacity.py``).
+
+Command-line exit codes:
+
+- **0** — inside a git work tree and every entry is OK or an allowlisted stale hash.
+- **1** — the repository root is not the git work-tree top level (stale detection
+  needs this project's history), or one or more entries failed. When ``.git`` is
+  absent or the tree sits inside another repository (e.g. a GitHub/Zenodo source
+  archive unpacked under a foreign ``.git``), prints
+  ``ERROR: git checkout required for stale-hash detection.`` to stderr and exits
+  **1** without scanning registries.
 """
 
 from __future__ import annotations
@@ -44,6 +54,38 @@ class EntryResult:
 
 def file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def is_inside_git_work_tree(root: Path | None = None) -> bool:
+    """Return True when ``root`` is the top level of the git work tree containing it.
+
+    Returns False when ``git`` is missing, when ``root`` is not in a work tree, or
+    when ``root`` lies inside another repository (e.g. a source archive directory
+    nested under an unrelated checkout).
+    """
+    root = (root or ROOT).resolve()
+    try:
+        inside = subprocess.run(
+            ["git", "rev-parse", "--is-inside-work-tree"],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if inside.returncode != 0 or inside.stdout.strip() != "true":
+            return False
+        top = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError:
+        return False
+    if top.returncode != 0 or not top.stdout.strip():
+        return False
+    return Path(top.stdout.strip()).resolve() == root
 
 
 def resolve_implementation_path(key: str, root: Path) -> Path:
@@ -203,7 +245,7 @@ def failures(results: list[EntryResult]) -> list[EntryResult]:
 
 def main(argv=None) -> int:
     _ = argv
-    if not (ROOT / ".git").is_dir():
+    if not is_inside_git_work_tree(ROOT):
         print("ERROR: git checkout required for stale-hash detection.", file=sys.stderr)
         return 1
 
