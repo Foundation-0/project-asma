@@ -166,6 +166,7 @@ in a Git checkout; no package installation or network access is needed:
 ```sh
 python3 tools/validate.py
 python3 -m unittest discover -s tests -v
+python3 tools/check_implementation_hashes.py
 ```
 
 The validator checks registry structure, cross-references, and local Markdown

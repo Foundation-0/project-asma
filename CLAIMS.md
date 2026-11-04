@@ -39,7 +39,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
 | V06 | **40** combined-runtime execution-condition checks observed on rebuilt image (2026-11-04 rerun) | Source-adapter doc; `python3 -m unittest tests.test_execution_conditions -v` covers probe logic offline |
-| V07 | Implementation hashes in validation registries match tested files (2026-11-04) | Compare registries to `git rev-parse HEAD` and documented hash fields |
+| V07 | Each registry `implementation_sha256` matches the referenced file bytes on disk | `python3 tools/check_implementation_hashes.py` |
 | V08 | Published discovery-score AUROC **0.8088507878** vs printed **0.83**; tolerance **0.02** not met | `python3 tools/verify_published_auc.py` (network; reads pinned public workbooks in memory; see [result](docs/pilot-001-score-verification-result.md)) |
 | V09 | Validation-capacity binomial bounds from documented cohort counts (e.g. 13 sensitive → 79.4% one-sided 95% LB if perfect) | `python3 tools/analyze_validation_capacity.py` and `python3 -m unittest tests.test_validation_capacity -v` |
 | V10 | PDC catalog overlap aggregates match registry | `python3 tools/audit_pdc_metadata.py` (network) |
@@ -52,7 +52,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | V17 | Held-out evaluation helpers behave on **artificial** test cases | `python3 -m unittest tests.test_evaluate_heldout -v` |
 | V18 | Git does not track or stage owner attestation file (when `git` available) | `python3 tools/validate.py` |
 
-**PR #30 runtime summary (2026-11-04):** the **207** pytest-style unit tests, **179** R
+**PR #30 runtime summary (2026-11-04):** the **207** `unittest` cases, **179** R
 assertions, and **40** execution controls are **VERIFIED only on synthetic or fixture
 inputs** under the pinned runtime recorded in [roadmap](docs/roadmap.md) and linked
 registries. They have **not** been independently reproduced outside that recorded run
@@ -65,9 +65,9 @@ and do **not** substitute for study-data execution.
 | ID | Claim | Citation |
 | --- | --- | --- |
 | K01 | Discovery fivefold-CV AUC **0.83** (95% CI 0.77–0.90) for primary refractory HGSOC | Chowdhury et al., *Cell* 2023, https://doi.org/10.1016/j.cell.2023.07.004 |
-| K02 | Six candidate/context PDC proteome study IDs and open-data framing | PDC public data policy (CC BY 4.0); studies **PDC000357–PDC000362** in [datasets.json](registries/datasets.json) |
+| K02 | Six PDC PTRC HGSOC studies in the catalog: **PDC000358/360/362** proteome (pilot candidates) and **PDC000357/359/361** phosphoproteome (context only); PDC open-data terms **CC BY 4.0** | [datasets.json](registries/datasets.json); PDC GraphQL `submitter_id_name` rechecked 2026-11-04 |
 | K03 | NLM supplemental MMC1 (clinical) and MMC4 (panel/membership) associated with **CC BY-NC-ND 4.0** | Article version record cited in [data-use](docs/pilot-001-data-use.md) |
-| K04 | Correction text for supplemental legend issues | NCBI / NLM correction record https://doi.org/10.1016/j.cell.2024.01.016 (S11 in sources registry) |
+| K04 | Publisher correction to supplemental legend text | Chowdhury et al., *Cell* **187**, 1016 (2024), https://doi.org/10.1016/j.cell.2024.01.016 (S11 in [sources.json](registries/sources.json)) |
 | K05 | Author analysis scripts exist at inspected commit; not executed here | WangLab-MSSM/CPTAC_Ovarian_Chemo_Response commit `48357fd…` (see [pilot 001](protocols/pilot-001.md)) |
 | K06 | Primary refractory vs later platinum-resistant recurrence are distinct endpoints | Stated in protocol from primary literature review ([feasibility audit](docs/pilot-001-feasibility-audit.md)) |
 | K07 | Published discovery score sheet row counts and class balance (135 rows; 52 refractory / 83 sensitive) | Paper supplementary locations S95/S99 as recorded in [score verification protocol](protocols/pilot-001-score-verification.md) |

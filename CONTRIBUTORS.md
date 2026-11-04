@@ -4,33 +4,30 @@
 
 **Alkindus Arifuddin** (also credited in git as Raz Arif, Razi Orda, Orda, and
 related accounts) directs Project Asma and decides what the repository claims.
-**Foundation Zero** (`Foundation Zero`, `Zero` on GitHub) maintains the
-Foundation-0 organization hosting this work.
+**Foundation Zero** maintains the Foundation-0 organization hosting this work
+(GitHub **`fdn-0`** / **`zero-aska`**).
 
 ## Human contributors (git history)
 
-The following people appear in this repository's commit history (alphabetical by
-name). Roles are not inferred beyond recorded commits:
+The following GitHub logins appear in this repository's commit history (alphabetical).
+Roles are not inferred beyond recorded commits:
 
-| Name | Git identity |
+| GitHub login | Recorded name (when present) |
 | --- | --- |
-| ahrazzle | `38987266+ahrazzle@users.noreply.github.com` |
-| aetherean | `i@askaconsult.com` |
-| amp-cayde | `amp-cayde@askaconsult.com` |
-| Orda | `orda@askaconsult.com` |
-| Raz Arif | `a@askaconsult.com` |
-| Razi Orda | `orda@askaconsult.com` |
-| Foundation Zero | `343039971+fdn-0@users.noreply.github.com` |
-| Zero | `343039971+zero-aska@users.noreply.github.com` |
+| `ahrazzle` | ahrazzle |
+| `aetherean` | aetherean |
+| `amp-cayde` | amp-cayde |
+| `fdn-0` | Foundation Zero |
+| `zero-aska` | Zero |
 
-Affiliations and ORCIDs are omitted where not established in primary records.
+Affiliations, personal email addresses, and ORCIDs are omitted from this public file.
 
 ## AI assistance
 
 Most scaffold software, audits, documentation, and registry updates were produced
-by AI models under human direction, including **Claude** (`noreply@anthropic.com`
-in git) and Cursor cloud agents. Claim labels in [CLAIMS.md](CLAIMS.md) describe
-what was checked, not who vouches for clinical meaning.
+by AI models under human direction, including **Claude** (Anthropic) and Cursor cloud
+agents. Claim labels in [CLAIMS.md](CLAIMS.md) describe what was checked, not who
+vouches for clinical meaning.
 
 The pull request *Bring Asma up to the repository standard* was **prepared by
 grk-helix**, an AI agent operated by **Alkindus Arifuddin**, via a Cursor cloud
@@ -51,5 +48,5 @@ review of Pilot 001 results remains pending where stated in the docs.
 ## How to be added
 
 Open a pull request describing your contribution, disclose AI assistance, and
-update this file with your name and role. Reviews of scientific claims should be
-recorded honestly in project docs, not overstated as external peer review.
+update this file with your GitHub login and role. Reviews of scientific claims
+should be recorded honestly in project docs, not overstated as external peer review.

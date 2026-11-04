@@ -18,10 +18,10 @@ repository's own licences for redistribution of the underlying files.
    use with attribution; no derivatives redistributed from this project. See
    [data-use disposition](docs/pilot-001-data-use.md).
 
-3. **Proteome Data Commons studies PDC000357, PDC000358, PDC000359, PDC000360,
-   PDC000361, PDC000362** — PDC public data terms (**CC BY 4.0**). Catalog metadata
-   and aggregate audit summaries may appear in [registries/](registries/); full
-   matrices are not committed here.
+3. **Proteome Data Commons studies** — PDC public data terms (**CC BY 4.0**).
+   Catalog metadata only here: **PDC000358**, **PDC000360**, **PDC000362** (proteome,
+   pilot candidates) and **PDC000357**, **PDC000359**, **PDC000361** (phosphoproteome,
+   context only). See [registries/datasets.json](registries/datasets.json).
 
 4. **Author-processed discovery matrix (Dropbox archive)** — offered for download
    in the article; no archive-specific licence grant was located in project records.

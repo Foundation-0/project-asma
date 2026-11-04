@@ -2,7 +2,7 @@
   "title": "Project Asma: reproducible investigation of a primary platinum-refractory HGSOC protein signature",
   "upload_type": "software",
   "publication_type": "software",
-  "description": "Research scaffold (not clinical decision support) to reproduce and stress-test the Chowdhury et al. Cell 2023 primary platinum-refractory HGSOC protein signature. Contains labelled claims (CLAIMS.md), a paper scaffold (paper/manuscript.md), aggregate registries from bounded public-source audits, and pinned software verified on synthetic and fixture inputs only. Upstream data: PDC studies PDC000357-PDC000362 (CC BY 4.0); NLM MMC1/MMC4 supplemental workbooks (CC BY-NC-ND 4.0, not redistributed). One executed preliminary check records discovery AUROC 0.8088507878 versus printed 0.83 (tolerance 0.02 not met) as a reproduction discrepancy under investigation. Licences: code MIT, text/site CC BY 4.0 (LICENSE); third-party study content see NOTICE. AI assistance documented in CONTRIBUTORS.md. Not peer reviewed.",
+  "description": "Research scaffold (not clinical decision support) to reproduce and stress-test the Chowdhury et al. Cell 2023 primary platinum-refractory HGSOC protein signature. Contains labelled claims (CLAIMS.md), a paper scaffold (paper/manuscript.md), aggregate registries from bounded public-source audits, and pinned software verified on synthetic and fixture inputs only. Upstream data: PDC studies PDC000358/360/362 (proteome) and PDC000357/359/361 (phosphoproteome), CC BY 4.0; NLM MMC1/MMC4 supplemental workbooks (CC BY-NC-ND 4.0, not redistributed). One executed preliminary check records discovery AUROC 0.8088507878 versus printed 0.83 (tolerance 0.02 not met) as a reproduction discrepancy under investigation. Licences: code MIT, text/site CC BY 4.0 (LICENSE); third-party study content see NOTICE. AI assistance documented in CONTRIBUTORS.md. Not peer reviewed.",
   "creators": [
     {
       "name": "Arifuddin, Alkindus"
@@ -28,6 +28,11 @@
   "related_identifiers": [
     {
       "identifier": "10.1016/j.cell.2023.07.004",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1016/j.cell.2024.01.016",
       "relation": "cites",
       "scheme": "doi"
     }

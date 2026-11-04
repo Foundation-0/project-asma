@@ -51,7 +51,7 @@
   "implementation_sha256": {
     "audit_author_archive.py": "adfda21bafb0536a43d3ab034aabbe6f1f73b46682bc12147972b7784a58f444",
     "audit_author_features.py": "7de1a42e698f629711d6a455e747a43f48c94dd5b82f11967176d11eb06b7aee",
-    "audit_published_cohorts.py": "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
+    "audit_published_cohorts.py": "f253ad327506c815d1accfe55839a3f0a0af7a0149f38290f9d1e66626ab0141"
   },
   "integrity": {
     "compressed_bytes": 7993706,

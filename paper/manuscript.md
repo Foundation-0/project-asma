@@ -25,8 +25,9 @@ Chowdhury et al. report a 64-protein panel and discovery fivefold cross-validate
 AUC **0.83** (95% CI 0.77–0.90) for primary refractory versus sensitive HGSOC
 ([Cell 2023](https://doi.org/10.1016/j.cell.2023.07.004)). Those numbers are
 **published reference values**, not results from Project Asma. Supplementary
-materials and PDC proteome studies (PDC000357–PDC000362) are registered in
-[registries](../registries/) with their reuse terms.
+materials and six PDC studies (**PDC000358**, **PDC000360**, **PDC000362** proteome;
+**PDC000357**, **PDC000359**, **PDC000361** phosphoproteome) are registered in
+[registries](../registries/) with their reuse terms (see [datasets.json](../registries/datasets.json)).
 
 ## Methods (pre-registered)
 

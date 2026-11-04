@@ -83,7 +83,7 @@
   "implementation_sha256": {
     "audit_matrix_headers.py": "c33206dbe7099dd46d468466b2f3b92b4b682cf3e4135d29ed0e732e3c0e501a",
     "audit_pdc_metadata.py": "25c68461631de1fab8b73cd52b552019d351c0fb7c452a5a8947402dd357804e",
-    "audit_published_cohorts.py": "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
+    "audit_published_cohorts.py": "f253ad327506c815d1accfe55839a3f0a0af7a0149f38290f9d1e66626ab0141"
   },
   "join": "Unmodified matrix column equals clinical Data Label 2; literal NA is never a key",
   "limitations": [
