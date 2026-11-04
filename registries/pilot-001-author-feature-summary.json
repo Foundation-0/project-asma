@@ -48,6 +48,13 @@
     "symbols_repeated_across_rows": 0
   },
   "finished_at_utc": "2026-10-23T17:39:10.961854+00:00",
+  "implementation_hash_provenance": {
+    "audit_published_cohorts.py": {
+      "aggregate_output_unchanged_on_rerun": true,
+      "original_execution_commit": "4fdfd530e9e8d519eebc699f5e0e8f6a6363a955",
+      "original_execution_hash": "b0ab4ab1340139fb221346a14895526f8d62eb105eae098e46b7c4d1fa3f2b52"
+    }
+  },
   "implementation_sha256": {
     "audit_author_archive.py": "adfda21bafb0536a43d3ab034aabbe6f1f73b46682bc12147972b7784a58f444",
     "audit_author_features.py": "7de1a42e698f629711d6a455e747a43f48c94dd5b82f11967176d11eb06b7aee",
@@ -85,6 +92,8 @@
       "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC4.xlsx"
     }
   },
+  "re_executed_at_commit": null,
+  "re_executed_at_utc": "2026-11-04T10:03:21Z",
   "schema_version": 1,
   "scope": "Complete member integrity and exact protein annotation coverage; no abundance analysis",
   "started_at_utc": "2026-10-23T17:39:01.272424+00:00"
