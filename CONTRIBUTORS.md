@@ -38,6 +38,10 @@ The pull request *Bring Asma up to the repository standard* was **prepared by
 grk-helix**, an AI agent operated by **Alkindus Arifuddin**, via a Cursor cloud
 agent; posting account **orda-aska**.
 
+The **2026-11-04 Barry Rosen literature survey** was researched, screened and
+written with **OpenAI Codex (GPT-6)** under human direction. Bibliographic
+identity decisions remain provisional pending independent review.
+
 No AI system is a legal author of patient-facing guidance. External scientific
 review of Pilot 001 results remains pending where stated in the docs.
 

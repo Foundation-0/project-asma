@@ -78,6 +78,9 @@ and do **not** substitute for study-data execution.
 | K11 | 64 panel symbols appear once among 8,800 feature rows in pinned author member (bounded audit) | [Author feature registry](registries/pilot-001-author-feature-summary.json) |
 | K12 | 64/64 panel symbols in published MMC1 association lists for three cohort feature sets | [Validation panel registry](registries/pilot-001-validation-panel-coverage.json) |
 | K13 | Copyright Act s. 29 fair-dealing framework described for conditional Canadian research-use assessment | *CCH Canadian Ltd. v. Law Society of Upper Canada*, 2004 SCC 13 (quoted in [data-use](docs/pilot-001-data-use.md)) |
+| K90 | Institutional history and article affiliations distinguish the Toronto/Beaumont gynecologic oncologist from the FIU biochemist; P is not an exclusion rule | [Rosen survey identity evidence](docs/research/barry-rosen.md#identity-and-attribution), S90–S91 |
+| K91 | GSE51831 public series metadata links PMID 24982872 and lists expression files; data reuse and model-training rights remain unresolved | [Rosen resource assessment](docs/research/barry-rosen.md#data-code-and-reuse-observed-availability), S92–S93 |
+| K92 | The 2013 MSI risk-factor paper has an indexed retraction; retained as bibliography only | [Notice checks](docs/research/barry-rosen.md#corrections-and-related-records) |
 | K14 | Mission tribute: project honours Asma Ansari | [README](README.md) opening — biographical, not a research cohort claim |
 | K15 | Petitpré study methods/access qualifications and review history are documented in the [source audit](docs/anti-yo-frontier-2026-11-04.md#source-audit) | S37–S38; exact PDF pages and hashes in [sources.json](registries/sources.json) |
 | K16 | Anti-Yo antigen biology, HLA associations and context-dependent immune responses have substantial prior art | S39–S45, S48, S50–S51, S76; [frontier prior-art table](docs/anti-yo-frontier-2026-11-04.md#prior-art-and-the-remaining-gap) and molecular handoff |
@@ -103,6 +106,7 @@ and do **not** substitute for study-data execution.
 | C05 | The owner's consolidated [source request](templates/pilot-001-source-request.md) may resolve missing inputs | Sent by owner; canonical [sending record](docs/pilot-001-source-request-handoff.md); answers and research gates remain open |
 | C06 | Future confirmatory validation could meet a 98% specificity lower bound | Requires ~149 independent sensitive patients ([validation capacity](docs/pilot-001-validation-capacity.md)) |
 | C07 | Independent evaluation could eventually inform research decisions with appropriate review | Mission aspiration; no current clinical result |
+| C90 | The ranked Rosen-survey questions may yield useful research artifacts | [Candidate/deferred questions](docs/research/barry-rosen.md#ranked-project-asma-research-fit-questions); not executed or adopted |
 | C08 | Prior-art searches listed in audits did not locate a corrected MMC4 artifact | Documented as "not found", **not** "novel" |
 | C09 | Validated receptor/antigen/presenter evidence would help resolve competing anti-Yo CD4 explanations | Proposed H1–H5 matrix in the [frontier proposal](docs/anti-yo-frontier-2026-11-04.md); untested |
 | C10 | Presenting context may separate tumor response from neural injury | Mechanistic comparison proposed, no separation or safe intervention demonstrated |

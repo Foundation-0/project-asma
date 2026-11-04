@@ -49,6 +49,7 @@ clinical validity, or improved patient outcomes.
 | [Source adapter and execution conditions](docs/pilot-001-source-adapter.md) | Verified-byte parsing, source-format fixtures and observed runtime controls |
 | [Data-use disposition](docs/pilot-001-data-use.md) | Noncommercial research scope, source terms and remaining execution conditions |
 | [Roadmap](docs/roadmap.md) | Small milestones and decision gates |
+| [Barry Rosen research survey](docs/research/barry-rosen.md) / [bibliography](docs/research/barry-rosen-bibliography.md) | Public professional research assessment and candidate questions |
 | [Registries](registries/README.md) | Structured sources and candidate data provenance |
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
 | [Contributing](CONTRIBUTING.md) / [agent guidance](AGENTS.md) | Review and evidence standards |

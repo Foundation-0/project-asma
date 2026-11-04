@@ -912,6 +912,78 @@
       "takeaway": "CDR2 HLA-A2.1 natural processing and tumor-cell recognition are prior art.",
       "limitations": "HLA classI and transgenic-mouse/human-cell work; not human CDR2L-HLA-II evidence.",
       "checked_on": "2026-11-04"
+    },
+    {
+      "id": "S90",
+      "title": "UHN Princess Margaret annual report 2015",
+      "kind": "evidence_summary",
+      "url": "https://www.uhn.ca/PrincessMargaret/Documents/Princess_Margaret_annual_report_2015.pdf",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.uhn.ca/PrincessMargaret/Documents/Princess_Margaret_annual_report_2015.pdf",
+      "locator": "Printed pages 25–27, Barry Rosen transition/tribute",
+      "takeaway": "Connects Toronto/UHN gynecologic oncology to the 2015 Beaumont/Oakland move and hereditary-cancer/data-reporting work.",
+      "limitations": "Institutional historical account; its paper count is not current bibliometric evidence.",
+      "checked_on": "2026-11-04"
+    },
+    {
+      "id": "S91",
+      "title": "Europe PMC Barry Rosen bibliographic screening snapshot",
+      "kind": "data_catalog",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=AUTHOR%3A%22Rosen+BP%22&format=json&resultType=core&pageSize=1000",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=AUTHOR%3A%22Rosen+BP%22&format=json&resultType=core&pageSize=1000",
+      "locator": "Author metadata, pubTypeList, commentCorrectionList; full queries and dispositions in registries/barry-rosen-bibliography.json",
+      "takeaway": "Dated identity screening and notice audit across 2,046 deduplicated records; 215 provisionally attributed entries.",
+      "limitations": "Broad initials retrieve multiple researchers. Metadata screening is not full-text review, completeness, independent scientific review or a count of independent studies.",
+      "checked_on": "2026-11-04"
+    },
+    {
+      "id": "S92",
+      "title": "Molecular profiling and clinical outcome of high-grade serous ovarian cancer presenting with low- versus high-volume ascites",
+      "kind": "paper",
+      "url": "https://doi.org/10.1155/2014/367103",
+      "verification": "full_text_reviewed",
+      "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4055662/fullTextXML",
+      "locator": "Methods 2.1; results and discussion; permissions; GEO deposit link",
+      "takeaway": "Reports ascites-associated expression differences and deposits GSE51831.",
+      "limitations": "Small discovery study and tissue-composition confounding; not a primary-refractory validation cohort; no study data acquired.",
+      "checked_on": "2026-11-04"
+    },
+    {
+      "id": "S93",
+      "title": "GEO GSE51831 public series metadata",
+      "kind": "data_catalog",
+      "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE51831&targ=self&form=text&view=brief",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE51831&targ=self&form=text&view=brief",
+      "locator": "Series title, public status, publication, platform and supplementary-file listings",
+      "takeaway": "Public since 2014-10-01; PMID 24982872; GPL10558; raw and non-normalized files listed.",
+      "limitations": "Series-level metadata only. No matrix, sample rows, byte-integrity check, dataset-specific rights or training permission established.",
+      "checked_on": "2026-11-04"
+    },
+    {
+      "id": "S94",
+      "title": "Impact of Pre-Diagnostic Risk Factors on Short- and Long-Term Ovarian Cancer Survival Trajectories",
+      "kind": "paper",
+      "url": "https://doi.org/10.3390/cancers16050972",
+      "verification": "full_text_reviewed",
+      "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11154316/fullTextXML",
+      "locator": "Abstract; methods; conclusions; data availability; permissions",
+      "takeaway": "Reports time-dependent survival associations in 1,421 Ontario cases; data are request-only due to privacy/ethical restrictions.",
+      "limitations": "Observational; cohort-family overlap; not response prediction, causal lifestyle intervention evidence or open participant-data permission.",
+      "checked_on": "2026-11-04"
+    },
+    {
+      "id": "S95",
+      "title": "Characterizing trimodal therapy outcomes by HIV status in early-stage cervical cancer",
+      "kind": "paper",
+      "url": "https://doi.org/10.1186/s12885-026-15761-5",
+      "verification": "full_text_reviewed",
+      "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13088384/fullTextXML",
+      "locator": "Study design; abstract; limitations; data availability; rights and affiliations",
+      "takeaway": "Reports 38 completers among 62 adjuvant-eligible cases and nonsignificant HIV-group survival comparisons; data on reasonable request.",
+      "limitations": "Retrospective cervical cohort, incomplete discontinuation/HIV/pathology fields; not an HGSOC treatment-effect estimate. Affiliation geography anomaly preserved in survey.",
+      "checked_on": "2026-11-04"
     }
   ]
 }

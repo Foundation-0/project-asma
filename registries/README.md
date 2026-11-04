@@ -1,5 +1,12 @@
 # Registries
 
+- [Barry Rosen literature snapshot](barry-rosen-bibliography.json): item-level
+  bibliography, screening dispositions, queries, notice links and one candidate
+  data-resource metadata record. See the canonical [research survey](../docs/research/barry-rosen.md)
+  and [readable bibliography](../docs/research/barry-rosen-bibliography.md). This
+  collection uses literature identifiers; it does not extend the Pilot PDC-only
+  dataset schema or authorize ingestion.
+
 - [sources.json](sources.json): dated primary-source metadata, claim locators,
   takeaways, verification route, and limits. Source IDs remain stable.
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance
