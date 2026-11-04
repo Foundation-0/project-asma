@@ -1,7 +1,25 @@
 # Roadmap
 
 Status: updated 2026-11-04. The [project mission](mission.md) defines useful
-progress and the broader questions beyond this pilot. The scaffold,
+progress across **open-ended** ovarian cancer research. Pilot 001 keeps its
+existing gates and endpoint; other work enters through the process below.
+
+## Candidate directions (new tracks)
+
+Ranked public-data possibilities live in [directions.md](directions.md). Any
+**new direction** — not a continuation of Pilot 001 under its current protocol —
+starts with:
+
+1. A **protocol pull request** (population, endpoint, permitted inputs, stop
+   rules, claim labels), using the [research-question template](../templates/research-question.md).
+2. An **owner gate** mirroring **Gate 0** before live acquisition of study
+   files, a real-source input check, or fitting on study values.
+
+Software preparation and bounded metadata audits may proceed in parallel, as for
+Pilot 001, but must not be described as closing Gate 0 without the owner's
+dated execution-context attestation and explicit instruction.
+
+The scaffold,
 [static feasibility audit](pilot-001-feasibility-audit.md), and
 [public input/linkage investigation](pilot-001-input-resolution.md) are completed.
 Executed metadata checks advance Gates 0–1; they do not close the remaining
