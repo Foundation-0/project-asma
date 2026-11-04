@@ -19,17 +19,25 @@ IMAGE_RECORD = ROOT / "registries/pilot-001-source-adapter-runtime.json"
 MEMORY_BYTES = 8 * 1024**3
 
 
-def execution_options(root=ROOT, uid=None, gid=None):
+def execution_options(root=ROOT, uid=None, gid=None, *, log_driver_none=True):
     """Controls for a local, offline process; no data or secrets in arguments."""
     uid = os.getuid() if uid is None else uid
     gid = os.getgid() if gid is None else gid
-    return ["--network=none", "--read-only", "--cap-drop=ALL", "--log-driver=none",
+    opts = ["--network=none", "--read-only", "--cap-drop=ALL"]
+    if log_driver_none:
+        opts.append("--log-driver=none")
+    opts.extend([
             "--user", f"{uid}:{gid}", "--security-opt=no-new-privileges",
             "--ulimit=core=0", "--pids-limit=256", "--memory=8g", "--memory-swap=8g",
             "--cpus=2", "--tmpfs=/tmp:rw,noexec,nosuid,size=256m",
+            "--env", "HOME=/tmp",
+            "--env", "GIT_CONFIG_COUNT=1",
+            "--env", "GIT_CONFIG_KEY_0=safe.directory",
+            "--env", "GIT_CONFIG_VALUE_0=/work",
             "--mount", f"type=bind,src={root},dst=/work,readonly", "-w", "/work",
             "--env", "R_HISTFILE=/dev/null", "--env", "XDG_CACHE_HOME=/tmp/asma-cache",
-            "--env", "R_USER_CACHE_DIR=/tmp/asma-cache"]
+            "--env", "R_USER_CACHE_DIR=/tmp/asma-cache"])
+    return opts
 
 
 def observed_status(value, expected=True):

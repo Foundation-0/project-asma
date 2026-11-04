@@ -79,54 +79,7 @@ jobs:
         id: runtime_checks
         env:
           ADAPTER_IMAGE: ${{ steps.adapter_build.outputs.image_id }}
-        run: |
-          set -euo pipefail
-          set -o pipefail
-          asma_offline_run() {
-            docker run --rm \
-              --network=none \
-              --read-only \
-              --cap-drop=ALL \
-              --user "$(id -u):$(id -g)" \
-              --security-opt=no-new-privileges \
-              --ulimit=core=0 \
-              --pids-limit=256 \
-              --memory=8g \
-              --memory-swap=8g \
-              --cpus=2 \
-              --tmpfs=/tmp:rw,noexec,nosuid,size=256m \
-              --env HOME=/tmp \
-              --env GIT_CONFIG_COUNT=1 \
-              --env GIT_CONFIG_KEY_0=safe.directory \
-              --env GIT_CONFIG_VALUE_0=/work \
-              --volume "${GITHUB_WORKSPACE}:/work:ro" \
-              --workdir /work \
-              --env R_HISTFILE=/dev/null \
-              --env XDG_CACHE_HOME=/tmp/asma-cache \
-              --env R_USER_CACHE_DIR=/tmp/asma-cache \
-              "$@"
-          }
-
-          log=$(asma_offline_run "$ADAPTER_IMAGE" /opt/python/bin/python3 -I -B tools/validate.py \
-            2>&1 | tee validate.log)
-          echo "$log"
-          grep -q '^PASS:' validate.log
-
-          log=$(asma_offline_run "$ADAPTER_IMAGE" /opt/python/bin/python3 -I -B -m unittest discover -s tests -v 2>&1 | tee python-suite.log)
-          echo "$log"
-          grep -E '^Ran [0-9]+ tests' python-suite.log | grep -Fq 'Ran 207 tests'
-
-          log=$(asma_offline_run "$ADAPTER_IMAGE" /opt/python/bin/python3 -I -B -m unittest discover -s tests -p test_source_data_adapter.py -v 2>&1 | tee adapter-tests.log)
-          echo "$log"
-          grep -E '^Ran [0-9]+ tests' adapter-tests.log | grep -Fq 'Ran 30 tests'
-
-          synthetic_id=$(docker image inspect asma-synthetic:4.4.3 --format '{{.Id}}')
-          log=$(asma_offline_run --env "ASMA_RUNTIME_IMAGE_ID=$synthetic_id" "$synthetic_id" \
-            Rscript --vanilla tools/run_synthetic_pipeline.R --tests 2>&1 | tee r-assertions.log)
-          echo "$log"
-          total=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["assertions"]["total"])' <<<"$log")
-          echo "R assertion total: $total"
-          test "$total" = "179"
+        run: python3 tools/ci_run_offline_checks.py
 
       - name: Execution controls (40 technical checks)
         id: execution_controls
