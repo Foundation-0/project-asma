@@ -66,7 +66,7 @@ here is called novel without that search.
 | --- | --- |
 | **Question** | Among **public** DepMap ovarian lines, what are reproducible associations between **PRISM** drug sensitivity readouts (including PARP inhibitors and platinum agents where present in the release) and annotated **BRCA1/2** or HR-pathway alterations — described as in vitro screening biology, not patient outcome? |
 | **Why it matters** | **KNOWN:** Large-scale dependency maps and **PRISM** pharmacological profiling support hypothesis generation about DNA-damage response vulnerabilities in cancer cell lines. **CONJECTURE:** open aggregates could contextualize HGSOC therapy-resistance hypotheses — not a substitute for clinical validation. |
-| **Public inputs** | **DepMap Public 24Q4** — Figshare record **[27993248](https://figshare.com/articles/dataset/DepMap_Public_24Q4/27993248)** (`figshare.com` API title verified in log). Pin exact file names and hashes at execution time; **PRISM** sensitivity tables are the drug-response source within the release bundle. |
+| **Public inputs** | Two pinned Figshare releases (API-verified in log): **(A) DepMap omics / models — [27993248](https://figshare.com/articles/dataset/DepMap_Public_24Q4/27993248)** title **`DepMap 24Q4 Public`**, version **1** — use **`Model.csv`** (ovarian lineage filter), **`OmicsSomaticMutationsMatrixDamaging.csv`** (BRCA1/2 and HR-pathway columns). **`PortalCompounds.csv`** is compound metadata only (no dose–response matrix). **(B) PRISM repurposing screens — [25917643](https://figshare.com/articles/dataset/Repurposing_Public_24Q2/25917643)** title **`Repurposing Public 24Q2`**, version **1** — use **`Repurposing_Public_24Q2_LFC_COLLAPSED.csv`** (collapsed log-fold-change sensitivity), **`Repurposing_Public_24Q2_Treatment_Meta_Data.csv`** (map compounds; filter PARP inhibitors and platinum agents by name in protocol), and **`Repurposing_Public_24Q2_Cell_Line_Meta_Data.csv`** (join to DepMap **`Model.csv`** via DepMap model identifiers). Pin file SHA-256 at execution; no full matrices in Git. We did not find a newer **`Repurposing Public`** Figshare record than 24Q2 (Broad DepMap profile search + article API on 2026-11-04). |
 | **Licence summary** | DepMap [terms of use](https://depmap.org/portal/terms/) — follow attribution and redistribution rules on download; no redistribution of full matrix in Git. |
 | **Deliverable** | Script reading pinned CSV slices (in execution environment only) that prints line counts, mutation counts, and Spearman correlations with bootstrap CIs — fixed seed, aggregate output only. |
 | **Feasibility** | **High** for small-team tabular analysis; **low** for translating to patient platinum refractoriness (different endpoint). |
@@ -136,7 +136,7 @@ Sources: [Crossref REST API](https://api.crossref.org/),
 [GDC API](https://api.gdc.cancer.gov/),
 [cBioPortal API](https://www.cbioportal.org/api/),
 [PDC GraphQL](https://pdc.cancer.gov/graphql),
-[Figshare API v2](https://api.figshare.com/v2/articles/27993248),
+[Figshare API v2](https://api.figshare.com/v2/articles/27993248) and [25917643](https://api.figshare.com/v2/articles/25917643),
 [ClinicalTrials.gov API v2](https://clinicaltrials.gov/data-api/).
 
 ### DOI and PMID checks (title + first author must match the citation)
@@ -165,7 +165,8 @@ Sources: [Crossref REST API](https://api.crossref.org/),
 | **GSE40595** | A cancer associated fibroblasts (CAFs) specific gene signature in high grade serous ovarian cancer | 77 series samples (GEO soft) | **GPL570** — [HG-U133_Plus_2] Affymetrix Human Genome U133 Plus 2.0 Array (GEO `acc.cgi?acc=GPL570`) | 5 | Yes |
 | **GSE66957** | Pathways of ovarian cancer development | 69 series samples | **GPL15048** — Rosetta/Merck Human RSTA Custom Affymetrix 2.0 microarray (GEO platform soft) | 6 | Yes |
 | **GSE26193** | Control of oxidative stress by miRNA and impact on ovarian tumorigenesis | 107 series samples | **GPL570** mRNA array; series type *Expression profiling by array* (GEO soft) | 7 | Yes — **mRNA**, not miRNA platform |
-| **Figshare 27993248** | DepMap Public 24Q4 | Release bundle (multi-file; no single sample count) | DepMap quarterly public release; **PRISM** drug sensitivity tables within bundle | 4 | Yes |
+| **Figshare 27993248** | **DepMap 24Q4 Public** | **73** files (API `files?page_size=100`) | DepMap quarterly release (CRISPR, omics, **`Model.csv`**); **no** PRISM LFC matrices in file list | 4 | Yes — omics/annotation half of direction 4 |
+| **Figshare 25917643** | **Repurposing Public 24Q2** | **11** files (API `files?page_size=100`) | **PRISM** repurposing dose–response tables (`Repurposing_Public_24Q2_LFC_COLLAPSED.csv`, treatment/cell-line metadata) | 4 | Yes — drug sensitivity half of direction 4 |
 | **ClinicalTrials.gov v2** | *(query result set)* | **590** recruiting interventional studies | API query: `query.cond=Ovarian Cancer&filter.overallStatus=RECRUITING&query.term=AREA[StudyType]INTERVENTIONAL` | 8 | Yes — matches interventional wording |
 
 This log does not prove scientific conclusions, licence interpretation for your
