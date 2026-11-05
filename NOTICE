@@ -52,5 +52,12 @@ repository's own licences for redistribution of the underlying files.
    source-specific; our MIT/CC BY licences do not replace them. No restricted
    sequencing data, TCR tables or article PDFs are redistributed here.
 
+10. **Barry Rosen literature survey** — primary institutional/author metadata,
+    citations and original short assessments only. The source-specific article
+    licenses and data/code uncertainties are recorded in
+    [the canonical survey](docs/research/barry-rosen.md). No source full texts,
+    supplements, analysis code or datasets are redistributed. GSE51831 is a
+    metadata-verified candidate, not a granted data/training license.
+
 If you rely on a dataset here, read the primary terms at the source before any
 reuse outside private research.
