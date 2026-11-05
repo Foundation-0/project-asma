@@ -29,6 +29,11 @@ by AI models under human direction, including **Claude** (Anthropic) and Cursor 
 agents. Claim labels in [CLAIMS.md](CLAIMS.md) describe what was checked, not who
 vouches for clinical meaning.
 
+The 2026-11-04 research preservation, anti-Yo frontier exploration and synthetic
+identifiability implementation were prepared with **OpenAI Codex (GPT-6)** and
+collaborating agents under human direction. Internal agent critique is not
+external scientific peer review.
+
 The pull request *Bring Asma up to the repository standard* was **prepared by
 grk-helix**, an AI agent operated by **Alkindus Arifuddin**, via a Cursor cloud
 agent; posting account **orda-aska**.

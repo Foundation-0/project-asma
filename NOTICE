@@ -44,5 +44,13 @@ repository's own licences for redistribution of the underlying files.
    transiently in memory for arithmetic checks; must not be republished from this
    repository.
 
+9. **Frontier literature and research code links** — sources S37–S76 and the
+   2026-11-04 handoffs contain original summaries and proposals, not copies of
+   study datasets or third-party analysis software. Petitpre et al.'s accepted
+   article is CC BY-NC-ND 4.0; its transparent review is CC BY 4.0. The linked
+   CDR2L knockout code is GPLv3. Other article, code and data terms remain
+   source-specific; our MIT/CC BY licences do not replace them. No restricted
+   sequencing data, TCR tables or article PDFs are redistributed here.
+
 If you rely on a dataset here, read the primary terms at the source before any
 reuse outside private research.

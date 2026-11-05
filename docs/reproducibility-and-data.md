@@ -74,9 +74,11 @@ in a public issue.
 
 ## Rights and publication
 
-No repository license exists yet. The owner must decide licensing before reuse
-expectations are set; do not invent a grant or copy third-party code/data without
-checking their terms. Link papers rather than redistributing full texts. Do not
+The repository's [LICENSE](../LICENSE) covers original code under MIT and
+original prose, figures and site content under CC BY 4.0. Third-party material
+keeps its own terms; see [NOTICE](../NOTICE). Do not infer a grant or copy
+third-party code/data without checking those terms. Link papers rather than
+redistributing full texts. Do not
 present exploratory signatures as diagnostic tools, treatment selectors, or
 evidence of improved survival. Obtain scientific review before such work advances
 beyond this research scaffold.
