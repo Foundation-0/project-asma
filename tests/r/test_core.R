@@ -77,7 +77,7 @@ run_core_tests <- function() {
     "254553515221421153134515343224253444334154233",
     "212442155431513125432145451334354332452211552")))
 
-  stub <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+  stub <- function(x_train, y_train, x_test, inner_foldid, repetition, fold, ...) {
     ids <- rownames(x_test)
     list(en = stats::setNames(rep(.1 + repetition / 1000, nrow(x_test)), ids),
          xgb = stats::setNames(rep(.3, nrow(x_test)), ids),
@@ -115,7 +115,7 @@ run_core_tests <- function() {
   # Amendment 1: per-repetition AUROC differs from the AUROC of averaged scores.
   # Separating scores in even repetitions and reversing them in odd ones gives
   # per-repetition AUROCs of 1 and 0, while the averaged scores all tie at 0.5.
-  alternating <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+  alternating <- function(x_train, y_train, x_test, inner_foldid, repetition, fold, ...) {
     ids <- rownames(x_test)
     refractory <- as.integer(sub("fixture-patient-", "", ids, fixed = TRUE)) > 83L
     high <- if (repetition %% 2L == 0L) refractory else !refractory
@@ -134,7 +134,7 @@ run_core_tests <- function() {
   # Fold offsets make every within-fold AUROC 1 while the 135-score AUROC is
   # lower, and a repetition-dependent shift spreads the quantiles apart. Every
   # field must match an independent recomputation from the repetition scores.
-  offset <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+  offset <- function(x_train, y_train, x_test, inner_foldid, repetition, fold, ...) {
     ids <- rownames(x_test)
     index <- as.integer(sub("fixture-patient-", "", ids, fixed = TRUE))
     refractory <- index > 83L
@@ -173,7 +173,7 @@ run_core_tests <- function() {
   # checked, since the adapter's arguments decide the result.
   plan_events <- list()
   fit_events <- list()
-  capture_stub <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+  capture_stub <- function(x_train, y_train, x_test, inner_foldid, repetition, fold, ...) {
     fit_events[[length(fit_events) + 1L]] <<- list(
       repetition = repetition, fold = fold, train_ids = rownames(x_train),
       test_ids = rownames(x_test), y_train = y_train, inner_foldid = inner_foldid)
@@ -188,11 +188,11 @@ run_core_tests <- function() {
   for (index in seq_along(plan_events)) {
     event <- plan_events[[index]]
     fitted <- fit_events[[index]]
-    outer_plan <- stratified_folds(keys, y, 5L, event$repetition)
+    outer_plan <- stratified_folds(keys, y, 5L, event$outer_seed)
     expected_test <- keys[outer_plan == event$fold]
     expected_train <- keys[outer_plan != event$fold]
     expected_inner <- stratified_folds(expected_train, y[expected_train], 3L,
-                                       10000L + 100L * event$repetition + event$fold)
+                                       10000L + 100L * event$outer_seed + event$fold)
     for (copy in list(event, fitted)) {
       wiring_ok <- wiring_ok && identical(copy$test_ids, expected_test) &&
         identical(copy$train_ids, expected_train) &&
@@ -284,5 +284,9 @@ run_core_tests <- function() {
     stop("private-marker", call. = FALSE)
   }, 1L), "private-marker")
   check(identical(.Random.seed, saved_seed))
+
+  block <- run_reconstruction(assembled, stub, 1L, outer_seed_start = 101L)
+  check(block$summary$repetitions == 1L && block$summary$patients == 135L)
+
   count
 }

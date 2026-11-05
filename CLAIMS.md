@@ -34,8 +34,8 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`247` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
-| V03 | **179** R test assertions pass on **synthetic fixtures** (41 input, 87 core, 51 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`259` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V03 | **181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
 | V06 | **40** combined-runtime execution-condition checks observed on rebuilt image (2026-11-04 rerun) | Source-adapter doc; `python3 -m unittest tests.test_execution_conditions -v` covers probe logic offline |

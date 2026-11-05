@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "inputs": [
+    {
+      "role": "author_dropbox_member",
+      "sha256": "b7eea435bb7fa65f31a6e8f50d977ff046f0f9bd851126e43cf9a5f52e62be62",
+      "bytes": 18498831
+    },
+    {
+      "role": "nlm_mmc1_clinical",
+      "sha256": "6e46fa0cb3023173a3643e95ce0360c44cfabb0ed737e9a05f70473dad552340",
+      "bytes": 41194360
+    },
+    {
+      "role": "nlm_mmc4_panel",
+      "sha256": "f318ed9d2fac341097a8b1be3e034753f6d427bdeeb0cd2b92eb715cadadb6ab",
+      "bytes": 591065
+    }
+  ]
+}
