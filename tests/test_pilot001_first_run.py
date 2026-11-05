@@ -22,7 +22,7 @@ from pilot001_first_run.gates import toronto_today, validate_dropbox_flag, valid
 from pilot001_first_run.output_validator import validate_aggregate_document  # noqa: E402
 from pilot001_first_run.preflight import run_linux_preflight, run_macos_preflight  # noqa: E402
 from pilot001_first_run.runner import build_container_run_argv, resolve_image_tag  # noqa: E402
-from pilot001_first_run.study_fetch import StudyFetchError, _verify_pin  # noqa: E402
+from pilot001_first_run.study_fetch import StudyFetchError, _archive_range_fetch, _verify_pin, fetch_to_tmpfs  # noqa: E402
 import run_pilot001_first_run as entry  # noqa: E402
 
 
@@ -166,6 +166,53 @@ class TestAllowlistedFetch(unittest.TestCase):
         with self.assertRaises(AllowlistedFetchError) as ctx:
             fetch_exact("https://example.com/file.bin", expected_bytes=1)
         self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
+
+    @mock.patch("pilot001_first_run.allowlisted_fetch.urllib.request.urlopen")
+    def test_redirect_off_allowlist_refused(self, mock_urlopen):
+        response = mock.MagicMock()
+        response.geturl.return_value = "https://evil.example.com/taken"
+        response.status = 200
+        response.headers = {"Content-Encoding": "identity"}
+        response.read.return_value = b"x"
+        mock_urlopen.return_value.__enter__.return_value = response
+        url = (
+            "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/"
+            "PMC10414761.1/NIHMS1918576-supplement-MMC1.xlsx"
+        )
+        with self.assertRaises(AllowlistedFetchError) as ctx:
+            fetch_exact(url, expected_bytes=1)
+        self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
+        mock_urlopen.assert_called_once()
+
+
+class TestRealModeFetchPath(unittest.TestCase):
+    @mock.patch("pilot001_first_run.study_fetch.fetch_byte_range")
+    def test_study_fetch_refuses_non_allowlisted_host(self, mock_range):
+        mock_range.side_effect = AllowlistedFetchError(codes.P001_FAIL_FETCH_HOST)
+        with self.assertRaises(StudyFetchError) as ctx:
+            _archive_range_fetch(0, 100)
+        self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
+
+    @mock.patch("pilot001_first_run.study_fetch.fetch_byte_range")
+    def test_study_fetch_refuses_redirect_off_allowlist(self, mock_range):
+        mock_range.side_effect = AllowlistedFetchError(codes.P001_FAIL_FETCH_HOST)
+        with self.assertRaises(StudyFetchError) as ctx:
+            fetch_to_tmpfs(__import__("pilot001_first_run.config", fromlist=["default_input_manifest"]).default_input_manifest(), Path("/tmp/pilot001-test-fetch"))
+        self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
+
+    @mock.patch.dict("os.environ", {"PILOT001_OWNER_ATTESTATION_ID": "owner"}, clear=False)
+    @mock.patch("pilot001_first_run.real_entry.fetch_to_tmpfs")
+    def test_real_entry_surfaces_fetch_host(self, mock_fetch):
+        mock_fetch.side_effect = StudyFetchError(codes.P001_FAIL_FETCH_HOST)
+        import io
+
+        from pilot001_first_run import real_entry
+
+        buffer = io.StringIO()
+        with mock.patch("sys.stdout", buffer):
+            code = real_entry.main()
+        self.assertEqual(code, 1)
+        self.assertEqual(buffer.getvalue().strip(), codes.P001_FAIL_FETCH_HOST)
 
 
 class TestManifestIntegrity(unittest.TestCase):

@@ -30,12 +30,20 @@ def _require_https(url: str) -> urllib.parse.SplitResult:
     return parsed
 
 
+def _response_url_allowed(response, expected: urllib.parse.SplitResult) -> None:
+    actual = urllib.parse.urlsplit(response.geturl())
+    if actual.scheme != "https" or actual.netloc not in ALLOWED_HOSTS:
+        raise AllowlistedFetchError(codes.P001_FAIL_FETCH_HOST)
+    if actual.netloc != expected.netloc or actual.path != expected.path:
+        raise AllowlistedFetchError(codes.P001_FAIL_FETCH)
+
+
 def fetch_byte_range(url: str, start: int, end: int, *, total_bytes: int) -> bytes:
     if not isinstance(start, int) or not isinstance(end, int):
         raise AllowlistedFetchError(codes.P001_FAIL_FETCH)
     if start < 0 or end < start or end >= total_bytes:
         raise AllowlistedFetchError(codes.P001_FAIL_FETCH)
-    _require_https(url)
+    expected = _require_https(url)
     request = urllib.request.Request(
         url,
         headers={
@@ -45,13 +53,9 @@ def fetch_byte_range(url: str, start: int, end: int, *, total_bytes: int) -> byt
     )
     try:
         with urllib.request.urlopen(request, timeout=120) as response:
-            actual = urllib.parse.urlsplit(response.geturl())
-            expected = urllib.parse.urlsplit(url)
+            _response_url_allowed(response, expected)
             if (
                 response.status != 206
-                or actual.scheme != "https"
-                or actual.netloc != expected.netloc
-                or actual.path != expected.path
                 or response.headers.get("Content-Range") != f"bytes {start}-{end}/{total_bytes}"
                 or response.headers.get("Content-Encoding", "identity") != "identity"
             ):
@@ -67,17 +71,13 @@ def fetch_byte_range(url: str, start: int, end: int, *, total_bytes: int) -> byt
 
 
 def fetch_exact(url: str, *, expected_bytes: int) -> bytes:
-    _require_https(url)
+    expected = _require_https(url)
     request = urllib.request.Request(url, headers={"Accept-Encoding": "identity"})
     try:
         with urllib.request.urlopen(request, timeout=120) as response:
-            actual = urllib.parse.urlsplit(response.geturl())
-            expected = urllib.parse.urlsplit(url)
+            _response_url_allowed(response, expected)
             if (
                 response.status != 200
-                or actual.scheme != "https"
-                or actual.netloc != expected.netloc
-                or actual.path != expected.path
                 or response.headers.get("Content-Encoding", "identity") != "identity"
             ):
                 raise AllowlistedFetchError(codes.P001_FAIL_FETCH)

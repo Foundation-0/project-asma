@@ -107,7 +107,9 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 
 **Policy:** Study bytes stay in **container tmpfs only** — never written under the host `/output` bind mount or synced folders.
 
-**Enforcement:** Dry runs use **`--network=none`**. Real runs enable **`--network=bridge`** only for the source-adapter container entrypoint (`tools/pilot001_first_run/real_entry.py`), which performs **all** HTTPS via `allowlisted_fetch.py` (refuses any other host; covered in unit tests). This is application-layer egress control, not a kernel firewall.
+**Limitation (grk-helix accepted):** Dry runs use **`--network=none`** (no container egress). Real runs use **`--network=bridge`** for the whole source-adapter container while `tools/pilot001_first_run/real_entry.py` runs. **Egress is restricted only by the Python fetch helper** (`allowlisted_fetch.py`), which refuses non-allowlisted hosts and redirects off the allowlist. There is **no** kernel firewall, Docker proxy, or nftables enforcement in this design — a compromised or buggy process inside the container could still attempt other destinations unless blocked elsewhere on the host.
+
+**R phase after fetch:** `run_pilot001_reconstruction.R --real` does not call the fetch helper, but it runs in the **same** container namespace that still has bridge attached. Dropping network mid-container is **not** implemented: the runner uses `--cap-drop=ALL` and does not grant `NET_ADMIN`, so we cannot safely take interfaces down or rejoin a `none` network without a second container. A second container would need study bytes on a host bind mount (forbidden for study data) or nested Docker (not in scope). Owner Mac runs should treat bridge during R as a documented residual exposure; R packages used here are not expected to open outbound HTTPS.
 
 **Integrity:** After fetch, bytes must match [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json) (`author_dropbox_member`, `nlm_mmc1_clinical`, `nlm_mmc4_panel`). Mismatch → **`P001-FAIL-INPUT-INTEGRITY`**. Non-allowlisted host → **`P001-FAIL-FETCH-HOST`**.
 
