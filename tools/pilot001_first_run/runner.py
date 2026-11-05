@@ -125,6 +125,8 @@ def run_container_pipeline(
         )
     stdout = completed.stdout.strip()
     if completed.returncode != 0:
+        if completed.stderr:
+            sys.stderr.write(completed.stderr)
         line = stdout.splitlines()[0] if stdout else codes.P001_FAIL_CONTAINER
         if codes.is_aggregate_failure_line(line):
             return completed.returncode, line
