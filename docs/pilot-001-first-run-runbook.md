@@ -80,11 +80,11 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 
 | Location | What writes there |
 | --- | --- |
-| **Repository checkout** | Git only; container sees it at `/work` **read-only** (`tools/pilot001_first_run/runner.py`). Choose a path outside iCloud/Dropbox/TM. |
+| **Repository checkout** | Git only. **Dry run / analyze** mount the repo at `/work` read-only. **Fetch phase** mounts only `tools/` and the input manifest (not the owner attestation registry). Choose a path outside iCloud/Dropbox/TM. |
 | **`$HOME/pilot001-first-run-out`** (or owner-chosen equivalent) | **Only** allow-listed aggregates: `pilot001-preflight-report.json`, `pilot001-first-run-aggregate.json`. Bind-mounted to `/output`. Preflight **refuses** iCloud/Dropbox/TM-backed output paths. |
 | **Docker Desktop `Docker.raw`** | Image layers and container writable layers (not controlled by this repo). |
-| **Container `/tmp`** | **tmpfs 512m** (`rw,noexec,nosuid`); R/Python caches under `/tmp/asma-cache`. No host bind for study bytes. |
-| **Study data** | **No** host volumes for Dropbox zip or MMC workbooks. Real-run design requires study fetches **inside** the container **tmpfs only** (not implemented on this PR — see **(4)**). |
+| **Container `/tmp`** | Dry-run: **tmpfs 512m**. Real **analyze** phase: tmpfs for R caches and ephemeral adapter→R JSON (under `/tmp/pilot001-study`); never bind-mounted to the host output directory. |
+| **Study handoff volume** | Real mode **`pilot001-handoff-*` tmpfs Docker volume** (`docker volume create --opt type=tmpfs --opt device=tmpfs --opt o=size=512m,mode=0700 …`) holds **compressed** Dropbox member bytes plus workbook bytes between phase 1 and phase 2. Removed by orchestrator postflight. Docker may still store volume **metadata** on the Desktop VM disk even when the volume driver is tmpfs. |
 
 ### (4) Network
 
@@ -98,16 +98,31 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 | **snapshot.ubuntu.com** | Pinned `.deb` build deps for adapter (`runtime/source-adapter-python.json`) |
 | **Launchpad / Ubuntu changelogs** | License notice fetches documented in the adapter lockfile |
 
-**Real first-run study fetches (future; not executable on this PR):**
+**Real first-run study fetches (gated `--real` on owner Mac only):**
 
 | Host | Role |
 | --- | --- |
-| **www.dropbox.com** | Author `processed_data.zip` member (see [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json)) |
+| **www.dropbox.com** | Author `processed_data.zip` compressed member ranges (**compressed** bytes pinned in manifest for phase 1; **uncompressed** member pinned for phase 2 after offline inflate) |
 | **pmc-oa-opendata.s3.us-east-1.amazonaws.com** | MMC1 / MMC4 workbooks for Pilot 001 |
 
-**Policy:** Dropbox matrix bytes must remain in **container tmpfs only** — never written to the host output directory or synced folders.
+**Policy:** Study bytes stay in **container tmpfs only** — never written under the host `/output` bind mount or synced folders.
 
-**Current blocker (this PR):** Even when the CLI accepts `--real`, `--gate0-signed`, and `--dropbox-cleared`, the orchestrator still launches the container with **`--network=none`**, passes **`--dry-run`** to `tools/run_pilot001_reconstruction.R`, and returns **`P001-FAIL-GATE-REAL-FLAGS`** if `config.dry_run` is false (`tools/pilot001_first_run/runner.py`, R real branch). **Real Dropbox fetch is not executable yet.** CI and approved Mac dry runs use the synthetic fixture path only.
+**Two-phase real mode (phase separation, not a kernel firewall):**
+
+| Phase | Container | Network | Work |
+| --- | --- | --- | --- |
+| **1 — fetch** | `fetch_container.py` | **`bridge`** (egress for allowlisted HTTPS only) | Download, verify **compressed-byte** manifest pin (+ workbook pins), write **compressed** member and workbooks to **tmpfs handoff volume**. No inflate, adapter, R, or row-level matrices. |
+| **2 — analyze** | `analyze_container.py` | **`none`** | Read-only handoff → offline inflate + **uncompressed** manifest pin → `parse_sources()` → R → aggregate JSON on **stdout** (host validates and writes `/output`). |
+
+**Fetch allowlist:** `www.dropbox.com`, `pmc-oa-opendata.s3.us-east-1.amazonaws.com`, `dl.dropboxusercontent.com`, and `*.dl.dropboxusercontent.com` CDN hosts. `allowlisted_fetch.py` disables urllib auto-redirects and validates **each hop** (HTTPS only; no downgrade) before following.
+
+**Handoff volume (tmpfs):** Payload bytes live in a **512 MiB tmpfs** Docker volume (`mode=0700`). Docker Desktop may still record the volume name and driver options on the VM disk until **`docker volume rm`**. Postflight fails if any `pilot001-handoff-*` volume remains; macOS preflight requires **Docker swap = 0 MiB**.
+
+**Integrity:** [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json) pins **both** the Dropbox member on the wire (`author_dropbox_member_compressed`: SHA-256 + bytes) and after offline inflate (`author_dropbox_member`: SHA-256 + bytes). Phase **1** checks compressed (+ workbook) pins before handoff; phase **2** re-checks compressed, inflates, then checks the uncompressed pin before parse.
+
+**Attestation:** The host runs the full attestation gate **before** phase 1. Phase **2** bind-mounts `registries/pilot-001-owner-attestations.json` (when present locally) for `parse_sources()` authorization. Phase **1** does not mount that file.
+
+**Native linux/arm64 synthetic builds and amd64↔arm64 equivalence checks** are intentionally **out of scope** (sibling PR).
 
 ### (5) Exact approved command sequence
 
@@ -122,7 +137,7 @@ Run from the **repository root** after step **0**. Replace attestation ref and d
 | **4** | Record image ids (optional) | `docker image inspect asma-synthetic:4.4.3 --format '{{.Id}} {{.Architecture}}'` |
 | **5** | Preflight (read-only) | `python3 tools/pilot001_preflight.py --host macos --output-dir "$HOME/pilot001-first-run-out"` |
 | **6** | Optional dry run (synthetic; same gates as CI) | `python3 tools/run_pilot001_first_run.py --host macos --output-dir "$HOME/pilot001-first-run-out" --image asma-synthetic:4.4.3` — **no** `--real`, **no** `--gate0-signed`, **no** `--dropbox-cleared` |
-| **7** | Real run (owner Mac only; **blocked on this PR** until runner/R network work lands) | See command below — expect failure **`P001-FAIL-GATE-REAL-FLAGS`** today |
+| **7** | Real run (owner Mac only; gated) | Command below — uses **`asma-source-adapter:3.12.14-4.4.3`** automatically unless `--image` overrides the synthetic default |
 
 **Real run command (documented target; not executed in repo/CI):**
 
@@ -137,7 +152,7 @@ python3 tools/run_pilot001_first_run.py \
   --image asma-synthetic:4.4.3
 ```
 
-The attestation date must equal **today** in `America/Toronto`. When real mode is implemented, study fetch will occur **inside** the container only; the host still mounts **only** the aggregate output directory.
+The attestation date must equal **today** in `America/Toronto`. Phase 1 writes verified **compressed** study bytes to a **tmpfs handoff volume** (not the host output directory). Phase 2 parses and models offline with **`--network=none`**; the host promotes validated aggregate JSON to the output bind mount from container stdout.
 
 Non-zero preflight exit prints a JSON report with aggregate-safe fields only.
 
@@ -150,7 +165,7 @@ rm -rf "$HOME/pilot001-first-run-out"
 docker rm -f $(docker ps -aq --filter 'name=pilot001-run-') 2>/dev/null || true
 docker rmi asma-synthetic:4.4.3 asma-source-adapter:3.12.14-4.4.3
 docker ps -a --filter 'name=pilot001-run-'
-docker volume ls
+docker volume ls --filter name=pilot001-handoff-
 ```
 
 Expect **no** `pilot001-run-*` containers and no run-specific volumes. The entrypoint’s postflight also fails with **`P001-FAIL-POSTFLIGHT`** if any `pilot001-run-*` container remains.
@@ -184,7 +199,7 @@ No row-level scores, matrices, or study files are written.
 - Any aggregate failure code (`P001-FAIL-*`) from the entrypoint.
 - Output validator detecting row-level or identifier-like content.
 - Postflight showing leftover `pilot001-run-*` containers.
-- **`P001-FAIL-GATE-REAL-FLAGS`** on `--real` until the runner enables in-container fetch with controlled network (not this PR).
+- **`P001-FAIL-INPUT-INTEGRITY`**, **`P001-FAIL-FETCH-HOST`**, or other **`P001-FAIL-*`** codes from fetch, adapter, or reconstruction.
 
 ## What this repository proves without a real run
 

@@ -24,8 +24,18 @@ main <- function(arguments) {
     source("tests/r/synthetic_fixture.R", local = .GlobalEnv)
     input <- do.call(assemble_input, synthetic_fixture())
     input_mode <- "synthetic_fixture"
+    real_executed <- FALSE
   } else {
-    stop("P001-FAIL-GATE-REAL-FLAGS", call. = FALSE)
+    payload_path <- Sys.getenv("PILOT001_SOURCE_PAYLOAD_PATH", unset = "")
+    asma_require(nzchar(payload_path), "real_payload_path")
+    payload_path <- normalizePath(payload_path, winslash = "/", mustWork = TRUE)
+    asma_require(grepl("^/tmp/", payload_path), "real_payload_tmpfs")
+    payload_text <- readChar(payload_path, n = 4L * 1024L * 1024L + 1L, useBytes = TRUE)
+    asma_require(nchar(payload_text, type = "bytes") <= 4L * 1024L * 1024L, "real_payload_size")
+    source("R/asma_source.R", local = .GlobalEnv)
+    input <- assemble_source_payload(payload_text)
+    input_mode <- "pinned_real_sources"
+    real_executed <- TRUE
   }
 
   fit_primary <- function(...) fit_models(..., xgb_tree_method = "exact")
@@ -65,7 +75,7 @@ main <- function(arguments) {
     review_status = "exploratory_not_externally_reviewed",
     scope = "Pilot 001 first-run aggregate outputs; not externally reviewed",
     input_mode = input_mode,
-    real_study_data_executed = FALSE,
+    real_study_data_executed = real_executed,
     amendment_1 = list(A1 = TRUE, A2 = list(option_a = TRUE, option_b = TRUE), A3 = "strict"),
     started_at_utc = started,
     configurations = configurations,
@@ -78,7 +88,7 @@ main <- function(arguments) {
     ),
     limitations = c(
       "Exploratory outputs only; not compared with published 0.83.",
-      "Dry-run mode uses synthetic fixtures only.",
+      if (real_executed) "Real mode executed on pinned study bytes inside container tmpfs." else "Dry-run mode uses synthetic fixtures only.",
       "No row-level scores or patient keys are retained in this aggregate artifact."
     )
   )

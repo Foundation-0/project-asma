@@ -19,6 +19,7 @@ from pilot001_first_run.preflight import run_preflight  # noqa: E402
 from pilot001_first_run.runner import (  # noqa: E402
     AGGREGATE_FILENAME,
     PREFLIGHT_FILENAME,
+    STAGING_AGGREGATE,
     emit_failure,
     emit_success_summary,
     git_sha,
@@ -79,6 +80,11 @@ def main(argv: list[str] | None = None) -> int:
 
     validation_errors = validate_output_dir(config.output_dir, frozenset({AGGREGATE_FILENAME, PREFLIGHT_FILENAME}))
     if validation_errors:
+        aggregate_path = config.output_dir / AGGREGATE_FILENAME
+        staging_path = config.output_dir / STAGING_AGGREGATE
+        for path in (aggregate_path, staging_path):
+            if path.is_file():
+                path.unlink()
         emit_failure(codes.P001_FAIL_OUTPUT_VALIDATION)
         return 1
 
