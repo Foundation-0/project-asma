@@ -34,3 +34,11 @@ No frontier study files, patient-level inputs, third-party analysis execution or
 outreach occurred in these review cycles. Before such work, use the new-protocol
 and execution gates in the [roadmap](roadmap.md). This record supports future
 work; it does not create a background-running research service.
+
+## Model-interface design candidate, 2026-11-05
+
+The [Virtual Human pattern assessment](virtual-human-research-fit.md) proposes
+a small graph of evidence and model interfaces to expose unsupported transitions
+between antigen identity, presentation, receptor activation and injury. It is
+a design candidate with acceptance and stop criteria; no package adoption,
+simulation or patient model has been executed.
