@@ -105,6 +105,8 @@
         retainedPercent: readPercent(retain), model: proportional.checked ? 'proportional' : 'fixed' });
       outputs['survival-label'].textContent = result.survivalPercent + '%';
       outputs['retain-label'].textContent = result.retainedPercent + '%';
+      survival.setAttribute('aria-valuetext', result.survivalPercent + ' percent');
+      retain.setAttribute('aria-valuetext', result.retainedPercent + ' percent');
       ['first', 'second'].forEach(function (order) {
         ['sensitive', 'resistant', 'total'].forEach(function (part) {
           outputs[order + '-' + part].textContent = result[order][part].toFixed(2);
