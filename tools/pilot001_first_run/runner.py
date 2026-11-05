@@ -302,6 +302,45 @@ def _docker_run(argv: list[str], environment: dict[str, str]) -> subprocess.Comp
     )
 
 
+def _force_remove_container(name: str, environment: dict[str, str]) -> str | None:
+    completed = subprocess.run(
+        docker_base() + ["rm", "-f", name],
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if completed.returncode != 0:
+        return codes.P001_FAIL_CONTAINER
+    return None
+
+
+def _remove_handoff_volume(name: str, environment: dict[str, str]) -> str | None:
+    completed = subprocess.run(
+        docker_base() + ["volume", "rm", "-f", name],
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if completed.returncode != 0:
+        return codes.P001_FAIL_CONTAINER
+    return None
+
+
+def _cleanup_real_phase(
+    fetch_container: str,
+    analyze_container: str,
+    volume: str,
+    environment: dict[str, str],
+) -> str | None:
+    for container in (fetch_container, analyze_container):
+        error = _force_remove_container(container, environment)
+        if error is not None:
+            return error
+    return _remove_handoff_volume(volume, environment)
+
+
 def _failure_from_stdout(stdout: str) -> tuple[int, str]:
     line = stdout.strip().splitlines()[0] if stdout.strip() else codes.P001_FAIL_CONTAINER
     if codes.is_aggregate_failure_line(line):
@@ -362,15 +401,6 @@ def _create_handoff_volume(name: str, environment: dict[str, str]) -> bool:
         check=False,
     )
     return completed.returncode == 0
-
-
-def _remove_handoff_volume(name: str, environment: dict[str, str]) -> None:
-    subprocess.run(
-        docker_base() + ["volume", "rm", "-f", name],
-        env=environment,
-        capture_output=True,
-        check=False,
-    )
 
 
 def run_dry_container_pipeline(
@@ -442,6 +472,7 @@ def run_real_container_pipeline(
         return 1, codes.P001_FAIL_CONTAINER
     fetch_container = "pilot001-fetch-" + uuid.uuid4().hex
     analyze_container = "pilot001-analyze-" + uuid.uuid4().hex
+    result: tuple[int, str] = (1, codes.P001_FAIL_CONTAINER)
     try:
         fetch_argv = build_fetch_container_argv(
             config=config,
@@ -449,36 +480,46 @@ def run_real_container_pipeline(
             volume_name=volume,
             container_name=fetch_container,
         )
-        fetch = _docker_run(fetch_argv, environment)
-        if fetch.returncode != 0:
-            return _failure_from_stdout(fetch.stdout)
-        analyze_argv = build_analyze_container_argv(
-            config=config,
-            image_tag=image_tag,
-            volume_name=volume,
-            container_name=analyze_container,
-        )
-        analyze = _docker_run(analyze_argv, environment)
-        if analyze.returncode != 0:
-            return _failure_from_stdout(analyze.stdout)
         try:
-            payload = json.loads(analyze.stdout.strip())
-        except json.JSONDecodeError:
-            return 1, codes.P001_FAIL_CONTAINER
-        payload = _finalize_aggregate_payload(
-            payload,
-            config=config,
-            image_id=image_id,
-            platform=platform,
-            digest=image_id,
-        )
-        try:
-            _promote_aggregate(output_dir, payload)
-        except ValueError as error:
-            return 1, str(error)
-        return 0, analyze.stdout.strip()
+            fetch = _docker_run(fetch_argv, environment)
+        except subprocess.TimeoutExpired:
+            fetch = None
+        if fetch is not None and fetch.returncode == 0:
+            analyze_argv = build_analyze_container_argv(
+                config=config,
+                image_tag=image_tag,
+                volume_name=volume,
+                container_name=analyze_container,
+            )
+            try:
+                analyze = _docker_run(analyze_argv, environment)
+            except subprocess.TimeoutExpired:
+                analyze = None
+            if analyze is not None and analyze.returncode == 0:
+                try:
+                    payload = json.loads(analyze.stdout.strip())
+                    payload = _finalize_aggregate_payload(
+                        payload,
+                        config=config,
+                        image_id=image_id,
+                        platform=platform,
+                        digest=image_id,
+                    )
+                    _promote_aggregate(output_dir, payload)
+                    result = (0, analyze.stdout.strip())
+                except json.JSONDecodeError:
+                    pass
+                except ValueError as error:
+                    result = (1, str(error))
+            elif analyze is not None:
+                result = _failure_from_stdout(analyze.stdout)
+        elif fetch is not None:
+            result = _failure_from_stdout(fetch.stdout)
     finally:
-        _remove_handoff_volume(volume, environment)
+        cleanup_error = _cleanup_real_phase(fetch_container, analyze_container, volume, environment)
+        if cleanup_error is not None:
+            result = (1, cleanup_error)
+    return result
 
 
 def run_container_pipeline(

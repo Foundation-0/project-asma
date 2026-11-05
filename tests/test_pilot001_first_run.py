@@ -196,6 +196,32 @@ class TestOutputValidator(unittest.TestCase):
         errors = validate_aggregate_document(bad)
         self.assertTrue(errors)
 
+    def test_rejects_grk_proof_strict_schema_leaks(self):
+        unicode_tcga = "TCGA\u201004\u20101331\u201001A"
+        float_arrays = [[0.1] * 30 for _ in range(10)]
+        cases = [
+            ("dashless_label", lambda p: p["configurations"][0].update({"label": "TCGA04133101A"})),
+            ("unicode_hyphen_label", lambda p: p["configurations"][0].update({"label": unicode_tcga})),
+            ("numeric_label", lambda p: p["configurations"][0].update({"label": "4133101.0"})),
+            (
+                "r_version_float_arrays",
+                lambda p: p["run_metadata"].update({"r_version": float_arrays}),
+            ),
+            (
+                "amendment_a1_string_map",
+                lambda p: p["amendment_1"].update({"A1": {f"k{index}": str(index) for index in range(300)}}),
+            ),
+            (
+                "limitations_numeric_strings",
+                lambda p: p.update({"limitations": [str(0.1)] * 300}),
+            ),
+        ]
+        for name, mutate in cases:
+            payload = minimal_valid_aggregate()
+            mutate(payload)
+            errors = validate_aggregate_document(payload)
+            self.assertTrue(errors, msg=name)
+
     def test_rejects_grk_proof_typed_leaks(self):
         base64_blob = "QUJDREVGR0hJSktMTU5PUEFSU0VUVFZWV1hZWjAxMjM0NTY3ODlhYmNkZWY="
         cases = [
@@ -540,12 +566,12 @@ class TestRunnerDockerFlags(unittest.TestCase):
 class TestRealPipelineTwoPhase(unittest.TestCase):
     @mock.patch("pilot001_first_run.runner.verify_owner_attestation_on_host", return_value=None)
     @mock.patch("pilot001_first_run.runner.git_sha", return_value="abc")
-    @mock.patch("pilot001_first_run.runner._remove_handoff_volume")
+    @mock.patch("pilot001_first_run.runner._cleanup_real_phase", return_value=None)
     @mock.patch("pilot001_first_run.runner._create_handoff_volume", return_value=True)
     @mock.patch("pilot001_first_run.runner.subprocess.run")
     @mock.patch("pilot001_first_run.runner.inspect_image")
     def test_real_run_uses_separate_fetch_and_analyze_containers(
-        self, mock_inspect, mock_run, _mock_vol, _mock_rm, _mock_git, _mock_attest
+        self, mock_inspect, mock_run, _mock_vol, _mock_cleanup, _mock_git, _mock_attest
     ):
         mock_inspect.return_value = {"Id": "sha256:abc", "Architecture": "amd64"}
         aggregate = minimal_valid_aggregate()
@@ -606,6 +632,101 @@ class TestRealPipelineTwoPhase(unittest.TestCase):
         self.assertEqual(detail, codes.P001_FAIL_SOURCE_AUTHORIZATION)
         mock_attest.assert_called_once_with("owner")
         mock_create.assert_not_called()
+
+
+class TestRealRunTimeoutCleanup(unittest.TestCase):
+    @mock.patch("pilot001_first_run.runner.verify_owner_attestation_on_host", return_value=None)
+    @mock.patch("pilot001_first_run.runner.git_sha", return_value="abc")
+    @mock.patch("pilot001_first_run.runner._create_handoff_volume", return_value=True)
+    @mock.patch("pilot001_first_run.runner.inspect_image")
+    @mock.patch("pilot001_first_run.runner.subprocess.run")
+    def test_fetch_timeout_removes_containers_before_volume(
+        self, mock_run, mock_inspect, _mock_vol, _mock_git, _mock_attest
+    ):
+        mock_inspect.return_value = {"Id": "sha256:abc", "Architecture": "amd64"}
+        call_log: list[list[str]] = []
+        fetch_name = ""
+
+        def fake_run(argv, *args, **kwargs):
+            call_log.append(list(argv))
+            nonlocal fetch_name
+            joined = " ".join(argv)
+            if len(argv) >= 4 and argv[2] == "run":
+                name_index = argv.index("--name") + 1
+                if "fetch_container.py" in joined:
+                    fetch_name = argv[name_index]
+                    raise subprocess.TimeoutExpired(argv, 7200)
+            return subprocess.CompletedProcess(argv, 0, "", "")
+
+        mock_run.side_effect = fake_run
+        config = RunConfig(
+            host="macos",
+            output_dir=Path("/tmp/out"),
+            dry_run=False,
+            gate0_signed=True,
+            dropbox_cleared=True,
+            gate0_attestation_ref="owner:2026-11-05",
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            status, detail = __import__(
+                "pilot001_first_run.runner", fromlist=["run_container_pipeline"]
+            ).run_container_pipeline(config, "asma-synthetic:4.4.3", Path(tmp))
+        self.assertEqual(status, 1)
+        self.assertEqual(detail, codes.P001_FAIL_CONTAINER)
+        self.assertTrue(fetch_name.startswith("pilot001-fetch-"))
+        rm_indices = [
+            index
+            for index, argv in enumerate(call_log)
+            if len(argv) >= 4 and argv[2] == "rm" and argv[3] == "-f"
+        ]
+        volume_indices = [
+            index
+            for index, argv in enumerate(call_log)
+            if len(argv) >= 4 and argv[2] == "volume" and argv[3] == "rm"
+        ]
+        self.assertEqual(len(rm_indices), 2)
+        self.assertEqual(len(volume_indices), 1)
+        self.assertLess(rm_indices[0], volume_indices[0])
+        self.assertLess(rm_indices[1], volume_indices[0])
+        removed = [call_log[index][4] for index in rm_indices]
+        self.assertEqual(removed[0], fetch_name)
+        self.assertTrue(removed[1].startswith("pilot001-analyze-"))
+        volume_name = call_log[volume_indices[0]][5]
+        self.assertTrue(volume_name.startswith("pilot001-handoff-"))
+
+    @mock.patch("pilot001_first_run.runner.verify_owner_attestation_on_host", return_value=None)
+    @mock.patch("pilot001_first_run.runner.git_sha", return_value="abc")
+    @mock.patch("pilot001_first_run.runner._create_handoff_volume", return_value=True)
+    @mock.patch("pilot001_first_run.runner.inspect_image")
+    @mock.patch("pilot001_first_run.runner.subprocess.run")
+    def test_cleanup_failure_surfaces_container_error(
+        self, mock_run, mock_inspect, _mock_vol, _mock_git, _mock_attest
+    ):
+        mock_inspect.return_value = {"Id": "sha256:abc", "Architecture": "amd64"}
+
+        def fake_run(argv, *args, **kwargs):
+            joined = " ".join(argv)
+            if len(argv) >= 4 and argv[2] == "run" and "fetch_container.py" in joined:
+                raise subprocess.TimeoutExpired(argv, 7200)
+            if len(argv) >= 4 and argv[2] == "rm" and argv[3] == "-f":
+                return subprocess.CompletedProcess(argv, 1, "", "rm failed")
+            return subprocess.CompletedProcess(argv, 0, "", "")
+
+        mock_run.side_effect = fake_run
+        config = RunConfig(
+            host="macos",
+            output_dir=Path("/tmp/out"),
+            dry_run=False,
+            gate0_signed=True,
+            dropbox_cleared=True,
+            gate0_attestation_ref="owner:2026-11-05",
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            status, detail = __import__(
+                "pilot001_first_run.runner", fromlist=["run_container_pipeline"]
+            ).run_container_pipeline(config, "asma-synthetic:4.4.3", Path(tmp))
+        self.assertEqual(status, 1)
+        self.assertEqual(detail, codes.P001_FAIL_CONTAINER)
 
 
 class TestSimulatedRealOutput(unittest.TestCase):
