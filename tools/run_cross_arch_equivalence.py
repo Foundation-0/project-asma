@@ -75,12 +75,16 @@ def run_pipeline(image: str, platform: str) -> dict:
         "--full",
     ]
     try:
-        completed = subprocess.run(command, env=env, check=True, capture_output=True, text=True, timeout=7200)
+        completed = subprocess.run(command, env=env, capture_output=True, text=True, timeout=7200)
     finally:
         subprocess.run(docker + ["rm", "--force", container], env=env, capture_output=True, check=False)
-    if completed.stderr:
-        raise RuntimeError("unexpected runtime stderr")
-    return json.loads(completed.stdout)
+    if completed.returncode != 0:
+        detail = (completed.stderr or completed.stdout or "").strip()
+        raise RuntimeError(f"synthetic pipeline failed on {platform}: {detail[:500]}")
+    try:
+        return json.loads(completed.stdout)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(f"synthetic pipeline returned non-JSON on {platform}: {exc}") from exc
 
 
 def main(argv: list[str] | None = None) -> int:
