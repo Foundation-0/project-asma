@@ -52,6 +52,11 @@ and collaborating agents under human direction. Independent internal agents
 challenged source transfers, antigen identity and novelty claims; this is not
 external scientific peer review or experimental validation.
 
+The **Pilot 001 AUROC discrepancy analysis** (checker, registry, and
+[docs/pilot-001-auc-discrepancy.md](docs/pilot-001-auc-discrepancy.md)) was
+written by **grk-axiom**, an AI agent operated for **Foundation-0**, via a
+Cursor cloud agent; posting account **orda-aska**.
+
 ## Prior work credited by name
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);

@@ -1,0 +1,398 @@
+{
+  "artifact_sha256": "837ec268cf987f5cfeed4fab770db27863882611490f9412c4fc5d66009b650a",
+  "baseline": {
+    "absolute_difference_exact": {
+      "denominator": 53950,
+      "numerator": 1141
+    },
+    "absolute_difference_from_0_83": 0.021149212233549583,
+    "auc": 0.8088507877664504,
+    "auc_exact": {
+      "denominator": 4316,
+      "numerator": 3491
+    },
+    "claim_label": "VERIFIED",
+    "negative_count": 83,
+    "pair_counts": {
+      "concordant_pairs": 3491,
+      "discordant_pairs": 825,
+      "positive_negative_pairs": 4316,
+      "tie_credit": {
+        "denominator": 2,
+        "numerator": 1
+      },
+      "tied_pairs": 0
+    },
+    "positive_count": 52,
+    "printed_reference_auc": 0.83,
+    "within_0_02_model_tolerance": false
+  },
+  "candidates": {
+    "a_tie_handling": {
+      "auc_ties_as_0": 0.8088507877664504,
+      "auc_ties_as_0_exact": {
+        "denominator": 4316,
+        "numerator": 3491
+      },
+      "auc_ties_as_1": 0.8088507877664504,
+      "auc_ties_as_1_exact": {
+        "denominator": 4316,
+        "numerator": 3491
+      },
+      "auc_ties_as_half": 0.8088507877664504,
+      "auc_ties_as_half_exact": {
+        "denominator": 4316,
+        "numerator": 3491
+      },
+      "claim_label": "VERIFIED",
+      "explains_printed_0_83": false,
+      "full_precision_discordant_pairs": 825,
+      "full_precision_tied_pairs": 0,
+      "note": "The earlier verification report's 825 is the discordant-pair count, not a tie count. With zero exact ties, tie-credit schemes coincide.",
+      "pair_counts_half_credit": {
+        "concordant_pairs": 3491,
+        "discordant_pairs": 825,
+        "positive_negative_pairs": 4316,
+        "tie_credit": {
+          "denominator": 2,
+          "numerator": 1
+        },
+        "tied_pairs": 0
+      },
+      "result_summary": "Full-precision cross-class ties = 0 (discordant pairs = 825, not ties). AUC with tie credit 0 / 1/2 / 1 = 0.8088507877664504 / 0.8088507877664504 / 0.8088507877664504."
+    },
+    "b_label_coding_polarity_exclusions": {
+      "claim_label": "VERIFIED",
+      "explains_printed_0_83": false,
+      "join_exclusions": {
+        "clinical_response_NA_rows": 63,
+        "duplicate_prediction_sample_keys": 0,
+        "eligible_after_neoadjuvant_and_nonMix_rule": 135,
+        "joined_matches_eligible_sample_keys": true,
+        "joined_score_rows": 135,
+        "location_group_Mix_unique_samples": 10,
+        "location_group_NA_unique_samples": 2,
+        "neoadjuvant_no_unique_samples": 145,
+        "neoadjuvant_yes_unique_samples": 13,
+        "nonbinary_response_categories_unique_samples": {},
+        "note": "Join uses exact Data Label 2 equality; no samples were relabelled. Response NA rows are excluded before unique-sample collapse; Mix location and neoadjuvant=yes are excluded by the membership rule.",
+        "published_score_rows": 135,
+        "response_category_counts_unique_samples": {
+          "refractory": 67,
+          "sensitive": 91
+        },
+        "unique_response_labelled_clinical_samples": 158
+      },
+      "negative_class_paper": "sensitive",
+      "paper_direction_auc": 0.8088507877664504,
+      "positive_class_paper": "refractory",
+      "result_summary": "Paper direction (higher score = refractory) AUC = 0.8088507877664504; reversed direction AUC = 0.19114921223354958. Join exclusions are aggregate-only; no relabel of ambiguous categories.",
+      "reversed_direction_auc": 0.19114921223354958,
+      "reversed_pair_counts": {
+        "concordant_pairs": 825,
+        "discordant_pairs": 3491,
+        "positive_negative_pairs": 4316,
+        "tie_credit": {
+          "denominator": 2,
+          "numerator": 1
+        },
+        "tied_pairs": 0
+      }
+    },
+    "c_rounding": {
+      "bounds_by_decimal_places": {
+        "1": {
+          "auc_half_credit": 0.7935588507877664,
+          "auc_half_credit_exact": {
+            "denominator": 4316,
+            "numerator": 3425
+          },
+          "auc_lower_bound_exact": {
+            "denominator": 4316,
+            "numerator": 3197
+          },
+          "auc_lower_bound_ties_as_0": 0.7407321594068582,
+          "auc_upper_bound_exact": {
+            "denominator": 332,
+            "numerator": 281
+          },
+          "auc_upper_bound_ties_as_1": 0.8463855421686747,
+          "bounds_contain_printed_0_83": true,
+          "cross_class_tied_pairs_after_rounding": 456,
+          "decimal_places": 1,
+          "exact_cross_class_ties_after_rounding": 456,
+          "unique_rounded_scores": 11
+        },
+        "2": {
+          "auc_half_credit": 0.8020157553290084,
+          "auc_half_credit_exact": {
+            "denominator": 8632,
+            "numerator": 6923
+          },
+          "auc_lower_bound_exact": {
+            "denominator": 1079,
+            "numerator": 851
+          },
+          "auc_lower_bound_ties_as_0": 0.788693234476367,
+          "auc_upper_bound_exact": {
+            "denominator": 4316,
+            "numerator": 3519
+          },
+          "auc_upper_bound_ties_as_1": 0.8153382761816497,
+          "bounds_contain_printed_0_83": false,
+          "cross_class_tied_pairs_after_rounding": 115,
+          "decimal_places": 2,
+          "exact_cross_class_ties_after_rounding": 115,
+          "unique_rounded_scores": 56
+        },
+        "3": {
+          "auc_half_credit": 0.8020157553290084,
+          "auc_half_credit_exact": {
+            "denominator": 8632,
+            "numerator": 6923
+          },
+          "auc_lower_bound_exact": {
+            "denominator": 1079,
+            "numerator": 856
+          },
+          "auc_lower_bound_ties_as_0": 0.7933271547729379,
+          "auc_upper_bound_exact": {
+            "denominator": 4316,
+            "numerator": 3499
+          },
+          "auc_upper_bound_ties_as_1": 0.8107043558850788,
+          "bounds_contain_printed_0_83": false,
+          "cross_class_tied_pairs_after_rounding": 75,
+          "decimal_places": 3,
+          "exact_cross_class_ties_after_rounding": 75,
+          "unique_rounded_scores": 95
+        },
+        "4": {
+          "auc_half_credit": 0.8089666357738647,
+          "auc_half_credit_exact": {
+            "denominator": 8632,
+            "numerator": 6983
+          },
+          "auc_lower_bound_exact": {
+            "denominator": 4316,
+            "numerator": 3489
+          },
+          "auc_lower_bound_ties_as_0": 0.8083873957367933,
+          "auc_upper_bound_exact": {
+            "denominator": 2158,
+            "numerator": 1747
+          },
+          "auc_upper_bound_ties_as_1": 0.8095458758109361,
+          "bounds_contain_printed_0_83": false,
+          "cross_class_tied_pairs_after_rounding": 5,
+          "decimal_places": 4,
+          "exact_cross_class_ties_after_rounding": 5,
+          "unique_rounded_scores": 106
+        },
+        "6": {
+          "auc_half_credit": 0.8088507877664504,
+          "auc_half_credit_exact": {
+            "denominator": 4316,
+            "numerator": 3491
+          },
+          "auc_lower_bound_exact": {
+            "denominator": 4316,
+            "numerator": 3491
+          },
+          "auc_lower_bound_ties_as_0": 0.8088507877664504,
+          "auc_upper_bound_exact": {
+            "denominator": 4316,
+            "numerator": 3491
+          },
+          "auc_upper_bound_ties_as_1": 0.8088507877664504,
+          "bounds_contain_printed_0_83": false,
+          "cross_class_tied_pairs_after_rounding": 0,
+          "decimal_places": 6,
+          "exact_cross_class_ties_after_rounding": 0,
+          "unique_rounded_scores": 117
+        },
+        "8": {
+          "auc_half_credit": 0.8088507877664504,
+          "auc_half_credit_exact": {
+            "denominator": 4316,
+            "numerator": 3491
+          },
+          "auc_lower_bound_exact": {
+            "denominator": 4316,
+            "numerator": 3491
+          },
+          "auc_lower_bound_ties_as_0": 0.8088507877664504,
+          "auc_upper_bound_exact": {
+            "denominator": 4316,
+            "numerator": 3491
+          },
+          "auc_upper_bound_ties_as_1": 0.8088507877664504,
+          "bounds_contain_printed_0_83": false,
+          "cross_class_tied_pairs_after_rounding": 0,
+          "decimal_places": 8,
+          "exact_cross_class_ties_after_rounding": 0,
+          "unique_rounded_scores": 127
+        }
+      },
+      "claim_label": "VERIFIED",
+      "decimal_places_whose_bounds_contain_0_83": [
+        "1"
+      ],
+      "explains_printed_0_83": false,
+      "note": "explains_printed_0_83 is true only if some place-count's tie-resolution bounds contain 0.83; that does not mean the released scores were rounded that way.",
+      "result_summary": "At full released precision there are 0 cross-class ties. After artificial rounding, bounds contain 0.83 at decimal places ['1']; this is not evidence the published sheet was rounded that way, and the half-credit AUC at typical precisions remains near 0.80885.",
+      "source_score_text_stats": {
+        "max_significant_fractional_digits": 20,
+        "max_source_string_length": 22,
+        "min_significant_fractional_digits": 15,
+        "min_source_string_length": 17,
+        "score_count": 135,
+        "unique_source_strings": 135
+      }
+    },
+    "d_auc_estimator": {
+      "binormal_mle": {
+        "auc": 0.8027470063033477,
+        "method": "binormal MLE (class-conditional sample mean and MLE variance)",
+        "negative_mean": 0.18869764271802741,
+        "negative_variance_mle": 0.07136962527608781,
+        "note": "Not pROC smooth=TRUE; R/pROC unavailable in this stdlib checker. Density-smoothed ROC not computed.",
+        "positive_mean": 0.5842967320182619,
+        "positive_variance_mle": 0.14448809027415663,
+        "z": 0.8514742032609784,
+        "z_status": "finite"
+      },
+      "bootstrap_mean": 0.8081867469879518,
+      "bootstrap_median": 0.809082483781279,
+      "claim_label": "VERIFIED",
+      "explains_printed_0_83": false,
+      "fold_wise_mean_auc": {
+        "claim_label": "CONJECTURE",
+        "reason": "Fold assignments and per-fold out-of-fold predictions for the paper's fivefold-CV summary are not in the released workbooks. The printed 0.83 is described as a fivefold-CV figure; whether it is the mean of fold AUCs versus the pooled OOF AUC cannot be recomputed here.",
+        "status": "not_testable_from_public_material"
+      },
+      "mann_whitney_equals_trapezoidal": true,
+      "mann_whitney_half_tie": 0.8088507877664504,
+      "result_summary": "Mann\u2013Whitney half-tie = trapezoidal = 0.8088507877664504; binormal MLE = 0.802747; bootstrap mean/median = 0.808187/0.809082. Mean of fold-wise AUCs cannot be tested from public material.",
+      "trapezoidal": 0.8088507877664504
+    },
+    "e_confidence_intervals": {
+      "claim_label": "VERIFIED",
+      "delong": {
+        "alpha": 0.05,
+        "auc": 0.8088507877664504,
+        "auc_exact": {
+          "denominator": 4316,
+          "numerator": 3491
+        },
+        "contains_printed_0_83": true,
+        "lower": 0.7347956137938536,
+        "method": "DeLong (Mann\u2013Whitney structural components)",
+        "standard_error": 0.0377839462852535,
+        "upper": 0.8829059617390471
+      },
+      "explains_printed_0_83": false,
+      "note": "CI containment of 0.83 does not make the point estimate 0.83; it only asks whether the printed figure lies inside uncertainty intervals computed on the released scores.",
+      "result_summary": "DeLong 95% CI [0.7348, 0.8829] (contains 0.83: True); stratified bootstrap 95% CI [0.7329, 0.8802] (contains 0.83: True).",
+      "stratified_bootstrap": {
+        "alpha": 0.05,
+        "bootstrap_mean": 0.8081867469879518,
+        "bootstrap_median": 0.809082483781279,
+        "contains_printed_0_83": true,
+        "lower": 0.7328544949026877,
+        "lower_exact": {
+          "denominator": 4316,
+          "numerator": 3163
+        },
+        "mean_minus_point": -0.0006640407784986098,
+        "median_minus_point": 0.00023169601482854495,
+        "method": "stratified bootstrap percentile CI (resample positives and negatives separately)",
+        "point_auc": 0.8088507877664504,
+        "resamples": 2000,
+        "seed": 20261105,
+        "upper": 0.8802131603336423,
+        "upper_exact": {
+          "denominator": 4316,
+          "numerator": 3799
+        }
+      }
+    }
+  },
+  "command": "python3 tools/analyze_auc_discrepancy.py",
+  "credits": {
+    "primary_study": "Chowdhury et al., Cell 2023, https://doi.org/10.1016/j.cell.2023.07.004",
+    "prior_arithmetic_check": "tools/verify_published_auc.py / registries/pilot-001-score-verification.json",
+    "released_workbook": "NLM MMC4 panel/scores workbook (FFPE_pred_scores), CC BY-NC-ND 4.0 as recorded in project data-use docs"
+  },
+  "document": "docs/pilot-001-auc-discrepancy.md",
+  "execution": {
+    "architecture": "x86_64",
+    "bootstrap_resamples": 2000,
+    "bootstrap_seed": 20261105,
+    "command": "python3 tools/analyze_auc_discrepancy.py",
+    "completed_at_utc": "2026-11-05T15:38:43.731344+00:00",
+    "dependencies": "Python standard library only",
+    "elapsed_seconds": 2.192586,
+    "membership_helper_sha256": "f253ad327506c815d1accfe55839a3f0a0af7a0149f38290f9d1e66626ab0141",
+    "os": "Linux",
+    "os_release": "6.12.94+",
+    "python_implementation": "CPython",
+    "python_version": "3.13.5",
+    "started_at_utc": "2026-11-05T15:38:41.538754+00:00",
+    "stochastic_procedure": true,
+    "tool_sha256": "9e5a7e350ad2490735e3124029c93bc1a6b19e8206870ac4a58a626cffaefaaa",
+    "verify_helper_sha256": "1faf21e896f9ca2df8d6f0595f551080364c81b808f32e73571886d65307f95f"
+  },
+  "implementation_sha256": {
+    "tools/analyze_auc_discrepancy.py": "9e5a7e350ad2490735e3124029c93bc1a6b19e8206870ac4a58a626cffaefaaa",
+    "tools/audit_published_cohorts.py": "f253ad327506c815d1accfe55839a3f0a0af7a0149f38290f9d1e66626ab0141",
+    "tools/verify_published_auc.py": "1faf21e896f9ca2df8d6f0595f551080364c81b808f32e73571886d65307f95f"
+  },
+  "limitations": [
+    "This analysis does not establish an error in Chowdhury et al., Cell 2023.",
+    "Released scores are not proven identical to averaged out-of-fold Figure 3D predictions.",
+    "No model was refit; no fold assignments were recovered; no private data were used.",
+    "Raw workbooks, identifiers, response labels, and prediction scores are never emitted.",
+    "CI containment of 0.83 is not agreement of the point estimate with 0.83."
+  ],
+  "schema_version": 1,
+  "scope": "Candidate-explanation analysis for the Pilot 001 discovery AUROC discrepancy between released FFPE_pred_scores and the printed fivefold-CV figure 0.83 (95% CI 0.77\u20130.90). Public workbooks only; no asma-data; no tuning toward 0.83.",
+  "sources": {
+    "clinical": {
+      "bytes": 41194360,
+      "filename": "NIHMS1918576-supplement-MMC1.xlsx",
+      "md5": "0255243711b1af3a3fab503d9abc725b",
+      "sha256": "6e46fa0cb3023173a3643e95ce0360c44cfabb0ed737e9a05f70473dad552340",
+      "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC1.xlsx"
+    },
+    "panel_and_scores": {
+      "bytes": 591065,
+      "filename": "NIHMS1918576-supplement-MMC4.xlsx",
+      "md5": "7ea4df8e1008cd19aa67442fe6ea3556",
+      "sha256": "f318ed9d2fac341097a8b1be3e034753f6d427bdeeb0cd2b92eb715cadadb6ab",
+      "url": "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/PMC10414761.1/NIHMS1918576-supplement-MMC4.xlsx"
+    }
+  },
+  "untestable_from_public_material": [
+    {
+      "claim_label": "CONJECTURE",
+      "item": "Whether released FFPE_pred_scores equal averaged out-of-fold Figure 3D predictions",
+      "reason": "No fold IDs, OOF prediction matrix, or model object is in the public workbooks."
+    },
+    {
+      "claim_label": "CONJECTURE",
+      "item": "Mean of fold-wise AUCs versus pooled out-of-fold AUC",
+      "reason": "Fivefold assignments used for the paper summary are not released."
+    },
+    {
+      "claim_label": "CONJECTURE",
+      "item": "pROC smooth=TRUE binormal/density ROC as run in the author scripts",
+      "reason": "R/pROC is not available in this stdlib checker; a Python binormal MLE is reported instead and is not claimed identical to pROC."
+    },
+    {
+      "claim_label": "KNOWN",
+      "item": "Whether the paper's 95% CI used DeLong or bootstrap on the same scores",
+      "reason": "Paper text describes bootstrap (S99); pinned author roc(ci=TRUE) defaults to DeLong. Both are recomputed here on released scores; the original CI procedure on the original predictions remains unresolved."
+    }
+  ]
+}
