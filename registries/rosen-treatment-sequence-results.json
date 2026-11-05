@@ -1,0 +1,3721 @@
+{
+  "schema_version": 1,
+  "status": "executed_synthetic_exact_arithmetic_not_study_analysis",
+  "protocol": "protocols/rosen-treatment-sequence-assumptions.md",
+  "protocol_sha256": "1dde8041273a6b03786e424bbae55eec404e613bf3816dbb9178e39117d96334",
+  "implementation": "tools/analyze_treatment_sequence.py",
+  "implementation_sha256": "0b3492e8b9fcc9dd2b7100d81552e212bc0f9c1aeed420b40bb76a9c93cb7a1b",
+  "units": "invented_arbitrary_burden_units",
+  "randomness": "none",
+  "study_data_or_third_party_code_used": false,
+  "matched_exposure": "one_identical_linear_chemo_operator_zero_intervention_gap",
+  "example": {
+    "initial": {
+      "sensitive": "90",
+      "resistant": "10",
+      "total": "100",
+      "resistant_fraction": "1/10"
+    },
+    "a": "1/10",
+    "b": "1",
+    "retain": "1/10",
+    "target": "10",
+    "chemo_total_multiplier": "19/100",
+    "fixed_surgery_first": {
+      "sensitive": "9/10",
+      "resistant": "1",
+      "total": "19/10",
+      "resistant_fraction": "10/19"
+    },
+    "fixed_chemo_first": {
+      "sensitive": "90/19",
+      "resistant": "100/19",
+      "total": "10",
+      "resistant_fraction": "10/19"
+    },
+    "proportional_surgery_first": {
+      "sensitive": "9/10",
+      "resistant": "1",
+      "total": "19/10",
+      "resistant_fraction": "10/19"
+    },
+    "proportional_chemo_first": {
+      "sensitive": "9/10",
+      "resistant": "1",
+      "total": "19/10",
+      "resistant_fraction": "10/19"
+    },
+    "fixed_after_to_before_resistant_ratio": "100/19",
+    "predicted_capped_ratio": "100/19",
+    "chemo_first_target_above_available_burden": false,
+    "fraction_equal": true,
+    "proportional_equal": true,
+    "fixed_direction": "chemo_first_higher"
+  },
+  "lower_second_sequence_target_example": {
+    "target_after_chemo": "1",
+    "chemo_first": {
+      "sensitive": "9/19",
+      "resistant": "10/19",
+      "total": "1",
+      "resistant_fraction": "10/19"
+    },
+    "after_to_before_resistant_ratio": "10/19",
+    "hypothetical_not_clinically_established": true
+  },
+  "growth_boundary_example": {
+    "a": "1/2",
+    "b": "10",
+    "initial": {
+      "sensitive": "90",
+      "resistant": "10",
+      "total": "100",
+      "resistant_fraction": "1/10"
+    },
+    "target": "10",
+    "surgery_first": {
+      "sensitive": "9/2",
+      "resistant": "10",
+      "total": "29/2",
+      "resistant_fraction": "20/29"
+    },
+    "chemo_first": {
+      "sensitive": "90/29",
+      "resistant": "200/29",
+      "total": "10",
+      "resistant_fraction": "20/29"
+    },
+    "after_to_before_resistant_ratio": "20/29",
+    "note": "outside_contraction_grid_invented_linear_growth_not_fitted"
+  },
+  "grid_summary": {
+    "cases": 84,
+    "proportional_equal": 84,
+    "fixed_equal": 30,
+    "fixed_chemo_first_higher": 54,
+    "fixed_fraction_equal": 84,
+    "capped_formula_matches": 84,
+    "target_above_available_burden": 31
+  },
+  "synthetic_cases": [
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "149/10000",
+      "fixed_surgery_first": {
+        "sensitive": "99/10000",
+        "resistant": "1/200",
+        "total": "149/10000",
+        "resistant_fraction": "50/149"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/149",
+        "resistant": "50/149",
+        "total": "1",
+        "resistant_fraction": "50/149"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/10000",
+        "resistant": "1/200",
+        "total": "149/10000",
+        "resistant_fraction": "50/149"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/10000",
+        "resistant": "1/200",
+        "total": "149/10000",
+        "resistant_fraction": "50/149"
+      },
+      "fixed_after_to_before_resistant_ratio": "10000/149",
+      "predicted_capped_ratio": "10000/149",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "149/10000",
+      "fixed_surgery_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/20",
+        "total": "149/1000",
+        "resistant_fraction": "50/149"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1/2",
+        "total": "149/100",
+        "resistant_fraction": "50/149"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/20",
+        "total": "149/1000",
+        "resistant_fraction": "50/149"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/20",
+        "total": "149/1000",
+        "resistant_fraction": "50/149"
+      },
+      "fixed_after_to_before_resistant_ratio": "10",
+      "predicted_capped_ratio": "10",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "149/10000",
+      "fixed_surgery_first": {
+        "sensitive": "99/200",
+        "resistant": "1/4",
+        "total": "149/200",
+        "resistant_fraction": "50/149"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1/2",
+        "total": "149/100",
+        "resistant_fraction": "50/149"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/200",
+        "resistant": "1/4",
+        "total": "149/200",
+        "resistant_fraction": "50/149"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/200",
+        "resistant": "1/4",
+        "total": "149/200",
+        "resistant_fraction": "50/149"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "149/10000",
+      "fixed_surgery_first": {
+        "sensitive": "99/100",
+        "resistant": "1/2",
+        "total": "149/100",
+        "resistant_fraction": "50/149"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1/2",
+        "total": "149/100",
+        "resistant_fraction": "50/149"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/100",
+        "resistant": "1/2",
+        "total": "149/100",
+        "resistant_fraction": "50/149"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1/2",
+        "total": "149/100",
+        "resistant_fraction": "50/149"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "199/10000",
+      "fixed_surgery_first": {
+        "sensitive": "99/10000",
+        "resistant": "1/100",
+        "total": "199/10000",
+        "resistant_fraction": "100/199"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/199",
+        "resistant": "100/199",
+        "total": "1",
+        "resistant_fraction": "100/199"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/10000",
+        "resistant": "1/100",
+        "total": "199/10000",
+        "resistant_fraction": "100/199"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/10000",
+        "resistant": "1/100",
+        "total": "199/10000",
+        "resistant_fraction": "100/199"
+      },
+      "fixed_after_to_before_resistant_ratio": "10000/199",
+      "predicted_capped_ratio": "10000/199",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "199/10000",
+      "fixed_surgery_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/10",
+        "total": "199/1000",
+        "resistant_fraction": "100/199"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1",
+        "total": "199/100",
+        "resistant_fraction": "100/199"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/10",
+        "total": "199/1000",
+        "resistant_fraction": "100/199"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/10",
+        "total": "199/1000",
+        "resistant_fraction": "100/199"
+      },
+      "fixed_after_to_before_resistant_ratio": "10",
+      "predicted_capped_ratio": "10",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "199/10000",
+      "fixed_surgery_first": {
+        "sensitive": "99/200",
+        "resistant": "1/2",
+        "total": "199/200",
+        "resistant_fraction": "100/199"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1",
+        "total": "199/100",
+        "resistant_fraction": "100/199"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/200",
+        "resistant": "1/2",
+        "total": "199/200",
+        "resistant_fraction": "100/199"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/200",
+        "resistant": "1/2",
+        "total": "199/200",
+        "resistant_fraction": "100/199"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "199/10000",
+      "fixed_surgery_first": {
+        "sensitive": "99/100",
+        "resistant": "1",
+        "total": "199/100",
+        "resistant_fraction": "100/199"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1",
+        "total": "199/100",
+        "resistant_fraction": "100/199"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/100",
+        "resistant": "1",
+        "total": "199/100",
+        "resistant_fraction": "100/199"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1",
+        "total": "199/100",
+        "resistant_fraction": "100/199"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "13/125",
+      "fixed_surgery_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/200",
+        "total": "13/125",
+        "resistant_fraction": "5/104"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/104",
+        "resistant": "5/104",
+        "total": "1",
+        "resistant_fraction": "5/104"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/200",
+        "total": "13/125",
+        "resistant_fraction": "5/104"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/200",
+        "total": "13/125",
+        "resistant_fraction": "5/104"
+      },
+      "fixed_after_to_before_resistant_ratio": "125/13",
+      "predicted_capped_ratio": "125/13",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "13/125",
+      "fixed_surgery_first": {
+        "sensitive": "99/100",
+        "resistant": "1/20",
+        "total": "26/25",
+        "resistant_fraction": "5/104"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "495/52",
+        "resistant": "25/52",
+        "total": "10",
+        "resistant_fraction": "5/104"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/100",
+        "resistant": "1/20",
+        "total": "26/25",
+        "resistant_fraction": "5/104"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1/20",
+        "total": "26/25",
+        "resistant_fraction": "5/104"
+      },
+      "fixed_after_to_before_resistant_ratio": "125/13",
+      "predicted_capped_ratio": "125/13",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "13/125",
+      "fixed_surgery_first": {
+        "sensitive": "99/20",
+        "resistant": "1/4",
+        "total": "26/5",
+        "resistant_fraction": "5/104"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/10",
+        "resistant": "1/2",
+        "total": "52/5",
+        "resistant_fraction": "5/104"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/20",
+        "resistant": "1/4",
+        "total": "26/5",
+        "resistant_fraction": "5/104"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/20",
+        "resistant": "1/4",
+        "total": "26/5",
+        "resistant_fraction": "5/104"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "13/125",
+      "fixed_surgery_first": {
+        "sensitive": "99/10",
+        "resistant": "1/2",
+        "total": "52/5",
+        "resistant_fraction": "5/104"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/10",
+        "resistant": "1/2",
+        "total": "52/5",
+        "resistant_fraction": "5/104"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/10",
+        "resistant": "1/2",
+        "total": "52/5",
+        "resistant_fraction": "5/104"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/10",
+        "resistant": "1/2",
+        "total": "52/5",
+        "resistant_fraction": "5/104"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "109/1000",
+      "fixed_surgery_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/100",
+        "total": "109/1000",
+        "resistant_fraction": "10/109"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/109",
+        "resistant": "10/109",
+        "total": "1",
+        "resistant_fraction": "10/109"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/100",
+        "total": "109/1000",
+        "resistant_fraction": "10/109"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/1000",
+        "resistant": "1/100",
+        "total": "109/1000",
+        "resistant_fraction": "10/109"
+      },
+      "fixed_after_to_before_resistant_ratio": "1000/109",
+      "predicted_capped_ratio": "1000/109",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "109/1000",
+      "fixed_surgery_first": {
+        "sensitive": "99/100",
+        "resistant": "1/10",
+        "total": "109/100",
+        "resistant_fraction": "10/109"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "990/109",
+        "resistant": "100/109",
+        "total": "10",
+        "resistant_fraction": "10/109"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/100",
+        "resistant": "1/10",
+        "total": "109/100",
+        "resistant_fraction": "10/109"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1/10",
+        "total": "109/100",
+        "resistant_fraction": "10/109"
+      },
+      "fixed_after_to_before_resistant_ratio": "1000/109",
+      "predicted_capped_ratio": "1000/109",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "109/1000",
+      "fixed_surgery_first": {
+        "sensitive": "99/20",
+        "resistant": "1/2",
+        "total": "109/20",
+        "resistant_fraction": "10/109"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/10",
+        "resistant": "1",
+        "total": "109/10",
+        "resistant_fraction": "10/109"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/20",
+        "resistant": "1/2",
+        "total": "109/20",
+        "resistant_fraction": "10/109"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/20",
+        "resistant": "1/2",
+        "total": "109/20",
+        "resistant_fraction": "10/109"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "109/1000",
+      "fixed_surgery_first": {
+        "sensitive": "99/10",
+        "resistant": "1",
+        "total": "109/10",
+        "resistant_fraction": "10/109"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/10",
+        "resistant": "1",
+        "total": "109/10",
+        "resistant_fraction": "10/109"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/10",
+        "resistant": "1",
+        "total": "109/10",
+        "resistant_fraction": "10/109"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/10",
+        "resistant": "1",
+        "total": "109/10",
+        "resistant_fraction": "10/109"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "99/200",
+        "resistant": "1/200",
+        "total": "1/2",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1/100",
+        "total": "1",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/200",
+        "resistant": "1/200",
+        "total": "1/2",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/200",
+        "resistant": "1/200",
+        "total": "1/2",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "99/20",
+        "resistant": "1/20",
+        "total": "5",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/10",
+        "resistant": "1/10",
+        "total": "10",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/20",
+        "resistant": "1/20",
+        "total": "5",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/20",
+        "resistant": "1/20",
+        "total": "5",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "99/4",
+        "resistant": "1/4",
+        "total": "25",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/2",
+        "resistant": "1/2",
+        "total": "50",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/4",
+        "resistant": "1/4",
+        "total": "25",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/4",
+        "resistant": "1/4",
+        "total": "25",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "99/2",
+        "resistant": "1/2",
+        "total": "50",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/2",
+        "resistant": "1/2",
+        "total": "50",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/2",
+        "resistant": "1/2",
+        "total": "50",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/2",
+        "resistant": "1/2",
+        "total": "50",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "101/200",
+      "fixed_surgery_first": {
+        "sensitive": "99/200",
+        "resistant": "1/100",
+        "total": "101/200",
+        "resistant_fraction": "2/101"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/101",
+        "resistant": "2/101",
+        "total": "1",
+        "resistant_fraction": "2/101"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/200",
+        "resistant": "1/100",
+        "total": "101/200",
+        "resistant_fraction": "2/101"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/200",
+        "resistant": "1/100",
+        "total": "101/200",
+        "resistant_fraction": "2/101"
+      },
+      "fixed_after_to_before_resistant_ratio": "200/101",
+      "predicted_capped_ratio": "200/101",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "101/200",
+      "fixed_surgery_first": {
+        "sensitive": "99/20",
+        "resistant": "1/10",
+        "total": "101/20",
+        "resistant_fraction": "2/101"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "990/101",
+        "resistant": "20/101",
+        "total": "10",
+        "resistant_fraction": "2/101"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/20",
+        "resistant": "1/10",
+        "total": "101/20",
+        "resistant_fraction": "2/101"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/20",
+        "resistant": "1/10",
+        "total": "101/20",
+        "resistant_fraction": "2/101"
+      },
+      "fixed_after_to_before_resistant_ratio": "200/101",
+      "predicted_capped_ratio": "200/101",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "101/200",
+      "fixed_surgery_first": {
+        "sensitive": "99/4",
+        "resistant": "1/2",
+        "total": "101/4",
+        "resistant_fraction": "2/101"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "4950/101",
+        "resistant": "100/101",
+        "total": "50",
+        "resistant_fraction": "2/101"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/4",
+        "resistant": "1/2",
+        "total": "101/4",
+        "resistant_fraction": "2/101"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/4",
+        "resistant": "1/2",
+        "total": "101/4",
+        "resistant_fraction": "2/101"
+      },
+      "fixed_after_to_before_resistant_ratio": "200/101",
+      "predicted_capped_ratio": "200/101",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "101/200",
+      "fixed_surgery_first": {
+        "sensitive": "99/2",
+        "resistant": "1",
+        "total": "101/2",
+        "resistant_fraction": "2/101"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/2",
+        "resistant": "1",
+        "total": "101/2",
+        "resistant_fraction": "2/101"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/2",
+        "resistant": "1",
+        "total": "101/2",
+        "resistant_fraction": "2/101"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/2",
+        "resistant": "1",
+        "total": "101/2",
+        "resistant_fraction": "2/101"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "99/100",
+        "resistant": "1/100",
+        "total": "1",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1/100",
+        "total": "1",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/100",
+        "resistant": "1/100",
+        "total": "1",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/100",
+        "resistant": "1/100",
+        "total": "1",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "99/10",
+        "resistant": "1/10",
+        "total": "10",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/10",
+        "resistant": "1/10",
+        "total": "10",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/10",
+        "resistant": "1/10",
+        "total": "10",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/10",
+        "resistant": "1/10",
+        "total": "10",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "99/2",
+        "resistant": "1/2",
+        "total": "50",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99/2",
+        "resistant": "1/2",
+        "total": "50",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99/2",
+        "resistant": "1/2",
+        "total": "50",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99/2",
+        "resistant": "1/2",
+        "total": "50",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "99",
+        "resistant": "1",
+        "total": "100",
+        "resistant_fraction": "1/100"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "59/1000",
+      "fixed_surgery_first": {
+        "sensitive": "9/1000",
+        "resistant": "1/20",
+        "total": "59/1000",
+        "resistant_fraction": "50/59"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/59",
+        "resistant": "50/59",
+        "total": "1",
+        "resistant_fraction": "50/59"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/1000",
+        "resistant": "1/20",
+        "total": "59/1000",
+        "resistant_fraction": "50/59"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/1000",
+        "resistant": "1/20",
+        "total": "59/1000",
+        "resistant_fraction": "50/59"
+      },
+      "fixed_after_to_before_resistant_ratio": "1000/59",
+      "predicted_capped_ratio": "1000/59",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "59/1000",
+      "fixed_surgery_first": {
+        "sensitive": "9/100",
+        "resistant": "1/2",
+        "total": "59/100",
+        "resistant_fraction": "50/59"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "5",
+        "total": "59/10",
+        "resistant_fraction": "50/59"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/100",
+        "resistant": "1/2",
+        "total": "59/100",
+        "resistant_fraction": "50/59"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/100",
+        "resistant": "1/2",
+        "total": "59/100",
+        "resistant_fraction": "50/59"
+      },
+      "fixed_after_to_before_resistant_ratio": "10",
+      "predicted_capped_ratio": "10",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "59/1000",
+      "fixed_surgery_first": {
+        "sensitive": "9/20",
+        "resistant": "5/2",
+        "total": "59/20",
+        "resistant_fraction": "50/59"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "5",
+        "total": "59/10",
+        "resistant_fraction": "50/59"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/20",
+        "resistant": "5/2",
+        "total": "59/20",
+        "resistant_fraction": "50/59"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/20",
+        "resistant": "5/2",
+        "total": "59/20",
+        "resistant_fraction": "50/59"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "59/1000",
+      "fixed_surgery_first": {
+        "sensitive": "9/10",
+        "resistant": "5",
+        "total": "59/10",
+        "resistant_fraction": "50/59"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "5",
+        "total": "59/10",
+        "resistant_fraction": "50/59"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/10",
+        "resistant": "5",
+        "total": "59/10",
+        "resistant_fraction": "50/59"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "5",
+        "total": "59/10",
+        "resistant_fraction": "50/59"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "109/1000",
+      "fixed_surgery_first": {
+        "sensitive": "9/1000",
+        "resistant": "1/10",
+        "total": "109/1000",
+        "resistant_fraction": "100/109"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/109",
+        "resistant": "100/109",
+        "total": "1",
+        "resistant_fraction": "100/109"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/1000",
+        "resistant": "1/10",
+        "total": "109/1000",
+        "resistant_fraction": "100/109"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/1000",
+        "resistant": "1/10",
+        "total": "109/1000",
+        "resistant_fraction": "100/109"
+      },
+      "fixed_after_to_before_resistant_ratio": "1000/109",
+      "predicted_capped_ratio": "1000/109",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "109/1000",
+      "fixed_surgery_first": {
+        "sensitive": "9/100",
+        "resistant": "1",
+        "total": "109/100",
+        "resistant_fraction": "100/109"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "90/109",
+        "resistant": "1000/109",
+        "total": "10",
+        "resistant_fraction": "100/109"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/100",
+        "resistant": "1",
+        "total": "109/100",
+        "resistant_fraction": "100/109"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/100",
+        "resistant": "1",
+        "total": "109/100",
+        "resistant_fraction": "100/109"
+      },
+      "fixed_after_to_before_resistant_ratio": "1000/109",
+      "predicted_capped_ratio": "1000/109",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "109/1000",
+      "fixed_surgery_first": {
+        "sensitive": "9/20",
+        "resistant": "5",
+        "total": "109/20",
+        "resistant_fraction": "100/109"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "10",
+        "total": "109/10",
+        "resistant_fraction": "100/109"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/20",
+        "resistant": "5",
+        "total": "109/20",
+        "resistant_fraction": "100/109"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/20",
+        "resistant": "5",
+        "total": "109/20",
+        "resistant_fraction": "100/109"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "109/1000",
+      "fixed_surgery_first": {
+        "sensitive": "9/10",
+        "resistant": "10",
+        "total": "109/10",
+        "resistant_fraction": "100/109"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "10",
+        "total": "109/10",
+        "resistant_fraction": "100/109"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/10",
+        "resistant": "10",
+        "total": "109/10",
+        "resistant_fraction": "100/109"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "10",
+        "total": "109/10",
+        "resistant_fraction": "100/109"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "7/50",
+      "fixed_surgery_first": {
+        "sensitive": "9/100",
+        "resistant": "1/20",
+        "total": "7/50",
+        "resistant_fraction": "5/14"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/14",
+        "resistant": "5/14",
+        "total": "1",
+        "resistant_fraction": "5/14"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/100",
+        "resistant": "1/20",
+        "total": "7/50",
+        "resistant_fraction": "5/14"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/100",
+        "resistant": "1/20",
+        "total": "7/50",
+        "resistant_fraction": "5/14"
+      },
+      "fixed_after_to_before_resistant_ratio": "50/7",
+      "predicted_capped_ratio": "50/7",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "7/50",
+      "fixed_surgery_first": {
+        "sensitive": "9/10",
+        "resistant": "1/2",
+        "total": "7/5",
+        "resistant_fraction": "5/14"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "45/7",
+        "resistant": "25/7",
+        "total": "10",
+        "resistant_fraction": "5/14"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/10",
+        "resistant": "1/2",
+        "total": "7/5",
+        "resistant_fraction": "5/14"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "1/2",
+        "total": "7/5",
+        "resistant_fraction": "5/14"
+      },
+      "fixed_after_to_before_resistant_ratio": "50/7",
+      "predicted_capped_ratio": "50/7",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "7/50",
+      "fixed_surgery_first": {
+        "sensitive": "9/2",
+        "resistant": "5/2",
+        "total": "7",
+        "resistant_fraction": "5/14"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9",
+        "resistant": "5",
+        "total": "14",
+        "resistant_fraction": "5/14"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/2",
+        "resistant": "5/2",
+        "total": "7",
+        "resistant_fraction": "5/14"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/2",
+        "resistant": "5/2",
+        "total": "7",
+        "resistant_fraction": "5/14"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "7/50",
+      "fixed_surgery_first": {
+        "sensitive": "9",
+        "resistant": "5",
+        "total": "14",
+        "resistant_fraction": "5/14"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9",
+        "resistant": "5",
+        "total": "14",
+        "resistant_fraction": "5/14"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9",
+        "resistant": "5",
+        "total": "14",
+        "resistant_fraction": "5/14"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9",
+        "resistant": "5",
+        "total": "14",
+        "resistant_fraction": "5/14"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "19/100",
+      "fixed_surgery_first": {
+        "sensitive": "9/100",
+        "resistant": "1/10",
+        "total": "19/100",
+        "resistant_fraction": "10/19"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/19",
+        "resistant": "10/19",
+        "total": "1",
+        "resistant_fraction": "10/19"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/100",
+        "resistant": "1/10",
+        "total": "19/100",
+        "resistant_fraction": "10/19"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/100",
+        "resistant": "1/10",
+        "total": "19/100",
+        "resistant_fraction": "10/19"
+      },
+      "fixed_after_to_before_resistant_ratio": "100/19",
+      "predicted_capped_ratio": "100/19",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "19/100",
+      "fixed_surgery_first": {
+        "sensitive": "9/10",
+        "resistant": "1",
+        "total": "19/10",
+        "resistant_fraction": "10/19"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "90/19",
+        "resistant": "100/19",
+        "total": "10",
+        "resistant_fraction": "10/19"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/10",
+        "resistant": "1",
+        "total": "19/10",
+        "resistant_fraction": "10/19"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "1",
+        "total": "19/10",
+        "resistant_fraction": "10/19"
+      },
+      "fixed_after_to_before_resistant_ratio": "100/19",
+      "predicted_capped_ratio": "100/19",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "19/100",
+      "fixed_surgery_first": {
+        "sensitive": "9/2",
+        "resistant": "5",
+        "total": "19/2",
+        "resistant_fraction": "10/19"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9",
+        "resistant": "10",
+        "total": "19",
+        "resistant_fraction": "10/19"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/2",
+        "resistant": "5",
+        "total": "19/2",
+        "resistant_fraction": "10/19"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/2",
+        "resistant": "5",
+        "total": "19/2",
+        "resistant_fraction": "10/19"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "19/100",
+      "fixed_surgery_first": {
+        "sensitive": "9",
+        "resistant": "10",
+        "total": "19",
+        "resistant_fraction": "10/19"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9",
+        "resistant": "10",
+        "total": "19",
+        "resistant_fraction": "10/19"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9",
+        "resistant": "10",
+        "total": "19",
+        "resistant_fraction": "10/19"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9",
+        "resistant": "10",
+        "total": "19",
+        "resistant_fraction": "10/19"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "9/20",
+        "resistant": "1/20",
+        "total": "1/2",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "1/10",
+        "total": "1",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/20",
+        "resistant": "1/20",
+        "total": "1/2",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/20",
+        "resistant": "1/20",
+        "total": "1/2",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "9/2",
+        "resistant": "1/2",
+        "total": "5",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9",
+        "resistant": "1",
+        "total": "10",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/2",
+        "resistant": "1/2",
+        "total": "5",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/2",
+        "resistant": "1/2",
+        "total": "5",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "45/2",
+        "resistant": "5/2",
+        "total": "25",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "45",
+        "resistant": "5",
+        "total": "50",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "45/2",
+        "resistant": "5/2",
+        "total": "25",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "45/2",
+        "resistant": "5/2",
+        "total": "25",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "45",
+        "resistant": "5",
+        "total": "50",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "45",
+        "resistant": "5",
+        "total": "50",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "45",
+        "resistant": "5",
+        "total": "50",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "45",
+        "resistant": "5",
+        "total": "50",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "11/20",
+      "fixed_surgery_first": {
+        "sensitive": "9/20",
+        "resistant": "1/10",
+        "total": "11/20",
+        "resistant_fraction": "2/11"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/11",
+        "resistant": "2/11",
+        "total": "1",
+        "resistant_fraction": "2/11"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/20",
+        "resistant": "1/10",
+        "total": "11/20",
+        "resistant_fraction": "2/11"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/20",
+        "resistant": "1/10",
+        "total": "11/20",
+        "resistant_fraction": "2/11"
+      },
+      "fixed_after_to_before_resistant_ratio": "20/11",
+      "predicted_capped_ratio": "20/11",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "11/20",
+      "fixed_surgery_first": {
+        "sensitive": "9/2",
+        "resistant": "1",
+        "total": "11/2",
+        "resistant_fraction": "2/11"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "90/11",
+        "resistant": "20/11",
+        "total": "10",
+        "resistant_fraction": "2/11"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/2",
+        "resistant": "1",
+        "total": "11/2",
+        "resistant_fraction": "2/11"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/2",
+        "resistant": "1",
+        "total": "11/2",
+        "resistant_fraction": "2/11"
+      },
+      "fixed_after_to_before_resistant_ratio": "20/11",
+      "predicted_capped_ratio": "20/11",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "11/20",
+      "fixed_surgery_first": {
+        "sensitive": "45/2",
+        "resistant": "5",
+        "total": "55/2",
+        "resistant_fraction": "2/11"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "450/11",
+        "resistant": "100/11",
+        "total": "50",
+        "resistant_fraction": "2/11"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "45/2",
+        "resistant": "5",
+        "total": "55/2",
+        "resistant_fraction": "2/11"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "45/2",
+        "resistant": "5",
+        "total": "55/2",
+        "resistant_fraction": "2/11"
+      },
+      "fixed_after_to_before_resistant_ratio": "20/11",
+      "predicted_capped_ratio": "20/11",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "11/20",
+      "fixed_surgery_first": {
+        "sensitive": "45",
+        "resistant": "10",
+        "total": "55",
+        "resistant_fraction": "2/11"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "45",
+        "resistant": "10",
+        "total": "55",
+        "resistant_fraction": "2/11"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "45",
+        "resistant": "10",
+        "total": "55",
+        "resistant_fraction": "2/11"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "45",
+        "resistant": "10",
+        "total": "55",
+        "resistant_fraction": "2/11"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "9/10",
+        "resistant": "1/10",
+        "total": "1",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "1/10",
+        "total": "1",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9/10",
+        "resistant": "1/10",
+        "total": "1",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9/10",
+        "resistant": "1/10",
+        "total": "1",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "9",
+        "resistant": "1",
+        "total": "10",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "9",
+        "resistant": "1",
+        "total": "10",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "9",
+        "resistant": "1",
+        "total": "10",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "9",
+        "resistant": "1",
+        "total": "10",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "45",
+        "resistant": "5",
+        "total": "50",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "45",
+        "resistant": "5",
+        "total": "50",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "45",
+        "resistant": "5",
+        "total": "50",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "45",
+        "resistant": "5",
+        "total": "50",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "90",
+        "resistant": "10",
+        "total": "100",
+        "resistant_fraction": "1/10"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "51/200",
+      "fixed_surgery_first": {
+        "sensitive": "1/200",
+        "resistant": "1/4",
+        "total": "51/200",
+        "resistant_fraction": "50/51"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "1/51",
+        "resistant": "50/51",
+        "total": "1",
+        "resistant_fraction": "50/51"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/200",
+        "resistant": "1/4",
+        "total": "51/200",
+        "resistant_fraction": "50/51"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/200",
+        "resistant": "1/4",
+        "total": "51/200",
+        "resistant_fraction": "50/51"
+      },
+      "fixed_after_to_before_resistant_ratio": "200/51",
+      "predicted_capped_ratio": "200/51",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "51/200",
+      "fixed_surgery_first": {
+        "sensitive": "1/20",
+        "resistant": "5/2",
+        "total": "51/20",
+        "resistant_fraction": "50/51"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "10/51",
+        "resistant": "500/51",
+        "total": "10",
+        "resistant_fraction": "50/51"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/20",
+        "resistant": "5/2",
+        "total": "51/20",
+        "resistant_fraction": "50/51"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/20",
+        "resistant": "5/2",
+        "total": "51/20",
+        "resistant_fraction": "50/51"
+      },
+      "fixed_after_to_before_resistant_ratio": "200/51",
+      "predicted_capped_ratio": "200/51",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "51/200",
+      "fixed_surgery_first": {
+        "sensitive": "1/4",
+        "resistant": "25/2",
+        "total": "51/4",
+        "resistant_fraction": "50/51"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "1/2",
+        "resistant": "25",
+        "total": "51/2",
+        "resistant_fraction": "50/51"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/4",
+        "resistant": "25/2",
+        "total": "51/4",
+        "resistant_fraction": "50/51"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/4",
+        "resistant": "25/2",
+        "total": "51/4",
+        "resistant_fraction": "50/51"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/100",
+      "b": "1/2",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "51/200",
+      "fixed_surgery_first": {
+        "sensitive": "1/2",
+        "resistant": "25",
+        "total": "51/2",
+        "resistant_fraction": "50/51"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "1/2",
+        "resistant": "25",
+        "total": "51/2",
+        "resistant_fraction": "50/51"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/2",
+        "resistant": "25",
+        "total": "51/2",
+        "resistant_fraction": "50/51"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/2",
+        "resistant": "25",
+        "total": "51/2",
+        "resistant_fraction": "50/51"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "101/200",
+      "fixed_surgery_first": {
+        "sensitive": "1/200",
+        "resistant": "1/2",
+        "total": "101/200",
+        "resistant_fraction": "100/101"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "1/101",
+        "resistant": "100/101",
+        "total": "1",
+        "resistant_fraction": "100/101"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/200",
+        "resistant": "1/2",
+        "total": "101/200",
+        "resistant_fraction": "100/101"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/200",
+        "resistant": "1/2",
+        "total": "101/200",
+        "resistant_fraction": "100/101"
+      },
+      "fixed_after_to_before_resistant_ratio": "200/101",
+      "predicted_capped_ratio": "200/101",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "101/200",
+      "fixed_surgery_first": {
+        "sensitive": "1/20",
+        "resistant": "5",
+        "total": "101/20",
+        "resistant_fraction": "100/101"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "10/101",
+        "resistant": "1000/101",
+        "total": "10",
+        "resistant_fraction": "100/101"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/20",
+        "resistant": "5",
+        "total": "101/20",
+        "resistant_fraction": "100/101"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/20",
+        "resistant": "5",
+        "total": "101/20",
+        "resistant_fraction": "100/101"
+      },
+      "fixed_after_to_before_resistant_ratio": "200/101",
+      "predicted_capped_ratio": "200/101",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "101/200",
+      "fixed_surgery_first": {
+        "sensitive": "1/4",
+        "resistant": "25",
+        "total": "101/4",
+        "resistant_fraction": "100/101"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "50/101",
+        "resistant": "5000/101",
+        "total": "50",
+        "resistant_fraction": "100/101"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/4",
+        "resistant": "25",
+        "total": "101/4",
+        "resistant_fraction": "100/101"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/4",
+        "resistant": "25",
+        "total": "101/4",
+        "resistant_fraction": "100/101"
+      },
+      "fixed_after_to_before_resistant_ratio": "200/101",
+      "predicted_capped_ratio": "200/101",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/100",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "101/200",
+      "fixed_surgery_first": {
+        "sensitive": "1/2",
+        "resistant": "50",
+        "total": "101/2",
+        "resistant_fraction": "100/101"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "1/2",
+        "resistant": "50",
+        "total": "101/2",
+        "resistant_fraction": "100/101"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/2",
+        "resistant": "50",
+        "total": "101/2",
+        "resistant_fraction": "100/101"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/2",
+        "resistant": "50",
+        "total": "101/2",
+        "resistant_fraction": "100/101"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "3/10",
+      "fixed_surgery_first": {
+        "sensitive": "1/20",
+        "resistant": "1/4",
+        "total": "3/10",
+        "resistant_fraction": "5/6"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "1/6",
+        "resistant": "5/6",
+        "total": "1",
+        "resistant_fraction": "5/6"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/20",
+        "resistant": "1/4",
+        "total": "3/10",
+        "resistant_fraction": "5/6"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/20",
+        "resistant": "1/4",
+        "total": "3/10",
+        "resistant_fraction": "5/6"
+      },
+      "fixed_after_to_before_resistant_ratio": "10/3",
+      "predicted_capped_ratio": "10/3",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "3/10",
+      "fixed_surgery_first": {
+        "sensitive": "1/2",
+        "resistant": "5/2",
+        "total": "3",
+        "resistant_fraction": "5/6"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "5/3",
+        "resistant": "25/3",
+        "total": "10",
+        "resistant_fraction": "5/6"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/2",
+        "resistant": "5/2",
+        "total": "3",
+        "resistant_fraction": "5/6"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/2",
+        "resistant": "5/2",
+        "total": "3",
+        "resistant_fraction": "5/6"
+      },
+      "fixed_after_to_before_resistant_ratio": "10/3",
+      "predicted_capped_ratio": "10/3",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "3/10",
+      "fixed_surgery_first": {
+        "sensitive": "5/2",
+        "resistant": "25/2",
+        "total": "15",
+        "resistant_fraction": "5/6"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "5",
+        "resistant": "25",
+        "total": "30",
+        "resistant_fraction": "5/6"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "5/2",
+        "resistant": "25/2",
+        "total": "15",
+        "resistant_fraction": "5/6"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "5/2",
+        "resistant": "25/2",
+        "total": "15",
+        "resistant_fraction": "5/6"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/10",
+      "b": "1/2",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "3/10",
+      "fixed_surgery_first": {
+        "sensitive": "5",
+        "resistant": "25",
+        "total": "30",
+        "resistant_fraction": "5/6"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "5",
+        "resistant": "25",
+        "total": "30",
+        "resistant_fraction": "5/6"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "5",
+        "resistant": "25",
+        "total": "30",
+        "resistant_fraction": "5/6"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "5",
+        "resistant": "25",
+        "total": "30",
+        "resistant_fraction": "5/6"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "11/20",
+      "fixed_surgery_first": {
+        "sensitive": "1/20",
+        "resistant": "1/2",
+        "total": "11/20",
+        "resistant_fraction": "10/11"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "1/11",
+        "resistant": "10/11",
+        "total": "1",
+        "resistant_fraction": "10/11"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/20",
+        "resistant": "1/2",
+        "total": "11/20",
+        "resistant_fraction": "10/11"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/20",
+        "resistant": "1/2",
+        "total": "11/20",
+        "resistant_fraction": "10/11"
+      },
+      "fixed_after_to_before_resistant_ratio": "20/11",
+      "predicted_capped_ratio": "20/11",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "11/20",
+      "fixed_surgery_first": {
+        "sensitive": "1/2",
+        "resistant": "5",
+        "total": "11/2",
+        "resistant_fraction": "10/11"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "10/11",
+        "resistant": "100/11",
+        "total": "10",
+        "resistant_fraction": "10/11"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/2",
+        "resistant": "5",
+        "total": "11/2",
+        "resistant_fraction": "10/11"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/2",
+        "resistant": "5",
+        "total": "11/2",
+        "resistant_fraction": "10/11"
+      },
+      "fixed_after_to_before_resistant_ratio": "20/11",
+      "predicted_capped_ratio": "20/11",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "11/20",
+      "fixed_surgery_first": {
+        "sensitive": "5/2",
+        "resistant": "25",
+        "total": "55/2",
+        "resistant_fraction": "10/11"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "50/11",
+        "resistant": "500/11",
+        "total": "50",
+        "resistant_fraction": "10/11"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "5/2",
+        "resistant": "25",
+        "total": "55/2",
+        "resistant_fraction": "10/11"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "5/2",
+        "resistant": "25",
+        "total": "55/2",
+        "resistant_fraction": "10/11"
+      },
+      "fixed_after_to_before_resistant_ratio": "20/11",
+      "predicted_capped_ratio": "20/11",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/10",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "11/20",
+      "fixed_surgery_first": {
+        "sensitive": "5",
+        "resistant": "50",
+        "total": "55",
+        "resistant_fraction": "10/11"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "5",
+        "resistant": "50",
+        "total": "55",
+        "resistant_fraction": "10/11"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "5",
+        "resistant": "50",
+        "total": "55",
+        "resistant_fraction": "10/11"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "5",
+        "resistant": "50",
+        "total": "55",
+        "resistant_fraction": "10/11"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "1/4",
+        "resistant": "1/4",
+        "total": "1/2",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "1/2",
+        "resistant": "1/2",
+        "total": "1",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/4",
+        "resistant": "1/4",
+        "total": "1/2",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/4",
+        "resistant": "1/4",
+        "total": "1/2",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "5/2",
+        "resistant": "5/2",
+        "total": "5",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "5",
+        "resistant": "5",
+        "total": "10",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "5/2",
+        "resistant": "5/2",
+        "total": "5",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "5/2",
+        "resistant": "5/2",
+        "total": "5",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "25/2",
+        "resistant": "25/2",
+        "total": "25",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "25",
+        "resistant": "25",
+        "total": "50",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "25/2",
+        "resistant": "25/2",
+        "total": "25",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "25/2",
+        "resistant": "25/2",
+        "total": "25",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_after_to_before_resistant_ratio": "2",
+      "predicted_capped_ratio": "2",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/2",
+      "b": "1/2",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "1/2",
+      "fixed_surgery_first": {
+        "sensitive": "25",
+        "resistant": "25",
+        "total": "50",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "25",
+        "resistant": "25",
+        "total": "50",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "25",
+        "resistant": "25",
+        "total": "50",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "25",
+        "resistant": "25",
+        "total": "50",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "3/4",
+      "fixed_surgery_first": {
+        "sensitive": "1/4",
+        "resistant": "1/2",
+        "total": "3/4",
+        "resistant_fraction": "2/3"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "1/3",
+        "resistant": "2/3",
+        "total": "1",
+        "resistant_fraction": "2/3"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/4",
+        "resistant": "1/2",
+        "total": "3/4",
+        "resistant_fraction": "2/3"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/4",
+        "resistant": "1/2",
+        "total": "3/4",
+        "resistant_fraction": "2/3"
+      },
+      "fixed_after_to_before_resistant_ratio": "4/3",
+      "predicted_capped_ratio": "4/3",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "3/4",
+      "fixed_surgery_first": {
+        "sensitive": "5/2",
+        "resistant": "5",
+        "total": "15/2",
+        "resistant_fraction": "2/3"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "10/3",
+        "resistant": "20/3",
+        "total": "10",
+        "resistant_fraction": "2/3"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "5/2",
+        "resistant": "5",
+        "total": "15/2",
+        "resistant_fraction": "2/3"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "5/2",
+        "resistant": "5",
+        "total": "15/2",
+        "resistant_fraction": "2/3"
+      },
+      "fixed_after_to_before_resistant_ratio": "4/3",
+      "predicted_capped_ratio": "4/3",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "3/4",
+      "fixed_surgery_first": {
+        "sensitive": "25/2",
+        "resistant": "25",
+        "total": "75/2",
+        "resistant_fraction": "2/3"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "50/3",
+        "resistant": "100/3",
+        "total": "50",
+        "resistant_fraction": "2/3"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "25/2",
+        "resistant": "25",
+        "total": "75/2",
+        "resistant_fraction": "2/3"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "25/2",
+        "resistant": "25",
+        "total": "75/2",
+        "resistant_fraction": "2/3"
+      },
+      "fixed_after_to_before_resistant_ratio": "4/3",
+      "predicted_capped_ratio": "4/3",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "chemo_first_higher"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1/2",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "3/4",
+      "fixed_surgery_first": {
+        "sensitive": "25",
+        "resistant": "50",
+        "total": "75",
+        "resistant_fraction": "2/3"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "25",
+        "resistant": "50",
+        "total": "75",
+        "resistant_fraction": "2/3"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "25",
+        "resistant": "50",
+        "total": "75",
+        "resistant_fraction": "2/3"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "25",
+        "resistant": "50",
+        "total": "75",
+        "resistant_fraction": "2/3"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": true,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1/100",
+      "target": "1",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "1/2",
+        "resistant": "1/2",
+        "total": "1",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "1/2",
+        "resistant": "1/2",
+        "total": "1",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "1/2",
+        "resistant": "1/2",
+        "total": "1",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "1/2",
+        "resistant": "1/2",
+        "total": "1",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1/10",
+      "target": "10",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "5",
+        "resistant": "5",
+        "total": "10",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "5",
+        "resistant": "5",
+        "total": "10",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "5",
+        "resistant": "5",
+        "total": "10",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "5",
+        "resistant": "5",
+        "total": "10",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1/2",
+      "target": "50",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "25",
+        "resistant": "25",
+        "total": "50",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "25",
+        "resistant": "25",
+        "total": "50",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "25",
+        "resistant": "25",
+        "total": "50",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "25",
+        "resistant": "25",
+        "total": "50",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    },
+    {
+      "initial": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "a": "1",
+      "b": "1",
+      "retain": "1",
+      "target": "100",
+      "chemo_total_multiplier": "1",
+      "fixed_surgery_first": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_chemo_first": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_surgery_first": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "proportional_chemo_first": {
+        "sensitive": "50",
+        "resistant": "50",
+        "total": "100",
+        "resistant_fraction": "1/2"
+      },
+      "fixed_after_to_before_resistant_ratio": "1",
+      "predicted_capped_ratio": "1",
+      "chemo_first_target_above_available_burden": false,
+      "fraction_equal": true,
+      "proportional_equal": true,
+      "fixed_direction": "equal"
+    }
+  ],
+  "unsupported": [
+    "clinical_sequence_preference",
+    "survival_or_cure",
+    "full_Gu_model_reproduction",
+    "new_biological_discovery",
+    "real_patient_parameter_identification"
+  ]
+}

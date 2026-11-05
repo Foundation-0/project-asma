@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "837ec268cf987f5cfeed4fab770db27863882611490f9412c4fc5d66009b650a",
+  "artifact_sha256": "76ed00504f78064c2a4f4476bae3c3b9d4e75520ca081cc7c59f2c501d588206",
   "baseline": {
     "absolute_difference_exact": {
       "denominator": 53950,
@@ -330,23 +330,27 @@
     "bootstrap_resamples": 2000,
     "bootstrap_seed": 20261105,
     "command": "python3 tools/analyze_auc_discrepancy.py",
-    "completed_at_utc": "2026-11-05T15:38:43.731344+00:00",
+    "completed_at_utc": "2026-11-05T15:57:55.963594+00:00",
     "dependencies": "Python standard library only",
-    "elapsed_seconds": 2.192586,
+    "elapsed_seconds": 1.963367,
     "membership_helper_sha256": "f253ad327506c815d1accfe55839a3f0a0af7a0149f38290f9d1e66626ab0141",
     "os": "Linux",
     "os_release": "6.12.94+",
     "python_implementation": "CPython",
     "python_version": "3.13.5",
-    "started_at_utc": "2026-11-05T15:38:41.538754+00:00",
+    "started_at_utc": "2026-11-05T15:57:54.000221+00:00",
     "stochastic_procedure": true,
-    "tool_sha256": "9e5a7e350ad2490735e3124029c93bc1a6b19e8206870ac4a58a626cffaefaaa",
+    "tool_sha256": "6050677b0209f998480087ca3d2ea23e6ebb123c83b0e7b0d1cde1c17a729094",
     "verify_helper_sha256": "1faf21e896f9ca2df8d6f0595f551080364c81b808f32e73571886d65307f95f"
   },
   "implementation_sha256": {
-    "tools/analyze_auc_discrepancy.py": "9e5a7e350ad2490735e3124029c93bc1a6b19e8206870ac4a58a626cffaefaaa",
+    "tools/analyze_auc_discrepancy.py": "6050677b0209f998480087ca3d2ea23e6ebb123c83b0e7b0d1cde1c17a729094",
     "tools/audit_published_cohorts.py": "f253ad327506c815d1accfe55839a3f0a0af7a0149f38290f9d1e66626ab0141",
     "tools/verify_published_auc.py": "1faf21e896f9ca2df8d6f0595f551080364c81b808f32e73571886d65307f95f"
+  },
+  "ledger_claim_ids": {
+    "conjecture_leading_open_explanation": "C20",
+    "verified_candidates_a_through_e": "V23"
   },
   "limitations": [
     "This analysis does not establish an error in Chowdhury et al., Cell 2023.",

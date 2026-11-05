@@ -10,6 +10,7 @@ sheet `FFPE_pred_scores`. Prior baseline arithmetic:
 [score verification result](pilot-001-score-verification-result.md).
 
 **Claim labels** follow [CLAIMS.md](../CLAIMS.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
+Ledger IDs for this analysis: **V23** (VERIFIED candidates (a)–(e) on released scores) and **C20** (CONJECTURE leading open explanation).
 
 ## Baseline (VERIFIED)
 
@@ -38,7 +39,7 @@ python3 -m unittest tests.test_auc_discrepancy -v
 
 The committed aggregate artifact is
 [registries/pilot-001-auc-discrepancy.json](../registries/pilot-001-auc-discrepancy.json)
-(with `artifact_sha256`=`837ec268cf987f5cfeed4fab770db27863882611490f9412c4fc5d66009b650a` and `implementation_sha256`).
+(with `artifact_sha256`=`76ed00504f78064c2a4f4476bae3c3b9d4e75520ca081cc7c59f2c501d588206` and `implementation_sha256`).
 
 ## Candidate explanations
 
@@ -66,13 +67,13 @@ not restate every float so the checker remains the single source of truth.
 
 ## Interpretation
 
-**VERIFIED:** the released-score point AUROC is 3491/4316 ≈ 0.80885, not 0.83.
+**VERIFIED (V23):** the released-score point AUROC is 3491/4316 ≈ 0.80885, not 0.83.
 Candidates (a), (b), and ordinary precision rounding do not close the gap.
 Estimator choice between Mann–Whitney and trapezoidal does not close it.
 Confidence intervals on the released scores may or may not contain 0.83; that
 does not change the point estimate.
 
-**CONJECTURE (leading open explanation):** the printed 0.83 is a fivefold-CV
+**CONJECTURE (C20, leading open explanation):** the printed 0.83 is a fivefold-CV
 summary (possibly a mean of fold-wise AUCs, or computed on predictions that are
 not identical to the released `FFPE_pred_scores` sheet). Public material cannot
 confirm or reject that without fold-level or model-object provenance.

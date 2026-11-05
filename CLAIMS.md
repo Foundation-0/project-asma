@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-05):** PROVEN **0** · VERIFIED **22** · KNOWN **30** · CONJECTURE **20**
+**Counts (2026-11-05):** PROVEN **0** · VERIFIED **23** · KNOWN **31** · CONJECTURE **21**
 
 ---
 
@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`239` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`247` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **179** R test assertions pass on **synthetic fixtures** (41 input, 87 core, 51 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
@@ -53,7 +53,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | V18 | Git does not track or stage owner attestation file (when `git` available) | `python3 tools/validate.py` |
 | V19 | Original synthetic two-state counterexamples, a hypothetical selection-bound calculation, exact sign-flip enumeration and a missing-clone sampling example give the values in the [identifiability record](docs/compartment-identifiability.md) | `python3 tools/analyze_compartment_identifiability.py`; invented inputs, not study analysis or a new biological result |
 | V20 | The dated, canonical-parent IEDB metadata queries return 7 CDR2 and 2 CDR2L positive HLA-II MS assay annotations across 3 and 2 references respectively | [Recorded replay command and limits](docs/antigen-discovery-round2-2026-11-05.md#what-was-actually-checked), [query manifest](registries/antigen-metadata-audit-2026-11-05.json); metadata only, not unique ligand validation or anti-Yo receptor recognition |
-| V22 | Pilot 001 discovery AUROC discrepancy candidates (a)–(e) on released scores: ties=0; polarity reverse=0.191; Mann–Whitney=trapezoidal=0.80885; DeLong and stratified bootstrap 95% CIs both contain printed 0.83 while the point estimate remains 0.80885; fold-wise mean AUC not testable from public material | `python3 tools/analyze_auc_discrepancy.py` (network); `python3 -m unittest tests.test_auc_discrepancy -v`; [analysis](docs/pilot-001-auc-discrepancy.md); [registry](registries/pilot-001-auc-discrepancy.json) |
+| V23 | Pilot 001 discovery AUROC discrepancy candidates (a)–(e) on released scores: ties=0; polarity reverse=0.191; Mann–Whitney=trapezoidal=0.80885; DeLong and stratified bootstrap 95% CIs both contain printed 0.83 while the point estimate remains 0.80885; fold-wise mean AUC not testable from public material | `python3 tools/analyze_auc_discrepancy.py` (network); `python3 -m unittest tests.test_auc_discrepancy -v`; [analysis](docs/pilot-001-auc-discrepancy.md); [registry](registries/pilot-001-auc-discrepancy.json) |
 
 **PR #30 runtime summary (2026-11-04):** the **207** `unittest` cases, **179** R
 assertions, and **40** execution controls are **VERIFIED only on synthetic or fixture
@@ -117,7 +117,7 @@ and do **not** substitute for study-data execution.
 | C12 | Synthetic identifiability checks and proposed annotation/control sensitivities can improve the next study's design | Calculations executed; their practical research value is a judgment; no study reanalysis |
 | C13 | Broader longitudinal, spatial, organoid, navigation and symptom avenues merit the ranked next tasks | [Research handoff](docs/research-handoff-2026-11-04.md); prioritization is not measured benefit or novelty |
 | C14 | Assay-aware molecular, perturbation and adaptive-resistance work may contribute to the expanded mission | [Molecular handoff](docs/molecular-research-handoff-2026-11-04.md); proposals and stop rules, no individual target assignment |
-| C19 | The printed discovery 0.83 may be a mean of fold-wise AUCs or may use predictions that are not identical to the released `FFPE_pred_scores` sheet | Leading open explanation after VERIFIED rejection of ties/polarity/ordinary rounding; see [discrepancy analysis](docs/pilot-001-auc-discrepancy.md) |
+| C20 | The printed discovery 0.83 may be a mean of fold-wise AUCs or may use predictions that are not identical to the released `FFPE_pred_scores` sheet | Leading open explanation after VERIFIED rejection of ties/polarity/ordinary rounding; see [discrepancy analysis](docs/pilot-001-auc-discrepancy.md) |
 
 ---
 
@@ -137,6 +137,14 @@ and do **not** substitute for study-data execution.
 | --- | --- | --- | --- |
 | V21 | VERIFIED | An offline evidence graph matches 22 scoped requests against 24 curated assertions, retaining 15 unresolved requests and one scoped negative result | [Executed result](docs/evidence-graph-result-2026-11-05.md); regression expectations are manually specified, not an independent scientific accuracy benchmark |
 | C18 | CONJECTURE | Separating ligand/source dependence from injury mechanism improves the next research comparison | Same result; direct CDR2L recognition and indirect injury can coexist, but neither has been established by the graph |
+
+## Rosen treatment-sequence update, 2026-11-05
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V22 | VERIFIED | In 84 invented parameter cases, proportional surgery gives equal endpoints in both orders; capped fixed-residual surgery gives 54 chemo-first-higher and 30 equal endpoints, with equal final resistant fractions in all 84 | `python3 tools/analyze_treatment_sequence.py`; [protocol, exact algebra and results](docs/research/rosen-treatment-sequence-assumptions.md). Synthetic finite check, not clinical evidence or full Gu-model reproduction; growth and unequal-target reversals retained. |
+| K27 | KNOWN | Fixed-fraction surgery and comparison of growth/cell-kill assumptions are explicit prior art for ovarian treatment-sequence modeling | Kohandel, Sivaloganathan and Oza (2006), DOI https://doi.org/10.1016/j.jtbi.2006.02.001, abstract inspected; S119. No novelty claim. |
+| C19 | CONJECTURE | Quantitative pre/postoperative burden, anatomy, composition and timing may distinguish competing surgery response maps and improve subsequent model comparisons | [Prospective design and stop rule](docs/research/rosen-treatment-sequence-assumptions.md#the-next-discriminating-research-question). Not an adopted study, validated measurement system or causal treatment-policy estimate. |
 
 ## What this ledger does not claim
 

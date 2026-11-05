@@ -405,3 +405,23 @@ The ranked questions above retain their candidate/deferred status.
   levels and preserved history; no new target inclusions; four targeted recall
   queries and a primary trial-registry check. Independent screening and the
   listed access/identity gaps remain open in issue #40.
+
+## 2026-11-05 treatment-sequence research ingress
+
+The [treatment-sequence assumption experiment](rosen-treatment-sequence-assumptions.md)
+adds an executed, original synthetic analysis and a concrete follow-up question:
+which measurements distinguish fixed absolute residual burden from proportional
+surgical removal? Across 84 invented cases, proportional removal gives an exact
+order null, while a capped absolute target gives 54 differences in absolute
+burden and 30 equal endpoints; final resistant fractions remain equal in all
+cases. Growth and unequal-target boundary examples can reverse the direction.
+These are mathematical results, not study effect estimates or a treatment choice.
+
+Gu et al.'s main PMC HTML was readable for relevant sections on this date,
+extending the earlier abstract-only assessment. Supplementary equations,
+executable code and data rights remain unverified; full model reconstruction is
+still deferred. The new [source record](../../registries/rosen-treatment-sequence-sources.json)
+records access failures, notice-check limits and direct prior art in Kohandel et
+al. (2006, PMID 16580022). No biological novelty is claimed. The earlier dated
+survey and its rankings remain a historical assessment, while the new report
+records this bounded advance and a measurement-design stop rule.

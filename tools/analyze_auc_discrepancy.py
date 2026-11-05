@@ -654,6 +654,10 @@ def run_analysis() -> dict:
             "prior_arithmetic_check": "tools/verify_published_auc.py / registries/pilot-001-score-verification.json",
         },
         "document": CONTRACT,
+        "ledger_claim_ids": {
+            "verified_candidates_a_through_e": "V23",
+            "conjecture_leading_open_explanation": "C20",
+        },
         "command": "python3 tools/analyze_auc_discrepancy.py",
         "sources": {
             key: dict(value, url=audit.BASE + value["filename"])

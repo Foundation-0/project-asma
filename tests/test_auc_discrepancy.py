@@ -198,6 +198,13 @@ class AucDiscrepancyMath(unittest.TestCase):
         self.assertEqual(payload["schema_version"], 1)
         self.assertIn("a_tie_handling", payload["candidates"])
         self.assertEqual(payload["baseline"]["claim_label"], "VERIFIED")
+        self.assertEqual(
+            payload["ledger_claim_ids"],
+            {
+                "verified_candidates_a_through_e": "V23",
+                "conjecture_leading_open_explanation": "C20",
+            },
+        )
         # artifact_sha256 is attached in main(), not run_analysis().
         self.assertNotIn("artifact_sha256", payload)
         encoded = json.dumps(payload, allow_nan=False)
