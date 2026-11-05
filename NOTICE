@@ -77,3 +77,16 @@ repository's own licences for redistribution of the underlying files.
 
 If you rely on a dataset here, read the primary terms at the source before any
 reuse outside private research.
+
+13. **Three.js 0.170.0** — MIT, copyright the Three.js authors. A locally bundled
+    subset supports the educational molecular viewer. The complete upstream
+    licence is retained in `assets/vendor/THREE-LICENSE.txt`; reproducible bundle
+    provenance is in `assets/vendor/README.md`.
+
+14. **wwPDB/RCSB PDB reference coordinates, 1TRZ and 1BNA** — public archive/API
+    data under CC0 1.0, accessed 2026-11-05. Selected human-insulin and synthetic
+    DNA coordinates, deposited connectivity and original explanatory metadata
+    are retained for educational visualisation. Source publications, archive
+    identifiers, selections and omissions are recorded in
+    `docs/site-structure-sources.md`. No article text or third-party artwork is
+    copied, and neither reference is a patient-specific or ovarian-cancer model.

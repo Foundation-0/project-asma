@@ -62,6 +62,14 @@ The **Pilot 001 AUROC discrepancy analysis** (checker, registry, and
 written by **grk-axiom**, an AI agent operated for **Foundation-0**, via a
 Cursor cloud agent; posting account **orda-aska**.
 
+The **2026-11-05 website and Virtual Human vision update** was prepared with
+OpenAI Codex and multiple **GPT-6 Astra** agents for structure data, 3D rendering,
+visual design and independent review, with coordinating code/content work under
+human direction. The work separates
+existing numerical/evidence checks from proposed formal verification and future
+biological or clinical uses. Internal review is not external scientific peer
+review or demonstrated patient benefit.
+
 ## Prior work credited by name
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);

@@ -1,32 +1,468 @@
-/* Project Asma · page-specific components on top of the shared f0.css.
-   Tokens only from the design system; no new colours. */
+/* Project Asma · an open scientific observatory.
+   Original page design atop the unchanged Foundation0 system in assets/f0.css.
+   System fonts, local assets, no decorative animation or hidden entrance states. */
 
-/* hero scope paragraph between the promise and the hint */
-.page-hero .promise + p { max-width: var(--measure); margin-top: var(--s-4); color: var(--ink-2); line-height: 1.6; }
+.observatory { --max: 1320px; --sec-pad: clamp(72px, 8vw, 120px); }
+.observatory main { overflow: clip; }
+.observatory :where(section, article, details, div)[id] { scroll-margin-top: 88px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.eyebrow, .context-line, .card-meta, .diagram-caption, .step-number, .possibility > span, .horizon-step > span {
+  font: 500 11px/1.55 var(--f-mono); letter-spacing: .12em; text-transform: uppercase;
+}
+.eyebrow { color: var(--bio); }
+.observatory :where(h1, h2, h3) em { color: var(--bio); font-weight: inherit; }
+.observatory p { text-wrap: pretty; }
+.observatory :where(button, select) { cursor: pointer; }
+.observatory :where(button, select):disabled { cursor: default; opacity: .6; }
+.observatory fieldset { min-width: 0; }
+.observatory .site-head { height: 72px; }
+.observatory .brand { letter-spacing: .16em; }
+.observatory .nav a { letter-spacing: .08em; font-size: 11px; padding-inline: 9px; }
+.observatory .tbtn { min-height: 40px; }
+.text-link, .record-link { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); font-size: 14px; font-weight: 600; text-decoration-color: var(--line-ui); }
+.text-link { min-height: 48px; }
+.record-link { padding-block: 10px; }
+.text-link:hover, .record-link:hover { color: var(--bio); text-decoration-color: currentColor; }
+.observatory .btn { letter-spacing: .07em; font-size: 11px; line-height: 1.4; padding-block: 12px; }
 
-/* status ledgers (sections 01 and 02) */
-.ledger { list-style: none; margin: var(--s-6) 0 0; padding: 0; border-top: 1px solid var(--line); }
-.ledger li { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--s-3) var(--s-5); padding: var(--s-5) 0; border-bottom: 1px solid var(--line); }
-.ledger-main { max-width: 68ch; min-width: min(52ch, 100%); flex: 1 1 52ch; }
-.ledger-main h3 { font: 600 var(--fs-h3)/1.2 var(--f-sans); letter-spacing: -.02em; }
-.ledger-main p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
-.ledger .badge { margin-top: 4px; }
-.ledger + .ledger-note, .cards4 + .ledger-note, .dirs + .cards4 { margin-top: var(--s-5); }
+/* Remembrance and an instrument, sharing the opening spread. */
+.hero-section { padding: clamp(40px, 5.5vw, 80px) 0 clamp(64px, 7vw, 100px); }
+.intro-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr); align-items: start; gap: clamp(32px, 4.4vw, 64px); }
+.hero-copy { padding-top: clamp(12px, 2.8vw, 40px); }
+.hero-copy > .eyebrow { display: flex; align-items: center; gap: 10px; }
+.signal-dot { width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; background: var(--bio); box-shadow: 0 0 0 5px color-mix(in srgb, var(--bio) 10%, transparent); }
+.hero-title { margin-top: 30px; font: 400 clamp(48px, 5.45vw, 80px)/1.04 var(--f-serif); letter-spacing: -.055em; }
+.hero-title em { display: inline-block; margin-top: 5px; }
+.hero-deck { max-width: 31ch; margin-top: 30px; font: 400 clamp(22px, 1.7vw, 26px)/1.45 var(--f-serif); }
+.hero-description { max-width: 47ch; margin-top: 20px; color: var(--ink-2); font-size: 15px; line-height: 1.75; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 32px; }
+.context-line { margin-top: 32px; color: var(--ink-3); font-size: 10px; letter-spacing: .08em; }
 
-/* a dated sub-heading inside a section (section 01) */
-.sub-h { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); margin-top: var(--s-8); font: 600 var(--fs-h3)/1.2 var(--f-sans); letter-spacing: -.02em; scroll-margin-top: var(--s-10); }
-.sub-lede { max-width: var(--measure); margin-top: var(--s-3); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
+/* Deliberately dark instrument and vision surfaces use Foundation0 night tokens
+   in both themes. The canvas itself stays transparent. */
+.molecule-panel, .vision-banner {
+  --bg: #070b0e; --bg-1: #0b1216; --bg-2: #10191e;
+  --line: #29383f; --line-ui: #56707a;
+  --ink: #eeeadf; --ink-2: #c5cbc5; --ink-3: #a5b1af;
+  --bio: #e6b874; --bio-hi: #f7dcae; --dig: #5ccfec;
+  --link: #b4ecf7; --focus: #f7dcae;
+  color-scheme: dark; background: var(--bg); color: var(--ink);
+}
+.molecule-panel { min-width: 0; border: 1px solid var(--line); box-shadow: 0 20px 60px -42px #000; }
+.viewer-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 20px 24px 0; }
+.viewer-heading .eyebrow { font-size: 9px; letter-spacing: .1em; }
+.viewer-tag { font: 400 9px/1.5 var(--f-mono); color: var(--ink-3); }
+.molecule-stage { position: relative; width: 100%; height: 500px; isolation: isolate; background: radial-gradient(ellipse at 50% 47%, #18232a 0%, #0b1216 50%, #070b0e 78%); }
+.molecule-stage::before, .molecule-stage::after { content: ''; position: absolute; pointer-events: none; z-index: -1; border: 1px solid #27353c; opacity: .55; }
+.molecule-stage::before { width: 65%; aspect-ratio: 1; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.molecule-stage::after { left: 24px; right: 24px; top: 50%; height: 0; border-width: 1px 0 0; }
+.molecule-stage canvas { display: block; position: relative; width: 100%; height: 100%; touch-action: none; visibility: hidden; }
+.molecule-stage canvas:focus-visible { outline-offset: -5px; }
+.molecule-fallback { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.molecule-fallback[hidden] { display: none; }
+.molecule-fallback img { min-height: 0; width: 100%; height: calc(100% - 36px); object-fit: contain; }
+.molecule-fallback p { padding: 0 20px; color: var(--ink-3); font: 11px/1.6 var(--f-mono); text-align: center; }
+.viewer-loading { position: absolute; bottom: 16px; left: 24px; right: 24px; color: var(--ink-3); font: 11px/1.5 var(--f-mono); }
+.viewer-loading[hidden] { display: none; }
+html:not(.js) .viewer-loading { display: none; }
+.viewer-controls { margin: 0; padding: 20px 24px; border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-1); }
+.viewer-selects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.viewer-selects label { display: grid; gap: 6px; color: var(--ink-3); font: 10px/1.5 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; }
+.viewer-selects select { display: block; width: 100%; min-width: 0; height: 44px; padding: 0 9px; border: 1px solid var(--line-ui); border-radius: 0; background: var(--bg-2); color: var(--ink); font: 13px/1.4 var(--f-sans); }
+.viewer-toolbar { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.viewer-toolbar button { min-width: 38px; min-height: 40px; padding: 4px 10px; border: 1px solid var(--line-ui); border-radius: 0; background: transparent; color: var(--ink-2); font: 17px/1 var(--f-mono); }
+.viewer-toolbar button:last-child { margin-left: auto; font-size: 11px; }
+.viewer-toolbar button:hover { border-color: var(--bio); background: var(--bg-2); color: var(--bio); }
+.viewer-explanation { padding: 24px; }
+.viewer-explanation h2 { font: 400 25px/1.2 var(--f-serif); letter-spacing: -.02em; }
+.viewer-explanation > p { margin-top: 10px; color: var(--ink-2); font-size: 13px; line-height: 1.6; }
+.viewer-explanation > .viewer-caption, .viewer-caption { font-size: 11px; line-height: 1.6; color: var(--ink-3); }
+.viewer-explanation > .viewer-legend { color: var(--bio); font: 10px/1.6 var(--f-mono); }
+.viewer-learning { margin-top: 16px; border-top: 1px solid var(--line); }
+.viewer-learning summary { min-height: 44px; padding-block: 12px; color: var(--ink); cursor: pointer; font-size: 12px; }
+.viewer-learning summary:hover { color: var(--bio); }
+.viewer-learning p { margin-bottom: 12px; color: var(--ink-2); font-size: 12px; line-height: 1.75; }
+.viewer-source { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); font: 10px/1.6 var(--f-mono); }
+.viewer-source span { color: var(--ink-3); }
+.viewer-explanation > .viewer-status { color: var(--ink-3); font: 10px/1.6 var(--f-mono); }
+.molecule-panel > noscript > p { padding: 0 24px 24px; }
 
-/* ranked directions (section 03) */
-.dirs { list-style: none; margin: var(--s-6) 0 0; padding: 0; border-top: 1px solid var(--line); counter-reset: dir; }
-.dirs li { display: grid; grid-template-columns: 3ch minmax(0, 1fr); gap: var(--s-3); padding: var(--s-3) 0; border-bottom: 1px solid var(--line); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.55; }
-.dirs li::before { counter-increment: dir; content: counter(dir, decimal-leading-zero); color: var(--ink-3); font-family: var(--f-mono); }
-.dirs b { color: var(--ink); font-weight: 600; }
+/* Editorial sections: broad headings, narrow explanations, visible records. */
+.mission-band { padding: 44px 0; border-block: 1px solid var(--line); background: var(--bg-1); }
+.mission-band > .wrap { display: grid; grid-template-columns: .6fr 1.15fr 1.25fr; align-items: start; gap: 40px; }
+.mission-band .eyebrow { padding-top: 5px; max-width: 18ch; }
+.mission-band h2 { font: 400 clamp(26px, 2.8vw, 40px)/1.13 var(--f-serif); letter-spacing: -.035em; }
+.mission-band p:not(.eyebrow) { font-size: 13px; line-height: 1.7; color: var(--ink-2); }
+.mission-band p + p { margin-top: 12px; }
+.observatory .sec { border-top: 0; }
+.section-heading { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: end; gap: 40px; margin-bottom: 48px; }
+.section-heading h2 { margin-top: 18px; font: 400 clamp(36px, 4.1vw, 58px)/1.08 var(--f-serif); letter-spacing: -.045em; }
+.section-heading > p { max-width: 42ch; padding-bottom: 3px; color: var(--ink-2); font-size: 15px; line-height: 1.75; }
+.research-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 56px; }
+.research-card { display: flex; flex-direction: column; align-items: start; padding: 28px 0 34px; border-top: 1px solid var(--line-ui); min-width: 0; }
+.card-meta { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; width: 100%; gap: 8px 16px; color: var(--ink-3); font-size: 10px; letter-spacing: .07em; }
+.status-label { display: inline-block; color: var(--bio); font: 500 10px/1.5 var(--f-mono); letter-spacing: .07em; text-transform: uppercase; }
+.status-label.future { color: var(--dig); }
+.research-card h3 { max-width: 24ch; margin: 22px 0 18px; font: 400 clamp(26px, 2.4vw, 34px)/1.2 var(--f-serif); letter-spacing: -.03em; }
+.research-card p { max-width: 59ch; margin-bottom: 14px; color: var(--ink-2); font-size: 14px; line-height: 1.75; }
+.research-card .record-link { margin-top: auto; font-size: 12px; }
+.section-footnote { margin-top: 16px; padding-top: 20px; border-top: 1px solid var(--line); max-width: 100%; color: var(--ink-3); font-size: 12px; line-height: 1.7; }
 
-/* cards (sections 00, 03 and 04); gold marks the pilot and human context, cyan the wider research */
-.cards4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); margin-top: var(--s-6); }
-.mini-card { background: var(--bg-2); border: 1px solid var(--line); border-top: 2px solid var(--bio); padding: var(--s-5); }
-.mini-card.dig { border-top-color: var(--dig); }
-.mini-card h3 { font: 600 19px/1.25 var(--f-sans); letter-spacing: -.015em; }
-.mini-card p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
-@media (max-width: 720px) { .cards4 { grid-template-columns: minmax(0, 1fr); } }
+/* Scales of biology and a three-part chain of reasoning. */
+.science-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 7vw, 100px); }
+.scale-map { background: var(--bg); border: 1px solid var(--line); padding: 26px 30px; }
+.diagram-caption { color: var(--ink-3); font-size: 10px; letter-spacing: .07em; }
+.scale-map > .diagram-caption:first-child { padding-bottom: 20px; }
+.scale-map > .diagram-caption:last-child { padding-top: 20px; }
+.scale-row { border-top: 1px solid var(--line); }
+.scale-row summary { display: grid; grid-template-columns: 24px minmax(0, 1fr) 56px; align-items: center; gap: 16px; padding: 22px 0; cursor: pointer; list-style: none; font: 400 25px/1.2 var(--f-serif); }
+.scale-row summary::-webkit-details-marker { display: none; }
+.scale-number { align-self: start; margin-top: 5px; color: var(--ink-3); font: 10px/1.4 var(--f-mono); }
+.scale-row summary small { display: block; margin-top: 6px; color: var(--ink-3); font: 11px/1.5 var(--f-sans); }
+.scale-symbol { color: var(--bio); text-align: center; font: 30px/1 var(--f-serif); }
+.scale-row[open] summary, .scale-row summary:hover { color: var(--bio); }
+.scale-row p { margin: -3px 0 16px 40px; color: var(--ink-2); font-size: 13px; line-height: 1.75; }
+.scale-row > a { display: inline-block; margin: 0 0 22px 40px; font-size: 12px; }
+.system-story { padding-top: 14px; }
+.system-story h3 { font: 400 clamp(32px, 3.5vw, 48px)/1.1 var(--f-serif); letter-spacing: -.035em; }
+.system-story > p { margin-top: 22px; color: var(--ink-2); font-size: 15px; line-height: 1.75; }
+.capability-list { margin-top: 30px; border-top: 1px solid var(--line); }
+.capability-list > div { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.capability-list .status-label { padding-top: 3px; }
+.capability-list p { color: var(--ink-2); font-size: 13px; line-height: 1.7; }
+.system-story .record-link { margin-top: 20px; font-size: 12px; }
+.proof-intro { margin-top: clamp(64px, 7vw, 100px); }
+.proof-intro h3 { max-width: 37ch; margin-top: 16px; font: 400 clamp(28px, 3vw, 40px)/1.18 var(--f-serif); letter-spacing: -.025em; }
+.proof-path { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 32px; border-top: 1px solid var(--line-ui); }
+.proof-step { padding: 24px 28px 0 0; }
+.proof-step + .proof-step { padding-left: 28px; border-left: 1px solid var(--line); }
+.step-number { color: var(--ink-3); font-size: 10px; }
+.reaction-picture, .formula, .proof-question { height: 108px; display: flex; align-items: center; gap: 14px; color: var(--bio); }
+.reaction-picture i { display: block; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--bio); background: color-mix(in srgb, var(--bio) 16%, transparent); }
+.reaction-picture > span { font-size: 28px; color: var(--ink-3); }
+.reaction-picture b { display: flex; position: relative; gap: 4px; }
+.reaction-picture b::before { content: ''; position: absolute; left: 22px; right: 22px; top: 11px; height: 2px; background: var(--bio); }
+.formula { font: 500 clamp(15px, 1.5vw, 20px)/1.4 var(--f-mono); letter-spacing: -.03em; }
+.proof-question { font: italic 400 clamp(24px, 2.4vw, 32px)/1.2 var(--f-serif); }
+.proof-step h4 { font-size: 17px; line-height: 1.4; }
+.proof-step p { margin-top: 12px; color: var(--ink-2); font-size: 13px; line-height: 1.8; }
+.proof-step .mono { font-size: .94em; }
+
+/* The experiment is an instrument with visible controls, chart and exact values. */
+.lab-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.3fr); border: 1px solid var(--line-ui); }
+.lab-controls { background: var(--bg-1); padding: clamp(24px, 3vw, 40px); border-right: 1px solid var(--line); }
+.lab-controls > .status-label { max-width: 32ch; margin-bottom: 24px; }
+.lab-controls fieldset { margin: 0; padding: 0; border: 0; }
+.lab-controls legend { margin-bottom: 16px; padding: 0; font: 400 26px/1.2 var(--f-serif); letter-spacing: -.02em; }
+.model-option { display: flex; align-items: start; gap: 12px; padding: 14px 12px; margin-top: 8px; border: 1px solid var(--line-ui); cursor: pointer; }
+.model-option:has(input:checked) { border-color: var(--bio); background: color-mix(in srgb, var(--bio) 7%, var(--bg)); }
+.model-option input { accent-color: var(--bio); width: 17px; height: 17px; flex: 0 0 17px; margin: 3px 0 0; }
+.model-option b { display: block; font-size: 13px; font-weight: 600; }
+.model-option small { display: block; margin-top: 5px; color: var(--ink-2); font-size: 12px; line-height: 1.6; }
+.range-label { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; margin-top: 28px; font-size: 12px; line-height: 1.6; }
+.range-label output { color: var(--bio); font: 500 15px/1.4 var(--f-mono); }
+.lab-controls input[type='range'] { display: block; width: 100%; height: 36px; margin: 8px 0 0; accent-color: var(--bio); cursor: pointer; }
+.control-help { margin-top: 12px; color: var(--ink-3); font-size: 11px; line-height: 1.7; }
+.lab-reset { margin-top: 24px; min-height: 44px; padding: 8px 0; border: 0; border-bottom: 1px solid var(--line-ui); color: var(--ink); background: transparent; font-size: 12px !important; }
+.lab-reset:hover { color: var(--bio); border-color: var(--bio); }
+.lab-output { min-width: 0; padding: clamp(24px, 3.5vw, 48px); }
+.lab-output > .eyebrow { color: var(--ink-3); font-size: 10px; }
+.lab-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 20px; }
+.lab-legend > span { display: inline-flex; align-items: center; gap: 7px; color: var(--ink-2); font-size: 11px; }
+.swatch { display: inline-block; width: 9px; height: 9px; }
+.sensitive { background: var(--dig); }
+.resistant { background: var(--bio); }
+.lab-plot { margin: 36px 0 26px; }
+.plot-row + .plot-row { margin-top: 22px; }
+.plot-row > span { display: block; margin-bottom: 9px; font: 11px/1.5 var(--f-mono); color: var(--ink-2); }
+.plot-track { display: flex; height: 35px; background: color-mix(in srgb, var(--ink-3) 8%, transparent); border-right: 1px solid var(--line-ui); }
+.plot-track i { display: block; height: 100%; min-width: 0; }
+.plot-track i + i { border-left: 2px solid var(--bg); }
+.lab-plot > p { margin-top: 14px; color: var(--ink-3); font: 10px/1.6 var(--f-mono); }
+.table-scroll { max-width: 100%; overflow-x: auto; }
+.lab-table { width: 100%; border-collapse: collapse; font: 12px/1.5 var(--f-mono); font-variant-numeric: tabular-nums; }
+.lab-table caption { padding-bottom: 12px; text-align: left; color: var(--ink-3); font: 11px/1.6 var(--f-sans); }
+.lab-table th, .lab-table td { padding: 12px 7px; border-bottom: 1px solid var(--line); text-align: right; }
+.lab-table th:first-child { padding-left: 0; text-align: left; font: 500 12px/1.5 var(--f-sans); }
+.lab-table th:last-child, .lab-table td:last-child { padding-right: 0; }
+.lab-table thead th { border-top: 1px solid var(--line); color: var(--ink-3); font-weight: 400; font-size: 10px; }
+.lab-table td:last-child { color: var(--bio); }
+.lab-results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 28px; }
+.lab-results span { display: block; max-width: 26ch; min-height: 34px; color: var(--ink-3); font-size: 10px; line-height: 1.6; }
+.lab-results strong { display: block; margin-top: 8px; font: 400 clamp(28px, 3vw, 40px)/1.1 var(--f-serif); letter-spacing: -.03em; }
+.lab-interpretation { margin-top: 24px; padding-left: 16px; border-left: 2px solid var(--bio); color: var(--ink-2); font-size: 13px; line-height: 1.75; }
+.lab-note { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.3fr); gap: 40px; margin-top: 26px; }
+.lab-note > strong { font: 400 23px/1.35 var(--f-serif); }
+.lab-note p { color: var(--ink-3); font-size: 12px; line-height: 1.8; }
+
+/* A spacious, night-time prospectus. Ambition and its boundaries sit together. */
+.vision-banner { position: relative; padding-block: clamp(80px, 10vw, 144px); border-block: 1px solid var(--line); }
+.vision-title { max-width: 17ch; margin-top: 28px; font: 400 clamp(46px, 6.8vw, 96px)/1.03 var(--f-serif); letter-spacing: -.055em; }
+.vision-opening { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; margin-top: 48px; }
+.vision-opening p:first-child { max-width: 34ch; font: 400 clamp(22px, 2.3vw, 31px)/1.5 var(--f-serif); }
+.vision-opening p:last-child { max-width: 54ch; align-self: end; color: var(--ink-2); font-size: 15px; line-height: 1.85; }
+.vision-principle { display: grid; grid-template-columns: .65fr 2fr; gap: 24px 48px; margin-top: 64px; padding: 32px 0; border-block: 1px solid var(--line-ui); }
+.vision-principle > .eyebrow { padding-top: 8px; }
+.vision-principle p { font: 400 clamp(23px, 2.45vw, 33px)/1.5 var(--f-serif); letter-spacing: -.015em; }
+.vision-principle p em { color: var(--bio); }
+.vision-principle small { grid-column: 2; max-width: 84ch; color: var(--ink-3); font-size: 12px; line-height: 1.8; }
+.possibility-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 44px; margin-top: 44px; }
+.possibility { min-width: 0; padding: 32px 0; border-bottom: 1px solid var(--line); }
+.possibility > span { color: var(--bio); font-size: 9px; letter-spacing: .1em; }
+.possibility h3 { margin-top: 18px; font: 400 clamp(24px, 2.2vw, 30px)/1.2 var(--f-serif); letter-spacing: -.025em; }
+.possibility p { margin-top: 16px; color: var(--ink-2); font-size: 13px; line-height: 1.85; }
+.vision-boundary { max-width: 92ch; margin-top: 40px; color: var(--ink-3); font-size: 12px; line-height: 1.85; }
+.vision-banner .btn { margin-top: 26px; }
+
+/* Notebook: a compact index that can open into the full research record. */
+.horizon-path { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 8px 0 48px; }
+.horizon-step { position: relative; padding: 25px 32px 0 0; border-top: 1px solid var(--line-ui); }
+.horizon-step::before { content: ''; position: absolute; top: -4px; left: 0; width: 7px; height: 7px; background: var(--bio); border-radius: 50%; box-shadow: 0 0 0 5px var(--bg); }
+.horizon-step > span { color: var(--bio); font-size: 10px; }
+.horizon-step h3 { margin-top: 16px; font: 400 25px/1.2 var(--f-serif); letter-spacing: -.02em; }
+.horizon-step p { max-width: 42ch; margin-top: 12px; color: var(--ink-2); font-size: 13px; line-height: 1.75; }
+.notebook-grid { border-top: 1px solid var(--line-ui); }
+.notebook-group { border-bottom: 1px solid var(--line); }
+.notebook-group > summary { display: flex; align-items: baseline; gap: 20px; padding: 24px 0; list-style: none; cursor: pointer; font: 400 clamp(19px, 2vw, 25px)/1.4 var(--f-serif); letter-spacing: -.015em; }
+.notebook-group > summary::-webkit-details-marker { display: none; }
+.notebook-group > summary > span:first-child { flex: 0 0 24px; color: var(--ink-3); font: 11px/1.6 var(--f-mono); }
+.detail-plus { margin-left: auto; padding-inline: 6px; color: var(--bio); font: 24px/1 var(--f-mono); }
+.notebook-group[open] .detail-plus { transform: rotate(45deg); }
+.notebook-group[open] > summary, .notebook-group > summary:hover { color: var(--bio); }
+.notebook-content { max-width: 1000px; padding: 0 36px 30px 44px; font-size: 14px; line-height: 1.8; color: var(--ink-2); }
+.record-date { color: var(--ink-3); font: 11px/1.7 var(--f-mono); }
+.record-list, .ledger { list-style: none; margin: 0; padding: 0; }
+.record-list li { padding: 16px 0; border-top: 1px solid var(--line); }
+.record-list li p { margin-top: 5px; color: var(--ink-2); font-size: 13px; line-height: 1.75; }
+.record-list a { font-weight: 500; }
+.notebook-content > p + .record-list { margin-top: 20px; }
+.ledger { margin: 20px 0; }
+.ledger li { padding: 22px 0; border-top: 1px solid var(--line); }
+.ledger-main h3 { font-size: 17px; line-height: 1.4; letter-spacing: -.01em; color: var(--ink); }
+.ledger-main p { margin-top: 9px; font-size: 13px; line-height: 1.85; }
+.ledger li > .badges, .ledger li > .badge { margin-top: 14px; }
+.ledger .badge { font-size: 9px; letter-spacing: .05em; }
+.closing-section { padding-block: 80px 100px; border-top: 1px solid var(--line); background: var(--bg-1); }
+.closing-section h2 { margin-top: 22px; font: 400 clamp(34px, 4.7vw, 64px)/1.12 var(--f-serif); letter-spacing: -.04em; }
+.closing-section h2 + p { max-width: 60ch; margin-top: 24px; color: var(--ink-2); font: 400 20px/1.6 var(--f-serif); }
+.closing-section .closing-note { max-width: 80ch; margin-top: 28px; color: var(--ink-3); font-size: 12px; line-height: 1.8; }
+.observatory .foot-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.observatory .site-foot { padding-block: 56px 32px; }
+.observatory .foot-grid p { font-size: 12px; }
+.observatory .foot-cols a { font-size: 12px; }
+.observatory .stamp { font-size: 10px; }
+
+/* The composition changes at content-driven breakpoints, without shrinking
+   controls or making reading depend on scrolling horizontally. */
+@media (min-width: 1500px) {
+  .hero-copy { padding-top: 52px; }
+  .hero-title { font-size: 82px; }
+}
+@media (max-width: 1120px) {
+  .intro-grid { gap: 32px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .hero-title { font-size: clamp(48px, 5.5vw, 62px); }
+  .viewer-heading, .viewer-controls, .viewer-explanation { padding-inline: 20px; }
+  .viewer-tag { display: block; }
+  .viewer-toolbar { gap: 5px; }
+  .viewer-toolbar button { min-width: 35px; padding-inline: 8px; }
+  .viewer-toolbar button:last-child { margin-left: 0; }
+  .mission-band > .wrap { grid-template-columns: 1fr 1.2fr; gap: 24px 40px; }
+  .mission-band .eyebrow { grid-column: 1 / -1; max-width: none; }
+  .research-grid { column-gap: 36px; }
+  .science-split { gap: 40px; }
+  .possibility-grid { column-gap: 30px; }
+  .lab-output { padding: 30px; }
+  .lab-controls { padding: 26px; }
+}
+@media (max-width: 900px) {
+  .intro-grid { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .hero-copy { padding-top: 8px; }
+  .hero-title { font-size: clamp(58px, 8.7vw, 78px); }
+  .hero-title br:last-child { display: none; }
+  .hero-title em { max-width: 12ch; }
+  .hero-deck { max-width: 40ch; }
+  .hero-description { max-width: 60ch; }
+  .molecule-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); }
+  .viewer-heading { grid-column: 1 / -1; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  .molecule-stage { height: 410px; grid-column: 1; grid-row: 2; }
+  .viewer-controls { grid-column: 1; grid-row: 3; border-bottom: 0; }
+  .viewer-explanation { grid-column: 2; grid-row: 2 / 4; border-left: 1px solid var(--line); padding-top: 28px; }
+  .viewer-toolbar button { min-width: 40px; min-height: 44px; }
+  .viewer-toolbar button:last-child { flex-grow: 1; }
+  .section-heading { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 28px; }
+  .section-heading h2 { font-size: 42px; }
+  .section-heading > p { font-size: 13px; }
+  .science-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px; }
+  .scale-map { padding-inline: 22px; }
+  .scale-row summary { grid-template-columns: 18px minmax(0, 1fr) 35px; gap: 12px; font-size: 23px; }
+  .scale-row p, .scale-row > a { margin-left: 30px; }
+  .scale-symbol { font-size: 26px; }
+  .system-story > p { font-size: 13px; }
+  .capability-list > div { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .proof-step { padding-right: 20px; }
+  .proof-step + .proof-step { padding-left: 20px; }
+  .reaction-picture { gap: 9px; }
+  .reaction-picture i { width: 20px; height: 20px; }
+  .reaction-picture b::before { top: 9px; left: 18px; right: 18px; }
+  .lab-grid { grid-template-columns: minmax(0, 1fr); }
+  .lab-controls { border-right: 0; border-bottom: 1px solid var(--line); }
+  .lab-controls fieldset { max-width: 600px; }
+  .lab-controls > .status-label { max-width: none; }
+  .lab-output { padding: 32px; }
+  .lab-note { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .vision-principle { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .vision-principle small { grid-column: 1; }
+  .possibility-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .observatory { --gutter: 22px; --sec-pad: 64px; }
+  .observatory .site-head { height: 64px; }
+  .observatory :where(section, article, details, div)[id] { scroll-margin-top: 80px; }
+  .hero-section { padding-top: 32px; padding-bottom: 48px; }
+  .hero-copy > .eyebrow { font-size: 9px; letter-spacing: .1em; }
+  .hero-title { margin-top: 25px; font-size: clamp(46px, 10.5vw, 64px); line-height: 1.05; }
+  .hero-title br:last-child { display: initial; }
+  .hero-title em { max-width: none; }
+  .hero-deck { margin-top: 24px; font-size: 23px; }
+  .hero-description { margin-top: 18px; font-size: 14px; }
+  .hero-actions { margin-top: 24px; gap: 8px 18px; }
+  .context-line { margin-top: 22px; max-width: 34ch; font-size: 9px; line-height: 1.8; }
+  .intro-grid { gap: 36px; }
+  .molecule-panel { display: block; }
+  .viewer-heading { border-bottom: 0; padding: 18px 18px 0; }
+  .viewer-heading .eyebrow { font-size: 8px; }
+  .viewer-tag { font-size: 8px; }
+  .molecule-stage { height: 360px; }
+  .viewer-controls { padding: 18px; border-bottom: 1px solid var(--line); }
+  .viewer-explanation { border-left: 0; padding: 22px 18px; }
+  .viewer-toolbar { gap: 5px; }
+  .viewer-toolbar button { min-width: 38px; min-height: 44px; }
+  .viewer-toolbar button:last-child { flex-grow: 1; }
+  .viewer-selects { gap: 10px; }
+  .viewer-selects select { font-size: 12px; padding-inline: 6px; }
+  .viewer-explanation > .viewer-status { font-size: 10px; }
+  .mission-band { padding-block: 32px; }
+  .mission-band > .wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .mission-band h2 { font-size: 34px; }
+  .mission-band p:not(.eyebrow) { font-size: 13px; }
+  .section-heading { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-bottom: 32px; }
+  .section-heading h2 { margin-top: 14px; font-size: clamp(34px, 7.7vw, 46px); }
+  .section-heading > p { max-width: 52ch; font-size: 14px; }
+  .eyebrow { font-size: 9px; letter-spacing: .1em; }
+  .research-grid { grid-template-columns: minmax(0, 1fr); }
+  .research-card { padding-top: 24px; padding-bottom: 28px; }
+  .research-card h3 { max-width: 26ch; margin-top: 18px; font-size: 30px; }
+  .research-card p { font-size: 13px; }
+  .card-meta { font-size: 9px; }
+  .card-meta .status-label { font-size: 9px; }
+  .section-footnote { margin-top: 8px; font-size: 11px; }
+  .science-split { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .scale-map { padding: 22px; }
+  .scale-row summary { grid-template-columns: 20px minmax(0, 1fr) 48px; padding-block: 20px; font-size: 26px; }
+  .scale-row p, .scale-row > a { margin-left: 32px; }
+  .scale-symbol { font-size: 30px; }
+  .system-story { padding-top: 0; }
+  .system-story h3 { font-size: 37px; }
+  .system-story > p { margin-top: 18px; font-size: 14px; }
+  .capability-list > div { grid-template-columns: 80px minmax(0, 1fr); gap: 16px; }
+  .proof-intro { margin-top: 48px; }
+  .proof-intro h3 { font-size: 29px; }
+  .proof-path { grid-template-columns: minmax(0, 1fr); margin-top: 26px; }
+  .proof-step, .proof-step + .proof-step { padding: 24px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+  .reaction-picture, .formula, .proof-question { height: 78px; }
+  .formula { font-size: 21px; }
+  .proof-question { font-size: 31px; }
+  .proof-step p { max-width: 55ch; font-size: 13px; }
+  .lab-controls, .lab-output { padding: 22px; }
+  .lab-controls > .status-label { font-size: 9px; }
+  .lab-legend { gap: 10px 16px; }
+  .lab-plot { margin-top: 28px; }
+  .plot-track { height: 30px; }
+  .lab-results { gap: 18px; }
+  .lab-results strong { font-size: 36px; }
+  .lab-results span { min-height: 48px; }
+  .lab-interpretation { font-size: 12px; }
+  .lab-note > strong { font-size: 23px; }
+  .vision-banner { padding-block: 64px; }
+  .vision-title { margin-top: 24px; font-size: clamp(43px, 10vw, 64px); }
+  .vision-opening { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 32px; }
+  .vision-opening p:first-child { max-width: 30ch; font-size: 24px; }
+  .vision-opening p:last-child { font-size: 13px; }
+  .vision-principle { margin-top: 36px; padding-block: 26px; }
+  .vision-principle p { font-size: 24px; }
+  .vision-principle small { font-size: 11px; }
+  .possibility-grid { grid-template-columns: minmax(0, 1fr); margin-top: 12px; }
+  .possibility { padding-block: 28px; }
+  .possibility h3 { font-size: 29px; }
+  .possibility p { max-width: 54ch; font-size: 13px; }
+  .vision-boundary { margin-top: 26px; font-size: 11px; }
+  .vision-banner .btn { width: 100%; justify-content: space-between; font-size: 10px; padding-inline: 14px; }
+  .horizon-path { grid-template-columns: minmax(0, 1fr); gap: 0; margin-bottom: 32px; }
+  .horizon-step { border-top: 0; border-left: 1px solid var(--line-ui); padding: 0 0 28px 24px; }
+  .horizon-step::before { top: 5px; left: -4px; }
+  .horizon-step:last-child { padding-bottom: 0; }
+  .horizon-step h3 { margin-top: 9px; font-size: 26px; }
+  .horizon-step p { margin-top: 8px; }
+  .notebook-group > summary { gap: 10px; padding-block: 20px; font-size: 20px; }
+  .notebook-group > summary > span:first-child { flex-basis: 20px; font-size: 10px; }
+  .detail-plus { font-size: 20px; }
+  .notebook-content { padding: 0 0 24px 30px; font-size: 13px; }
+  .record-date { font-size: 10px; }
+  .ledger-main h3 { font-size: 16px; }
+  .ledger-main p { font-size: 12px; }
+  .closing-section { padding-block: 56px 64px; }
+  .closing-section h2 { font-size: clamp(31px, 7.5vw, 44px); }
+  .closing-section h2 + p { font-size: 19px; }
+  .closing-section .closing-note { font-size: 11px; }
+  .observatory .foot-cols { gap: 24px; }
+  .observatory .site-foot { padding-block: 40px 26px; }
+}
+@media (max-width: 380px) {
+  .observatory { --gutter: 16px; }
+  .observatory .brand { letter-spacing: .08em; }
+  .hero-title { font-size: 43px; }
+  .hero-deck { font-size: 22px; }
+  .molecule-stage { height: 320px; }
+  .viewer-heading, .viewer-controls, .viewer-explanation { padding-inline: 14px; }
+  .viewer-toolbar button { min-width: 38px; }
+  .viewer-toolbar button:last-child { width: 100%; }
+  .section-heading h2 { font-size: 33px; }
+  .scale-map { padding-inline: 18px; }
+  .scale-row summary { gap: 8px; }
+  .lab-controls, .lab-output { padding-inline: 16px; }
+  .lab-table { font-size: 10px; }
+  .lab-table th, .lab-table td { padding-inline: 4px; }
+  .lab-table th:first-child { font-size: 11px; }
+  .lab-results strong { font-size: 32px; }
+  .vision-title { font-size: 41px; }
+  .closing-section .btn { width: 100%; justify-content: space-between; font-size: 10px; padding-inline: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .observatory *, .observatory *::before, .observatory *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media (forced-colors: active) {
+  .molecule-panel, .vision-banner { border: 1px solid CanvasText; }
+  .model-option:has(input:checked) { border: 2px solid Highlight; }
+  .plot-track i, .swatch { forced-color-adjust: none; }
+  .reaction-picture i { border: 2px solid CanvasText; }
+  .signal-dot, .horizon-step::before { background: CanvasText; }
+}
+@media print {
+  .observatory { --gutter: 0; --ink: #000; --ink-2: #222; --ink-3: #444; --bio: #6b470c; --bg: #fff; --bg-1: #fff; }
+  .hero-section, .observatory .sec, .vision-banner, .closing-section { padding-block: 30px; }
+  .intro-grid, .section-heading, .science-split, .lab-grid, .vision-opening { display: block; }
+  .hero-title { font-size: 48px; }
+  .hero-title br:last-child { display: none; }
+  .molecule-panel { margin-top: 24px; max-width: 600px; break-inside: avoid; }
+  .molecule-stage { height: 320px; }
+  .viewer-controls, .hero-actions { display: none; }
+  .section-heading > p { margin-top: 18px; }
+  .research-card, .proof-step, .possibility, .horizon-step { break-inside: avoid; }
+  .vision-banner { --ink: #000; --ink-2: #222; --ink-3: #444; --bio: #6b470c; --line: #bbb; --line-ui: #777; background: #fff; }
+  .vision-title { font-size: 48px; }
+  .lab-controls { border-right: 0; }
+  .system-story { margin-top: 24px; }
+}
+
+/* A short invitation before the molecular instrument controls. */
+.viewer-prompt { margin: 0 0 16px; color: var(--ink-2); font-size: 12px; line-height: 1.6; }
