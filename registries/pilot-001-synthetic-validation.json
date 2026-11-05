@@ -301,7 +301,7 @@
     "tests/r/synthetic_fixture.R": "92d52f3d1a5e2504fe0a7eefb72091210c87e1d7d75c54d06bf6a7d060c8cd8f",
     "tests/r/test_core.R": "453671125b2cf0b54b4f81fe4417fdbc2828a8e4979dd0917f9a181661ef7613",
     "tests/r/test_input.R": "c3602cf212ec794e2ad777a5f54e5d224c8fb812a053422c8b00f386e2dbd2d0",
-    "tests/r/test_models.R": "a12077872a2f17ba9f85a160fb664abc18cfd00ad9698acea2ed01d881cd35d4",
+    "tests/r/test_models.R": "bfdc3ea48e570725121fa1069063e76ba7a427608ba8d0bf36c9b26ecc672cd3",
     "tests/test_synthetic_runtime.py": "5709358fd3160e455e08c140ac42fb71bd452d81e02d367b577925dca77dd716",
     "tools/build_synthetic_runtime.py": "4ea40ee66cbf4b9648bfa8d00bd060a24e650ddffd94ec2b30f8ccb7d8637865",
     "tools/run_synthetic_pipeline.R": "935600b2e3a8ed09dc483f8cdf1a86fd7b9a10c26856d687bb40b4c819eb0c6d",
