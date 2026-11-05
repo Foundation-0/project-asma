@@ -9,16 +9,40 @@ check_model_versions <- function(version_reader = utils::packageVersion,
                    character(1))
   observed <- model_operation(function() vapply(names(expected), function(package) {
     as.character(package_version(as.character(version_reader(package))))
-  }, character(1)))
+  }, character(1)), "runtime", "version")
   asma_require(identical(observed, wanted), "model_version")
   invisible(TRUE)
 }
 
-model_operation <- function(operation) {
-  tryCatch(withCallingHandlers(operation(),
-    warning = function(warning) stop("Model operation failed.", call. = FALSE),
-    message = function(message) invokeRestart("muffleMessage")),
-    error = function(error) stop("Model operation failed.", call. = FALSE))
+asma_model_failure <- function(model, step, kind) {
+  model <- toupper(as.character(model))
+  step <- toupper(as.character(step))
+  kind <- toupper(as.character(kind))
+  code <- paste0("P001-FAIL-MODEL-", model, "-", step, "-", kind)
+  stop(structure(list(message = code, call = NULL),
+                 class = c("asma_failure_code", "error", "condition")), call. = FALSE)
+}
+
+model_operation <- function(operation, model, step) {
+  tryCatch({
+    value <- NULL
+    output <- capture.output({
+      value <- withCallingHandlers(
+        operation(),
+        warning = function(warning) asma_model_failure(model, step, "warning"),
+        message = function(message) asma_model_failure(model, step, "message")
+      )
+    }, type = "output")
+    if (length(output) > 0L) {
+      asma_model_failure(model, step, "console")
+    }
+    value
+  }, error = function(error) {
+    if (inherits(error, "asma_failure_code")) {
+      stop(error)
+    }
+    asma_model_failure(model, step, "error")
+  })
 }
 
 # Declared XGBoost settings; "hist" is only for the proposed amendment 1 (A2).
@@ -67,7 +91,7 @@ xgb_settings_hold <- function(booster, tree_method, rounds = 100L) {
 }
 
 validate_model_input <- function(x_train, y_train, x_test, inner_foldid,
-                                 repetition, fold) {
+                                 repetition, fold, outer_seed = repetition) {
   valid_names <- function(keys, size) {
     is.character(keys) && length(keys) == size && !anyNA(keys) &&
       all(nzchar(keys)) && !anyDuplicated(keys) &&
@@ -107,12 +131,17 @@ validate_model_input <- function(x_train, y_train, x_test, inner_foldid,
                  typeof(fold) %in% c("double", "integer") && is.null(dim(fold)) &&
                  length(fold) == 1L && is.finite(fold) &&
                  fold %in% 1:5, "model_contract")
+  asma_require(typeof(outer_seed) %in% c("double", "integer") &&
+                 is.null(dim(outer_seed)) && length(outer_seed) == 1L &&
+                 is.finite(outer_seed) && outer_seed == as.integer(outer_seed) &&
+                 outer_seed %in% 1:200, "model_contract")
   invisible(TRUE)
 }
 
 fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold,
-                       xgb_tree_method = "exact") {
-  validate_model_input(x_train, y_train, x_test, inner_foldid, repetition, fold)
+                       outer_seed = repetition, xgb_tree_method = "exact") {
+  validate_model_input(x_train, y_train, x_test, inner_foldid, repetition, fold,
+                       outer_seed = outer_seed)
   # "exact" is the declared primary setting. "hist" exists only for the proposed
   # amendment 1 (A2) sensitivity configuration, and runs only if that is adopted.
   asma_require(identical(xgb_tree_method, "exact") || identical(xgb_tree_method, "hist"),
@@ -167,7 +196,7 @@ fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold,
     }
 
     # xgboost 1.7.8.1's R interface ignores native seed parameters; use R's stream.
-    set.seed(20000L + 100L * as.integer(repetition) + as.integer(fold))
+    set.seed(20000L + 100L * as.integer(outer_seed) + as.integer(fold))
     training <- xgboost::xgb.DMatrix(x_train, label = unname(y_train), nthread = 1L)
     testing <- xgboost::xgb.DMatrix(x_test, nthread = 1L)
     xgb_fit <- xgboost::xgb.train(
@@ -209,5 +238,5 @@ fit_models <- function(x_train, y_train, x_test, inner_foldid, repetition, fold,
       result[[model]] <- probability
     }
     result
-  })
+  }, "ensemble", "fit")
 }

@@ -38,9 +38,9 @@ run_model_tests <- function() {
   rejects(check_model_versions(function(package) stop("PRIVATE_TEST_SENTINEL"), "4.4.3"))
   rejects(check_model_versions(function(package) warning("PRIVATE_TEST_SENTINEL"), "4.4.3"))
   rejects(check_model_versions(function(package) expected[[package]], "4.4.2"))
-  rejects(model_operation(function() stop("PRIVATE_TEST_SENTINEL")))
-  rejects(model_operation(function() warning("PRIVATE_TEST_SENTINEL")))
-  check(identical(model_operation(function() { message("PRIVATE_TEST_SENTINEL"); 3L }), 3L))
+  rejects(model_operation(function() stop("PRIVATE_TEST_SENTINEL"), "test", "fit"))
+  rejects(model_operation(function() warning("PRIVATE_TEST_SENTINEL"), "test", "fit"))
+  rejects(model_operation(function() { message("PRIVATE_TEST_SENTINEL"); 3L }, "test", "fit"))
   check(isTRUE(validate_model_input(x_train, y_train, x_test, inner, 1L, 1L)))
   other_labels <- setNames(c(rep(0L, 67L), rep(1L, 41L)), rownames(x_train))
   check(isTRUE(validate_model_input(x_train, other_labels, x_test, inner, 1L, 1L)))
@@ -177,6 +177,12 @@ run_model_tests <- function() {
   }
   check(!xgb_settings_hold(booster(declared), "hist"))
   check(!xgb_settings_hold(booster(declared, 99L), "exact"))
+
+  induced <- tryCatch(
+    model_operation(function() warning("induced-test-warning"), "glmnet", "fit"),
+    error = function(error) conditionMessage(error)
+  )
+  check(identical(induced, "P001-FAIL-MODEL-GLMNET-FIT-WARNING"))
 
   count
 }

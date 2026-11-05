@@ -19,13 +19,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Python unit suite (247 tests)
+      - name: Check tracked study sources
+        run: python3 tools/check_tracked_study_sources.py
+
+      - name: Python unit suite (259 tests)
         run: |
           set -euo pipefail
           set -o pipefail
           python3 -m unittest discover -s tests -v 2>&1 | tee python-suite.log
-          grep -E '^Ran [0-9]+ tests' python-suite.log | grep -Fq 'Ran 247 tests'
-          echo "Python suite count: Ran 247 tests"
+          grep -E '^Ran [0-9]+ tests' python-suite.log | grep -Fq 'Ran 259 tests'
+          echo "Python suite count: Ran 259 tests"
 
       - name: Educational site mathematics and reference models
         run: |
@@ -65,6 +68,13 @@ jobs:
             attempt=$((attempt + 1))
           done
           docker image inspect asma-synthetic:4.4.3 --format '{{.Id}}' | tee synthetic-image-id.txt
+          docker image inspect asma-synthetic:4.4.3 --format '{{.Size}}' | tee synthetic-image-size.txt
+
+      - name: Pilot 001 dry run (synthetic container path)
+        run: |
+          set -euo pipefail
+          ulimit -c 0
+          python3 tools/run_pilot001_dry_run.py | tee pilot001-dry-run.json
 
       - name: Seed pinned Ubuntu packages (Launchpad fallback)
         run: python3 tools/ci_seed_ubuntu_packages.py "${RUNNER_TEMP}/asma-package-cache"
