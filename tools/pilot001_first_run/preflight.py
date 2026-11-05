@@ -6,6 +6,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
@@ -38,6 +39,8 @@ def _ulimit_core(runner: CommandRunner) -> tuple[bool, str]:
 def _path_excluded(path: Path, runner: CommandRunner) -> bool | None:
     if not path.exists():
         return True
+    if sys.platform != "darwin":
+        return None
     result = runner(["tmutil", "isexcluded", str(path)])
     if result.returncode != 0:
         return None

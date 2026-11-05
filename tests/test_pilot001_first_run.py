@@ -91,6 +91,22 @@ class TestPreflight(unittest.TestCase):
         report = run_linux_preflight(Path("/tmp/out"), runner)
         self.assertTrue(report.passed)
 
+    def test_linux_existing_output_skips_tmutil(self):
+        calls = []
+
+        def runner(command):
+            calls.append(command)
+            if "ulimit -c" in command[-1]:
+                return subprocess.CompletedProcess(command, 0, "0\n", "")
+            raise AssertionError(f"unexpected command: {command!r}")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "nested"
+            out.mkdir()
+            report = run_linux_preflight(out, runner)
+        self.assertTrue(report.passed)
+        self.assertTrue(all("tmutil" not in " ".join(part for part in cmd) for cmd in calls))
+
     def test_macos_docker_swap_mock(self):
         def runner(command):
             if "ulimit -c" in command[-1]:
