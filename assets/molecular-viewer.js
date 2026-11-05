@@ -32,6 +32,7 @@ function setupViewer(root) {
   const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 2000);
   const points = new Map();
   let pinchDistance = 0;
+  let touchPending = null;
 
   const announce = (text) => { if (status) status.textContent = text; };
   const motionAllowed = () => !window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -350,12 +351,47 @@ function setupViewer(root) {
   canvas.addEventListener('pointerdown', (event) => {
     if (!ready || (event.pointerType === 'mouse' && event.button !== 0)) return;
     stopRotation();
+    if (event.pointerType === 'touch') {
+      if (touchPending && touchPending.id !== event.pointerId) {
+        const first = touchPending;
+        touchPending = null;
+        canvas.focus({ preventScroll: true });
+        canvas.setPointerCapture(first.id);
+        canvas.style.touchAction = 'none';
+        points.set(first.id, { x: first.x, y: first.y });
+        canvas.setPointerCapture(event.pointerId);
+        points.set(event.pointerId, { x: event.clientX, y: event.clientY });
+        pinchDistance = 0;
+        return;
+      }
+      if (points.size === 0 && !touchPending) {
+        touchPending = { id: event.pointerId, x: event.clientX, y: event.clientY };
+        return;
+      }
+    }
     canvas.focus({ preventScroll: true });
     canvas.setPointerCapture(event.pointerId);
+    canvas.style.touchAction = 'none';
     points.set(event.pointerId, { x: event.clientX, y: event.clientY });
     pinchDistance = 0;
   });
+  function claimTouchPointer(event) {
+    touchPending = null;
+    canvas.focus({ preventScroll: true });
+    canvas.setPointerCapture(event.pointerId);
+    canvas.style.touchAction = 'none';
+    points.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    pinchDistance = 0;
+  }
   canvas.addEventListener('pointermove', (event) => {
+    if (touchPending && touchPending.id === event.pointerId) {
+      const dx = event.clientX - touchPending.x;
+      const dy = event.clientY - touchPending.y;
+      if (Math.hypot(dx, dy) < 10) return;
+      if (Math.abs(dy) > Math.abs(dx)) { touchPending = null; return; }
+      claimTouchPointer(event);
+      return;
+    }
     if (!points.has(event.pointerId) || !ready) return;
     const previous = points.get(event.pointerId);
     points.set(event.pointerId, { x: event.clientX, y: event.clientY });
@@ -367,7 +403,13 @@ function setupViewer(root) {
       pinchDistance = distance;
     }
   });
-  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach((name) => canvas.addEventListener(name, (event) => { points.delete(event.pointerId); pinchDistance = 0; }));
+  function releasePointer(event) {
+    points.delete(event.pointerId);
+    pinchDistance = 0;
+    if (touchPending?.id === event.pointerId) touchPending = null;
+    if (!points.size) canvas.style.touchAction = '';
+  }
+  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach((name) => canvas.addEventListener(name, (event) => { releasePointer(event); }));
   // Wheel zoom is deliberate: un-focused canvases preserve normal page scrolling.
   canvas.addEventListener('wheel', (event) => {
     if (!ready || document.activeElement !== canvas || event.ctrlKey) return;
