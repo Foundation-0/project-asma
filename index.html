@@ -81,7 +81,7 @@
       <dl class="stats" aria-label="The project in numbers">
         <div class="stat"><dt class="k">active protocol, Pilot 001</dt><dd class="v" style="margin:0">1</dd></div>
         <div class="stat"><dt class="k">ranked candidate directions</dt><dd class="v" style="margin:0">8</dd></div>
-        <div class="stat"><dt class="k">labelled claims in the ledger</dt><dd class="v" style="margin:0">68</dd></div>
+        <div class="stat"><dt class="k">labelled claims in the ledger</dt><dd class="v" style="margin:0">70</dd></div>
         <div class="stat"><dt class="k">published results reproduced</dt><dd class="v" style="margin:0">0</dd></div>
       </dl>
       <div class="prov">
@@ -105,7 +105,7 @@
         </div>
         <div class="mini-card dig">
           <h3>Frontier research</h3>
-          <p>Public-source research on what an anti-Yo immune response recognises, which cells present it, and whether it causes injury. Two review rounds, an executed synthetic check and a design proposal; no study data analysed. <a href="#frontier">Section 02</a>.</p>
+          <p>Public-source research on what an anti-Yo immune response recognises, which cells present it, and whether it causes injury. Two review rounds, an executed synthetic check and an evidence-graph prototype; no study data analysed. <a href="#frontier">Section 02</a>.</p>
         </div>
         <div class="mini-card dig">
           <h3>Candidate directions</h3>
@@ -235,9 +235,9 @@
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #42</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
         </li>
         <li>
-          <div class="ledger-main"><h3>Typed evidence interfaces</h3>
-          <p>A design candidate adapted from the typed-graph pattern of the open-source Virtual Human project. Each claim would carry its measurement basis, context and kind of evidence, so that unsupported jumps are rejected, for example from antibody binding to T-cell specificity. It sets acceptance tests and stop criteria. Nothing has been implemented, adopted or simulated.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #44</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Proposed · not built</span></span>
+          <div class="ledger-main"><h3>Typed evidence interfaces and the evidence graph</h3>
+          <p>A design adapted from the typed-graph pattern of Rohan Arun's open-source Virtual Human project: each claim carries its measurement basis, context and kind of evidence, so that unsupported jumps are rejected, for example from antibody binding to T-cell specificity. An offline prototype now implements it, using an unchanged, hash-pinned copy of that project's MIT-licensed graph core with original matching rules. It holds 24 curated public evidence assertions and checks 22 scoped requests against them: 6 are supported within their actual scope, 1 meets scoped counterevidence and 15 stay unresolved. It refuses joins across separate assertions, keeps unknowns and contradictions, and separates recognition from injury. Its expectations are hand-written regression fixtures, not an independent accuracy benchmark. It identifies no ligand and infers no mechanism.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #44, #45</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Software result · curated evidence</span></span>
         </li>
       </ul>
       <div class="prose ledger-note">
