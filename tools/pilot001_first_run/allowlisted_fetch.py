@@ -17,6 +17,7 @@ ALLOWED_HOSTS = frozenset(
 )
 DROPBOX_CDN_SUFFIX = ".dl.dropboxusercontent.com"
 MAX_REDIRECTS = 8
+REDIRECT_CODES = frozenset({301, 302, 303, 307, 308})
 
 
 class AllowlistedFetchError(OSError):
@@ -43,25 +44,41 @@ def _require_https(url: str) -> urllib.parse.SplitResult:
     return parsed
 
 
-class _AllowlistedRedirectHandler(urllib.request.HTTPRedirectHandler):
+class _NoAutoRedirect(urllib.request.HTTPRedirectHandler):
+    """urllib must not follow redirects; the caller validates each hop."""
+
     def redirect_request(self, req, fp, code, msg, headers, newurl):
-        _require_https(newurl)
-        redirected = urllib.request.Request(
-            newurl,
-            data=req.data,
-            headers=dict(req.header_items()),
-            origin_req_host=urllib.request.Request(newurl).host,
-            unverifiable=True,
-        )
-        return redirected
+        return None
 
 
-def _allowlisted_opener() -> urllib.request.OpenerDirector:
-    return urllib.request.build_opener(_AllowlistedRedirectHandler())
+def _opener_without_redirects() -> urllib.request.OpenerDirector:
+    return urllib.request.build_opener(_NoAutoRedirect())
 
 
-def _open(request: urllib.request.Request):
-    return _allowlisted_opener().open(request, timeout=120)
+def _open_no_redirect(request: urllib.request.Request):
+    return _opener_without_redirects().open(request, timeout=120)
+
+
+def _open_with_manual_redirects(request: urllib.request.Request):
+    url = request.full_url
+    headers = dict(request.header_items())
+    method = request.get_method()
+    for _redirect_hop in range(MAX_REDIRECTS + 1):
+        _require_https(url)
+        hop_request = urllib.request.Request(url, headers=headers, method=method)
+        try:
+            response = _open_no_redirect(hop_request)
+        except urllib.error.HTTPError as error:
+            if error.code not in REDIRECT_CODES:
+                raise AllowlistedFetchError(codes.P001_FAIL_FETCH) from None
+            location = error.headers.get("Location")
+            if not location:
+                raise AllowlistedFetchError(codes.P001_FAIL_FETCH) from None
+            url = urllib.parse.urljoin(url, location)
+            continue
+        _require_https(response.geturl())
+        return response
+    raise AllowlistedFetchError(codes.P001_FAIL_FETCH)
 
 
 def fetch_byte_range(url: str, start: int, end: int, *, total_bytes: int) -> bytes:
@@ -78,7 +95,7 @@ def fetch_byte_range(url: str, start: int, end: int, *, total_bytes: int) -> byt
         },
     )
     try:
-        with _open(request) as response:
+        with _open_with_manual_redirects(request) as response:
             _require_https(response.geturl())
             if (
                 response.status != 206
@@ -100,7 +117,7 @@ def fetch_exact(url: str, *, expected_bytes: int) -> bytes:
     _require_https(url)
     request = urllib.request.Request(url, headers={"Accept-Encoding": "identity"})
     try:
-        with _open(request) as response:
+        with _open_with_manual_redirects(request) as response:
             _require_https(response.geturl())
             if (
                 response.status != 200

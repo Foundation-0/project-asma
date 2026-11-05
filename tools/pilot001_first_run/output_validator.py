@@ -7,7 +7,10 @@ import re
 from pathlib import Path
 from typing import Any
 
-TCGA_BARCODE = re.compile(r"TCGA-[0-9A-Z]{2}-[0-9A-Z0-9]{4}", re.I)
+TCGA_BARCODE = re.compile(
+    r"TCGA-[0-9A-Z]{2}-[0-9A-Z0-9]{4}(?:-[0-9A-Z0-9]{2,})*",
+    re.I,
+)
 NUMERIC_STRING = re.compile(r"^[-+]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][-+]?[0-9]+)?$")
 UUID_LIKE = re.compile(
     r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
@@ -73,7 +76,6 @@ AMENDMENT_KEYS = frozenset({"A1", "A2", "A3"})
 A2_KEYS = frozenset({"option_a", "option_b"})
 
 MAX_NUMERIC_VECTOR = 31
-MAX_NUMERIC_STRING_VECTOR = 31
 MAX_SCORELIKE_DICT = 20
 
 
@@ -89,9 +91,6 @@ def _suspicious_string(value: str, path: str, errors: list[str]) -> None:
         errors.append(f"suspected_identifier:{path}")
     if UUID_LIKE.search(value) and len(value) <= 80:
         errors.append(f"suspected_identifier:{path}")
-    if len(value.split()) == 1 and len(value) > 12 and value.isalnum() and any(c.isdigit() for c in value):
-        if TCGA_BARCODE.search(value) or value.count("-") >= 2:
-            errors.append(f"suspected_identifier:{path}")
 
 
 def _check_numeric_vector(items: list[Any], path: str, errors: list[str]) -> None:
@@ -100,9 +99,7 @@ def _check_numeric_vector(items: list[Any], path: str, errors: list[str]) -> Non
     if all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in items):
         errors.append(f"suspected_vector:{path}")
         return
-    if len(items) > MAX_NUMERIC_STRING_VECTOR and all(
-        isinstance(x, str) and NUMERIC_STRING.match(x) for x in items
-    ):
+    if all(isinstance(x, str) and NUMERIC_STRING.match(x) for x in items):
         errors.append(f"suspected_vector:{path}")
 
 
@@ -111,6 +108,23 @@ def _check_scorelike_dict(value: dict[str, Any], path: str, errors: list[str]) -
         return
     if all(isinstance(item, (int, float)) and not isinstance(item, bool) for item in value.values()):
         errors.append(f"suspected_row_map:{path}")
+
+
+def _deep_leak_scan(value: Any, path: str, errors: list[str]) -> None:
+    if isinstance(value, dict):
+        _check_scorelike_dict(value, path, errors)
+        for key, item in value.items():
+            if _forbidden_key(str(key)):
+                errors.append(f"forbidden_key:{path}.{key}")
+            _deep_leak_scan(item, f"{path}.{key}", errors)
+        return
+    if isinstance(value, list):
+        _check_numeric_vector(value, path, errors)
+        for index, item in enumerate(value):
+            _deep_leak_scan(item, f"{path}[{index}]", errors)
+        return
+    if isinstance(value, str):
+        _suspicious_string(value, path, errors)
 
 
 def _walk_allowed(value: Any, path: str, errors: list[str], *, schema: str) -> None:
@@ -174,10 +188,10 @@ def _walk_allowed(value: Any, path: str, errors: list[str], *, schema: str) -> N
         for key, item in value.items():
             if _forbidden_key(key):
                 errors.append(f"forbidden_key:{path}.{key}")
-            if isinstance(item, (int, float)) and key.endswith("auc") and not isinstance(item, bool):
-                continue
             if isinstance(item, dict):
                 _check_scorelike_dict(item, f"{path}.{key}", errors)
+            elif isinstance(item, list):
+                _check_numeric_vector(item, f"{path}.{key}", errors)
         return
 
     if schema == "metadata":
@@ -203,6 +217,7 @@ def _walk_allowed(value: Any, path: str, errors: list[str], *, schema: str) -> N
 def validate_aggregate_document(payload: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     _walk_allowed(payload, "root", errors, schema="root")
+    _deep_leak_scan(payload, "root", errors)
     return errors
 
 

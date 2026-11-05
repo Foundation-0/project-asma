@@ -18,7 +18,8 @@ sys.path.insert(0, str(TOOLS))
 from pilot001_first_run import failure_codes as codes  # noqa: E402
 from pilot001_first_run.allowlisted_fetch import (  # noqa: E402
     AllowlistedFetchError,
-    _AllowlistedRedirectHandler,
+    _open_with_manual_redirects,
+    _require_https,
     fetch_exact,
     host_allowed,
 )
@@ -33,7 +34,7 @@ from pilot001_first_run.output_validator import validate_aggregate_document  # n
 from pilot001_first_run.preflight import run_linux_preflight, run_macos_preflight  # noqa: E402
 from pilot001_first_run.study_fetch import StudyFetchError, _archive_range_fetch, _verify_pin, fetch_to_tmpfs  # noqa: E402
 import run_pilot001_first_run as entry  # noqa: E402
-import urllib.request
+import urllib.error
 
 
 def minimal_valid_aggregate(**overrides):
@@ -194,8 +195,8 @@ class TestOutputValidator(unittest.TestCase):
             lambda p: p["configurations"][0]["summary"].update({"vector_leak": [0.1] * 60}),
             lambda p: p["configurations"][0]["summary"].update({"strings": [str(0.1)] * 500}),
             lambda p: p["limitations"].append("TCGA-04-1331-01A"),
-            lambda p: p["configurations"][0]["summary"].update(
-                {"late": [{f"nested_{i}": 1} for i in range(250)]}
+            lambda p: p["configurations"][0].update(
+                {"extra_list": [{"ok": 1}] * 200 + [{"scores": {"hidden": 1.0}}]}
             ),
         ]
         for mutate in cases:
@@ -203,6 +204,69 @@ class TestOutputValidator(unittest.TestCase):
             mutate(payload)
             errors = validate_aggregate_document(payload)
             self.assertTrue(errors, msg=f"expected rejection after {mutate.__name__}")
+
+    def test_proof_exact_scores_case_bypass_payload(self):
+        errors = validate_aggregate_document({"Scores": {"TCGA-04-1331": 0.5}})
+        self.assertTrue(errors)
+
+    def test_proof_exact_three_hundred_float_dict(self):
+        errors = validate_aggregate_document({f"case-{index}": 0.5 for index in range(300)})
+        self.assertTrue(errors)
+
+    def test_proof_exact_sixty_float_list(self):
+        errors = validate_aggregate_document({"vector": [0.5] * 60})
+        self.assertTrue(errors)
+
+    def test_proof_exact_five_hundred_numeric_strings(self):
+        errors = validate_aggregate_document({"strings": ["0.5"] * 500})
+        self.assertTrue(errors)
+
+    def test_proof_exact_tcga_barcode_string(self):
+        errors = validate_aggregate_document({"note": "TCGA-04-1331-01A"})
+        self.assertTrue(errors)
+
+    def test_proof_forbidden_key_after_list_index_200(self):
+        errors = validate_aggregate_document(
+            {"rows": [{"ok": 1}] * 200 + [{"scores": {"patient": 0.5}}]}
+        )
+        self.assertTrue(errors)
+
+
+class TestAggregatePromotion(unittest.TestCase):
+    def test_invalid_aggregate_not_left_on_disk(self):
+        from pilot001_first_run.runner import AGGREGATE_FILENAME, STAGING_AGGREGATE, _promote_aggregate
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            bad = minimal_valid_aggregate()
+            bad["configurations"][0]["summary"].update({"Scores": {"TCGA-04-1331": 0.5}})
+            with self.assertRaises(ValueError):
+                _promote_aggregate(out, bad)
+            self.assertFalse((out / AGGREGATE_FILENAME).exists())
+            self.assertFalse((out / STAGING_AGGREGATE).exists())
+
+
+class TestRunnerHygiene(unittest.TestCase):
+    @mock.patch("pilot001_first_run.runner.subprocess.run")
+    @mock.patch("pilot001_first_run.runner.inspect_image")
+    def test_container_stderr_not_forwarded_to_host(self, mock_inspect, mock_run):
+        mock_inspect.return_value = {"Id": "sha256:abc", "Architecture": "amd64"}
+        mock_run.return_value = subprocess.CompletedProcess(
+            [],
+            1,
+            codes.P001_FAIL_CONTAINER + "\n",
+            "Traceback (most recent call last):\n  File\n",
+        )
+        config = RunConfig(host="linux-ci", output_dir=Path("/tmp/out"), dry_run=True)
+        import io
+
+        err = io.StringIO()
+        with mock.patch("sys.stderr", err):
+            status, _code = __import__(
+                "pilot001_first_run.runner", fromlist=["run_dry_container_pipeline"]
+            ).run_dry_container_pipeline(config, "asma-synthetic:4.4.3", Path("/tmp/out"))
+        self.assertEqual(status, 1)
+        self.assertEqual(err.getvalue(), "")
 
 
 class TestEntrypointFailureOutput(unittest.TestCase):
@@ -240,17 +304,13 @@ class TestAllowlistedFetch(unittest.TestCase):
             fetch_exact("https://example.com/file.bin", expected_bytes=1)
         self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
 
-    @mock.patch("pilot001_first_run.allowlisted_fetch._open")
+    @mock.patch("pilot001_first_run.allowlisted_fetch._open_with_manual_redirects")
     def test_redirect_off_allowlist_refused(self, mock_open):
         url = (
             "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/"
             "PMC10414761.1/NIHMS1918576-supplement-MMC1.xlsx"
         )
-
-        def boom(request):
-            raise AllowlistedFetchError(codes.P001_FAIL_FETCH_HOST)
-
-        mock_open.side_effect = boom
+        mock_open.side_effect = AllowlistedFetchError(codes.P001_FAIL_FETCH_HOST)
         with self.assertRaises(AllowlistedFetchError) as ctx:
             fetch_exact(url, expected_bytes=1)
         self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
@@ -259,11 +319,32 @@ class TestAllowlistedFetch(unittest.TestCase):
         self.assertTrue(host_allowed("uc123456.dl.dropboxusercontent.com"))
         self.assertFalse(host_allowed("evil.dl.dropboxusercontent.com.evil.com"))
 
-    def test_redirect_handler_checks_target_before_follow(self):
-        handler = _AllowlistedRedirectHandler()
-        request = urllib.request.Request("https://www.dropbox.com/s/x/file.zip")
-        with self.assertRaises(AllowlistedFetchError):
-            handler.redirect_request(request, None, 302, "", {}, "https://example.com/x")
+    def test_https_downgrade_refused(self):
+        with self.assertRaises(AllowlistedFetchError) as ctx:
+            _require_https("http://www.dropbox.com/s/x/file.zip")
+        self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
+
+    @mock.patch("pilot001_first_run.allowlisted_fetch._open_no_redirect")
+    def test_manual_redirect_follows_dropbox_cdn(self, mock_open):
+        redirect = mock.MagicMock()
+        redirect.code = 302
+        redirect.headers = {"Location": "https://uc123.dl.dropboxusercontent.com/cd/0/get/file.bin"}
+        final = mock.MagicMock()
+        final.status = 200
+        final.geturl.return_value = "https://uc123.dl.dropboxusercontent.com/cd/0/get/file.bin"
+        final.headers = {"Content-Encoding": "identity"}
+        final.read.side_effect = [b"x", b""]
+        final.__enter__ = mock.MagicMock(return_value=final)
+        final.__exit__ = mock.MagicMock(return_value=False)
+        mock_open.side_effect = [urllib.error.HTTPError(
+            "https://www.dropbox.com/s/x/file.zip",
+            302,
+            "",
+            redirect.headers,
+            None,
+        ), final]
+        body = fetch_exact("https://www.dropbox.com/s/x/file.zip", expected_bytes=1)
+        self.assertEqual(body, b"x")
 
 
 class TestRealModeFetchPath(unittest.TestCase):
