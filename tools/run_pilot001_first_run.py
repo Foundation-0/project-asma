@@ -96,6 +96,7 @@ if __name__ == "__main__":
         raise SystemExit(main())
     except SystemExit:
         raise
-    except Exception:
+    except Exception as exc:
+        sys.stderr.write(f"{type(exc).__name__}\n")
         emit_failure(codes.P001_FAIL_INTERNAL)
         raise SystemExit(1) from None
