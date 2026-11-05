@@ -284,5 +284,9 @@ run_core_tests <- function() {
     stop("private-marker", call. = FALSE)
   }, 1L), "private-marker")
   check(identical(.Random.seed, saved_seed))
+
+  block <- run_reconstruction(assembled, stub, 1L, outer_seed_start = 101L)
+  check(block$summary$repetitions == 1L && block$summary$patients == 135L)
+
   count
 }

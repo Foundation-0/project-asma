@@ -57,6 +57,13 @@
 *.log
 # Owner-created attestation file; never committed (see registries/README.md)
 /registries/pilot-001-owner-attestations.json
+# Pilot 001 study sources and local scratch (never commit)
+/pilot-001-scratch/
+/scratch/pilot-001/
+**/NIHMS1918576-supplement-MMC*.xlsx
+**/author_discovery_member.*
+**/PDC00035[7-9]*.tsv
+**/PDC00036[0-2]*.tsv
 # Secrets and local environments
 .env
 .env.*

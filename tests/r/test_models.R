@@ -178,5 +178,11 @@ run_model_tests <- function() {
   check(!xgb_settings_hold(booster(declared), "hist"))
   check(!xgb_settings_hold(booster(declared, 99L), "exact"))
 
+  induced <- tryCatch(
+    model_operation(function() warning("induced-test-warning"), "glmnet", "fit"),
+    error = function(error) conditionMessage(error)
+  )
+  check(identical(induced, "P001-FAIL-MODEL-GLMNET-FIT-WARNING"))
+
   count
 }

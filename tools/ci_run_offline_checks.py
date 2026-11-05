@@ -84,9 +84,9 @@ def main(argv=None):
     except json.JSONDecodeError as error:
         raise SystemExit(FAILURE) from error
     total = record.get("assertions", {}).get("total")
-    if total != 179:
-        raise SystemExit(f"{FAILURE} expected 179 R assertions, observed {total!r}")
-    print("R assertion total: 179")
+    if total != 181:
+        raise SystemExit(f"{FAILURE} expected 181 R assertions, observed {total!r}")
+    print("R assertion total: 181")
     return 0
 
 

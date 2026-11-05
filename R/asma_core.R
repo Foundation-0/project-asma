@@ -126,7 +126,7 @@ checked_auc <- function(y, scores) {
 }
 
 run_reconstruction <- function(assembled, fit_predict, repetitions = 100L,
-                               observer = NULL) {
+                               observer = NULL, outer_seed_start = 1L) {
   asma_require(is.list(assembled) && all(c("x", "y") %in% names(assembled)), "run_input")
   x <- assembled$x
   y <- assembled$y
@@ -144,18 +144,25 @@ run_reconstruction <- function(assembled, fit_predict, repetitions = 100L,
                  is.finite(repetitions) && repetitions >= 1L && repetitions <= 100L &&
                  repetitions == as.integer(repetitions), "run_repetitions")
   repetitions <- as.integer(repetitions)
+  asma_require(is.numeric(outer_seed_start) && !is.complex(outer_seed_start) &&
+                 length(outer_seed_start) == 1L && is.finite(outer_seed_start) &&
+                 outer_seed_start == as.integer(outer_seed_start) &&
+                 outer_seed_start %in% c(1L, 101L), "run_seed_block")
+  outer_seed_start <- as.integer(outer_seed_start)
+  asma_require(outer_seed_start + repetitions - 1L <= 200L, "run_seed_block")
 
   asma_preserve_rng(function() {
     # Every assignment is fixed before any model or observer can consume RNG.
     plans <- lapply(seq_len(repetitions), function(repetition) {
-      outer <- stratified_folds(keys, y, 5L, repetition)
+      outer_seed <- outer_seed_start + repetition - 1L
+      outer <- stratified_folds(keys, y, 5L, outer_seed)
       asma_require(identical(as.integer(table(factor(outer, levels = 1:5))),
                              rep(27L, 5L)), "outer_geometry")
       lapply(1:5, function(fold) {
         training <- which(outer != fold)
         test <- which(outer == fold)
         inner <- stratified_folds(keys[training], y[training], 3L,
-                                  10000L + 100L * repetition + fold)
+                                  10000L + 100L * outer_seed + fold)
         asma_require(identical(as.integer(table(factor(inner, levels = 1:3))),
                                rep(36L, 3L)), "inner_geometry")
         list(training = training, test = test, inner = inner)
@@ -190,13 +197,14 @@ run_reconstruction <- function(assembled, fit_predict, repetitions = 100L,
                      "run_fold_identity")
         if (!is.null(observer)) {
           asma_silent_call(function() observer(list(
-            repetition = repetition, fold = fold, train_ids = train_ids,
-            test_ids = test_ids, inner_foldid = inner_foldid
+            repetition = repetition, outer_seed = outer_seed, fold = fold,
+            train_ids = train_ids, test_ids = test_ids, inner_foldid = inner_foldid
           )), "observer_failure")
         }
         predictions <- asma_silent_call(function() fit_predict(
           x_train = x_train, y_train = y_train, x_test = x_test,
-          inner_foldid = inner_foldid, repetition = repetition, fold = fold
+          inner_foldid = inner_foldid, repetition = repetition, fold = fold,
+          outer_seed = outer_seed
         ), "model_failure")
         asma_require(is.list(predictions) &&
                        identical(names(predictions), c("en", "xgb", "rf")), "prediction_models")
