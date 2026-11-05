@@ -68,6 +68,7 @@ jobs:
       - name: Pilot 001 dry run (synthetic container path)
         run: |
           set -euo pipefail
+          ulimit -c 0
           python3 tools/run_pilot001_dry_run.py | tee pilot001-dry-run.json
 
       - name: Seed pinned Ubuntu packages (Launchpad fallback)
