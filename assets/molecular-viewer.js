@@ -281,8 +281,8 @@ function setupViewer(root) {
     const fallbackCaption = fallback.querySelector('p');
     if (fallbackCaption) fallbackCaption.textContent = `${data.title} · ${data.accession} experimental coordinates`;
     write('legend', mode === 'atoms'
-      ? 'Elements: carbon gray · nitrogen blue · oxygen coral · sulfur yellow · phosphorus orange. Sticks show covalent connectivity, not bond order. Dotted lines in DNA show deposited hydrogen-bond contacts. Sphere sizes are illustrative.'
-      : `Gold: chain A · cyan: chain B. ${data.id === 'dna' ? 'The smooth path passes through representative C4′ sugar atoms.' : 'The smooth path passes through Cα atoms; yellow marks deposited disulfide bonds.'} Smooth paths are backbone guides, not individual chemical bonds. The faint skeleton shows covalent connectivity.`);
+      ? 'Elements: carbon gray · nitrogen blue · oxygen coral · sulfur yellow · phosphorus orange. Solid sticks join chemically bonded atoms; they do not distinguish single from double bonds. Dotted DNA lines mark hydrogen bonds between matching bases. Sphere sizes are illustrative.'
+      : `Gold: chain A · cyan: chain B. ${data.id === 'dna' ? 'Curves trace one selected sugar atom in each building block.' : 'Curves trace one selected carbon atom in each building block. Yellow links mark sulfur-to-sulfur bonds.'} Curves guide the eye along each chain; the faint sticks show the actual chemical connections.`);
     const source = find('source');
     if (source) { source.href = data.sourceUrl; source.textContent = `View experimental structure · ${data.accession}`; }
     canvas.setAttribute('aria-label', `${data.title}, interactive ${mode === 'atoms' ? 'ball-and-stick model' : 'backbone guide'}. Drag to rotate, arrow keys to rotate, plus and minus to zoom, R to reset. Source ${data.accession}.`);
