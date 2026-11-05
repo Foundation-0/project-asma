@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "tools"))
 
 from build_synthetic_runtime import local_docker_env  # noqa: E402
 
@@ -23,7 +23,7 @@ def main() -> int:
         print("SKIP: docker unavailable", file=sys.stderr)
         return 0
     subprocess.run(
-        [sys.executable, str(ROOT / "build_synthetic_runtime.py")],
+        [sys.executable, str(ROOT / "tools/build_synthetic_runtime.py")],
         cwd=ROOT,
         check=True,
         env=local_docker_env(),
@@ -35,7 +35,7 @@ def main() -> int:
         completed = subprocess.run(
             [
                 sys.executable,
-                str(ROOT / "run_pilot001_first_run.py"),
+                str(ROOT / "tools/run_pilot001_first_run.py"),
                 "--host",
                 "linux-ci",
                 "--output-dir",

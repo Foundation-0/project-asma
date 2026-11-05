@@ -77,7 +77,7 @@ run_core_tests <- function() {
     "254553515221421153134515343224253444334154233",
     "212442155431513125432145451334354332452211552")))
 
-  stub <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+  stub <- function(x_train, y_train, x_test, inner_foldid, repetition, fold, ...) {
     ids <- rownames(x_test)
     list(en = stats::setNames(rep(.1 + repetition / 1000, nrow(x_test)), ids),
          xgb = stats::setNames(rep(.3, nrow(x_test)), ids),
@@ -173,7 +173,7 @@ run_core_tests <- function() {
   # checked, since the adapter's arguments decide the result.
   plan_events <- list()
   fit_events <- list()
-  capture_stub <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+  capture_stub <- function(x_train, y_train, x_test, inner_foldid, repetition, fold, ...) {
     fit_events[[length(fit_events) + 1L]] <<- list(
       repetition = repetition, fold = fold, train_ids = rownames(x_train),
       test_ids = rownames(x_test), y_train = y_train, inner_foldid = inner_foldid)
