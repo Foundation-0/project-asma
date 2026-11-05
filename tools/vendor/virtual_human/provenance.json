@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/rohanarun/virtual-human",
+  "commit": "3d75e8e25d6f3fec08e1ccecd424532bccaa1b82",
+  "copied_files": {
+    "core.py": {
+      "upstream_path": "vh/graph/core.py",
+      "sha256": "520c6ae66664cea422a68d0218621b01358209ca3e08e3735226ba7b855a88eb"
+    },
+    "LICENSE": {
+      "upstream_path": "LICENSE",
+      "sha256": "e449f99f997074cdfe3b3e5b48ebcd94d1d5abbb1268a93a989ffcd4153db4ce"
+    }
+  },
+  "modifications": "None. Empty package markers are local integration files.",
+  "purpose": "Typed graph containers and schema only; no physiological models or runtime dependencies."
+}

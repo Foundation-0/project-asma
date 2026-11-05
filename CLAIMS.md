@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-05):** PROVEN **0** · VERIFIED **20** · KNOWN **30** · CONJECTURE **18**
+**Counts (2026-11-05):** PROVEN **0** · VERIFIED **21** · KNOWN **30** · CONJECTURE **19**
 
 ---
 
@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`214` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`227` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **179** R test assertions pass on **synthetic fixtures** (41 input, 87 core, 51 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
@@ -128,6 +128,13 @@ and do **not** substitute for study-data execution.
 | C15 | CONJECTURE | CDR2L dependence can arise from direct recognition, indirect antigen delivery or both | [Round-2 synthesis](docs/discovery-round2-2026-11-05.md); conceptual alternatives, no observed anti-Yo experiment |
 | C16 | CONJECTURE | Linked recognition or historically antiviral cytotoxic cells could explain portions of the immune response without the assumed direct CDR2L pathway | Antigen and causal reviews; no anti-Yo demonstration, and helper function does not establish injury |
 | C17 | CONJECTURE | Ligand/receptor mapping, source/presenter separation and independent injury measurements are the highest-value next comparisons | Round-2 priorities are research judgments, not discoveries or clinical recommendations |
+
+## Evidence-graph update, 2026-11-05
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V21 | VERIFIED | An offline evidence graph matches 22 scoped requests against 24 curated assertions, retaining 15 unresolved requests and one scoped negative result | [Executed result](docs/evidence-graph-result-2026-11-05.md); regression expectations are manually specified, not an independent scientific accuracy benchmark |
+| C18 | CONJECTURE | Separating ligand/source dependence from injury mechanism improves the next research comparison | Same result; direct CDR2L recognition and indirect injury can coexist, but neither has been established by the graph |
 
 ## What this ledger does not claim
 

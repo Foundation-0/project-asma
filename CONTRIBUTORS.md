@@ -54,6 +54,12 @@ external scientific peer review or experimental validation.
 
 ## Prior work credited by name
 
+- **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);
+  its MIT-licensed graph core is used unchanged by the evidence-graph prototype.
+  The source README credits Claude for implementation under his direction.
+  Asma's 2026-11-05 evidence rules and proposed shared graph improvements were
+  prepared with OpenAI Codex and independent internal agent review.
+
 - **Chowdhury S et al., *Cell* 2023** — primary protein-signature study under
   reproduction investigation.
 - **PDC, NLM/PMC, and CPTAC author releases** — data and supplemental sources
