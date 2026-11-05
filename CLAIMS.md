@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-05):** PROVEN **0** · VERIFIED **26** · KNOWN **33** · CONJECTURE **22**
+**Counts (2026-11-05):** PROVEN **0** · VERIFIED **27** · KNOWN **38** · CONJECTURE **25**
 
 ---
 
@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`259` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`301` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
@@ -166,6 +166,20 @@ and do **not** substitute for study-data execution.
 | V25 | VERIFIED | The site's two reference-coordinate assets pass offline identity, topology and omission checks; derivation from pinned archive files is reproducible | [Structure provenance](docs/site-structure-sources.md); `python3 tools/check_site_models.py`. Checks establish the selected coordinate representation, not biological dynamics, original crystallographic accuracy or clinical performance. |
 | V26 | VERIFIED | The browser assumption experiment obeys the exact toy-model boundaries across its 10,000 integer slider combinations | `node tools/test_research_lab.cjs`; [research experiment](docs/research/rosen-treatment-sequence-assumptions.md). Artificial material only; no patient parameters, treatment advice or full Gu-model reproduction. |
 | K28 | KNOWN | RCSB entries 1TRZ and 1BNA describe a crystalline biosynthetic human-insulin assembly and a synthetic DNA dodecamer respectively; public archive/API data have CC0 terms | Sources S122–S124 and [selection/omission record](docs/site-structure-sources.md). Displayed insulin is one selected molecule; displayed DNA is not a human genome fragment. |
+
+## Paraneoplastic exposure and observability update, 2026-11-05
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V27 | VERIFIED | In exact synthetic arithmetic, final neural survival depends on a schedule only through antigen exposure; commuting tumor operations leave the endpoint unchanged while exposure differs; burden-driven exposure is minimized by most-effective-first and release by surgery-first (30/30 mass-balance cases); the mixture optimum is always first or last (150/150); the pure hypotheses disagree in 6/30 grid cases; burden-driven hazard never rises from steady state (72/72) while release-driven hazard rises after a first chemotherapy cycle (54/54, masked in 3/18 after surgery); equal deficits allow a 15/4 marker ratio; equal injury rates allow an 18-fold intensity difference | `python3 tools/analyze_paraneoplastic_exposure.py`; [record](docs/research/paraneoplastic-exposure-observability.md). Invented units and kinetics; verifies mathematics and software, not anti-Yo biology, NfL validity or any treatment effect. |
+| K29 | KNOWN | Anti-Yo Purkinje-cell loss is massive and often very rapid; antibody titers may not correlate with symptoms and persist after treatment; immunotherapies have been largely ineffective; evidence on earlier treatment initiation conflicts | Venkatraman & Opal 2016, S125; narrative review, no randomized evidence |
+| K30 | KNOWN | cdr2-specific cytotoxic T cells were expanded in 3/3 HLA-A2.1+ PCD patients, and dendritic-cell cross-presentation of apoptotic tumor cells gave a potent killer-cell response | Albert et al. 1998, S126; abstract only; injury pathway proposed, not demonstrated |
+| K31 | KNOWN | In 50 antibody-associated PCD patients ataxia stabilized within 6 months; 4/19 anti-Yo patients remained ambulatory; all 7 who improved had antitumour treatment with complete remission | Shams'ili et al. 2003, S127; abstract only; retrospective functional states |
+| K33 | KNOWN | Serum NfL followed anti-NMDA-receptor encephalitis activity with delay; it rises with neurotoxic (especially taxane) chemotherapy and after surgery | S128, S130, S131; abstracts only; no anti-Yo NfL cohort found in our searches |
+| K34 | KNOWN | Pre-existing paraneoplastic syndromes worsened in 8 of 16 patients after PD-1/PD-L1 blockade | Manson et al. 2019, S129; mixed tumours and syndromes |
+| C22 | CONJECTURE | If anti-Yo neural injury is antigen-driven through a shared effector, treatment order and timing could change neural outcome even where the tumor endpoint is order-invariant | [Record](docs/research/paraneoplastic-exposure-observability.md); model structure is a hypothesis; no patient evidence or effect size |
+| C23 | CONJECTURE | Serial injury-rate measurements anchored to treatment events, with an antibody-negative comparator on the same treatment and a paired cerebellar state measure, could separate burden-driven, release-driven and autonomous injury | [Proposed design and stop rules](docs/research/paraneoplastic-exposure-observability.md#a-discriminating-study-design); not adopted; requires its own protocol, ethics approval and clinical leadership |
+| C24 | CONJECTURE | Regime heterogeneity, saturating state outcomes and the gap between treatment start and antigen exposure could explain conflicting evidence on early treatment in anti-Yo disease | [Record](docs/research/paraneoplastic-exposure-observability.md#why-published-timing-evidence-could-conflict); untested |
 
 ## What this ledger does not claim
 

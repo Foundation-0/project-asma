@@ -33,6 +33,7 @@ clinical validity, or improved patient outcomes.
 | [Candidate research directions](docs/directions.md) | Ranked public-data directions and verification log |
 | [Research preservation and continuation](docs/research-continuation.md) | Public-source handoffs, frontier hypotheses, rejected interpretations and executable synthetic checks |
 | [Discovery round 2 — 2026-11-05](docs/discovery-round2-2026-11-05.md) | CDR2L HLA-II evidence, protein-function alternatives and independent tests of immune specificity and harm |
+| [What the brain records — 2026-11-05](docs/research/paraneoplastic-exposure-observability.md) | Exact synthetic results on antigen exposure, treatment order and neural injury; why deficits cannot show ongoing attack; a confound-aware study design |
 | [Research frontier — 2026-10-22](docs/frontier-2026-10-22.md) | Evidence, open questions, and limits |
 | [Pilot protocol](protocols/pilot-001.md) | Proposed reproduction and robustness study |
 | [Pilot feasibility audit](docs/pilot-001-feasibility-audit.md) | Source-checked inputs, methods, patient-independence questions, and execution blockers |

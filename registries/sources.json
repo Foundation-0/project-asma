@@ -1332,6 +1332,90 @@
       "takeaway": "Coordinate archive and API data used for the site models are reusable under CC0 1.0; primary depositor and archive attribution retained.",
       "limitations": "This permission is for archive/API data, not a blanket licence to copy source papers or website illustrations.",
       "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S125",
+      "title": "Venkatraman A, Opal P. Paraneoplastic cerebellar degeneration with anti-Yo antibodies - a review. Ann Clin Transl Neurol 2016;3:655-663",
+      "kind": "paper",
+      "url": "https://doi.org/10.1002/acn3.328",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4999597/",
+      "locator": "Abstract; Pathogenesis > Pathology; Treatment > Monitoring progress with antibody titers; Treatment > Prognosis; Conclusions",
+      "takeaway": "Purkinje-cell loss is massive and often very rapid; antibody titers may not correlate with symptoms and persist after treatment; immunotherapies largely ineffective; evidence on earlier treatment initiation is conflicting.",
+      "limitations": "Narrative review of small series and case reports; no randomized evidence. Read through the PMC page and Europe PMC abstract, not every cited primary study.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S126",
+      "title": "Albert ML et al. Tumor-specific killer cells in paraneoplastic cerebellar degeneration. Nat Med 1998;4:1321-1324",
+      "kind": "paper",
+      "url": "https://doi.org/10.1038/3315",
+      "verification": "partial",
+      "reviewed_via": "https://europepmc.org/article/MED/9809559",
+      "locator": "Abstract (PMID 9809559)",
+      "takeaway": "Expanded MHC class I-restricted cdr2-specific CTLs in 3/3 HLA-A2.1+ PCD patients; dendritic-cell cross-presentation of apoptotic cells gave a potent CTL response; peripheral activation proposed to contribute to neuronal degeneration.",
+      "limitations": "Abstract only; three patients; cdr2 rather than CDR2L; proposed mechanism, not demonstrated injury causation.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S127",
+      "title": "Shams'ili S et al. Paraneoplastic cerebellar degeneration associated with antineuronal antibodies: analysis of 50 patients. Brain 2003;126:1409-1418",
+      "kind": "paper",
+      "url": "https://doi.org/10.1093/brain/awg133",
+      "verification": "partial",
+      "reviewed_via": "https://europepmc.org/article/MED/12764061",
+      "locator": "Abstract (PMID 12764061)",
+      "takeaway": "All 50 patients had ataxia progressive over weeks to months that stabilized within 6 months; 4/19 anti-Yo patients remained ambulatory; all 7 who improved had antitumour treatment with complete remission.",
+      "limitations": "Abstract only; retrospective single-laboratory series; outcomes are functional states, not injury rates.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S128",
+      "title": "Brenner J et al. Predictive Value of Serum Neurofilament Light Chain Levels in Anti-NMDA Receptor Encephalitis. Neurology 2023;100:e2204-e2213",
+      "kind": "paper",
+      "url": "https://doi.org/10.1212/WNL.0000000000207221",
+      "verification": "partial",
+      "reviewed_via": "https://europepmc.org/article/MED/37015822",
+      "locator": "Abstract (PMID 37015822), Results and Discussion",
+      "takeaway": "Serum and CSF NfL correlated (R = 0.84); in serial samples NfL roughly followed clinical disease activity, albeit with delay; sampling timing limits prognostic use.",
+      "limitations": "Different autoimmune disease (anti-NMDAR, surface antigen); abstract only; does not establish NfL behaviour in anti-Yo disease.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S129",
+      "title": "Manson G et al. Worsening and newly diagnosed paraneoplastic syndromes following anti-PD-1 or anti-PD-L1 immunotherapies, a descriptive study. J Immunother Cancer 2019;7:337",
+      "kind": "paper",
+      "url": "https://doi.org/10.1186/s40425-019-0821-8",
+      "verification": "partial",
+      "reviewed_via": "https://europepmc.org/article/MED/31796119",
+      "locator": "Abstract (PMID 31796119)",
+      "takeaway": "PNS symptoms worsened in 8 of 16 patients with a pre-existing PNS after anti-PD-1/PD-L1 initiation; four patients died from progression of a neurologic PNS.",
+      "limitations": "Pharmacovigilance series, mostly non-ovarian tumours and mixed PNS types; abstract only; association, not a dose-response measurement.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S130",
+      "title": "Smyth D et al. Prospective assessment of serum neurofilament light chain in platinum-induced and taxane-induced peripheral neuropathy. BMJ Neurol Open 2026;8:e001312",
+      "kind": "paper",
+      "url": "https://doi.org/10.1136/bmjno-2025-001312",
+      "verification": "partial",
+      "reviewed_via": "https://europepmc.org/article/MED/41509522",
+      "locator": "Abstract (PMID 41509522), Results and Conclusion",
+      "takeaway": "Serum NfL sampled before each cycle rose with neurotoxic chemotherapy; taxanes caused greater and sharper rises than platinum agents (peak 129.9 vs 31.0 pg/mL).",
+      "limitations": "42 patients, 6 on taxanes; peripheral neuropathy context; abstract only.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S131",
+      "title": "Atkins KJ et al. Postoperative Delirium and Neurocognitive Disorders Associated With Inflammatory and Neuronal Injury Biomarkers. Anesth Analg 2026",
+      "kind": "paper",
+      "url": "https://doi.org/10.1213/ANE.0000000000008163",
+      "verification": "partial",
+      "reviewed_via": "https://europepmc.org/article/MED/42302277",
+      "locator": "Abstract (PMID 42302277), Results",
+      "takeaway": "NfL was 1.6 times baseline 48 hours after surgery in 79 older surgical patients.",
+      "limitations": "Older non-oncologic surgical cohort; abstract only; magnitude after gynecologic oncology surgery not established.",
+      "checked_on": "2026-11-05"
     }
   ]
 }

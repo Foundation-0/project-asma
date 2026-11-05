@@ -1,0 +1,733 @@
+{
+  "A_exchange_checks": [
+    {
+      "ascending_is_minimum": true,
+      "intervals": [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "retentions": [
+        "1/10",
+        "1/4",
+        "1/2",
+        "3/4"
+      ]
+    },
+    {
+      "ascending_is_minimum": true,
+      "intervals": [
+        "3",
+        "1",
+        "2",
+        "1/2"
+      ],
+      "retentions": [
+        "1/10",
+        "1/4",
+        "1/2",
+        "3/4"
+      ]
+    },
+    {
+      "ascending_is_minimum": true,
+      "intervals": [
+        "1/3",
+        "4",
+        "1",
+        "2"
+      ],
+      "retentions": [
+        "1/5",
+        "1/5",
+        "2/3",
+        "9/10"
+      ]
+    }
+  ],
+  "A_mixed_presentation_criterion": {
+    "best_position_is_first_or_last": 150,
+    "cases": 150,
+    "criterion_predicts_first": 150
+  },
+  "A_surgery_position_grid": {
+    "adjacent_step_formula_holds": 30,
+    "cases": 30,
+    "endpoint_invariant": 30,
+    "hypotheses_disagree_on_best_position": 6,
+    "mass_balance_holds": 30,
+    "rows": [
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "1/10",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/100"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "1/4",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/100"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "1/2",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/100"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "3/4",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/100"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "9/10",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/100"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "chemo_keep": "1/10",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/10"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "1/4",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/10"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "1/2",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/10"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "3/4",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/10"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "9/10",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/10"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "1/10",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": true,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/4"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "chemo_keep": "1/4",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/4"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "1/2",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/4"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "3/4",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/4"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "9/10",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/4"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "1/10",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": true,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/2"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "1/4",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": true,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/2"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "chemo_keep": "1/2",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/2"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "3/4",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/2"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "9/10",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1/2"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "1/10",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": true,
+        "mass_balance_holds": true,
+        "surgery_keep": "3/4"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "1/4",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": true,
+        "mass_balance_holds": true,
+        "surgery_keep": "3/4"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "1/2",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": true,
+        "mass_balance_holds": true,
+        "surgery_keep": "3/4"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "chemo_keep": "3/4",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "3/4"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          0
+        ],
+        "chemo_keep": "9/10",
+        "death_driven_best_positions": [
+          0
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "3/4"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "1/10",
+        "death_driven_best_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "1/4",
+        "death_driven_best_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "1/2",
+        "death_driven_best_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "3/4",
+        "death_driven_best_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1"
+      },
+      {
+        "adjacent_step_formula_holds": true,
+        "burden_driven_best_positions": [
+          6
+        ],
+        "chemo_keep": "9/10",
+        "death_driven_best_positions": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "endpoint_invariant": true,
+        "hypotheses_disagree_on_best_position": false,
+        "mass_balance_holds": true,
+        "surgery_keep": "1"
+      }
+    ]
+  },
+  "A_worked_order_comparison": {
+    "effective_surgery": {
+      "burden_driven": {
+        "cumulative_hazard_difference_late_minus_early": "7/5",
+        "exposure_early": "635/32",
+        "exposure_late": "2875/32",
+        "identity_holds": true,
+        "predicted_kappa_alpha_delta_exposure_over_1_minus_r": "7/5"
+      },
+      "chemo_keep": "1/2",
+      "death_driven": {
+        "cumulative_hazard_difference_late_minus_early": "63/40",
+        "exposure_early": "315/32",
+        "exposure_late": "2835/32",
+        "identity_holds": true,
+        "predicted_kappa_alpha_delta_exposure_over_1_minus_r": "63/40"
+      },
+      "final_burden": "5/32",
+      "surgery_keep": "1/10",
+      "tumor_endpoint_equal": true
+    },
+    "less_effective_surgery": {
+      "burden_driven": {
+        "cumulative_hazard_difference_late_minus_early": "-7/8",
+        "exposure_early": "9525/64",
+        "exposure_late": "6725/64",
+        "identity_holds": true,
+        "predicted_kappa_alpha_delta_exposure_over_1_minus_r": "-7/8"
+      },
+      "chemo_keep": "1/2",
+      "death_driven": {
+        "cumulative_hazard_difference_late_minus_early": "7/16",
+        "exposure_early": "4725/64",
+        "exposure_late": "6125/64",
+        "identity_holds": true,
+        "predicted_kappa_alpha_delta_exposure_over_1_minus_r": "7/16"
+      },
+      "final_burden": "75/64",
+      "surgery_keep": "3/4",
+      "tumor_endpoint_equal": true
+    }
+  },
+  "B_intensity_needs_state_and_rate": [
+    {
+      "loss_rate": "1/100",
+      "per_capita_hazard": "1/90",
+      "remaining_fraction": "9/10"
+    },
+    {
+      "loss_rate": "1/100",
+      "per_capita_hazard": "1/5",
+      "remaining_fraction": "1/20"
+    }
+  ],
+  "B_state_versus_rate": {
+    "deficit_at_visits_ended": [
+      0,
+      "3/10"
+    ],
+    "deficit_at_visits_ongoing": [
+      0,
+      "3/10"
+    ],
+    "marker_at_second_visit_ended": "3/80",
+    "marker_at_second_visit_ongoing": "9/64",
+    "marker_ratio_ongoing_to_ended": "15/4",
+    "marker_retention_per_step": "1/2",
+    "visits": [
+      0,
+      4
+    ]
+  },
+  "C_aggregate_marker_counterexample": {
+    "drive_after": "19",
+    "drive_before": "16",
+    "drive_weights": [
+      "1",
+      "3"
+    ],
+    "lesions_after": [
+      "4",
+      "5"
+    ],
+    "lesions_before": [
+      "10",
+      "2"
+    ],
+    "marker_after": "9",
+    "marker_before": "12",
+    "marker_weights": [
+      "1",
+      "1"
+    ]
+  },
+  "C_opposed_sign_iff_not_nonnegative_multiple_on_grid": true,
+  "D_regimes_after_antigen_removal": {
+    "antigen_driven": {
+      "committed_bound_exact": true,
+      "committed_hazard_bound": "7/50",
+      "effector_at_removal": "7",
+      "late_to_early_loss_ratio": "25021586648667349941057/3435973836800000000000000",
+      "late_to_early_loss_ratio_approx": "0.00728224",
+      "loss_per_step_after_removal": [
+        "987/15625",
+        "91791/3125000",
+        "17715663/1250000000",
+        "6962255559/1000000000000",
+        "5521068658287/1600000000000000",
+        "8795062372651191/5120000000000000000",
+        "28082634155875252863/32768000000000000000000",
+        "179532280158510491553159/419430400000000000000000000",
+        "2296756460067824718439563087/10737418240000000000000000000000"
+      ],
+      "loss_per_step_after_removal_approx": [
+        "0.063168",
+        "0.0293731",
+        "0.0141725",
+        "0.00696226",
+        "0.00345067",
+        "0.00171779",
+        "0.000857014",
+        "0.000428038",
+        "0.000213902"
+      ],
+      "observed_hazard_after_removal_plus_exact_tail": "7/50",
+      "remaining_fraction_at_end_approx": "0.782057"
+    },
+    "autonomous_cns": {
+      "late_to_early_loss_ratio": "13881719295086906155104900677/33776997205278720000000000000",
+      "late_to_early_loss_ratio_approx": "0.410981",
+      "loss_per_step_after_removal": [
+        "18513/250000",
+        "1852983/40000000",
+        "2145136653/64000000000",
+        "5568868017999/204800000000000",
+        "31256057104201413/1310720000000000000",
+        "73539339199996363947/3355443200000000000000",
+        "1775776213096149236187897/85899345920000000000000000",
+        "86944900001535064504985005971/4398046511104000000000000000000",
+        "8574196621522673542668248057056497/450359962737049600000000000000000000"
+      ],
+      "loss_per_step_after_removal_approx": [
+        "0.074052",
+        "0.0463246",
+        "0.0335178",
+        "0.0271917",
+        "0.0238465",
+        "0.0219164",
+        "0.0206728",
+        "0.019769",
+        "0.0190385"
+      ],
+      "remaining_fraction_at_end_approx": "0.611271"
+    }
+  },
+  "D_steady_state_signature": {
+    "burden_driven_never_rises": 72,
+    "cases": 72,
+    "chemo_first_cases": 54,
+    "death_driven_rises_after_first_chemo_following_surgery": 15,
+    "death_driven_rises_after_first_chemo_from_steady_state": 54,
+    "death_driven_rises_after_surgery": 0,
+    "example_burden_driven_hazards": [
+      "1/125",
+      "3/500",
+      "1/250",
+      "1/400"
+    ],
+    "example_death_driven_hazards": [
+      "1/125",
+      "3/500",
+      "7/500",
+      "1/80"
+    ],
+    "example_operations": [
+      "surgery",
+      "chemo",
+      "chemo"
+    ],
+    "surgery_first_cases": 18
+  },
+  "document": "docs/research/paraneoplastic-exposure-observability.md",
+  "implementation": "tools/analyze_paraneoplastic_exposure.py",
+  "implementation_sha256": "baa093bb4162ce6f680d45a79f3a52190a3ae5e82d6d36ffd5cb811eda59b7fa",
+  "randomness": "none",
+  "schema_version": 1,
+  "status": "executed_synthetic_exact_arithmetic_not_study_analysis",
+  "study_data_or_patient_records_used": false,
+  "units": "invented_arbitrary_units",
+  "unsupported_claims": [
+    "any patient's mechanism, course or treatment choice",
+    "that either antigen-presentation hypothesis is true",
+    "that neurofilament light is validated for anti-Yo disease",
+    "clinical benefit of any sequence, timing or immunotherapy",
+    "parameter values for tumor, effector, neuron or marker kinetics"
+  ]
+}

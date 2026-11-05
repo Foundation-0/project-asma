@@ -74,3 +74,19 @@ source-access failures and negative findings are retained. No study data or
 third-party analysis code was acquired or executed; full Gu-model reconstruction
 and empirical fitting remain gated. This complements the existing frontier
 work without replacing Pilot 001 or claiming a clinical advance.
+
+## Paraneoplastic exposure and observability, 2026-11-05
+
+The [exposure and observability record](research/paraneoplastic-exposure-observability.md)
+joins the anti-Yo frontier to the treatment-sequence audit through the endpoint
+both had left out: neural injury that does not reverse. Exact synthetic results
+show that final neural survival depends on a schedule only through antigen
+exposure, so order can change it while the tumor endpoint cannot. Burden-driven
+and release-driven antigen presentation recommend opposite orders when surgery is
+less effective than a chemotherapy cycle. A deficit, an atrophy finding or an
+antibody titer is a state and cannot show whether an attack is ongoing; intensity
+needs an injury rate divided by the remaining target. The record proposes a
+discriminating design anchored to treatment events, and documents that serum
+neurofilament light is confounded by surgery and neurotoxic chemotherapy, so an
+antibody-negative comparator is required. No patient data were used; the design
+is not an adopted protocol and suggests no change to anyone's care.
