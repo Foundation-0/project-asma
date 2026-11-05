@@ -16,14 +16,71 @@ TOOLS = ROOT / "tools"
 sys.path.insert(0, str(TOOLS))
 
 from pilot001_first_run import failure_codes as codes  # noqa: E402
-from pilot001_first_run.allowlisted_fetch import AllowlistedFetchError, fetch_exact  # noqa: E402
+from pilot001_first_run.allowlisted_fetch import (  # noqa: E402
+    AllowlistedFetchError,
+    _AllowlistedRedirectHandler,
+    fetch_exact,
+    host_allowed,
+)
+from pilot001_first_run.runner import (  # noqa: E402
+    build_container_create_argv,
+    build_container_run_argv,
+    resolve_image_tag,
+)
 from pilot001_first_run.config import InputPin, RunConfig, parse_attestation_ref  # noqa: E402
 from pilot001_first_run.gates import toronto_today, validate_dropbox_flag, validate_real_run_gates  # noqa: E402
 from pilot001_first_run.output_validator import validate_aggregate_document  # noqa: E402
 from pilot001_first_run.preflight import run_linux_preflight, run_macos_preflight  # noqa: E402
-from pilot001_first_run.runner import build_container_run_argv, resolve_image_tag  # noqa: E402
 from pilot001_first_run.study_fetch import StudyFetchError, _archive_range_fetch, _verify_pin, fetch_to_tmpfs  # noqa: E402
 import run_pilot001_first_run as entry  # noqa: E402
+import urllib.request
+
+
+def minimal_valid_aggregate(**overrides):
+    payload = {
+        "schema_version": 1,
+        "review_status": "exploratory_not_externally_reviewed",
+        "scope": "Pilot 001 first-run aggregate outputs; not externally reviewed",
+        "input_mode": "synthetic_fixture",
+        "real_study_data_executed": False,
+        "amendment_1": {"A1": True, "A2": {"option_a": True, "option_b": True}, "A3": "strict"},
+        "started_at_utc": "2026-11-05T00:00:00.000000Z",
+        "finished_at_utc": "2026-11-05T00:00:00.000000Z",
+        "elapsed_seconds": 1.0,
+        "configurations": [
+            {
+                "label": "primary",
+                "outer_seed_start": 1,
+                "xgb_tree_method": "exact",
+                "summary": {
+                    "patients": 158,
+                    "features": 64,
+                    "repetitions": 5,
+                    "outer_folds": 5,
+                    "model_predictions": 100,
+                    "ensemble_predictions": 100,
+                    "final_scores": 100,
+                    "complete_prediction_coverage": True,
+                    "positive_negative_pairs": 10,
+                    "auc": 0.5,
+                    "rank_auc": 0.5,
+                    "repetition_auc": 0.5,
+                },
+                "metric_formulations_agree": True,
+            }
+        ],
+        "run_metadata": {
+            "git_sha": "abc",
+            "runtime_image_id": "id",
+            "runtime_image_digest": "id",
+            "container_platform": "amd64",
+            "host_uname_m": "x86_64",
+            "r_version": "4.4.3",
+        },
+        "limitations": ["Exploratory outputs only."],
+    }
+    payload.update(overrides)
+    return payload
 
 
 class TestAttestationAndGates(unittest.TestCase):
@@ -123,13 +180,29 @@ class TestPreflight(unittest.TestCase):
 
 class TestOutputValidator(unittest.TestCase):
     def test_rejects_row_level_payload(self):
-        bad = {
-            "schema_version": 1,
-            "review_status": "exploratory_not_externally_reviewed",
-            "scores": {"patient-001": 0.5},
-        }
+        bad = minimal_valid_aggregate()
+        bad["scores"] = {"patient-001": 0.5}
         errors = validate_aggregate_document(bad)
-        self.assertTrue(any("forbidden_key" in item for item in errors))
+        self.assertTrue(errors)
+
+    def test_rejects_proof_review_cases(self):
+        cases = [
+            lambda p: p["configurations"][0]["summary"].update({"Scores": {"TCGA-04-1331": 0.5}}),
+            lambda p: p["configurations"][0]["summary"].update(
+                {f"k{index}": float(index) for index in range(300)}
+            ),
+            lambda p: p["configurations"][0]["summary"].update({"vector_leak": [0.1] * 60}),
+            lambda p: p["configurations"][0]["summary"].update({"strings": [str(0.1)] * 500}),
+            lambda p: p["limitations"].append("TCGA-04-1331-01A"),
+            lambda p: p["configurations"][0]["summary"].update(
+                {"late": [{f"nested_{i}": 1} for i in range(250)]}
+            ),
+        ]
+        for mutate in cases:
+            payload = minimal_valid_aggregate()
+            mutate(payload)
+            errors = validate_aggregate_document(payload)
+            self.assertTrue(errors, msg=f"expected rejection after {mutate.__name__}")
 
 
 class TestEntrypointFailureOutput(unittest.TestCase):
@@ -167,22 +240,30 @@ class TestAllowlistedFetch(unittest.TestCase):
             fetch_exact("https://example.com/file.bin", expected_bytes=1)
         self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
 
-    @mock.patch("pilot001_first_run.allowlisted_fetch.urllib.request.urlopen")
-    def test_redirect_off_allowlist_refused(self, mock_urlopen):
-        response = mock.MagicMock()
-        response.geturl.return_value = "https://evil.example.com/taken"
-        response.status = 200
-        response.headers = {"Content-Encoding": "identity"}
-        response.read.return_value = b"x"
-        mock_urlopen.return_value.__enter__.return_value = response
+    @mock.patch("pilot001_first_run.allowlisted_fetch._open")
+    def test_redirect_off_allowlist_refused(self, mock_open):
         url = (
             "https://pmc-oa-opendata.s3.us-east-1.amazonaws.com/"
             "PMC10414761.1/NIHMS1918576-supplement-MMC1.xlsx"
         )
+
+        def boom(request):
+            raise AllowlistedFetchError(codes.P001_FAIL_FETCH_HOST)
+
+        mock_open.side_effect = boom
         with self.assertRaises(AllowlistedFetchError) as ctx:
             fetch_exact(url, expected_bytes=1)
         self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
-        mock_urlopen.assert_called_once()
+
+    def test_dropbox_cdn_host_allowed(self):
+        self.assertTrue(host_allowed("uc123456.dl.dropboxusercontent.com"))
+        self.assertFalse(host_allowed("evil.dl.dropboxusercontent.com.evil.com"))
+
+    def test_redirect_handler_checks_target_before_follow(self):
+        handler = _AllowlistedRedirectHandler()
+        request = urllib.request.Request("https://www.dropbox.com/s/x/file.zip")
+        with self.assertRaises(AllowlistedFetchError):
+            handler.redirect_request(request, None, 302, "", {}, "https://example.com/x")
 
 
 class TestRealModeFetchPath(unittest.TestCase):
@@ -210,7 +291,7 @@ class TestRealModeFetchPath(unittest.TestCase):
 
         buffer = io.StringIO()
         with mock.patch("sys.stdout", buffer):
-            code = real_entry.main()
+            code = real_entry.main(["--phase", "fetch"])
         self.assertEqual(code, 1)
         self.assertEqual(buffer.getvalue().strip(), codes.P001_FAIL_FETCH_HOST)
 
@@ -240,7 +321,7 @@ class TestRunnerDockerFlags(unittest.TestCase):
         self.assertIn("--dry-run", argv)
         self.assertNotIn("--network=bridge", argv)
 
-    def test_real_run_uses_bridge_and_real_entry(self):
+    def test_real_run_uses_bridge_for_fetch_container(self):
         config = RunConfig(
             host="macos",
             output_dir=Path("/tmp/out"),
@@ -253,14 +334,14 @@ class TestRunnerDockerFlags(unittest.TestCase):
             "pilot001_first_run.runner.inspect_image",
             return_value={"Id": "sha256:dead", "Architecture": "amd64"},
         ):
-            argv = build_container_run_argv(
+            argv = build_container_create_argv(
                 config=config,
                 image_tag="asma-synthetic:4.4.3",
                 output_dir=Path("/tmp/out"),
                 container_name="pilot001-run-test",
             )
         self.assertIn("--network=bridge", argv)
-        self.assertIn("tools/pilot001_first_run/real_entry.py", argv)
+        self.assertIn("sleep", argv)
         self.assertIn("PILOT001_OWNER_ATTESTATION_ID=owner", argv)
         self.assertNotIn("--network=none", argv)
 
@@ -273,17 +354,20 @@ class TestRunnerDockerFlags(unittest.TestCase):
 
 
 class TestRealPipelineWithoutEarlyStub(unittest.TestCase):
+    @mock.patch("pilot001_first_run.runner.git_sha", return_value="abc")
     @mock.patch("pilot001_first_run.runner.subprocess.run")
     @mock.patch("pilot001_first_run.runner.inspect_image")
-    def test_gated_real_run_invokes_container(self, mock_inspect, mock_run):
+    def test_gated_real_run_disconnects_before_analyze(self, mock_inspect, mock_run, _mock_git):
         mock_inspect.return_value = {"Id": "sha256:abc", "Architecture": "amd64"}
-        aggregate = {
-            "schema_version": 1,
-            "review_status": "exploratory_not_externally_reviewed",
-            "configurations": [],
-            "run_metadata": {},
-        }
-        mock_run.return_value = subprocess.CompletedProcess([], 0, json.dumps(aggregate), "")
+        aggregate = minimal_valid_aggregate()
+        mock_run.side_effect = [
+            subprocess.CompletedProcess([], 0, "container-id\n", ""),
+            subprocess.CompletedProcess([], 0, "", ""),
+            subprocess.CompletedProcess([], 0, "", ""),
+            subprocess.CompletedProcess([], 0, json.dumps(aggregate), ""),
+            subprocess.CompletedProcess([], 0, "", ""),
+            subprocess.CompletedProcess([], 0, "", ""),
+        ]
         config = RunConfig(
             host="macos",
             output_dir=Path("/tmp/out"),
@@ -298,23 +382,27 @@ class TestRealPipelineWithoutEarlyStub(unittest.TestCase):
             ).run_container_pipeline(config, "asma-synthetic:4.4.3", Path(tmp))
         self.assertEqual(status, 0)
         self.assertNotEqual(detail, codes.P001_FAIL_GATE_REAL_FLAGS)
-        docker_calls = [
+        disconnect = [
             call
             for call in mock_run.call_args_list
-            if call.args and call.args[0][:2] == ["docker", "--host=unix:///var/run/docker.sock"]
+            if call.args
+            and "network" in call.args[0]
+            and "disconnect" in call.args[0]
         ]
-        self.assertTrue(docker_calls)
-        self.assertIn("--network=bridge", docker_calls[0].args[0])
+        self.assertEqual(len(disconnect), 1)
+        analyze = [
+            call
+            for call in mock_run.call_args_list
+            if call.args and call.args[0][:3] == ["docker", "--host=unix:///var/run/docker.sock", "exec"]
+            and "--phase" in call.args[0]
+            and "analyze" in call.args[0]
+        ]
+        self.assertEqual(len(analyze), 1)
 
 
 class TestSimulatedRealOutput(unittest.TestCase):
     def test_aggregate_only_shape(self):
-        good = {
-            "schema_version": 1,
-            "review_status": "exploratory_not_externally_reviewed",
-            "configurations": [{"label": "primary", "summary": {"patients": 158}}],
-            "real_study_data_executed": True,
-        }
+        good = minimal_valid_aggregate(real_study_data_executed=True)
         self.assertEqual(validate_aggregate_document(good), [])
 
 
