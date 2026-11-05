@@ -1,5 +1,12 @@
 # Anti-Yo frontier: antigen, presenting cell and effector role
 
+**Follow-up, 2026-11-05:** [Discovery round 2](discovery-round2-2026-11-05.md)
+and its [antigen evidence audit](antigen-discovery-round2-2026-11-05.md) refine
+the search gaps below. Curated HLA-II presentation annotations must be kept
+distinct from functional human anti-Yo CD4 recognition. This document retains
+the earlier dated search and does not claim that its nonfindings remain the full
+current evidence.
+
 **2026-11-04 · exploration cycles 1–2 · proposal v0.1.** Literature and public
 methods reviewed; an [original synthetic identifiability calculation](compartment-identifiability.md)
 executed. No disease mechanism discovered, study data analysed, or treatment

@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-04):** PROVEN **0** · VERIFIED **19** · KNOWN **24** · CONJECTURE **14**
+**Counts (2026-11-05):** PROVEN **0** · VERIFIED **20** · KNOWN **30** · CONJECTURE **18**
 
 ---
 
@@ -52,6 +52,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | V17 | Held-out evaluation helpers behave on **artificial** test cases | `python3 -m unittest tests.test_evaluate_heldout -v` |
 | V18 | Git does not track or stage owner attestation file (when `git` available) | `python3 tools/validate.py` |
 | V19 | Original synthetic two-state counterexamples, a hypothetical selection-bound calculation, exact sign-flip enumeration and a missing-clone sampling example give the values in the [identifiability record](docs/compartment-identifiability.md) | `python3 tools/analyze_compartment_identifiability.py`; invented inputs, not study analysis or a new biological result |
+| V20 | The dated, canonical-parent IEDB metadata queries return 7 CDR2 and 2 CDR2L positive HLA-II MS assay annotations across 3 and 2 references respectively | [Recorded replay command and limits](docs/antigen-discovery-round2-2026-11-05.md#what-was-actually-checked), [query manifest](registries/antigen-metadata-audit-2026-11-05.json); metadata only, not unique ligand validation or anti-Yo receptor recognition |
 
 **PR #30 runtime summary (2026-11-04):** the **207** `unittest` cases, **179** R
 assertions, and **40** execution controls are **VERIFIED only on synthetic or fixture
@@ -117,6 +118,16 @@ and do **not** substitute for study-data execution.
 | C14 | Assay-aware molecular, perturbation and adaptive-resistance work may contribute to the expanded mission | [Molecular handoff](docs/molecular-research-handoff-2026-11-04.md); proposals and stop rules, no individual target assignment |
 
 ---
+
+## Discovery-round update, 2026-11-05
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| K25 | KNOWN | Public epitope-catalog annotations narrow the previous CDR2L HLA-II search gap; presentation is distinct from anti-Yo receptor specificity | [Antigen audit](docs/antigen-discovery-round2-2026-11-05.md); exact protein/class/reference joins and remaining validation limits |
+| K26 | KNOWN | CDR adaptor biology, ovarian-knockout measurement limits and CMV-associated CD4 states provide relevant alternative explanations | [Tumor review](docs/tumor-discovery-round2-2026-11-05.md) and [causal review](docs/causal-discovery-round2-2026-11-05.md); model, preparation and disease transfers remain explicit |
+| C15 | CONJECTURE | CDR2L dependence can arise from direct recognition, indirect antigen delivery or both | [Round-2 synthesis](docs/discovery-round2-2026-11-05.md); conceptual alternatives, no observed anti-Yo experiment |
+| C16 | CONJECTURE | Linked recognition or historically antiviral cytotoxic cells could explain portions of the immune response without the assumed direct CDR2L pathway | Antigen and causal reviews; no anti-Yo demonstration, and helper function does not establish injury |
+| C17 | CONJECTURE | Ligand/receptor mapping, source/presenter separation and independent injury measurements are the highest-value next comparisons | Round-2 priorities are research judgments, not discoveries or clinical recommendations |
 
 ## What this ledger does not claim
 
