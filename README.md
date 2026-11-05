@@ -16,7 +16,7 @@ claim-label rules.
 or clinical decision support. Reproduction does not establish a new classifier,
 clinical validity, or improved patient outcomes.
 
-## Scope summary (2026-11-04)
+## Scope summary (2026-11-05)
 
 | Layer | What it covers |
 | --- | --- |
@@ -75,9 +75,10 @@ through the adapter, 30 adapter Python tests under pinned CPython, and all 40
 technical execution checks. The current validation records' implementation
 hashes match the tested files. See the [synthetic validation](docs/pilot-001-synthetic-validation.md#pinned-image-rerun-2026-11-04)
 and [source-adapter report](docs/pilot-001-source-adapter.md). These are software
-results on artificial inputs; no study files were acquired or fitted. Actual
-research-use conditions and the owner's pre-run decisions remain unresolved.
-A [GitHub source recheck](docs/pilot-001-open-questions.md#github-follow-up-2026-11-04)
+results on artificial inputs; no study files were acquired or fitted. Gate 0
+owner decisions are recorded on 2026-11-05 ([roadmap](docs/roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05));
+jurisdiction, hosting terms, fair-dealing applicability on the selected host,
+A2 option B and A3 implementation remain open before a real-data run. A [GitHub source recheck](docs/pilot-001-open-questions.md#github-follow-up-2026-11-04)
 found no new upstream release resolving the missing inputs.
 
 The **2026-10-29 [validation-capacity analysis](docs/pilot-001-validation-capacity.md)**
@@ -103,7 +104,8 @@ run under the user's explicit instruction: discovery AUROC is **0.80885**
 (rounds to **0.81**), versus printed **0.83**, with difference **0.02115** outside
 the fixed 0.02 tolerance. Source files and exact joins passed validation; this
 is a preliminary supplied-score discrepancy, not evidence of an original-paper
-error or completed model reproduction. External scientific review remains pending.
+error or completed model reproduction. External scientific review is **deferred**
+(Gate 0 Q4, 2026-11-05); label any new result **not externally reviewed**.
 
 No full PDC abundance matrix was downloaded, no author analysis code was executed,
 and no model was trained on study data. Missing input/method provenance still
@@ -165,7 +167,7 @@ processing jurisdiction and hosting/use conditions remain unverified.
 No study sources were ingested by the adapter. Those remaining conditions must
 cover acquisition, parsing, transfer and fitting before research execution.
 Live acquisition of study files, a real-source input check and fitting each need
-the owner's sign-off in Gate 0 of the [roadmap](docs/roadmap.md).
+the owner's Gate 0 sign-off recorded 2026-11-05 ([roadmap](docs/roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05)), within the Q1 input limits still open there.
 
 The scope starts with HGSOC. Primary refractory disease (failure of initial
 therapy) must be distinguished from later platinum-resistant recurrence. Other
@@ -234,10 +236,13 @@ also operate without research inputs.
 
 Repository **code** is MIT and **text/site content** is CC BY 4.0 ([LICENSE](LICENSE));
 third-party study files and upstream paper content retain their own terms
-([NOTICE](NOTICE)). Before ingestion or execution,
+([NOTICE](NOTICE)). Gate 0 Q1 (jurisdiction, host terms, fair-dealing applicability
+and cleared inputs), A2 option B implementation, and A3 implementation remain
+open before study-data execution. Before ingestion or execution,
 review access and reuse terms, pin corrected supplemental materials, resolve
-patient overlap, and assess computational requirements. Clinical interpretation
-and later validation will require domain review; recruiting reviewers is deferred.
+patient overlap, and assess computational requirements. Domain interpretation
+remains separate; external scientific review is deferred and any result must be
+labelled **not externally reviewed**. Recruiting reviewers remains deferred.
 Public-source investigation can continue independently under the
 [roadmap](docs/roadmap.md) and [reconstruction contract](protocols/pilot-001-independent-reconstruction.md),
 within the owner conditions in the [agent guidance](AGENTS.md).

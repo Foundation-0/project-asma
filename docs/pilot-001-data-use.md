@@ -1,20 +1,28 @@
 # Pilot 001: data-use disposition
 
-**Checked:** 2026-10-25. **Scope:** the selected discovery reconstruction, with
+**Checked:** 2026-10-25; Gate 0 execution host recorded 2026-11-05. **Scope:** the selected discovery reconstruction, with
 no persistent source data, patient-level output or outside participant linkage.
 This records source terms, project choices and unresolved facts separately.
 It does not declare every public dataset unrestricted or make an institutional
 review determination.
 
-**Selected purpose:** independent, noncommercial research-method reconstruction,
-with an initial run designed for a verified Canadian execution context.
-Commercial/product uses are outside this phase and require a new use assessment.
+**Selected purpose:** independent, noncommercial research-method reconstruction.
+The owner selected the Grok Bot team's shared cloud computer as the research
+execution host (Gate 0 Q1, 2026-11-05: "run it on the bots' cloud computer").
+Jurisdiction, hosting terms and whether the Canadian fair-dealing route below
+applies on that host remain **open**; until they are settled, the Dropbox-hosted
+discovery matrix is **not cleared** for use and a real run may use only openly
+licensed inputs (PDC000357–362 under CC BY 4.0; MMC workbooks under their
+non-commercial terms). Commercial/product uses are outside this phase and require a new use assessment.
 This is a prospective project choice, not a claim about an existing institution
 or a change to third-party license terms.
 
 **Decision:** select the case-specific Canadian research fair-dealing assessment
-below as a **conditional analysis-use route** for the exact archive. This is not
-a discovered license grant or an automatic legal clearance. Before relying on
+below as a **conditional analysis-use route** for the exact archive when the
+actual execution context supports it. This is not
+a discovered license grant or an automatic legal clearance. The selected host is
+recorded in Gate 0 (2026-11-05); jurisdiction, host terms and applicability of
+this route there remain **open**. Before relying on
 it, verify that the actual execution and governing context support that basis.
 The current managed workspace's processing jurisdiction is not established here.
 Methods and software preparation can continue now, as can bounded, in-memory
@@ -65,12 +73,13 @@ this protocol; no blanket fair-dealing status is asserted for future uses.
 | Effect | Aggregate statistical findings and original code do not supply a replacement source dataset. No evidence of a market for the exact free release was located, but market effects were not independently established. Do not convert that absence of evidence into a finding of zero effect. |
 
 On these facts, the project selects a **conditional, bounded research-use
-basis** for the planned Canadian execution route, rather than making an explicit
+basis** for the planned execution route when applicable facts support it, rather than making an explicit
 licensor grant a universal prerequisite. This is an operational design choice,
 not an election of governing law: a server region or repository label alone
-cannot establish all applicable law. Confirm actual
+cannot establish all applicable law. The owner recorded the Grok Bot team's
+shared cloud computer as the execution host on 2026-11-05; **confirm** actual
 research/execution location, host terms and relevant institutional or funding
-obligations before a real-data run. If those facts do not support this route,
+obligations before a real-data run. Until Q1 open points in the [roadmap Gate 0 record](roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05) are settled, do not use the Dropbox-hosted matrix; openly licensed inputs only. If those facts do not support this route,
 reassess the applicable basis before fitting; do not silently transplant a
 Canadian exception to another jurisdiction.
 
@@ -154,7 +163,7 @@ The following project choices can be fixed now, without external contact:
 | Runtime checks | Verify the planned Canadian processing context and relevant operator/provider circumstances. Before real data, disable data caches, R workspace saves, core dumps and data-bearing logs; inspect temporary-file/swap behavior. Do not claim certified erasure or provider retention controls without evidence. Applicable hosting/privacy rules still apply to transient processing. |
 | Publication | Persist only reviewed aggregates, implementation, citations, hashes and execution metadata. No row-level outputs, patient-key hashes, models or source archives in Git, logs, chat or external AI services. |
 | Attribution | Cite Chowdhury et al., the article version/supplements, the exact author member and any used package releases. For PDC-derived outputs, also provide the CC BY 4.0 link, indicate changes and include the CPTAC credit below. |
-| Scientific review | External review remains pending. Internal software checks do not replace it; recruitment remains deferred under the outreach hold. |
+| Scientific review | External review **deferred** (Gate 0 Q4, 2026-11-05). Label any result **not externally reviewed**. Internal software checks do not replace it; recruitment remains deferred under the outreach hold. |
 | Project code licensing | An owner license decision is still absent. Do not invent a grant to downstream users; this does not prevent writing or checking the project's own implementation. |
 
 The no-retention choice resolves the need to select a persistent data location
@@ -206,7 +215,9 @@ metadata; it is not a newly discovered independent workbook license.
 
 The remaining execution condition is now specific: verify that the actual
 jurisdiction, host and applicable review/privacy context support the selected
-conditional research-use basis and the noncommercial scope. Before live acquisition of study files, a real-source input check or any fitting on study values, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
+conditional research-use basis and the noncommercial scope, within the Gate 0
+Q1 limits on cleared inputs. The owner recorded Gate 0 sign-off on 2026-11-05 (Q2):
+before live acquisition of study files, a real-source input check or any fitting on study values, the owner must maintain a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
 The subsequent
 [synthetic validation](pilot-001-synthetic-validation.md) implements and tests the
 fixed reconstruction choices with original code and public software packages.

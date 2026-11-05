@@ -101,10 +101,10 @@ and do **not** substitute for study-data execution.
 
 | ID | Statement | Notes |
 | --- | --- | --- |
-| C01 | Full Figure 3D model reproduction is achievable with permitted inputs | [Pilot 001](protocols/pilot-001.md) target; Gates 0–2 open |
+| C01 | Full Figure 3D model reproduction is achievable with permitted inputs | [Pilot 001](protocols/pilot-001.md) target; Gate 0 partially closed (2026-11-05); Gates 1–2 open |
 | C02 | Independent reconstruction will agree with published metrics within ≤0.02 AUC when fairly compared | Predeclared tolerance; not tested on study data |
 | C03 | Author-released matrix can support the selected reconstruction after transformation gaps close | Naming/feature coverage improved; workspace provenance open |
-| C04 | Conditional Canadian fair-dealing route applies to a future narrow research run | Requires verified execution context ([data-use](docs/pilot-001-data-use.md)) |
+| C04 | Conditional Canadian fair-dealing route applies to a future narrow research run on the owner's MacBook in Ontario | Condition (a) attestation met for **2026-11-05 only**; still needs macOS preflight (b), no row-level leakage (c), and fresh attestation for later run dates ([data-use](docs/pilot-001-data-use.md#assessment-for-owner-macbook-in-canada-gate-0-q1-update-2026-11-05)) |
 | C05 | The owner's consolidated [source request](templates/pilot-001-source-request.md) may resolve missing inputs | Sent by owner; canonical [sending record](docs/pilot-001-source-request-handoff.md); answers and research gates remain open |
 | C06 | Future confirmatory validation could meet a 98% specificity lower bound | Requires ~149 independent sensitive patients ([validation capacity](docs/pilot-001-validation-capacity.md)) |
 | C07 | Independent evaluation could eventually inform research decisions with appropriate review | Mission aspiration; no current clinical result |
