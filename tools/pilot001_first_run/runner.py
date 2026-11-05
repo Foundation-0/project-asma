@@ -75,7 +75,6 @@ def run_container_pipeline(
         "--memory-swap=8g",
         "--cpus=2",
         "--tmpfs=/tmp:rw,noexec,nosuid,size=512m",
-        "--tmpfs=/work/scratch:rw,noexec,nosuid,size=512m",
         "--mount",
         f"type=bind,src={ROOT},dst=/work,readonly",
         "--mount",
