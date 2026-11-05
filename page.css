@@ -1,18 +1,32 @@
 /* Project Asma · page-specific components on top of the shared f0.css.
    Tokens only from the design system; no new colours. */
 
-/* status ledger (section 01) */
+/* hero scope paragraph between the promise and the hint */
+.page-hero .promise + p { max-width: var(--measure); margin-top: var(--s-4); color: var(--ink-2); line-height: 1.6; }
+
+/* status ledgers (sections 01 and 02) */
 .ledger { list-style: none; margin: var(--s-6) 0 0; padding: 0; border-top: 1px solid var(--line); }
 .ledger li { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--s-3) var(--s-5); padding: var(--s-5) 0; border-bottom: 1px solid var(--line); }
 .ledger-main { max-width: 68ch; min-width: min(52ch, 100%); flex: 1 1 52ch; }
 .ledger-main h3 { font: 600 var(--fs-h3)/1.2 var(--f-sans); letter-spacing: -.02em; }
 .ledger-main p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
 .ledger .badge { margin-top: 4px; }
-.ledger + .ledger-note { margin-top: var(--s-5); }
+.ledger + .ledger-note, .cards4 + .ledger-note, .dirs + .cards4 { margin-top: var(--s-5); }
 
-/* missing-gap cards (section 02) */
+/* a dated sub-heading inside a section (section 01) */
+.sub-h { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); margin-top: var(--s-8); font: 600 var(--fs-h3)/1.2 var(--f-sans); letter-spacing: -.02em; scroll-margin-top: var(--s-10); }
+.sub-lede { max-width: var(--measure); margin-top: var(--s-3); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
+
+/* ranked directions (section 03) */
+.dirs { list-style: none; margin: var(--s-6) 0 0; padding: 0; border-top: 1px solid var(--line); counter-reset: dir; }
+.dirs li { display: grid; grid-template-columns: 3ch minmax(0, 1fr); gap: var(--s-3); padding: var(--s-3) 0; border-bottom: 1px solid var(--line); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.55; }
+.dirs li::before { counter-increment: dir; content: counter(dir, decimal-leading-zero); color: var(--ink-3); font-family: var(--f-mono); }
+.dirs b { color: var(--ink); font-weight: 600; }
+
+/* cards (sections 00, 03 and 04); gold marks the pilot and human context, cyan the wider research */
 .cards4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); margin-top: var(--s-6); }
 .mini-card { background: var(--bg-2); border: 1px solid var(--line); border-top: 2px solid var(--bio); padding: var(--s-5); }
+.mini-card.dig { border-top-color: var(--dig); }
 .mini-card h3 { font: 600 19px/1.25 var(--f-sans); letter-spacing: -.015em; }
 .mini-card p { margin-top: var(--s-2); color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.6; }
 @media (max-width: 720px) { .cards4 { grid-template-columns: minmax(0, 1fr); } }
