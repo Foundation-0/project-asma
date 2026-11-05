@@ -66,5 +66,14 @@ repository's own licences for redistribution of the underlying files.
     Article and catalog terms remain source-specific; citation does not confer
     permission for dataset acquisition, redistribution or model training.
 
+12. **Rohan Arun's Virtual Human graph core** — MIT, copyright (c) 2026
+    Rohan Arun. A pinned, unmodified copy of `vh/graph/core.py` is used by the
+    evidence graph under `tools/vendor/virtual_human/`; its adjacent LICENSE and
+    provenance record identify the source. Shared graph development takes place
+    in https://github.com/Foundation-0/virtual-human, a fork retaining upstream
+    attribution and licensing. Original Asma evidence rules and literature
+    summaries remain distinct from that general graph implementation. No upstream
+    clinical datasets, molecular fixtures or simulation engines are vendored.
+
 If you rely on a dataset here, read the primary terms at the source before any
 reuse outside private research.

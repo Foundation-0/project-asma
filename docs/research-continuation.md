@@ -48,3 +48,15 @@ a small graph of evidence and model interfaces to expose unsupported transitions
 between antigen identity, presentation, receptor activation and injury. It is
 a design candidate with acceptance and stop criteria; no package adoption,
 simulation or patient model has been executed.
+
+## Evidence-graph prototype, 2026-11-05
+
+The subsequently authorized [executed prototype](evidence-graph-result-2026-11-05.md)
+checks 24 public evidence assertions against 22 scoped requests. It preserves
+missing evidence and blocks cross-assay joins and unsupported inference types.
+Recognition/source dependence and injury are now separate axes: a direct CDR2L
+ligand and indirect injury can coexist. The result identifies useful evidence
+gaps, not a discovered ligand or patient mechanism. Shared general graph
+development proceeds in [Foundation-0/virtual-human](https://github.com/Foundation-0/virtual-human),
+with the original author credited and upstream contributions to follow once
+access is available.

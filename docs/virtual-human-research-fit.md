@@ -1,5 +1,9 @@
 # Virtual Human pattern: testable interfaces for the anti-Yo frontier
 
+**Subsequent work:** the [executed evidence-graph result](evidence-graph-result-2026-11-05.md)
+records the authorized prototype and shared fork development. The assessment
+below is preserved as the earlier design decision, before code execution.
+
 **2026-11-05, America/Chicago. Status: candidate design; no implementation or
 simulation executed.** Recommendation: **pattern only** from
 [Rohan Arun's Virtual Human](https://github.com/rohanarun/virtual-human/tree/3d75e8e25d6f3fec08e1ccecd424532bccaa1b82).

@@ -1,0 +1,1040 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-11-05",
+  "scope": "Original summaries of existing public source reviews. No peptide/receptor sequences, individual records, study tables or new source-data acquisition.",
+  "curation_basis": [
+    "docs/anti-yo-frontier-2026-11-04.md",
+    "docs/antigen-discovery-round2-2026-11-05.md",
+    "docs/tumor-discovery-round2-2026-11-05.md",
+    "docs/causal-discovery-round2-2026-11-05.md"
+  ],
+  "unknown_representation": "null denotes an uninspected or unresolved observation attribute; absence of support is unresolved, not a false claim.",
+  "observations": [
+    {
+      "id": "E01",
+      "observation_key": "S40:major-antibody-target",
+      "relation": "antibody_target",
+      "subject": "UNIPROT:Q86X02",
+      "object": "anti-Yo_antibodies",
+      "context": {
+        "species": "human",
+        "assay": "antibody_binding",
+        "population": "anti-Yo_PCD"
+      },
+      "source_ids": [
+        "S40"
+      ],
+      "locator": "Primary abstract and indexed results",
+      "summary": "CDR2L is reported as the major Yo antibody target.",
+      "kind": "reported_observation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E02",
+      "observation_key": "IEDB:11610866",
+      "relation": "hla_ligand_annotation",
+      "subject": "UNIPROT:Q86X02",
+      "object": "HLA-II",
+      "context": {
+        "species": "human",
+        "model": "benign_tissue_atlas",
+        "assay": "HLA_affinity_LC-MS/MS",
+        "allele": null,
+        "source_uniqueness": null,
+        "surface_display": null
+      },
+      "source_ids": [
+        "S110",
+        "S111"
+      ],
+      "locator": "IEDB assay 11610866; Marcu HLA ligand purification/Data analysis",
+      "summary": "Curated CDR2L-associated HLA-II presentation annotation; source identity and relevant surface display remain unresolved.",
+      "kind": "curated_annotation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E03",
+      "observation_key": "IEDB:18456218",
+      "relation": "hla_ligand_annotation",
+      "subject": "UNIPROT:Q86X02",
+      "object": "HLA-II",
+      "context": {
+        "species": "human",
+        "model": "MDA-MB-231_parent_study",
+        "assay": "HLA_affinity_LC-MS/MS",
+        "allele": null,
+        "condition": null,
+        "source_uniqueness": null
+      },
+      "source_ids": [
+        "S110",
+        "S112"
+      ],
+      "locator": "IEDB assay 18456218; Goncalves sample preparation/peptide identification",
+      "summary": "Curated CDR2L-associated HLA-II annotation linked to the MDA-MB-231 study; exact annotation condition was not inspected.",
+      "kind": "curated_annotation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E04",
+      "observation_key": "IEDB:16543635-16553502-16559485",
+      "relation": "hla_ligand_annotation",
+      "subject": "UNIPROT:Q01850",
+      "object": "HLA-II",
+      "context": {
+        "species": "human",
+        "model": "CIITA_transduced_glioblastoma",
+        "assay": "HLA_affinity_LC-MS/MS",
+        "restriction_evidence": "motif_or_alleles_present"
+      },
+      "source_ids": [
+        "S110",
+        "S113"
+      ],
+      "locator": "IEDB assays 16543635, 16553502, 16559485; peptide identification/HLA binding",
+      "summary": "CDR2 class-II annotations; named allotypes are inferred, not experimentally restricted.",
+      "kind": "curated_annotation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E05",
+      "observation_key": "S111:protein-annotation-method",
+      "relation": "annotation_method",
+      "subject": "HLA_Ligand_Atlas",
+      "object": "all_matching_proteins",
+      "context": {
+        "species": "human",
+        "assay": "HLA_affinity_LC-MS/MS",
+        "protein_inference": "not_performed"
+      },
+      "source_ids": [
+        "S111"
+      ],
+      "locator": "Data analysis",
+      "summary": "The Atlas annotates all proteins containing a peptide; a parent-protein annotation is not unique source attribution.",
+      "kind": "source_method",
+      "polarity": "supports"
+    },
+    {
+      "id": "E06",
+      "observation_key": "S100:expression-groups",
+      "relation": "protein_presence",
+      "subject": "CDR2_and_CDR2L",
+      "object": "ovarian_tumors",
+      "context": {
+        "species": "human",
+        "population": "with_and_without_Yo_antibodies",
+        "readout": "protein_expression"
+      },
+      "source_ids": [
+        "S100"
+      ],
+      "locator": "Results: Expression of CDR2 and CDR2L in ovarian cancer; Discussion",
+      "summary": "Both proteins were found in tumors with and without Yo antibodies.",
+      "kind": "reported_observation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E07",
+      "observation_key": "S39:fig7-confluence",
+      "relation": "knockout_effect",
+      "subject": "UNIPROT:Q86X02",
+      "object": "well_confluence",
+      "context": {
+        "species": "human",
+        "model": "OVCAR-3",
+        "perturbation": "CDR2L_knockout",
+        "readout": "occupied_well_area"
+      },
+      "source_ids": [
+        "S39"
+      ],
+      "locator": "Figure 7; Cell proliferation assay",
+      "summary": "The reported growth-related readout was confluence; direct cell-number inference needs additional evidence.",
+      "kind": "published_intervention",
+      "polarity": "supports"
+    },
+    {
+      "id": "E08",
+      "observation_key": "S39:conditioned-medium-method",
+      "relation": "sample_definition",
+      "subject": "conditioned_medium",
+      "object": "mixed_extracellular_material",
+      "context": {
+        "species": "human",
+        "model": "OVCAR-3",
+        "assay": "concentrated_conditioned_medium",
+        "material": "secreted_vesicle_associated_and_dying_cell_proteins"
+      },
+      "source_ids": [
+        "S39"
+      ],
+      "locator": "Mass spectrometry-based proteomics; PDF pp. 10-13",
+      "summary": "The secretome preparation does not isolate an extracellular-vesicle route.",
+      "kind": "source_method",
+      "polarity": "supports"
+    },
+    {
+      "id": "E09",
+      "observation_key": "S103:CDR2L-motility",
+      "relation": "cellular_function",
+      "subject": "UNIPROT:Q86X02",
+      "object": "dynein_motility",
+      "context": {
+        "species": "human_protein",
+        "model": "in_vitro_reconstitution",
+        "readout": "motility"
+      },
+      "source_ids": [
+        "S103"
+      ],
+      "locator": "Figures 1-5 and S2; adaptor/localization Results",
+      "summary": "CDR2L-dependent dynein motility was demonstrated in vitro.",
+      "kind": "published_intervention",
+      "polarity": "supports"
+    },
+    {
+      "id": "E10",
+      "observation_key": "S103:CDR2-ER-rescue",
+      "relation": "cellular_function",
+      "subject": "UNIPROT:Q01850",
+      "object": "ER_sheet_organization",
+      "context": {
+        "species": "human",
+        "model": "HeLa",
+        "perturbation": "CDR2_rescue_of_CDR2_CDR2L_double_knockout"
+      },
+      "source_ids": [
+        "S103"
+      ],
+      "locator": "ER organization and rescue Results; Figures 1-5",
+      "summary": "The principal cellular ER-rescue evidence uses CDR2 in HeLa, not ovarian CDR2L presentation.",
+      "kind": "published_intervention",
+      "polarity": "supports"
+    },
+    {
+      "id": "E11",
+      "observation_key": "S101:fig3A-coIP",
+      "relation": "recoverable_complex",
+      "subject": "UNIPROT:Q86X02",
+      "object": "RPS6",
+      "context": {
+        "species": "human",
+        "model": "OVCAR3",
+        "assay": "co_immunoprecipitation",
+        "compartment": "cellular"
+      },
+      "source_ids": [
+        "S101"
+      ],
+      "locator": "Figures 2 and 3A",
+      "summary": "Co-localization, proximity and co-immunoprecipitation support a recoverable complex; not direct binding or extracellular capture.",
+      "kind": "reported_observation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E12",
+      "observation_key": "S115:complex-presentation",
+      "relation": "linked_capture_presentation",
+      "subject": "rheumatoid_factor_B_cells",
+      "object": "complexed_antigen",
+      "context": {
+        "species": "human",
+        "model": "EBV_B_cell_and_antigen_specific_T_cell_clones",
+        "readout": "antigen_presentation"
+      },
+      "source_ids": [
+        "S115"
+      ],
+      "locator": "Primary abstract",
+      "summary": "Capture specificity and presented antigen can differ in an antigen-antibody complex.",
+      "kind": "published_intervention",
+      "polarity": "supports"
+    },
+    {
+      "id": "E13",
+      "observation_key": "S114:B-cell-relay",
+      "relation": "B_cell_presentation_dependence",
+      "subject": "autoreactivity_spreading",
+      "object": "MHC_compartments",
+      "context": {
+        "species": "mouse",
+        "model": "lupus_like",
+        "readout": "epitope_spreading"
+      },
+      "source_ids": [
+        "S114"
+      ],
+      "locator": "Results: MHC-dependent spreading and B-cell relay",
+      "summary": "B-cell presentation-dependent spreading was demonstrated in a murine system.",
+      "kind": "published_intervention",
+      "polarity": "supports"
+    },
+    {
+      "id": "E14",
+      "observation_key": "S37:fig4-CSF",
+      "relation": "state_frequency_contrast",
+      "subject": "CD4_CTL_low",
+      "object": "IIH_controls",
+      "context": {
+        "species": "human",
+        "population": "anti-Yo_PCD",
+        "compartment": "CSF",
+        "readout": "transcriptomic_state_frequency",
+        "design": "disease_source_confounded"
+      },
+      "source_ids": [
+        "S37"
+      ],
+      "locator": "Figure 4; accepted PDF Methods pp. 2-3",
+      "summary": "The significant Figure 4 contrast concerns CSF CTL-low versus IIH; this does not establish antigen or injury.",
+      "kind": "reported_observation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E15",
+      "observation_key": "S37:fig5-blood",
+      "relation": "maturation_profile",
+      "subject": "CD4_CTL",
+      "object": "more_mature_state",
+      "context": {
+        "species": "human",
+        "population": "anti-Yo_PCD",
+        "compartment": "blood",
+        "readout": "transcriptomic_state"
+      },
+      "source_ids": [
+        "S37"
+      ],
+      "locator": "Figure 5",
+      "summary": "Blood CTLs showed a more mature profile in the reported comparison.",
+      "kind": "reported_observation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E16",
+      "observation_key": "S104:CMV-CD28",
+      "relation": "serostatus_association",
+      "subject": "CMV_seropositivity",
+      "object": "mature_CD28_negative_CD4",
+      "context": {
+        "species": "human",
+        "population": "MS_and_healthy_selected_groups",
+        "compartment": "blood",
+        "readout": "cytotoxic_expression_and_subsets"
+      },
+      "source_ids": [
+        "S104"
+      ],
+      "locator": "Results; Figures 2, 4-5",
+      "summary": "CMV association concerns the mature blood layer; it does not map anti-Yo CSF CTL-low cells.",
+      "kind": "reported_observation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E17",
+      "observation_key": "S105:GFAP-fragmentation",
+      "relation": "effector_effect",
+      "subject": "granzyme_B_CD4_cells",
+      "object": "astrocyte_GFAP_fragmentation",
+      "context": {
+        "model": "published_astrocyte_system",
+        "restriction": "MHCII_independent",
+        "readout": "GFAP_fragmentation",
+        "source_depth": "primary_abstract",
+        "species": "human",
+        "activation": "superantigen_activated_CD4_cells",
+        "target": "fetal_human_astrocytes",
+        "setting": "in_vitro",
+        "functional_outcome": "sublethal_impairment_not_apoptosis"
+      },
+      "source_ids": [
+        "S105"
+      ],
+      "locator": "Indexed primary abstract",
+      "summary": "The reported in-vitro GFAP fragmentation and sublethal astrocyte impairment do not require MHC-II-dependent target recognition. This does not exclude every target-recognition route or establish anti-Yo injury or cell death.",
+      "kind": "published_intervention",
+      "polarity": "supports"
+    },
+    {
+      "id": "E18",
+      "observation_key": "S106:IL15-amplification",
+      "relation": "cytokine_amplification",
+      "subject": "IL15",
+      "object": "CD4_CD28_negative_properties",
+      "context": {
+        "species": "human",
+        "population": "multiple_sclerosis",
+        "source_depth": "primary_abstract"
+      },
+      "source_ids": [
+        "S106"
+      ],
+      "locator": "Indexed primary abstract",
+      "summary": "IL-15 amplified reported pathogenic properties in an MS system; transfer to anti-Yo remains a hypothesis.",
+      "kind": "published_intervention",
+      "polarity": "supports"
+    },
+    {
+      "id": "E19",
+      "observation_key": "S116:two-CDR2-epitopes",
+      "relation": "CD8_response_detected",
+      "subject": "UNIPROT:Q01850",
+      "object": "tested_two_epitopes",
+      "context": {
+        "species": "human",
+        "population": "seven_PCD_patients",
+        "assay": "reported_functional_assay",
+        "source_depth": "primary_abstract"
+      },
+      "source_ids": [
+        "S116"
+      ],
+      "locator": "Primary abstract",
+      "summary": "No detectable responses to the two tested epitopes were reported while viral responses were measurable.",
+      "kind": "reported_observation",
+      "polarity": "contradicts"
+    },
+    {
+      "id": "E20",
+      "observation_key": "S108:antibody-without-syndrome",
+      "relation": "antibody_positive_without_neurological_syndrome",
+      "subject": "historical_anti-Yo",
+      "object": "ovarian_cancer_group",
+      "context": {
+        "species": "human",
+        "assay": "immunofluorescence_and_immunoblot",
+        "period": "reported_followup",
+        "source_depth": "primary_abstract"
+      },
+      "source_ids": [
+        "S108"
+      ],
+      "locator": "Primary abstract",
+      "summary": "The historical survey reports antibody-positive patients without neurological syndrome; assays are not equivalent to modern CDR2L specificity.",
+      "kind": "reported_observation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E21",
+      "observation_key": "S37:CSF-source-layout",
+      "relation": "design_confounding",
+      "subject": "CSF_disease_group",
+      "object": "study_source",
+      "context": {
+        "species": "human",
+        "population": "anti-Yo_PCD_versus_MS_IIH",
+        "design": "all_cases_new_source_all_controls_prior_source"
+      },
+      "source_ids": [
+        "S37"
+      ],
+      "locator": "Accepted PDF Methods/Results pp. 2-3",
+      "summary": "The documented CSF group/source layout motivates a conditional identifiability inference: disease and source effects cannot be separated if an unknown source effect is allowed. This is a project design inference, not a fitted result or a claim of technical artifact.",
+      "kind": "design_inference",
+      "polarity": "supports"
+    },
+    {
+      "id": "E22",
+      "observation_key": "S45:antibody-fragments",
+      "relation": "antibody_fragment_recognition",
+      "subject": "anti-Yo_antibodies",
+      "object": "CDR2_CDR2L_fragments",
+      "context": {
+        "species": "human",
+        "assay": "programmable_phage_display",
+        "readout": "antibody_reactivity"
+      },
+      "source_ids": [
+        "S45"
+      ],
+      "locator": "Anti-Yo epitope-mapping Results",
+      "summary": "Antibody fragment maps do not establish the naturally presented HLA-II repertoire.",
+      "kind": "reported_observation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E23",
+      "observation_key": "S43:HLA-association",
+      "relation": "population_HLA_association",
+      "subject": "anti-Yo_PCD",
+      "object": "HLA-II_context",
+      "context": {
+        "species": "human",
+        "readout": "susceptibility_association",
+        "population": "cancer_context_stratified"
+      },
+      "source_ids": [
+        "S43"
+      ],
+      "locator": "Primary abstract",
+      "summary": "HLA susceptibility association differs by cancer context; it does not identify a receptor ligand or restriction.",
+      "kind": "reported_observation",
+      "polarity": "supports"
+    },
+    {
+      "id": "E24",
+      "observation_key": "S38:RNA-not-phosphorylation",
+      "relation": "measurement_boundary",
+      "subject": "JAK_STAT",
+      "object": "RNA_expression",
+      "context": {
+        "species": "human",
+        "assay": "transcriptomics",
+        "phosphorylation": "not_measured"
+      },
+      "source_ids": [
+        "S38"
+      ],
+      "locator": "Transparent review PDF pp. 8-9",
+      "summary": "Peer review corrected the transition from expression to pathway activation.",
+      "kind": "source_method",
+      "polarity": "supports"
+    }
+  ],
+  "queries": [
+    {
+      "id": "Q01",
+      "question": "Retain CDR2L antibody-target evidence within its stated scope.",
+      "evidence_ids": [
+        "E01"
+      ],
+      "requires": {
+        "relation": "antibody_target",
+        "subject": "UNIPROT:Q86X02",
+        "object": "anti-Yo_antibodies",
+        "context": {
+          "species": "human",
+          "assay": "antibody_binding"
+        }
+      },
+      "expected": "supported_within_scope"
+    },
+    {
+      "id": "Q02",
+      "question": "Does antibody binding identify a CD4 receptor ligand?",
+      "evidence_ids": [
+        "E01",
+        "E22"
+      ],
+      "requires": {
+        "relation": "receptor_recognition",
+        "subject": "defined_anti-Yo_CD4_receptor",
+        "object": "CDR2L_HLA-II_ligand",
+        "context": {
+          "species": "human",
+          "processing": "natural"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q03",
+      "question": "Retain the Atlas CDR2L class-II annotation.",
+      "evidence_ids": [
+        "E02"
+      ],
+      "requires": {
+        "relation": "hla_ligand_annotation",
+        "subject": "UNIPROT:Q86X02",
+        "object": "HLA-II",
+        "context": {
+          "model": "benign_tissue_atlas"
+        },
+        "source_ids": [
+          "S111"
+        ]
+      },
+      "expected": "supported_within_scope"
+    },
+    {
+      "id": "Q04",
+      "question": "Does an Atlas parent annotation establish unique protein origin?",
+      "evidence_ids": [
+        "E02",
+        "E05"
+      ],
+      "requires": {
+        "relation": "unique_source_assignment",
+        "subject": "UNIPROT:Q86X02",
+        "object": "HLA-II_ligand",
+        "context": {
+          "model": "benign_tissue_atlas"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q05",
+      "question": "Can CDR2L, glioblastoma and HLA-II be joined from different annotations?",
+      "evidence_ids": [
+        "E02",
+        "E03",
+        "E04"
+      ],
+      "requires": {
+        "relation": "hla_ligand_annotation",
+        "subject": "UNIPROT:Q86X02",
+        "object": "HLA-II",
+        "context": {
+          "model": "CIITA_transduced_glioblastoma"
+        },
+        "source_ids": [
+          "S113"
+        ]
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q06",
+      "question": "Does motif-inferred restriction establish experimentally restricted HLA?",
+      "evidence_ids": [
+        "E04"
+      ],
+      "requires": {
+        "relation": "hla_ligand_annotation",
+        "subject": "UNIPROT:Q01850",
+        "object": "HLA-II",
+        "context": {
+          "restriction_evidence": "experimental_restriction"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q07",
+      "question": "Does confluence establish direct cell-number change?",
+      "evidence_ids": [
+        "E07"
+      ],
+      "requires": {
+        "relation": "knockout_effect",
+        "subject": "UNIPROT:Q86X02",
+        "object": "viable_cell_number",
+        "context": {
+          "model": "OVCAR-3",
+          "readout": "direct_cell_count"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q08",
+      "question": "Does mixed conditioned medium identify a vesicle-specific route?",
+      "evidence_ids": [
+        "E08"
+      ],
+      "requires": {
+        "relation": "transport_route",
+        "subject": "UNIPROT:Q86X02",
+        "object": "extracellular_vesicles",
+        "context": {
+          "model": "OVCAR-3",
+          "route": "isolated_and_verified"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q09",
+      "question": "Retain the in-vitro CDR2L motility result.",
+      "evidence_ids": [
+        "E09"
+      ],
+      "requires": {
+        "relation": "cellular_function",
+        "subject": "UNIPROT:Q86X02",
+        "object": "dynein_motility",
+        "context": {
+          "model": "in_vitro_reconstitution"
+        }
+      },
+      "expected": "supported_within_scope"
+    },
+    {
+      "id": "Q10",
+      "question": "Does HeLa CDR2 rescue establish ovarian CDR2L HLA-II control?",
+      "evidence_ids": [
+        "E09",
+        "E10"
+      ],
+      "requires": {
+        "relation": "cellular_function",
+        "subject": "UNIPROT:Q86X02",
+        "object": "HLA-II_presentation",
+        "context": {
+          "model": "OVCAR-3"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q11",
+      "question": "Retain recoverable cellular complex evidence.",
+      "evidence_ids": [
+        "E11"
+      ],
+      "requires": {
+        "relation": "recoverable_complex",
+        "subject": "UNIPROT:Q86X02",
+        "object": "RPS6",
+        "context": {
+          "model": "OVCAR3",
+          "compartment": "cellular"
+        }
+      },
+      "expected": "supported_within_scope"
+    },
+    {
+      "id": "Q12",
+      "question": "Does cellular co-IP establish extracellular cargo capture?",
+      "evidence_ids": [
+        "E11"
+      ],
+      "requires": {
+        "relation": "selective_cargo_capture",
+        "subject": "CDR2L_specific_BCR",
+        "object": "CDR2L_RPS6_complex",
+        "context": {
+          "species": "human",
+          "compartment": "extracellular"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q13",
+      "question": "Does murine spreading demonstrate anti-Yo cytotoxic-CD4 specificity?",
+      "evidence_ids": [
+        "E12",
+        "E13"
+      ],
+      "requires": {
+        "relation": "receptor_recognition",
+        "subject": "defined_anti-Yo_CD4_receptor",
+        "object": "partner_HLA-II_ligand",
+        "context": {
+          "species": "human",
+          "processing": "natural"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q14",
+      "question": "Retain the reported CSF state-frequency contrast.",
+      "evidence_ids": [
+        "E14"
+      ],
+      "requires": {
+        "relation": "state_frequency_contrast",
+        "subject": "CD4_CTL_low",
+        "object": "IIH_controls",
+        "context": {
+          "compartment": "CSF",
+          "design": "disease_source_confounded"
+        }
+      },
+      "expected": "supported_within_scope"
+    },
+    {
+      "id": "Q15",
+      "question": "Does cytotoxic state establish neural injury?",
+      "evidence_ids": [
+        "E14",
+        "E15"
+      ],
+      "requires": {
+        "relation": "target_injury",
+        "subject": "defined_anti-Yo_CD4_receptor",
+        "object": "neural_target",
+        "context": {
+          "species": "human",
+          "readout": "independently_measured_injury"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q16",
+      "question": "Does a mature blood CMV association identify anti-Yo CSF CTL-low cells?",
+      "evidence_ids": [
+        "E16"
+      ],
+      "requires": {
+        "relation": "serostatus_association",
+        "subject": "CMV_seropositivity",
+        "object": "CD4_CTL_low",
+        "context": {
+          "population": "anti-Yo_PCD",
+          "compartment": "CSF"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q17",
+      "question": "Retain fragmentation in the superantigen-activated human CD4/fetal-astrocyte in-vitro context.",
+      "evidence_ids": [
+        "E17"
+      ],
+      "requires": {
+        "relation": "effector_effect",
+        "subject": "granzyme_B_CD4_cells",
+        "object": "astrocyte_GFAP_fragmentation",
+        "context": {
+          "model": "published_astrocyte_system",
+          "readout": "GFAP_fragmentation",
+          "species": "human",
+          "activation": "superantigen_activated_CD4_cells",
+          "target": "fetal_human_astrocytes",
+          "setting": "in_vitro"
+        }
+      },
+      "expected": "supported_within_scope"
+    },
+    {
+      "id": "Q18",
+      "question": "Does astrocyte fragmentation demonstrate anti-Yo Purkinje death?",
+      "evidence_ids": [
+        "E17"
+      ],
+      "requires": {
+        "relation": "target_injury",
+        "subject": "defined_anti-Yo_CD4_receptor",
+        "object": "Purkinje_cell",
+        "context": {
+          "population": "anti-Yo_PCD",
+          "readout": "cell_death"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q19",
+      "question": "Retain the negative result for its tested epitopes.",
+      "evidence_ids": [
+        "E19"
+      ],
+      "requires": {
+        "relation": "CD8_response_detected",
+        "subject": "UNIPROT:Q01850",
+        "object": "tested_two_epitopes",
+        "context": {
+          "population": "seven_PCD_patients",
+          "assay": "reported_functional_assay"
+        }
+      },
+      "expected": "counterevidence"
+    },
+    {
+      "id": "Q20",
+      "question": "Does the finite negative screen rule out all autoreactivity?",
+      "evidence_ids": [
+        "E19"
+      ],
+      "requires": {
+        "relation": "autoreactivity_present",
+        "subject": "all_T_cell_receptors",
+        "object": "all_self_antigens",
+        "context": {
+          "species": "human",
+          "population": "all_anti-Yo_PCD"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q21",
+      "question": "Does the CSF contrast separate a disease effect from source?",
+      "evidence_ids": [
+        "E14",
+        "E21"
+      ],
+      "requires": {
+        "relation": "disease_specific_effect",
+        "subject": "anti-Yo_PCD",
+        "object": "CSF_CTL_low",
+        "context": {
+          "design": "disease_source_separately_identified"
+        }
+      },
+      "expected": "unresolved"
+    },
+    {
+      "id": "Q22",
+      "question": "Does RNA expression establish measured JAK/STAT phosphorylation?",
+      "evidence_ids": [
+        "E24"
+      ],
+      "requires": {
+        "relation": "measured_activation",
+        "subject": "JAK_STAT",
+        "object": "phosphorylation",
+        "context": {
+          "assay": "phosphoprotein_measurement"
+        }
+      },
+      "expected": "unresolved"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "direct_ligand",
+      "axis": "recognition",
+      "interpretation": "CDR2L supplies a recognized naturally processed ligand in the defined context.",
+      "requirements": [
+        {
+          "relation": "hla_ligand_annotation",
+          "subject": "UNIPROT:Q86X02",
+          "object": "HLA-II",
+          "context": {
+            "species": "human"
+          }
+        },
+        {
+          "relation": "unique_source_assignment",
+          "subject": "UNIPROT:Q86X02",
+          "object": "HLA-II_ligand",
+          "context": {
+            "species": "human"
+          }
+        },
+        {
+          "relation": "receptor_recognition",
+          "subject": "defined_anti-Yo_CD4_receptor",
+          "object": "CDR2L_HLA-II_ligand",
+          "context": {
+            "species": "human",
+            "receptor": "same_defined_anti-Yo_CD4_receptor",
+            "processing": "natural"
+          }
+        }
+      ]
+    },
+    {
+      "id": "partner_cargo",
+      "axis": "recognition",
+      "interpretation": "CDR2L supports capture or delivery while a partner supplies the recognized ligand.",
+      "requirements": [
+        {
+          "relation": "selective_cargo_capture",
+          "subject": "CDR2L_specific_BCR",
+          "object": "verified_native_complex",
+          "context": {
+            "species": "human",
+            "compartment": "extracellular"
+          }
+        },
+        {
+          "relation": "receptor_recognition",
+          "subject": "defined_anti-Yo_CD4_receptor",
+          "object": "partner_HLA-II_ligand",
+          "context": {
+            "species": "human",
+            "receptor": "same_defined_anti-Yo_CD4_receptor",
+            "processing": "natural"
+          }
+        },
+        {
+          "relation": "delivery_dependence",
+          "subject": "CDR2L_capture_route",
+          "object": "partner_recognition",
+          "context": {
+            "species": "human",
+            "receptor": "same_defined_anti-Yo_CD4_receptor",
+            "controls": "delivery_and_presentation_held_comparable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cellular_state",
+      "axis": "recognition",
+      "interpretation": "CDR2L-dependent cell state changes presentation or antigen supply without establishing ligand identity.",
+      "requirements": [
+        {
+          "relation": "presentation_effect",
+          "subject": "CDR2L_cellular_function",
+          "object": "unrelated_antigen_controls",
+          "context": {
+            "species": "human",
+            "model": "ovarian_source_cells",
+            "controls": "viability_and_antigen_exposure_accounted"
+          }
+        }
+      ]
+    },
+    {
+      "id": "direct_target_injury",
+      "axis": "injury",
+      "interpretation": "The injured target requires recognition by the defined effector, separate from upstream activation.",
+      "requirements": [
+        {
+          "relation": "target_injury",
+          "subject": "defined_anti-Yo_CD4_receptor",
+          "object": "neural_target",
+          "context": {
+            "species": "human",
+            "receptor": "same_defined_anti-Yo_CD4_receptor",
+            "readout": "independently_measured_injury"
+          }
+        },
+        {
+          "relation": "target_recognition_dependence",
+          "subject": "defined_anti-Yo_CD4_receptor",
+          "object": "neural_target",
+          "context": {
+            "species": "human",
+            "receptor": "same_defined_anti-Yo_CD4_receptor",
+            "controls": "upstream_activation_comparable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "indirect_injury",
+      "axis": "injury",
+      "interpretation": "An independently supported downstream mechanism causes injury without the proposed target-recognition route.",
+      "requirements": [
+        {
+          "relation": "target_injury",
+          "subject": "defined_anti-Yo_CD4_receptor",
+          "object": "neural_target",
+          "context": {
+            "species": "human",
+            "receptor": "same_defined_anti-Yo_CD4_receptor",
+            "target_recognition": "justifiably_absent"
+          }
+        },
+        {
+          "relation": "downstream_mechanism_dependence",
+          "subject": "defined_anti-Yo_CD4_receptor",
+          "object": "neural_target",
+          "context": {
+            "species": "human",
+            "receptor": "same_defined_anti-Yo_CD4_receptor",
+            "controls": "effector_competence_and_target_health_verified"
+          }
+        }
+      ]
+    },
+    {
+      "id": "no_demonstrated_injury",
+      "axis": "injury",
+      "interpretation": "A competent tested system shows activation without the specified injury; no universal harmlessness claim.",
+      "requirements": [
+        {
+          "relation": "activation_without_injury",
+          "subject": "defined_anti-Yo_CD4_receptor",
+          "object": "tested_neural_system",
+          "context": {
+            "species": "human",
+            "receptor": "same_defined_anti-Yo_CD4_receptor",
+            "controls": "effector_competence_and_target_health_verified"
+          }
+        }
+      ]
+    }
+  ]
+}
