@@ -10,7 +10,7 @@ sheet `FFPE_pred_scores`. Prior baseline arithmetic:
 [score verification result](pilot-001-score-verification-result.md).
 
 **Claim labels** follow [CLAIMS.md](../CLAIMS.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
-Ledger IDs for this analysis: **V23** (VERIFIED candidates (a)–(e) on released scores) and **C20** (CONJECTURE leading open explanation).
+Ledger IDs for this analysis: **V23** (VERIFIED candidates (a)–(e) on released scores) and **C20** (CONJECTURE leading open explanation). Revalidated after main absorbed #48 (K32); V23/C20 remain free.
 
 ## Baseline (VERIFIED)
 
