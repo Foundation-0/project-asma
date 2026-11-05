@@ -933,9 +933,9 @@
       "verification": "metadata_reviewed",
       "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=AUTHOR%3A%22Rosen+BP%22&format=json&resultType=core&pageSize=1000",
       "locator": "Author metadata, pubTypeList, commentCorrectionList; full queries and dispositions in registries/barry-rosen-bibliography.json",
-      "takeaway": "Dated identity screening and notice audit across 2,046 deduplicated records; 215 provisionally attributed entries.",
+      "takeaway": "Dated identity screening and notice audit across 2,046 deduplicated records; 215 provisionally attributed entries. Follow-up 2026-11-05 changes 79 uncertain matches to excluded, with 45 direct and 34 inferred identity decisions; 130 remain uncertain and 215 target entries remain provisional.",
       "limitations": "Broad initials retrieve multiple researchers. Metadata screening is not full-text review, completeness, independent scientific review or a count of independent studies.",
-      "checked_on": "2026-11-04"
+      "checked_on": "2026-11-05"
     },
     {
       "id": "S92",
@@ -984,6 +984,54 @@
       "takeaway": "Reports 38 completers among 62 adjuvant-eligible cases and nonsignificant HIV-group survival comparisons; data on reasonable request.",
       "limitations": "Retrospective cervical cohort, incomplete discontinuation/HIV/pathology fields; not an HGSOC treatment-effect estimate. Affiliation geography anomaly preserved in survey.",
       "checked_on": "2026-11-04"
+    },
+    {
+      "id": "S96",
+      "title": "Evaluation of Role of Natural Killer Cells in Radiation-Induced Leukemogenesis in Mice",
+      "kind": "paper",
+      "url": "https://doi.org/10.1093/jnci/72.6.1397",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://academic.oup.com/jnci/article-pdf/72/6/1397/3168949/72-6-1397.pdf",
+      "locator": "Publicly returned minimal article author/abstract page; Boas Rosen affiliation",
+      "takeaway": "Names Boas Rosen at NCI-Frederick; different identity from Toronto/Beaumont gynecologic oncologist.",
+      "limitations": "Author/abstract metadata only; subscription PDF not inspected or copied. No immune finding imported into Asma.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S97",
+      "title": "Glutaminase triple-negative breast-cancer preprint: identity check",
+      "kind": "paper",
+      "url": "https://doi.org/10.20944/preprints202603.0868.v1",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.preprints.org/manuscript/202603.0868/v1/download",
+      "locator": "Preprint front matter, common FIU affiliation; journal counterpart PMC13204110 maps Rosen to af1",
+      "takeaway": "Rosen belongs to the FIU group in this preprint and journal counterpart; excluded from clinician attribution.",
+      "limitations": "Identity check only, not scientific endorsement. Preprint states CC BY 4.0; no data or training grant inferred.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S98",
+      "title": "Publisher-deposited Crossref identity metadata audit",
+      "kind": "data_catalog",
+      "url": "https://api.crossref.org/works/10.1159/000292334",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://api.crossref.org/works/10.1159/000292334",
+      "locator": "DOI/title and given/family names; 184 uncertain DOI records queried in follow-up",
+      "takeaway": "Thirty-nine unique records resolve to other given names in publisher-deposited metadata; per-record URLs and dated history in bibliography registry.",
+      "limitations": "Thirty-two requests failed; initials-only records and absent author affiliations remain unresolved. Crossref is not scientific full-text review.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S99",
+      "title": "IMPC EUCOMMTools institutional participant list",
+      "kind": "evidence_summary",
+      "url": "https://www.mousephenotype.org/about-impc/about-ikmc/eucommtools/",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.mousephenotype.org/about-impc/about-ikmc/eucommtools/",
+      "locator": "EUCOMMTOOLS Participants: Wellcome Trust Sanger Institute group",
+      "takeaway": "Names Barry Rosen with Bradley, Skarnes, Bushell and Iyer at Sanger; cross-check for directly mapped mouse-resource author affiliations.",
+      "limitations": "Institutional network evidence is not blanket attribution of every similarly named paper; no code/data acquired.",
+      "checked_on": "2026-11-05"
     }
   ]
 }

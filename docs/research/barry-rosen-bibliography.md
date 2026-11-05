@@ -235,3 +235,7 @@ Identity based on author-specific institutional affiliation or topic/coauthor co
 The JSON retains every screened result with a disposition and basis, including broad initial-prefix matches. Excluded or uncertain records are not attributed to the target. Representative exclusions: FIU arsenic review PMID 35190937; FIU-linked INPP4B paper PMID 24070612; breast surgeon at Advocate Good Shepherd PMID 27160524; Brittany Rosen chatbot PMID 40194281; Benjamin Rosen psychiatry records; Bruce Rosen neuroimaging records.
 
 Uncertain examples include athlete MRI papers PMIDs 8345054 and 8529954; author initials alone are insufficient. No pooled provider/profile bibliography or citation count was used.
+
+## Dated follow-up: 2026-11-05
+
+The 215-entry table above is the preserved initial bibliography. The [identity and recall audit](barry-rosen.md#2026-11-05-identity-reassessment-and-targeted-recall-audit) changes 79 formerly uncertain search matches to excluded (45 direct publisher/name/affiliation checks; 34 institutional/topic/coauthor inferences). Current screening totals are 215 included, 1,701 excluded and 130 uncertain. No new target entries were added. The remaining uncertainty is broad-name ambiguity, not 130 presumed missing oncology papers. The registry preserves dated decisions and primary evidence for each changed row.

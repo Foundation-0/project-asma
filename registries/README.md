@@ -4,6 +4,8 @@
   bibliography, screening dispositions, queries, notice links and one candidate
   data-resource metadata record. See the canonical [research survey](../docs/research/barry-rosen.md)
   and [readable bibliography](../docs/research/barry-rosen-bibliography.md). This
+  2026-11-05 follow-up preserves the original dated counts and adds explicit
+  uncertainty-to-exclusion histories and recall queries; see the canonical survey. The
   collection uses literature identifiers; it does not extend the Pilot PDC-only
   dataset schema or authorize ingestion.
 

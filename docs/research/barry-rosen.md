@@ -1,6 +1,9 @@
 # Barry Rosen: gynecologic oncology research survey
 
 **Initial assessment: 2026-11-04 (UTC). Draft for research review.**
+**Follow-up:** [2026-11-05 identity and recall audit](#2026-11-05-identity-reassessment-and-targeted-recall-audit).
+The initial dated assessment below is preserved; see the follow-up for current counts.
+
 **Project use: candidate** literature curation and research-question design;
 no adoption, study-data analysis, clinical validation or treatment recommendation.
 [Living issue #40](https://github.com/Foundation-0/project-asma/issues/40).
@@ -287,3 +290,118 @@ merge or deployment is part of this survey.
   studies not reproduced. Proposed research uses remain candidate/deferred.
   Later corrections and outcomes should append to this record, preserving the
   initial assessment and recording their supporting evidence.
+
+## 2026-11-05 identity reassessment and targeted recall audit
+
+This is a **dated follow-up**, preserving the 2026-11-04 assessment above and the
+original counts in `initial_snapshot_counts` in the
+[registry](../../registries/barry-rosen-bibliography.json). The original 209
+uncertain records were **broad-name ambiguities**, not 209 likely missing ovarian
+oncology papers. None of their titles explicitly says “ovarian” or
+“immunotherapy”; natural-killer-cell, leukemia, breast-cancer, gynecologic and
+patient-information papers nevertheless warranted individual attention. Many
+other records concern bacterial transport, psychiatry, imaging or health systems.
+
+**Executed screening result:** 79 of those 209 records are now excluded from
+attribution to the target clinician: **39** have a different given name in
+publisher-deposited metadata, **six** have a direct primary author-name or
+contributor-affiliation mapping, and **34** have a combined institutional,
+biochemical-topic and coauthor basis. The last group is explicitly labelled
+**identity inference**, not individual author-affiliation verification. No entry
+was excluded solely for a P initial. **130 remain uncertain**, and the **215
+provisionally attributed entries remain unchanged**. Current totals in the same
+2,046-record universe are 215 included, 1,701 excluded and 130 uncertain. Exclusion
+from this bibliography is not an assertion that a paper lacks scientific value.
+
+All 209 unresolved titles were triaged; Crossref DOI metadata requests were made
+for the 184 with a DOI. **152** succeeded and **32** failed. The examined fields
+were `message.title`, author given/family names and affiliations, with the DOI
+matched to the existing record. For example, [PMID 8529954's publisher-deposited
+record](https://api.crossref.org/works/10.1159/000292334) gives **Bruce**, not Barry.
+Other resolved names include Bernard, Barbara, Boaz, Beth, Betty, Barney, Benson,
+Baruch and Brenda. These are author-metadata checks, not scientific reviews.
+The 35 attempted Europe PMC XML routes recovered four usable author mappings;
+most other routes returned HTTP 500. Nine additional triaged records had no PMC
+identifier to attempt. No failed retrieval was treated as an identity decision.
+Every changed record retains its old disposition, dated new basis, evidence
+level and primary URLs in `screening_history` and `identity_evidence`.
+
+### High-value cross-checks
+
+| Record | Evidence actually inspected | Dated disposition and limit |
+| --- | --- | --- |
+| **MED:6374239**, natural killer cells / radiation-induced leukemogenesis | The [publisher's publicly returned author/abstract page](https://academic.oup.com/jnci/article-pdf/72/6/1397/3168949/72-6-1397.pdf) (redirects to a minimal article page) names **Boas Rosen**, mapped to the Biological Therapeutics Branch, NCI-Frederick. | **Excluded**, direct primary name/institution evidence. The source spells the given name “Boas”; it is not silently normalized from an aggregated profile. This is not evidence of Toronto ovarian immunotherapy work. Only public author/abstract metadata was inspected, not the subscription PDF. |
+| **PPR:PPR1164615**, glutaminase / triple-negative breast cancer | The [preprint's front matter](https://www.preprints.org/manuscript/202603.0868/v1/download) gives FIU Cellular and Molecular Medicine as the author-group affiliation. Its [journal counterpart XML](https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13204110/fullTextXML) specifically maps Rosen to that FIU affiliation. | **Excluded**, direct primary affiliation evidence. A cancer-related title does not identify the gynecologic oncologist. The two versions are not independent studies; no anticancer efficacy finding is imported into Asma. The preprint states CC BY 4.0, which does not establish a dataset or training grant. |
+| **MED:15336539**, AQP9 / leukemia drug sensitivity | [Primary bibliographic metadata](https://pubmed.ncbi.nlm.nih.gov/15336539/) lists Wayne State Biochemistry and Molecular Biology and Bhattacharjee/Carbrey/Mukhopadhyay with Rosen BP. A [separate primary article](https://www.ebi.ac.uk/europepmc/webservices/rest/PMC1241237/fullTextXML) maps Rosen and Mukhopadhyay to Wayne State biochemistry; the FIU institutional career account supports the same network. | **Excluded by combined institutional/topic/coauthor inference**. The old item's affiliation is article-level, not independently mapped to each author. Its publisher route could not be inspected. This qualified exclusion must not be reported as direct author-affiliation verification. |
+| **MED:20861301**, yeast selenite transport | [Article XML](https://www.ebi.ac.uk/europepmc/webservices/rest/PMC2982120/fullTextXML), Rosen contributor `xref aff2`, identifies FIU. Oakland belongs to another author affiliation in the same article. | **Excluded**, direct mapping. Merely finding “Oakland” anywhere in an article would have been misleading, despite its role in the clinician's institutional history. |
+| **MED:22968824 / MED:22020067**, mouse resource / malaria genetics | [Mouse-resource XML](https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3463800/fullTextXML) maps Rosen to Sanger (`Aff1`); [malaria-genetics XML](https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3431185/fullTextXML) does likewise (`A1`). The [IMPC consortium page](https://www.mousephenotype.org/about-impc/about-ikmc/eucommtools/), Participants, independently lists Barry Rosen with the Sanger Bradley/Skarnes/Bushell/Iyer group. | **Excluded**, direct primary affiliation plus institutional/coauthor cross-check. Identical “Barry Rosen” names do not justify pooling different professional networks. |
+| **MED:24316947**, colorectal internet patient information | [Publisher-deposited Crossref metadata](https://api.crossref.org/works/10.1097/DCR.0000000000000011) still gives only “B. Rosen”, without an author-specific affiliation. The bibliographic record includes Toronto/Northwestern institutions but does not map Rosen to them. Publisher retrieval failed. | **Still uncertain**. Its topic could inform the existing evidence-communication question, but it is not attributed to this clinician or used as supporting evidence here. Toronto in an article-wide affiliation list is insufficient. |
+| **MED:8416443**, IUD location/failure | [PubMed](https://pubmed.ncbi.nlm.nih.gov/8416443/) gives B Rosen and an article-level Hadassah affiliation. Indexed Ovid metadata suggests Bruno Rosen, but the direct abstract returned payment-required and other direct publisher routes failed. | **Still uncertain**, with an explicit verification lead. A search snippet was not promoted to a resolved identity. No full text was purchased or copied. |
+| **MED:8345054**, athlete MRI | Crossref still gives B; the related 1995 paper resolves to Bruce. | **Still uncertain**. Similar titles and coauthors suggest a route to resolve it, but that item's affiliation/name was not independently recovered. |
+
+**Identifier caution:** the Europe PMC author metadata and the public ORCID works
+response for `0000-0002-5230-4271` span FIU biochemical and Sanger genetics
+records. We inspected the [ORCID works response](https://pub.orcid.org/v3.0/0000-0002-5230-4271/works)
+but did not use it to assign the clinician's identity or automatically resolve
+any record. The directly inspected institutional mappings take precedence. This
+observation identifies a cross-cluster ambiguity in the available metadata; it
+is not an adjudication of who introduced an erroneous identifier or whether every
+cross-cluster assignment is erroneous. The original INPP4B exclusion should be
+read with its topic/coauthor evidence, not as a rule that this ORCID alone proves
+every attribution.
+
+### Targeted ovarian and immune recall
+
+These additional Europe PMC queries ran on **2026-11-05**, `resultType=core`,
+`format=json`, `pageSize=1000`; each returned fewer than 1,000 entries and the
+entire returned page was examined. Exact request URLs and new-record triage are
+in `identity_followup.recall_queries` in the registry. These query results are
+separate from the original 2,046-record universe, not silently added to its counts.
+
+| Exact query | Hits | Records absent from the initial universe |
+| --- | --- | --- |
+| `(AUTHOR:"Rosen B" OR AUTHOR:"Rosen BP") AND (immunotherapy OR lymphocyte OR immune OR interleukin OR checkpoint OR vaccine OR adoptive)` | 231 | 20 |
+| `(AUTHOR:"Rosen B" OR AUTHOR:"Rosen BP") AND (ovarian OR tubo-ovarian OR fallopian OR serous OR ascites)` | 222 | 0 |
+| `"Barry Rosen" AND (ovarian OR immunotherapy OR lymphocyte)` | 160 | 16 |
+| `(AUTHOR:Rosen) AND (AUTHOR:Oza OR AUTHOR:Bernardini OR AUTHOR:Ohashi OR AUTHOR:Hiranoj OR AUTHOR:Hirano OR AUTHOR:Nguyen) AND (ovarian OR immunotherapy OR lymphocyte)` | 267 | 248 |
+
+The last query deliberately broadens recall and contains the literal `Hiranoj`
+variant as entered; its many unrelated ADNI/neuroimaging and other-Rosen matches
+are not ovarian publications. New exact B/BP matches in these queries had other
+given names or incompatible affiliations, or lacked evidence for attribution;
+none warranted a new target inclusion. Full-name text searches also match
+references and acknowledgements, which must not be confused with authorship.
+“No additional target inclusion in these searches” is not a completeness claim.
+
+The [primary registry record for NCT01883297](https://clinicaltrials.gov/api/v2/studies/NCT01883297)
+was inspected as an ovarian adoptive-cell-therapy recall lead. It names UHN as
+sponsor and Marcus Butler as principal investigator; no Rosen is named in the
+examined officials. Its last posted update was 2026-07-07 and status was
+`ACTIVE_NOT_RECRUITING` at this read. It establishes a related research program,
+not Rosen authorship, efficacy or a dataset available for Asma. The suggested
+[2015 conference PDF](https://plone.bcgsc.ca/about/ccic-2015/CCIC2015_Abstracts_all.pdf)
+could not be recovered (web 502; executor proxy tunnel 403). No conference
+attribution or finding is asserted from that inaccessible document.
+
+### Remaining coverage and next discriminating work
+
+The 130 remaining records include many older transport, imaging, psychiatry and
+health-system publications with initials or missing affiliation metadata, plus
+the explicitly unresolved clinical records above. Some are likely other authors,
+but evidence strength has not earned a resolved disposition. Thirty-four of the
+new exclusions also remain **inferences** rather than direct person-level
+verification. Do not call the full corpus verified by subtracting uncertain rows.
+
+The most useful next identity work is a readable primary author header for
+MED:24316947, MED:8416443 and MED:8345054; recovery of the conference source through
+an authorized accessible primary route; and author-specific mapping for any
+inferred item that might materially change an Asma question. Newly accessible
+conference proceedings, consortium-only credits and records absent from the
+literature indexes can still change recall. This follow-up adds no scientific
+validation, study-data analysis, code execution, adoption or treatment claim.
+The ranked questions above retain their candidate/deferred status.
+
+- **2026-11-05 outcome:** 79 uncertainty-to-exclusion decisions, explicit evidence
+  levels and preserved history; no new target inclusions; four targeted recall
+  queries and a primary trial-registry check. Independent screening and the
+  listed access/identity gaps remain open in issue #40.

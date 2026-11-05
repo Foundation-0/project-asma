@@ -40,7 +40,9 @@ agent; posting account **orda-aska**.
 
 The **2026-11-04 Barry Rosen literature survey** was researched, screened and
 written with **OpenAI Codex (GPT-6)** under human direction. Bibliographic
-identity decisions remain provisional pending independent review.
+identity decisions remain provisional pending independent review. The dated
+2026-11-05 identity reassessment and ovarian/immune recall audit used the same
+OpenAI Codex (GPT-6) assistance.
 
 No AI system is a legal author of patient-facing guidance. External scientific
 review of Pilot 001 results remains pending where stated in the docs.
