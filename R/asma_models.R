@@ -25,16 +25,18 @@ asma_model_failure <- function(model, step, kind) {
 
 model_operation <- function(operation, model, step) {
   tryCatch({
-    console <- character()
-    value <- withCallingHandlers(
-      capture.output(result <- operation(), type = "output"),
-      warning = function(warning) asma_model_failure(model, step, "warning"),
-      message = function(message) asma_model_failure(model, step, "message")
-    )
-    if (length(console) > 0L) {
+    value <- NULL
+    output <- capture.output({
+      value <- withCallingHandlers(
+        operation(),
+        warning = function(warning) asma_model_failure(model, step, "warning"),
+        message = function(message) asma_model_failure(model, step, "message")
+      )
+    }, type = "output")
+    if (length(output) > 0L) {
       asma_model_failure(model, step, "console")
     }
-    result
+    value
   }, error = function(error) {
     if (inherits(error, "asma_failure_code")) {
       stop(error)
