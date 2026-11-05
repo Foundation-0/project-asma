@@ -67,7 +67,15 @@ def minimal_valid_aggregate(**overrides):
                     "positive_negative_pairs": 10,
                     "auc": 0.5,
                     "rank_auc": 0.5,
-                    "repetition_auc": 0.5,
+                    "repetition_auc": {
+                        "count": 5,
+                        "minimum": 0.5,
+                        "lower_quartile": 0.5,
+                        "median": 0.5,
+                        "upper_quartile": 0.5,
+                        "maximum": 0.5,
+                        "mean": 0.5,
+                    },
                 },
                 "metric_formulations_agree": True,
             }

@@ -93,8 +93,34 @@ SUMMARY_INT_FIELDS = frozenset(
         "positive_negative_pairs",
     }
 )
-SUMMARY_FLOAT_FIELDS = frozenset({"auc", "rank_auc", "repetition_auc"})
+SUMMARY_FLOAT_FIELDS = frozenset({"auc", "rank_auc"})
 SUMMARY_BOOL_FIELDS = frozenset({"complete_prediction_coverage"})
+REPETITION_AUC_KEYS = frozenset(
+    {"count", "minimum", "lower_quartile", "median", "upper_quartile", "maximum", "mean"}
+)
+REPETITION_AUC_FLOAT_KEYS = frozenset(
+    {"minimum", "lower_quartile", "median", "upper_quartile", "maximum", "mean"}
+)
+
+
+def _validate_repetition_auc(item: Any, path: str, errors: list[str]) -> None:
+    if isinstance(item, list):
+        _check_numeric_vector(item, path, errors)
+        errors.append(f"type:{path}")
+        return
+    if not isinstance(item, dict):
+        errors.append(f"type:{path}")
+        return
+    extra = set(item) - REPETITION_AUC_KEYS
+    if extra:
+        errors.append(f"unexpected_keys:{path}")
+    count = item.get("count")
+    if count is not None and (not isinstance(count, int) or isinstance(count, bool)):
+        errors.append(f"type:{path}.count")
+    for key in REPETITION_AUC_FLOAT_KEYS:
+        value = item.get(key)
+        if value is not None and (not isinstance(value, (int, float)) or isinstance(value, bool)):
+            errors.append(f"type:{path}.{key}")
 
 
 def _looks_like_base64_payload(value: str) -> bool:
@@ -254,6 +280,9 @@ def _walk_allowed(value: Any, path: str, errors: list[str], *, schema: str) -> N
             if key in SUMMARY_FLOAT_FIELDS:
                 if not isinstance(item, (int, float)) or isinstance(item, bool):
                     errors.append(f"type:{path}.{key}")
+                continue
+            if key == "repetition_auc":
+                _validate_repetition_auc(item, f"{path}.repetition_auc", errors)
                 continue
             if key in SUMMARY_INT_FIELDS:
                 if not isinstance(item, int) or isinstance(item, bool):
