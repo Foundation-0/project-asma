@@ -61,6 +61,9 @@ jobs:
           done
           docker image inspect asma-synthetic:4.4.3 --format '{{.Id}}' | tee synthetic-image-id.txt
 
+      - name: Seed pinned Ubuntu packages (Launchpad fallback)
+        run: python3 tools/ci_seed_ubuntu_packages.py "${RUNNER_TEMP}/asma-package-cache"
+
       - name: Build source-adapter runtime image
         id: adapter_build
         run: |
