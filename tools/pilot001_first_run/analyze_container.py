@@ -13,7 +13,12 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 
 from pilot001_first_run import failure_codes as codes  # noqa: E402
-from pilot001_first_run.study_fetch import StudyFetchError, read_raw_handoff  # noqa: E402
+from pilot001_first_run.config import default_input_manifest  # noqa: E402
+from pilot001_first_run.study_fetch import (  # noqa: E402
+    StudyFetchError,
+    read_raw_handoff,
+    verify_uncompressed_member_for_analysis,
+)
 from source_data_adapter import SourceAdapterError, parse_sources  # noqa: E402
 
 HANDOFF_DIR = Path(os.environ.get("PILOT001_HANDOFF_DIR", "/handoff"))
@@ -46,7 +51,9 @@ def main() -> int:
         _emit(codes.P001_FAIL_GATE_ATTESTATION_REF)
         return 1
     try:
+        pins = default_input_manifest()
         compressed, clinical, panel = read_raw_handoff(HANDOFF_DIR)
+        verify_uncompressed_member_for_analysis(compressed, pins)
         payload = parse_sources(
             compressed,
             clinical,

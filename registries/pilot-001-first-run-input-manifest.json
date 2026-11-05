@@ -2,6 +2,11 @@
   "schema_version": 1,
   "inputs": [
     {
+      "role": "author_dropbox_member_compressed",
+      "sha256": "38268f2c80a50562c7d102446136c71ab5e6e20a283813598610f148095a79c6",
+      "bytes": 7993706
+    },
+    {
       "role": "author_dropbox_member",
       "sha256": "b7eea435bb7fa65f31a6e8f50d977ff046f0f9bd851126e43cf9a5f52e62be62",
       "bytes": 18498831

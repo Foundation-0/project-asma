@@ -77,6 +77,54 @@ A2_KEYS = frozenset({"option_a", "option_b"})
 
 MAX_NUMERIC_VECTOR = 31
 MAX_SCORELIKE_DICT = 20
+MAX_CONFIGURATIONS = 8
+MAX_STRING_FIELD = 512
+BASE64_LIKE = re.compile(r"^[A-Za-z0-9+/]+=*$")
+
+SUMMARY_INT_FIELDS = frozenset(
+    {
+        "patients",
+        "features",
+        "repetitions",
+        "outer_folds",
+        "model_predictions",
+        "ensemble_predictions",
+        "final_scores",
+        "positive_negative_pairs",
+    }
+)
+SUMMARY_FLOAT_FIELDS = frozenset({"auc", "rank_auc", "repetition_auc"})
+SUMMARY_BOOL_FIELDS = frozenset({"complete_prediction_coverage"})
+
+
+def _looks_like_base64_payload(value: str) -> bool:
+    if len(value) < 48:
+        return False
+    if not BASE64_LIKE.match(value):
+        return False
+    return len(value) % 4 == 0 or value.endswith("=")
+
+
+def _check_bounded_string(value: str, path: str, errors: list[str], *, check_base64: bool) -> None:
+    if len(value) > MAX_STRING_FIELD:
+        errors.append(f"string_too_long:{path}")
+    _suspicious_string(value, path, errors)
+    if check_base64 and _looks_like_base64_payload(value):
+        errors.append(f"suspected_base64:{path}")
+
+
+def _check_nested_score_blocks(value: dict[str, Any], path: str, errors: list[str]) -> None:
+    if len(value) < 10:
+        return
+    nested = [item for item in value.values() if isinstance(item, dict)]
+    if len(nested) < 10:
+        return
+    if all(
+        len(sub) >= 15
+        and all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in sub.values())
+        for sub in nested
+    ):
+        errors.append(f"suspected_nested_scores:{path}")
 
 
 def _forbidden_key(name: str) -> bool:
@@ -113,6 +161,7 @@ def _check_scorelike_dict(value: dict[str, Any], path: str, errors: list[str]) -
 def _deep_leak_scan(value: Any, path: str, errors: list[str]) -> None:
     if isinstance(value, dict):
         _check_scorelike_dict(value, path, errors)
+        _check_nested_score_blocks(value, path, errors)
         for key, item in value.items():
             if _forbidden_key(str(key)):
                 errors.append(f"forbidden_key:{path}.{key}")
@@ -146,13 +195,27 @@ def _walk_allowed(value: Any, path: str, errors: list[str], *, schema: str) -> N
                 errors.append("schema_version")
             if key == "review_status" and item != "exploratory_not_externally_reviewed":
                 errors.append("review_status")
+            if key == "scope":
+                if not isinstance(item, str):
+                    errors.append(f"type:{path}.scope")
+                else:
+                    _check_bounded_string(item, f"{path}.scope", errors, check_base64=True)
             if key == "limitations" and isinstance(item, list):
                 for index, entry in enumerate(item):
-                    if isinstance(entry, str):
-                        _suspicious_string(entry, f"{path}.limitations[{index}]", errors)
+                    if not isinstance(entry, str):
+                        errors.append(f"type:{path}.limitations[{index}]")
+                    else:
+                        _check_bounded_string(
+                            entry,
+                            f"{path}.limitations[{index}]",
+                            errors,
+                            check_base64=True,
+                        )
             if key == "configurations":
                 if not isinstance(item, list):
                     errors.append(f"type:{path}.configurations")
+                elif len(item) > MAX_CONFIGURATIONS:
+                    errors.append(f"configurations_count:{path}")
                 else:
                     for index, cfg in enumerate(item):
                         _walk_allowed(cfg, f"{path}.configurations[{index}]", errors, schema="configuration")
@@ -184,14 +247,23 @@ def _walk_allowed(value: Any, path: str, errors: list[str], *, schema: str) -> N
             return
         if set(value) - SUMMARY_KEYS:
             errors.append(f"unexpected_keys:{path}")
-        _check_scorelike_dict(value, path, errors)
         for key, item in value.items():
             if _forbidden_key(key):
                 errors.append(f"forbidden_key:{path}.{key}")
-            if isinstance(item, dict):
-                _check_scorelike_dict(item, f"{path}.{key}", errors)
-            elif isinstance(item, list):
-                _check_numeric_vector(item, f"{path}.{key}", errors)
+                continue
+            if key in SUMMARY_FLOAT_FIELDS:
+                if not isinstance(item, (int, float)) or isinstance(item, bool):
+                    errors.append(f"type:{path}.{key}")
+                continue
+            if key in SUMMARY_INT_FIELDS:
+                if not isinstance(item, int) or isinstance(item, bool):
+                    errors.append(f"type:{path}.{key}")
+                continue
+            if key in SUMMARY_BOOL_FIELDS:
+                if not isinstance(item, bool):
+                    errors.append(f"type:{path}.{key}")
+                continue
+            errors.append(f"unexpected_summary_field:{path}.{key}")
         return
 
     if schema == "metadata":
@@ -202,7 +274,8 @@ def _walk_allowed(value: Any, path: str, errors: list[str], *, schema: str) -> N
             errors.append(f"unexpected_keys:{path}")
         for key, item in value.items():
             if isinstance(item, str):
-                _suspicious_string(item, f"{path}.{key}", errors)
+                check_b64 = key == "r_version"
+                _check_bounded_string(item, f"{path}.{key}", errors, check_base64=check_b64)
         return
 
     if schema == "amendment":

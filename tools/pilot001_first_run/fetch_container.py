@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 from pilot001_first_run import failure_codes as codes  # noqa: E402
 from pilot001_first_run.config import default_input_manifest  # noqa: E402
-from pilot001_first_run.study_fetch import StudyFetchError, fetch_and_verify_raw, write_raw_handoff  # noqa: E402
+from pilot001_first_run.study_fetch import StudyFetchError, fetch_for_handoff, write_raw_handoff  # noqa: E402
 
 HANDOFF_DIR = Path(os.environ.get("PILOT001_HANDOFF_DIR", "/handoff"))
 
@@ -25,7 +25,7 @@ def _emit(code: str) -> None:
 def main() -> int:
     try:
         pins = default_input_manifest()
-        compressed, clinical, panel = fetch_and_verify_raw(pins)
+        compressed, clinical, panel = fetch_for_handoff(pins)
         write_raw_handoff(HANDOFF_DIR, compressed, clinical, panel)
     except StudyFetchError as error:
         _emit(error.code)

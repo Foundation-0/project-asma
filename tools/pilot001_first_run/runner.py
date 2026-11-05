@@ -11,6 +11,7 @@ from pathlib import Path
 
 from build_synthetic_runtime import ROOT, local_docker_env
 from pilot001_first_run import failure_codes as codes
+from pilot001_first_run.attestation import verify_owner_attestation_on_host
 from pilot001_first_run.config import RunConfig, parse_attestation_ref
 from pilot001_first_run.output_validator import validate_aggregate_document
 
@@ -22,6 +23,8 @@ DEFAULT_REAL_IMAGE = "asma-source-adapter:3.12.14-4.4.3"
 OWNER_ATTESTATIONS = ROOT / "registries/pilot-001-owner-attestations.json"
 HANDOFF_VOLUME_PREFIX = "pilot001-handoff-"
 HANDOFF_MOUNT = "/handoff"
+HANDOFF_TMPFS_OPTS = "size=512m,mode=0700"
+INPUT_MANIFEST = ROOT / "registries/pilot-001-first-run-input-manifest.json"
 REAL_FETCH_NETWORK = "bridge"
 FETCH_CONTAINER_SCRIPT = "tools/pilot001_first_run/fetch_container.py"
 ANALYZE_CONTAINER_SCRIPT = "tools/pilot001_first_run/analyze_container.py"
@@ -105,6 +108,30 @@ def _hardened_run_prefix(*, network: str) -> list[str]:
     ]
 
 
+def _fetch_hardened_run_prefix(*, network: str) -> list[str]:
+    """Networked fetch: minimal read-only mounts (no owner attestation file)."""
+    return [
+        "--rm",
+        f"--network={network}",
+        "--read-only",
+        "--log-driver=none",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--ulimit=core=0",
+        "--pids-limit=512",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--cpus=2",
+        "--tmpfs=/tmp:rw,noexec,nosuid,size=2048m",
+        "--mount",
+        f"type=bind,src={ROOT / 'tools'},dst=/work/tools,readonly",
+        "--mount",
+        f"type=bind,src={INPUT_MANIFEST.resolve()},dst=/work/registries/pilot-001-first-run-input-manifest.json,readonly",
+        "-w",
+        "/work",
+    ]
+
+
 def build_dry_run_argv(
     *,
     config: RunConfig,
@@ -175,7 +202,7 @@ def build_fetch_container_argv(
     command = (
         docker_base()
         + ["run", "--name", container_name]
-        + _hardened_run_prefix(network=REAL_FETCH_NETWORK)
+        + _fetch_hardened_run_prefix(network=REAL_FETCH_NETWORK)
         + ["--mount", f"type=volume,src={volume_name},dst={HANDOFF_MOUNT}"]
         + _runtime_env(image_id=image_id, platform=platform, config=config)
         + [
@@ -193,7 +220,6 @@ def build_analyze_container_argv(
     *,
     config: RunConfig,
     image_tag: str,
-    output_dir: Path,
     volume_name: str,
     container_name: str,
 ) -> list[str]:
@@ -207,8 +233,6 @@ def build_analyze_container_argv(
         + [
             "--mount",
             f"type=volume,src={volume_name},dst={HANDOFF_MOUNT},readonly",
-            "--mount",
-            f"type=bind,src={output_dir.resolve()},dst=/output",
         ]
         + _runtime_env(image_id=image_id, platform=platform, config=config)
     )
@@ -320,7 +344,18 @@ def _promote_aggregate(output_dir: Path, payload: dict) -> None:
 
 def _create_handoff_volume(name: str, environment: dict[str, str]) -> bool:
     completed = subprocess.run(
-        docker_base() + ["volume", "create", name],
+        docker_base()
+        + [
+            "volume",
+            "create",
+            "--opt",
+            "type=tmpfs",
+            "--opt",
+            "device=tmpfs",
+            "--opt",
+            f"o={HANDOFF_TMPFS_OPTS}",
+            name,
+        ],
         env=environment,
         capture_output=True,
         text=True,
@@ -396,6 +431,12 @@ def run_real_container_pipeline(
     image_id = inspected["Id"]
     platform = inspected.get("Architecture", "unknown")
     environment = local_docker_env()
+    parsed = parse_attestation_ref(config.gate0_attestation_ref)
+    if not parsed:
+        return 1, codes.P001_FAIL_SOURCE_AUTHORIZATION
+    attestation_error = verify_owner_attestation_on_host(parsed[0])
+    if attestation_error:
+        return 1, attestation_error
     volume = HANDOFF_VOLUME_PREFIX + uuid.uuid4().hex
     if not _create_handoff_volume(volume, environment):
         return 1, codes.P001_FAIL_CONTAINER
@@ -414,7 +455,6 @@ def run_real_container_pipeline(
         analyze_argv = build_analyze_container_argv(
             config=config,
             image_tag=image_tag,
-            output_dir=output_dir,
             volume_name=volume,
             container_name=analyze_container,
         )

@@ -100,16 +100,21 @@ HANDOFF_CLINICAL = "clinical.xlsx"
 HANDOFF_PANEL = "panel.xlsx"
 
 
-def fetch_and_verify_raw(pins: tuple[InputPin, ...]) -> tuple[bytes, bytes, bytes]:
-    """Download allowlisted sources and verify manifest pins (no adapter parse)."""
-    dropbox_pin = _pin_by_role(pins, "author_dropbox_member")
+HANDOFF_MEMBER = "member.compressed"
+HANDOFF_CLINICAL = "clinical.xlsx"
+HANDOFF_PANEL = "panel.xlsx"
+ROLE_COMPRESSED = "author_dropbox_member_compressed"
+ROLE_UNCOMPRESSED = "author_dropbox_member"
+
+
+def fetch_for_handoff(pins: tuple[InputPin, ...]) -> tuple[bytes, bytes, bytes]:
+    """Phase 1: download and verify compressed + workbook pins only (no inflate)."""
+    compressed_pin = _pin_by_role(pins, ROLE_COMPRESSED)
     mmc1_pin = _pin_by_role(pins, "nlm_mmc1_clinical")
     mmc4_pin = _pin_by_role(pins, "nlm_mmc4_panel")
 
     compressed = _fetch_compressed_member()
-    uncompressed = _inflate_member(compressed)
-    _verify_pin(uncompressed, dropbox_pin)
-    del uncompressed
+    _verify_pin(compressed, compressed_pin)
 
     clinical_source = cohorts.SOURCES["clinical"]
     panel_source = cohorts.SOURCES["panel_and_scores"]
@@ -123,6 +128,26 @@ def fetch_and_verify_raw(pins: tuple[InputPin, ...]) -> tuple[bytes, bytes, byte
 
     _verify_pin(clinical, mmc1_pin)
     _verify_pin(panel, mmc4_pin)
+    return compressed, clinical, panel
+
+
+def verify_uncompressed_member_for_analysis(
+    compressed: bytes,
+    pins: tuple[InputPin, ...],
+) -> None:
+    """Phase 2: inflate offline and verify uncompressed manifest pin."""
+    compressed_pin = _pin_by_role(pins, ROLE_COMPRESSED)
+    _verify_pin(compressed, compressed_pin)
+    uncompressed = _inflate_member(compressed)
+    uncompressed_pin = _pin_by_role(pins, ROLE_UNCOMPRESSED)
+    _verify_pin(uncompressed, uncompressed_pin)
+    del uncompressed
+
+
+def fetch_and_verify_raw(pins: tuple[InputPin, ...]) -> tuple[bytes, bytes, bytes]:
+    """Legacy name: full offline verify (used in tests with preloaded bytes)."""
+    compressed, clinical, panel = fetch_for_handoff(pins)
+    verify_uncompressed_member_for_analysis(compressed, pins)
     return compressed, clinical, panel
 
 

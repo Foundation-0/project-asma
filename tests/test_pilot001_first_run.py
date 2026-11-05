@@ -188,6 +188,47 @@ class TestOutputValidator(unittest.TestCase):
         errors = validate_aggregate_document(bad)
         self.assertTrue(errors)
 
+    def test_rejects_grk_proof_typed_leaks(self):
+        base64_blob = "QUJDREVGR0hJSktMTU5PUEFSU0VUVFZWV1hZWjAxMjM0NTY3ODlhYmNkZWY="
+        cases = [
+            ("summary_auc_list_of_dicts", lambda p: p["configurations"][0]["summary"].update({"auc": [{"x": 1.0}]})),
+            (
+                "repetition_auc_vector",
+                lambda p: p["configurations"][0]["summary"].update({"repetition_auc": [0.5] * 30}),
+            ),
+            ("scope_base64", lambda p: p.update({"scope": base64_blob})),
+            ("limitations_base64", lambda p: p["limitations"].append(base64_blob)),
+            (
+                "r_version_base64",
+                lambda p: p["run_metadata"].update({"r_version": base64_blob}),
+            ),
+            (
+                "nested_score_blocks_in_auc",
+                lambda p: p["configurations"][0]["summary"].update(
+                    {"auc": {f"b{i}": {str(j): 0.1 for j in range(20)} for i in range(15)}}
+                ),
+            ),
+            (
+                "three_hundred_configurations",
+                lambda p: p.update(
+                    {
+                        "configurations": [
+                            {
+                                **p["configurations"][0],
+                                "label": f"cfg-{index}",
+                            }
+                            for index in range(300)
+                        ]
+                    }
+                ),
+            ),
+        ]
+        for name, mutate in cases:
+            payload = minimal_valid_aggregate()
+            mutate(payload)
+            errors = validate_aggregate_document(payload)
+            self.assertTrue(errors, msg=name)
+
     def test_rejects_proof_review_cases(self):
         cases = [
             lambda p: p["configurations"][0]["summary"].update({"Scores": {"TCGA-04-1331": 0.5}}),
@@ -321,6 +362,12 @@ class TestAllowlistedFetch(unittest.TestCase):
         self.assertTrue(host_allowed("uc123456.dl.dropboxusercontent.com"))
         self.assertFalse(host_allowed("evil.dl.dropboxusercontent.com.evil.com"))
 
+    def test_non_443_port_refused(self):
+        self.assertFalse(host_allowed("uc9.dl.dropboxusercontent.com:4444"))
+        self.assertFalse(host_allowed("www.dropbox.com:8443"))
+        self.assertFalse(host_allowed("www.dropbox.com:"))
+        self.assertTrue(host_allowed("www.dropbox.com:443"))
+
     def test_https_downgrade_refused(self):
         with self.assertRaises(AllowlistedFetchError) as ctx:
             _require_https("http://www.dropbox.com/s/x/file.zip")
@@ -364,7 +411,7 @@ class TestRealModeFetchPath(unittest.TestCase):
             fetch_to_tmpfs(__import__("pilot001_first_run.config", fromlist=["default_input_manifest"]).default_input_manifest(), Path("/tmp/pilot001-test-fetch"))
         self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
 
-    @mock.patch("pilot001_first_run.fetch_container.fetch_and_verify_raw")
+    @mock.patch("pilot001_first_run.fetch_container.fetch_for_handoff")
     def test_fetch_container_surfaces_fetch_host(self, mock_fetch):
         mock_fetch.side_effect = StudyFetchError(codes.P001_FAIL_FETCH_HOST)
         import io
@@ -431,6 +478,25 @@ class TestRunnerDockerFlags(unittest.TestCase):
         self.assertIn("type=volume", " ".join(argv))
         self.assertIn("fetch_container.py", " ".join(argv))
         self.assertNotIn("/output", " ".join(argv))
+        joined = " ".join(argv)
+        self.assertIn("dst=/work/tools,readonly", joined)
+        self.assertIn("pilot-001-first-run-input-manifest.json", joined)
+        self.assertNotIn("pilot-001-owner-attestations.json", joined)
+        self.assertNotIn(f"type=bind,src={ROOT},dst=/work,readonly", joined)
+
+    def test_handoff_volume_create_uses_tmpfs(self):
+        from build_synthetic_runtime import local_docker_env
+        from pilot001_first_run.runner import _create_handoff_volume
+
+        with mock.patch("pilot001_first_run.runner.subprocess.run") as mock_run:
+            mock_run.return_value = subprocess.CompletedProcess([], 0, "", "")
+            _create_handoff_volume("pilot001-handoff-test", local_docker_env())
+        argv = mock_run.call_args.args[0]
+        self.assertIn("volume", argv)
+        self.assertIn("create", argv)
+        self.assertIn("type=tmpfs", argv)
+        self.assertIn("device=tmpfs", argv)
+        self.assertIn("size=512m,mode=0700", " ".join(argv))
 
     def test_analyze_container_uses_network_none_and_readonly_handoff(self):
         config = RunConfig(
@@ -446,7 +512,6 @@ class TestRunnerDockerFlags(unittest.TestCase):
             argv = build_analyze_container_argv(
                 config=config,
                 image_tag="asma-synthetic:4.4.3",
-                output_dir=Path("/tmp/out"),
                 volume_name="pilot001-handoff-test",
                 container_name="pilot001-analyze-test",
             )
@@ -454,6 +519,7 @@ class TestRunnerDockerFlags(unittest.TestCase):
         self.assertIn("--network=none", joined)
         self.assertIn("readonly", joined)
         self.assertIn("analyze_container.py", joined)
+        self.assertNotIn("dst=/output", joined)
 
     def test_real_resolves_source_adapter_image(self):
         config = RunConfig(host="macos", output_dir=Path("/tmp/out"), dry_run=False)
@@ -464,13 +530,14 @@ class TestRunnerDockerFlags(unittest.TestCase):
 
 
 class TestRealPipelineTwoPhase(unittest.TestCase):
+    @mock.patch("pilot001_first_run.runner.verify_owner_attestation_on_host", return_value=None)
     @mock.patch("pilot001_first_run.runner.git_sha", return_value="abc")
     @mock.patch("pilot001_first_run.runner._remove_handoff_volume")
     @mock.patch("pilot001_first_run.runner._create_handoff_volume", return_value=True)
     @mock.patch("pilot001_first_run.runner.subprocess.run")
     @mock.patch("pilot001_first_run.runner.inspect_image")
     def test_real_run_uses_separate_fetch_and_analyze_containers(
-        self, mock_inspect, mock_run, _mock_vol, _mock_rm, _mock_git
+        self, mock_inspect, mock_run, _mock_vol, _mock_rm, _mock_git, _mock_attest
     ):
         mock_inspect.return_value = {"Id": "sha256:abc", "Architecture": "amd64"}
         aggregate = minimal_valid_aggregate()
@@ -509,6 +576,28 @@ class TestRealPipelineTwoPhase(unittest.TestCase):
         self.assertIn("analyze_container.py", " ".join(docker_runs[1].args[0]))
         self.assertIn("--network=bridge", " ".join(docker_runs[0].args[0]))
         self.assertIn("--network=none", " ".join(docker_runs[1].args[0]))
+
+    @mock.patch("pilot001_first_run.runner.inspect_image", return_value={"Id": "sha256:abc", "Architecture": "amd64"})
+    @mock.patch("pilot001_first_run.runner.verify_owner_attestation_on_host")
+    @mock.patch("pilot001_first_run.runner._create_handoff_volume")
+    def test_host_attestation_before_fetch(self, mock_create, mock_attest, _mock_inspect):
+        mock_attest.return_value = codes.P001_FAIL_SOURCE_AUTHORIZATION
+        config = RunConfig(
+            host="macos",
+            output_dir=Path("/tmp/out"),
+            dry_run=False,
+            gate0_signed=True,
+            dropbox_cleared=True,
+            gate0_attestation_ref="owner:2026-11-05",
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            status, detail = __import__(
+                "pilot001_first_run.runner", fromlist=["run_container_pipeline"]
+            ).run_container_pipeline(config, "asma-synthetic:4.4.3", Path(tmp))
+        self.assertEqual(status, 1)
+        self.assertEqual(detail, codes.P001_FAIL_SOURCE_AUTHORIZATION)
+        mock_attest.assert_called_once_with("owner")
+        mock_create.assert_not_called()
 
 
 class TestSimulatedRealOutput(unittest.TestCase):

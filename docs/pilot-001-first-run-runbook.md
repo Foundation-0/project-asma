@@ -80,11 +80,11 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 
 | Location | What writes there |
 | --- | --- |
-| **Repository checkout** | Git only; container sees it at `/work` **read-only** (`tools/pilot001_first_run/runner.py`). Choose a path outside iCloud/Dropbox/TM. |
+| **Repository checkout** | Git only. **Dry run / analyze** mount the repo at `/work` read-only. **Fetch phase** mounts only `tools/` and the input manifest (not the owner attestation registry). Choose a path outside iCloud/Dropbox/TM. |
 | **`$HOME/pilot001-first-run-out`** (or owner-chosen equivalent) | **Only** allow-listed aggregates: `pilot001-preflight-report.json`, `pilot001-first-run-aggregate.json`. Bind-mounted to `/output`. Preflight **refuses** iCloud/Dropbox/TM-backed output paths. |
 | **Docker Desktop `Docker.raw`** | Image layers and container writable layers (not controlled by this repo). |
 | **Container `/tmp`** | Dry-run: **tmpfs 512m**. Real **analyze** phase: tmpfs for R caches and ephemeral adapter→R JSON (under `/tmp/pilot001-study`); never bind-mounted to the host output directory. |
-| **Study handoff volume** | Real mode **`pilot001-handoff-*` Docker volume** holds verified **raw bytes only** between phase 1 (fetch, networked) and phase 2 (analyze, `--network=none`). Removed by orchestrator postflight; may touch Docker VM disk until then (see **(4)**). |
+| **Study handoff volume** | Real mode **`pilot001-handoff-*` tmpfs Docker volume** (`docker volume create --opt type=tmpfs --opt device=tmpfs --opt o=size=512m,mode=0700 …`) holds **compressed** Dropbox member bytes plus workbook bytes between phase 1 and phase 2. Removed by orchestrator postflight. Docker may still store volume **metadata** on the Desktop VM disk even when the volume driver is tmpfs. |
 
 ### (4) Network
 
@@ -102,7 +102,7 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 
 | Host | Role |
 | --- | --- |
-| **www.dropbox.com** | Author `processed_data.zip` compressed member ranges (uncompressed member pinned in manifest) |
+| **www.dropbox.com** | Author `processed_data.zip` compressed member ranges (**compressed** bytes pinned in manifest for phase 1; **uncompressed** member pinned for phase 2 after offline inflate) |
 | **pmc-oa-opendata.s3.us-east-1.amazonaws.com** | MMC1 / MMC4 workbooks for Pilot 001 |
 
 **Policy:** Study bytes stay in **container tmpfs only** — never written under the host `/output` bind mount or synced folders.
@@ -111,16 +111,16 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 
 | Phase | Container | Network | Work |
 | --- | --- | --- | --- |
-| **1 — fetch** | `fetch_container.py` | **`bridge`** (egress for allowlisted HTTPS only) | Download, manifest SHA-256/size verify, write **raw bytes** to **`pilot001-handoff-*` volume**. No adapter, no R, no row-level matrices. |
-| **2 — analyze** | `analyze_container.py` | **`none`** | Read-only handoff volume → `parse_sources()` → R reconstruction → aggregate JSON to `/output` only. |
+| **1 — fetch** | `fetch_container.py` | **`bridge`** (egress for allowlisted HTTPS only) | Download, verify **compressed-byte** manifest pin (+ workbook pins), write **compressed** member and workbooks to **tmpfs handoff volume**. No inflate, adapter, R, or row-level matrices. |
+| **2 — analyze** | `analyze_container.py` | **`none`** | Read-only handoff → offline inflate + **uncompressed** manifest pin → `parse_sources()` → R → aggregate JSON on **stdout** (host validates and writes `/output`). |
 
 **Fetch allowlist:** `www.dropbox.com`, `pmc-oa-opendata.s3.us-east-1.amazonaws.com`, `dl.dropboxusercontent.com`, and `*.dl.dropboxusercontent.com` CDN hosts. `allowlisted_fetch.py` disables urllib auto-redirects and validates **each hop** (HTTPS only; no downgrade) before following.
 
-**Handoff volume on Docker VM disk:** Raw bytes may briefly reside in the Docker Desktop VM disk inside the named volume. This is acceptable only because the orchestrator **`docker volume rm`** in postflight (and postflight fails if any `pilot001-handoff-*` volume remains) and macOS preflight requires **Docker swap = 0 MiB**.
+**Handoff volume (tmpfs):** Payload bytes live in a **512 MiB tmpfs** Docker volume (`mode=0700`). Docker Desktop may still record the volume name and driver options on the VM disk until **`docker volume rm`**. Postflight fails if any `pilot001-handoff-*` volume remains; macOS preflight requires **Docker swap = 0 MiB**.
 
-**Integrity:** Manifest pins in [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json) are checked in **phase 1** before bytes enter the handoff volume.
+**Integrity:** [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json) pins **both** the Dropbox member on the wire (`author_dropbox_member_compressed`: SHA-256 + bytes) and after offline inflate (`author_dropbox_member`: SHA-256 + bytes). Phase **1** checks compressed (+ workbook) pins before handoff; phase **2** re-checks compressed, inflates, then checks the uncompressed pin before parse.
 
-**Attestation:** Only **phase 2** bind-mounts `registries/pilot-001-owner-attestations.json` (when present locally) for `parse_sources()` authorization.
+**Attestation:** The host runs the full attestation gate **before** phase 1. Phase **2** bind-mounts `registries/pilot-001-owner-attestations.json` (when present locally) for `parse_sources()` authorization. Phase **1** does not mount that file.
 
 **Native linux/arm64 synthetic builds and amd64↔arm64 equivalence checks** are intentionally **out of scope** (sibling PR).
 
@@ -152,7 +152,7 @@ python3 tools/run_pilot001_first_run.py \
   --image asma-synthetic:4.4.3
 ```
 
-The attestation date must equal **today** in `America/Toronto`. Phase 1 writes verified raw study bytes to a **Docker handoff volume** (not the host output directory). Phase 2 parses and models offline with **`--network=none`** and writes **only** aggregate JSON to the output bind mount.
+The attestation date must equal **today** in `America/Toronto`. Phase 1 writes verified **compressed** study bytes to a **tmpfs handoff volume** (not the host output directory). Phase 2 parses and models offline with **`--network=none`**; the host promotes validated aggregate JSON to the output bind mount from container stdout.
 
 Non-zero preflight exit prints a JSON report with aggregate-safe fields only.
 

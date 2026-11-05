@@ -30,7 +30,15 @@ class AllowlistedFetchError(OSError):
 def host_allowed(netloc: str) -> bool:
     if not netloc or "@" in netloc:
         return False
-    host = netloc.rsplit(":", 1)[0].lower().rstrip(".")
+    if netloc.endswith(":"):
+        return False
+    if ":" in netloc:
+        host_part, port = netloc.rsplit(":", 1)
+        if not port.isdigit() or port != "443":
+            return False
+    else:
+        host_part = netloc
+    host = host_part.lower().rstrip(".")
     if host in ALLOWED_HOSTS:
         return True
     return host.endswith(DROPBOX_CDN_SUFFIX)
