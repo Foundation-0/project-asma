@@ -104,6 +104,10 @@ status <- tryCatch({
     }
     cat("P001-FAIL-INTERNAL\n", sep = "")
   } else {
+    detail <- conditionMessage(error)
+    if (is.character(detail) && length(detail) == 1L && nzchar(detail)) {
+      cat(detail, "\n", file = stderr(), sep = "")
+    }
     cat("P001-FAIL-INTERNAL\n", sep = "")
   }
   1L
