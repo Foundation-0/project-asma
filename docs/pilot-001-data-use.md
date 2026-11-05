@@ -12,8 +12,10 @@ by a private, unaffiliated individual on his own hardware in Canada.
 
 **Execution hosts (Gate 0, 2026-11-05).**
 - **Study data (Dropbox matrix, MMC workbooks, fitting):** the owner's personal
-  MacBook (macOS), physically in Canada (Q1 update, verbatim: "My MacBook is in
-  Canada"; [issue #31](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662169564)).
+  MacBook (macOS), physically in Canada, province **Ontario** (Q1 update, verbatim:
+  "My MacBook is in Canada"; province verbatim "Ontario", 2026-11-05, 9:39 AM CT;
+  [issue #31](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662169564),
+  [attestation](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698)).
 - **Not for study data:** the Grok Bot team's shared cloud computer. Its only
   recorded location evidence is an AWS us-east-1 outbound address (Ashburn,
   Virginia, US), which is not a Canadian processing context. That host is for
@@ -118,14 +120,46 @@ clinical records must not be called anonymous (consistent with chapter 5 in this
 file). This project does **not** assert an article 2.2 or 2.4 exemption for the
 pinned clinical joins; the keyed records remain coded information under chapter 5.
 
-**PIPEDA.** The cited
+**PIPEDA (federal).** The cited
 [OPC commercial-activity guidance](https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/r_o_p/02_05_d_19/)
 describes PIPEDA’s commercial-activity scope. The selected phase is
 **noncommercial** and does not, by itself, establish a PIPEDA trigger; it also
-does not establish exemption from every privacy obligation. **Provincial**
-private-sector privacy statutes are **not individually assessed** here, and the
-owner’s **province of residence is not recorded** — treat that as an **open**
-note if provincial law might apply.
+does not establish exemption from every privacy obligation.
+
+**Ontario (provincial note — closed for this context).** This is **research-governance
+judgement**, not legal advice; **no outside legal review** has occurred. The owner
+recorded province **Ontario** on 2026-11-05 ([issue #31 attestation](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698)).
+Section numbers below were verified on 2026-11-05 in the current Ontario e-Laws
+HTML copies pinned in the [evidence table](#bounded-search-and-retained-evidence).
+
+- **PHIPA** (*Personal Health Information Protection Act, 2004*, S.O. 2004, c. 3,
+  Sched. A). **Section 3** defines “health information custodian” as specified
+  categories of persons and organizations with custody or control of personal
+  health information in connection with performing listed health-care roles.
+  **Section 7** applies the Act to collection by custodians and to use or
+  disclosure by custodians or by **persons who are not custodians but to whom a
+  custodian disclosed** the information. The owner is **not** a health information
+  custodian under s. 3. The selected inputs are **public, de-identified research
+  releases** obtained from author and publisher sources, not personal health
+  information received from an Ontario custodian in that role.
+- **FIPPA** (*Freedom of Information and Protection of Privacy Act*, R.S.O. 1990,
+  c. F.31). **Section 2** defines “institution” as the Assembly, Ontario
+  ministries, specified service-provider organizations and bodies designated in
+  regulations. **Section 69** applies the Act to records in the custody or control
+  of an **institution**. The owner is not such an institution.
+- **MFIPPA** (*Municipal Freedom of Information and Protection of Privacy Act*,
+  R.S.O. 1990, c. M.56). **Section 1** states purposes tied to records and
+  personal information held by **institutions**; **section 2** defines
+  “institution” to include municipalities, school boards and other listed local
+  bodies. **Section 52** applies the Act to records in the custody or control of
+  an institution. The owner is not such an institution.
+- **Private-sector Ontario statute.** Ontario has **no general private-sector
+  privacy statute** of its own for this non-institutional use; PIPEDA’s
+  commercial-activity scope remains as above.
+
+**Verdict:** provincial note **closed** for this recorded context; **CONDITIONAL GO**
+for the Dropbox matrix on the MacBook host **stands**, still subject to conditions
+(b)–(c) below and to a **fresh dated attestation** for any run after 2026-11-05.
 
 **Conclusion (Dropbox discovery matrix on the MacBook host).**
 
@@ -138,15 +172,25 @@ Conditions:
 
 (a) **Attestation:** a dated owner attestation that the machine is in Canada, is
 his own hardware, the use is noncommercial, and no institutional or funding
-obligations apply (Gate 0 Q2).
+obligations apply (Gate 0 Q2). **Recorded 2026-11-05, 9:39 AM America/Chicago**
+([issue #31](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698)),
+verbatim:
 
-(b) **macOS runtime preflight:** the checks in
+> I attest that on Nov 5, 2026 the Pilot 001 run executes on my own MacBook, physically in Canada; the use is noncommercial; and no institutional or funding obligations apply to it.
+
+Province: Ontario. **Condition (a) is met for a run on 2026-11-05 only.** A run on
+a later calendar date needs a fresh dated attestation. This public record is not
+the git-ignored `pilot-001-owner-attestations.json` entry the adapter checks; that
+file must still hold a matching current entry before acquisition.
+
+(b) **macOS runtime preflight:** **open.** The checks in
 [macOS runtime preflight](#macos-runtime-preflight-study-data-host) pass on that
 machine before study bytes are loaded.
 
-(c) **No row-level leakage:** nothing patient-level or source-row-level leaves
-process memory, including terminal scrollback, logs, crash reports or agent-chat
-output.
+(c) **No row-level leakage:** **open** until the run completes without breach.
+Nothing patient-level or source-row-level leaves process memory, including
+terminal scrollback, logs, crash reports or **agent-chat output** (aggregate-only
+publication remains as in the Publication row).
 
 On these facts, the project selects a **conditional, bounded research-use
 basis** for the MacBook execution route when (a)–(c) are met, rather than making
@@ -325,19 +369,22 @@ No research datasets were downloaded in this follow-up.
 | [TCPS chapter 2](https://ethics.gc.ca/eng/tcps2-eptc2_2022_chapter2-chapitre2.html) | 57,180 | `6c422bd1326484f6f7e8ce7e2e64c3bf2ba98598bba0711f2d513d6fddd0d92b` |
 | [TCPS chapter 5](https://ethics.gc.ca/eng/tcps2-eptc2_2022_chapter5-chapitre5.html) | 54,931 | `1ccc414b2af7c61179a2a644b0362b75a508d076c3db6972f538ac09ab847059` |
 | [OPC commercial-activity guidance](https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/r_o_p/02_05_d_19/) | 23,635 | `73aa3bded6a64c403c6dad91feda0b163bdbef9afd14de68daa8727c9742da19` |
+| [PHIPA 2004, Ontario e-Laws v18](https://www.ontario.ca/laws/statute/04p03/v18) | 255,817 | `2ee8b8c1c85612df4976b28b4a9e71596961a9e3f2af13136580cb591d30dad8` |
+| [FIPPA, Ontario e-Laws v16](https://www.ontario.ca/laws/statute/90f31/v16) | 174,223 | `f216f39cd4511951cfbdfc2ffed9d7a02f9d4b94c31fc6241ce6c09b25ff2ccb` |
+| [MFIPPA, Ontario e-Laws v8](https://www.ontario.ca/laws/statute/90m56/v8) | 128,211 | `8176a379e1bc1fbc1577576f69c702fe69f3ce0445d2f94f8461f622c0589357` |
 
 The NLM record identifies PMC10414761 version 1 and lists MMC1/MMC4 media with
 their existing MD5 pins. This associates them with the article-version license
 metadata; it is not a newly discovered independent workbook license.
 
-The remaining execution conditions before study-data fitting: (a) dated owner
-attestation (Gate 0 Q2); (b) macOS preflight on the MacBook; (c) no row-level
-leakage; (d) A2 option B and A3 implementation per amendment 1. The owner
-recorded Gate 0 sign-off on 2026-11-05 (Q2): before live acquisition of study
-files, a real-source input check or any fitting on study values, the owner must
-maintain a dated attestation of the actual execution context and give a new
-explicit instruction to run. An automated session's own checks never satisfy
-this condition.
+The remaining execution conditions before study-data fitting: **(b)** macOS
+preflight on the MacBook; **(c)** no row-level leakage through the run; **(d)** A2
+option B and A3 implementation per amendment 1. Condition **(a)** attestation is
+**met for 2026-11-05 only** (see above). Before live acquisition of study files,
+a real-source input check or any fitting on study values, the owner must hold a
+**current** dated attestation for the run date (via the adapter attestation file
+and this public record) and give a new explicit instruction to run. An automated
+session's own checks never satisfy this condition.
 The subsequent
 [synthetic validation](pilot-001-synthetic-validation.md) implements and tests the
 fixed reconstruction choices with original code and public software packages.

@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-05):** PROVEN **0** · VERIFIED **22** · KNOWN **31** · CONJECTURE **20**
+**Counts (2026-11-05):** PROVEN **0** · VERIFIED **22** · KNOWN **32** · CONJECTURE **20**
 
 ---
 
@@ -143,6 +143,12 @@ and do **not** substitute for study-data execution.
 | V22 | VERIFIED | In 84 invented parameter cases, proportional surgery gives equal endpoints in both orders; capped fixed-residual surgery gives 54 chemo-first-higher and 30 equal endpoints, with equal final resistant fractions in all 84 | `python3 tools/analyze_treatment_sequence.py`; [protocol, exact algebra and results](docs/research/rosen-treatment-sequence-assumptions.md). Synthetic finite check, not clinical evidence or full Gu-model reproduction; growth and unequal-target reversals retained. |
 | K27 | KNOWN | Fixed-fraction surgery and comparison of growth/cell-kill assumptions are explicit prior art for ovarian treatment-sequence modeling | Kohandel, Sivaloganathan and Oza (2006), DOI https://doi.org/10.1016/j.jtbi.2006.02.001, abstract inspected; S119. No novelty claim. |
 | C19 | CONJECTURE | Quantitative pre/postoperative burden, anatomy, composition and timing may distinguish competing surgery response maps and improve subsequent model comparisons | [Prospective design and stop rule](docs/research/rosen-treatment-sequence-assumptions.md#the-next-discriminating-research-question). Not an adopted study, validated measurement system or causal treatment-policy estimate. |
+
+## Pilot 001 Gate 0 update, 2026-11-05
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| K32 | KNOWN | Pilot 001 Gate 0 owner decisions recorded 2026-11-05 (Q1–Q5); study data on owner's MacBook in **Ontario**; shared cloud (AWS us-east-1) CI/artificial dry runs only; execution-context attestation verbatim on #31 **met condition (a) for 2026-11-05 only**; Ontario provincial note closed in data-use; Dropbox matrix **conditional go** when (b) preflight and (c) no row-level leakage met; Q4 **not externally reviewed**; Q5 exploratory cohort | [Roadmap Gate 0](docs/roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05); [#31 Gate 0](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662111371), [#31 Q1](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662169564), [#31 attestation](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698) |
 
 ## What this ledger does not claim
 
