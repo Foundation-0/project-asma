@@ -115,7 +115,7 @@ run_core_tests <- function() {
   # Amendment 1: per-repetition AUROC differs from the AUROC of averaged scores.
   # Separating scores in even repetitions and reversing them in odd ones gives
   # per-repetition AUROCs of 1 and 0, while the averaged scores all tie at 0.5.
-  alternating <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+  alternating <- function(x_train, y_train, x_test, inner_foldid, repetition, fold, ...) {
     ids <- rownames(x_test)
     refractory <- as.integer(sub("fixture-patient-", "", ids, fixed = TRUE)) > 83L
     high <- if (repetition %% 2L == 0L) refractory else !refractory
@@ -134,7 +134,7 @@ run_core_tests <- function() {
   # Fold offsets make every within-fold AUROC 1 while the 135-score AUROC is
   # lower, and a repetition-dependent shift spreads the quantiles apart. Every
   # field must match an independent recomputation from the repetition scores.
-  offset <- function(x_train, y_train, x_test, inner_foldid, repetition, fold) {
+  offset <- function(x_train, y_train, x_test, inner_foldid, repetition, fold, ...) {
     ids <- rownames(x_test)
     index <- as.integer(sub("fixture-patient-", "", ids, fixed = TRUE))
     refractory <- index > 83L

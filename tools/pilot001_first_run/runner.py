@@ -101,8 +101,6 @@ def run_container_pipeline(
         image_tag,
         "Rscript",
         "--vanilla",
-        "--no-save",
-        "--no-restore",
         "tools/run_pilot001_reconstruction.R",
         "--dry-run",
         "--repetitions=5",
