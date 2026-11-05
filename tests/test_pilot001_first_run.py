@@ -479,7 +479,7 @@ class TestRealPipelineTwoPhase(unittest.TestCase):
         pending = [fetch_result, analyze_result]
 
         def fake_run(argv, *args, **kwargs):
-            if len(argv) > 2 and argv[1] == "run":
+            if len(argv) >= 3 and argv[0] == "docker" and argv[2] == "run" and pending:
                 return pending.pop(0)
             return subprocess.CompletedProcess([], 0, "", "")
 
@@ -501,8 +501,8 @@ class TestRealPipelineTwoPhase(unittest.TestCase):
         docker_runs = [
             call
             for call in mock_run.call_args_list
-            if call.args and call.args[0][:2] == ["docker", "--host=unix:///var/run/docker.sock"]
-            and "run" in call.args[0]
+            if call.args
+            and call.args[0][:3] == ["docker", "--host=unix:///var/run/docker.sock", "run"]
         ]
         self.assertEqual(len(docker_runs), 2)
         self.assertIn("fetch_container.py", " ".join(docker_runs[0].args[0]))
