@@ -86,9 +86,9 @@ class CrossArchEquivalenceTests(unittest.TestCase):
 
     def test_arm64_lockfile_pins_platform_digest(self):
         lock = json.loads((ROOT / "runtime/synthetic-packages-arm64.json").read_text())
-        self.assertEqual(lock["platform"], "linux/arm64")
-        self.assertIn("0792a280", lock["base_image"])
         amd = json.loads((ROOT / "runtime/synthetic-packages.json").read_text())
+        self.assertEqual(lock["platform"], "linux/arm64")
+        self.assertEqual(lock["base_image"], amd["base_image"])
         self.assertEqual(
             [item["version"] for item in lock["packages_in_install_order"]],
             [item["version"] for item in amd["packages_in_install_order"]],

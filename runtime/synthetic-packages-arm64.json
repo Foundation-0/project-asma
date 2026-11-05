@@ -2,7 +2,7 @@
   "schema_version": 1,
   "scope": "Synthetic-fixture runtime only; no research data",
   "platform": "linux/arm64",
-  "base_image": "rocker/r-ver@sha256:0792a280d2a8b0cf6e08b7bf5338ade551af71fa9af3f520c820df253aa42295",
+  "base_image": "rocker/r-ver@sha256:3dae5d2eeddf74f10e0a81fb6b7ae350295e288000304f438b844b2c1e00fe2c",
   "r_version": "4.4.3",
   "packages_in_install_order": [
     {
@@ -181,6 +181,6 @@
     "Package source archives and license notices are not redistributed by this repository. Preserve their notices if distributing a built runtime.",
     "RcppEigen carries GPL integration and separately licensed bundled Eigen code; see its pinned LICENSE and COPYRIGHTS notices.",
     "Inputs are pinned; byte-identical rebuilt images or cross-platform numerical identity are not asserted.",
-    "linux/arm64 uses the platform-specific digest from the same rocker/r-ver:4.4.3 index as the amd64 lock."
+    "linux/arm64 builds use the same rocker/r-ver:4.4.3 manifest index digest as amd64; docker selects the arm64 layer via --platform=linux/arm64."
   ]
 }
