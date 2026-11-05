@@ -1,5 +1,11 @@
 # Research preservation and continuation
 
+**Latest review: [Discovery round 2, 2026-11-05](discovery-round2-2026-11-05.md).**
+It narrows the CDR2L HLA-II evidence gap and develops discriminating comparisons
+for protein function, antigen identity and effector harm. These are source
+assessments and hypotheses, not new biological results. The original snapshot
+below remains the dated record of the first exploration.
+
 **Snapshot: 2026-11-04.** This is the entry point for the expanded research
 review. It preserves appropriate public evidence, concise decision rationale,
 competing hypotheses, executed checks, rejected interpretations and next steps.

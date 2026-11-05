@@ -47,6 +47,11 @@ OpenAI Codex (GPT-6) assistance.
 No AI system is a legal author of patient-facing guidance. External scientific
 review of Pilot 001 results remains pending where stated in the docs.
 
+The **2026-11-05 discovery round** was researched and written with OpenAI Codex
+and collaborating agents under human direction. Independent internal agents
+challenged source transfers, antigen identity and novelty claims; this is not
+external scientific peer review or experimental validation.
+
 ## Prior work credited by name
 
 - **Chowdhury S et al., *Cell* 2023** — primary protein-signature study under

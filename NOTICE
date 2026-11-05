@@ -59,5 +59,12 @@ repository's own licences for redistribution of the underlying files.
     supplements, analysis code or datasets are redistributed. GSE51831 is a
     metadata-verified candidate, not a granted data/training license.
 
+11. **2026-11-05 discovery review** — original source assessments and hypotheses,
+    with limited public epitope-catalog metadata used to distinguish presentation
+    evidence from receptor recognition. No source article, spectrum, peptide/TCR
+    sequence table, participant-level dataset or third-party code is republished.
+    Article and catalog terms remain source-specific; citation does not confer
+    permission for dataset acquisition, redistribution or model training.
+
 If you rely on a dataset here, read the primary terms at the source before any
 reuse outside private research.

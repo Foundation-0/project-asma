@@ -1,5 +1,13 @@
 # Registries
 
+- [Antigen metadata audit, 2026-11-05](antigen-metadata-audit-2026-11-05.json):
+  exact IEDB canonical-parent queries, class-II assay/reference joins, finite
+  counts and response hashes. Public assay/bibliographic metadata only; no
+  peptide/TCR sequences or participant/sample identifiers. The
+  [antigen review](../docs/antigen-discovery-round2-2026-11-05.md) supplies the
+  replay command and biological limits. Sources S100–S117 support the wider
+  [second discovery round](../docs/discovery-round2-2026-11-05.md).
+
 - [Barry Rosen literature snapshot](barry-rosen-bibliography.json): item-level
   bibliography, screening dispositions, queries, notice links and one candidate
   data-resource metadata record. See the canonical [research survey](../docs/research/barry-rosen.md)
