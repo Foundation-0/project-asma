@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""In-container real-mode phases: fetch (network) and analyze (offline)."""
+"""Phase 2: offline parse + R reconstruction from verified raw handoff bytes."""
 
 from __future__ import annotations
 
-import argparse
 import json
 import os
 import subprocess
@@ -14,12 +13,11 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 
 from pilot001_first_run import failure_codes as codes  # noqa: E402
-from pilot001_first_run.config import default_input_manifest  # noqa: E402
-from pilot001_first_run.study_fetch import StudyFetchError, fetch_to_tmpfs  # noqa: E402
+from pilot001_first_run.study_fetch import StudyFetchError, read_raw_handoff  # noqa: E402
 from source_data_adapter import SourceAdapterError, parse_sources  # noqa: E402
 
-FETCH_DIR = Path("/tmp/pilot001-study")
-PAYLOAD_PATH = FETCH_DIR / "source-payload.json"
+HANDOFF_DIR = Path(os.environ.get("PILOT001_HANDOFF_DIR", "/handoff"))
+PAYLOAD_PATH = Path("/tmp/pilot001-study/source-payload.json")
 
 
 def _emit(code: str) -> None:
@@ -42,20 +40,20 @@ def _adapter_code(category: str | None) -> str:
     return mapping.get(category or "", codes.P001_FAIL_SOURCE_ADAPTER)
 
 
-def run_fetch_phase() -> int:
+def main() -> int:
     attestation_id = os.environ.get("PILOT001_OWNER_ATTESTATION_ID", "").strip()
     if not attestation_id:
         _emit(codes.P001_FAIL_GATE_ATTESTATION_REF)
         return 1
     try:
-        pins = default_input_manifest()
-        compressed, clinical, panel = fetch_to_tmpfs(pins, FETCH_DIR)
+        compressed, clinical, panel = read_raw_handoff(HANDOFF_DIR)
         payload = parse_sources(
             compressed,
             clinical,
             panel,
             owner_attestation=attestation_id,
         )
+        PAYLOAD_PATH.parent.mkdir(parents=True, exist_ok=True)
         PAYLOAD_PATH.write_text(
             json.dumps(payload, allow_nan=False, separators=(",", ":")),
             encoding="utf-8",
@@ -72,14 +70,8 @@ def run_fetch_phase() -> int:
     except Exception:
         _emit(codes.P001_FAIL_INTERNAL)
         return 1
-    return 0
 
-
-def run_analyze_phase() -> int:
     try:
-        if not PAYLOAD_PATH.is_file():
-            _emit(codes.P001_FAIL_INTERNAL)
-            return 1
         env = os.environ.copy()
         env["PILOT001_SOURCE_PAYLOAD_PATH"] = str(PAYLOAD_PATH)
         completed = subprocess.run(
@@ -108,25 +100,6 @@ def run_analyze_phase() -> int:
     except Exception:
         _emit(codes.P001_FAIL_INTERNAL)
         return 1
-
-
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--phase",
-        choices=("fetch", "analyze", "all"),
-        default="all",
-        help="fetch=networked study acquisition; analyze=R only (expects disconnected network)",
-    )
-    args = parser.parse_args(argv)
-    if args.phase == "fetch":
-        return run_fetch_phase()
-    if args.phase == "analyze":
-        return run_analyze_phase()
-    status = run_fetch_phase()
-    if status != 0:
-        return status
-    return run_analyze_phase()
 
 
 if __name__ == "__main__":

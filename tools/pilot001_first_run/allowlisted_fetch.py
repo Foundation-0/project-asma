@@ -13,6 +13,7 @@ ALLOWED_HOSTS = frozenset(
     {
         "www.dropbox.com",
         "pmc-oa-opendata.s3.us-east-1.amazonaws.com",
+        "dl.dropboxusercontent.com",
     }
 )
 DROPBOX_CDN_SUFFIX = ".dl.dropboxusercontent.com"

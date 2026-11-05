@@ -95,12 +95,13 @@ def _inflate_member(compressed: bytes) -> bytes:
     return body
 
 
-def fetch_to_tmpfs(
-    pins: tuple[InputPin, ...],
-    tmp_dir: Path,
-) -> tuple[bytes, bytes, bytes]:
-    """Return compressed member and workbook bytes after manifest verification."""
-    tmp_dir.mkdir(parents=True, exist_ok=True)
+HANDOFF_MEMBER = "member.compressed"
+HANDOFF_CLINICAL = "clinical.xlsx"
+HANDOFF_PANEL = "panel.xlsx"
+
+
+def fetch_and_verify_raw(pins: tuple[InputPin, ...]) -> tuple[bytes, bytes, bytes]:
+    """Download allowlisted sources and verify manifest pins (no adapter parse)."""
     dropbox_pin = _pin_by_role(pins, "author_dropbox_member")
     mmc1_pin = _pin_by_role(pins, "nlm_mmc1_clinical")
     mmc4_pin = _pin_by_role(pins, "nlm_mmc4_panel")
@@ -108,6 +109,7 @@ def fetch_to_tmpfs(
     compressed = _fetch_compressed_member()
     uncompressed = _inflate_member(compressed)
     _verify_pin(uncompressed, dropbox_pin)
+    del uncompressed
 
     clinical_source = cohorts.SOURCES["clinical"]
     panel_source = cohorts.SOURCES["panel_and_scores"]
@@ -121,9 +123,38 @@ def fetch_to_tmpfs(
 
     _verify_pin(clinical, mmc1_pin)
     _verify_pin(panel, mmc4_pin)
-
-    # Touch tmpfs paths so study bytes exist only under container /tmp, never on host output.
-    (tmp_dir / "member.compressed").write_bytes(compressed)
-    (tmp_dir / "clinical.xlsx").write_bytes(clinical)
-    (tmp_dir / "panel.xlsx").write_bytes(panel)
     return compressed, clinical, panel
+
+
+def write_raw_handoff(
+    handoff_dir: Path,
+    compressed: bytes,
+    clinical: bytes,
+    panel: bytes,
+) -> None:
+    handoff_dir.mkdir(parents=True, exist_ok=True)
+    (handoff_dir / HANDOFF_MEMBER).write_bytes(compressed)
+    (handoff_dir / HANDOFF_CLINICAL).write_bytes(clinical)
+    (handoff_dir / HANDOFF_PANEL).write_bytes(panel)
+
+
+def read_raw_handoff(handoff_dir: Path) -> tuple[bytes, bytes, bytes]:
+    try:
+        compressed = (handoff_dir / HANDOFF_MEMBER).read_bytes()
+        clinical = (handoff_dir / HANDOFF_CLINICAL).read_bytes()
+        panel = (handoff_dir / HANDOFF_PANEL).read_bytes()
+    except OSError as error:
+        raise StudyFetchError(codes.P001_FAIL_INTERNAL) from error
+    if not compressed or not clinical or not panel:
+        raise StudyFetchError(codes.P001_FAIL_INTERNAL)
+    return compressed, clinical, panel
+
+
+def fetch_to_tmpfs(
+    pins: tuple[InputPin, ...],
+    tmp_dir: Path,
+) -> tuple[bytes, bytes, bytes]:
+    """Test/legacy seam: verify and write under tmpfs."""
+    payload = fetch_and_verify_raw(pins)
+    write_raw_handoff(tmp_dir, *payload)
+    return payload

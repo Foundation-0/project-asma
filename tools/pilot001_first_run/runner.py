@@ -20,9 +20,11 @@ STAGING_AGGREGATE = ".pilot001-first-run-aggregate.staging.json"
 DEFAULT_SYNTHETIC_IMAGE = "asma-synthetic:4.4.3"
 DEFAULT_REAL_IMAGE = "asma-source-adapter:3.12.14-4.4.3"
 OWNER_ATTESTATIONS = ROOT / "registries/pilot-001-owner-attestations.json"
-STUDY_TMPFS = "/tmp/pilot001-study"
+HANDOFF_VOLUME_PREFIX = "pilot001-handoff-"
+HANDOFF_MOUNT = "/handoff"
 REAL_FETCH_NETWORK = "bridge"
-IDLE_COMMAND = ["sleep", "7200"]
+FETCH_CONTAINER_SCRIPT = "tools/pilot001_first_run/fetch_container.py"
+ANALYZE_CONTAINER_SCRIPT = "tools/pilot001_first_run/analyze_container.py"
 
 
 def git_sha() -> str:
@@ -59,41 +61,8 @@ def inspect_image(tag: str) -> dict:
     return json.loads(completed.stdout)[0]
 
 
-def _container_create_argv(
-    *,
-    config: RunConfig,
-    image_tag: str,
-    output_dir: Path,
-    container_name: str,
-    network: str,
-) -> list[str]:
-    inspected = inspect_image(image_tag)
-    image_id = inspected["Id"]
-    platform = inspected.get("Architecture", "unknown")
-    tmpfs_main = "512m" if config.dry_run else "2048m"
-    command = docker_base() + [
-        "run",
-        "-d",
-        "--name",
-        container_name,
-        f"--network={network}",
-        "--read-only",
-        "--log-driver=none",
-        "--cap-drop=ALL",
-        "--security-opt=no-new-privileges",
-        "--ulimit=core=0",
-        "--pids-limit=512",
-        "--memory=8g",
-        "--memory-swap=8g",
-        "--cpus=2",
-        f"--tmpfs=/tmp:rw,noexec,nosuid,size={tmpfs_main}",
-        f"--tmpfs={STUDY_TMPFS}:rw,noexec,nosuid,size=512m",
-        "--mount",
-        f"type=bind,src={ROOT},dst=/work,readonly",
-        "--mount",
-        f"type=bind,src={output_dir.resolve()},dst=/output",
-        "-w",
-        "/work",
+def _runtime_env(*, image_id: str, platform: str, config: RunConfig) -> list[str]:
+    return [
         "--env",
         "HOME=/tmp",
         "--env",
@@ -110,22 +79,30 @@ def _container_create_argv(
         f"PILOT001_IMAGE_PLATFORM={platform}",
         "--env",
         f"PILOT001_UNAME_M={os.uname().machine}",
+        "--env",
+        f"PILOT001_HANDOFF_DIR={HANDOFF_MOUNT}",
     ]
-    if not config.dry_run:
-        parsed = parse_attestation_ref(config.gate0_attestation_ref)
-        if parsed:
-            att_id, _att_date = parsed
-            command.extend(["--env", f"PILOT001_OWNER_ATTESTATION_ID={att_id}"])
-        if OWNER_ATTESTATIONS.is_file():
-            command.extend(
-                [
-                    "--mount",
-                    f"type=bind,src={OWNER_ATTESTATIONS.resolve()},dst=/work/registries/pilot-001-owner-attestations.json,readonly",
-                ]
-            )
-    command.append(image_tag)
-    command.extend(IDLE_COMMAND)
-    return command
+
+
+def _hardened_run_prefix(*, network: str) -> list[str]:
+    return [
+        "--rm",
+        f"--network={network}",
+        "--read-only",
+        "--log-driver=none",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--ulimit=core=0",
+        "--pids-limit=512",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--cpus=2",
+        "--tmpfs=/tmp:rw,noexec,nosuid,size=2048m",
+        "--mount",
+        f"type=bind,src={ROOT},dst=/work,readonly",
+        "-w",
+        "/work",
+    ]
 
 
 def build_dry_run_argv(
@@ -185,20 +162,77 @@ def build_dry_run_argv(
     ]
 
 
-def build_container_create_argv(
+def build_fetch_container_argv(
+    *,
+    config: RunConfig,
+    image_tag: str,
+    volume_name: str,
+    container_name: str,
+) -> list[str]:
+    inspected = inspect_image(image_tag)
+    image_id = inspected["Id"]
+    platform = inspected.get("Architecture", "unknown")
+    command = (
+        docker_base()
+        + ["run", "--name", container_name]
+        + _hardened_run_prefix(network=REAL_FETCH_NETWORK)
+        + ["--mount", f"type=volume,src={volume_name},dst={HANDOFF_MOUNT}"]
+        + _runtime_env(image_id=image_id, platform=platform, config=config)
+        + [
+            image_tag,
+            "/opt/python/bin/python3",
+            "-I",
+            "-B",
+            FETCH_CONTAINER_SCRIPT,
+        ]
+    )
+    return command
+
+
+def build_analyze_container_argv(
     *,
     config: RunConfig,
     image_tag: str,
     output_dir: Path,
+    volume_name: str,
     container_name: str,
 ) -> list[str]:
-    return _container_create_argv(
-        config=config,
-        image_tag=image_tag,
-        output_dir=output_dir,
-        container_name=container_name,
-        network=REAL_FETCH_NETWORK,
+    inspected = inspect_image(image_tag)
+    image_id = inspected["Id"]
+    platform = inspected.get("Architecture", "unknown")
+    command = (
+        docker_base()
+        + ["run", "--name", container_name]
+        + _hardened_run_prefix(network="none")
+        + [
+            "--mount",
+            f"type=volume,src={volume_name},dst={HANDOFF_MOUNT},readonly",
+            "--mount",
+            f"type=bind,src={output_dir.resolve()},dst=/output",
+        ]
+        + _runtime_env(image_id=image_id, platform=platform, config=config)
     )
+    parsed = parse_attestation_ref(config.gate0_attestation_ref)
+    if parsed:
+        att_id, _att_date = parsed
+        command.extend(["--env", f"PILOT001_OWNER_ATTESTATION_ID={att_id}"])
+    if OWNER_ATTESTATIONS.is_file():
+        command.extend(
+            [
+                "--mount",
+                f"type=bind,src={OWNER_ATTESTATIONS.resolve()},dst=/work/registries/pilot-001-owner-attestations.json,readonly",
+            ]
+        )
+    command.extend(
+        [
+            image_tag,
+            "/opt/python/bin/python3",
+            "-I",
+            "-B",
+            ANALYZE_CONTAINER_SCRIPT,
+        ]
+    )
+    return command
 
 
 def build_container_run_argv(
@@ -208,14 +242,7 @@ def build_container_run_argv(
     output_dir: Path,
     container_name: str,
 ) -> list[str]:
-    if config.dry_run:
-        return build_dry_run_argv(
-            config=config,
-            image_tag=image_tag,
-            output_dir=output_dir,
-            container_name=container_name,
-        )
-    return build_container_create_argv(
+    return build_dry_run_argv(
         config=config,
         image_tag=image_tag,
         output_dir=output_dir,
@@ -223,24 +250,26 @@ def build_container_run_argv(
     )
 
 
-def _docker_run(argv: list[str], environment: dict[str, str]) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        argv,
-        env=environment,
-        capture_output=True,
-        text=True,
-        timeout=7200,
-        check=False,
+def build_container_create_argv(
+    *,
+    config: RunConfig,
+    image_tag: str,
+    output_dir: Path,
+    container_name: str,
+) -> list[str]:
+    """Compatibility for tests: phase-1 fetch container uses bridge + handoff volume."""
+    volume_name = f"{HANDOFF_VOLUME_PREFIX}test"
+    return build_fetch_container_argv(
+        config=config,
+        image_tag=image_tag,
+        volume_name=volume_name,
+        container_name=container_name,
     )
 
 
-def _docker_exec(
-    container: str,
-    exec_argv: list[str],
-    environment: dict[str, str],
-) -> subprocess.CompletedProcess[str]:
+def _docker_run(argv: list[str], environment: dict[str, str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        docker_base() + ["exec", container] + exec_argv,
+        argv,
         env=environment,
         capture_output=True,
         text=True,
@@ -287,6 +316,26 @@ def _promote_aggregate(output_dir: Path, payload: dict) -> None:
         encoding="utf-8",
     )
     staging.replace(final)
+
+
+def _create_handoff_volume(name: str, environment: dict[str, str]) -> bool:
+    completed = subprocess.run(
+        docker_base() + ["volume", "create", name],
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return completed.returncode == 0
+
+
+def _remove_handoff_volume(name: str, environment: dict[str, str]) -> None:
+    subprocess.run(
+        docker_base() + ["volume", "rm", "-f", name],
+        env=environment,
+        capture_output=True,
+        check=False,
+    )
 
 
 def run_dry_container_pipeline(
@@ -347,52 +396,29 @@ def run_real_container_pipeline(
     image_id = inspected["Id"]
     platform = inspected.get("Architecture", "unknown")
     environment = local_docker_env()
-    container = "pilot001-run-" + uuid.uuid4().hex
-    create_argv = build_container_create_argv(
-        config=config,
-        image_tag=image_tag,
-        output_dir=output_dir,
-        container_name=container,
-    )
+    volume = HANDOFF_VOLUME_PREFIX + uuid.uuid4().hex
+    if not _create_handoff_volume(volume, environment):
+        return 1, codes.P001_FAIL_CONTAINER
+    fetch_container = "pilot001-fetch-" + uuid.uuid4().hex
+    analyze_container = "pilot001-analyze-" + uuid.uuid4().hex
     try:
-        created = _docker_run(create_argv, environment)
-        if created.returncode != 0 or not created.stdout.strip():
-            return 1, codes.P001_FAIL_CONTAINER
-        fetch = _docker_exec(
-            container,
-            [
-                "/opt/python/bin/python3",
-                "-I",
-                "-B",
-                "tools/pilot001_first_run/real_entry.py",
-                "--phase",
-                "fetch",
-            ],
-            environment,
+        fetch_argv = build_fetch_container_argv(
+            config=config,
+            image_tag=image_tag,
+            volume_name=volume,
+            container_name=fetch_container,
         )
+        fetch = _docker_run(fetch_argv, environment)
         if fetch.returncode != 0:
             return _failure_from_stdout(fetch.stdout)
-        disconnected = subprocess.run(
-            docker_base() + ["network", "disconnect", REAL_FETCH_NETWORK, container],
-            env=environment,
-            capture_output=True,
-            text=True,
-            check=False,
+        analyze_argv = build_analyze_container_argv(
+            config=config,
+            image_tag=image_tag,
+            output_dir=output_dir,
+            volume_name=volume,
+            container_name=analyze_container,
         )
-        if disconnected.returncode != 0:
-            return 1, codes.P001_FAIL_CONTAINER
-        analyze = _docker_exec(
-            container,
-            [
-                "/opt/python/bin/python3",
-                "-I",
-                "-B",
-                "tools/pilot001_first_run/real_entry.py",
-                "--phase",
-                "analyze",
-            ],
-            environment,
-        )
+        analyze = _docker_run(analyze_argv, environment)
         if analyze.returncode != 0:
             return _failure_from_stdout(analyze.stdout)
         try:
@@ -412,12 +438,7 @@ def run_real_container_pipeline(
             return 1, str(error)
         return 0, analyze.stdout.strip()
     finally:
-        subprocess.run(
-            docker_base() + ["rm", "--force", container],
-            env=environment,
-            capture_output=True,
-            check=False,
-        )
+        _remove_handoff_volume(volume, environment)
 
 
 def run_container_pipeline(
@@ -433,13 +454,22 @@ def run_container_pipeline(
 def postflight() -> str | None:
     environment = local_docker_env()
     ps = subprocess.run(
-        docker_base() + ["ps", "-a", "--filter", "name=pilot001-run-", "--format", "{{.ID}}"],
+        docker_base() + ["ps", "-a", "--filter", "name=pilot001-", "--format", "{{.ID}}"],
         env=environment,
         capture_output=True,
         text=True,
         check=False,
     )
     if ps.stdout.strip():
+        return codes.P001_FAIL_POSTFLIGHT
+    volumes = subprocess.run(
+        docker_base() + ["volume", "ls", "--filter", f"name={HANDOFF_VOLUME_PREFIX}", "-q"],
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if volumes.stdout.strip():
         return codes.P001_FAIL_POSTFLIGHT
     return None
 

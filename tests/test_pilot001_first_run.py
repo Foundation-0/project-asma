@@ -24,8 +24,10 @@ from pilot001_first_run.allowlisted_fetch import (  # noqa: E402
     host_allowed,
 )
 from pilot001_first_run.runner import (  # noqa: E402
+    build_analyze_container_argv,
     build_container_create_argv,
     build_container_run_argv,
+    build_fetch_container_argv,
     resolve_image_tag,
 )
 from pilot001_first_run.config import InputPin, RunConfig, parse_attestation_ref  # noqa: E402
@@ -362,19 +364,23 @@ class TestRealModeFetchPath(unittest.TestCase):
             fetch_to_tmpfs(__import__("pilot001_first_run.config", fromlist=["default_input_manifest"]).default_input_manifest(), Path("/tmp/pilot001-test-fetch"))
         self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
 
-    @mock.patch.dict("os.environ", {"PILOT001_OWNER_ATTESTATION_ID": "owner"}, clear=False)
-    @mock.patch("pilot001_first_run.real_entry.fetch_to_tmpfs")
-    def test_real_entry_surfaces_fetch_host(self, mock_fetch):
+    @mock.patch("pilot001_first_run.fetch_container.fetch_and_verify_raw")
+    def test_fetch_container_surfaces_fetch_host(self, mock_fetch):
         mock_fetch.side_effect = StudyFetchError(codes.P001_FAIL_FETCH_HOST)
         import io
 
-        from pilot001_first_run import real_entry
+        from pilot001_first_run import fetch_container
 
         buffer = io.StringIO()
         with mock.patch("sys.stdout", buffer):
-            code = real_entry.main(["--phase", "fetch"])
+            code = fetch_container.main()
         self.assertEqual(code, 1)
         self.assertEqual(buffer.getvalue().strip(), codes.P001_FAIL_FETCH_HOST)
+
+    def test_fetch_container_does_not_import_adapter(self):
+        source = (TOOLS / "pilot001_first_run/fetch_container.py").read_text(encoding="utf-8")
+        self.assertNotIn("parse_sources", source)
+        self.assertNotIn("run_pilot001_reconstruction", source)
 
 
 class TestManifestIntegrity(unittest.TestCase):
@@ -402,7 +408,7 @@ class TestRunnerDockerFlags(unittest.TestCase):
         self.assertIn("--dry-run", argv)
         self.assertNotIn("--network=bridge", argv)
 
-    def test_real_run_uses_bridge_for_fetch_container(self):
+    def test_real_fetch_container_uses_bridge_and_handoff_volume(self):
         config = RunConfig(
             host="macos",
             output_dir=Path("/tmp/out"),
@@ -415,16 +421,39 @@ class TestRunnerDockerFlags(unittest.TestCase):
             "pilot001_first_run.runner.inspect_image",
             return_value={"Id": "sha256:dead", "Architecture": "amd64"},
         ):
-            argv = build_container_create_argv(
+            argv = build_fetch_container_argv(
+                config=config,
+                image_tag="asma-synthetic:4.4.3",
+                volume_name="pilot001-handoff-test",
+                container_name="pilot001-fetch-test",
+            )
+        self.assertIn("--network=bridge", argv)
+        self.assertIn("type=volume", " ".join(argv))
+        self.assertIn("fetch_container.py", " ".join(argv))
+        self.assertNotIn("/output", " ".join(argv))
+
+    def test_analyze_container_uses_network_none_and_readonly_handoff(self):
+        config = RunConfig(
+            host="macos",
+            output_dir=Path("/tmp/out"),
+            dry_run=False,
+            gate0_attestation_ref="owner:2026-11-05",
+        )
+        with mock.patch(
+            "pilot001_first_run.runner.inspect_image",
+            return_value={"Id": "sha256:dead", "Architecture": "amd64"},
+        ):
+            argv = build_analyze_container_argv(
                 config=config,
                 image_tag="asma-synthetic:4.4.3",
                 output_dir=Path("/tmp/out"),
-                container_name="pilot001-run-test",
+                volume_name="pilot001-handoff-test",
+                container_name="pilot001-analyze-test",
             )
-        self.assertIn("--network=bridge", argv)
-        self.assertIn("sleep", argv)
-        self.assertIn("PILOT001_OWNER_ATTESTATION_ID=owner", argv)
-        self.assertNotIn("--network=none", argv)
+        joined = " ".join(argv)
+        self.assertIn("--network=none", joined)
+        self.assertIn("readonly", joined)
+        self.assertIn("analyze_container.py", joined)
 
     def test_real_resolves_source_adapter_image(self):
         config = RunConfig(host="macos", output_dir=Path("/tmp/out"), dry_run=False)
@@ -434,21 +463,27 @@ class TestRunnerDockerFlags(unittest.TestCase):
         )
 
 
-class TestRealPipelineWithoutEarlyStub(unittest.TestCase):
+class TestRealPipelineTwoPhase(unittest.TestCase):
     @mock.patch("pilot001_first_run.runner.git_sha", return_value="abc")
+    @mock.patch("pilot001_first_run.runner._remove_handoff_volume")
+    @mock.patch("pilot001_first_run.runner._create_handoff_volume", return_value=True)
     @mock.patch("pilot001_first_run.runner.subprocess.run")
     @mock.patch("pilot001_first_run.runner.inspect_image")
-    def test_gated_real_run_disconnects_before_analyze(self, mock_inspect, mock_run, _mock_git):
+    def test_real_run_uses_separate_fetch_and_analyze_containers(
+        self, mock_inspect, mock_run, _mock_vol, _mock_rm, _mock_git
+    ):
         mock_inspect.return_value = {"Id": "sha256:abc", "Architecture": "amd64"}
         aggregate = minimal_valid_aggregate()
-        mock_run.side_effect = [
-            subprocess.CompletedProcess([], 0, "container-id\n", ""),
-            subprocess.CompletedProcess([], 0, "", ""),
-            subprocess.CompletedProcess([], 0, "", ""),
-            subprocess.CompletedProcess([], 0, json.dumps(aggregate), ""),
-            subprocess.CompletedProcess([], 0, "", ""),
-            subprocess.CompletedProcess([], 0, "", ""),
-        ]
+        fetch_result = subprocess.CompletedProcess([], 0, "", "")
+        analyze_result = subprocess.CompletedProcess([], 0, json.dumps(aggregate), "")
+        pending = [fetch_result, analyze_result]
+
+        def fake_run(argv, *args, **kwargs):
+            if len(argv) > 2 and argv[1] == "run":
+                return pending.pop(0)
+            return subprocess.CompletedProcess([], 0, "", "")
+
+        mock_run.side_effect = fake_run
         config = RunConfig(
             host="macos",
             output_dir=Path("/tmp/out"),
@@ -463,22 +498,17 @@ class TestRealPipelineWithoutEarlyStub(unittest.TestCase):
             ).run_container_pipeline(config, "asma-synthetic:4.4.3", Path(tmp))
         self.assertEqual(status, 0)
         self.assertNotEqual(detail, codes.P001_FAIL_GATE_REAL_FLAGS)
-        disconnect = [
+        docker_runs = [
             call
             for call in mock_run.call_args_list
-            if call.args
-            and "network" in call.args[0]
-            and "disconnect" in call.args[0]
+            if call.args and call.args[0][:2] == ["docker", "--host=unix:///var/run/docker.sock"]
+            and "run" in call.args[0]
         ]
-        self.assertEqual(len(disconnect), 1)
-        analyze = [
-            call
-            for call in mock_run.call_args_list
-            if call.args and call.args[0][:3] == ["docker", "--host=unix:///var/run/docker.sock", "exec"]
-            and "--phase" in call.args[0]
-            and "analyze" in call.args[0]
-        ]
-        self.assertEqual(len(analyze), 1)
+        self.assertEqual(len(docker_runs), 2)
+        self.assertIn("fetch_container.py", " ".join(docker_runs[0].args[0]))
+        self.assertIn("analyze_container.py", " ".join(docker_runs[1].args[0]))
+        self.assertIn("--network=bridge", " ".join(docker_runs[0].args[0]))
+        self.assertIn("--network=none", " ".join(docker_runs[1].args[0]))
 
 
 class TestSimulatedRealOutput(unittest.TestCase):

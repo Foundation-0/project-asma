@@ -83,8 +83,8 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 | **Repository checkout** | Git only; container sees it at `/work` **read-only** (`tools/pilot001_first_run/runner.py`). Choose a path outside iCloud/Dropbox/TM. |
 | **`$HOME/pilot001-first-run-out`** (or owner-chosen equivalent) | **Only** allow-listed aggregates: `pilot001-preflight-report.json`, `pilot001-first-run-aggregate.json`. Bind-mounted to `/output`. Preflight **refuses** iCloud/Dropbox/TM-backed output paths. |
 | **Docker Desktop `Docker.raw`** | Image layers and container writable layers (not controlled by this repo). |
-| **Container `/tmp`** | Dry-run: **tmpfs 512m**. Real mode: **tmpfs 2048m** plus dedicated **`/tmp/pilot001-study` tmpfs 512m** for fetched study bytes and the in-memory adapter handoff file (never bind-mounted to the host). R/Python caches under `/tmp/asma-cache`. |
-| **Study data** | **No** host volumes for Dropbox zip or MMC workbooks. Real mode fetches via `tools/pilot001_first_run/allowlisted_fetch.py` into **`/tmp/pilot001-study` tmpfs only**; verified against [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json) before `parse_sources()` and R reconstruction. |
+| **Container `/tmp`** | Dry-run: **tmpfs 512m**. Real **analyze** phase: tmpfs for R caches and ephemeral adapter→R JSON (under `/tmp/pilot001-study`); never bind-mounted to the host output directory. |
+| **Study handoff volume** | Real mode **`pilot001-handoff-*` Docker volume** holds verified **raw bytes only** between phase 1 (fetch, networked) and phase 2 (analyze, `--network=none`). Removed by orchestrator postflight; may touch Docker VM disk until then (see **(4)**). |
 
 ### (4) Network
 
@@ -107,13 +107,20 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 
 **Policy:** Study bytes stay in **container tmpfs only** — never written under the host `/output` bind mount or synced folders.
 
-**Limitation (grk-helix accepted):** Dry runs use **`--network=none`** (no container egress). Real runs attach **`--network=bridge` only for the fetch phase**. All HTTPS during fetch goes through `allowlisted_fetch.py`, which checks each URL **before** following redirects and allows `www.dropbox.com`, `pmc-oa-opendata.s3.us-east-1.amazonaws.com`, and Dropbox CDN hosts ending in **`.dl.dropboxusercontent.com`**. This is **helper-controlled egress, not a kernel or Docker firewall** — malicious code during fetch could still try other destinations unless the host blocks them separately.
+**Two-phase real mode (phase separation, not a kernel firewall):**
 
-**Analysis phase (no unrestricted egress):** After fetch, hash verification, and `parse_sources()`, the **host orchestrator** runs `docker network disconnect bridge <container>` and only then `docker exec … real_entry.py --phase analyze` (R reconstruction). The analyze phase does not invoke the fetch helper; with bridge disconnected the container has **no routable network** for R/xgboost. Fetch and analyze share the same container tmpfs (`/tmp/pilot001-study`) without bind-mounting study bytes to the host.
+| Phase | Container | Network | Work |
+| --- | --- | --- | --- |
+| **1 — fetch** | `fetch_container.py` | **`bridge`** (egress for allowlisted HTTPS only) | Download, manifest SHA-256/size verify, write **raw bytes** to **`pilot001-handoff-*` volume**. No adapter, no R, no row-level matrices. |
+| **2 — analyze** | `analyze_container.py` | **`none`** | Read-only handoff volume → `parse_sources()` → R reconstruction → aggregate JSON to `/output` only. |
 
-**Integrity:** After fetch, bytes must match [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json) (`author_dropbox_member`, `nlm_mmc1_clinical`, `nlm_mmc4_panel`). Mismatch → **`P001-FAIL-INPUT-INTEGRITY`**. Non-allowlisted host → **`P001-FAIL-FETCH-HOST`**.
+**Fetch allowlist:** `www.dropbox.com`, `pmc-oa-opendata.s3.us-east-1.amazonaws.com`, `dl.dropboxusercontent.com`, and `*.dl.dropboxusercontent.com` CDN hosts. `allowlisted_fetch.py` disables urllib auto-redirects and validates **each hop** (HTTPS only; no downgrade) before following.
 
-**Attestation inside the container:** When `registries/pilot-001-owner-attestations.json` exists locally (never committed), it is bind-mounted read-only at the same path for `parse_sources()` authorization. The CLI `--gate0-attestation-ref` id must match a current entry.
+**Handoff volume on Docker VM disk:** Raw bytes may briefly reside in the Docker Desktop VM disk inside the named volume. This is acceptable only because the orchestrator **`docker volume rm`** in postflight (and postflight fails if any `pilot001-handoff-*` volume remains) and macOS preflight requires **Docker swap = 0 MiB**.
+
+**Integrity:** Manifest pins in [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json) are checked in **phase 1** before bytes enter the handoff volume.
+
+**Attestation:** Only **phase 2** bind-mounts `registries/pilot-001-owner-attestations.json` (when present locally) for `parse_sources()` authorization.
 
 **Native linux/arm64 synthetic builds and amd64↔arm64 equivalence checks** are intentionally **out of scope** (sibling PR).
 
@@ -145,7 +152,7 @@ python3 tools/run_pilot001_first_run.py \
   --image asma-synthetic:4.4.3
 ```
 
-The attestation date must equal **today** in `America/Toronto`. Study fetch and hash verification occur **inside** the container tmpfs; the host still mounts **only** the aggregate output directory (plus the optional read-only owner attestation file when present locally).
+The attestation date must equal **today** in `America/Toronto`. Phase 1 writes verified raw study bytes to a **Docker handoff volume** (not the host output directory). Phase 2 parses and models offline with **`--network=none`** and writes **only** aggregate JSON to the output bind mount.
 
 Non-zero preflight exit prints a JSON report with aggregate-safe fields only.
 
@@ -158,7 +165,7 @@ rm -rf "$HOME/pilot001-first-run-out"
 docker rm -f $(docker ps -aq --filter 'name=pilot001-run-') 2>/dev/null || true
 docker rmi asma-synthetic:4.4.3 asma-source-adapter:3.12.14-4.4.3
 docker ps -a --filter 'name=pilot001-run-'
-docker volume ls
+docker volume ls --filter name=pilot001-handoff-
 ```
 
 Expect **no** `pilot001-run-*` containers and no run-specific volumes. The entrypoint’s postflight also fails with **`P001-FAIL-POSTFLIGHT`** if any `pilot001-run-*` container remains.
