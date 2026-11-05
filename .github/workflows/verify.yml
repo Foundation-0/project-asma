@@ -63,9 +63,12 @@ jobs:
             attempt=$((attempt + 1))
           done
           docker image inspect asma-synthetic:4.4.3 --format '{{.Id}}' | tee synthetic-image-id.txt
+          docker image inspect asma-synthetic:4.4.3 --format '{{.Size}}' | tee synthetic-image-size.txt
 
       - name: Pilot 001 dry run (synthetic container path)
-        run: python3 tools/run_pilot001_dry_run.py | tee pilot001-dry-run.json
+        run: |
+          set -euo pipefail
+          python3 tools/run_pilot001_dry_run.py | tee pilot001-dry-run.json
 
       - name: Seed pinned Ubuntu packages (Launchpad fallback)
         run: python3 tools/ci_seed_ubuntu_packages.py "${RUNNER_TEMP}/asma-package-cache"

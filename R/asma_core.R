@@ -49,6 +49,9 @@ asma_silent_call <- function(action, code) {
     value
   }, error = function(condition) {
     restore_message()
+    if (inherits(condition, "asma_failure_code")) {
+      stop(condition)
+    }
     asma_require(FALSE, code)
   })
 }
