@@ -16,10 +16,13 @@ TOOLS = ROOT / "tools"
 sys.path.insert(0, str(TOOLS))
 
 from pilot001_first_run import failure_codes as codes  # noqa: E402
-from pilot001_first_run.config import RunConfig, parse_attestation_ref  # noqa: E402
+from pilot001_first_run.allowlisted_fetch import AllowlistedFetchError, fetch_exact  # noqa: E402
+from pilot001_first_run.config import InputPin, RunConfig, parse_attestation_ref  # noqa: E402
 from pilot001_first_run.gates import toronto_today, validate_dropbox_flag, validate_real_run_gates  # noqa: E402
 from pilot001_first_run.output_validator import validate_aggregate_document  # noqa: E402
 from pilot001_first_run.preflight import run_linux_preflight, run_macos_preflight  # noqa: E402
+from pilot001_first_run.runner import build_container_run_argv, resolve_image_tag  # noqa: E402
+from pilot001_first_run.study_fetch import StudyFetchError, _verify_pin  # noqa: E402
 import run_pilot001_first_run as entry  # noqa: E402
 
 
@@ -156,6 +159,116 @@ class TestTrackedStudySources(unittest.TestCase):
             check=False,
         )
         self.assertEqual(completed.returncode, 0, msg=completed.stdout + completed.stderr)
+
+
+class TestAllowlistedFetch(unittest.TestCase):
+    def test_refuses_non_allowlisted_host(self):
+        with self.assertRaises(AllowlistedFetchError) as ctx:
+            fetch_exact("https://example.com/file.bin", expected_bytes=1)
+        self.assertEqual(ctx.exception.code, codes.P001_FAIL_FETCH_HOST)
+
+
+class TestManifestIntegrity(unittest.TestCase):
+    def test_wrong_hash_fails(self):
+        pin = InputPin("author_dropbox_member", "0" * 64, 3)
+        with self.assertRaises(StudyFetchError) as ctx:
+            _verify_pin(b"abc", pin)
+        self.assertEqual(ctx.exception.code, codes.P001_FAIL_INPUT_INTEGRITY)
+
+
+class TestRunnerDockerFlags(unittest.TestCase):
+    def test_dry_run_uses_network_none(self):
+        config = RunConfig(host="linux-ci", output_dir=Path("/tmp/out"), dry_run=True)
+        with mock.patch(
+            "pilot001_first_run.runner.inspect_image",
+            return_value={"Id": "sha256:dead", "Architecture": "amd64"},
+        ):
+            argv = build_container_run_argv(
+                config=config,
+                image_tag="asma-synthetic:4.4.3",
+                output_dir=Path("/tmp/out"),
+                container_name="pilot001-run-test",
+            )
+        self.assertIn("--network=none", argv)
+        self.assertIn("--dry-run", argv)
+        self.assertNotIn("--network=bridge", argv)
+
+    def test_real_run_uses_bridge_and_real_entry(self):
+        config = RunConfig(
+            host="macos",
+            output_dir=Path("/tmp/out"),
+            dry_run=False,
+            gate0_signed=True,
+            dropbox_cleared=True,
+            gate0_attestation_ref="owner:2026-11-05",
+        )
+        with mock.patch(
+            "pilot001_first_run.runner.inspect_image",
+            return_value={"Id": "sha256:dead", "Architecture": "amd64"},
+        ):
+            argv = build_container_run_argv(
+                config=config,
+                image_tag="asma-synthetic:4.4.3",
+                output_dir=Path("/tmp/out"),
+                container_name="pilot001-run-test",
+            )
+        self.assertIn("--network=bridge", argv)
+        self.assertIn("tools/pilot001_first_run/real_entry.py", argv)
+        self.assertIn("PILOT001_OWNER_ATTESTATION_ID=owner", argv)
+        self.assertNotIn("--network=none", argv)
+
+    def test_real_resolves_source_adapter_image(self):
+        config = RunConfig(host="macos", output_dir=Path("/tmp/out"), dry_run=False)
+        self.assertEqual(
+            resolve_image_tag(config, "asma-synthetic:4.4.3"),
+            "asma-source-adapter:3.12.14-4.4.3",
+        )
+
+
+class TestRealPipelineWithoutEarlyStub(unittest.TestCase):
+    @mock.patch("pilot001_first_run.runner.subprocess.run")
+    @mock.patch("pilot001_first_run.runner.inspect_image")
+    def test_gated_real_run_invokes_container(self, mock_inspect, mock_run):
+        mock_inspect.return_value = {"Id": "sha256:abc", "Architecture": "amd64"}
+        aggregate = {
+            "schema_version": 1,
+            "review_status": "exploratory_not_externally_reviewed",
+            "configurations": [],
+            "run_metadata": {},
+        }
+        mock_run.return_value = subprocess.CompletedProcess([], 0, json.dumps(aggregate), "")
+        config = RunConfig(
+            host="macos",
+            output_dir=Path("/tmp/out"),
+            dry_run=False,
+            gate0_signed=True,
+            dropbox_cleared=True,
+            gate0_attestation_ref="owner:2026-11-05",
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            status, detail = __import__(
+                "pilot001_first_run.runner", fromlist=["run_container_pipeline"]
+            ).run_container_pipeline(config, "asma-synthetic:4.4.3", Path(tmp))
+        self.assertEqual(status, 0)
+        self.assertNotEqual(detail, codes.P001_FAIL_GATE_REAL_FLAGS)
+        docker_calls = [
+            call
+            for call in mock_run.call_args_list
+            if call.args and call.args[0][:2] == ["docker", "--host=unix:///var/run/docker.sock"]
+        ]
+        self.assertTrue(docker_calls)
+        self.assertIn("--network=bridge", docker_calls[0].args[0])
+
+
+class TestSimulatedRealOutput(unittest.TestCase):
+    def test_aggregate_only_shape(self):
+        good = {
+            "schema_version": 1,
+            "review_status": "exploratory_not_externally_reviewed",
+            "configurations": [{"label": "primary", "summary": {"patients": 158}}],
+            "real_study_data_executed": True,
+        }
+        self.assertEqual(validate_aggregate_document(good), [])
 
 
 if __name__ == "__main__":

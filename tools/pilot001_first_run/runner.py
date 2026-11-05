@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import os
-import re
 import subprocess
 import sys
 import uuid
@@ -12,11 +11,15 @@ from pathlib import Path
 
 from build_synthetic_runtime import ROOT, local_docker_env
 from pilot001_first_run import failure_codes as codes
-from pilot001_first_run.config import RunConfig
+from pilot001_first_run.config import RunConfig, parse_attestation_ref
 from pilot001_first_run.output_validator import validate_output_dir
 
 AGGREGATE_FILENAME = "pilot001-first-run-aggregate.json"
 PREFLIGHT_FILENAME = "pilot001-preflight-report.json"
+DEFAULT_SYNTHETIC_IMAGE = "asma-synthetic:4.4.3"
+DEFAULT_REAL_IMAGE = "asma-source-adapter:3.12.14-4.4.3"
+OWNER_ATTESTATIONS = ROOT / "registries/pilot-001-owner-attestations.json"
+STUDY_TMPFS = "/tmp/pilot001-study"
 
 
 def git_sha() -> str:
@@ -36,6 +39,12 @@ def docker_base() -> list[str]:
     return ["docker", "--host=unix:///var/run/docker.sock"]
 
 
+def resolve_image_tag(config: RunConfig, cli_image: str) -> str:
+    if cli_image != DEFAULT_SYNTHETIC_IMAGE:
+        return cli_image
+    return DEFAULT_SYNTHETIC_IMAGE if config.dry_run else DEFAULT_REAL_IMAGE
+
+
 def inspect_image(tag: str) -> dict:
     completed = subprocess.run(
         docker_base() + ["image", "inspect", tag],
@@ -47,24 +56,24 @@ def inspect_image(tag: str) -> dict:
     return json.loads(completed.stdout)[0]
 
 
-def run_container_pipeline(
+def build_container_run_argv(
+    *,
     config: RunConfig,
     image_tag: str,
     output_dir: Path,
-) -> tuple[int, str]:
-    output_dir.mkdir(parents=True, exist_ok=True)
+    container_name: str,
+) -> list[str]:
     inspected = inspect_image(image_tag)
     image_id = inspected["Id"]
     platform = inspected.get("Architecture", "unknown")
-    digest = image_id
-    environment = local_docker_env()
-    container = "pilot001-run-" + uuid.uuid4().hex
+    network = "none" if config.dry_run else "bridge"
+    tmpfs_main = "512m" if config.dry_run else "2048m"
     command = docker_base() + [
         "run",
         "--name",
-        container,
+        container_name,
         "--rm",
-        "--network=none",
+        f"--network={network}",
         "--read-only",
         "--log-driver=none",
         "--cap-drop=ALL",
@@ -74,7 +83,8 @@ def run_container_pipeline(
         "--memory=8g",
         "--memory-swap=8g",
         "--cpus=2",
-        "--tmpfs=/tmp:rw,noexec,nosuid,size=512m",
+        f"--tmpfs=/tmp:rw,noexec,nosuid,size={tmpfs_main}",
+        f"--tmpfs={STUDY_TMPFS}:rw,noexec,nosuid,size=512m",
         "--mount",
         f"type=bind,src={ROOT},dst=/work,readonly",
         "--mount",
@@ -97,15 +107,61 @@ def run_container_pipeline(
         f"PILOT001_IMAGE_PLATFORM={platform}",
         "--env",
         f"PILOT001_UNAME_M={os.uname().machine}",
-        image_tag,
-        "Rscript",
-        "--vanilla",
-        "tools/run_pilot001_reconstruction.R",
-        "--dry-run",
-        "--repetitions=5",
     ]
     if not config.dry_run:
-        return 1, codes.P001_FAIL_GATE_REAL_FLAGS
+        parsed = parse_attestation_ref(config.gate0_attestation_ref)
+        if parsed:
+            att_id, _att_date = parsed
+            command.extend(["--env", f"PILOT001_OWNER_ATTESTATION_ID={att_id}"])
+        if OWNER_ATTESTATIONS.is_file():
+            command.extend(
+                [
+                    "--mount",
+                    f"type=bind,src={OWNER_ATTESTATIONS.resolve()},dst=/work/registries/pilot-001-owner-attestations.json,readonly",
+                ]
+            )
+        command.extend(
+            [
+                image_tag,
+                "/opt/python/bin/python3",
+                "-I",
+                "-B",
+                "tools/pilot001_first_run/real_entry.py",
+            ]
+        )
+    else:
+        command.extend(
+            [
+                image_tag,
+                "Rscript",
+                "--vanilla",
+                "tools/run_pilot001_reconstruction.R",
+                "--dry-run",
+                "--repetitions=5",
+            ]
+        )
+    return command
+
+
+def run_container_pipeline(
+    config: RunConfig,
+    image_tag: str,
+    output_dir: Path,
+) -> tuple[int, str]:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    image_tag = resolve_image_tag(config, image_tag)
+    inspected = inspect_image(image_tag)
+    image_id = inspected["Id"]
+    platform = inspected.get("Architecture", "unknown")
+    digest = image_id
+    environment = local_docker_env()
+    container = "pilot001-run-" + uuid.uuid4().hex
+    command = build_container_run_argv(
+        config=config,
+        image_tag=image_tag,
+        output_dir=output_dir,
+        container_name=container,
+    )
     try:
         completed = subprocess.run(
             command,

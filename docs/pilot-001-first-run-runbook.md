@@ -83,8 +83,8 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 | **Repository checkout** | Git only; container sees it at `/work` **read-only** (`tools/pilot001_first_run/runner.py`). Choose a path outside iCloud/Dropbox/TM. |
 | **`$HOME/pilot001-first-run-out`** (or owner-chosen equivalent) | **Only** allow-listed aggregates: `pilot001-preflight-report.json`, `pilot001-first-run-aggregate.json`. Bind-mounted to `/output`. Preflight **refuses** iCloud/Dropbox/TM-backed output paths. |
 | **Docker Desktop `Docker.raw`** | Image layers and container writable layers (not controlled by this repo). |
-| **Container `/tmp`** | **tmpfs 512m** (`rw,noexec,nosuid`); R/Python caches under `/tmp/asma-cache`. No host bind for study bytes. |
-| **Study data** | **No** host volumes for Dropbox zip or MMC workbooks. Real-run design requires study fetches **inside** the container **tmpfs only** (not implemented on this PR — see **(4)**). |
+| **Container `/tmp`** | Dry-run: **tmpfs 512m**. Real mode: **tmpfs 2048m** plus dedicated **`/tmp/pilot001-study` tmpfs 512m** for fetched study bytes and the in-memory adapter handoff file (never bind-mounted to the host). R/Python caches under `/tmp/asma-cache`. |
+| **Study data** | **No** host volumes for Dropbox zip or MMC workbooks. Real mode fetches via `tools/pilot001_first_run/allowlisted_fetch.py` into **`/tmp/pilot001-study` tmpfs only**; verified against [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json) before `parse_sources()` and R reconstruction. |
 
 ### (4) Network
 
@@ -98,16 +98,22 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 | **snapshot.ubuntu.com** | Pinned `.deb` build deps for adapter (`runtime/source-adapter-python.json`) |
 | **Launchpad / Ubuntu changelogs** | License notice fetches documented in the adapter lockfile |
 
-**Real first-run study fetches (future; not executable on this PR):**
+**Real first-run study fetches (gated `--real` on owner Mac only):**
 
 | Host | Role |
 | --- | --- |
-| **www.dropbox.com** | Author `processed_data.zip` member (see [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json)) |
+| **www.dropbox.com** | Author `processed_data.zip` compressed member ranges (uncompressed member pinned in manifest) |
 | **pmc-oa-opendata.s3.us-east-1.amazonaws.com** | MMC1 / MMC4 workbooks for Pilot 001 |
 
-**Policy:** Dropbox matrix bytes must remain in **container tmpfs only** — never written to the host output directory or synced folders.
+**Policy:** Study bytes stay in **container tmpfs only** — never written under the host `/output` bind mount or synced folders.
 
-**Current blocker (this PR):** Even when the CLI accepts `--real`, `--gate0-signed`, and `--dropbox-cleared`, the orchestrator still launches the container with **`--network=none`**, passes **`--dry-run`** to `tools/run_pilot001_reconstruction.R`, and returns **`P001-FAIL-GATE-REAL-FLAGS`** if `config.dry_run` is false (`tools/pilot001_first_run/runner.py`, R real branch). **Real Dropbox fetch is not executable yet.** CI and approved Mac dry runs use the synthetic fixture path only.
+**Enforcement:** Dry runs use **`--network=none`**. Real runs enable **`--network=bridge`** only for the source-adapter container entrypoint (`tools/pilot001_first_run/real_entry.py`), which performs **all** HTTPS via `allowlisted_fetch.py` (refuses any other host; covered in unit tests). This is application-layer egress control, not a kernel firewall.
+
+**Integrity:** After fetch, bytes must match [registries/pilot-001-first-run-input-manifest.json](../registries/pilot-001-first-run-input-manifest.json) (`author_dropbox_member`, `nlm_mmc1_clinical`, `nlm_mmc4_panel`). Mismatch → **`P001-FAIL-INPUT-INTEGRITY`**. Non-allowlisted host → **`P001-FAIL-FETCH-HOST`**.
+
+**Attestation inside the container:** When `registries/pilot-001-owner-attestations.json` exists locally (never committed), it is bind-mounted read-only at the same path for `parse_sources()` authorization. The CLI `--gate0-attestation-ref` id must match a current entry.
+
+**Native linux/arm64 synthetic builds and amd64↔arm64 equivalence checks** are intentionally **out of scope** (sibling PR).
 
 ### (5) Exact approved command sequence
 
@@ -122,7 +128,7 @@ Run from the **repository root** after step **0**. Replace attestation ref and d
 | **4** | Record image ids (optional) | `docker image inspect asma-synthetic:4.4.3 --format '{{.Id}} {{.Architecture}}'` |
 | **5** | Preflight (read-only) | `python3 tools/pilot001_preflight.py --host macos --output-dir "$HOME/pilot001-first-run-out"` |
 | **6** | Optional dry run (synthetic; same gates as CI) | `python3 tools/run_pilot001_first_run.py --host macos --output-dir "$HOME/pilot001-first-run-out" --image asma-synthetic:4.4.3` — **no** `--real`, **no** `--gate0-signed`, **no** `--dropbox-cleared` |
-| **7** | Real run (owner Mac only; **blocked on this PR** until runner/R network work lands) | See command below — expect failure **`P001-FAIL-GATE-REAL-FLAGS`** today |
+| **7** | Real run (owner Mac only; gated) | Command below — uses **`asma-source-adapter:3.12.14-4.4.3`** automatically unless `--image` overrides the synthetic default |
 
 **Real run command (documented target; not executed in repo/CI):**
 
@@ -137,7 +143,7 @@ python3 tools/run_pilot001_first_run.py \
   --image asma-synthetic:4.4.3
 ```
 
-The attestation date must equal **today** in `America/Toronto`. When real mode is implemented, study fetch will occur **inside** the container only; the host still mounts **only** the aggregate output directory.
+The attestation date must equal **today** in `America/Toronto`. Study fetch and hash verification occur **inside** the container tmpfs; the host still mounts **only** the aggregate output directory (plus the optional read-only owner attestation file when present locally).
 
 Non-zero preflight exit prints a JSON report with aggregate-safe fields only.
 
@@ -184,7 +190,7 @@ No row-level scores, matrices, or study files are written.
 - Any aggregate failure code (`P001-FAIL-*`) from the entrypoint.
 - Output validator detecting row-level or identifier-like content.
 - Postflight showing leftover `pilot001-run-*` containers.
-- **`P001-FAIL-GATE-REAL-FLAGS`** on `--real` until the runner enables in-container fetch with controlled network (not this PR).
+- **`P001-FAIL-INPUT-INTEGRITY`**, **`P001-FAIL-FETCH-HOST`**, or other **`P001-FAIL-*`** codes from fetch, adapter, or reconstruction.
 
 ## What this repository proves without a real run
 
