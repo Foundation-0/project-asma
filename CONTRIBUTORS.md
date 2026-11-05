@@ -52,6 +52,11 @@ and collaborating agents under human direction. Independent internal agents
 challenged source transfers, antigen identity and novelty claims; this is not
 external scientific peer review or experimental validation.
 
+The **2026-11-05 Rosen treatment-sequence assumption experiment** was prepared
+with OpenAI Codex using **GPT-6 Astra**, with a coordinating agent independently
+checking the algebra, primary-source scope and interpretation. This is internal
+AI review, not external scientific peer review.
+
 ## Prior work credited by name
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);
