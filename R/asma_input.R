@@ -17,7 +17,8 @@ asma_require <- function(condition, code = "contract") {
   if (!isTRUE(condition)) {
     stop(structure(
       list(message = "ASMA contract failed; no row-level details emitted.", call = NULL),
-      class = c("asma_contract_error", "error", "condition")
+      class = c("asma_contract_error", "error", "condition"),
+      code = code
     ))
   }
   invisible(TRUE)

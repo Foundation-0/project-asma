@@ -97,6 +97,12 @@ status <- tryCatch({
     cat(code, "\n", sep = "")
   } else if (inherits(error, "asma_failure_code")) {
     cat(conditionMessage(error), "\n", sep = "")
+  } else if (inherits(error, "asma_contract_error")) {
+    label <- attr(error, "code")
+    if (is.character(label) && length(label) == 1L && nzchar(label)) {
+      cat(label, "\n", file = stderr(), sep = "")
+    }
+    cat("P001-FAIL-INTERNAL\n", sep = "")
   } else {
     cat("P001-FAIL-INTERNAL\n", sep = "")
   }
