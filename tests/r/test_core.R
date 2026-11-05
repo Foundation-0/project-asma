@@ -188,11 +188,11 @@ run_core_tests <- function() {
   for (index in seq_along(plan_events)) {
     event <- plan_events[[index]]
     fitted <- fit_events[[index]]
-    outer_plan <- stratified_folds(keys, y, 5L, event$repetition)
+    outer_plan <- stratified_folds(keys, y, 5L, event$outer_seed)
     expected_test <- keys[outer_plan == event$fold]
     expected_train <- keys[outer_plan != event$fold]
     expected_inner <- stratified_folds(expected_train, y[expected_train], 3L,
-                                       10000L + 100L * event$repetition + event$fold)
+                                       10000L + 100L * event$outer_seed + event$fold)
     for (copy in list(event, fitted)) {
       wiring_ok <- wiring_ok && identical(copy$test_ids, expected_test) &&
         identical(copy$train_ids, expected_train) &&

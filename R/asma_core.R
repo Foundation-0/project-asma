@@ -174,6 +174,7 @@ run_reconstruction <- function(assembled, fit_predict, repetitions = 100L,
     prediction_count <- 0L
     fold_count <- 0L
     for (repetition in seq_len(repetitions)) {
+      outer_seed <- outer_seed_start + repetition - 1L
       model_scores <- matrix(NA_real_, nrow = length(keys), ncol = 3L,
                              dimnames = list(keys, c("en", "xgb", "rf")))
       seen <- integer(length(keys))
