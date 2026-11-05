@@ -290,7 +290,7 @@
   },
   "finished_at_utc": "2026-11-04T09:21:48.008309Z",
   "implementation_sha256": {
-    "R/asma_core.R": "6566b679fb566820498105a507ff33f506bd16d653b00a947afb1f0364cd7888",
+    "R/asma_core.R": "df58ff172ba049e5671e864c0ba9e8a60e2684c4016b8bfe8402cff2eaae70c9",
     "R/asma_input.R": "392b05aa111b719ba0a6fd9f6bc0e4350cd5e268d1272ad62790556669c4e4f2",
     "R/asma_models.R": "4b277924efe37c5b3ce324ad63093db3a748a7f712410a55f602cb1ae885c5b6",
     "protocols/pilot-001-reconstruction-amendment-1.md": "a0067eee784f28345437a2097e95b64ac2a5a0fbd7e544d7dcb5bb5d20399953",
@@ -303,8 +303,8 @@
     "tests/r/test_input.R": "c3602cf212ec794e2ad777a5f54e5d224c8fb812a053422c8b00f386e2dbd2d0",
     "tests/r/test_models.R": "bfdc3ea48e570725121fa1069063e76ba7a427608ba8d0bf36c9b26ecc672cd3",
     "tests/test_synthetic_runtime.py": "5709358fd3160e455e08c140ac42fb71bd452d81e02d367b577925dca77dd716",
-    "tools/build_synthetic_runtime.py": "4ea40ee66cbf4b9648bfa8d00bd060a24e650ddffd94ec2b30f8ccb7d8637865",
-    "tools/run_synthetic_pipeline.R": "935600b2e3a8ed09dc483f8cdf1a86fd7b9a10c26856d687bb40b4c819eb0c6d",
+    "tools/build_synthetic_runtime.py": "c4d23cb949ebca11f5a0eec3633f9b096f33b8b8eac75792b7ea8b60c6703e5b",
+    "tools/run_synthetic_pipeline.R": "c590a990b897b94beb9d0bc34b1018939812c08b39f305645fe941aea217fa9b",
     "tools/run_synthetic_pipeline.py": "9bf188f68a36665332f22459f2acb1e779ded7242d9b8a2d7083733e96b894ea"
   },
   "integration": {

@@ -151,6 +151,39 @@ class TestAttestationAndGates(unittest.TestCase):
         )
         self.assertIsNone(validate_real_run_gates(config, preflight_passed=True))
 
+    @mock.patch("pilot001_first_run.gates.toronto_today", return_value=date(2026, 11, 5))
+    @mock.patch("run_pilot001_first_run.inspect_image")
+    @mock.patch("run_pilot001_first_run.platform.machine", return_value="arm64")
+    @mock.patch("run_pilot001_first_run.run_preflight")
+    def test_macos_arm64_real_requires_equivalence_record(self, mock_preflight, _machine, mock_inspect, _today):
+        from pilot001_first_run.preflight import PreflightReport
+        import io
+
+        mock_preflight.return_value = PreflightReport("macos", True, {"ulimit_core": "PASS"})
+        mock_inspect.side_effect = lambda tag: {
+            "Id": "sha256:" + ("2" * 64 if tag.endswith("-arm64") else "1" * 64)
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            buffer = io.StringIO()
+            with mock.patch("sys.stdout", buffer):
+                code = entry.main(
+                    [
+                        "--host",
+                        "macos",
+                        "--output-dir",
+                        tmp,
+                        "--real",
+                        "--gate0-signed",
+                        "--gate0-attestation-ref",
+                        "owner:2026-11-05",
+                        "--dropbox-cleared",
+                        "--image",
+                        "asma-synthetic:4.4.3-arm64",
+                    ]
+                )
+        self.assertEqual(code, 1)
+        self.assertIn(codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE, buffer.getvalue())
+
 
 class TestPreflight(unittest.TestCase):
     def test_linux_ulimit_core_mock(self):

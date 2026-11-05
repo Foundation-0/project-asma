@@ -19,7 +19,14 @@ import urllib.request
 
 from build_synthetic_runtime import ROOT, local_docker_env
 
-LOCK = ROOT / "runtime/source-adapter-python.json"
+LOCKS = {
+    "linux/amd64": ROOT / "runtime/source-adapter-python.json",
+    "linux/arm64": ROOT / "runtime/source-adapter-python-arm64.json",
+}
+VALIDATION = {
+    "linux/amd64": ROOT / "registries/pilot-001-synthetic-validation.json",
+    "linux/arm64": ROOT / "registries/pilot-001-synthetic-validation-arm64.json",
+}
 FAILURE = "ERROR: source-adapter runtime build failed; no study data were accessed."
 MAX_SOURCE_BYTES = 32 * 1024**2
 MAX_TAR_BYTES = 150 * 1024**2
@@ -66,12 +73,16 @@ def checked_python_tar(body, record):
     return gzip.compress(tar, compresslevel=1, mtime=0)
 
 
-def build(cache=None, accept_rebuilt_base=False):
-    record = json.loads(LOCK.read_text())
-    prior = json.loads((ROOT / "registries/pilot-001-synthetic-validation.json").read_text())
+def build(cache=None, accept_rebuilt_base=False, platform="linux/amd64"):
+    lock_file = LOCKS[platform]
+    record = json.loads(lock_file.read_text())
+    validation_path = VALIDATION[platform]
+    prior = json.loads(validation_path.read_text()) if validation_path.is_file() else None
     dockerfile = ROOT / "runtime/Dockerfile.source-adapter"
-    if (record["schema_version"] != 1 or
-            record["base_image_id"] != prior["environment"]["runtime_image_id"] or
+    expected_base = record.get("base_image_id")
+    if prior and expected_base and expected_base != prior["environment"]["runtime_image_id"]:
+        raise ValueError(FAILURE)
+    if (record["schema_version"] != 1 or record["platform"] != platform or
             dockerfile.read_text().splitlines()[0] != "FROM " + record["base_image_tag"]):
         raise ValueError(FAILURE)
     docker = ["docker", "--host=unix:///var/run/docker.sock"]
@@ -83,7 +94,7 @@ def build(cache=None, accept_rebuilt_base=False):
     base = inspect(record["base_image_tag"])
     # Image IDs are local to the daemon that built them. A rebuilt base needs an
     # explicit opt-in; every other check still applies, and the output is marked.
-    rebuilt = base["Id"] != record["base_image_id"]
+    rebuilt = base["Id"] != expected_base if expected_base else True
     if rebuilt and not (accept_rebuilt_base and re.fullmatch(r"sha256:[0-9a-f]{64}", base["Id"])):
         raise ValueError(FAILURE)
     source = checked_download(record["cpython"], cache)
@@ -98,7 +109,7 @@ def build(cache=None, accept_rebuilt_base=False):
             notice = package["license_notice"]
             (context / "notices" / notice["filename"]).write_bytes(checked_download(notice, cache))
         shutil.copyfile(dockerfile, context / "Dockerfile")
-        subprocess.run(docker + ["build", "--pull=false", "--network=none", "--platform=linux/amd64",
+        subprocess.run(docker + ["build", "--pull=false", "--network=none", "--platform=" + platform,
                                  "-t", record["image_tag"], str(context)],
                        env=environment, check=True, timeout=1800)
     image = inspect(record["image_tag"])
@@ -108,7 +119,7 @@ def build(cache=None, accept_rebuilt_base=False):
     output = {"image_id": image["Id"], "base_image_id": base["Id"],
               "scope": "Source-adapter software runtime only; no study data"}
     if rebuilt:
-        output.update(base_rebuilt=True, recorded_base_image_id=record["base_image_id"],
+        output.update(base_rebuilt=True, recorded_base_image_id=expected_base,
                       status="Rebuilt base: record and validate as a new runtime; "
                              "never substitute it for the recorded image")
     print(json.dumps(output, sort_keys=True))
@@ -120,9 +131,15 @@ def main(argv=None):
     parser.add_argument("--accept-rebuilt-base", action="store_true",
                         help="Allow a locally rebuilt base whose image ID differs from the recorded one; "
                              "the result is a new runtime to record and validate")
+    parser.add_argument(
+        "--platform",
+        choices=sorted(LOCKS),
+        default="linux/amd64",
+        help="Target platform for the pinned source-adapter runtime",
+    )
     arguments = parser.parse_args(argv)
     try:
-        build(arguments.source_cache, arguments.accept_rebuilt_base)
+        build(arguments.source_cache, arguments.accept_rebuilt_base, arguments.platform)
         return 0
     except Exception:
         print(FAILURE, file=sys.stderr)

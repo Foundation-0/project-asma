@@ -1,0 +1,51 @@
+{
+  "scope": "Synthetic fixtures only; no source-study data or clinical performance result",
+  "finished_at_utc": "2026-11-04T09:21:48.008309Z",
+  "environment": {
+    "runtime_image_id": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "integration": {
+    "clinical_reference_comparison_performed": false,
+    "complete_prediction_coverage": true,
+    "ensemble_predictions": 13500,
+    "executed": true,
+    "features": 64,
+    "final_scores": 135,
+    "metric_formulations_agree": true,
+    "model_backend": "pinned_R_packages",
+    "model_predictions": 40500,
+    "outer_folds": 500,
+    "patients": 135,
+    "positive_negative_pairs": 4316,
+    "repetitions": 100,
+    "auc": 0.512345678901234,
+    "rank_auc": 0.512345678901234,
+    "concordant_pairs": 2200,
+    "discordant_pairs": 2100,
+    "tied_pairs": 16,
+    "pair_credit_twice": 4416,
+    "repetition_auc": {
+      "count": 100,
+      "minimum": 0.4,
+      "lower_quartile": 0.45,
+      "median": 0.51,
+      "upper_quartile": 0.55,
+      "maximum": 0.6,
+      "mean": 0.512
+    },
+    "en_aggregate": {
+      "n": 40500,
+      "mean": 0.501,
+      "sd": 0.11,
+      "minimum": 0.01,
+      "maximum": 0.99
+    },
+    "xgb_aggregate": {
+      "n": 40500,
+      "mean": 0.9,
+      "sd": 0.12,
+      "minimum": 0.02,
+      "maximum": 0.98
+    }
+  }
+}

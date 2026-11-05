@@ -211,9 +211,9 @@
   },
   "finished_at_utc": "2026-11-04T09:25:52.960285+00:00",
   "implementation_sha256": {
-    "registries/pilot-001-source-adapter-runtime.json": "84eacad90fdfcc2eaf7997e75bcbb45820e0e62bde48af1e7369d9e8d2754813",
+    "registries/pilot-001-source-adapter-runtime.json": "e2c4e37d0dcfa8361dae7ac0f32044d782e00ac7dc6ea170164532bb15d47c4a",
     "tests/test_execution_conditions.py": "6e95c4521ff4ac073398797b8b0c112b0868c64668007b504181c108b1361ee8",
-    "tools/build_synthetic_runtime.py": "4ea40ee66cbf4b9648bfa8d00bd060a24e650ddffd94ec2b30f8ccb7d8637865",
+    "tools/build_synthetic_runtime.py": "c4d23cb949ebca11f5a0eec3633f9b096f33b8b8eac75792b7ea8b60c6703e5b",
     "tools/probe_execution_conditions.R": "6eac46576662333a7c51976ecf5d2d89818dbb66ee29498ad1aacb0ecfc742ab",
     "tools/probe_execution_conditions.py": "0410d3f4294dfeb3d69e1a88c9f8d1c58c6900b8f926a97b16da14961db26bd3"
   },

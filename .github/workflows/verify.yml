@@ -27,8 +27,8 @@ jobs:
           set -euo pipefail
           set -o pipefail
           python3 -m unittest discover -s tests -v 2>&1 | tee python-suite.log
-          grep -E '^Ran [0-9]+ tests' python-suite.log | grep -Fq 'Ran 291 tests'
-          echo "Python suite count: Ran 291 tests"
+          grep -E '^Ran [0-9]+ tests' python-suite.log | grep -Fq 'Ran 297 tests'
+          echo "Python suite count: Ran 297 tests"
 
       - name: Educational site mathematics and reference models
         run: |

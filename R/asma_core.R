@@ -176,6 +176,8 @@ run_reconstruction <- function(assembled, fit_predict, repetitions = 100L,
                        dimnames = list(keys, paste0("repeat-", seq_len(repetitions))))
     prediction_count <- 0L
     fold_count <- 0L
+    en_predictions <- numeric()
+    xgb_predictions <- numeric()
     for (repetition in seq_len(repetitions)) {
       outer_seed <- outer_seed_start + repetition - 1L
       model_scores <- matrix(NA_real_, nrow = length(keys), ncol = 3L,
@@ -222,6 +224,11 @@ run_reconstruction <- function(assembled, fit_predict, repetitions = 100L,
           asma_require(all(is.na(model_scores[test, model])), "prediction_duplicate")
           model_scores[test, model] <- probability
           prediction_count <- prediction_count + length(probability)
+          if (identical(model, "en")) {
+            en_predictions <- c(en_predictions, probability)
+          } else if (identical(model, "xgb")) {
+            xgb_predictions <- c(xgb_predictions, probability)
+          }
         }
         seen[test] <- seen[test] + 1L
         fold_count <- fold_count + 1L
@@ -246,6 +253,10 @@ run_reconstruction <- function(assembled, fit_predict, repetitions = 100L,
     }, numeric(1))
     spread <- stats::quantile(repetition_auc, probs = c(0, .25, .5, .75, 1),
                               type = 7L, names = FALSE)
+    model_aggregate <- function(values) {
+      list(n = length(values), mean = mean(values), sd = stats::sd(values),
+           minimum = min(values), maximum = max(values))
+    }
     list(scores = scores, repetition_scores = ensemble,
          summary = c(list(patients = 135L, features = 64L,
                           repetitions = repetitions, outer_folds = fold_count,
@@ -257,6 +268,8 @@ run_reconstruction <- function(assembled, fit_predict, repetitions = 100L,
                        count = repetitions, minimum = spread[1L],
                        lower_quartile = spread[2L], median = spread[3L],
                        upper_quartile = spread[4L], maximum = spread[5L],
-                       mean = mean(repetition_auc)))))
+                       mean = mean(repetition_auc)),
+                          en_aggregate = model_aggregate(en_predictions),
+                          xgb_aggregate = model_aggregate(xgb_predictions))))
   })
 }

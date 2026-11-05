@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import platform
+import subprocess
 import sys
 from pathlib import Path
 
@@ -13,6 +15,10 @@ sys.path.insert(0, str(ROOT))
 
 from pilot001_first_run import failure_codes as codes  # noqa: E402
 from pilot001_first_run.config import RunConfig, default_input_manifest  # noqa: E402
+from pilot001_first_run.cross_arch_equivalence import (  # noqa: E402
+    PASS_FILENAME as EQUIVALENCE_PASS_FILENAME,
+    validate_macos_arm64_equivalence,
+)
 from pilot001_first_run.gates import validate_dropbox_flag, validate_real_run_gates  # noqa: E402
 from pilot001_first_run.output_validator import validate_output_dir  # noqa: E402
 from pilot001_first_run.preflight import run_preflight  # noqa: E402
@@ -23,6 +29,7 @@ from pilot001_first_run.runner import (  # noqa: E402
     emit_failure,
     emit_success_summary,
     git_sha,
+    inspect_image,
     postflight,
     run_container_pipeline,
 )
@@ -50,9 +57,20 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--gate0-signed", action="store_true", default=False)
     parser.add_argument("--gate0-attestation-ref", default=None)
     parser.add_argument("--dropbox-cleared", action="store_true", default=False)
+    parser.add_argument(
+        "--reference-image",
+        default="asma-synthetic:4.4.3",
+        help="Recorded amd64 synthetic image tag for cross-arch equivalence on Apple Silicon",
+    )
+    parser.add_argument(
+        "--equivalence-record",
+        default=None,
+        help=f"Path to {EQUIVALENCE_PASS_FILENAME} (default: OUTPUT_DIR/{EQUIVALENCE_PASS_FILENAME})",
+    )
     args = parser.parse_args(argv)
     config = build_config(args)
     config.output_dir.mkdir(parents=True, exist_ok=True)
+    equivalence_record = Path(args.equivalence_record or config.output_dir / EQUIVALENCE_PASS_FILENAME)
 
     preflight = run_preflight(config.host, config.output_dir)
     (config.output_dir / PREFLIGHT_FILENAME).write_text(
@@ -72,6 +90,24 @@ def main(argv: list[str] | None = None) -> int:
     if real_gate:
         emit_failure(real_gate)
         return 1
+
+    if config.host == "macos" and not config.dry_run and platform.machine() in {"arm64", "aarch64"}:
+        try:
+            amd64_id = inspect_image(args.reference_image)["Id"]
+            arm64_id = inspect_image(args.image)["Id"]
+        except (subprocess.CalledProcessError, OSError, KeyError, IndexError, json.JSONDecodeError):
+            emit_failure(codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE)
+            return 1
+        cross_arch_gate = validate_macos_arm64_equivalence(
+            machine_arch="arm64",
+            real_mode=True,
+            equivalence_record=equivalence_record,
+            amd64_image_id=amd64_id,
+            arm64_image_id=arm64_id,
+        )
+        if cross_arch_gate:
+            emit_failure(cross_arch_gate)
+            return 1
 
     status, _detail = run_container_pipeline(config, args.image, config.output_dir)
     if status != 0:

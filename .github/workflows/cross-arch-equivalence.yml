@@ -1,0 +1,57 @@
+name: Cross-arch synthetic equivalence
+
+"on":
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cross-arch-equivalence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@291692025da5c0a5e5d4a4e7d68382972d7942c # v3.6.0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+
+      - name: Cache pinned build archives
+        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
+        with:
+          path: ${{ runner.temp }}/asma-package-cache
+          key: asma-package-cache-${{ hashFiles('runtime/synthetic-packages.json', 'runtime/synthetic-packages-arm64.json') }}
+          restore-keys: |
+            asma-package-cache-
+
+      - name: Build linux/amd64 synthetic image
+        run: |
+          set -euo pipefail
+          ASMA_PACKAGE_CACHE="${RUNNER_TEMP}/asma-package-cache"
+          mkdir -p "$ASMA_PACKAGE_CACHE"
+          python3 tools/build_synthetic_runtime.py --platform linux/amd64 --source-cache "$ASMA_PACKAGE_CACHE"
+
+      - name: Build linux/arm64 synthetic image
+        run: |
+          set -euo pipefail
+          ASMA_PACKAGE_CACHE="${RUNNER_TEMP}/asma-package-cache"
+          python3 tools/build_synthetic_runtime.py --platform linux/arm64 --source-cache "$ASMA_PACKAGE_CACHE"
+
+      - name: Compare synthetic aggregates (amd64 vs arm64)
+        run: |
+          set -euo pipefail
+          python3 tools/run_cross_arch_equivalence.py --run-docker \
+            --write-pass "${RUNNER_TEMP}/pilot001-cross-arch-equivalence-pass.json" \
+            | tee cross-arch-pass.json
+          docker image inspect asma-synthetic:4.4.3 --format 'amd64={{.Id}}'
+          docker image inspect asma-synthetic:4.4.3-arm64 --format 'arm64={{.Id}}'
+
+      - name: Upload equivalence pass record
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: pilot001-cross-arch-equivalence-pass
+          path: cross-arch-pass.json
