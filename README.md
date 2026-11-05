@@ -76,9 +76,10 @@ technical execution checks. The current validation records' implementation
 hashes match the tested files. See the [synthetic validation](docs/pilot-001-synthetic-validation.md#pinned-image-rerun-2026-11-04)
 and [source-adapter report](docs/pilot-001-source-adapter.md). These are software
 results on artificial inputs; no study files were acquired or fitted. Gate 0
-owner decisions are recorded on 2026-11-05 ([roadmap](docs/roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05));
-jurisdiction, hosting terms, fair-dealing applicability on the selected host,
-A2 option B and A3 implementation remain open before a real-data run. A [GitHub source recheck](docs/pilot-001-open-questions.md#github-follow-up-2026-11-04)
+owner decisions are recorded on 2026-11-05 ([roadmap](docs/roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05)):
+study data on the owner's MacBook in Canada; the shared cloud host (AWS us-east-1)
+is for CI and artificial dry runs only. Before study-data fitting, attestation,
+macOS preflight, A2 option B and A3 implementation remain open. A [GitHub source recheck](docs/pilot-001-open-questions.md#github-follow-up-2026-11-04)
 found no new upstream release resolving the missing inputs.
 
 The **2026-10-29 [validation-capacity analysis](docs/pilot-001-validation-capacity.md)**
@@ -167,7 +168,8 @@ processing jurisdiction and hosting/use conditions remain unverified.
 No study sources were ingested by the adapter. Those remaining conditions must
 cover acquisition, parsing, transfer and fitting before research execution.
 Live acquisition of study files, a real-source input check and fitting each need
-the owner's Gate 0 sign-off recorded 2026-11-05 ([roadmap](docs/roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05)), within the Q1 input limits still open there.
+the owner's Gate 0 sign-off on the MacBook in Canada with macOS preflight and
+[data-use](docs/pilot-001-data-use.md) conditions ([roadmap](docs/roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05)).
 
 The scope starts with HGSOC. Primary refractory disease (failure of initial
 therapy) must be distinguished from later platinum-resistant recurrence. Other
@@ -236,9 +238,10 @@ also operate without research inputs.
 
 Repository **code** is MIT and **text/site content** is CC BY 4.0 ([LICENSE](LICENSE));
 third-party study files and upstream paper content retain their own terms
-([NOTICE](NOTICE)). Gate 0 Q1 (jurisdiction, host terms, fair-dealing applicability
-and cleared inputs), A2 option B implementation, and A3 implementation remain
-open before study-data execution. Before ingestion or execution,
+([NOTICE](NOTICE)). Before study-data execution on the MacBook: dated owner
+attestation, macOS runtime preflight, A2 option B implementation, and A3
+implementation remain open ([roadmap](docs/roadmap.md), [data-use](docs/pilot-001-data-use.md)).
+Before ingestion or execution,
 review access and reuse terms, pin corrected supplemental materials, resolve
 patient overlap, and assess computational requirements. Domain interpretation
 remains separate; external scientific review is deferred and any result must be

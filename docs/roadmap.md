@@ -38,8 +38,9 @@ The **2026-11-04 software rerun** passed all 179 R assertions, the full
 assertions), 30 adapter Python tests under pinned CPython, and all 40
 execution-condition checks on the rebuilt combined runtime. It closes the
 post-October-27 fixture rerun and cgroup-probe gaps; it uses artificial inputs
-only and does not close every Gate 0 item or the research-use conditions still
-open after the [2026-11-05 Gate 0 record](#pilot-001--gate-0-owner-decisions-2026-11-05). The [source-adapter report](pilot-001-source-adapter.md) records the
+only and does not close every Gate 0 item or the attestation, macOS preflight,
+A2 option B and A3 steps still open after the
+[2026-11-05 Gate 0 record](#pilot-001--gate-0-owner-decisions-2026-11-05). The [source-adapter report](pilot-001-source-adapter.md) records the
 commands, hashes and remaining unknowns. The same day's
 [GitHub source check](pilot-001-open-questions.md#github-follow-up-2026-11-04)
 found no new upstream input release. Software preparation and bounded public
@@ -128,24 +129,28 @@ per-model planted-signal direction test passed in the pinned image on
 
 ## Pilot 001 — Gate 0 owner decisions (2026-11-05)
 
-**Recorded:** 2026-11-05, 9:34 AM America/Chicago (15:34 UTC). **Source:**
-[issue #31 comment](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662111371).
+**Recorded:** 2026-11-05, 9:34 AM America/Chicago (15:34 UTC); **Q1 revised**
+9:37 AM America/Chicago (15:37 UTC). **Sources:**
+[Gate 0 answers](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662111371);
+[Q1 update](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662169564).
 The owner (Alkindus Arifuddin) answered in a Grok Bot chat; grk-helix checked
 that chat's transcript.
 
 | Item | Owner answer (verbatim) | As recorded |
 | --- | --- | --- |
-| Q1. Execution location | "run it on the bots' cloud computer" | **Host:** the Grok Bot team's shared cloud computer. **Still open:** jurisdiction, hosting terms, and whether the Canadian research fair-dealing route applies there. Until these are settled, the Dropbox-hosted matrix is **not cleared** for use. A real run may use only the openly licensed inputs: PDC000357–362 under CC BY 4.0, and the MMC workbooks under their non-commercial terms. |
-| Q2. Gate 0 sign-off | "yes" | The owner signs the execution-context attestation and instructs live acquisition of study files and fitting on study values, subject to the Q1 limits above. |
+| Q1. Execution location | Initial: "run it on the bots' cloud computer". **Update:** "My MacBook is in Canada" (2026-11-05, 9:37 AM CT). | **Study data:** the owner's personal MacBook (macOS), physically in Canada. **Not for study data:** the Grok Bot team's shared cloud computer (AWS us-east-1 outbound address, Ashburn, Virginia, US — not a Canadian context). That host is for **CI and dry runs on artificial inputs only**. **Dropbox matrix:** conditional go on the MacBook host per [data-use](pilot-001-data-use.md#assessment-for-owner-macbook-in-canada-gate-0-q1-update-2026-11-05) when attestation, macOS preflight and no row-level leakage conditions are met; otherwise no-go. Openly licensed inputs (PDC000357–362 CC BY 4.0; MMC workbooks non-commercial) remain usable without that route. |
+| Q2. Gate 0 sign-off | "yes" | The owner signs the execution-context attestation and instructs live acquisition of study files and fitting on study values, subject to the Q1 host and data-use conditions above. |
 | Q3. Amendment 1 | "take grk-helix's recommendations" | **A1: accept.** **A2: both** — option A XGBoost `hist`; option B outer seeds 101–200. Option B must be implemented, tested and reviewed before the run. **A3:** the proposed strict policy — all warnings, messages and console text are fatal, with an aggregate failure code. See [amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md#owner-decision-required). |
 | Q4. External scientific review | "defer" | Deferred. Any result must be labelled **not externally reviewed**. Deferred review is not completed review. |
 | Q5. Cohort scope | "confirm" | The 13-sensitive-patient cohort is exploratory only. Confirmatory claims need more independent patients and a separate power calculation. |
 
-Gate 0 is **partially closed**: Q2–Q5 and amendment 1 choices are recorded; Q1
-jurisdiction, terms and fair-dealing applicability remain open, and A2 option B
-and A3 still need implementation before a research run. Issue
+Gate 0 is **partially closed**: Q1 execution host and Canadian-context assessment
+are recorded; Q2–Q5 and amendment 1 choices are recorded. Before study-data
+fitting, still required: dated owner attestation (Q2), macOS runtime preflight
+([data-use](pilot-001-data-use.md#macos-runtime-preflight-study-data-host)), A2
+option B implementation, and A3 implementation. Issue
 [#31](https://github.com/Foundation-0/project-asma/issues/31) stays open until
-the Q1 open points are settled.
+attestation, preflight and A2 option B are satisfied.
 
 Owner decision (2026-11-05, Gate 0 Q3): adopt
 [reconstruction amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md)
@@ -161,12 +166,12 @@ The execution-condition probe could not run on that cgroup v1 host. The
 `tools/source_data_adapter.py` and `tests/test_source_data_adapter.py`; both
 are covered by the 2026-11-04 pinned-image fixture and unit-test rerun. A
 real-file check needs the owner's execution-context attestation and explicit
-instruction recorded in Gate 0 on 2026-11-05 (Q2), within the Q1 input limits
-still open above.
+instruction recorded in Gate 0 on 2026-11-05 (Q2), on the owner's MacBook in
+Canada with macOS preflight and [data-use](pilot-001-data-use.md) conditions met.
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
-| 0. Agree scope and rights | Input-specific use disposition; applicable review requirements; code-licensing expectations | Original implementation can proceed. Bounded, in-memory source inspection, including rerunning the recorded audits, is part of autonomous research (owner decision, 2026-10-25) and keeps only aggregates; unresolved real-data use conditions stop fitting. Live acquisition of study files, a real-source input check or fitting on study values needs the owner's dated attestation and explicit instruction (recorded 2026-11-05, Q2), within the Q1 execution-context and input limits still open above; automated checks never satisfy this. No collaborator has been recruited. External scientific review is **deferred** (2026-11-05, Q4); label any result **not externally reviewed**. |
+| 0. Agree scope and rights | Input-specific use disposition; applicable review requirements; code-licensing expectations | Original implementation can proceed. Bounded, in-memory source inspection, including rerunning the recorded audits, is part of autonomous research (owner decision, 2026-10-25) and keeps only aggregates; unresolved real-data use conditions stop fitting. Live acquisition of study files, a real-source input check or fitting on study values needs the owner's dated attestation and explicit instruction (recorded 2026-11-05, Q2) on the owner's MacBook in Canada with macOS preflight and data-use conditions met; the shared cloud host is CI and artificial-input dry runs only. Automated checks never satisfy this. No collaborator has been recruited. External scientific review is **deferred** (2026-11-05, Q4); label any result **not externally reviewed**. |
 | 1. Establish provenance | Release/file/checksum manifest; private patient/aliquot overlap map; exclusion counts; pinned author commit and environment | Every cohort has a traceable source and independent-patient status. Unresolved identity, labels, or terms stop analysis. |
 | 2. Reproduce one result | One specified Figure 3D result with commands, locked dependencies, seeds, inputs, and discrepancy log | Numerical agreement within a declared tolerance, or a reproducible explanation of failure. No performance claim from a hard-coded plot label. |
 | 3. Stress-test | Patient-independent metrics with uncertainty; simple baselines; leakage and assay sensitivity analyses | Separate preservation/batch/cohort effects and original reproduction from revised evaluation. Report null and negative findings. |
