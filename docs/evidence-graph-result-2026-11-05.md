@@ -85,6 +85,10 @@ the diff and rerunning the evidence benchmark; it is not a floating dependency.
 
 Two reusable contributions are prepared in the Foundation-0 fork:
 
+Review: [Virtual Human PR #1](https://github.com/Foundation-0/virtual-human/pull/1)
+and [Asma PR #45](https://github.com/Foundation-0/project-asma/pull/45). Both are
+drafts; this record does not imply either has merged or been accepted upstream.
+
 1. Correct graph clearance reporting that combined hepatic blood and renal plasma
    reference bases. Exported clearances now use an explicit plasma reference;
    independent mass-balance checks also distinguish a reported parameter sum
