@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Project Asma · Foundation0</title>
-<meta name="description" content="Open-ended ovarian cancer research in honour of Asma Ansari: a reproduction study of a published protein signature, public-source frontier research and ranked open-data directions. Research only, not clinical advice, not peer reviewed.">
+<title>Project Asma · A living atlas of possibility</title>
+<meta name="description" content="Ovarian cancer research in memory of Asma Ansari. Explore real molecular structures, test model assumptions, and discover the vision of a virtual human grounded in mathematics and evidence.">
 <link rel="canonical" href="https://foundation-0.github.io/project-asma/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Project Asma: ovarian cancer research, checked in the open">
-<meta property="og:description" content="Open-ended ovarian cancer research: one reproduction study, public-source frontier research and ranked open-data directions, with every claim labelled. Research only, not peer reviewed.">
+<meta property="og:title" content="Project Asma · A life remembered. A future worth building.">
+<meta property="og:description" content="An open research playground: real 3D molecules, testable questions, and the dream of an evidence-grounded virtual human.">
 <meta property="og:image" content="https://foundation-0.github.io/project-asma/assets/og.png">
 <meta property="og:url" content="https://foundation-0.github.io/project-asma/">
 <meta property="og:image:width" content="1200">
@@ -25,8 +25,10 @@
 (function(){var d=document.documentElement;d.classList.add('js');try{var q=new URLSearchParams(location.search),t=q.get('theme')||localStorage.getItem('f0-theme'),m=q.get('motion')||localStorage.getItem('f0-motion');if(t==='dark'||t==='light')d.setAttribute('data-theme',t);if(m==='on'||m==='off')d.setAttribute('data-motion-pref',m);}catch(e){}var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,p=d.getAttribute('data-motion-pref');d.setAttribute('data-motion',p?p:(r?'off':'on'));})();
 </script>
 <script defer src="assets/f0.js"></script>
+<script defer src="assets/research-lab.js"></script>
+<script type="module" src="assets/molecule-loader.js"></script>
 </head>
-<body data-page="project-asma">
+<body class="observatory" data-page="project-asma">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <symbol id="zero" viewBox="-50 -50 100 100">
@@ -39,103 +41,101 @@
     </symbol>
   </defs>
 </svg>
+
 <a class="skip" href="#main">Skip to content</a>
-
-<header class="site-head">
-  <div class="wrap">
-    <a class="brand" href="./" aria-label="Project Asma home"><svg aria-hidden="true"><use href="#zero"/></svg>project-asma</a>
-    <nav class="nav" aria-label="Main">
-      <a href="#mission">Mission</a><a href="#pilot">Pilot 001</a><a href="#frontier">Frontier</a><a href="#directions">Directions</a><a href="#missing">Still missing</a><a href="https://github.com/Foundation-0/project-asma">Repository</a>
-    </nav>
-    <div class="tools">
-      <button class="tbtn" type="button" data-motion-toggle aria-pressed="true" aria-label="Motion"><span class="ico"></span><span class="t-txt">Motion</span></button>
-      <button class="tbtn" type="button" data-theme-toggle aria-label="Theme: switch"><span class="ico"></span><span class="t-txt">Theme</span></button>
-    </div>
-    <details class="menu">
-      <summary class="tbtn" aria-label="Menu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.4"/></svg><span class="t-txt">Menu</span></summary>
-      <nav class="menu-panel" aria-label="Main (compact)">
-        <a href="#mission">Mission <span>01</span></a><a href="#pilot">Pilot 001 <span>02</span></a><a href="#frontier">Frontier research <span>03</span></a><a href="#directions">Directions and resources <span>04</span></a><a href="#missing">Still missing <span>05</span></a><a href="#rules">Rules of the workspace <span>06</span></a><a href="https://github.com/Foundation-0/project-asma">Repository <span>07</span></a><a href="https://foundation-0.github.io/f0/">Foundation0 <span>08</span></a>
-      </nav>
-    </details>
-  </div>
-</header>
-<nav class="hud" data-hud aria-label="On this page">
-  <ol>
-    <li><a href="#mission" aria-label="00 The mission"><span class="bar" aria-hidden="true"></span><span class="n">00</span><span class="t">The mission</span></a></li>
-    <li><a href="#pilot" aria-label="01 Pilot 001"><span class="bar" aria-hidden="true"></span><span class="n">01</span><span class="t">Pilot 001</span></a></li>
-    <li><a href="#frontier" aria-label="02 Frontier research"><span class="bar" aria-hidden="true"></span><span class="n">02</span><span class="t">Frontier research</span></a></li>
-    <li><a href="#directions" aria-label="03 Directions and resources"><span class="bar" aria-hidden="true"></span><span class="n">03</span><span class="t">Directions and resources</span></a></li>
-    <li><a href="#missing" aria-label="04 Still missing"><span class="bar" aria-hidden="true"></span><span class="n">04</span><span class="t">Still missing</span></a></li>
-    <li><a href="#rules" aria-label="05 Rules of the workspace"><span class="bar" aria-hidden="true"></span><span class="n">05</span><span class="t">Rules of the workspace</span></a></li>
-  </ol>
-</nav>
-
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="./" aria-label="Project Asma home"><svg aria-hidden="true"><use href="#zero"/></svg>Project Asma</a>
+  <nav class="nav" aria-label="Main"><a href="#research">The research</a><a href="#virtual-human">Virtual Human</a><a href="#playground">Try an experiment</a><a href="#vision">The dream</a></nav>
+  <div class="tools"><button class="tbtn" type="button" data-motion-toggle aria-pressed="true" aria-label="Motion"><span class="ico"></span><span class="t-txt">Motion</span></button><button class="tbtn" type="button" data-theme-toggle aria-label="Theme: switch"><span class="ico"></span><span class="t-txt">Theme</span></button></div>
+  <details class="menu"><summary class="tbtn" aria-label="Menu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.4"/></svg><span class="t-txt">Menu</span></summary><nav class="menu-panel" aria-label="Main (compact)"><a href="#research">The research <span>01</span></a><a href="#virtual-human">Virtual Human <span>02</span></a><a href="#playground">Try an experiment <span>03</span></a><a href="#vision">The dream <span>04</span></a><a href="#notebook">Open notebook <span>05</span></a><a href="https://github.com/Foundation-0/project-asma">Repository <span>↗</span></a></nav></details>
+</div></header>
 <main id="main">
-  <header class="page-hero" style="--acc:var(--bio)">
-    <div class="wrap">
-      <p class="kicker"><span class="pair" aria-hidden="true"><i></i><i></i></span>project-asma · ovarian cancer research · checked in the open</p>
-      <h1 class="display">Project Asma</h1>
-      <p class="promise">In honour of Asma Ansari, this project works toward less suffering and loss from ovarian cancer through trustworthy, useful research.</p>
-      <p>The scope is open-ended: any rigorous, permitted contribution to ovarian cancer research, across histotypes. That includes reproductions, open-data analyses, methods, curated resources and well-documented negative results. One bounded protocol is active, a reproduction study of a published protein signature. Frontier research and ranked candidate directions run alongside it, from public sources only. The <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/mission.md">purpose and measures of success</a> define what counts as progress.</p>
-      <p class="hint">Research only. Not clinical advice, not a diagnostic service, not clinical decision support, and not peer reviewed. No scientific result has been reproduced yet. By Ahraz Arifuddin, Aska Digital. Assisted by an array of digital intelligences.</p>
-      <dl class="stats" aria-label="The project in numbers">
-        <div class="stat"><dt class="k">active protocol, Pilot 001</dt><dd class="v" style="margin:0">1</dd></div>
-        <div class="stat"><dt class="k">ranked candidate directions</dt><dd class="v" style="margin:0">8</dd></div>
-        <div class="stat"><dt class="k">labelled claims in the ledger</dt><dd class="v" style="margin:0">73</dd></div>
-        <div class="stat"><dt class="k">published results reproduced</dt><dd class="v" style="margin:0">0</dd></div>
-      </dl>
-      <div class="prov">
-        <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/docs/research-continuation.md">status on main · 2026-11-05 · current state in the record</a>
-        <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/CLAIMS.md">every claim labelled · proven, verified, known or conjecture</a>
-        <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/README.md#check-the-scaffold"><span class="dot live" aria-hidden="true"></span>audits run in memory, aggregates only</a>
-        <a class="chip" href="https://github.com/Foundation-0/project-asma/blob/main/.github/workflows/verify.yml">pinned-runtime checks on every pull request</a>
+  <section class="hero-section" aria-labelledby="hero-title">
+    <div class="wrap intro-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="signal-dot" aria-hidden="true"></span>In memory of Asma Ansari</p>
+        <h1 class="hero-title" id="hero-title">A life remembered.<br><em>A future worth<br>building.</em></h1>
+        <p class="hero-deck">We begin with ovarian cancer. We dream of understanding life well enough to change what is possible.</p>
+        <p class="hero-description">Project Asma connects open research, careful mathematics and human curiosity. Every question brings us back to the same purpose: less suffering, more time, more life.</p>
+        <div class="hero-actions"><a class="btn primary" href="#vision">Explore the dream <span aria-hidden="true">↗</span></a><a class="text-link" href="#research">See what we have built <span aria-hidden="true">↓</span></a></div>
+        <p class="context-line">Open research · Public evidence · Work you can inspect</p>
       </div>
-    </div>
-  </header>
-
-  <section class="sec" id="mission" data-index="The mission" data-num="00" aria-labelledby="mission-h">
-    <div class="wrap">
-      <div class="sec-head"><p class="sec-label"><b>00</b><i>//</i>The mission</p><span class="chip">open-ended since 4 November 2026</span></div>
-      <h2 class="h2" id="mission-h">Open-ended research, bounded studies.</h2>
-      <p class="lede">The aim is trustworthy evidence that helps researchers answer consequential questions about ovarian cancer and, with appropriate validation, helps patients, families and clinical teams understand their options. The project has to earn that usefulness. A working model, a high AUROC, a website or a passing software test does not establish benefit to patients.</p>
-      <div class="cards4">
-        <div class="mini-card">
-          <h3>Active track: Pilot 001</h3>
-          <p>One bounded protocol: reproduce and stress-test a published 64-protein signature for primary platinum-refractory high-grade serous ovarian cancer. The wider scope leaves its endpoint, gates and tolerance unchanged. <a href="#pilot">Section 01</a>.</p>
+      <div class="molecule-panel" data-molecule-viewer data-model="insulin" id="molecules">
+        <div class="viewer-heading"><p class="eyebrow">01 / Life, at molecular scale</p><span class="viewer-tag">Experimental coordinates</span></div>
+        <div class="molecule-stage">
+          <div class="molecule-fallback" data-molecule-fallback><img src="assets/models/insulin-preview.svg" width="600" height="440" alt="A projection of the two protein chains of human insulin, drawn from the 1TRZ deposited atomic coordinates."><p>Human insulin · two connected protein chains</p></div>
+          <canvas data-molecule-canvas width="600" height="440" tabindex="-1" aria-hidden="true" role="application" aria-label="Interactive molecular structure. Arrow keys rotate, plus and minus zoom, R resets." aria-describedby="molecule-help"></canvas>
+          <span class="viewer-loading" data-molecule-loading>Preparing the 3D view…</span>
         </div>
-        <div class="mini-card dig">
-          <h3>Frontier research</h3>
-          <p>Public-source research on what an anti-Yo immune response recognises, which cells present it, and whether it causes injury. Two review rounds, an executed synthetic check and an evidence-graph prototype; no study data analysed. <a href="#frontier">Section 02</a>.</p>
-        </div>
-        <div class="mini-card dig">
-          <h3>Candidate directions</h3>
-          <p>Eight ranked possibilities using public, de-identified or open-licensed data, plus research handoffs and curated resources. Each direction needs its own protocol and an owner gate before any study data are used. <a href="#directions">Section 03</a>.</p>
-        </div>
-        <div class="mini-card">
-          <h3>What the work should serve</h3>
-          <p>Understanding treatment failure, with initial failure kept separate from resistance that develops later. Explaining what a result establishes and for whom. Keeping symptoms, function and quality of life in view. These are priorities, not claims that current work delivers them.</p>
-        </div>
-      </div>
-      <div class="prose ledger-note">
-        <p>A reproducible discrepancy or a well-supported decision to stop is a useful result. Agreement is never obtained by changing the target, cohort or tolerance after seeing the answer.</p>
+        <fieldset class="viewer-controls" data-molecule-controls disabled><legend class="sr-only">Explore the molecular structure</legend><p class="viewer-prompt">Turn the structure. Follow a chain. Switch to atoms to see what it is made of.</p>
+          <div class="viewer-selects"><label>Structure<select data-molecule-select><option value="insulin">Human insulin</option><option value="dna">A DNA double helix</option></select></label><label>Look closer<select data-molecule-display><option value="backbone">Chain paths</option><option value="atoms">Atoms &amp; bonds</option></select></label></div>
+          <div class="viewer-toolbar" role="toolbar" aria-label="3D view controls"><button type="button" data-molecule-action="left" aria-label="Rotate left">←</button><button type="button" data-molecule-action="right" aria-label="Rotate right">→</button><button type="button" data-molecule-action="up" aria-label="Rotate up">↑</button><button type="button" data-molecule-action="down" aria-label="Rotate down">↓</button><button type="button" data-molecule-action="zoom-in" aria-label="Zoom in">+</button><button type="button" data-molecule-action="zoom-out" aria-label="Zoom out">−</button><button type="button" data-molecule-action="reset">Reset view</button></div>
+        </fieldset>
+        <div class="viewer-explanation"><h2 data-molecule-name>Human insulin</h2><p data-molecule-description>A protein is a chain of small building blocks folded into a three-dimensional shape. Here, two chains form one insulin molecule.</p><p class="viewer-caption" id="molecule-help">Drag to turn. Scroll or pinch to zoom. Keyboard controls work when the canvas is focused.</p><p class="viewer-legend" data-molecule-legend>Gold and cyan distinguish the protein chains. Dots mark deposited atoms; lines show chemical connections.</p><p class="viewer-caption" data-molecule-limits>This is a selected part of a measured crystal structure, not a moving molecule in a living person. Insulin is an educational reference, not a proposed ovarian-cancer target.</p><details class="viewer-learning"><summary>What am I looking at?</summary><div data-molecule-explanation><p>Proteins are folded chains of chemical building blocks. A measured structure records one arrangement, not every possible motion.</p></div></details><div class="viewer-source"><a data-molecule-source href="https://www.rcsb.org/structure/1TRZ">Inspect the structure · RCSB PDB 1TRZ ↗</a><span data-molecule-count></span></div><p class="viewer-status" data-molecule-status role="status" aria-live="polite">The static structure remains available if interactive 3D is unsupported.</p></div>
+        <noscript><p class="viewer-caption">JavaScript is off. The structure image and source remain available; interactive rotation needs JavaScript.</p></noscript>
       </div>
     </div>
   </section>
+  <section class="mission-band" id="mission" aria-labelledby="mission-title"><div class="wrap"><p class="eyebrow">The reason we are here</p><h2 id="mission-title">Turn remembrance into<br><em>work that can help.</em></h2><div><p>Ovarian cancer is our starting point, not a limit on our curiosity. We reproduce published work, investigate competing explanations and build tools that make research easier to check.</p><p>Today this is a research project, not a clinical service. Patient benefit must be demonstrated. Our <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/mission.md">mission and measures of success</a> keep that purpose concrete.</p></div></div></section>
 
-  <section class="sec alt" id="pilot" data-index="Pilot 001" data-num="01" aria-labelledby="pilot-h">
-    <div class="wrap">
-      <div class="sec-head"><p class="sec-label"><b>01</b><i>//</i>Pilot 001</p><span class="chip">Chowdhury et al., Cell 2023</span></div>
-      <h2 class="h2" id="pilot-h">One published result, rebuilt from scratch.</h2>
-      <div id="question">
-        <p class="lede">High-grade serous ovarian cancer (HGSOC) is the most common and most lethal form of ovarian cancer. First treatment is usually platinum chemotherapy. The study behind this pilot compares two deliberately extreme groups. Refractory tumours showed persistent or growing disease on imaging after six cycles of first platinum/taxane chemotherapy. Sensitive tumours did not progress for at least two years. This is primary platinum-refractory disease, and it is not the same as cancer that responds first and resists later.</p>
-        <div class="prose">
-          <p>In 2023, Chowdhury and colleagues <a href="https://doi.org/10.1016/j.cell.2023.07.004">published a proteogenomic study of HGSOC</a>. Among its results was a signature: levels of 64 proteins, measured in tumour tissue, that separated refractory from sensitive cancers in the study's own data. The headline measure was an AUC of 0.83. AUC is a ranking score: 1.0 ranks every refractory tumour above every sensitive one, and 0.5 is no better than chance. At the study's strictest operating point it caught about a third of refractory tumours (sensitivity 0.35) while almost never flagging a sensitive one (specificity 98%).</p>
-          <p>A result like that matters only if it survives outside the data it was built on. Pilot 001 takes the published panel exactly as printed and asks whether the reported numbers can be recovered from the public data, and whether the patients counted as a separate validation group really are separate. It does not build a new test, and it makes no claim about patient care.</p>
-        </div>
+  <section class="sec" id="research" aria-labelledby="research-h"><div class="wrap">
+    <div class="section-heading"><div><p class="eyebrow">01 / The work so far</p><h2 id="research-h">Hope needs<br><em>something to stand on.</em></h2></div><p>Start with a question. Find evidence that could change your mind. Keep the result—even when it tells you to stop.</p></div>
+    <div class="research-grid">
+      <article class="research-card" id="pilot"><div class="card-meta"><span>01 / Reproduction</span><span class="status-label">Active protocol</span></div><h3>Can a published cancer signal survive a careful recheck?</h3><p id="question">Pilot 001 examines a 64-protein signature reported to distinguish cancers that resist first platinum treatment from cancers that remain sensitive. A signature is a pattern in measurements, not an explanation of why treatment fails.</p><p>We have audited sources, recorded a score discrepancy and built a pipeline tested on invented inputs. The published model has not been reproduced on study data. Initial treatment failure stays distinct from resistance that develops later.</p><a class="record-link" href="https://github.com/Foundation-0/project-asma/blob/main/protocols/pilot-001.md">Read the protocol <span aria-hidden="true">↗</span></a></article>
+      <article class="research-card" id="frontier"><div class="card-meta"><span>02 / Immune mechanisms</span><span class="status-label">Open question</span></div><h3>What does an immune cell recognise—and what does it harm?</h3><p>The anti-Yo frontier builds on a September 2026 study of immune cells in a cancer-associated neurological syndrome. Detecting a protein, recognising it and injuring a cell are three different events. Cells can display small protein fragments on their surface for T cells—a kind of immune cell—to inspect. A displayed fragment does not by itself prove that a particular T cell responds.</p><p>Our reviews found relevant protein-fragment annotations and alternative explanations. They have not established the recognised fragment or the injury mechanism. An evidence graph keeps each claim attached to its actual context.</p><a class="record-link" href="https://github.com/Foundation-0/project-asma/blob/main/docs/discovery-round2-2026-11-05.md">Follow the frontier <span aria-hidden="true">↗</span></a></article>
+      <article class="research-card" id="rosen"><div class="card-meta"><span>03 / Research from research</span><span class="status-label">Synthetic result</span></div><h3>Could an assumption change the answer?</h3><p>Building on work coauthored by Dr Barry Rosen, we compared two ways to represent surgical removal. They agree in one treatment order, yet can predict different outcomes when the order changes.</p><p>The result suggests a concrete study: measure burden before and after surgery, together with anatomy, to distinguish the removal rules. The mathematics is reproducible; it is not evidence for choosing a treatment.</p><a class="record-link" href="#playground">Try the assumption experiment <span aria-hidden="true">↓</span></a></article>
+      <article class="research-card" id="evidence"><div class="card-meta"><span>04 / Research infrastructure</span><span class="status-label">Implemented</span></div><h3>Make the connections earn their place.</h3><p>Our public evidence graph holds 24 curated assertions and tests 22 precisely scoped requests. An unknown stays unknown. Antibodies are proteins that bind targets; T cells are immune cells. Measuring one cannot silently become evidence about the other.</p><p>Alongside it, Virtual Human now checks model interfaces, reaction bookkeeping and ordered interventions. The next step is a model that answers a bounded question and survives an independent biological test.</p><a class="record-link" href="https://github.com/Foundation-0/project-asma/blob/main/docs/evidence-graph-result-2026-11-05.md">Inspect the evidence graph <span aria-hidden="true">↗</span></a></article>
+    </div>
+    <p class="section-footnote">Research snapshot · 5 November 2026. Sources, limitations and execution records live in the <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/research-continuation.md">open notebook</a>. These are internal research checks, not external scientific peer review.</p>
+  </div></section>
+
+  <section class="sec alt" id="virtual-human" aria-labelledby="vh-h"><div class="wrap">
+    <div class="section-heading"><div><p class="eyebrow">02 / The instrument we are building</p><h2 id="vh-h">From a molecule<br><em>to a living system.</em></h2></div><p>A molecule has a shape. A cell puts molecules to work. Tissues organise cells. Organs exchange matter and signals. Understanding a person means understanding those connections, too.</p></div>
+    <div class="science-split">
+      <div class="scale-map" role="group" aria-label="Conceptual levels of biology; not a simulated body">
+        <p class="diagram-caption">A map of questions · select a scale</p>
+        <details class="scale-row" open><summary><span class="scale-number">01</span><span>Molecules<small>Shape, charge, binding</small></span><span class="scale-symbol" aria-hidden="true">●—●</span></summary><p>Which atoms are where? How might two molecules interact? A still structure gives a starting geometry; it does not show every shape a molecule can adopt in a warm, moving environment.</p><a href="#molecules">Turn a real structure in 3D ↑</a></details>
+        <details class="scale-row"><summary><span class="scale-number">02</span><span>Cells<small>Reactions, signals, decisions</small></span><span class="scale-symbol" aria-hidden="true">◉</span></summary><p>A cell is a busy chemical system. A useful model might track a few reactions rather than every atom. The important question is whether what we leave out could change the answer.</p></details>
+        <details class="scale-row"><summary><span class="scale-number">03</span><span>Tissues<small>Neighbours, structure, transport</small></span><span class="scale-symbol" aria-hidden="true">▦</span></summary><p>Cells behave differently depending on their neighbours and surroundings. The same molecular change can have different consequences in different tissues. Location belongs in the model.</p></details>
+        <details class="scale-row"><summary><span class="scale-number">04</span><span>Organs<small>Exposure, exchange, feedback</small></span><span class="scale-symbol" aria-hidden="true">⇄</span></summary><p>A drug must reach a tissue, may be changed by metabolism, and is eventually removed. Linking organ models means keeping amounts, concentrations, units and timing consistent.</p></details>
+        <details class="scale-row"><summary><span class="scale-number">05</span><span>A person<small>Variation, history, environment</small></span><span class="scale-symbol" aria-hidden="true">∞</span></summary><p>A person is more than connected organs. Age, disease, treatment history and environment can change a prediction. A future personal model would need appropriate data, measured uncertainty and prospective evaluation.</p></details>
+        <p class="diagram-caption">These are connected scales, not a completed end-to-end model.</p>
       </div>
-      <h3 class="sub-h" id="checked">What has been checked <span class="chip">status on main · 2026-11-05</span></h3>
-      <p class="sub-lede">Counting only work merged into the main branch. These are internal checks. None has had external scientific review, so every result below is preliminary. The data audits work in memory on public files and keep only counts and fingerprints. The pipeline and source adapter were tested on made-up inputs only. No patient records, scores or linkage tables are stored in the repository.</p>
-      <ul class="ledger">
+      <div class="system-story"><h3>A model is a precise<br>“what if?”</h3><p>We choose a few things to track, write down how they can change, and calculate what follows. Then we look for observations that could prove the model wrong.</p><p>Virtual Human, created by <a href="https://github.com/rohanarun/virtual-human">Rohan Arun</a>, gives us an open foundation for connecting mathematical models across scales. We are developing a <a href="https://github.com/Foundation-0/virtual-human">Foundation-0 fork</a> alongside Project Asma and preparing reusable contributions for upstream.</p><div class="capability-list"><div><span class="status-label">Built</span><p>Explicit units and context. Conserved-quantity checks. Simple reaction dynamics. Ordered interventions and local sensitivity calculations.</p></div><div><span class="status-label future">Next</span><p>Choose a biological question, justify its assumptions, and test the model against independent observations.</p></div><div><span class="status-label future">Long horizon</span><p>Connect models whose mathematics carries machine-checkable proofs, with biological evidence at every boundary.</p></div></div><a class="record-link" href="https://github.com/Foundation-0/virtual-human/blob/8e5eacda08027219c0e8f6dfc37ef276829fb928/auto-research/2026-11-05-E-reaction-experiments/report.md">Read the reaction-engine report ↗</a></div>
+    </div>
+    <div class="proof-intro"><p class="eyebrow">First principles / Follow the accounting</p><h3>Two building blocks join.<br>None should disappear from the mathematics.</h3></div>
+    <div class="proof-path"><div class="proof-step"><span class="step-number">01 / Specify</span><div class="reaction-picture" aria-hidden="true"><i></i><i></i><span>→</span><b><i></i><i></i></b></div><h4>Write the rule.</h4><p>In the invented reaction <span class="mono">2A → D</span>, two A units form one D. D contains two units, so the conserved total is <span class="mono">A + 2D</span>.</p></div><div class="proof-step"><span class="step-number">02 / Verify</span><div class="formula">A + 2D = constant</div><h4>Check what follows.</h4><p>Our exact arithmetic checks the reaction bookkeeping. A numerical solver gets a separate tolerance check. A future formal proof would state and mechanically check its assumptions.</p></div><div class="proof-step"><span class="step-number">03 / Confront reality</span><div class="proof-question">Does life do this?</div><h4>Ask nature.</h4><p>We still need measurements to learn whether the reaction happens, at what rate, and in which setting. Correct mathematics cannot supply missing biology.</p></div></div>
+  </div></section>
+
+  <section class="sec" id="playground" aria-labelledby="lab-h"><div class="wrap">
+    <div class="section-heading"><div><p class="eyebrow">03 / A small experiment with a big lesson</p><h2 id="lab-h">Change the assumption.<br><em>Watch the answer change.</em></h2></div><p>Imagine 100 units of material: 90 are easier to remove with a treatment, 10 are harder. Apply the same treatment and the same surgery-first removal. Now change only the rule used to describe removal in the other order.</p></div>
+    <div class="lab-grid" data-assumption-lab>
+      <div class="lab-controls"><span class="status-label">Artificial mathematics · not a patient simulator</span><fieldset data-lab-controls disabled><legend>Choose the rule</legend><label class="model-option"><input type="radio" name="removal-model" value="fixed" checked><span><b>Leave a fixed amount</b><small>Try to leave the same total after either surgery; never add material to reach it.</small></span></label><label class="model-option"><input type="radio" name="removal-model" value="proportional"><span><b>Leave a fixed fraction</b><small>Keep the same fraction of whatever is there at the moment of surgery.</small></span></label><label class="range-label" for="lab-survival">Easier-to-remove material surviving treatment <output data-lab-survival-label>10%</output></label><input id="lab-survival" data-lab-survival type="range" min="1" max="100" value="10"><label class="range-label" for="lab-retain">Fraction retained by surgery first <output data-lab-retain-label>10%</output></label><input id="lab-retain" data-lab-retain type="range" min="1" max="100" value="10"><p class="control-help">The fixed amount is calibrated from this fraction of the original 100 units. The harder-to-remove material survives treatment unchanged in this toy example.</p><button class="lab-reset" data-lab-reset type="button">Reset experiment ↺</button></fieldset><noscript><p>The default experiment is shown. Enable JavaScript to change the assumptions.</p></noscript></div>
+      <div class="lab-output"><p class="eyebrow">What remains after both operations</p><div class="lab-legend"><span><i class="swatch sensitive"></i>Easier to remove</span><span><i class="swatch resistant"></i>Harder to remove</span></div><div class="lab-plot" aria-hidden="true"><div class="plot-row"><span>Surgery → treatment</span><div class="plot-track"><i data-lab-bar="first-sensitive" class="sensitive" style="width:9%"></i><i data-lab-bar="first-resistant" class="resistant" style="width:10%"></i></div></div><div class="plot-row"><span>Treatment → surgery</span><div class="plot-track"><i data-lab-bar="second-sensitive" class="sensitive" style="width:47.3684%"></i><i data-lab-bar="second-resistant" class="resistant" style="width:52.6316%"></i></div></div><p>Chart maximum: <span data-lab-scale>10.00 artificial burden units</span></p></div><div class="table-scroll"><table class="lab-table"><caption>Invented remaining burden, in arbitrary units</caption><thead><tr><th scope="col">Order</th><th scope="col">Easier</th><th scope="col">Harder</th><th scope="col">Total</th></tr></thead><tbody><tr><th scope="row">Surgery first</th><td data-lab-first-sensitive>0.90</td><td data-lab-first-resistant>1.00</td><td data-lab-first-total>1.90</td></tr><tr><th scope="row">Treatment first</th><td data-lab-second-sensitive>4.74</td><td data-lab-second-resistant>5.26</td><td data-lab-second-total>10.00</td></tr></tbody></table></div><div class="lab-results"><div><span>Harder-to-remove fraction · both orders</span><strong data-lab-fraction>52.63%</strong></div><div><span>Harder-to-remove amount · second / first</span><strong data-lab-ratio>5.26×</strong></div></div><p class="lab-interpretation" data-lab-interpretation aria-live="polite">The final mixtures have the same proportions, but the fixed-amount rule leaves different totals. Switch to a fixed fraction to test whether the order effect remains.</p></div>
+    </div>
+    <div class="lab-note"><strong>The lesson: an assumption can carry the conclusion.</strong><p>This deliberately simple model has no growth, recovery delay, newly generated resistance or chance extinction. It does not reproduce the full Gu–Rosen model or compare real treatments. Our research asks which observations could distinguish these removal rules. <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/research/rosen-treatment-sequence-assumptions.md">Read the exact experiment and its limitations ↗</a></p></div>
+  </div></section>
+
+  <section class="vision-banner" id="vision" aria-labelledby="vision-h"><div class="wrap">
+    <p class="eyebrow">04 / The dream · a long-term research ambition</p><h2 class="vision-title" id="vision-h">What if we could<br>follow a question<br><em>through the body?</em></h2><div class="vision-opening"><p>From an atom’s interaction to a cell’s response. From a tissue to an organ. From a plausible explanation to an experiment that could change someone’s life.</p><p>Imagine an executable atlas of human biology: connected models whose stated mathematical properties carry machine-checkable proofs. A proof is a chain of logical steps from stated assumptions; a computer could check those steps. Every connection would expose its assumptions, evidence and limits. Every failure would teach us where to look next.</p></div>
+    <div class="vision-principle"><span class="eyebrow">The essential distinction</span><p>A proof tells us what follows <em>from a model.</em><br>An experiment tells us whether that model <em>describes life.</em></p><small>A complete, formally verified virtual human does not exist in this project. Even verified components do not automatically make a verified whole. The ambition is an increasingly useful, testable atlas—not a promise that all biology can be captured.</small></div>
+    <div class="possibility-grid">
+      <article class="possibility"><span>01 / Understanding</span><h3>See the connections<br>we keep missing.</h3><p>Explore how a molecular change could travel through cells, tissues and feedback loops. Find the missing link instead of hiding it behind a confident prediction.</p></article>
+      <article class="possibility"><span>02 / Discovery</span><h3>Choose the experiment<br>that teaches us most.</h3><p>Compare competing explanations before spending precious samples, time or funding. Ask which observation would make them disagree—and then measure it.</p></article>
+      <article class="possibility"><span>03 / Medicines</span><h3>Follow a candidate<br>beyond its target.</h3><p>A molecule that binds is only a beginning. Future models could connect binding with exposure, metabolism, resistance and unwanted effects to prioritise laboratory tests.</p></article>
+      <article class="possibility"><span>04 / Making molecules</span><h3>Connect an idea<br>to something we can make.</h3><p>Link drug design to separately checked chemistry and possible synthesis routes. Yield, impurities, stability and reliable manufacturing would still need process models and laboratory evidence.</p></article>
+      <article class="possibility"><span>05 / Trials</span><h3>Learn more.<br>Ask less of people.</h3><p>Stress-test trial designs, endpoints and sources of variation before a study begins. The hope is more informative research and less avoidable burden, with validation and oversight for each intended use.</p></article>
+      <article class="possibility"><span>06 / Individual variation</span><h3>Understand why<br>the same is not the same.</h3><p>Study why the same intervention might affect people differently. Future personal models would need permitted data, visible uncertainty and prospective evidence before informing care.</p></article>
+    </div>
+    <p class="vision-boundary">These are possibilities to work toward. Their value must be earned through experiments, independent evaluation and, for clinical use, evidence of safety and benefit. Computation would help make trials and laboratory work more informative; it cannot declare them unnecessary.</p>
+    <a class="btn" href="https://github.com/Foundation-0/project-asma/blob/main/docs/virtual-human-vision.md">Read the vision and its proof obligations <span aria-hidden="true">↗</span></a>
+  </div></section>
+
+  <section class="sec" id="notebook" aria-labelledby="notebook-h"><div class="wrap">
+    <div class="section-heading"><div><p class="eyebrow">05 / Nothing useful should be lost</p><h2 id="notebook-h">An open notebook.<br><em>A cumulative effort.</em></h2></div><p>Ideas, source checks, code, negative findings and next questions belong in the record. A beautiful picture invites curiosity. A traceable method lets someone build on it.</p></div>
+    <div class="horizon-path"><div class="horizon-step"><span>Now</span><h3>Make small things trustworthy.</h3><p>Evidence provenance. Exact checks. Reproducible experiments. Explicit model boundaries.</p></div><div class="horizon-step"><span>Next</span><h3>Test a meaningful connection.</h3><p>A bounded biological question, suitable observations, and predictions that can fail.</p></div><div class="horizon-step"><span>Long term</span><h3>Build an atlas that learns.</h3><p>Proof obligations across scales, independent biological tests, and an honest account of uncertainty.</p></div></div>
+    <div class="notebook-grid">
+      <details class="notebook-group" id="checked"><summary><span>01</span> The complete Pilot 001 work record <span class="detail-plus" aria-hidden="true">+</span></summary><div class="notebook-content"><p class="record-date">Detailed record as of 5 November 2026. Current decisions and work under review remain in the linked roadmap and PRs.</p>      <ul class="ledger">
         <li>
           <div class="ledger-main"><h3>Research scaffold and pilot protocol</h3>
           <p>The workspace, evidence map, registries and the pilot design. Defines the target (one printed result, Figure 3D), the cohorts and the stop rules.</p></div>
@@ -148,7 +148,7 @@
         </li>
         <li>
           <div class="ledger-main"><h3>Published-score check</h3>
-          <p>Recomputes the discovery AUC from the released scores and labels alone, under a specification fixed before the run. It refits no model. The result is recorded in the repository as a preliminary internal check. It awaits external scientific review, so this page does not report a value.</p></div>
+          <p>Recomputes the discovery AUC—a measure of how well a score ranks the two groups—from the released scores and labels alone, under a specification fixed before the run. It refits no model. The result is recorded in the repository as a preliminary internal check. It awaits external scientific review, so this page does not report a value.</p></div>
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #3</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
         </li>
         <li>
@@ -173,7 +173,7 @@
         </li>
         <li>
           <div class="ledger-main"><h3>Source adapter</h3>
-          <p>Code that would check the pinned workbooks and matrix member against their recorded hashes and turn the selected values into the pipeline's input. On 4 November the rebuilt combined Python and R container passed the generated-file fixture through the model path, all 19 R bridge assertions, 30 adapter Python tests and all 40 technical execution checks. The adapter refuses to download or parse study files without a current owner-created attestation. Research location, hosting terms and applicable obligations remain unverified, and the adapter has never been run on study files.</p></div>
+          <p>Code that would check the pinned workbooks and matrix member against their recorded hashes and turn the selected values into the pipeline's input. On 4 November the rebuilt combined Python and R container passed the generated-file fixture through the model path, all 19 R bridge assertions, 30 adapter Python tests and all 40 technical execution checks. The adapter refuses to download or parse study files without a current owner-created attestation. The owner has recorded execution-context decisions. The required host preflight and run conditions remain separate from those decisions; the adapter has not been run on study files in the recorded work.</p></div>
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #12, #16, #22, #23</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not run on study files</span></span>
         </li>
         <li>
@@ -182,9 +182,9 @@
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #32, #43</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Software only</span></span>
         </li>
         <li>
-          <div class="ledger-main"><h3>Proposed protocol amendment</h3>
-          <p>Proposes three additions to the declared reconstruction: a per-repetition AUROC distribution as a descriptive output, options for the sensitivity check, and a policy for warnings and messages during fitting. It is merged as a proposal only. Nothing in it takes effect until the owner records a dated decision.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #15</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Proposed · owner decision</span></span>
+          <div class="ledger-main"><h3>Protocol amendment and owner decisions</h3>
+          <p>The owner recorded decisions on 5 November: accept the descriptive AUROC distribution, use both sensitivity options, and apply the strict warning policy. Implementation, host preflight and aggregate-only handling still need to satisfy the roadmap before a study-data run.</p></div>
+          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #15</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Owner decision recorded</span></span>
         </li>
         <li>
           <div class="ledger-main"><h3>Open-questions report</h3>
@@ -202,164 +202,25 @@
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #34</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Scaffold · not submitted</span></span>
         </li>
         <li>
+          <div class="ledger-main"><h3>Why do the released scores and printed result differ?</h3>
+          <p>The <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/pilot-001-auc-discrepancy.md">new discrepancy analysis</a> checks ties, score direction, rounding and calculation methods. These do not resolve the difference. An uncertainty interval containing the printed value does not make the point estimates agree. Whether the original study averaged results across different training groups remains an open explanation requiring missing source details. This does not establish an error in the paper.</p></div>
+          <span class="badges"><span class="badge v">On main · #49</span><span class="badge p">Preliminary · awaits review</span></span>
+        </li>
+        <li>
           <div class="ledger-main"><h3>Reconstruction fit on study data</h3>
-          <p>Fitting the declared reconstruction's models on the released study data and comparing the result with the printed AUC. No model has been fitted on study data. A fit waits on the owner's dated attestation of the execution context and a new explicit instruction. It also waits on an actual execution host whose location, terms and applicable obligations support the selected data-use route, with the combined Python and R container rechecked on that host. It further waits on the owner's dated decision on the proposed amendment. Work in open pull requests is not counted until it is merged. Section 04 lists the key gaps recorded on main.</p></div>
+          <p>Fitting the declared reconstruction on study data remains unexecuted in this record. The owner's dated execution-context and amendment decisions are now recorded. Required implementation, runtime preflight and aggregate-only handling remain separate checks. Work under review is not counted as an executed fit. The roadmap records the current gates.</p></div>
           <span class="badge n"><span class="ladder" data-r="1" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Not done</span>
         </li>
       </ul>
-      <div class="prose ledger-note">
-        <p>This list is dated and will age. The <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">roadmap</a> holds the pilot's current state and next gates.</p>
-      </div>
+<a href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">Current pilot roadmap and execution gates ↗</a></div></details>
+      <details class="notebook-group"><summary><span>02</span> The anti-Yo frontier &amp; evidence graph <span class="detail-plus" aria-hidden="true">+</span></summary><div class="notebook-content"><ul class="record-list"><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/anti-yo-frontier-2026-11-04.md">Primary-study audit and competing immune explanations</a><p>Source access, experimental limits and what would falsify each interpretation.</p></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/compartment-identifiability.md">When different mechanisms produce the same snapshot</a><p>Original invented examples showing why a blood-versus-fluid difference cannot identify a mechanism by itself.</p></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/discovery-round2-2026-11-05.md">Second discovery round: antigen, function and harm</a><p>Protein-fragment annotations, alternative explanations and the unresolved recognition chain.</p></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/evidence-graph-result-2026-11-05.md">Executed evidence-graph checks</a><p>Context stays attached to a claim. Missing evidence remains visible.</p></li></ul></div></details>
+      <details class="notebook-group"><summary><span>03</span> Dr Rosen’s work &amp; the new research question <span class="detail-plus" aria-hidden="true">+</span></summary><div class="notebook-content"><ul class="record-list"><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/research/barry-rosen.md">Identity-disambiguated research survey</a><p>215 provisionally attributed entries; explicitly separated from other researchers with similar names. This is a scoped bibliography, not a complete CV.</p></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/research/rosen-treatment-sequence-assumptions.md">Treatment-sequence assumption audit</a><p>84 invented cases, exact arithmetic, retained reversals and prior-art attribution. A pre/postoperative measurement question to distinguish removal models.</p></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/protocols/rosen-treatment-sequence-assumptions.md">Protocol, assumptions and declared extension</a><p>A reproducible mathematical experiment, separate from clinical treatment selection.</p></li></ul></div></details>
+      <details class="notebook-group"><summary><span>04</span> Virtual Human contributions &amp; the bridge <span class="detail-plus" aria-hidden="true">+</span></summary><div class="notebook-content"><ul class="record-list"><li><a href="https://github.com/Foundation-0/virtual-human/pull/1">Explicit model contracts and clearance reporting</a><p>Quantities need units, context and provenance. Blood and plasma references are different even when both say litres per hour.</p></li><li><a href="https://github.com/Foundation-0/virtual-human/pull/3">Conserved reactions and ordered interventions</a><p>Exact mathematical and independent numerical checks; a single fixed compartment and synthetic examples.</p></li><li><a href="https://github.com/Foundation-0/virtual-human/blob/8e5eacda08027219c0e8f6dfc37ef276829fb928/docs/project-asma-integration.md">How the repositories inform one another</a><p>An optional bridge compares Asma’s exact operators with the numerical engine. Consistency on artificial examples is not biological validation.</p></li></ul></div></details>
+      <details class="notebook-group" id="directions"><summary><span>05</span> More directions worth investigating <span class="detail-plus" aria-hidden="true">+</span></summary><div class="notebook-content"><p>Eight ranked directions span the active protein-signature study, ovarian genomic characterisation, cross-resource proteomics, cell-line dependencies, supporting-tissue expression, differences among cancer types, oxidative stress and fibrosis, and the recruiting-trial landscape. These are feasibility-ranked candidates, not commitments or a novelty ranking.</p><ul class="record-list"><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/directions.md">Candidate studies, access routes and stop rules</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/molecular-research-handoff-2026-11-04.md">Molecular questions and measurement distinctions</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/research-handoff-2026-11-04.md">Response over time, spatial research, care navigation and symptoms</a></li></ul></div></details>
+      <details class="notebook-group" id="missing"><summary><span>06</span> What we still do not know <span class="detail-plus" aria-hidden="true">+</span></summary><div class="notebook-content"><ul class="record-list"><li><strong>The original study workflow is incomplete.</strong><p>Missing source objects and fold-generation details still matter. The owner has sent the source request and recorded execution decisions; the remaining implementation and run conditions belong in the roadmap.</p></li><li><strong>The immune mechanism remains unresolved.</strong><p>A database annotation does not establish what a disease-associated receptor recognises, or which event causes injury.</p></li><li><strong>Biological usefulness is not a software test.</strong><p>We have no validated end-to-end human model, formal proof layer or demonstrated clinical efficacy. New datasets and prospective uses require their own permissions and evaluation.</p></li></ul><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">Read the current gaps and gates ↗</a></div></details>
     </div>
-  </section>
-
-  <section class="sec" id="frontier" data-index="Frontier research" data-num="02" aria-labelledby="frontier-h">
-    <div class="wrap">
-      <div class="sec-head"><p class="sec-label"><b>02</b><i>//</i>Frontier research</p><span class="chip">public sources only · 4–5 November 2026</span></div>
-      <h2 class="h2" id="frontier-h">What an immune response recognises, and what it harms.</h2>
-      <p class="lede">Anti-Yo antibodies are found in some people with ovarian or breast cancer and in paraneoplastic cerebellar degeneration, a rare syndrome in which an immune response against the tumour is linked to damage in the cerebellum. Their target proteins, CDR2 and CDR2L, are present in ovarian tumours. A 2026 study by Petitpré and colleagues reported cytotoxic CD4 T-cell states that differed between blood and cerebrospinal fluid in a small group of patients, only three of them with paired samples. The frontier asks what those cells actually recognise, which cells present it, and whether the same response causes the neural injury. Each question needs different evidence, and the work keeps them apart.</p>
-      <ul class="ledger">
-        <li>
-          <div class="ledger-main"><h3>Source audit and two exploration cycles</h3>
-          <p>An audit of the primary paper and its transparent peer review records the actual paired cohort, the preparation and control limits, and the restricted route to its sequencing data. Prior-art searches, competing explanations, a proposed robustness protocol and stop rules are written down, with rejected interpretations kept. No mechanism is claimed.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #39</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Literature · no study data</span></span>
-        </li>
-        <li>
-          <div class="ledger-main"><h3>Compartment identifiability check</h3>
-          <p>An original calculation on invented inputs shows that different mechanisms, such as selective entry of high-state cells or conversion of cells after entry, can produce exactly the same blood-versus-fluid snapshot. It uses exact arithmetic with independent count checks, quantifies one paired-test limit and illustrates incomplete clone detection. It is a methodological check, not a disease finding or a reanalysis of the study.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #39</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Executed · synthetic only</span></span>
-        </li>
-        <li>
-          <div class="ledger-main"><h3>Discovery round 2: antigen, function and harm</h3>
-          <p>A bounded audit of the public Immune Epitope Database found curated HLA class II mass-spectrometry annotations for CDR2L (two assay records) and the related protein CDR2 (seven), with a recorded replay command. These are database annotations, not patients or functional responses. They do not show a human anti-Yo T-cell receptor recognising a naturally processed, unambiguously assigned CDR2L ligand. Separate reviews distinguish CDR2L's cellular functions from its role as an antigen, and immune specificity from harm, and say what would falsify each explanation.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #42</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Preliminary · awaits review</span></span>
-        </li>
-        <li>
-          <div class="ledger-main"><h3>Typed evidence interfaces and the evidence graph</h3>
-          <p>A design adapted from the typed-graph pattern of Rohan Arun's open-source Virtual Human project: each claim carries its measurement basis, context and kind of evidence, so that unsupported jumps are rejected, for example from antibody binding to T-cell specificity. An offline prototype now implements it, using an unchanged, hash-pinned copy of that project's MIT-licensed graph core with original matching rules. It holds 24 curated public evidence assertions and checks 22 scoped requests against them: 6 are supported within their actual scope, 1 meets scoped counterevidence and 15 stay unresolved. It refuses joins across separate assertions, keeps unknowns and contradictions, and separates recognition from injury. Its expectations are hand-written regression fixtures, not an independent accuracy benchmark. It identifies no ligand and infers no mechanism.</p></div>
-          <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #44, #45</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Software result · curated evidence</span></span>
-        </li>
-      </ul>
-      <div class="prose ledger-note">
-        <p>The frontier is the current exploration priority. Its records are a selective review, not a systematic one, and a search that found nothing does not make an idea new. The <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/research-continuation.md">research continuation record</a> is the entry point, with the <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/anti-yo-frontier-2026-11-04.md">frontier proposal</a> and <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/discovery-round2-2026-11-05.md">discovery round 2</a>.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec alt" id="directions" data-index="Directions and resources" data-num="03" aria-labelledby="directions-h">
-    <div class="wrap">
-      <div class="sec-head"><p class="sec-label"><b>03</b><i>//</i>Directions and resources</p><span class="chip">checked 2026-11-04</span></div>
-      <h2 class="h2" id="directions-h">Ranked directions, handoffs and resources.</h2>
-      <p class="lede">Candidate studies for a small open team, using public, de-identified or open-licensed data only. Feasibility rank is not novelty rank, and none is a commitment. Adopting one needs a protocol pull request and the owner's gate before any study data are used; controlled-access cohorts need a data-access request and an owner decision.</p>
-      <ol class="dirs">
-        <li><span><b>Primary platinum-refractory HGSOC protein signature.</b> The active track, Pilot 001.</span></li>
-        <li><span><b>TCGA-OV open-tier genomic and clinical characterisation.</b> Serous ovarian carcinoma only; observational aggregates.</span></li>
-        <li><span><b>CPTAC ovarian proteogenomics, cross-resource audit.</b> How complete the public proteomic and clinical fields are, without training a classifier.</span></li>
-        <li><span><b>DepMap ovarian cell-line dependencies and DNA-repair context.</b> In vitro screening biology, not patient outcome.</span></li>
-        <li><span><b>Stroma (cancer-associated fibroblast) expression contrasts in HGSOC.</b> Public GEO expression data.</span></li>
-        <li><span><b>Multi-histotype ovarian carcinoma expression contrasts.</b> Public GEO expression data across histotypes.</span></li>
-        <li><span><b>mRNA oxidative-stress and fibrosis clustering.</b> Public GEO expression data.</span></li>
-        <li><span><b>Recruiting interventional trial landscape.</b> ClinicalTrials.gov metadata only.</span></li>
-      </ol>
-      <div class="cards4">
-        <div class="mini-card">
-          <h3>Molecular research handoff</h3>
-          <p>Assays, target heterogeneity, CDR2L biology, adaptive resistance and data routes. It proposes an evidence schema in which a serum marker, a tumour protein, an RNA level and a pathway readout never silently stand in for one another. Proposed work, for a contributor to turn into one bounded protocol.</p>
-        </div>
-        <div class="mini-card">
-          <h3>Broader research handoff</h3>
-          <p>Treatment response over time, spatial and organoid research, care navigation and symptom research, each with concrete first tasks and stop rules. It suggests prioritising a bounded study of response over time that keeps a circulating marker, a tumour target and a resistance mechanism separate.</p>
-        </div>
-        <div class="mini-card dig">
-          <h3>Barry Rosen research survey</h3>
-          <p>A dated, identity-checked survey of a gynaecologic oncologist's published research. It provisionally attributes 215 bibliography entries from 2,046 screened records, with 130 still uncertain, and ranks seven research questions for this project. It also verifies one public expression-data lead whose reuse rights are unresolved. These are screening results, not a complete CV.</p>
-        </div>
-        <div class="mini-card dig">
-          <h3>Source registry</h3>
-          <p>Dated primary-source records with locators, takeaways, verification route and limits, from the pilot's inputs to the frontier literature. A source being available is never treated as permission to use its data.</p>
-        </div>
-      </div>
-      <div class="prose ledger-note">
-        <p>Full entries are in the <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/directions.md">candidate directions</a>, the <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/molecular-research-handoff-2026-11-04.md">molecular</a> and <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/research-handoff-2026-11-04.md">broader</a> handoffs, the <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/research/barry-rosen.md">research survey</a> and the <a href="https://github.com/Foundation-0/project-asma/tree/main/registries">registries</a>.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="missing" data-index="Still missing" data-num="04" aria-labelledby="missing-h">
-    <div class="wrap">
-      <div class="sec-head"><p class="sec-label"><b>04</b><i>//</i>Still missing</p><span class="chip">recorded on main · 2026-11-05</span></div>
-      <h2 class="h2" id="missing-h">Gaps recorded before any study-data result.</h2>
-      <div class="cards4">
-        <div class="mini-card">
-          <h3>The fold helper</h3>
-          <p>The authors' scripts call a helper file, <span class="mono">balanced_folds.R</span>, that decides how patients were split into folds. The searches so far did not find it: the authors' repository at the commit checked, its reachable history and three public forks. A later public repository from the same GitHub account defines a helper of the same kind. It is a likely stand-in, not proof: its 2023 version, shuffle details and the original label order remain unknown. The main branch declares a replacement fold rule. A rerun with it would be a new reconstruction, not a faithful rerun of the printed cross-validation.</p>
-        </div>
-        <div class="mini-card">
-          <h3>The workspaces and processing history</h3>
-          <p>The figure scripts load saved R workspaces (RData files) that the same searches did not find. Which objects they held, and in what order, decides what the printed figure actually averaged. The declared reconstruction starts from the released matrix instead and does not recover them. How that matrix was itself processed (normalisation, filtering, batch correction, imputation) is only partly documented. So even the declared reconstruction cannot claim that every processing step was fitted only inside training folds.</p>
-        </div>
-        <div class="mini-card">
-          <h3>The corrected legends</h3>
-          <p>A 2024 correction fixes the supplemental figure legends only; Figure 3D is outside its stated scope. The supplement copy pinned here predates the correction, and its legends disagree with the figure images at several points. The corrected legends have not been pinned yet, because the publisher's hosts were unreachable from the research environment.</p>
-        </div>
-        <div class="mini-card">
-          <h3>Answers from the authors</h3>
-          <p>The source request sent on 4 November asks about the missing inputs, label coding and environment. Until the authors answer, those items stay open, and nothing on this page assumes what the answers will be.</p>
-        </div>
-        <div class="mini-card dig">
-          <h3>A recognised ligand and its receptor</h3>
-          <p>The frontier still lacks a human anti-Yo T-cell receptor shown to recognise an identified, naturally processed CDR2L ligand on HLA class II, and an independent measure of the injury it causes. Database annotations, antibody binding or a cytotoxic expression state cannot stand in for either.</p>
-        </div>
-        <div class="mini-card dig">
-          <h3>People, permissions and data</h3>
-          <p>No gynaecologic oncologist or proteomics/biostatistics collaborator has been recruited; recruiting needs a new explicit instruction. External scientific review is pending. The frontier study's sequencing data need institutional approval and a data-use agreement, and none have been requested. Downloading study files for a research run, a real-source input check or any fit on study values needs the owner's dated attestation of the execution context and a new explicit instruction.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec alt" id="rules" data-index="Rules of the workspace" data-num="05" aria-labelledby="rules-h">
-    <div class="wrap">
-      <div class="sec-head"><p class="sec-label"><b>05</b><i>//</i>Rules of the workspace</p><span class="chip">how claims are kept honest</span></div>
-      <h2 class="h2" id="rules-h">Small rules, applied every time.</h2>
-      <div class="prose">
-        <p><strong>Aggregates only.</strong> Audits read public files in memory and publish counts, hashes and provenance. Patient-level records, scores and linkage maps never enter the repository.</p>
-        <p><strong>Labels before numbers.</strong> Every material public statement is labelled: <em>proven</em> (a written proof here), <em>verified</em> (a finite check with a recorded command), <em>known</em> (cited from a primary source) or <em>conjecture</em> (a hypothesis or open question). A reproduced number and a printed reference value are never presented as the same kind of fact, and "not found in our searches" never means new.</p>
-        <p><strong>Fixed before run.</strong> Numerical checks are specified, with their tolerance, before they are executed. A disappointing result is recorded unchanged, not tuned away. Each executed result ships in its own pull request.</p>
-        <p><strong>Owner gates.</strong> A new direction starts as a protocol pull request. Downloading study files for a research run, a real-source input check or fitting on study values needs the owner's dated attestation of the execution context and a new explicit instruction; automated checks never satisfy it.</p>
-        <p><strong>Private context stays private.</strong> Personal correspondence can explain why this work matters, but it is not research data, a source of labels or evidence about an individual outcome. Messages, medical histories, contact details and identifiers stay out of the repository and this site.</p>
-        <p><strong>Offline checks.</strong> <span class="mono">python3 tools/validate.py</span> and <span class="mono">python3 -m unittest discover -s tests</span> run on the Python standard library, plus <span class="mono">git</span> in a checkout, without network access. They check the repository's records, recompute the validation-capacity calculation from committed counts, and test the audit code, the source adapter, the evaluation library and the runtime tooling on small made-up inputs. They do not rerun any audit or the published-score check, and passing them is not a scientific reproduction. The R pipeline tests run separately, on artificial fixtures in a pinned Docker container with networking off; the <a href="https://github.com/Foundation-0/project-asma/blob/main/docs/pilot-001-synthetic-validation.md#commands">synthetic validation</a> lists the commands, and the Verify workflow repeats them on every pull request. That container has not yet been checked on an actual research host. Separate network commands, listed in the <a href="https://github.com/Foundation-0/project-asma/blob/main/README.md#check-the-scaffold">README</a>, rerun the audits. They follow the bounded-inspection rule: in memory, aggregates only, with a record of what was read and why. Neither the R tests nor the network commands are part of the offline checks. The published-score check ran under a recorded instruction, described in its <a href="https://github.com/Foundation-0/project-asma/blob/main/protocols/pilot-001-score-verification.md#execution-instruction-and-pending-external-review">protocol</a>.</p>
-      </div>
-      <div class="cta">
-        <a class="btn primary" href="https://github.com/Foundation-0/project-asma">Open the repository <span class="arr" aria-hidden="true">&rarr;</span></a>
-        <a class="btn" href="https://github.com/Foundation-0/project-asma/blob/main/CLAIMS.md">Claims ledger</a>
-        <a class="btn" href="https://github.com/Foundation-0/project-asma/pulls">Open pull requests</a>
-      </div>
-    </div>
-  </section>
+  </div></section>
+  <section class="closing-section" id="rules" aria-labelledby="closing-h"><div class="wrap"><p class="eyebrow">Wonder, with a way to check it</p><h2 id="closing-h">Be ambitious about the future.<br><em>Be precise about the present.</em></h2><p>Proofs belong to stated assumptions. Evidence belongs to a source and a context. People deserve to know the difference.</p><div class="hero-actions"><a class="btn primary" href="https://github.com/Foundation-0/project-asma">Explore the research repository ↗</a><a class="text-link" href="https://github.com/Foundation-0/virtual-human">Build the instrument ↗</a></div><p class="closing-note">Our claims are labelled <a href="https://github.com/Foundation-0/project-asma/blob/main/CLAIMS.md">proven, verified, known or conjecture</a>. Unknowns, failed ideas and negative findings remain part of the work.</p></div></section>
 </main>
-
-<footer class="site-foot">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <div class="foot-brand"><svg aria-hidden="true"><use href="#zero"/></svg>project-asma</div>
-        <p>Open-ended ovarian cancer research in honour of Asma Ansari: one active reproduction protocol, public-source frontier research and ranked candidate directions. Exploration, not peer reviewed; every executed number on this page comes from a check in the repository, and open questions stay labelled as open.</p>
-        <p>Code is MIT-licensed; text, figures and site content are CC BY 4.0 (<a href="https://github.com/Foundation-0/project-asma/blob/main/LICENSE">LICENSE</a>). Third-party code, data and paper content keep their own terms (<a href="https://github.com/Foundation-0/project-asma/blob/main/NOTICE">NOTICE</a>).</p>
-      </div>
-      <div class="foot-cols">
-        <div><h2 class="foot-h">Project</h2><ul><li><a href="#mission">The mission</a></li><li><a href="#pilot">Pilot 001</a></li><li><a href="#frontier">Frontier research</a></li><li><a href="#directions">Directions and resources</a></li><li><a href="#missing">Still missing</a></li><li><a href="#rules">Rules of the workspace</a></li></ul></div>
-        <div><h2 class="foot-h">Record</h2><ul><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/mission.md">Purpose and measures of success</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/roadmap.md">Roadmap and gates</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/research-continuation.md">Research continuation</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/directions.md">Candidate directions</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/protocols/pilot-001.md">Pilot protocol</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/CLAIMS.md">Claims ledger</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/paper/manuscript.md">Paper scaffold</a></li><li><a href="https://github.com/Foundation-0/project-asma/tree/main/registries">Registries</a></li></ul></div>
-        <div><h2 class="foot-h">Source</h2><ul><li><a href="https://github.com/Foundation-0/project-asma">Repository</a></li><li><a href="https://github.com/Foundation-0/project-asma/pulls">Pull requests</a></li><li><a href="https://foundation-0.github.io/f0/">Foundation0</a></li></ul></div>
-      </div>
-    </div>
-    <div class="stamp">
-      <span>project-asma colophon</span>
-      <span>Checks and records in the repository; design system shared with the Foundation0 site</span>
-      <span class="who"><i style="background:var(--bio)" aria-hidden="true"></i>Human: Ahraz Arifuddin, Aska Digital</span>
-      <span class="who"><i style="background:var(--dig)" aria-hidden="true"></i>Digital: an array of digital intelligences</span>
-    </div>
-  </div>
-</footer>
-</body>
-</html>
+<footer class="site-foot"><div class="wrap"><div class="foot-grid"><div><div class="foot-brand"><svg aria-hidden="true"><use href="#zero"/></svg>Project Asma</div><p>In honour of Asma Ansari.<br>Open research toward less suffering and more life.</p><p>By Ahraz Arifuddin, Aska Digital, with an array of digital intelligences.</p></div><div class="foot-cols"><div><h2 class="foot-h">Follow the work</h2><ul><li><a href="https://github.com/Foundation-0/project-asma">Project Asma</a></li><li><a href="https://github.com/Foundation-0/virtual-human">Virtual Human fork</a></li><li><a href="https://github.com/rohanarun/virtual-human">Rohan Arun’s original project</a></li><li><a href="https://foundation-0.github.io/f0/">Foundation0</a></li></ul></div><div><h2 class="foot-h">Read the evidence</h2><ul><li><a href="https://github.com/Foundation-0/project-asma/blob/main/CLAIMS.md">Claims &amp; confidence</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/registries/sources.json">Primary-source registry</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/site-structure-sources.md">3D structures &amp; attribution</a></li><li><a href="https://github.com/Foundation-0/project-asma/blob/main/docs/virtual-human-vision.md">The full vision</a></li></ul></div></div></div><div class="stamp"><span>Research, not clinical guidance</span><span>No tracking. No external fonts. Local interactive assets.</span><span>Code: <a href="https://github.com/Foundation-0/project-asma/blob/main/LICENSE">MIT</a> · Site content: CC BY 4.0 · <a href="https://github.com/Foundation-0/project-asma/blob/main/NOTICE">Third-party notices</a></span></div></div></footer>
+</body></html>

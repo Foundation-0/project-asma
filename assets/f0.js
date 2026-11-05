@@ -113,7 +113,12 @@
     }
     /* close the mobile menu (and the compact section list) with Escape, an outside click, or when focus leaves it */
     var menu = document.querySelector('.menu');
-    if (menu) closeOnLeave(menu);
+    if (menu) {
+      closeOnLeave(menu);
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { menu.open = false; });
+      });
+    }
     themeChanged(); applyMotion();
   }
   function closeOnLeave(d) {

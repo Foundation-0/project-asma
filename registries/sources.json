@@ -1272,6 +1272,66 @@
       "takeaway": "Kohandel, Sivaloganathan and Oza explicitly assume instantaneous fixed-fraction surgery and compare growth/cell-kill models; direct sequencing-model prior art.",
       "limitations": "Abstract/metadata only; full equations not inspected. No linked correction in examined metadata, not a complete publisher check. No third-party text/code/data reuse grant established; citation and original summary only.",
       "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S120",
+      "title": "Lean proof assistant and program verification documentation",
+      "kind": "code",
+      "url": "https://lean-lang.org/",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://lean-lang.org/",
+      "locator": "Official project introduction and documentation",
+      "takeaway": "Illustrates machine-checked mathematics and program verification as a possible future tool class.",
+      "limitations": "No Lean integration is implemented or adopted by Project Asma; formal correctness does not establish biological validity.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S121",
+      "title": "Assessing the Credibility of Computational Modeling and Simulation in Medical Device Submissions",
+      "kind": "regulatory_notice",
+      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/assessing-credibility-computational-modeling-and-simulation-medical-device-submissions",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/assessing-credibility-computational-modeling-and-simulation-medical-device-submissions",
+      "locator": "Final November 2023 guidance landing page",
+      "takeaway": "Risk-informed model credibility distinguishes mathematical/software verification from empirical validation for an intended use.",
+      "limitations": "Medical-device scope; not a general approval route for drugs or virtual humans and no endorsement of this project.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S122",
+      "title": "RCSB PDB 1TRZ: T3R3 human insulin hexamer reference coordinates",
+      "kind": "data_catalog",
+      "url": "https://www.rcsb.org/structure/1TRZ",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.rcsb.org/structure/1TRZ",
+      "locator": "Entry metadata, mmCIF coordinate/topology records and independent PDB-format coordinate check",
+      "takeaway": "Selected author chains A/B provide a measured human-insulin reference for the educational 3D viewer: 399 heavy atoms, 51 residues and three deposited disulfides.",
+      "limitations": "One molecule selected from a crystal assembly; six unresolved terminal side-chain atoms, hydrogens, ions, water and other chains omitted. Not a disease model or a complete all-atom molecule. Details in docs/site-structure-sources.md.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S123",
+      "title": "RCSB PDB 1BNA: structure of a B-DNA dodecamer",
+      "kind": "data_catalog",
+      "url": "https://www.rcsb.org/structure/1BNA",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.rcsb.org/structure/1BNA",
+      "locator": "Entry metadata, mmCIF coordinates/topology and deposited hydrogen contacts; independent PDB-format coordinate check",
+      "takeaway": "Synthetic 12-base-pair DNA fragment supplies measured handedness and atomic connections for a second educational 3D view.",
+      "limitations": "Not a human genome, patient sequence or tumour sample. Water and hydrogens omitted; static crystal structure does not establish gene activity or treatment response.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S124",
+      "title": "RCSB PDB website usage policy and archive-data reuse terms",
+      "kind": "data_documentation",
+      "url": "https://www.rcsb.org/pages/usage-policy",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://www.rcsb.org/pages/usage-policy",
+      "locator": "Archive-data and API-data CC0 statement",
+      "takeaway": "Coordinate archive and API data used for the site models are reusable under CC0 1.0; primary depositor and archive attribution retained.",
+      "limitations": "This permission is for archive/API data, not a blanket licence to copy source papers or website illustrations.",
+      "checked_on": "2026-11-05"
     }
   ]
 }
