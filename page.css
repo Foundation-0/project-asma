@@ -99,6 +99,7 @@ html:not(.js) .viewer-loading { display: none; }
 .section-heading h2 { margin-top: 18px; font: 400 clamp(36px, 4.1vw, 58px)/1.08 var(--f-serif); letter-spacing: -.045em; }
 .section-heading > p { max-width: 42ch; padding-bottom: 3px; color: var(--ink-2); font-size: 15px; line-height: 1.75; }
 .research-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 56px; }
+.research-grid > .research-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .research-card { display: flex; flex-direction: column; align-items: start; padding: 28px 0 34px; border-top: 1px solid var(--line-ui); min-width: 0; }
 .card-meta { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; width: 100%; gap: 8px 16px; color: var(--ink-3); font-size: 10px; letter-spacing: .07em; }
 .status-label { display: inline-block; color: var(--bio); font: 500 10px/1.5 var(--f-mono); letter-spacing: .07em; text-transform: uppercase; }
@@ -238,8 +239,13 @@ html:not(.js) .viewer-loading { display: none; }
 .notebook-content > p + .record-list { margin-top: 20px; }
 .ledger { margin: 20px 0; }
 .ledger li { padding: 22px 0; border-top: 1px solid var(--line); }
+.ledger > li { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 20px; }
+.ledger-main { max-width: 68ch; min-width: min(52ch, 100%); flex: 1 1 52ch; }
 .ledger-main h3 { font-size: 17px; line-height: 1.4; letter-spacing: -.01em; color: var(--ink); }
-.ledger-main p { margin-top: 9px; font-size: 13px; line-height: 1.85; }
+.ledger-main p { margin-top: 9px; font-size: 13px; line-height: 1.85; color: var(--ink-2); }
+.ledger-main ul { margin: 9px 0 0; padding-left: 1.2em; color: var(--ink-2); font-size: 13px; line-height: 1.85; }
+.ledger-main ul li + li { margin-top: 6px; }
+.ledger-main ul b { color: var(--ink); font-weight: 600; }
 .ledger li > .badges, .ledger li > .badge { margin-top: 14px; }
 .ledger .badge { font-size: 9px; letter-spacing: .05em; }
 .closing-section { padding-block: 80px 100px; border-top: 1px solid var(--line); background: var(--bg-1); }
