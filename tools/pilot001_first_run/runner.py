@@ -79,7 +79,7 @@ def run_container_pipeline(
         "--mount",
         f"type=bind,src={ROOT},dst=/work,readonly",
         "--mount",
-        f"type=bind,src={output_dir.resolve()},dst=/output,rw",
+        f"type=bind,src={output_dir.resolve()},dst=/output",
         "-w",
         "/work",
         "--env",
