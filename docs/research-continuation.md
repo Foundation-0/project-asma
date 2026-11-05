@@ -60,3 +60,17 @@ gaps, not a discovered ligand or patient mechanism. Shared general graph
 development proceeds in [Foundation-0/virtual-human](https://github.com/Foundation-0/virtual-human),
 with the original author credited and upstream contributions to follow once
 access is available.
+
+## Rosen treatment-sequence assumption experiment, 2026-11-05
+
+The [executed original synthetic comparison](research/rosen-treatment-sequence-assumptions.md)
+compares proportional surgical removal with a capped absolute residual target.
+Two models can agree on surgery-first observations and disagree on the other
+order, without any difference in final resistant fraction. The exact null,
+grid results and reversal examples identify a concrete measurement-design
+question: estimate a surgery response map from pre/postoperative burden and
+anatomy before interpreting a sequence prediction. Prior art, full-model limits,
+source-access failures and negative findings are retained. No study data or
+third-party analysis code was acquired or executed; full Gu-model reconstruction
+and empirical fitting remain gated. This complements the existing frontier
+work without replacing Pilot 001 or claiming a clinical advance.

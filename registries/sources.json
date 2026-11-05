@@ -1248,6 +1248,30 @@
       "takeaway": "C1R B-lymphoblastoid HLA-II immunopeptidomics supplies three curated CDR2 HLA-DP annotations.",
       "limitations": "Abstract and curated annotations only; no original spectra, unique protein assignment or anti-Yo receptor evidence independently verified. No data acquisition or reuse permission inferred.",
       "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S118",
+      "title": "Computational modeling of ovarian cancer dynamics suggests optimal strategies for therapy and screening.",
+      "kind": "paper",
+      "url": "https://doi.org/10.1073/pnas.2026663118",
+      "verification": "partial",
+      "reviewed_via": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8237655/",
+      "locator": "Main Results: Figure 4 treatment-outcome discussion; Modeling Alternative Treatment Regimens; robustness discussion.",
+      "takeaway": "Rosen-coauthored HGSC model motivates auditing how residual-burden assumptions influence treatment-order predictions.",
+      "limitations": "Relevant main-text sections inspected; not a full model reproduction. Supplementary equations, code and data rights unverified. Main model includes stochastic extinction, growth, resistance generation, inaccessible disease and recovery gaps omitted from our synthetic submodel. Source-specific notice/access/rights record in rosen-treatment-sequence-sources.json.",
+      "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S119",
+      "title": "Mathematical modeling of ovarian cancer treatments: sequencing of surgery and chemotherapy.",
+      "kind": "paper",
+      "url": "https://doi.org/10.1016/j.jtbi.2006.02.001",
+      "verification": "partial",
+      "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:16580022%20AND%20SRC:MED&format=json&resultType=core",
+      "locator": "Abstract, PMID 16580022.",
+      "takeaway": "Kohandel, Sivaloganathan and Oza explicitly assume instantaneous fixed-fraction surgery and compare growth/cell-kill models; direct sequencing-model prior art.",
+      "limitations": "Abstract/metadata only; full equations not inspected. No linked correction in examined metadata, not a complete publisher check. No third-party text/code/data reuse grant established; citation and original summary only.",
+      "checked_on": "2026-11-05"
     }
   ]
 }
