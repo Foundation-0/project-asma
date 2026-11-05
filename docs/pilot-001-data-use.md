@@ -1,25 +1,41 @@
 # Pilot 001: data-use disposition
 
-**Checked:** 2026-10-25. **Scope:** the selected discovery reconstruction, with
+**Checked:** 2026-10-25; Gate 0 execution hosts recorded 2026-11-05 (initial and Q1
+update). **Scope:** the selected discovery reconstruction, with
 no persistent source data, patient-level output or outside participant linkage.
 This records source terms, project choices and unresolved facts separately.
 It does not declare every public dataset unrestricted or make an institutional
 review determination.
 
-**Selected purpose:** independent, noncommercial research-method reconstruction,
-with an initial run designed for a verified Canadian execution context.
-Commercial/product uses are outside this phase and require a new use assessment.
-This is a prospective project choice, not a claim about an existing institution
-or a change to third-party license terms.
+**Selected purpose:** independent, noncommercial research-method reconstruction
+by a private, unaffiliated individual on his own hardware in Canada.
+
+**Execution hosts (Gate 0, 2026-11-05).**
+- **Study data (Dropbox matrix, MMC workbooks, fitting):** the owner's personal
+  MacBook (macOS), physically in Canada, province **Ontario** (Q1 update, verbatim:
+  "My MacBook is in Canada"; province verbatim "Ontario", 2026-11-05, 9:39 AM CT;
+  [issue #31](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662169564),
+  [attestation](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698)).
+- **Not for study data:** the Grok Bot team's shared cloud computer. Its only
+  recorded location evidence is an AWS us-east-1 outbound address (Ashburn,
+  Virginia, US), which is not a Canadian processing context. That host is for
+  **CI and dry runs on artificial inputs only** (synthetic fixtures, mocked
+  acquisition, registry checks).
+
+The conditional Canadian assessment below applies to the MacBook host. It is
+**not legal advice** and **no outside legal review** has occurred. Commercial/product
+uses are outside this phase and require a new use assessment. This is a prospective
+project choice, not a claim about an existing institution or a change to third-party
+license terms.
 
 **Decision:** select the case-specific Canadian research fair-dealing assessment
-below as a **conditional analysis-use route** for the exact archive. This is not
-a discovered license grant or an automatic legal clearance. Before relying on
-it, verify that the actual execution and governing context support that basis.
-The current managed workspace's processing jurisdiction is not established here.
-Methods and software preparation can continue now, as can bounded, in-memory
-metadata inspection under the [agent guidance](../AGENTS.md) (aggregates only); no
-research fitting is executed by this record. External outreach stays on hold.
+below as a **conditional analysis-use route** for the author Dropbox member on
+the MacBook host when the conditions in
+[Assessment for owner MacBook in Canada](#assessment-for-owner-macbook-in-canada-gate-0-q1-update-2026-11-05)
+are met. This is not a discovered license grant or an automatic legal clearance.
+Methods and software preparation can continue on any host with artificial inputs;
+research fitting on study values waits on the MacBook route, attestation and preflight.
+External outreach stays on hold.
 
 ## Input-specific decisions
 
@@ -64,15 +80,125 @@ this protocol; no blanket fair-dealing status is asserted for future uses.
 | Nature | The authors deliberately released processed research data for public download. The numerical observations have a factual character; any protected compilation/annotation or other applicable rights are not assumed absent. |
 | Effect | Aggregate statistical findings and original code do not supply a replacement source dataset. No evidence of a market for the exact free release was located, but market effects were not independently established. Do not convert that absence of evidence into a finding of zero effect. |
 
+### Assessment for owner MacBook in Canada (Gate 0 Q1 update, 2026-11-05)
+
+This subsection applies the table above to the recorded context: a **private
+individual**, **unaffiliated**, doing **noncommercial** research-method
+reconstruction on **his own MacBook in Canada**. It does not assert institutional
+approval, a statutory licence grant, or clearance for any other host.
+
+**Fair dealing (Copyright Act s. 29).** The pinned
+[CCH judgment, WIPO full PDF](https://www.wipo.int/wipolex/en/text/600136)
+(SHA-256 `3e586ac725a3ca37dcabbf4921353ef5ca87613d669b47be556627a984ea2f64` in
+the evidence table below) was inspected on 2026-10-25. In that copy, **paragraph
+50** states that fair dealing under s. 29 requires showing (1) the dealing was
+for research or private study and (2) it was fair. **Paragraph 51** states that
+“research” must be given a **large and liberal interpretation** so users’ rights
+are not unduly constrained, and that research is **not limited to non-commercial
+or private contexts**. This project’s purpose row in the six-factor table matches
+that eligible purpose; fairness still depends on the six factors (unchanged above).
+Reproduction on study values is intended to occur on a machine **physically in
+Canada**. SOCAN v. Bell Canada, 2012 SCC 36, is not cited here; it was not
+verified in a pinned primary copy for this record.
+
+**TCPS 2.** The pinned
+[TCPS introduction](https://ethics.gc.ca/eng/tcps2-eptc2_2022_introduction.html)
+and [scope interpretations](https://ethics.gc.ca/eng/policy-politique_interpretations_scope-portee.html)
+tie Tri-Council Policy Statement (TCPS 2) review obligations to eligible
+institutions (for example agency-funded research or institutions that adopt the
+policy). An **unaffiliated individual** is not such an institution; this record
+does **not** treat TCPS 2 as binding on the owner. For completeness, the pinned
+[chapter 2](https://ethics.gc.ca/eng/tcps2-eptc2_2022_chapter2-chapitre2.html)
+text was re-read: **Article 2.2** exempts some research from research ethics board
+(REB) review when it relies exclusively on information that is publicly available
+through a legislated mechanism or is in the public domain with no reasonable
+expectation of privacy, with application notes that copyright or dissemination
+restrictions may still apply. **Article 2.4** exempts secondary use of
+**anonymous** information when linkage or dissemination would not generate
+identifiable information, with warnings that anonymity is fragile and keyed
+clinical records must not be called anonymous (consistent with chapter 5 in this
+file). This project does **not** assert an article 2.2 or 2.4 exemption for the
+pinned clinical joins; the keyed records remain coded information under chapter 5.
+
+**PIPEDA (federal).** The cited
+[OPC commercial-activity guidance](https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/r_o_p/02_05_d_19/)
+describes PIPEDA’s commercial-activity scope. The selected phase is
+**noncommercial** and does not, by itself, establish a PIPEDA trigger; it also
+does not establish exemption from every privacy obligation.
+
+**Ontario (provincial note — closed for this context).** This is **research-governance
+judgement**, not legal advice; **no outside legal review** has occurred. The owner
+recorded province **Ontario** on 2026-11-05 ([issue #31 attestation](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698)).
+Section numbers below were verified on 2026-11-05 in the current Ontario e-Laws
+HTML copies pinned in the [evidence table](#bounded-search-and-retained-evidence).
+
+- **PHIPA** (*Personal Health Information Protection Act, 2004*, S.O. 2004, c. 3,
+  Sched. A). **Section 3** defines “health information custodian” as specified
+  categories of persons and organizations with custody or control of personal
+  health information in connection with performing listed health-care roles.
+  **Section 7** applies the Act to collection by custodians and to use or
+  disclosure by custodians or by **persons who are not custodians but to whom a
+  custodian disclosed** the information. The owner is **not** a health information
+  custodian under s. 3. The selected inputs are **public, de-identified research
+  releases** obtained from author and publisher sources, not personal health
+  information received from an Ontario custodian in that role.
+- **FIPPA** (*Freedom of Information and Protection of Privacy Act*, R.S.O. 1990,
+  c. F.31). **Section 2** defines “institution” as the Assembly, Ontario
+  ministries, specified service-provider organizations and bodies designated in
+  regulations. **Section 69** applies the Act to records in the custody or control
+  of an **institution**. The owner is not such an institution.
+- **MFIPPA** (*Municipal Freedom of Information and Protection of Privacy Act*,
+  R.S.O. 1990, c. M.56). **Section 1** states purposes tied to records and
+  personal information held by **institutions**; **section 2** defines
+  “institution” to include municipalities, school boards and other listed local
+  bodies. **Section 52** applies the Act to records in the custody or control of
+  an institution. The owner is not such an institution.
+- **Private-sector Ontario statute.** Ontario has **no general private-sector
+  privacy statute** of its own for this non-institutional use; PIPEDA’s
+  commercial-activity scope remains as above.
+
+**Verdict:** provincial note **closed** for this recorded context; **CONDITIONAL GO**
+for the Dropbox matrix on the MacBook host **stands**, still subject to conditions
+(b)–(c) below and to a **fresh dated attestation** for any run after 2026-11-05.
+
+**Conclusion (Dropbox discovery matrix on the MacBook host).**
+
+| Label | Meaning |
+| --- | --- |
+| **CONDITIONAL GO** | The author Dropbox member may be processed on the owner’s MacBook in Canada for this narrow reconstruction **only if** all of (a)–(c) below are satisfied. |
+| **NO-GO** | If any of (a)–(c) fails, do not acquire or fit on that matrix (openly licensed inputs only). |
+
+Conditions:
+
+(a) **Attestation:** a dated owner attestation that the machine is in Canada, is
+his own hardware, the use is noncommercial, and no institutional or funding
+obligations apply (Gate 0 Q2). **Recorded 2026-11-05, 9:39 AM America/Chicago**
+([issue #31](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698)),
+verbatim:
+
+> I attest that on Nov 5, 2026 the Pilot 001 run executes on my own MacBook, physically in Canada; the use is noncommercial; and no institutional or funding obligations apply to it.
+
+Province: Ontario. **Condition (a) is met for a run on 2026-11-05 only.** A run on
+a later calendar date needs a fresh dated attestation. This public record is not
+the git-ignored `pilot-001-owner-attestations.json` entry the adapter checks; that
+file must still hold a matching current entry before acquisition.
+
+(b) **macOS runtime preflight:** **open.** The checks in
+[macOS runtime preflight](#macos-runtime-preflight-study-data-host) pass on that
+machine before study bytes are loaded.
+
+(c) **No row-level leakage:** **open** until the run completes without breach.
+Nothing patient-level or source-row-level leaves process memory, including
+terminal scrollback, logs, crash reports or **agent-chat output** (aggregate-only
+publication remains as in the Publication row).
+
 On these facts, the project selects a **conditional, bounded research-use
-basis** for the planned Canadian execution route, rather than making an explicit
-licensor grant a universal prerequisite. This is an operational design choice,
-not an election of governing law: a server region or repository label alone
-cannot establish all applicable law. Confirm actual
-research/execution location, host terms and relevant institutional or funding
-obligations before a real-data run. If those facts do not support this route,
-reassess the applicable basis before fitting; do not silently transplant a
-Canadian exception to another jurisdiction.
+basis** for the MacBook execution route when (a)–(c) are met, rather than making
+an explicit licensor grant a universal prerequisite. This is an operational
+design choice, not an election of governing law. The shared cloud host is **not**
+part of this route. If execution moves off the MacBook or outside Canada,
+reassess before fitting; do not silently transplant a Canadian exception to
+another jurisdiction.
 
 This assessment does not authorize publication of source rows, reidentification,
 commercial exploitation, redistribution of author code, or use contrary to any
@@ -151,11 +277,55 @@ The following project choices can be fixed now, without external contact:
 | --- | --- |
 | Purpose and linkage | Research-method reconstruction only; no clinical decisions, participant contact, reidentification or linkage beyond the pinned study annotations and membership. |
 | Retention | Inputs, join keys, folds, scores and fitted models remain in process memory. No persistent dataset or private output directory is needed for this run. Do not claim an institution-approved location where none has been established. |
-| Runtime checks | Verify the planned Canadian processing context and relevant operator/provider circumstances. Before real data, disable data caches, R workspace saves, core dumps and data-bearing logs; inspect temporary-file/swap behavior. Do not claim certified erasure or provider retention controls without evidence. Applicable hosting/privacy rules still apply to transient processing. |
+| Runtime checks | On the **MacBook study-data host**, complete [macOS runtime preflight](#macos-runtime-preflight-study-data-host) before loading study bytes. On any host, disable data caches, R workspace saves, core dumps and data-bearing logs; inspect temporary-file/swap behavior. Do not claim certified erasure or provider retention controls without evidence. Applicable privacy rules still apply to transient processing. |
 | Publication | Persist only reviewed aggregates, implementation, citations, hashes and execution metadata. No row-level outputs, patient-key hashes, models or source archives in Git, logs, chat or external AI services. |
 | Attribution | Cite Chowdhury et al., the article version/supplements, the exact author member and any used package releases. For PDC-derived outputs, also provide the CC BY 4.0 link, indicate changes and include the CPTAC credit below. |
-| Scientific review | External review remains pending. Internal software checks do not replace it; recruitment remains deferred under the outreach hold. |
+| Scientific review | External review **deferred** (Gate 0 Q4, 2026-11-05). Label any result **not externally reviewed**. Internal software checks do not replace it; recruitment remains deferred under the outreach hold. |
 | Project code licensing | An owner license decision is still absent. Do not invent a grant to downstream users; this does not prevent writing or checking the project's own implementation. |
+
+#### macOS runtime preflight (study-data host)
+
+Apply on the owner's MacBook **before** live acquisition or fitting on study values.
+Record pass/fail in the execution attestation context; automated cloud CI does
+not substitute for this checklist.
+
+**Docker Desktop (pinned combined runtime).**
+
+- Run containers `--rm` with `--log-driver none`, a **read-only** root filesystem,
+  `tmpfs` for `/tmp` and other writable temp dirs, `--ulimit core=0`, and **no**
+  bind mounts or volumes for data.
+- Set Docker Desktop **VM swap to 0** so tmpfs pages cannot spill to the VM disk
+  image.
+
+**Host.**
+
+- Confirm `ulimit -c` is `0` and inspect `sysctl kern.coredump`.
+- Inspect `sysctl vm.swapusage` and `fdesetup status` (FileVault implies
+  encrypted swap when active).
+
+**Acquisition and paths.**
+
+- **Never** download study files through a browser; fetch inside the container
+  (adapter acquisition path).
+- Keep data off any **iCloud**, **Dropbox-synced** or **Time Machine**-backed
+  project path.
+
+**R.**
+
+- Invoke R with `--no-save --no-restore`; disable persistent history for the run.
+
+**Telemetry and cleanup.**
+
+- Analytics sharing is optional; ensure **DiagnosticReports** cannot retain run
+  data relevant to this project.
+- After the run, verify no leftover containers or volumes hold study data.
+
+**Architecture (CONJECTURE).** If the pinned image is **amd64** and runs under
+emulation on Apple Silicon, numerical results may differ from the recorded
+pinned-image runs. Record the machine architecture in the execution context; treat
+an **arm64** image rebuild or a **cross-architecture synthetic equivalence
+check** as a precondition before comparing study-data AUROC to the synthetic
+baseline — not established here.
 
 The no-retention choice resolves the need to select a persistent data location
 for this particular run. It changes the future execution-record design:
@@ -199,14 +369,22 @@ No research datasets were downloaded in this follow-up.
 | [TCPS chapter 2](https://ethics.gc.ca/eng/tcps2-eptc2_2022_chapter2-chapitre2.html) | 57,180 | `6c422bd1326484f6f7e8ce7e2e64c3bf2ba98598bba0711f2d513d6fddd0d92b` |
 | [TCPS chapter 5](https://ethics.gc.ca/eng/tcps2-eptc2_2022_chapter5-chapitre5.html) | 54,931 | `1ccc414b2af7c61179a2a644b0362b75a508d076c3db6972f538ac09ab847059` |
 | [OPC commercial-activity guidance](https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/r_o_p/02_05_d_19/) | 23,635 | `73aa3bded6a64c403c6dad91feda0b163bdbef9afd14de68daa8727c9742da19` |
+| [PHIPA 2004, Ontario e-Laws v18](https://www.ontario.ca/laws/statute/04p03/v18) | 255,817 | `2ee8b8c1c85612df4976b28b4a9e71596961a9e3f2af13136580cb591d30dad8` |
+| [FIPPA, Ontario e-Laws v16](https://www.ontario.ca/laws/statute/90f31/v16) | 174,223 | `f216f39cd4511951cfbdfc2ffed9d7a02f9d4b94c31fc6241ce6c09b25ff2ccb` |
+| [MFIPPA, Ontario e-Laws v8](https://www.ontario.ca/laws/statute/90m56/v8) | 128,211 | `8176a379e1bc1fbc1577576f69c702fe69f3ce0445d2f94f8461f622c0589357` |
 
 The NLM record identifies PMC10414761 version 1 and lists MMC1/MMC4 media with
 their existing MD5 pins. This associates them with the article-version license
 metadata; it is not a newly discovered independent workbook license.
 
-The remaining execution condition is now specific: verify that the actual
-jurisdiction, host and applicable review/privacy context support the selected
-conditional research-use basis and the noncommercial scope. Before live acquisition of study files, a real-source input check or any fitting on study values, the owner must record a dated attestation of the actual execution context and give a new explicit instruction to run. An automated session's own checks never satisfy this condition.
+The remaining execution conditions before study-data fitting: **(b)** macOS
+preflight on the MacBook; **(c)** no row-level leakage through the run; **(d)** A2
+option B and A3 implementation per amendment 1. Condition **(a)** attestation is
+**met for 2026-11-05 only** (see above). Before live acquisition of study files,
+a real-source input check or any fitting on study values, the owner must hold a
+**current** dated attestation for the run date (via the adapter attestation file
+and this public record) and give a new explicit instruction to run. An automated
+session's own checks never satisfy this condition.
 The subsequent
 [synthetic validation](pilot-001-synthetic-validation.md) implements and tests the
 fixed reconstruction choices with original code and public software packages.
