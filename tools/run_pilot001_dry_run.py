@@ -51,8 +51,11 @@ def main() -> int:
         usage_after = resource.getrusage(resource.RUSAGE_CHILDREN)
         peak_rss = max(usage_after.ru_maxrss, usage_before.ru_maxrss)
         if completed.returncode != 0:
+            if completed.stderr:
+                sys.stdout.write(completed.stderr)
             sys.stdout.write(completed.stdout)
-            sys.stderr.write(completed.stderr)
+            if completed.stderr:
+                sys.stderr.write(completed.stderr)
             return completed.returncode
         summary = json.loads(completed.stdout.strip().splitlines()[-1])
         summary["peak_rss_kib"] = peak_rss
