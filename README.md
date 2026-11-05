@@ -39,6 +39,7 @@ clinical validity, or improved patient outcomes.
 | [Input and linkage resolution — 2026-10-23](docs/pilot-001-input-resolution.md) | Executed metadata checks, recovered source locations, and remaining reproduction gaps |
 | [Published-score verification specification](protocols/pilot-001-score-verification.md) | Fixed numerical check and recorded execution basis |
 | [Discovery-score AUROC result](docs/pilot-001-score-verification-result.md) | Executed preliminary result, comparison failure and remaining provenance limits |
+| [Discovery AUROC discrepancy analysis](docs/pilot-001-auc-discrepancy.md) | Candidate explanations (a)–(e) for 0.80885 vs printed 0.83; public scores only |
 | [Validation capacity](docs/pilot-001-validation-capacity.md) | Executed aggregate calculation of what the available cohort can establish at 98% specificity |
 | [Held-out evaluation tools](docs/heldout-evaluation.md) | Original evaluation code tested on artificial cases, with patient separation and paired comparisons |
 | [Independent progress](docs/pilot-001-independent-progress.md) | Matrix-header diagnostic, score lineage and concrete supplement-legend mismatch |

@@ -47,6 +47,11 @@ read and why.
   hashes and environment. The [result report](../docs/pilot-001-score-verification-result.md)
   records the discrepancy and pending external review. No patient-level scores
   are retained; this is not model regeneration or independent validation.
+- [pilot-001-auc-discrepancy.json](pilot-001-auc-discrepancy.json): executed
+  candidate-explanation analysis for the discovery AUROC gap (ties, polarity,
+  rounding bounds, estimators, DeLong and stratified bootstrap CIs) with
+  `artifact_sha256` and tool hashes. See
+  [docs/pilot-001-auc-discrepancy.md](../docs/pilot-001-auc-discrepancy.md).
 - [pilot-001-matrix-header-summary.json](pilot-001-matrix-header-summary.json):
   executed exact matrix-header/clinical-label diagnostic, with bounded header
   hashes and source/catalog provenance. Regenerate with
