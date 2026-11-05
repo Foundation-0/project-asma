@@ -1,8 +1,10 @@
 # Pilot 001: reconstruction decisions, amendment 1
 
-**Version:** 1.0, 2026-10-25. **Status:** proposed; not adopted until the owner
-records a dated decision below. Merging this file, including a merge by an
-automated session, does not adopt it.
+**Version:** 1.0, 2026-10-25. **Status:** A1, A2 and A3 **adopted** by owner
+decision 2026-11-05 ([roadmap Gate 0](../docs/roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05),
+[issue #31](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662111371)).
+A2 option B and A3 **implementation** remain proposed work and must precede any
+research run. Merging this file without that dated record does not adopt it.
 
 It does not edit the hash-pinned
 [decision record](pilot-001-reconstruction-decisions.md) (version 1.0). Run
@@ -44,6 +46,9 @@ Implementation: `run_reconstruction` already returns these values as
 `summary$repetition_auc`, and the synthetic tests check them. Both runners emit
 only allow-listed fields, so nothing new is printed. If the owner rejects A1,
 remove the computation before any research run.
+
+**Owner decision (2026-11-05):** accept. Adopted as a descriptive secondary output;
+not compared with 0.83.
 
 ## A2. Sensitivity configuration (proposed configuration and owner options)
 
@@ -155,6 +160,10 @@ study values and one more number to interpret. What is lost: the first run would
 not measure how much the AUROC depends on the environment or, beyond A1, on fold
 assignment.
 
+**Owner decision (2026-11-05):** accept **both** option A (`tree_method = "hist"`)
+and option B (outer seeds 101–200). Option B must be implemented, tested and
+reviewed before any research run.
+
 ## A3. Warnings and messages from model calls (proposed policy)
 
 The decision record says model errors and convergence failures stop the run. The
@@ -255,15 +264,19 @@ silent-call boundary and the runners' allow-listed output, with tests. The
 execution records would then be regenerated. This amendment changes no R code
 for A3.
 
+**Owner decision (2026-11-05):** accept the **proposed strict policy** — every
+warning, message and console text is fatal, with an aggregate failure code.
+Implementation remains proposed work and precedes any research run.
+
 ## Owner decision required
 
-Before any research run, the owner records a dated decision here:
+**Recorded 2026-11-05, 9:34 AM America/Chicago (15:34 UTC)** ([roadmap Gate 0](../docs/roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05),
+[issue #31](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662111371)).
+Owner answer on amendment 1 (verbatim): "take grk-helix's recommendations".
 
-- **A1:** accept, or reject (the computation is then removed).
-- **A2:** accept option A (`"hist"`), choose option B (outer seeds 101–200), run
-  both, specify a different configuration, or waive the requirement for the
-  first run.
-- **A3:** accept the proposed policy, choose the counting alternative, or specify
-  another. Its implementation follows the decision and precedes any research run.
-
-No decision has been recorded.
+- **A1:** accept.
+- **A2:** both — option A (`"hist"`) and option B (outer seeds 101–200). Option B
+  must be implemented, tested and reviewed before any research run.
+- **A3:** accept the proposed strict policy (all warnings, messages and console
+  text fatal, aggregate failure code). Implementation follows the decision and
+  precedes any research run.

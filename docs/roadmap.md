@@ -1,6 +1,6 @@
 # Roadmap
 
-Status: updated 2026-11-04. The [project mission](mission.md) defines useful
+Status: updated 2026-11-05. The [project mission](mission.md) defines useful
 progress across **open-ended** ovarian cancer research. Pilot 001 keeps its
 existing gates and endpoint; other work enters through the process below.
 
@@ -38,8 +38,9 @@ The **2026-11-04 software rerun** passed all 179 R assertions, the full
 assertions), 30 adapter Python tests under pinned CPython, and all 40
 execution-condition checks on the rebuilt combined runtime. It closes the
 post-October-27 fixture rerun and cgroup-probe gaps; it uses artificial inputs
-only and does not close the owner's pre-run decisions or the research-use
-conditions. The [source-adapter report](pilot-001-source-adapter.md) records the
+only and does not close every Gate 0 item or the attestation, macOS preflight,
+A2 option B and A3 steps still open after the
+[2026-11-05 Gate 0 record](#pilot-001--gate-0-owner-decisions-2026-11-05). The [source-adapter report](pilot-001-source-adapter.md) records the
 commands, hashes and remaining unknowns. The same day's
 [GitHub source check](pilot-001-open-questions.md#github-follow-up-2026-11-04)
 found no new upstream input release. Software preparation and bounded public
@@ -52,7 +53,7 @@ The candidate subset has 13 sensitive patients. Even perfect observed
 specificity would give a one-sided 95% lower bound of 79.4%, under independent
 binomial sampling and a fixed threshold. The favorable-outcome minimum for a
 98% lower bound is 149 independent sensitive patients with zero false positives.
-Pending owner decision (2026-10-29): treat the current candidate cohort as
+Owner decision (2026-11-05, Gate 0 Q5): treat the current candidate cohort as
 exploratory only; a future confirmatory design needs more independent
 patients and a separate power calculation. The
 [held-out evaluation library](heldout-evaluation.md) prepares the comparisons
@@ -126,24 +127,46 @@ per-model planted-signal direction test passed in the pinned image on
 2026-10-27. No researcher contact is needed for the software preparation. The
 2025 fallback remains unadopted.
 
-Pending owner decision (2026-10-25), required before any research run: accept or
-reject [reconstruction amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md).
-It covers two of the open items and one addition:
-- **A1:** the per-repetition AUROC distribution, as a descriptive secondary
-  output.
-- **A2:** a fixed sensitivity configuration. It proposes XGBoost
-  `tree_method = "hist"` with everything else identical, reported as
-  exploratory. With 108 training rows this mainly moves split thresholds, so its
-  leverage is limited. The owner may instead choose a second block of fold seeds,
-  run both, or waive the requirement. The seed block measures dependence on fold
-  assignment, so alone it leaves the environment question open, as a waiver
-  would.
-- **A3:** which warnings and messages from model calls stop a run. It proposes
-  that every warning stays fatal, that messages become fatal and that a fixed
-  aggregate code records what stopped a run. The alternative counts glmnet's
-  saturation warnings. The implementation follows the decision.
+## Pilot 001 — Gate 0 owner decisions (2026-11-05)
 
-Merging the file does not adopt it. The direction test, the third open item,
+**Recorded:** 2026-11-05, 9:34 AM America/Chicago (15:34 UTC); **Q1 revised**
+9:37 AM America/Chicago (15:37 UTC). **Sources:**
+[Gate 0 answers](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662111371);
+[Q1 update](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662169564);
+[execution-context attestation](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698).
+The owner (Alkindus Arifuddin) answered in a Grok Bot chat; grk-helix checked
+that chat's transcript.
+
+| Item | Owner answer (verbatim) | As recorded |
+| --- | --- | --- |
+| Q1. Execution location | Initial: "run it on the bots' cloud computer". **Update:** "My MacBook is in Canada" (2026-11-05, 9:37 AM CT). Province: **Ontario** (9:39 AM CT). | **Study data:** the owner's personal MacBook (macOS), physically in Canada (Ontario). **Not for study data:** the Grok Bot team's shared cloud computer (AWS us-east-1 outbound address, Ashburn, Virginia, US — not a Canadian context). That host is for **CI and dry runs on artificial inputs only**. **Dropbox matrix:** conditional go on the MacBook per [data-use](pilot-001-data-use.md#assessment-for-owner-macbook-in-canada-gate-0-q1-update-2026-11-05) when conditions (a)–(c) are met; see attestation below. Openly licensed inputs (PDC000357–362 CC BY 4.0; MMC workbooks non-commercial) remain usable without that route. |
+| Q2. Gate 0 sign-off | "yes" | The owner signs the execution-context attestation and instructs live acquisition of study files and fitting on study values, subject to the Q1 host and data-use conditions above. **Attestation recorded** 2026-11-05, 9:39 AM CT (verbatim in [execution-context attestation](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698)). Condition **(a)** met for a run on **2026-11-05 only**; a later run date needs a fresh dated attestation. Conditions **(b)** macOS preflight and **(c)** aggregate-only output (including terminal and agent-chat output) remain **open**. |
+| Q3. Amendment 1 | "take grk-helix's recommendations" | **A1: accept.** **A2: both** — option A XGBoost `hist`; option B outer seeds 101–200. Option B must be implemented, tested and reviewed before the run. **A3:** the proposed strict policy — all warnings, messages and console text are fatal, with an aggregate failure code. See [amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md#owner-decision-required). |
+| Q4. External scientific review | "defer" | Deferred. Any result must be labelled **not externally reviewed**. Deferred review is not completed review. |
+| Q5. Cohort scope | "confirm" | The 13-sensitive-patient cohort is exploratory only. Confirmatory claims need more independent patients and a separate power calculation. |
+
+**Owner execution-context attestation (2026-11-05, 9:39 AM America/Chicago).**
+Verbatim ([issue #31](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698)):
+
+> I attest that on Nov 5, 2026 the Pilot 001 run executes on my own MacBook, physically in Canada; the use is noncommercial; and no institutional or funding obligations apply to it.
+
+Province (verbatim): "Ontario". Condition **(a)** of the conditional Canadian route in
+[data-use](pilot-001-data-use.md#assessment-for-owner-macbook-in-canada-gate-0-q1-update-2026-11-05)
+is **met for a run on 2026-11-05 only**. A run on a later calendar date needs a
+fresh dated attestation. Conditions **(b)** and **(c)** remain open.
+
+Gate 0 is **partially closed**: Q1 execution host, Ontario provincial note and
+Canadian-context assessment are recorded; Q2 attestation for 2026-11-05 and
+Q3–Q5 are recorded. Before study-data fitting, still required: macOS runtime
+preflight ([data-use](pilot-001-data-use.md#macos-runtime-preflight-study-data-host)),
+condition **(c)** on the run, A2 option B implementation, and A3 implementation.
+Issue [#31](https://github.com/Foundation-0/project-asma/issues/31) stays open until
+preflight, condition (c) on an executed run, and A2 option B are satisfied.
+
+Owner decision (2026-11-05, Gate 0 Q3): adopt
+[reconstruction amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md)
+as above. Merging that file alone never adopted it; this dated record does.
+The direction test, the third open item,
 passed in the pinned image on 2026-10-27. That rerun regenerated the synthetic
 and source-adapter execution records (179 R assertions, the full 100-repeat run
 and 19 bridge assertions; see the
@@ -153,12 +176,13 @@ The execution-condition probe could not run on that cgroup v1 host. The
 ([#22](https://github.com/Foundation-0/project-asma/pull/22)) then changed
 `tools/source_data_adapter.py` and `tests/test_source_data_adapter.py`; both
 are covered by the 2026-11-04 pinned-image fixture and unit-test rerun. A
-real-file check still requires the owner's execution-context attestation and
-explicit instruction in Gate 0.
+real-file check needs the owner's execution-context attestation for the run date
+(Gate 0 Q2; condition (a) met for 2026-11-05 only), macOS preflight (b), and
+aggregate-only handling (c) per [data-use](pilot-001-data-use.md).
 
 | Gate | Deliverable | Acceptance or stop rule |
 | --- | --- | --- |
-| 0. Agree scope and rights | Input-specific use disposition; applicable review requirements; code-licensing expectations | Original implementation can proceed. Bounded, in-memory source inspection, including rerunning the recorded audits, is part of autonomous research (owner decision, 2026-10-25) and keeps only aggregates; unresolved real-data use conditions stop fitting. Live acquisition of study files, a real-source input check or fitting on study values also needs the owner's dated attestation of the execution context and a new explicit instruction; automated checks never satisfy this. No collaborator has been recruited, and external scientific review remains pending; whether that review is waived or deferred is the owner's decision. |
+| 0. Agree scope and rights | Input-specific use disposition; applicable review requirements; code-licensing expectations | Original implementation can proceed. Bounded, in-memory source inspection, including rerunning the recorded audits, is part of autonomous research (owner decision, 2026-10-25) and keeps only aggregates; unresolved real-data use conditions stop fitting. Live acquisition of study files, a real-source input check or fitting on study values needs the owner's dated attestation and explicit instruction (recorded 2026-11-05, Q2) on the owner's MacBook in Canada with macOS preflight and data-use conditions met; the shared cloud host is CI and artificial-input dry runs only. Automated checks never satisfy this. No collaborator has been recruited. External scientific review is **deferred** (2026-11-05, Q4); label any result **not externally reviewed**. |
 | 1. Establish provenance | Release/file/checksum manifest; private patient/aliquot overlap map; exclusion counts; pinned author commit and environment | Every cohort has a traceable source and independent-patient status. Unresolved identity, labels, or terms stop analysis. |
 | 2. Reproduce one result | One specified Figure 3D result with commands, locked dependencies, seeds, inputs, and discrepancy log | Numerical agreement within a declared tolerance, or a reproducible explanation of failure. No performance claim from a hard-coded plot label. |
 | 3. Stress-test | Patient-independent metrics with uncertainty; simple baselines; leakage and assay sensitivity analyses | Separate preservation/batch/cohort effects and original reproduction from revised evaluation. Report null and negative findings. |

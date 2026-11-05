@@ -23,7 +23,7 @@
     "R/asma_input.R": "0b69c848765cbb7cc9af59efff9c6744f4772aa8931a3fc7bb136708f4ef6ed6",
     "R/asma_models.R": "4b277924efe37c5b3ce324ad63093db3a748a7f712410a55f602cb1ae885c5b6",
     "R/asma_source.R": "c4859eee30e7bcbd7f5151f387ae702f16701d3786244b0cafdcea3b4b3b2f28",
-    "protocols/pilot-001-reconstruction-amendment-1.md": "112c3ad93e8685abc2b10de450dab6bf49bc9e95a7a0e32d897a0e8b3a9618cc",
+    "protocols/pilot-001-reconstruction-amendment-1.md": "a0067eee784f28345437a2097e95b64ac2a5a0fbd7e544d7dcb5bb5d20399953",
     "protocols/pilot-001-reconstruction-decisions.md": "30108f27b5a9bb3c32262050af760ca968fd65bd21b1330f093fb558ad0bed80",
     "registries/pilot-001-source-adapter-runtime.json": "84eacad90fdfcc2eaf7997e75bcbb45820e0e62bde48af1e7369d9e8d2754813",
     "runtime/Dockerfile.source-adapter": "4ec8f4246b9415b3406c389ceea1c2af645e90606c2a774fd91d892907a89734",
