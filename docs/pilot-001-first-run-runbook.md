@@ -137,7 +137,7 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 
 **Attestation:** The host runs the full attestation gate **before** phase 1. Phase **2** bind-mounts `registries/pilot-001-owner-attestations.json` (when present locally) for `parse_sources()` authorization. Phase **1** does not mount that file.
 
-**Native linux/arm64 synthetic builds and amd64↔arm64 equivalence checks** are intentionally **out of scope** (sibling PR).
+**Apple Silicon:** Before `--real` on an **arm64** Mac, build both synthetic tags, run [`run_cross_arch_equivalence.py`](../tools/run_cross_arch_equivalence.py) (step **2b**), and keep the pass record beside first-run outputs. Real mode still uses the two-phase fetch/analyze flow above; equivalence is an additional gate on native arm64 hosts only.
 
 ### (5) Exact approved command sequence
 
