@@ -22,12 +22,20 @@ def main() -> int:
             return 1
         print("SKIP: docker unavailable", file=sys.stderr)
         return 0
-    subprocess.run(
-        [sys.executable, str(ROOT / "tools/build_synthetic_runtime.py")],
-        cwd=ROOT,
-        check=True,
-        env=local_docker_env(),
+    env = local_docker_env()
+    inspect = subprocess.run(
+        ["docker", "--host=unix:///var/run/docker.sock", "image", "inspect", "asma-synthetic:4.4.3"],
+        env=env,
+        capture_output=True,
+        check=False,
     )
+    if inspect.returncode != 0:
+        subprocess.run(
+            [sys.executable, str(ROOT / "tools/build_synthetic_runtime.py")],
+            cwd=ROOT,
+            check=True,
+            env=env,
+        )
     usage_before = resource.getrusage(resource.RUSAGE_CHILDREN)
     with tempfile.TemporaryDirectory(prefix="pilot001-dry-") as tmp:
         output = Path(tmp) / "out"
