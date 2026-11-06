@@ -86,6 +86,13 @@ review. ClinicalTrials.gov/NLM is the source of registry metadata; original
 normalization, aggregate counting and reporting are this project's work.
 Internal checking is not external scientific or clinical peer review.
 
+The **6 November 2026 public-site refresh** was prepared with OpenAI Codex and
+**GPT-6 Astra** agents for public-source coverage, Pilot 001 status, Virtual Human
+capabilities and a separate final science review. It presents the teams' merged
+work through Project Asma #64 and Virtual Human #7, with source links and the
+original authorship preserved. Website and artificial-input checks do not
+establish new research results or clinical benefit.
+
 ## Prior work credited by name
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);

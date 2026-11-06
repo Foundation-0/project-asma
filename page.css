@@ -4,7 +4,7 @@
 
 .observatory { --max: 1320px; --sec-pad: clamp(72px, 8vw, 120px); }
 .observatory main { overflow: clip; }
-.observatory :where(section, article, details, div)[id] { scroll-margin-top: 88px; }
+.observatory :where(section, article, details, div, figure, h3)[id] { scroll-margin-top: 88px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .eyebrow, .context-line, .card-meta, .diagram-caption, .step-number, .possibility > span, .horizon-step > span {
   font: 500 11px/1.55 var(--f-mono); letter-spacing: .12em; text-transform: uppercase;
@@ -108,6 +108,39 @@ html:not(.js) .viewer-loading { display: none; }
 .research-card p { max-width: 59ch; margin-bottom: 14px; color: var(--ink-2); font-size: 14px; line-height: 1.75; }
 .research-card .record-link { margin-top: auto; font-size: 12px; }
 .section-footnote { margin-top: 16px; padding-top: 20px; border-top: 1px solid var(--line); max-width: 100%; color: var(--ink-3); font-size: 12px; line-height: 1.7; }
+
+/* A dated route into new work, followed by the limits of one evidence chain. */
+.research-update { margin-bottom: 24px; padding: 20px 24px; background: var(--bg-1); border-left: 2px solid var(--bio); }
+.research-update > p, .research-update nav { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+.research-update time { color: var(--ink-3); font: 11px/1.5 var(--f-mono); }
+.research-update nav { margin-top: 8px; }
+.research-update a { padding-block: 8px; font-size: 13px; text-underline-offset: 4px; }
+.recognition-path { margin: 32px 0; padding: clamp(22px, 3vw, 40px); border: 1px solid var(--line-ui); background: var(--bg-1); }
+.recognition-path h3 { margin: 16px 0; font: 400 clamp(28px, 2.8vw, 40px)/1.15 var(--f-serif); letter-spacing: -.03em; }
+.recognition-path figcaption > p:last-child { max-width: 70ch; font-size: 14px; line-height: 1.75; color: var(--ink-2); }
+.evidence-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; list-style: none; padding: 0; margin: 32px 0 24px; }
+.evidence-steps li { min-width: 0; border-top: 2px solid var(--bio); padding-top: 16px; }
+.evidence-steps li.evidence-open { border-top-style: dashed; border-top-color: var(--dig); }
+.evidence-steps .step-number, .evidence-steps .status-label { display: block; font-size: 9px; letter-spacing: .06em; }
+.evidence-steps .step-number { color: var(--ink-3); margin-bottom: 10px; }
+.evidence-steps h4 { margin: 16px 0 12px; font: 400 24px/1.2 var(--f-serif); }
+.evidence-steps p, .evidence-boundary { color: var(--ink-2); font-size: 13px; line-height: 1.75; }
+.evidence-boundary { border-top: 1px solid var(--line); padding-top: 20px; }
+.evidence-links { display: flex; flex-wrap: wrap; gap: 0 24px; margin-top: 10px; }
+.evidence-links a { font-size: 12px; }
+.trial-table { margin-block: 20px; width: 100%; }
+.trial-table th:first-child { white-space: normal; }
+.trial-table td { font-variant-numeric: tabular-nums; }
+@media (max-width: 980px) {
+  .evidence-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .research-update { padding: 18px; }
+  .research-update nav { gap: 0 20px; }
+  .evidence-steps { grid-template-columns: minmax(0, 1fr); }
+  .recognition-path h3 { font-size: 29px; }
+  .evidence-steps h4 { margin-top: 12px; }
+}
 
 /* Scales of biology and a three-part chain of reasoning. */
 .science-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 7vw, 100px); }
@@ -323,7 +356,7 @@ html:not(.js) .viewer-loading { display: none; }
 @media (max-width: 640px) {
   .observatory { --gutter: 22px; --sec-pad: 64px; }
   .observatory .site-head { height: 64px; }
-  .observatory :where(section, article, details, div)[id] { scroll-margin-top: 80px; }
+  .observatory :where(section, article, details, div, figure, h3)[id] { scroll-margin-top: 80px; }
   .hero-section { padding-top: 32px; padding-bottom: 48px; }
   .hero-copy > .eyebrow { font-size: 9px; letter-spacing: .1em; }
   .hero-title { margin-top: 25px; font-size: clamp(46px, 10.5vw, 64px); line-height: 1.05; }
