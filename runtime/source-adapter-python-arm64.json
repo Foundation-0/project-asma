@@ -2,7 +2,7 @@
   "schema_version": 1,
   "scope": "Software-only source-adapter runtime; no study data",
   "base_image_tag": "asma-synthetic:4.4.3-arm64",
-  "base_image_id": null,
+  "base_image_id": "sha256:5cc396d64b95c1652d25d747baa8957d87bcbca18ec8b910ae63a8290619f150",
   "image_tag": "asma-source-adapter:3.12.14-4.4.3-arm64",
   "platform": "linux/arm64",
   "cpython": {

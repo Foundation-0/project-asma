@@ -161,7 +161,8 @@ class TestAttestationAndGates(unittest.TestCase):
 
         mock_preflight.return_value = PreflightReport("macos", True, {"ulimit_core": "PASS"})
         mock_inspect.side_effect = lambda tag: {
-            "Id": "sha256:" + ("2" * 64 if tag.endswith("-arm64") else "1" * 64)
+            "Id": "sha256:" + ("2" * 64 if tag.endswith("-arm64") else "1" * 64),
+            "Architecture": "arm64" if tag.endswith("-arm64") else "amd64",
         }
         with tempfile.TemporaryDirectory() as tmp:
             buffer = io.StringIO()

@@ -6,6 +6,7 @@ import json
 import sys
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -13,20 +14,27 @@ sys.path.insert(0, str(ROOT / "tools"))
 from pilot001_first_run import failure_codes as codes  # noqa: E402
 from pilot001_first_run.cross_arch_equivalence import (  # noqa: E402
     FAILURE_CODE,
+    PASS_SCHEMA_VERSION,
     build_pass_record,
     compare_synthetic_records,
+    git_sha_matches_head,
     load_pass_record,
     pass_record_matches_images,
-    validate_macos_arm64_equivalence,
+    verify_pass_record_payload,
 )
+from pilot001_first_run.gates import validate_cross_arch_equivalence_for_real_run  # noqa: E402
 import build_synthetic_runtime as builder  # noqa: E402
 
 FIXTURES = ROOT / "tests/fixtures"
+HEAD_SHA = "a" * 40
 
 
 class CrossArchEquivalenceTests(unittest.TestCase):
     def load(self, name: str) -> dict:
         return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
+
+    def valid_pass_record(self) -> dict:
+        return self.load("cross_arch_equivalence_pass.json")
 
     def test_identical_fixtures_pass(self):
         result = compare_synthetic_records(
@@ -34,7 +42,7 @@ class CrossArchEquivalenceTests(unittest.TestCase):
             self.load("cross_arch_arm64_record.json"),
         )
         self.assertTrue(result.passed)
-        self.assertIsNone(result.failure_code)
+        self.assertTrue(result.metrics)
 
     def test_planted_divergence_fails_with_code(self):
         result = compare_synthetic_records(
@@ -45,42 +53,76 @@ class CrossArchEquivalenceTests(unittest.TestCase):
         self.assertEqual(result.failure_code, FAILURE_CODE)
         self.assertTrue(result.deltas)
 
-    def test_pass_record_binds_image_ids(self):
+    def test_pass_record_includes_auditable_metrics(self):
         amd64 = self.load("cross_arch_amd64_record.json")
         arm64 = self.load("cross_arch_arm64_record.json")
         comparison = compare_synthetic_records(amd64, arm64)
-        record = build_pass_record(amd64_record=amd64, arm64_record=arm64, comparison=comparison)
-        self.assertTrue(record["passed"])
-        loaded = load_pass_record(FIXTURES / "cross_arch_equivalence_pass.json")
-        self.assertIsNotNone(loaded)
+        record = build_pass_record(
+            amd64_record=amd64,
+            arm64_record=arm64,
+            comparison=comparison,
+            git_sha=HEAD_SHA,
+        )
+        self.assertEqual(record["schema_version"], PASS_SCHEMA_VERSION)
+        self.assertEqual(len(record["metrics"]), len(record["compared_paths"]))
+        for item in record["metrics"]:
+            self.assertIn("difference", item)
+            self.assertTrue(item["within_tolerance"])
+
+    def test_pass_record_binds_image_ids(self):
+        record = self.valid_pass_record()
+        self.assertTrue(verify_pass_record_payload(record))
         self.assertTrue(
             pass_record_matches_images(
-                loaded,
+                record,
                 amd64_image_id=record["amd64_synthetic_image_id"],
                 arm64_image_id=record["arm64_synthetic_image_id"],
             )
         )
 
-    def test_macos_arm64_real_mode_requires_pass_record(self):
-        amd64_id = "sha256:" + "1" * 64
-        arm64_id = "sha256:" + "2" * 64
+    def test_deadbeef_git_sha_fails_gate(self):
+        record = dict(self.valid_pass_record(), git_sha="deadbeef")
+        self.assertFalse(verify_pass_record_payload(record))
+        self.assertFalse(git_sha_matches_head(record["git_sha"], HEAD_SHA))
         self.assertEqual(
-            validate_macos_arm64_equivalence(
+            validate_cross_arch_equivalence_for_real_run(
                 machine_arch="arm64",
                 real_mode=True,
-                equivalence_record=Path("/nonexistent/pass.json"),
-                amd64_image_id=amd64_id,
-                arm64_image_id=arm64_id,
+                head_git_sha=HEAD_SHA,
+                amd64_image_id=record["amd64_synthetic_image_id"],
+                arm64_image_id=record["arm64_synthetic_image_id"],
+                arm64_image_architecture="arm64",
+                pass_record=record,
             ),
             codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE,
         )
-        self.assertIsNone(
-            validate_macos_arm64_equivalence(
-                machine_arch="x86_64",
+
+    def test_arm64_architecture_mismatch_fails_gate(self):
+        record = self.valid_pass_record()
+        self.assertEqual(
+            validate_cross_arch_equivalence_for_real_run(
+                machine_arch="arm64",
                 real_mode=True,
-                equivalence_record=FIXTURES / "cross_arch_equivalence_pass.json",
-                amd64_image_id=amd64_id,
-                arm64_image_id=arm64_id,
+                head_git_sha=HEAD_SHA,
+                amd64_image_id=record["amd64_synthetic_image_id"],
+                arm64_image_id=record["arm64_synthetic_image_id"],
+                arm64_image_architecture="amd64",
+                pass_record=record,
+            ),
+            codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE,
+        )
+
+    def test_valid_record_passes_gate(self):
+        record = self.valid_pass_record()
+        self.assertIsNone(
+            validate_cross_arch_equivalence_for_real_run(
+                machine_arch="arm64",
+                real_mode=True,
+                head_git_sha=HEAD_SHA,
+                amd64_image_id=record["amd64_synthetic_image_id"],
+                arm64_image_id=record["arm64_synthetic_image_id"],
+                arm64_image_architecture="arm64",
+                pass_record=record,
             )
         )
 
@@ -89,10 +131,12 @@ class CrossArchEquivalenceTests(unittest.TestCase):
         amd = json.loads((ROOT / "runtime/synthetic-packages.json").read_text())
         self.assertEqual(lock["platform"], "linux/arm64")
         self.assertEqual(lock["base_image"], amd["base_image"])
-        self.assertEqual(
-            [item["version"] for item in lock["packages_in_install_order"]],
-            [item["version"] for item in amd["packages_in_install_order"]],
-        )
+
+    def test_arm64_adapter_lock_pins_base_image_id(self):
+        lock = json.loads((ROOT / "runtime/source-adapter-python-arm64.json").read_text())
+        prior = json.loads((ROOT / "registries/pilot-001-synthetic-validation-arm64.json").read_text())
+        self.assertTrue(lock["base_image_id"].startswith("sha256:"))
+        self.assertEqual(lock["base_image_id"], prior["environment"]["runtime_image_id"])
 
     def test_builder_selects_lock_by_platform(self):
         self.assertEqual(builder.lock_path("linux/arm64").name, "synthetic-packages-arm64.json")

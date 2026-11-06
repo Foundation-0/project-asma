@@ -285,7 +285,9 @@ python3 tools/build_synthetic_runtime.py --platform linux/amd64
 python3 tools/build_synthetic_runtime.py --platform linux/arm64
 python3 tools/run_synthetic_pipeline.py
 python3 tools/run_synthetic_pipeline.py --full
-python3 tools/run_cross_arch_equivalence.py --run-docker
+python3 tools/run_cross_arch_equivalence.py --platform linux/amd64 --write-record /tmp/synthetic-amd64-record.json
+python3 tools/run_cross_arch_equivalence.py --platform linux/arm64 --write-record /tmp/synthetic-arm64-record.json
+python3 tools/run_cross_arch_equivalence.py --amd64-record /tmp/synthetic-amd64-record.json --arm64-record /tmp/synthetic-arm64-record.json --git-sha "$(git rev-parse HEAD)"
 python3 tools/validate.py
 python3 -m unittest discover -s tests -v
 ```
