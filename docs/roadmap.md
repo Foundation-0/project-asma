@@ -102,8 +102,10 @@ pre-specified protocol and the owner's decision. The
 discovery record: it freezes endpoints, permitted inputs, decision rules,
 uncertainty methods and stop rules under the Gate 0 Q5 exploratory-only
 decision. It is not executed; execution still needs the owner's dated
-instruction, and its Tier B application to reconstruction outputs inherits every
-open Gate 0 item.
+instruction naming the plan version, a dated attestation current for the run
+date, the macOS preflight on the Gate 0 Q1 host and aggregate-only handling, and
+its Tier B application to reconstruction outputs inherits every open Gate 0
+item.
 
 The [public-input reconstruction contract](../protocols/pilot-001-independent-reconstruction.md)
 now links a concrete [decision record](../protocols/pilot-001-reconstruction-decisions.md)

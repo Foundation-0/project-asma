@@ -120,27 +120,42 @@ recover the expected numbers.
 | `FFPE_Discovery_clinical` sheet of MMC1 | Only to decide "no discovery record" | Same terms; patient keys compared in memory |
 
 These are the pinned inputs of the executed score verification (V08) and
-supplement audit (V11). Reading them in memory with aggregate-only output is
-within the bounded-inspection rule of [AGENTS.md](../AGENTS.md); the frozen
-score values themselves have never been read numerically (the audit reads only
-the key column). Computing a new subset metric is, by the open-questions report
-and this plan, a **new performance result** that needs the owner's explicit,
-dated instruction naming this plan version before execution; a session's own
-checks never supply it, and Gate 0 Q5 alone is not read here as that
-instruction. No study matrix, no model fitting and no acquisition of PDC or
-author files is involved in Tier A. The MMC workbooks are nonetheless listed as
-study data in the Gate 0 Q1 host record of
-[data-use](../docs/pilot-001-data-use.md), so Tier A runs where that record
-allows study data, the owner's MacBook in Canada, unless the owner's instruction
-records a different decision; the shared cloud host runs artificial inputs only.
-Whether the fair-dealing conditions (a)–(c) of that record apply to these
-workbooks is not decided here: their CC BY-NC-ND terms permit private
-noncommercial adaptation, and the aggregate-only handling of section 6 applies
-on any host. The owner's instruction states whether a fresh dated attestation
-is required for the run date; absent that statement, the executor treats
-conditions (a)–(c) as applying and does not run. The 21-count is corroborated by the PDC catalog (21 frozen case
-records with no discovery match, [linkage summary](../registries/pilot-001-linkage-summary.json)),
-as a count only; exact correspondence between the two sets is not established.
+supplement audit (V11). The frozen score values themselves have never been read
+numerically (the audit reads only the key column). Computing a new subset
+metric is, by the open-questions report and this plan, a **new performance
+result**; Tier A reads study files live into memory and estimates a threshold
+on study values. It therefore runs only under the study-data conditions of the
+Gate 0 record in [data-use](../docs/pilot-001-data-use.md) and
+[AGENTS.md](../AGENTS.md). All of them apply unconditionally; an instruction to
+this plan can add to them, never waive one:
+
+- the owner's explicit, dated instruction to execute, naming this plan version;
+  a session's own checks never supply it, and Gate 0 Q5 alone is not read here
+  as that instruction;
+- the owner's dated attestation of the execution context, **current for the run
+  date** (condition (a): the adapter attestation file and the public record;
+  the attestation on record covers 2026-11-05 only);
+- the host named by the Gate 0 Q1 record, the owner's MacBook in Ontario,
+  Canada, with the macOS runtime preflight of data-use passed before any study
+  byte is loaded (condition (b)); the host changes only by a dated Gate 0 Q1
+  revision in the roadmap and the data-use record, never by an instruction to
+  this plan, and the shared cloud host runs artificial inputs only;
+- aggregate-only handling throughout, including terminal and agent-chat output
+  (condition (c), section 6).
+
+No study matrix, no model fitting and no acquisition of PDC or author files is
+involved in Tier A; that narrows what the run touches, not which conditions
+apply. The MMC workbooks' CC BY-NC-ND terms permit private noncommercial
+adaptation, and whether the fair-dealing assessment of data-use is also needed
+for these workbooks is not decided here; the conditions above apply either way.
+[AGENTS.md](../AGENTS.md) separately allows rerunning the recorded audits (V08,
+V23) as bounded inspection, while the Gate 0 Q1 record lists the same workbooks
+as study data for the MacBook only; main does not reconcile the two, and this
+plan resolves the question conservatively toward the host record pending the
+owner's clarification. The 21-count is corroborated by the PDC catalog (21
+frozen case records with no discovery match,
+[linkage summary](../registries/pilot-001-linkage-summary.json)), as a count
+only; exact correspondence between the two sets is not established.
 
 **Tier B (later): reconstruction outputs.** The same contract applied to
 predictions from the project's own reconstruction on the frozen PDC000362
@@ -175,7 +190,7 @@ holds the exact null distribution, critical values and interval tables (V28).
 | Sensitivity analysis | The same AUROC, bootstrap interval and DeLong interval on the 28 (17/11). No decision rule; its design critical value (U ≥ 130 of 187, AUROC ≥ 130/187 ≈ 0.6952) is recorded only so that no one invents one later; no enumeration is run on the 28 |
 | Multiplicity | One primary endpoint, one decision rule, one prediction source per tier. Everything else is descriptive. Any further comparison is post hoc and labelled so |
 | Software | Python standard library only; an implementation committed **before** execution that reuses the workbook parser, exact-join and eligibility helpers of `tools/audit_published_cohorts.py` as the V08 tool did, with its SHA-256 and this file's SHA-256 recorded in the run artifact; the design record's `implementation_sha256` names the design tool. The exploratory path of both tiers runs through this implementation; `evaluate_heldout` fails closed unless every contract boolean is truthfully `True`, so it is called only in that case |
-| Output | One aggregate JSON artifact and a dated result note. No patient key, score, rank, threshold position or per-patient hash leaves process memory, including terminal and agent-chat output |
+| Output | One aggregate JSON artifact and a dated result note. No patient key, score, rank or per-patient hash leaves process memory, including terminal and agent-chat output. The threshold value itself is not emitted; the published 2 × 2 together with the public score sheet determines its rank position among the calibration scores, which is disclosed by design (section 13) |
 
 **Ties.** The released discovery scores had zero cross-class ties (V23 (a)). The
 executor reports the numbers of tied scores on the 21, within and across
@@ -203,8 +218,10 @@ not a success criterion.
 
 **Stop before or during execution, without producing a result, if:**
 
-- the owner's dated instruction to execute this plan is not on record, or
-  execution would leave the permitted host and handling of section 5;
+- any item of the section 5 gate is missing: the owner's dated instruction
+  naming this plan version, a dated attestation current for the run date, the
+  Gate 0 Q1 host with its macOS preflight passed, or aggregate-only handling;
+  or execution would leave that host or handling;
 - a workbook's bytes or SHA-256 differ from section 5; a score sheet's row
   count differs from 34 or 27; or the clinical sheets' unique patient keys
   differ from 64 (`Frozen_clinical`, 72 response-labelled rows in four
@@ -280,11 +297,12 @@ seconds in pure Python). Interpretation needs a proteomics/biostatistics
 collaborator and a gynecologic oncologist, who have not been recruited and must
 not be recruited without a new explicit instruction. External scientific review
 is deferred (Q4); internal agent checks are technical checks only. Dependencies:
-the owner's execution instruction; the supplement audit's pins staying valid.
+the section 5 gate (instruction, current attestation, host preflight); the
+supplement audit's pins staying valid.
 
 ## 12. Planned deliverables and what has actually been executed
 
-Planned: this plan; the design record; after the owner's instruction, one
+Planned: this plan; the design record; after the section 5 gate is met, one
 committed Tier A implementation, one aggregate artifact, one dated result note
 with the label line of section 7, and the matching ledger entries.
 
@@ -294,13 +312,20 @@ no threshold was selected, no AUROC was computed on any subset.
 
 ## 13. Limits on interpretation, publication and data protection
 
-- Aggregates only. Disclosure rule, fixed now: the 2 × 2 counts on the 21 and
-  the tie counts may be published without cell suppression, because every label
-  and score behind them is already public per patient in the released
-  supplements and the counts derive nothing new about any patient; the review
-  before publication confirms that the artifact holds only the aggregates of
-  section 6, and no per-patient value, key, rank or hash is persisted or
-  emitted.
+- Aggregates only, and a disclosure review precedes publication. Proposed
+  disclosure rule, a project choice for the owner to confirm with the execution
+  instruction: the 2 × 2 counts on the 21 and the tie counts are published
+  without cell suppression, because every label and score behind them is
+  already public per patient in the released supplements and the counts derive
+  nothing new about any patient. This departs from the general small-cell
+  wording of [reproducibility-and-data](../docs/reproducibility-and-data.md)
+  for public per-patient inputs only; sensitivity k/8 and specificity j/13
+  determine the same four cells, so suppression would be form, not protection,
+  which is why the choice is recorded as a decision rather than assumed. Until
+  the owner confirms it, the 2 × 2 table and tie counts stay out of the public
+  outputs. The review before publication confirms that the artifact holds only
+  the aggregates of section 6, and no per-patient value, key, rank or hash is
+  persisted or emitted.
 - The released frozen scores are not established as the exact predictions behind
   the printed frozen metrics (open-questions section 4, "Open"); the released
   discovery sheet already misses the printed 0.83 (V08). Tier A evaluates the
@@ -372,7 +397,9 @@ itself authorise a run.
 To be completed before execution; empty means not executed.
 
 - Owner's dated instruction to execute Tier A (date, verbatim wording, link):
-- Executing account and host, with the data-handling checks of section 5:
+- Attestation current for the run date (condition (a); date, public record link):
+- Gate 0 Q1 host and macOS preflight (condition (b); pass/fail, date):
+- Executing account, with the aggregate-only handling checks of section 5 (condition (c)):
 - Commit hash of this plan and of the Tier A implementation before the run:
 - Run artifact SHA-256 and result note:
 - Deviations, stops, and their reasons:
