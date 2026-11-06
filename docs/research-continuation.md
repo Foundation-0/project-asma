@@ -1,10 +1,20 @@
 # Research preservation and continuation
 
-**Latest review: [Discovery round 2, 2026-11-05](discovery-round2-2026-11-05.md).**
+**Latest desk deliverable: [CDR2/CDR2L HLA-II evidence map, 2026-11-06](cdr2-hla-ii-evidence-map-2026-11-06.md).**
+Source-grounded tables for curated immunopeptidome leads, separated from
+receptor recognition and injury. Continues
+[Discovery round 2, 2026-11-05](discovery-round2-2026-11-05.md) and the
+[antigen IEDB audit](antigen-discovery-round2-2026-11-05.md).
+
+**Prior review: [Discovery round 2, 2026-11-05](discovery-round2-2026-11-05.md).**
 It narrows the CDR2L HLA-II evidence gap and develops discriminating comparisons
 for protein function, antigen identity and effector harm. These are source
 assessments and hypotheses, not new biological results. The original snapshot
 below remains the dated record of the first exploration.
+
+**Latest recruiting trial-landscape snapshot: [2026-11-05 America/Chicago](trial-landscape-2026-11-05.md).**
+Finite ClinicalTrials.gov metadata counts, aggregate certificate and replay
+commands; not trial outcomes or eligibility.
 
 **Snapshot: 2026-11-04.** This is the entry point for the expanded research
 review. It preserves appropriate public evidence, concise decision rationale,
@@ -14,7 +24,7 @@ claim that every candidate has been validated.
 
 | Workstream | Durable record | Status and next decision |
 | --- | --- | --- |
-| Frontier exploration | [Anti-Yo antigen/presenter/effector proposal](anti-yo-frontier-2026-11-04.md) | Two literature/conceptual cycles completed; mechanistic hypotheses untested; next search targets human HLA-II ligand evidence |
+| Frontier exploration | [Anti-Yo antigen/presenter/effector proposal](anti-yo-frontier-2026-11-04.md) | Two literature/conceptual cycles completed; [HLA-II source map](cdr2-hla-ii-evidence-map-2026-11-06.md) adjudicates IEDB leads; receptor/injury still open |
 | Executed methodological check | [Compartment identifiability](compartment-identifiability.md) | Original synthetic counterexamples and exact arithmetic; no study result |
 | Molecular team handoff | [Molecular avenues](molecular-research-handoff-2026-11-04.md) | Assays, target heterogeneity, CDR2L biology, adaptive resistance and data routes; select one bounded protocol |
 | Broader team handoff | [Longitudinal, spatial, organoid, navigation and symptom research](research-handoff-2026-11-04.md) | Evidence and feasibility review; concrete tasks/stops for each avenue |

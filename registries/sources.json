@@ -1334,6 +1334,18 @@
       "checked_on": "2026-11-05"
     },
     {
+      "id": "S125",
+      "title": "CDR2/CDR2L HLA-II evidence map query manifest",
+      "kind": "data_catalog",
+      "url": "https://query-api.iedb.org/",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://query-api.iedb.org/",
+      "locator": "registries/cdr2-hla-ii-evidence-map-2026-11-06.json; nine-assay class-II expected_rows identity check; PubMed E-utilities query URLs",
+      "takeaway": "Machine-checkable reproduction record for the 2026-11-06 evidence map; verifies assay IDs and curated identity fields, not raw IEDB body SHA-256.",
+      "limitations": "Does not validate unique protein assignment, original spectra, or anti-Yo receptor specificity; complements but does not replace antigen-metadata-audit-2026-11-05.json parent enumeration.",
+      "checked_on": "2026-11-06"
+    },
+    {
       "id": "S126",
       "title": "ClinicalTrials.gov API v2 specification and search-field metadata",
       "kind": "data_documentation",
