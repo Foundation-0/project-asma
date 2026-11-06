@@ -94,13 +94,15 @@
   "phase_rule": "One study in its canonical combined-phase category; NA distinct from absent/null/empty; reject unknown/duplicate values or NA mixed with real phases.",
   "interpretation": "Public registry language mentions only, including negations, exclusion criteria and background. Query-matched basket studies retained. No eligibility inference, treatment ranking, outcome analysis or novelty claim.",
   "retention": "Projected protocol fields held in process memory only. Persist aggregate counts, exact requests, whole-response hashes and provenance; no study rows, NCT ID lists, text snippets or eligibility narratives.",
-  "completion_rule": "Stable totalCount across all pages; unique NCT IDs; no repeated nextPageToken; terminal record count equals totalCount; identical apiVersion/dataTimestamp before and after. These are drift checks, not an atomic-snapshot guarantee.",
+  "completion_rule": "Require first-page totalCount; any later totalCount must match (API may omit it on later pages); unique NCT IDs; no repeated nextPageToken; terminal record count equals totalCount; identical apiVersion/dataTimestamp before and after. These are drift checks, not an atomic-snapshot guarantee.",
   "limits": {
     "max_pages": 100,
     "max_response_bytes": 33554432
   },
   "pre_retrieval_revision": {
     "at_utc": "2026-11-06T04:45:26+00:00",
-    "reason": "Official API OpenAPI permits date/numeric sort fields, not NCTId. Omit sort; uniqueness and pagination checks do not depend on response ordering. No trial records have been requested."
+    "reason": "Official API OpenAPI permits date/numeric sort fields, not NCTId. Omit sort; uniqueness and pagination checks do not depend on response ordering. No trial records have been requested.",
+    "pagination_clarified_at_utc": "2026-11-06T04:46:58+00:00",
+    "pagination_reason": "Official API countTotal is ignored on subsequent pages; do not require their totalCount field. Empty intermediate pages with a nextPageToken are allowed."
   }
 }
