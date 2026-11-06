@@ -196,6 +196,14 @@ and do **not** substitute for study-data execution.
 | --- | --- | --- | --- |
 | V30 | VERIFIED | Both selected IEDB CDR2L HLA-II peptides match canonical Q86X02 at curated coordinates and the explicitly checked unreviewed CDR2L entry A0ACI8RKQ2; neither matches the explicitly checked CDR2 entry Q01850, including I/L-equivalent comparison | [Executed named-candidate result](docs/cdr2l-sequence-adjudication-2026-11-06.md), [aggregate certificate](registries/cdr2l-sequence-audit-2026-11-06.json), `python3 tools/audit_cdr2l_sequences.py`. Three named reference sequences only; remote database search unavailable, no global uniqueness claim, no spectra/allotype/receptor/injury validation. Sources S129–S131 and earlier source map. |
 
+## CDR2L original-source adjudication, 2026-11-06
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V31 | VERIFIED | A subsequent completed UniProt service search returns only Q86X02 and A0ACI8RKQ2 for both selected peptides in human exact and I/L-equivalent queries, including unreviewed entries; returned sequences were locally rechecked | [Executed follow-up](docs/cdr2l-source-adjudication-2026-11-06.md), [new certificate](registries/cdr2l-database-search-2026-11-06.json). Service completeness/synchronization not proved; the historical V30 search limitation is preserved. |
+| V32 | VERIFIED | The official Atlas peptide page for IEDB 11610866 displays one cerebellum source-association row, q-value 0.00189334 and no prediction-based binding evidence | [Aggregate certificate](registries/cdr2l-atlas-source-2026-11-06.json), `python3 tools/audit_cdr2l_atlas.py`, [source interpretation](docs/cdr2l-source-adjudication-2026-11-06.md). Portal metadata, not independently validated identification, source cell type, allotype or mechanism. |
+| V33 | VERIFIED | Complete integrity-checked streaming inspection of three original PXD023044 class-II identification files finds the exact breast-cell-line CDR2L 15mer once in r3, non-decoy Q86X02 residues 432–446, native spectrum index22949 | [Original identification result](docs/cdr2l-source-identification-2026-11-06.md), [certificate](registries/cdr2l-source-identification-2026-11-06.json). Search-output provenance, not independent spectrum validation, peptide-specific FDR, HLA allotype or receptor recognition. |
+
 ## What this ledger does not claim
 
 - Clinical validity, diagnostic accuracy, treatment benefit, or individual patient guidance.
