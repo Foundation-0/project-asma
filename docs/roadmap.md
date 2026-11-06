@@ -12,6 +12,17 @@ exploration cycles and an executed synthetic identifiability check. It has no
 patient-data execution result and does not close Gate 0. Its prior-art search,
 competing models, stop rules and next literature task are recorded explicitly.
 
+**Paraneoplastic exposure and observability, 2026-11-05:** the
+[exposure record](research/paraneoplastic-exposure-observability.md) connects the
+anti-Yo frontier to the treatment-sequence audit through irreversible neural
+injury. Its exact results and the Virtual Human cross-check are synthetic
+mathematics (V27, V28). Its desk tasks (tracing the timing evidence, searching
+for injury-rate markers, stress-testing the model) need no new permission and
+are listed in its [continuation section](research/paraneoplastic-exposure-observability.md#continuation-for-the-team).
+Its proposed measurement study is a **new direction**: it enters only through
+the protocol pull request and owner gate below, with clinical leadership and
+ethics approval. Nothing in it changes Pilot 001.
+
 ## Candidate directions (new tracks)
 
 Ranked public-data possibilities live in [directions.md](directions.md). Any

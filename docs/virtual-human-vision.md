@@ -111,6 +111,13 @@ claim that the full stack has been validated for ovarian cancer or adopted by As
 | A research question that uses those tools | [Asma PR #47](https://github.com/Foundation-0/project-asma/pull/47), merged as `290af9d05566dd2ce2451a3d5f0d8201d1d84557`. The [Rosen-inspired assumption audit](research/rosen-treatment-sequence-assumptions.md) shows how two surgical-removal rules can agree on one sequence yet disagree on the other. It proposes a discriminating measurement study; no treatment preference or biological novelty is established. |
 | A connection between the repositories | The [pinned integration record](https://github.com/Foundation-0/virtual-human/blob/8e5eacda08027219c0e8f6dfc37ef276829fb928/docs/project-asma-integration.md) compares twelve synthetic outcomes against Asma's exact rational operators. Maximum absolute discrepancy is about `4.8531e-14 mol/L`, below `1e-10 mol/L`. This checks the same artificial mathematics in two implementations; it is not a physiological unit conversion or clinical validation. |
 
+**Added 2026-11-05.** Foundation-0 fork branch `claude/admiring-cori-0qyybb`
+(commit `d0d2730`, not yet merged) adds rate-dependent kinetic invariants to the
+reaction engine and uses them in the [neural-exposure cross-check](research/paraneoplastic-exposure-observability.md#virtual-human-cross-check).
+The finder turns integral identities, such as exposure (AUC) and clearance, into
+exact checks; 28 values matched Asma's exact module within `8.5e-12`. The
+same boundary applies: invented units, no biological validation.
+
 These checks are **VERIFIED** within the recorded cases. There is no current
 proof-assistant integration, formally verified complete biology, validated
 end-to-end human model, or demonstrated clinical efficacy. The full SBML import

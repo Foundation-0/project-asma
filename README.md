@@ -22,7 +22,7 @@ clinical validity, or improved patient outcomes.
 | --- | --- |
 | **Mission** | Trustworthy ovarian cancer research outputs; no clinical decision support. |
 | **Active track** | [Pilot 001](protocols/pilot-001.md) — primary platinum-refractory **HGSOC** signature reproduction (endpoint and gates unchanged). |
-| **Frontier exploration** | [Research continuation record](docs/research-continuation.md) — anti-Yo antigen/presenter questions, synthetic identifiability checks, and broader team handoffs; no frontier study-data execution. |
+| **Frontier exploration** | [Research continuation record](docs/research-continuation.md) — anti-Yo antigen/presenter questions, synthetic identifiability checks, [neural-exposure and treatment-order mathematics](docs/research/paraneoplastic-exposure-observability.md), and broader team handoffs; no frontier study-data execution. |
 | **Future tracks** | Ranked [candidate directions](docs/directions.md); each needs a protocol PR and owner Gate 0 before study-data execution. |
 
 ## Start here

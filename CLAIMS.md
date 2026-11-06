@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-05):** PROVEN **0** · VERIFIED **27** · KNOWN **38** · CONJECTURE **25**
+**Counts (2026-11-06):** PROVEN **0** · VERIFIED **28** · KNOWN **38** · CONJECTURE **25**
 
 ---
 
@@ -172,6 +172,7 @@ and do **not** substitute for study-data execution.
 | ID | Label | Statement | Evidence and boundary |
 | --- | --- | --- | --- |
 | V27 | VERIFIED | In exact synthetic arithmetic, final neural survival depends on a schedule only through antigen exposure; commuting tumor operations leave the endpoint unchanged while exposure differs; burden-driven exposure is minimized by most-effective-first and release by surgery-first (30/30 mass-balance cases); the mixture optimum is always first or last (150/150); the pure hypotheses disagree in 6/30 grid cases; burden-driven hazard never rises from steady state (72/72) while release-driven hazard rises after a first chemotherapy cycle (54/54, masked in 3/18 after surgery); equal deficits allow a 15/4 marker ratio; equal injury rates allow an 18-fold intensity difference | `python3 tools/analyze_paraneoplastic_exposure.py`; [record](docs/research/paraneoplastic-exposure-observability.md). Invented units and kinetics; verifies mathematics and software, not anti-Yo biology, NfL validity or any treatment effect. |
+| V28 | VERIFIED | The Virtual Human reaction engine reproduces this model in continuous time: its kinetic-invariant finder recovers the exposure identity exactly, the identity drifts at most 8.7e-14, and 28 exposure and release values match the exact module within 8.5e-12; with continuous chemotherapy the burden-driven surgery-first threshold becomes q < 1/(1 + c) | [Cross-check](docs/research/paraneoplastic-exposure-observability.md#virtual-human-cross-check); `PYTHONPATH=. python scripts/validate_paraneoplastic_exposure.py --asma-root <this checkout>` in Foundation-0/virtual-human at `d0d2730`. Numerical agreement on invented units, not biological validation. |
 | K29 | KNOWN | Anti-Yo Purkinje-cell loss is massive and often very rapid; antibody titers may not correlate with symptoms and persist after treatment; immunotherapies have been largely ineffective; evidence on earlier treatment initiation conflicts | Venkatraman & Opal 2016, S125; narrative review, no randomized evidence |
 | K30 | KNOWN | cdr2-specific cytotoxic T cells were expanded in 3/3 HLA-A2.1+ PCD patients, and dendritic-cell cross-presentation of apoptotic tumor cells gave a potent killer-cell response | Albert et al. 1998, S126; abstract only; injury pathway proposed, not demonstrated |
 | K31 | KNOWN | In 50 antibody-associated PCD patients ataxia stabilized within 6 months; 4/19 anti-Yo patients remained ambulatory; all 7 who improved had antitumour treatment with complete remission | Shams'ili et al. 2003, S127; abstract only; retrospective functional states |

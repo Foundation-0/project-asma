@@ -17,6 +17,12 @@
   collection uses literature identifiers; it does not extend the Pilot PDC-only
   dataset schema or authorize ingestion.
 
+- [paraneoplastic-exposure-results.json](paraneoplastic-exposure-results.json):
+  exact synthetic results for the [exposure and observability record](../docs/research/paraneoplastic-exposure-observability.md).
+  Regenerate with `python3 tools/analyze_paraneoplastic_exposure.py`; the file
+  embeds the tool's SHA-256. Invented units only; no study or patient values.
+  Sources S125–S131 support its literature premises.
+
 - [sources.json](sources.json): dated primary-source metadata, claim locators,
   takeaways, verification route, and limits. Source IDs remain stable.
 - [datasets.json](datasets.json): six candidate/context PDC studies and provenance

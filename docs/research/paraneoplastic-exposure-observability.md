@@ -252,6 +252,29 @@ autonomous, tumor control cannot protect the brain, and only CNS-directed immune
 intervention could. Rate measurements anchored to treatment events are the
 cheapest observations found here that separate these possibilities.
 
+## Virtual Human cross-check
+
+The Foundation-0 Virtual Human fork ran the continuous version of this model on
+its reaction engine
+([report at commit `d0d2730`](https://github.com/Foundation-0/virtual-human/blob/d0d2730/auto-research/2026-11-05-E-paraneoplastic-exposure/report.md)).
+Its new kinetic-invariant finder recovered the exposure identity exactly from the
+rate constants. Along every discrete schedule the identity drifted by at most
+`8.7e-14`, and 28 exposure and release values matched this module within
+`8.5e-12`. The recorded bridge pins this repository at commit `a5086b8` with a
+clean checkout. Two results refine this record (**VERIFIED, V28**, invented units):
+
+- **The disagreement region depends on speed, not only on fraction removed.** With
+  chemotherapy as a continuous kill at rate `c` over its interval, instead of an
+  instantaneous operation, the burden-driven optimum is surgery-first when
+  `q < 1/(1 + c)`, not when `q < a`. For `a = 1/2` the threshold moves from 0.5 to
+  about 0.591. The sign of the adjacent-swap difference,
+  `X (1 - a) [(1 - q)/c - q]`, still does not depend on position, so the optimum
+  stays at an end. The release-driven conclusion, surgery first, is unchanged
+  because the mass balance holds in continuous time too.
+- **The no-rise theorem and the release rise hold in continuous time.** From
+  steady state the burden-driven effector never rose (largest step `7.2e-13`,
+  numerical noise), and the release-driven effector rose during the first cycle.
+
 ## Novelty and prior art
 
 The linear-ODE identity, the scheduling exchange argument and the mass balance
@@ -261,6 +284,80 @@ explicit disagreement region, the no-rise signature and the confound-aware
 measurement design. Searches of Europe PMC and general web search found no anti-Yo
 NfL cohort and no published analysis of treatment order against paraneoplastic
 neural exposure. That is a bounded search result, not evidence of absence.
+
+## Search and access record
+
+Dated 2026-11-05. This is a bounded record so the next contributor can repeat,
+extend or correct it.
+
+| Route | Outcome |
+| --- | --- |
+| General web search, exact queries below | Located S125–S131 candidates and the absence results stated above |
+| Europe PMC REST search (`resultType=core`) for PMIDs 9809559, 12764061, 27606347, 37015822, 31796119, 41509522 and 42302277 | Abstracts and bibliographic records used for S126–S131 and the S125 abstract |
+| PMC article page for PMC4999597 | Section-level quotations for S125 |
+| PubMed article pages | Returned only a cookie notice; not usable by automated reads |
+| Wiley (`acn3.328`), neurology.org and jitc.bmj.com article pages | HTTP 403 to automated reads; Europe PMC used instead |
+| A guessed PMC identifier for S125 (PMC5007714) | Wrong article (an unrelated editorial); corrected through search, not used |
+
+Exact web queries, in order:
+
+```text
+anti-Yo paraneoplastic cerebellar degeneration neurological outcome Purkinje cell loss irreversible tumor treatment immunotherapy
+neurofilament light chain paraneoplastic neurological syndrome cerebellar degeneration serum CSF
+serum neurofilament light half-life after acute neuronal injury weeks
+Albert Darnell 1998 Nature Medicine tumor-specific killer cells paraneoplastic cerebellar degeneration cdr2
+Shams'ili 2003 Brain paraneoplastic cerebellar degeneration 50 patients tumour treatment stabilization anti-Yo outcome
+Peterson Rosenblum Kotanides Posner 1992 Neurology paraneoplastic cerebellar degeneration 55 anti-Yo patients clinical analysis
+"neurofilament light" serum paraneoplastic anti-Yo OR "onconeural" OR "high-risk antibodies" cohort biomarker disease activity
+paraneoplastic neurological syndrome worsening after chemotherapy tumor lysis antigen release OR immune checkpoint inhibitor anti-Yo onset
+neurofilament light paraneoplastic cerebellar degeneration anti-Yo OR anti-Hu patients CSF serum levels outcome study
+Venkatraman Opal 2016 "Paraneoplastic cerebellar degeneration with anti-Yo antibodies" review Annals of Clinical and Translational Neurology PMC
+```
+
+Europe PMC queries: `("neurofilament light" OR NfL) AND paclitaxel AND neuropathy AND serum`
+and `Evered AND "neurofilament light" AND anesthesia AND surgery`.
+
+**Retained negatives and loose ends.** No anti-Yo neurofilament cohort and no
+analysis of treatment order against paraneoplastic neural exposure were found. A
+43-day serum NfL half-life appeared only as a secondary citation; it was not
+traced to its primary source and is not used. An anti-Hu case report with serial
+serum NfL appeared in results but was not opened. Peterson et al. 1992 (PMID
+1407575) was identified but not used as a premise. "Candler et al.", cited by
+S125 for tumor therapy as the only effective treatment, and the series associating
+treatment within a month with better outcome were not traced to primary papers.
+
+## Continuation for the team
+
+Ranked open work. Items 1–3 are desk or synthetic work that needs no new
+permission; item 4 is a new direction under the roadmap gates.
+
+1. **Trace the clinical evidence on timing.** Find the primary papers behind
+   "Candler et al." and the within-a-month series cited in S125. Record whether
+   their outcomes are functional states, whether any report serial measurements,
+   and how patients were selected. *Done when* each is a registered source with an
+   access record, or a dated failed-access entry.
+2. **Search for injury-rate markers in paraneoplastic disease.** Cover NfL, GFAP
+   and tau in anti-Yo, anti-Hu and CV2/CRMP5 disease, the primary evidence for
+   NfL clearance, and any Purkinje-cell-specific injury marker. *Done when* a dated
+   search record separates positive results, negative results and untraced claims.
+3. **Stress the model.** Add tumor growth between operations, order-dependent
+   surgical retention (the surgery response map of
+   [C19](rosen-treatment-sequence-assumptions.md#the-next-discriminating-research-question)),
+   lesion-level antigen weights and finite marker clearance in the signature test.
+   Use the Virtual Human engine and its kinetic-invariant finder as the numerical
+   check and this module as the exact authority. *Done when* each extension states
+   which of results 1–6 survive, with its authority and error.
+4. **Turn the design into a protocol only through the gates.** Adopting the study
+   design is a new direction: it needs a protocol pull request and an owner gate
+   mirroring Gate 0 ([roadmap](../roadmap.md#candidate-directions-new-tracks)),
+   plus clinical leadership, ethics approval and consent. No outreach or
+   recruitment has occurred.
+
+To extend the exact tool, add a case function to
+`tools/analyze_paraneoplastic_exposure.py`, regenerate the registry with the replay
+command below, and add a hand-derived test. The registry embeds the tool's hash,
+so the replay and `tools/check_implementation_hashes.py` fail until both are
+regenerated together.
 
 ## Reproduce and review
 

@@ -107,3 +107,8 @@ selection-bound calculation, and the sampling
 example. It writes no files. These are the executed results above; no study-data
 analysis has run. The purpose is to avoid an unidentifiable research claim and
 choose measurements that could distinguish the competing explanations.
+
+**See also (2026-11-05):** the [exposure and observability record](research/paraneoplastic-exposure-observability.md)
+gives a related identifiability result for neural injury: equal deficits allow
+different recent injury rates, and equal injury rates allow different attack
+intensities.

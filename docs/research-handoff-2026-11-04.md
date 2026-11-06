@@ -91,6 +91,11 @@ treatment timing, assay identity, patient separation or use conditions cannot be
 resolved. Do not infer a tumor target from an elevated circulating marker. Do
 not claim treatment benefit from a predictive association.
 
+**Addendum, 2026-11-05:** a circulating marker is a weighted sum over lesions.
+The [exposure record](research/paraneoplastic-exposure-observability.md#4-a-circulating-marker-cannot-certify-the-antigen-that-matters)
+proves it cannot certify another lesion-weighted quantity, such as the antigen
+driving an immune response, unless the weightings are proportional.
+
 ## 2. Spatial immune exclusion and functional perturbation
 
 **KNOWN — human profiling plus preclinical experiments:** Yeh et al. profiled
@@ -206,6 +211,12 @@ outcomes and response-time measures before any pilot deployment. **Stop rules:**
 do not initiate patient collection or deployment without clinical ownership,
 appropriate review and a safe response pathway. Do not substitute automated
 advice for that pathway.
+
+**Addendum, 2026-11-05:** for paraneoplastic neurological symptoms, a functional
+score is a state and cannot show whether injury is ongoing. The
+[exposure record](research/paraneoplastic-exposure-observability.md#3-state-versus-rate)
+explains why a rate measurement is also needed, and why serum neurofilament light
+needs a comparator when patients have surgery or neurotoxic chemotherapy.
 
 ## Source and review record
 

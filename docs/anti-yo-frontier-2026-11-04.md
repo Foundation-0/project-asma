@@ -137,6 +137,13 @@ defined: it could prioritize hypotheses about processing or cross-recognition.
 Structure prediction or peptide-binding prediction alone cannot identify the
 causal antigen, receptor specificity or a safe intervention.
 
+**2026-11-05 addition:** the [exposure and observability record](research/paraneoplastic-exposure-observability.md)
+examines the same separation at the level of dynamics. If tumor and neurons share
+an antigen-driven effector, neural loss depends on antigen exposure over time, and
+the order of treatments can change it while the tumor endpoint cannot. Whether
+injury is still antigen-driven needs an injury-rate measurement anchored to
+treatment events; deficits and antibody titers cannot show it.
+
 ### Secondary question: could antigen processing uncouple abundance from immune risk?
 
 **CONJECTURE (C11):** the relevant change may concern which peptides are
@@ -256,3 +263,16 @@ input. Discard analogies that cannot make a discriminating prediction. Preserve
 dated corrections and failed avenues rather than overwrite them. A discovery
 claim requires new evidence and renewed prior-art checking, not confidence in
 the narrative.
+
+### Cycle 3, 2026-11-05: what irreversible injury records about antigen
+
+| Action | Outcome and decision |
+| --- | --- |
+| Asked what the neural endpoint adds to the treatment-sequence null case | Exact result: final neural survival depends on a schedule only through antigen exposure; order changes exposure while the tumor endpoint is unchanged (V27) |
+| Split antigen presentation into burden-driven and release-driven hypotheses, using cross-presentation of apoptotic tumor cells (S126) | The two recommend opposite orders when surgery retains more than one cycle; retained both as CONJECTURE (C22) |
+| Asked what could show an ongoing attack | Deficit, atrophy and antibody titer are states (S125); intensity needs an injury rate divided by remaining target; proposed a treatment-anchored design (C23) |
+| Checked serum NfL as the rate marker | Confounded by surgery (S131) and neurotoxic chemotherapy (S130); design requires an antibody-negative comparator; no anti-Yo NfL cohort found |
+| Cross-checked on the Virtual Human engine | Identity, orders and signatures reproduced; continuous chemotherapy moves the burden-driven threshold (V28) |
+
+Next cycle: the [continuation tasks](research/paraneoplastic-exposure-observability.md#continuation-for-the-team),
+starting with the primary sources behind the conflicting timing evidence.

@@ -204,3 +204,13 @@ hand-calculated fractions, the linear null and its boundary, caps/zero burden,
 invalid inputs, the exact grid formula, model ambiguity and byte-content replay.
 They verify this mathematics/software, not a biological mechanism, source model,
 clinical efficacy or permission to acquire data.
+
+## Follow-up, 2026-11-05: the neural endpoint
+
+This audit compared tumor endpoints only. The
+[exposure and observability record](paraneoplastic-exposure-observability.md)
+adds an irreversible neural endpoint for paraneoplastic disease. Under the same
+proportional null, where order cannot change the final tumor burden, order can
+still change cumulative antigen exposure and therefore neural injury in an
+antigen-driven model. The surgery response map asked for above (C19) also decides
+that exposure, so the two measurement questions share their first inputs.

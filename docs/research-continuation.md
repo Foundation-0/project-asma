@@ -1,5 +1,9 @@
 # Research preservation and continuation
 
+**Latest executed analysis: [What the brain records, 2026-11-05](research/paraneoplastic-exposure-observability.md)**
+(exact synthetic results, Virtual Human cross-check and ranked continuation tasks;
+summarized [below](#paraneoplastic-exposure-and-observability-2026-11-05)).
+
 **Latest review: [Discovery round 2, 2026-11-05](discovery-round2-2026-11-05.md).**
 It narrows the CDR2L HLA-II evidence gap and develops discriminating comparisons
 for protein function, antigen identity and effector harm. These are source
