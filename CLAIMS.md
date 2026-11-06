@@ -190,6 +190,12 @@ and do **not** substitute for study-data execution.
 | --- | --- | --- | --- |
 | K29 | KNOWN | Nine curated IEDB class-II MS assay joins link human CDR2 (seven records, five source systems in the map) and CDR2L (two records); none establish anti-Yo CD4 receptor recognition or neural injury from that ligand evidence alone | [Evidence map](docs/cdr2-hla-ii-evidence-map-2026-11-06.md); identity-field IEDB replay [V27](docs/cdr2-hla-ii-evidence-map-2026-11-06.md#machine-checkable-reproduction); parent audit [V20](docs/antigen-discovery-round2-2026-11-05.md#what-was-actually-checked) |
 
+## CDR2L named-sequence audit, 2026-11-06
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V30 | VERIFIED | Both selected IEDB CDR2L HLA-II peptides match canonical Q86X02 at curated coordinates and the explicitly checked unreviewed CDR2L entry A0ACI8RKQ2; neither matches the explicitly checked CDR2 entry Q01850, including I/L-equivalent comparison | [Executed named-candidate result](docs/cdr2l-sequence-adjudication-2026-11-06.md), [aggregate certificate](registries/cdr2l-sequence-audit-2026-11-06.json), `python3 tools/audit_cdr2l_sequences.py`. Three named reference sequences only; remote database search unavailable, no global uniqueness claim, no spectra/allotype/receptor/injury validation. Sources S129–S131 and earlier source map. |
+
 ## What this ledger does not claim
 
 - Clinical validity, diagnostic accuracy, treatment benefit, or individual patient guidance.
