@@ -93,6 +93,16 @@ read and why.
   `python3 tools/analyze_validation_capacity.py`; no study files are acquired.
   The [report](../docs/pilot-001-validation-capacity.md) records the assumptions
   and distinguishes the inherited class counts from a new patient-level join.
+- [pilot-001-exploratory-subset-design.json](pilot-001-exploratory-subset-design.json):
+  deterministic offline design values for the
+  [pre-registered exploratory subset plan](../protocols/pilot-001-exploratory-subset-plan.md):
+  the exact Mann–Whitney null distribution and one-sided critical values for
+  8 versus 13 and 11 versus 17 patients, exact binomial intervals for every
+  attainable sensitivity and specificity, the frozen bootstrap and threshold
+  parameters, and the calibration-set counts. It rests on the same supplement
+  pin and section 4 phrase as the capacity record. Regenerate with
+  `python3 tools/plan_exploratory_subset_design.py`; no study files are read and
+  no score or model performance is involved.
 
 - [pilot-001-reconstruction-runtime.json](pilot-001-reconstruction-runtime.json):
   selected R 4.4.3, glmnet 4.1-8, randomForest 4.7-1.2 and XGBoost 1.7.8.1 source

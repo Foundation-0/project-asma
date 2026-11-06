@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-05):** PROVEN **0** · VERIFIED **26** · KNOWN **33** · CONJECTURE **22**
+**Counts (2026-11-06):** PROVEN **0** · VERIFIED **27** · KNOWN **35** · CONJECTURE **23**
 
 ---
 
@@ -166,6 +166,15 @@ and do **not** substitute for study-data execution.
 | V25 | VERIFIED | The site's two reference-coordinate assets pass offline identity, topology and omission checks; derivation from pinned archive files is reproducible | [Structure provenance](docs/site-structure-sources.md); `python3 tools/check_site_models.py`. Checks establish the selected coordinate representation, not biological dynamics, original crystallographic accuracy or clinical performance. |
 | V26 | VERIFIED | The browser assumption experiment obeys the exact toy-model boundaries across its 10,000 integer slider combinations | `node tools/test_research_lab.cjs`; [research experiment](docs/research/rosen-treatment-sequence-assumptions.md). Artificial material only; no patient parameters, treatment advice or full Gu-model reproduction. |
 | K28 | KNOWN | RCSB entries 1TRZ and 1BNA describe a crystalline biosynthetic human-insulin assembly and a synthetic DNA dodecamer respectively; public archive/API data have CC0 terms | Sources S122–S124 and [selection/omission record](docs/site-structure-sources.md). Displayed insulin is one selected molecule; displayed DNA is not a human genome fragment. |
+
+## Pilot 001 exploratory subset plan, 2026-11-06
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V28 | VERIFIED | For 8 refractory versus 13 sensitive patients, the exact Mann–Whitney null rejects AUROC = 0.5 one-sided at the 5% level only for U ≥ **76** of 104 pairs (AUROC ≥ 19/26 ≈ 0.7308; exact p = 0.04452, and 0.05210 at U = 75); for 11 versus 17 the region is U ≥ 130 of 187; two-sided 95% Clopper–Pearson intervals for every k/8 and j/13 are tabulated as numerical roots of the exact binomial tails | `python3 tools/plan_exploratory_subset_design.py --check`; `python3 -m unittest tests.test_exploratory_subset_design -v`; [design record](registries/pilot-001-exploratory-subset-design.json). Offline calculation on documented counts; no score was read and no model performance was measured |
+| K30 | KNOWN | The paper's frozen "independent" prediction set holds 34 tumours after neoadjuvant exclusion (P183), 13 of them from discovery patients (P145 with the audit's exact joins); its printed metrics are AUC 0.79 (95% CI 0.63–0.96) and sensitivity 0.25 at 98% specificity (P33), consistent with 3 of the sheet's 12 refractory tumours | Chowdhury et al., *Cell* 2023 (S01) as quoted in [open-questions section 4](docs/pilot-001-open-questions.md); sheet class counts 22/12 in the [supplement audit](registries/pilot-001-supplement-summary.json). The released sheet is not established as the exact input to the printed metrics |
+| K31 | KNOWN | Of those 34 patients, **21 (13 sensitive / 8 refractory)** appear in no discovery record of any kind, 28 (17/11) are outside the eligible discovery set, and the remaining 40 scored frozen patients (29/11: the 27 overlap-sheet patients plus 13) all have a discovery record | Registry fields `patient_keys_not_observed_in_all_discovery` (21) and `…_in_eligible_discovery` (28) in the [supplement audit](registries/pilot-001-supplement-summary.json); class splits from the 2026-10-25 bounded inspection in [open-questions section 4](docs/pilot-001-open-questions.md), inherited and not rerun. Membership facts; not proof of an untouched or independent evaluation set |
+| C22 | CONJECTURE | Within that 21-patient subset, refractory-prediction scores rank refractory above sensitive tumours better than chance | [Pre-registered plan](protocols/pilot-001-exploratory-subset-plan.md): one-sided exact test at α = 0.05 with critical value U ≥ 76 of 104 (AUROC ≥ 19/26), patient bootstrap and DeLong intervals, threshold fixed on the other 40 patients. Not executed; exploratory only under Gate 0 Q5 (K32); neither outcome is validation, reproduction or a clinical result |
 
 ## What this ledger does not claim
 

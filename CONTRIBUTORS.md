@@ -70,6 +70,11 @@ existing numerical/evidence checks from proposed formal verification and future
 biological or clinical uses. Internal review is not external scientific peer
 review or demonstrated patient benefit.
 
+The **2026-11-06 pre-registered exploratory subset plan** (protocol, design tool,
+tests, design record and ledger entries) was written by **Claude** (Anthropic) via
+Claude Code under human direction, with independent internal agent review of the
+design values and wording. Internal review is not external scientific peer review.
+
 ## Prior work credited by name
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);

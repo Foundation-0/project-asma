@@ -512,7 +512,9 @@ Quotes from article XML PMC10414761.1 (paragraph IDs):
   and the owner's explicit decision. The 21 are outside the alignment fit, but
   they are not untouched: panel markers were filtered on detection in the
   validation data (P177), and their material is in the pooled reference run in
-  every discovery plex.
+  every discovery plex. Follow-up (2026-11-06): the
+  [exploratory subset plan](../protocols/pilot-001-exploratory-subset-plan.md)
+  is that pre-specified protocol; it is not executed.
 
 Data note: one investigation's schema-listing call printed the header cells of
 four replicate-correlation sheets, which are sample data labels, into transient
