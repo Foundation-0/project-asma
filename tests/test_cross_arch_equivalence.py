@@ -15,8 +15,10 @@ from pilot001_first_run import failure_codes as codes  # noqa: E402
 from pilot001_first_run.cross_arch_equivalence import (  # noqa: E402
     FAILURE_CODE,
     PASS_SCHEMA_VERSION,
+    SYNTHETIC_AGGREGATE_R_SOURCES,
     build_pass_record,
     compare_synthetic_records,
+    compute_synthetic_r_sources_sha256,
     compute_synthetic_stack_identity,
     git_sha_matches_head,
     load_pass_record,
@@ -57,6 +59,12 @@ class CrossArchEquivalenceTests(unittest.TestCase):
         self.assertFalse(result.passed)
         self.assertEqual(result.failure_code, FAILURE_CODE)
         self.assertTrue(result.deltas)
+
+    def test_stack_identity_hashes_documented_r_sources(self):
+        stack = self.local_stack()
+        self.assertEqual(stack["schema_version"], 2)
+        self.assertEqual(stack["synthetic_r_sources_sha256"], compute_synthetic_r_sources_sha256())
+        self.assertEqual(set(stack["synthetic_r_sources_sha256"]), set(SYNTHETIC_AGGREGATE_R_SOURCES))
 
     def test_pass_record_includes_auditable_metrics(self):
         amd64 = self.load("cross_arch_amd64_record.json")

@@ -17,12 +17,11 @@ sys.path.insert(0, str(ROOT))
 from pilot001_first_run import failure_codes as codes  # noqa: E402
 from pilot001_first_run.config import RunConfig, default_input_manifest  # noqa: E402
 from pilot001_first_run.cross_arch_equivalence import (  # noqa: E402
-    PASS_FILENAME as EQUIVALENCE_PASS_FILENAME,
     compute_synthetic_stack_identity,
-    load_pass_record,
     try_download_pass_record_from_ci,
 )
 from pilot001_first_run.gates import (  # noqa: E402
+    validate_clean_git_worktree_for_real_run,
     validate_cross_arch_equivalence_for_real_run,
     validate_dropbox_flag,
     validate_real_run_gates,
@@ -69,15 +68,14 @@ def main(argv: list[str] | None = None) -> int:
         default="asma-synthetic:4.4.3",
         help="Recorded amd64 synthetic image tag for cross-arch equivalence on Apple Silicon",
     )
-    parser.add_argument(
-        "--equivalence-record",
-        default=None,
-        help=(
-            f"Offline tests only: explicit path to {EQUIVALENCE_PASS_FILENAME} "
-            "(default: download CI pass artifact for HEAD via gh; fail closed if missing)"
-        ),
-    )
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if any(
+        token == "--equivalence-record" or token.startswith("--equivalence-record=") for token in argv
+    ):
+        emit_failure(codes.P001_FAIL_GATE_EQUIVALENCE_RECORD)
+        return 1
     args = parser.parse_args(argv)
+
     config = build_config(args)
     config.output_dir.mkdir(parents=True, exist_ok=True)
     head_sha = git_sha()
@@ -101,6 +99,14 @@ def main(argv: list[str] | None = None) -> int:
         emit_failure(real_gate)
         return 1
 
+    worktree_gate = validate_clean_git_worktree_for_real_run(
+        host=config.host,
+        real_mode=not config.dry_run,
+    )
+    if worktree_gate:
+        emit_failure(worktree_gate)
+        return 1
+
     if config.host == "macos" and not config.dry_run and platform.machine() in {"arm64", "aarch64"}:
         try:
             arm64_arch = inspect_image(args.image).get("Architecture", "")
@@ -109,14 +115,10 @@ def main(argv: list[str] | None = None) -> int:
             return 1
 
         local_stack = compute_synthetic_stack_identity()
-        pass_record = None
-        if args.equivalence_record is not None:
-            pass_record = load_pass_record(Path(args.equivalence_record))
-        else:
-            with tempfile.TemporaryDirectory(prefix="pilot001-equiv-") as tmp:
-                pass_record = try_download_pass_record_from_ci(git_sha=head_sha, dest_dir=Path(tmp))
+        with tempfile.TemporaryDirectory(prefix="pilot001-equiv-") as tmp:
+            pass_record = try_download_pass_record_from_ci(git_sha=head_sha, dest_dir=Path(tmp))
 
-        if pass_record is None and args.equivalence_record is None:
+        if pass_record is None:
             emit_failure(codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE)
             return 1
 

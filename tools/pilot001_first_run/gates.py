@@ -7,6 +7,7 @@ from zoneinfo import ZoneInfo
 
 from pilot001_first_run import failure_codes as codes
 from pilot001_first_run.config import RunConfig, parse_attestation_ref
+from pilot001_first_run.runner import git_worktree_clean
 from pilot001_first_run.cross_arch_equivalence import (
     NATIVE_ARM64_ARCH,
     validate_pass_record_for_gate,
@@ -55,6 +56,15 @@ def validate_dropbox_flag(config: RunConfig, *, preflight_passed: bool) -> str |
         return codes.P001_FAIL_GATE_DROPBOX_HOST
     if not preflight_passed:
         return codes.P001_FAIL_GATE_DROPBOX_PREFLIGHT
+    return None
+
+
+def validate_clean_git_worktree_for_real_run(*, host: str, real_mode: bool) -> str | None:
+    """Refuse macOS --real when the checkout has uncommitted changes."""
+    if not real_mode or host != "macos":
+        return None
+    if not git_worktree_clean():
+        return codes.P001_FAIL_GATE_DIRTY_WORKTREE
     return None
 
 
