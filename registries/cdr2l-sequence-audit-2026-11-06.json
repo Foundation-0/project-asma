@@ -1,0 +1,130 @@
+{
+  "accessed_at_utc": "2026-11-06T18:56:58.501081+00:00",
+  "candidate_universe": [
+    "A0ACI8RKQ2",
+    "Q01850",
+    "Q86X02"
+  ],
+  "certificate_sha256": "a40492bdc39211ed80e6e89e1ccbcbb8ec1b2c214f94e4ff146da5e127f43eab",
+  "claim_scope": "catalog_sequence_adjudication_not_spectrum_or_receptor_validation",
+  "database_search_status": "not_run",
+  "iedb_query": "https://query-api.iedb.org/mhc_search?elution_id=in.(11610866,18456218)&mhc_class=eq.II&select=elution_id,structure_id,linear_sequence,curated_source_antigen,pubmed_id,mhc_class,mhc_allele_name,mhc_allele_resolution,mhc_allele_evidence,qualitative_measure,parent_source_antigen_iri&limit=3",
+  "leads": [
+    {
+      "assay_id": 11610866,
+      "curated_end": 464,
+      "curated_start": 445,
+      "epitope_id": 1281771,
+      "local_matches": {
+        "A0ACI8RKQ2": {
+          "exact_positions": [
+            436
+          ],
+          "il_positions": [
+            436
+          ]
+        },
+        "Q01850": {
+          "exact_positions": [],
+          "il_positions": []
+        },
+        "Q86X02": {
+          "exact_positions": [
+            445
+          ],
+          "il_positions": [
+            445
+          ]
+        }
+      },
+      "mhc_allele_evidence": "Allele/Locus-specific Antibody",
+      "mhc_allele_name": "human",
+      "mhc_allele_resolution": "class",
+      "peptide_length": 20,
+      "peptide_sha256": "e3f89dacbd675e575f9977b37d1377a7a1cd538fa7faf942fe22c64c588b19ea",
+      "pubmed_id": "33858848",
+      "searches": []
+    },
+    {
+      "assay_id": 18456218,
+      "curated_end": 446,
+      "curated_start": 432,
+      "epitope_id": 1933672,
+      "local_matches": {
+        "A0ACI8RKQ2": {
+          "exact_positions": [
+            423
+          ],
+          "il_positions": [
+            423
+          ]
+        },
+        "Q01850": {
+          "exact_positions": [],
+          "il_positions": []
+        },
+        "Q86X02": {
+          "exact_positions": [
+            432
+          ],
+          "il_positions": [
+            432
+          ]
+        }
+      },
+      "mhc_allele_evidence": "Allele/Locus-specific Antibody",
+      "mhc_allele_name": "human",
+      "mhc_allele_resolution": "class",
+      "peptide_length": 15,
+      "peptide_sha256": "90a79abab9ed2ea04b55f304c01cb0eed3f84c8f989a1a9531f9e615e9e9d31d",
+      "pubmed_id": "33968037",
+      "searches": []
+    }
+  ],
+  "limits": [
+    "Remote search completeness and database synchronization are not independently proved.",
+    "No spectra, allele-specific binding, receptor recognition or injury were assessed.",
+    "Full sequences and response bodies were not retained; offline checks are internal consistency only."
+  ],
+  "proteins": {
+    "A0ACI8RKQ2": {
+      "entry_type": "UniProtKB unreviewed (TrEMBL)",
+      "entry_version": 3,
+      "genes": [
+        "CDR2L"
+      ],
+      "length": 456,
+      "sequence_sha256": "1ae91203737afdd462bb8c6d2e140b0f4a0bf6d21ab15ac630fecfabc4c0d4fb",
+      "sequence_version": 1,
+      "taxon_id": 9606
+    },
+    "Q01850": {
+      "entry_type": "UniProtKB reviewed (Swiss-Prot)",
+      "entry_version": 178,
+      "genes": [
+        "CDR2"
+      ],
+      "length": 454,
+      "sequence_sha256": "debf5c9883be15975229ce928980db9e55c0538e9d6ec88763a659994f4dc36f",
+      "sequence_version": 2,
+      "taxon_id": 9606
+    },
+    "Q86X02": {
+      "entry_type": "UniProtKB reviewed (Swiss-Prot)",
+      "entry_version": 141,
+      "genes": [
+        "CDR2L"
+      ],
+      "length": 465,
+      "sequence_sha256": "4606da97797b928bf6a5e56b0a32be85069a7af9fed117ba9120857c371c91f8",
+      "sequence_version": 2,
+      "taxon_id": 9606
+    }
+  },
+  "schema_version": 1,
+  "script_sha256": "85d8ca5ff0c402c80b6ffce640e90904ad88f6d717402be138e5102454d3e38d",
+  "search_database_release": "not exposed by peptide-search service",
+  "uniprot_rest_releases": [
+    "2026_04"
+  ]
+}

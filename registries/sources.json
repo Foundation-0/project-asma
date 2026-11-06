@@ -1380,6 +1380,42 @@
       "takeaway": "Listing is not government approval of study safety/science; sponsors or investigators submit and are responsible for study information.",
       "limitations": "Registry metadata are not trial results, independently verified eligibility or enrollment guidance. Linked broader NIH web-policy page returned HTTP 403 and was not used for further claims.",
       "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S129",
+      "title": "UniProt peptide search asynchronous REST API",
+      "kind": "data_documentation",
+      "url": "https://peptidesearch.uniprot.org/",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://peptidesearch.uniprot.org/",
+      "locator": "POST peps/taxIds/lEQi/spOnly; job status and parameters endpoints",
+      "takeaway": "Documents exact peptide search with optional I/L equivalence and taxonomy restrictions.",
+      "limitations": "The attempted full replay was unavailable; database completeness and synchronization not independently established.",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S130",
+      "title": "UniProt named protein entries and database license",
+      "kind": "data_documentation",
+      "url": "https://rest.uniprot.org/uniprotkb/Q86X02.json",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://rest.uniprot.org/uniprotkb/Q86X02.json",
+      "locator": "Q86X02, Q01850 and A0ACI8RKQ2 JSON entries; https://www.uniprot.org/help/license and official ebi-uniprot/uniprot-manual help/license.md",
+      "takeaway": "Named-candidate sequence matching, entry and sequence versions; UniProt copyrightable database content uses CC BY 4.0.",
+      "limitations": "Reference sequences and annotations are not spectrum confirmation, uniqueness across all proteins or receptor recognition.",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S131",
+      "title": "IEDB data reuse and curation account",
+      "kind": "data_documentation",
+      "url": "https://discuss.iedb.org/t/iedb-coretrustseal-approved-application/205",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://discuss.iedb.org/t/iedb-coretrustseal-approved-application/205",
+      "locator": "Licenses R2 and Description of Repository; selected mhc_search records11610866 and18456218 via query-api.iedb.org",
+      "takeaway": "Describes freely available curated epitope data, source attribution and CC BY 4.0 account; bounded catalog audit preserves assay context.",
+      "limitations": "Catalog curation does not validate underlying spectra or an anti-Yo mechanism; archive certification period is not asserted current.",
+      "checked_on": "2026-11-06"
     }
   ]
 }

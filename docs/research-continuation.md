@@ -1,6 +1,8 @@
 # Research preservation and continuation
 
-**Latest desk deliverable: [CDR2/CDR2L HLA-II evidence map, 2026-11-06](cdr2-hla-ii-evidence-map-2026-11-06.md).**
+**Latest executed catalog check: [CDR2L named-sequence adjudication](cdr2l-sequence-adjudication-2026-11-06.md).** Two curated peptides match their CDR2L coordinates and do not match the explicitly checked CDR2 reference. Broad database uniqueness remains unresolved; spectra, allotype and receptor evidence remain the next questions.
+
+**Prior desk deliverable: [CDR2/CDR2L HLA-II evidence map, 2026-11-06](cdr2-hla-ii-evidence-map-2026-11-06.md).**
 Source-grounded tables for curated immunopeptidome leads, separated from
 receptor recognition and injury. Continues
 [Discovery round 2, 2026-11-05](discovery-round2-2026-11-05.md) and the
