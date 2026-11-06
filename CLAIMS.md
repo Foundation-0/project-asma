@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-06):** PROVEN **0** · VERIFIED **27** · KNOWN **35** · CONJECTURE **23**
+**Counts (2026-11-06):** PROVEN **0** · VERIFIED **28** · KNOWN **36** · CONJECTURE **23**
 
 ---
 
@@ -175,6 +175,13 @@ and do **not** substitute for study-data execution.
 | K30 | KNOWN | The paper's frozen "independent" prediction set holds 34 tumours after neoadjuvant exclusion (P183), 13 of them from discovery patients (P145 with the audit's exact joins); its printed metrics are AUC 0.79 (95% CI 0.63–0.96) and sensitivity 0.25 at 98% specificity (P33), consistent with 3 of the sheet's 12 refractory tumours | Chowdhury et al., *Cell* 2023 (S01) as quoted in [open-questions section 4](docs/pilot-001-open-questions.md); sheet class counts 22/12 in the [supplement audit](registries/pilot-001-supplement-summary.json). The released sheet is not established as the exact input to the printed metrics |
 | K31 | KNOWN | Of those 34 patients, **21 (13 sensitive / 8 refractory)** appear in no discovery record of any kind, 28 (17/11) are outside the eligible discovery set, and the remaining 40 scored frozen patients (29/11: the 27 overlap-sheet patients plus 13) all have a discovery record | Registry fields `patient_keys_not_observed_in_all_discovery` (21) and `…_in_eligible_discovery` (28) in the [supplement audit](registries/pilot-001-supplement-summary.json); class splits from the 2026-10-25 bounded inspection in [open-questions section 4](docs/pilot-001-open-questions.md), inherited and not rerun. Membership facts; not proof of an untouched or independent evaluation set |
 | C22 | CONJECTURE | Within that 21-patient subset, refractory-prediction scores rank refractory above sensitive tumours better than chance | [Pre-registered plan](protocols/pilot-001-exploratory-subset-plan.md): one-sided exact test at α = 0.05 with critical value U ≥ 76 of 104 (AUROC ≥ 19/26), patient bootstrap and DeLong intervals, threshold fixed on the other 40 patients. Not executed; exploratory only under Gate 0 Q5 (K32); neither outcome is validation, reproduction or a clinical result |
+
+## Recruiting trial-landscape snapshot, 2026-11-05 America/Chicago
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V29 | VERIFIED | The live fixed ClinicalTrials.gov query returned 592 unique recruiting/interventional records; 155 matched at least one prespecified biomarker bucket, 120 at least one platinum bucket and 50 both | [Report and exact request](docs/trial-landscape-2026-11-05.md); [aggregate certificate](results/trial-landscape-2026-11-05/certificate.json); `python3 results/trial-landscape-2026-11-05/verify.py`. Retrieved 2026-11-05 America/Chicago (2026-11-06 UTC); finite metadata counting, not trial outcomes or eligibility. Offline verification cannot reconstruct unretained source classifications; live reruns may differ. |
+| K33 | KNOWN | ClinicalTrials.gov documents search expansion, projected fields, pagination and a UTC processing timestamp; source terms require attribution and describe modification/update obligations and copyright limits; listing does not mean government approval of study safety/science | Primary API documentation, terms and disclaimer, S126–S128; [source and reuse assessment](docs/trial-landscape-2026-11-05.md#reuse-attribution-and-source-limits). No blanket source-license or clinical-validity claim. |
 
 ## What this ledger does not claim
 

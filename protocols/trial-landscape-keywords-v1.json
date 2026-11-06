@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "name": "recruiting-ovarian-trial-language-v1",
+  "prespecified_at_utc": "2026-11-06T04:45:08+00:00",
+  "endpoint": "https://clinicaltrials.gov/api/v2/studies",
+  "version_endpoint": "https://clinicaltrials.gov/api/v2/version",
+  "query": {
+    "query.cond": "Ovarian Cancer",
+    "filter.overallStatus": "RECRUITING",
+    "query.term": "AREA[StudyType]INTERVENTIONAL"
+  },
+  "request_options": {
+    "format": "json",
+    "pageSize": "1000",
+    "countTotal": "true"
+  },
+  "fields": [
+    "NCTId",
+    "BriefTitle",
+    "OfficialTitle",
+    "OverallStatus",
+    "StudyType",
+    "Phase",
+    "Condition",
+    "Keyword",
+    "BriefSummary",
+    "EligibilityCriteria"
+  ],
+  "text_fields": {
+    "brief_title": "identificationModule.briefTitle",
+    "official_title": "identificationModule.officialTitle",
+    "brief_summary": "descriptionModule.briefSummary",
+    "conditions": "conditionsModule.conditions",
+    "keywords": "conditionsModule.keywords",
+    "eligibility": "eligibilityModule.eligibilityCriteria"
+  },
+  "array_text_fields": [
+    "conditions",
+    "keywords"
+  ],
+  "normalization": "Unicode NFKC, casefold, alpha character α to 'alpha', Unicode dash punctuation and ASCII '-' to spaces, collapse Unicode whitespace; Unicode word-boundary literal phrase matching, independently within each field/list item; no stemming, negation removal or semantic inference.",
+  "buckets": {
+    "biomarker_generic": [
+      "biomarker",
+      "biomarkers"
+    ],
+    "brca": [
+      "brca",
+      "brca1",
+      "brca2",
+      "brca1/2"
+    ],
+    "hrd": [
+      "hrd",
+      "homologous recombination deficiency",
+      "homologous recombination deficient"
+    ],
+    "folate_receptor_alpha": [
+      "folr1",
+      "fralpha",
+      "fr alpha",
+      "folate receptor alpha"
+    ],
+    "platinum_resistant": [
+      "platinum resistant",
+      "platinum resistance"
+    ],
+    "platinum_refractory": [
+      "platinum refractory",
+      "platinum refractoriness"
+    ]
+  },
+  "groups": {
+    "any_biomarker_bucket": [
+      "biomarker_generic",
+      "brca",
+      "hrd",
+      "folate_receptor_alpha"
+    ],
+    "any_platinum_bucket": [
+      "platinum_resistant",
+      "platinum_refractory"
+    ]
+  },
+  "phase_order": [
+    "EARLY_PHASE1",
+    "PHASE1",
+    "PHASE2",
+    "PHASE3",
+    "PHASE4",
+    "NA"
+  ],
+  "missing_phase_label": "NOT_REPORTED",
+  "phase_rule": "One study in its canonical combined-phase category; NA distinct from absent/null/empty; reject unknown/duplicate values or NA mixed with real phases.",
+  "interpretation": "Public registry language mentions only, including negations, exclusion criteria and background. Query-matched basket studies retained. No eligibility inference, treatment ranking, outcome analysis or novelty claim.",
+  "retention": "Projected protocol fields held in process memory only. Persist aggregate counts, exact requests, whole-response hashes and provenance; no study rows, NCT ID lists, text snippets or eligibility narratives.",
+  "completion_rule": "Require first-page totalCount; any later totalCount must match (API may omit it on later pages); unique NCT IDs; no repeated nextPageToken; terminal record count equals totalCount; identical apiVersion/dataTimestamp before and after. These are drift checks, not an atomic-snapshot guarantee.",
+  "limits": {
+    "max_pages": 100,
+    "max_response_bytes": 33554432
+  },
+  "pre_retrieval_revision": {
+    "at_utc": "2026-11-06T04:45:26+00:00",
+    "reason": "Official API OpenAPI permits date/numeric sort fields, not NCTId. Omit sort; uniqueness and pagination checks do not depend on response ordering. No trial records have been requested.",
+    "pagination_clarified_at_utc": "2026-11-06T04:46:58+00:00",
+    "pagination_reason": "Official API countTotal is ignored on subsequent pages; do not require their totalCount field. Empty intermediate pages with a nextPageToken are allowed.",
+    "outputs_explicit_at_utc": "2026-11-06T04:50:10+00:00"
+  },
+  "count_outputs": [
+    "exclusive phase combinations",
+    "six whole-corpus keyword bucket counts",
+    "group unions, any-keyword union and no-keyword complement",
+    "four exclusive biomarker/platinum overlap cells",
+    "six bucket counts in eligibility text and six in other selected text (overlapping source-presence counts)",
+    "aggregate missing/empty optional field counts"
+  ]
+}
