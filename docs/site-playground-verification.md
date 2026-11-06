@@ -9,6 +9,57 @@ Pilot 001 record remains expandable; its current owner decisions link to the
 roadmap. Preliminary cohort/score values withheld by the site's existing policy
 remain withheld. No private records or patient-derived inferences were used.
 
+## Public-record refresh — 6 November 2026
+
+This website-only update reflects Project Asma main at
+`4f365cc098baac4461d1e45a075f947fe8fb6c23` (through PR #64) and
+Virtual Human main at `6b10b458704e36cd592552ab8165d55ce5fe64ec`
+(through PR #7). It summarises existing merged reports; it does not execute
+new research or change core methods, registries or execution gates.
+
+| Public work now represented | Site treatment |
+| --- | --- |
+| Asma #57, #64: [HLA-II source map](cdr2-hla-ii-evidence-map-2026-11-06.md) and [named-sequence check](cdr2l-sequence-adjudication-2026-11-06.md) | Updated frontier card and a four-step evidence diagram distinguish catalog detection, bounded sequence matching, receptor recognition and injury. The broader search remains incomplete. |
+| Asma #60: [trial-landscape audit](trial-landscape-2026-11-05.md) | A dated research card and expandable aggregate table explain overlapping keyword counts and their limits. The retrieval date is 5 November in Chicago, 6 November UTC. |
+| Asma #61–62: [exploratory plan](../protocols/pilot-001-exploratory-subset-plan.md) | A research card and notebook entry distinguish executed offline design calculations from an unexecuted study-data analysis. Preliminary Pilot numbers remain withheld. |
+| Asma #53–56, #63: [first-run preparation](pilot-001-first-run-runbook.md) and platform checks | The notebook reflects implemented amendment code paths and artificial-input checks, while keeping authorization, host checks and data-use conditions open. |
+| Virtual Human #4–7 | Capability summary and pinned report links cover the SBML importer, ovarian parameter ledger, dated research guide and optional evidence bindings. Unchecked SBML units and unpropagated uncertainty are explicit. |
+
+The newer merged runbook records amendment implementation on artificial
+fixtures; older roadmap/amendment passages still describe implementation as
+outstanding. The site follows the runbook for software capability and retains
+the execution conditions. This refresh does not reconcile those core records.
+The duplicate Rosen card is consolidated, with both existing fragment links
+preserved. The fragile hard-coded claim total is replaced by a direct ledger
+invitation.
+
+Refresh verification, separate from the original build checks below:
+
+- Repository validator and all **372 Python unit tests** passed. Implementation
+  hashes were current or covered by the same two pre-existing stale allowances.
+- Existing JavaScript mathematics checks passed all 10,000 artificial slider
+  combinations. Both reference models and static previews passed offline checks.
+- The existing `tools/test_site_browser.cjs` passed: model switching, lab controls,
+  failure fallback, themes, compact navigation, no-JavaScript view, GitHub Pages
+  project paths and nested 404 links.
+- A supplementary local browser check expanded all notebook sections at
+  **320, 390, 640, 768, 980 and 1440 pixels**, in both themes. The new blocks had
+  no horizontal overflow; all IDs were unique. The four evidence stages and
+  trial table remained readable without JavaScript. Browser checks observed no
+  page errors or off-site runtime requests.
+- All 26 distinct public Asma document links in the page resolve to files in
+  the checkout. Pinned Virtual Human additions were read against their reports.
+  Desktop evidence/research views and mobile evidence/table views were inspected.
+- A separate GPT-6 Astra agent reviewed the website changes against the public
+  sources and found no material scientific or implementation issue. This is
+  internal review, not external scientific peer review.
+
+Browser versions match the original record below. These checks establish
+presentation and software behaviour in the exercised environment; they do not
+replay the research, establish clinical validity, or constitute a full
+screen-reader audit. No new study-source acquisition, private-data access or
+deployment was performed for this refresh.
+
 ## What runs in the browser
 
 - Two measured reference structures, selected human insulin and synthetic DNA,
