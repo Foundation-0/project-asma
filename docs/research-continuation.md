@@ -74,3 +74,12 @@ source-access failures and negative findings are retained. No study data or
 third-party analysis code was acquired or executed; full Gu-model reconstruction
 and empirical fitting remain gated. This complements the existing frontier
 work without replacing Pilot 001 or claiming a clinical advance.
+
+## Recruiting trial-registry snapshot, 2026-11-05 America/Chicago
+
+The [direction-8 result](trial-landscape-2026-11-05.md) records a fresh query,
+prespecified phase and language buckets, an aggregate artifact and replay
+commands. **VERIFIED** refers to finite metadata counts, not study results,
+eligibility or clinical guidance. Source terms, processing/retrieval dates,
+classification limits and historical-replay limits are explicit. This separate
+metadata audit does not change Pilot 001 execution gates or the biology track.

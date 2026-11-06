@@ -116,6 +116,8 @@ ranking here must not be interpreted as a novelty ranking.
 
 ### 8. Recruiting interventional trial landscape (ClinicalTrials.gov metadata)
 
+**Executed follow-up:** [frozen snapshot, 2026-11-05 America/Chicago](trial-landscape-2026-11-05.md). The table below preserves the original 2026-11-04 proposal; its count is historical, not the new result.
+
 | Field | Content |
 | --- | --- |
 | **Question** | As of **2026-11-04**, how many **recruiting** **interventional** trials on ClinicalTrials.gov for condition **Ovarian Cancer** fall into phase and keyword buckets (biomarker language, platinum-resistance language) — a descriptive map, not trial enrollment advice? |

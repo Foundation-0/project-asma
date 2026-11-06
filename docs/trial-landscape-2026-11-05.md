@@ -115,7 +115,103 @@ snapshot. A later live query can legitimately return different counts.
 
 ## Executed result
 
-_Result table and observed provenance will be inserted after the reviewed script runs._
+**VERIFIED (V29): 592 unique registry records** matched the live
+query; the returned `totalCount` was also **592**. This is a new
+retrieval, not reuse of the historical direction-8 number. The prior proposal's
+590 is dated 2026-11-04; this audit does not identify which records changed or
+infer that a count difference represents newly opened trials.
+
+**VERIFIED (V29):** **155** records
+matched at least one of the four biomarker buckets, **120**
+matched at least one platinum bucket, and **50**
+matched both groups. **111** matched
+platinum-resistant language and **53**
+matched platinum-refractory language; those buckets overlap and are not cohorts.
+**367** matched none of this limited dictionary, which does not
+mean those studies lack biomarkers or resistance-related relevance.
+
+The [aggregate certificate](../results/trial-landscape-2026-11-05/certificate.json)
+is the authoritative output; [the result record](../results/trial-landscape-2026-11-05/PROOF.md)
+states the verifier's obligations and limits.
+
+**VERIFIED execution provenance:**
+
+| Field | Observed value |
+| --- | --- |
+| Retrieval, America/Chicago | `2026-11-05T22:52:35.477181-06:00` to `2026-11-05T22:52:38.957746-06:00` |
+| Retrieval, UTC | `2026-11-06T04:52:35.477181+00:00` to `2026-11-06T04:52:38.957746+00:00` |
+| ClinicalTrials.gov processing timestamp | `2026-11-05T10:00:06` **UTC**, unchanged before/after |
+| API version | `2.0.5`, unchanged before/after |
+| Runtime | Python `3.12.14`; Unicode data `15.0.0` |
+| Study-response pages | `1`, terminal, with `592` distinct IDs reconciled in memory |
+| Implementation SHA-256 | `d8c66078363c7a70d9223d0eca7daed2a7e865c793bb7882e33aa341a25d1440` |
+| Prespecified protocol SHA-256 | `986804b5f30c3ca244df9f0e83f450880415b27c6cc884f867154c56874ba8b6` |
+
+**KNOWN (S126):** the API documents `dataTimestamp` as UTC even though the raw
+string has no timezone suffix. It is the registry processing timestamp, not the
+last-update date of every individual record. The local retrieval date is
+**2026-11-05** despite the execution's **2026-11-06 UTC** date.
+
+Exact study request actually executed (response hash is in the certificate):
+
+```text
+https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&filter.overallStatus=RECRUITING&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CEligibilityCriteria
+```
+
+All counts in the following generated table are **VERIFIED (V29)**. Phase
+categories are mutually exclusive; keyword/source buckets overlap as specified.
+Only observed phase categories appear. The missingness rows count fields that
+are absent, null, empty or whitespace-only in the selected corpus.
+
+<!-- BEGIN GENERATED TRIAL COUNTS -->
+| Measure | Count |
+| --- | ---: |
+| Total studies | 592 |
+| API total count | 592 |
+| API study pages | 1 |
+| Any dictionary bucket | 225 |
+| No dictionary bucket | 367 |
+| phase_counts: EARLY_PHASE1 | 7 |
+| phase_counts: NA | 172 |
+| phase_counts: PHASE1 | 127 |
+| phase_counts: PHASE1+PHASE2 | 91 |
+| phase_counts: PHASE2 | 123 |
+| phase_counts: PHASE2+PHASE3 | 11 |
+| phase_counts: PHASE3 | 55 |
+| phase_counts: PHASE4 | 6 |
+| bucket_counts: biomarker_generic | 46 |
+| bucket_counts: brca | 85 |
+| bucket_counts: folate_receptor_alpha | 32 |
+| bucket_counts: hrd | 48 |
+| bucket_counts: platinum_refractory | 53 |
+| bucket_counts: platinum_resistant | 111 |
+| group_counts: any_biomarker_bucket | 155 |
+| group_counts: any_platinum_bucket | 120 |
+| biomarker_platinum_overlap: biomarker_only | 105 |
+| biomarker_platinum_overlap: both | 50 |
+| biomarker_platinum_overlap: neither | 367 |
+| biomarker_platinum_overlap: platinum_only | 70 |
+| missing_text_fields: brief_summary | 0 |
+| missing_text_fields: brief_title | 0 |
+| missing_text_fields: conditions | 0 |
+| missing_text_fields: eligibility | 0 |
+| missing_text_fields: keywords | 219 |
+| missing_text_fields: official_title | 1 |
+| eligibility_bucket_counts: biomarker_generic | 26 |
+| eligibility_bucket_counts: brca | 78 |
+| eligibility_bucket_counts: folate_receptor_alpha | 27 |
+| eligibility_bucket_counts: hrd | 41 |
+| eligibility_bucket_counts: platinum_refractory | 48 |
+| eligibility_bucket_counts: platinum_resistant | 92 |
+| other_text_bucket_counts: biomarker_generic | 22 |
+| other_text_bucket_counts: brca | 25 |
+| other_text_bucket_counts: folate_receptor_alpha | 17 |
+| other_text_bucket_counts: hrd | 26 |
+| other_text_bucket_counts: platinum_refractory | 6 |
+| other_text_bucket_counts: platinum_resistant | 71 |
+| Page 1 retrieved studies | 592 |
+<!-- END GENERATED TRIAL COUNTS -->
+
 
 ## Reuse, attribution and source limits
 
@@ -152,7 +248,56 @@ Primary methodology sources:
 
 ## Reproduction and validation
 
-_Commands and observed checks will be inserted after execution._
+Run from the repository root with Python 3.10+ and its standard library. The
+observed run used the runtime above; Python's Unicode version can affect text
+normalization and must be recorded for comparisons.
+
+```sh
+# Offline: verify the frozen artifact, code/protocol hashes and report numbers.
+python3 results/trial-landscape-2026-11-05/verify.py
+python3 tools/audit_trial_landscape.py --check-snapshot results/trial-landscape-2026-11-05/certificate.json
+
+# Offline: print every reported aggregate count from the frozen certificate.
+python3 tools/audit_trial_landscape.py --render-report-table results/trial-landscape-2026-11-05/certificate.json
+
+# Live: same pinned query and rules; stdout contains aggregate JSON only.
+python3 tools/audit_trial_landscape.py
+
+# Live: fail if current aggregate counts or source version differ from this snapshot.
+# Does not overwrite the frozen artifact. Byte-identical response order is not required.
+python3 tools/audit_trial_landscape.py --compare results/trial-landscape-2026-11-05/certificate.json
+
+# Offline software checks, including the new artificial-data tests.
+python3 -m unittest tests.test_trial_landscape -v
+make verify
+```
+
+**VERIFIED software checks:** 40 new artificial-data tests pass. They cover
+Unicode/boundary/negation examples, independent field matching, overlapping
+buckets, combined/missing phases, invalid shapes, pagination failures, count and
+source-version drift, safe error output, and atomic output preservation.
+Repository-wide `make verify` passed: **350 Python tests**, source/link
+validation, implementation-hash checks (including previously documented allowed
+drift), tracked-study-source checks, and the existing educational JavaScript/model
+checks. A second live `--compare` run at **2026-11-06T04:54:00.143268+00:00**
+to **2026-11-06T04:54:03.151445+00:00** reproduced every aggregate count and
+the source version. Its whole study-response SHA-256 also matched. This is
+a repeated query to the same service, not independent scientific validation.
+These checks exercise software properties, not clinical or semantic accuracy.
+
+The implementation was committed as `e355220` after those tests and before the
+live run. There were no failed live acquisitions and no post-retrieval keyword,
+corpus or counting changes. Earlier API-documentation corrections are recorded
+above. Independent Astra method review found no material counting defect;
+internal review is not external scientific review.
+
+`make verify-trial-landscape` checks this result only. `make verify-fast` and
+`make verify` run the repository's offline Python, metadata-hash and educational
+JavaScript/model checks; they do not run network audits or the separate pinned
+container/R pipeline. `make certificates` deliberately regenerates only byte
+integrity pins after validation; it does not re-fetch or replace the snapshot.
+Future checker changes require separate review, not silent regeneration to
+obtain agreement with a desired result.
 
 A live re-query can test the same method on the currently served registry.
 Because raw trial records are deliberately not archived, offline checks can

@@ -1,0 +1,4 @@
+986804b5f30c3ca244df9f0e83f450880415b27c6cc884f867154c56874ba8b6  protocols/trial-landscape-keywords-v1.json
+d8c66078363c7a70d9223d0eca7daed2a7e865c793bb7882e33aa341a25d1440  tools/audit_trial_landscape.py
+b34d986577d9c20fbef096a688b27f17ee2dccead2c99f8a1110adb06141e370  results/trial-landscape-2026-11-05/certificate.json
+c8dc8876ded94c6443f221572aa33992c5314762b20d37d5ae98c07e8202167b  results/trial-landscape-2026-11-05/verify.py
