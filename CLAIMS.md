@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-06):** PROVEN **0** · VERIFIED **28** · KNOWN **36** · CONJECTURE **23**
+**Counts (2026-11-06):** PROVEN **0** · VERIFIED **29** · KNOWN **37** · CONJECTURE **23**
 
 ---
 
@@ -53,6 +53,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | V18 | Git does not track or stage owner attestation file (when `git` available) | `python3 tools/validate.py` |
 | V19 | Original synthetic two-state counterexamples, a hypothetical selection-bound calculation, exact sign-flip enumeration and a missing-clone sampling example give the values in the [identifiability record](docs/compartment-identifiability.md) | `python3 tools/analyze_compartment_identifiability.py`; invented inputs, not study analysis or a new biological result |
 | V20 | The dated, canonical-parent IEDB metadata queries return 7 CDR2 and 2 CDR2L positive HLA-II MS assay annotations across 3 and 2 references respectively | [Recorded replay command and limits](docs/antigen-discovery-round2-2026-11-05.md#what-was-actually-checked), [query manifest](registries/antigen-metadata-audit-2026-11-05.json); metadata only, not unique ligand validation or anti-Yo receptor recognition |
+| V27 | The nine-assay IEDB class-II batch replay on **2026-11-06** returns seven CDR2 and two CDR2L rows with SHA256 digests matching [registries/cdr2-hla-ii-evidence-map-2026-11-06.json](registries/cdr2-hla-ii-evidence-map-2026-11-06.json) | Reproduction block in [evidence map](docs/cdr2-hla-ii-evidence-map-2026-11-06.md#machine-checkable-reproduction); metadata only |
 | V23 | Pilot 001 discovery AUROC discrepancy candidates (a)–(e) on released scores: ties=0; polarity reverse=0.191; Mann–Whitney=trapezoidal=0.80885; DeLong and stratified bootstrap 95% CIs both contain printed 0.83 while the point estimate remains 0.80885; fold-wise mean AUC not testable from public material | `python3 tools/analyze_auc_discrepancy.py` (network); `python3 -m unittest tests.test_auc_discrepancy -v`; [analysis](docs/pilot-001-auc-discrepancy.md); [registry](registries/pilot-001-auc-discrepancy.json) |
 
 **PR #30 runtime summary (2026-11-04):** the **207** `unittest` cases, **179** R
@@ -182,6 +183,12 @@ and do **not** substitute for study-data execution.
 | --- | --- | --- | --- |
 | V29 | VERIFIED | The live fixed ClinicalTrials.gov query returned 592 unique recruiting/interventional records; 155 matched at least one prespecified biomarker bucket, 120 at least one platinum bucket and 50 both | [Report and exact request](docs/trial-landscape-2026-11-05.md); [aggregate certificate](results/trial-landscape-2026-11-05/certificate.json); `python3 results/trial-landscape-2026-11-05/verify.py`. Retrieved 2026-11-05 America/Chicago (2026-11-06 UTC); finite metadata counting, not trial outcomes or eligibility. Offline verification cannot reconstruct unretained source classifications; live reruns may differ. |
 | K33 | KNOWN | ClinicalTrials.gov documents search expansion, projected fields, pagination and a UTC processing timestamp; source terms require attribution and describe modification/update obligations and copyright limits; listing does not mean government approval of study safety/science | Primary API documentation, terms and disclaimer, S126–S128; [source and reuse assessment](docs/trial-landscape-2026-11-05.md#reuse-attribution-and-source-limits). No blanket source-license or clinical-validity claim. |
+
+## CDR2 HLA-II evidence map, 2026-11-06
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| K29 | KNOWN | Nine curated IEDB class-II MS assay joins link human CDR2 (seven records, five source systems in the map) and CDR2L (two records); none establish anti-Yo CD4 receptor recognition or neural injury from that ligand evidence alone | [Evidence map](docs/cdr2-hla-ii-evidence-map-2026-11-06.md); **VERIFIED** IEDB replay [V27](docs/cdr2-hla-ii-evidence-map-2026-11-06.md#machine-checkable-reproduction); parent audit [V20](docs/antigen-discovery-round2-2026-11-05.md#what-was-actually-checked) |
 
 ## What this ledger does not claim
 

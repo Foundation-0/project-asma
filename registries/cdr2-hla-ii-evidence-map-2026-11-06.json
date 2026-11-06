@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "accessed_at_utc": "2026-11-06T03:39:18Z",
+  "purpose": "Machine-checkable query record for docs/cdr2-hla-ii-evidence-map-2026-11-06.md. Metadata and bibliographic fields only; no peptide sequences, TCR sequences, or participant identifiers.",
+  "parent_proteins": [
+    {
+      "gene": "CDR2",
+      "uniprot": "Q01850",
+      "refseq_protein": "NP_001793.1",
+      "uniprot_query": "https://rest.uniprot.org/uniprotkb/Q01850.json",
+      "uniprot_response_sha256": "recorded_at_run_time"
+    },
+    {
+      "gene": "CDR2L",
+      "uniprot": "Q86X02",
+      "refseq_protein": "NP_055418.2",
+      "uniprot_query": "https://rest.uniprot.org/uniprotkb/Q86X02.json",
+      "uniprot_response_sha256": "recorded_at_run_time"
+    }
+  ],
+  "iedb_class_ii_assay_ids": {
+    "Q01850": [11480011, 16293090, 16293091, 16293092, 16543635, 16553502, 16559485],
+    "Q86X02": [11610866, 18456218]
+  },
+  "iedb_queries": [
+    {
+      "label": "CDR2 class-II batch",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.(11480011,16293090,16293091,16293092,16543635,16553502,16559485)&mhc_class=eq.II&select=elution_id,reference_id,pubmed_id,reference_titles,mhc_class,mhc_allele_name,mhc_allele_evidence,assay_names,qualitative_measure,parent_source_antigen_iri&limit=50",
+      "expected_row_count": 7,
+      "response_sha256": "2e6fb6586af15604b61dff88264982e5f3f7101d4d04323b9d9993334e2e1b2e"
+    },
+    {
+      "label": "CDR2L class-II batch",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.(11610866,18456218)&mhc_class=eq.II&select=elution_id,reference_id,pubmed_id,reference_titles,mhc_class,mhc_allele_name,mhc_allele_evidence,assay_names,qualitative_measure,parent_source_antigen_iri&limit=50",
+      "expected_row_count": 2,
+      "response_sha256": "a9af84003b52bb2522038f663f52a3f15e08f541cfd4b58f9e386271493fdea0"
+    }
+  ],
+  "pubmed_queries": [
+    {
+      "label": "CDR2L + HLA-II terms (title/abstract)",
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=(%22CDR2L%22[Title/Abstract]+OR+%22cerebellar+degeneration-related+protein+2-like%22[Title/Abstract]+OR+CDR2L[All+Fields])+AND+(%22HLA+class+II%22[Title/Abstract]+OR+immunopeptidome[Title/Abstract]+OR+%22MHC+class+II%22[Title/Abstract]+OR+%22HLA-DR%22[Title/Abstract]+OR+%22HLA-DP%22[Title/Abstract])&retmax=25&retmode=json",
+      "expected_count": "0",
+      "run_date_utc": "2026-11-06"
+    },
+    {
+      "label": "CDR2 (not CDR2L token) + HLA-II terms",
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=(CDR2[Title/Abstract]+OR+%22cerebellar+degeneration-related+protein+2%22[Title/Abstract])+NOT+CDR2L+AND+(%22HLA+class+II%22[Title/Abstract]+OR+immunopeptidome[Title/Abstract]+OR+%22MHC+class+II%22[Title/Abstract])&retmax=25&retmode=json",
+      "expected_count": "23",
+      "run_date_utc": "2026-11-06"
+    }
+  ],
+  "prior_audit_cross_reference": "registries/antigen-metadata-audit-2026-11-05.json"
+}

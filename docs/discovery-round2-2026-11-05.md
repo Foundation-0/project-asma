@@ -107,6 +107,7 @@ candidate CDR2L/CDR2 HLA-II source: protein identity, presenter/model, isolation
 method, class/allele resolution, processing context, receptor evidence and injury
 evidence. Keep unknown cells unknown. A map that shows exactly where evidence
 ends is more useful than assigning a causal protein from a name or signature.
+**Executed follow-up:** [CDR2/CDR2L HLA-II evidence map, 2026-11-06](cdr2-hla-ii-evidence-map-2026-11-06.md).
 
 Independent internal agent review challenged the source transfers and novelty
 claims. It is not external scientific or clinical review. Repository validation
