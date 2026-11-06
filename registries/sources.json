@@ -1416,6 +1416,54 @@
       "takeaway": "Describes freely available curated epitope data, source attribution and CC BY 4.0 account; bounded catalog audit preserves assay context.",
       "limitations": "Catalog curation does not validate underlying spectra or an anti-Yo mechanism; archive certification period is not asserted current.",
       "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S132",
+      "title": "HLA Ligand Atlas exact CDR2L peptide page",
+      "kind": "data_documentation",
+      "url": "https://hla-ligand-atlas.org/peptide/SRIQKTKADINATKVKTHSS",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://hla-ligand-atlas.org/peptide/SRIQKTKADINATKVKTHSS",
+      "locator": "HLA-II source-association table and binding-evidence message; interface release2020.12",
+      "takeaway": "One cerebellum source association, displayed q-value0.00189334 and explicit absence of binding prediction.",
+      "limitations": "Portal metadata; q-value aggregation, presenting cell, original spectrum validation and peptide-specific allotype unresolved.",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S133",
+      "title": "PCI-DB processed CDR2L spectrum representation",
+      "kind": "data_documentation",
+      "url": "https://pci-db.org/psm_spectrum_info/3426396/?database=DB_release_240822_default",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://pci-db.org/psm_spectrum_info/3426396/?database=DB_release_240822_default",
+      "locator": "2024 spectrum page3426396; 2026 page2853502; resource paper doi:10.1136/jitc-2024-011366",
+      "takeaway": "Exact20mer, scan1888 and charge4 displayed with release-specific scores and annotated spectrum.",
+      "limitations": "No sufficient raw-file/PRIDE/USI linkage to original Atlas acquisition; processed representation is not independent validation or replication.",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S134",
+      "title": "PRIDE PXD023044 original class-II identification outputs",
+      "kind": "data_documentation",
+      "url": "https://www.ebi.ac.uk/pride/archive/projects/PXD023044",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://www.ebi.ac.uk/pride/archive/projects/PXD023044",
+      "locator": "peptides_1_1_0_CII_r1,r2,r3.mzid.gz; public file metadata and bounded complete gzip/XML streams",
+      "takeaway": "Exact15mer non-decoy Q86X02 identification at432–446 found once in r3; three file integrity receipts.",
+      "limitations": "Original search output, not independently reidentified spectrum; passThreshold and PEAKS score do not establish a peptide-specific q-value or HLA allotype.",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S135",
+      "title": "PRIDE breast-cell CDR2L experimental peak list and native-index definitions",
+      "kind": "data_documentation",
+      "url": "https://ftp.pride.ebi.ac.uk/pride/data/archive/2021/05/PXD023044/F1202000304_PF_MDAMB231_IFN-positive_replicate_5_pool_6_Immunopeptidomics-classII.mgf",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://www.ebi.ac.uk/pride/archive/projects/PXD023044",
+      "locator": "Complete pinned MGF; source MS:1000774 zero-based format and MS:1001062; EBI OLS and Matrix Science MGF specification",
+      "takeaway": "Source index22949 maps to scan23848, matching submitted precursor and charge; only173 selected experimental peaks retained after complete-file integrity verification.",
+      "limitations": "Deposited peak-list linkage, not independent identification, fragment rescoring, calibrated FDR, RAW verification or allotype assignment.",
+      "checked_on": "2026-11-06"
     }
   ]
 }
