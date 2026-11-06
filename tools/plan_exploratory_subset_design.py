@@ -3,11 +3,14 @@
 Exact null distribution of the Mann-Whitney statistic, its one-sided critical
 values, and exact binomial intervals for the documented class counts. No
 scores, individual observations, network access, model fitting or study files.
-JSON on stdout is deterministic; --check compares it with the committed result.
+Every floating-point endpoint is the correctly rounded root of an exact
+binomial-tail equation (sign tests in exact arithmetic, no libm call, no float
+summation), so the committed bytes do not depend on the interpreter version
+or platform. JSON on stdout is deterministic; --check compares it with the
+committed result.
 """
 import argparse
 from fractions import Fraction
-from functools import lru_cache
 import hashlib
 import json
 import math
@@ -35,14 +38,18 @@ PLAN = {
     'threshold_specificity_target': Fraction(98, 100),
     'interval_confidence': Fraction(95, 100),
 }
+# Bounds on the class counts served: the documented counts are at most 29.
+# They cap memory and time, not a tested general-purpose operating range.
+CLASS_LIMIT = 60
+TRIALS_LIMIT = 200
 
 
-def count(n, upper=10000):
+def count(n, upper):
     if type(n) is not int or not 0 <= n <= upper:
         raise ValueError('count must be an integer from 0 through %d' % upper)
 
 
-def positive_count(n, upper=10000):
+def positive_count(n, upper):
     count(n, upper)
     if n == 0:
         raise ValueError('count must be at least one')
@@ -53,28 +60,33 @@ def probability(p):
         raise ValueError('probability must be finite and strictly between zero and one')
 
 
-@lru_cache(maxsize=None)
-def _placements(m, n):
-    """Number of rank placements of m positives among m+n ranks, by U.
-
-    The highest rank is a positive (beating all n negatives, U += n) or a
-    negative (U unchanged). Exact integers; no ties.
-    """
-    if m == 0 or n == 0:
-        return ((0, 1),)
-    totals = {}
-    for u, c in _placements(m - 1, n):
-        totals[u + n] = totals.get(u + n, 0) + c
-    for u, c in _placements(m, n - 1):
-        totals[u] = totals.get(u, 0) + c
-    return tuple(sorted(totals.items()))
+def exact_probability(p):
+    probability(p)
+    return p if isinstance(p, Fraction) else Fraction(str(p))
 
 
 def mann_whitney_null(m, n):
-    """Exact null distribution of U = AUROC * m * n for m positives, n negatives."""
-    positive_count(m, 200)
-    positive_count(n, 200)
-    distribution = dict(_placements(m, n))
+    """Exact null distribution of U = AUROC * m * n for m positives, n negatives.
+
+    Counts rank placements of the m positives among m + n ranks, by U. The
+    highest rank is a positive (beating all j negatives, U += j) or a negative
+    (U unchanged); the table is built row by row so memory stays O(m * n^2).
+    Exact integers; no ties.
+    """
+    positive_count(m, CLASS_LIMIT)
+    positive_count(n, CLASS_LIMIT)
+    row = [[1] for _ in range(n + 1)]        # i = 0 positives: U = 0 only
+    for i in range(1, m + 1):
+        new = [[1]]                           # j = 0 negatives: U = 0 only
+        for j in range(1, n + 1):
+            totals = [0] * (i * j + 1)
+            for u, c in enumerate(row[j]):    # highest rank positive
+                totals[u + j] += c
+            for u, c in enumerate(new[j - 1]):  # highest rank negative
+                totals[u] += c
+            new.append(totals)
+        row = new
+    distribution = {u: c for u, c in enumerate(row[n]) if c}
     if sum(distribution.values()) != math.comb(m + n, m):
         raise ValueError('placement count does not match the binomial coefficient')
     return distribution
@@ -89,8 +101,7 @@ def upper_tail(m, n, u):
 
 def critical_value(m, n, alpha):
     """Smallest u with P(U >= u) <= alpha; the one-sided rejection region is U >= u."""
-    probability(alpha)
-    alpha = Fraction(str(alpha)) if not isinstance(alpha, Fraction) else alpha
+    alpha = exact_probability(alpha)
     for u in range(m * n + 1):
         tail = upper_tail(m, n, u)
         if tail <= alpha:
@@ -105,40 +116,57 @@ def critical_value(m, n, alpha):
 
 
 def binomial_cdf(k, n, p):
+    """P(X <= k) for X ~ Binomial(n, p); exact when p is a Fraction."""
     return sum(math.comb(n, i) * p ** i * (1 - p) ** (n - i) for i in range(k + 1))
 
 
-def _solve(function, increasing):
-    """Root of a monotone function on [0, 1] by bisection (numerical, not exact)."""
+def binomial_upper_tail(k, n, p):
+    """P(X >= k) for X ~ Binomial(n, p); exact when p is a Fraction."""
+    return sum(math.comb(n, i) * p ** i * (1 - p) ** (n - i) for i in range(k, n + 1))
+
+
+def _root(function, increasing):
+    """Correctly rounded binary64 root in [0, 1] of a monotone function.
+
+    Bisection over binary64 values until the bracket is two adjacent floats,
+    every sign test evaluated exactly at Fraction(mid); the exact midpoint of
+    the final bracket then decides which neighbour is nearer the root,
+    with exact halfway roots rounded to the neighbour with an even significand.
+    """
     low, high = 0.0, 1.0
-    for _ in range(200):
+    while True:
         mid = (low + high) / 2
-        if (function(mid) < 0) == increasing:
+        if mid in (low, high):
+            break
+        if (function(Fraction(mid)) < 0) == increasing:
             low = mid
         else:
             high = mid
-    return (low + high) / 2
+    midpoint = (Fraction(low) + Fraction(high)) / 2
+    value = function(midpoint)
+    if value == 0:
+        return float(midpoint)  # Fraction conversion rounds ties to even.
+    root_above_middle = (value < 0) == increasing
+    return high if root_above_middle else low
 
 
 def clopper_pearson(k, n, confidence):
     """Exact (Clopper-Pearson) two-sided interval for k successes in n trials."""
-    positive_count(n, 10000)
+    positive_count(n, TRIALS_LIMIT)
     count(k, n)
-    probability(confidence)
-    tail = (1 - Fraction(str(confidence))) / 2
-    lower = 0.0 if k == 0 else _solve(lambda p: (1 - binomial_cdf(k - 1, n, p)) - float(tail), True)
-    upper = 1.0 if k == n else _solve(lambda p: binomial_cdf(k, n, p) - float(tail), False)
+    tail = (1 - exact_probability(confidence)) / 2
+    lower = 0.0 if k == 0 else _root(lambda p: binomial_upper_tail(k, n, p) - tail, True)
+    upper = 1.0 if k == n else _root(lambda p: binomial_cdf(k, n, p) - tail, False)
     return {'successes': k, 'trials': n, 'proportion_exact': str(Fraction(k, n)),
             'proportion': k / n, 'lower': lower, 'upper': upper}
 
 
 def one_sided_lower(k, n, confidence):
     """Exact one-sided lower confidence limit for k successes in n trials."""
-    positive_count(n, 10000)
+    positive_count(n, TRIALS_LIMIT)
     count(k, n)
-    probability(confidence)
-    tail = 1 - Fraction(str(confidence))
-    return 0.0 if k == 0 else _solve(lambda p: (1 - binomial_cdf(k - 1, n, p)) - float(tail), True)
+    tail = 1 - exact_probability(confidence)
+    return 0.0 if k == 0 else _root(lambda p: binomial_upper_tail(k, n, p) - tail, True)
 
 
 def build_result(root=ROOT):
@@ -205,7 +233,9 @@ def build_result(root=ROOT):
         },
         'method': ('Mann-Whitney null: all C(m+n, m) rank placements equally likely, no ties; '
                    'U = AUROC * m * n; rejection region U >= critical_u with P(U >= critical_u) <= alpha. '
-                   'Clopper-Pearson intervals invert exact binomial tails by bisection (numerical endpoints).'),
+                   'Clopper-Pearson endpoints are the correctly rounded binary64 roots of exact '
+                   'binomial-tail equations (bisection with exact sign tests; no libm call, '
+                   'no float summation; platform-independent bytes).'),
         'cohorts': cohorts,
         'assumptions_and_limits': [
             'The null distribution assumes exchangeable ranks and no exact ties; observed ties are reported and the test is not applied across tied cross-class pairs without the plan\'s stated handling.',
@@ -218,11 +248,15 @@ def build_result(root=ROOT):
     }
 
 
-def main():
+def render(root=ROOT):
+    return json.dumps(build_result(root), indent=2, sort_keys=True, allow_nan=False) + '\n'
+
+
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true', help='verify deterministic committed aggregate output')
-    args = parser.parse_args()
-    rendered = json.dumps(build_result(), indent=2, sort_keys=True, allow_nan=False) + '\n'
+    args = parser.parse_args(argv)
+    rendered = render()
     if args.check:
         if (ROOT / OUTPUT).read_text() != rendered:
             raise SystemExit('exploratory-subset design artifact differs; regenerate and review')
