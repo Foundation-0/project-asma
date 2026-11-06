@@ -1,5 +1,7 @@
 """Exact distribution identities and safe aggregate provenance, without study rows."""
+import contextlib
 import importlib.util
+import io
 from fractions import Fraction
 from itertools import combinations
 import json
@@ -60,10 +62,11 @@ class ExploratorySubsetDesignTests(unittest.TestCase):
                 self.assertEqual(interval['upper'], 1)
 
     def test_reference_values_agree_with_the_capacity_record(self):
-        # Full-precision values recorded in registries/pilot-001-validation-capacity.json;
-        # the report rounds them to 79.42% and 75.29%.
-        self.assertAlmostEqual(design.one_sided_lower(13, 13, .95), .7941833348134493)
-        self.assertAlmostEqual(design.clopper_pearson(13, 13, .95)['lower'], .752947361999529)
+        # Full-precision values recorded in registries/pilot-001-validation-capacity.json
+        # (there computed as 0.05 ** (1 / 13) and 0.025 ** (1 / 13)); the report rounds
+        # them to 79.42% and 75.29%. Correctly rounded roots agree to the last bit.
+        self.assertEqual(design.one_sided_lower(13, 13, .95), .7941833348134493)
+        self.assertEqual(design.clopper_pearson(13, 13, .95)['lower'], .752947361999529)
         two_of_eight = design.clopper_pearson(2, 8, .95)
         self.assertAlmostEqual(two_of_eight['lower'], .032, places=3)
         self.assertAlmostEqual(two_of_eight['upper'], .651, places=3)
@@ -102,6 +105,44 @@ class ExploratorySubsetDesignTests(unittest.TestCase):
             dest.write_text(report.replace(design.SPLIT_PHRASE, 'candidate split removed'), encoding='utf-8')
             with self.assertRaisesRegex(ValueError, '^candidate split phrase changed$'):
                 design.build_result(root)
+
+    def test_rendered_bytes_match_and_check_passes(self):
+        self.assertEqual(design.render(), (ROOT / design.OUTPUT).read_text())
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            design.main(['--check'])
+        self.assertEqual(out.getvalue(), 'exploratory-subset design artifact matches\n')
+
+    def test_endpoints_are_correctly_rounded_exact_roots(self):
+        confidence = Fraction(95, 100)
+        two_sided_tail, one_sided_tail = (1 - confidence) / 2, 1 - confidence
+
+        def nearest(function, value, increasing):
+            # The exact root lies between the exact midpoints to the two neighbouring floats.
+            below = (Fraction(math.nextafter(value, -math.inf)) + Fraction(value)) / 2
+            above = (Fraction(value) + Fraction(math.nextafter(value, math.inf))) / 2
+            signs = (function(below) < 0, function(above) < 0)
+            return signs == ((True, False) if increasing else (False, True))
+
+        for k, n in ((1, 8), (2, 8), (3, 8), (5, 13), (12, 13), (13, 13), (1, 29), (28, 29)):
+            interval = design.clopper_pearson(k, n, confidence)
+            self.assertTrue(nearest(lambda p: design.binomial_upper_tail(k, n, p) - two_sided_tail,
+                                    interval['lower'], True), (k, n))
+            if k < n:
+                self.assertTrue(nearest(lambda p: design.binomial_cdf(k, n, p) - two_sided_tail,
+                                        interval['upper'], False), (k, n))
+            self.assertTrue(nearest(lambda p: design.binomial_upper_tail(k, n, p) - one_sided_tail,
+                                    design.one_sided_lower(k, n, confidence), True), (k, n))
+
+    def test_edge_cases_and_bounds(self):
+        with self.assertRaisesRegex(ValueError, '^no rejection region'):
+            design.critical_value(8, 13, Fraction(1, 10 ** 7))
+        self.assertEqual(design.one_sided_lower(0, 8, .95), 0.0)
+        for k, n in ((600, 1200), (1, 201)):
+            with self.assertRaises(ValueError):
+                design.clopper_pearson(k, n, .95)
+        with self.assertRaises(ValueError):
+            design.mann_whitney_null(61, 1)
 
     def test_committed_artifact_matches(self):
         result = design.build_result()

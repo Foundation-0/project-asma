@@ -166,26 +166,26 @@
           "proportion_exact": "0",
           "successes": 0,
           "trials": 8,
-          "upper": 0.3694166475528192
+          "upper": 0.3694166475528193
         },
         {
-          "lower": 0.003159723531251879,
+          "lower": 0.0031597235312519063,
           "proportion": 0.125,
           "proportion_exact": "1/8",
           "successes": 1,
           "trials": 8,
-          "upper": 0.5265096708752066
+          "upper": 0.5265096708752065
         },
         {
-          "lower": 0.03185402624994421,
+          "lower": 0.031854026249944226,
           "proportion": 0.25,
           "proportion_exact": "1/4",
           "successes": 2,
           "trials": 8,
-          "upper": 0.6508557944128242
+          "upper": 0.6508557944128243
         },
         {
-          "lower": 0.08523341413725344,
+          "lower": 0.08523341413725354,
           "proportion": 0.375,
           "proportion_exact": "3/8",
           "successes": 3,
@@ -193,15 +193,15 @@
           "upper": 0.7551367836334484
         },
         {
-          "lower": 0.15701277048705792,
+          "lower": 0.15701277048705797,
           "proportion": 0.5,
           "proportion_exact": "1/2",
           "successes": 4,
           "trials": 8,
-          "upper": 0.8429872295129421
+          "upper": 0.842987229512942
         },
         {
-          "lower": 0.24486321636655156,
+          "lower": 0.24486321636655162,
           "proportion": 0.625,
           "proportion_exact": "5/8",
           "successes": 5,
@@ -209,7 +209,7 @@
           "upper": 0.9147665858627465
         },
         {
-          "lower": 0.34914420558717574,
+          "lower": 0.3491442055871758,
           "proportion": 0.75,
           "proportion_exact": "3/4",
           "successes": 6,
@@ -217,7 +217,7 @@
           "upper": 0.9681459737500557
         },
         {
-          "lower": 0.4734903291247933,
+          "lower": 0.47349032912479344,
           "proportion": 0.875,
           "proportion_exact": "7/8",
           "successes": 7,
@@ -225,7 +225,7 @@
           "upper": 0.9968402764687481
         },
         {
-          "lower": 0.6305833524471809,
+          "lower": 0.6305833524471807,
           "proportion": 1.0,
           "proportion_exact": "1",
           "successes": 8,
@@ -240,10 +240,10 @@
           "proportion_exact": "0",
           "successes": 0,
           "trials": 13,
-          "upper": 0.247052638000471
+          "upper": 0.24705263800047098
         },
         {
-          "lower": 0.001945628497346752,
+          "lower": 0.001945628497346748,
           "proportion": 0.07692307692307693,
           "proportion_exact": "1/13",
           "successes": 1,
@@ -251,23 +251,23 @@
           "upper": 0.3602974352678775
         },
         {
-          "lower": 0.01920667198252851,
+          "lower": 0.01920667198252847,
           "proportion": 0.15384615384615385,
           "proportion_exact": "2/13",
           "successes": 2,
           "trials": 13,
-          "upper": 0.45447105567655777
+          "upper": 0.4544710556765577
         },
         {
-          "lower": 0.05038107349115156,
+          "lower": 0.05038107349115152,
           "proportion": 0.23076923076923078,
           "proportion_exact": "3/13",
           "successes": 3,
           "trials": 13,
-          "upper": 0.5381315392340409
+          "upper": 0.538131539234041
         },
         {
-          "lower": 0.0909203945720965,
+          "lower": 0.09092039457209658,
           "proportion": 0.3076923076923077,
           "proportion_exact": "4/13",
           "successes": 4,
@@ -275,20 +275,20 @@
           "upper": 0.6142616617507053
         },
         {
-          "lower": 0.13857933889016055,
+          "lower": 0.1385793388901606,
           "proportion": 0.38461538461538464,
           "proportion_exact": "5/13",
           "successes": 5,
           "trials": 13,
-          "upper": 0.6842223970859369
+          "upper": 0.684222397085937
         },
         {
-          "lower": 0.1922324418012879,
+          "lower": 0.19223244180128798,
           "proportion": 0.46153846153846156,
           "proportion_exact": "6/13",
           "successes": 6,
           "trials": 13,
-          "upper": 0.7486545177296964
+          "upper": 0.7486545177296965
         },
         {
           "lower": 0.2513454822703035,
@@ -307,12 +307,12 @@
           "upper": 0.8614206611098394
         },
         {
-          "lower": 0.3857383382492946,
+          "lower": 0.38573833824929465,
           "proportion": 0.6923076923076923,
           "proportion_exact": "9/13",
           "successes": 9,
           "trials": 13,
-          "upper": 0.9090796054279033
+          "upper": 0.9090796054279034
         },
         {
           "lower": 0.461868460765959,
@@ -320,18 +320,18 @@
           "proportion_exact": "10/13",
           "successes": 10,
           "trials": 13,
-          "upper": 0.9496189265088484
+          "upper": 0.9496189265088485
         },
         {
-          "lower": 0.5455289443234421,
+          "lower": 0.5455289443234422,
           "proportion": 0.8461538461538461,
           "proportion_exact": "11/13",
           "successes": 11,
           "trials": 13,
-          "upper": 0.9807933280174714
+          "upper": 0.9807933280174715
         },
         {
-          "lower": 0.6397025647321224,
+          "lower": 0.6397025647321225,
           "proportion": 0.9230769230769231,
           "proportion_exact": "12/13",
           "successes": 12,
@@ -339,7 +339,7 @@
           "upper": 0.9980543715026533
         },
         {
-          "lower": 0.7529473619995288,
+          "lower": 0.752947361999529,
           "proportion": 1.0,
           "proportion_exact": "1",
           "successes": 13,
@@ -354,7 +354,7 @@
         },
         {
           "false_positives": 1,
-          "lower": 0.6836602352372703
+          "lower": 0.6836602352372702
         },
         {
           "false_positives": 2,
@@ -362,7 +362,7 @@
         },
         {
           "false_positives": 3,
-          "lower": 0.5053502698486343
+          "lower": 0.5053502698486344
         }
       ]
     },
@@ -600,10 +600,10 @@
           "proportion_exact": "0",
           "successes": 0,
           "trials": 11,
-          "upper": 0.28491415291815436
+          "upper": 0.2849141529181545
         },
         {
-          "lower": 0.00229897221381431,
+          "lower": 0.002298972213814267,
           "proportion": 0.09090909090909091,
           "proportion_exact": "1/11",
           "successes": 1,
@@ -611,23 +611,23 @@
           "upper": 0.4127799169883827
         },
         {
-          "lower": 0.022831198299959665,
+          "lower": 0.022831198299959655,
           "proportion": 0.18181818181818182,
           "proportion_exact": "2/11",
           "successes": 2,
           "trials": 11,
-          "upper": 0.5177558523601726
+          "upper": 0.5177558523601727
         },
         {
-          "lower": 0.06021773417290671,
+          "lower": 0.060217734172906635,
           "proportion": 0.2727272727272727,
           "proportion_exact": "3/11",
           "successes": 3,
           "trials": 11,
-          "upper": 0.6097425595724213
+          "upper": 0.6097425595724212
         },
         {
-          "lower": 0.10926344381909808,
+          "lower": 0.1092634438190981,
           "proportion": 0.36363636363636365,
           "proportion_exact": "4/11",
           "successes": 4,
@@ -635,15 +635,15 @@
           "upper": 0.6920952849883228
         },
         {
-          "lower": 0.16748809406370707,
+          "lower": 0.16748809406370713,
           "proportion": 0.45454545454545453,
           "proportion_exact": "5/11",
           "successes": 5,
           "trials": 11,
-          "upper": 0.766206402340655
+          "upper": 0.7662064023406548
         },
         {
-          "lower": 0.233793597659345,
+          "lower": 0.23379359765934515,
           "proportion": 0.5454545454545454,
           "proportion_exact": "6/11",
           "successes": 6,
@@ -651,15 +651,15 @@
           "upper": 0.8325119059362929
         },
         {
-          "lower": 0.30790471501167704,
+          "lower": 0.30790471501167715,
           "proportion": 0.6363636363636364,
           "proportion_exact": "7/11",
           "successes": 7,
           "trials": 11,
-          "upper": 0.890736556180902
+          "upper": 0.8907365561809019
         },
         {
-          "lower": 0.3902574404275786,
+          "lower": 0.39025744042757876,
           "proportion": 0.7272727272727273,
           "proportion_exact": "8/11",
           "successes": 8,
@@ -667,7 +667,7 @@
           "upper": 0.9397822658270933
         },
         {
-          "lower": 0.4822441476398275,
+          "lower": 0.4822441476398273,
           "proportion": 0.8181818181818182,
           "proportion_exact": "9/11",
           "successes": 9,
@@ -675,7 +675,7 @@
           "upper": 0.9771688017000404
         },
         {
-          "lower": 0.5872200830116172,
+          "lower": 0.5872200830116173,
           "proportion": 0.9090909090909091,
           "proportion_exact": "10/11",
           "successes": 10,
@@ -698,10 +698,10 @@
           "proportion_exact": "0",
           "successes": 0,
           "trials": 17,
-          "upper": 0.1950643229690932
+          "upper": 0.19506432296909323
         },
         {
-          "lower": 0.001488174391266639,
+          "lower": 0.0014881743912666346,
           "proportion": 0.058823529411764705,
           "proportion_exact": "1/17",
           "successes": 1,
@@ -709,7 +709,7 @@
           "upper": 0.2868893966672207
         },
         {
-          "lower": 0.014579316840302503,
+          "lower": 0.014579316840302487,
           "proportion": 0.11764705882352941,
           "proportion_exact": "2/17",
           "successes": 2,
@@ -717,28 +717,28 @@
           "upper": 0.3644091621012503
         },
         {
-          "lower": 0.037985068070625905,
+          "lower": 0.03798506807062596,
           "proportion": 0.17647058823529413,
           "proportion_exact": "3/17",
           "successes": 3,
           "trials": 17,
-          "upper": 0.4343178728442839
+          "upper": 0.43431787284428397
         },
         {
-          "lower": 0.06810774043735673,
+          "lower": 0.06810774043735665,
           "proportion": 0.23529411764705882,
           "proportion_exact": "4/17",
           "successes": 4,
           "trials": 17,
-          "upper": 0.4989932732045802
+          "upper": 0.49899327320458015
         },
         {
-          "lower": 0.10313551437031993,
+          "lower": 0.10313551437031991,
           "proportion": 0.29411764705882354,
           "proportion_exact": "5/17",
           "successes": 5,
           "trials": 17,
-          "upper": 0.5595827187543372
+          "upper": 0.5595827187543373
         },
         {
           "lower": 0.1420974831102209,
@@ -746,10 +746,10 @@
           "proportion_exact": "6/17",
           "successes": 6,
           "trials": 17,
-          "upper": 0.6167163365565971
+          "upper": 0.6167163365565972
         },
         {
-          "lower": 0.1844369617839467,
+          "lower": 0.18443696178394667,
           "proportion": 0.4117647058823529,
           "proportion_exact": "7/17",
           "successes": 7,
@@ -757,7 +757,7 @@
           "upper": 0.6707528460532426
         },
         {
-          "lower": 0.22983268726599032,
+          "lower": 0.22983268726599038,
           "proportion": 0.47058823529411764,
           "proportion_exact": "8/17",
           "successes": 8,
@@ -765,7 +765,7 @@
           "upper": 0.7218816996688935
         },
         {
-          "lower": 0.2781183003311064,
+          "lower": 0.2781183003311065,
           "proportion": 0.5294117647058824,
           "proportion_exact": "9/17",
           "successes": 9,
@@ -773,23 +773,23 @@
           "upper": 0.7701673127340096
         },
         {
-          "lower": 0.3292471539467573,
+          "lower": 0.32924715394675735,
           "proportion": 0.5882352941176471,
           "proportion_exact": "10/17",
           "successes": 10,
           "trials": 17,
-          "upper": 0.8155630382160532
+          "upper": 0.8155630382160534
         },
         {
-          "lower": 0.3832836634434028,
+          "lower": 0.38328366344340287,
           "proportion": 0.6470588235294118,
           "proportion_exact": "11/17",
           "successes": 11,
           "trials": 17,
-          "upper": 0.8579025168897791
+          "upper": 0.857902516889779
         },
         {
-          "lower": 0.4404172812456627,
+          "lower": 0.44041728124566276,
           "proportion": 0.7058823529411765,
           "proportion_exact": "12/17",
           "successes": 12,
@@ -797,7 +797,7 @@
           "upper": 0.8968644856296801
         },
         {
-          "lower": 0.5010067267954197,
+          "lower": 0.5010067267954199,
           "proportion": 0.7647058823529411,
           "proportion_exact": "13/17",
           "successes": 13,
@@ -813,23 +813,23 @@
           "upper": 0.962014931929374
         },
         {
-          "lower": 0.6355908378987496,
+          "lower": 0.6355908378987497,
           "proportion": 0.8823529411764706,
           "proportion_exact": "15/17",
           "successes": 15,
           "trials": 17,
-          "upper": 0.9854206831596974
+          "upper": 0.9854206831596976
         },
         {
-          "lower": 0.7131106033327792,
+          "lower": 0.7131106033327793,
           "proportion": 0.9411764705882353,
           "proportion_exact": "16/17",
           "successes": 16,
           "trials": 17,
-          "upper": 0.9985118256087333
+          "upper": 0.9985118256087334
         },
         {
-          "lower": 0.8049356770309066,
+          "lower": 0.8049356770309067,
           "proportion": 1.0,
           "proportion_exact": "1",
           "successes": 17,
@@ -840,7 +840,7 @@
       "specificity_one_sided_lower": [
         {
           "false_positives": 0,
-          "lower": 0.83843388873926
+          "lower": 0.8384338887392598
         },
         {
           "false_positives": 1,
@@ -870,9 +870,9 @@
     "threshold_specificity_target": "49/50"
   },
   "implementation_sha256": {
-    "tools/plan_exploratory_subset_design.py": "ff9df40cdd91047cd6c090b75af37e6c94cc6fb9fb9a8e2a2667271e8b0a0ac9"
+    "tools/plan_exploratory_subset_design.py": "073f2da790b29792dfb9e984d1afdb28c16cdc41dcee900f0c5aa443ba6a3ed3"
   },
-  "method": "Mann-Whitney null: all C(m+n, m) rank placements equally likely, no ties; U = AUROC * m * n; rejection region U >= critical_u with P(U >= critical_u) <= alpha. Clopper-Pearson intervals invert exact binomial tails by bisection (numerical endpoints).",
+  "method": "Mann-Whitney null: all C(m+n, m) rank placements equally likely, no ties; U = AUROC * m * n; rejection region U >= critical_u with P(U >= critical_u) <= alpha. Clopper-Pearson endpoints are the correctly rounded binary64 values of the exact rational roots of the binomial tails (bisection with exact sign tests; no libm call, no float summation; platform-independent bytes).",
   "protocol": "protocols/pilot-001-exploratory-subset-plan.md",
   "schema_version": 1,
   "source_sha256": {
