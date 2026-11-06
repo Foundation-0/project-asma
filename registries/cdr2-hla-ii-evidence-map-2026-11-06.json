@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
-  "accessed_at_utc": "2026-11-06T03:39:18Z",
+  "accessed_at_utc": "2026-11-06T04:04:19Z",
+  "verification_predicate": "Assay ID set, row counts, and per-row parent_source_antigen_iri, pubmed_id, mhc_class, mhc_allele_name, mhc_allele_evidence, qualitative_measure. Raw HTTP body SHA-256 is optional snapshot only.",
   "purpose": "Machine-checkable query record for docs/cdr2-hla-ii-evidence-map-2026-11-06.md. Metadata and bibliographic fields only; no peptide sequences, TCR sequences, or participant identifiers.",
   "parent_proteins": [
     {
@@ -8,32 +9,145 @@
       "uniprot": "Q01850",
       "refseq_protein": "NP_001793.1",
       "uniprot_query": "https://rest.uniprot.org/uniprotkb/Q01850.json",
-      "uniprot_response_sha256": "recorded_at_run_time"
+      "uniprot_response_sha256_snapshot": "fa3d724a41a7d7e4f990e85bafb2e48dad3a81ca947661675eecc03a93b1a59d",
+      "snapshot_note": "Point-in-time only; verification uses uniprot, gene, and refseq_protein fields."
     },
     {
       "gene": "CDR2L",
       "uniprot": "Q86X02",
       "refseq_protein": "NP_055418.2",
       "uniprot_query": "https://rest.uniprot.org/uniprotkb/Q86X02.json",
-      "uniprot_response_sha256": "recorded_at_run_time"
+      "uniprot_response_sha256_snapshot": "730a0c8c9d32afe3794a483b5edeb455f722a6a84f661b4338fcd7f17995141f",
+      "snapshot_note": "Point-in-time only; verification uses uniprot, gene, and refseq_protein fields."
     }
   ],
   "iedb_class_ii_assay_ids": {
-    "Q01850": [11480011, 16293090, 16293091, 16293092, 16543635, 16553502, 16559485],
-    "Q86X02": [11610866, 18456218]
+    "Q01850": [
+      11480011,
+      16293090,
+      16293091,
+      16293092,
+      16543635,
+      16553502,
+      16559485
+    ],
+    "Q86X02": [
+      11610866,
+      18456218
+    ]
   },
   "iedb_queries": [
     {
       "label": "CDR2 class-II batch",
-      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.(11480011,16293090,16293091,16293092,16543635,16553502,16559485)&mhc_class=eq.II&select=elution_id,reference_id,pubmed_id,reference_titles,mhc_class,mhc_allele_name,mhc_allele_evidence,assay_names,qualitative_measure,parent_source_antigen_iri&limit=50",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.(11480011,16293090,16293091,16293092,16543635,16553502,16559485)&mhc_class=eq.II&select=elution_id,reference_id,pubmed_id,mhc_class,mhc_allele_name,mhc_allele_evidence,qualitative_measure,parent_source_antigen_iri&limit=50",
       "expected_row_count": 7,
-      "response_sha256": "2e6fb6586af15604b61dff88264982e5f3f7101d4d04323b9d9993334e2e1b2e"
+      "expected_assay_ids": [
+        11480011,
+        16293090,
+        16293091,
+        16293092,
+        16543635,
+        16553502,
+        16559485
+      ],
+      "expected_rows": [
+        {
+          "elution_id": 11480011,
+          "parent_source_antigen_iri": "UNIPROT:Q01850",
+          "pubmed_id": "33858848",
+          "mhc_class": "II",
+          "mhc_allele_name": "human",
+          "mhc_allele_evidence": "Allele/Locus-specific Antibody",
+          "qualitative_measure": "Positive"
+        },
+        {
+          "elution_id": 16293090,
+          "parent_source_antigen_iri": "UNIPROT:Q01850",
+          "pubmed_id": "34357683",
+          "mhc_class": "II",
+          "mhc_allele_name": "HLA-DP",
+          "mhc_allele_evidence": "Allele/Locus-specific Antibody",
+          "qualitative_measure": "Positive"
+        },
+        {
+          "elution_id": 16293091,
+          "parent_source_antigen_iri": "UNIPROT:Q01850",
+          "pubmed_id": "34357683",
+          "mhc_class": "II",
+          "mhc_allele_name": "HLA-DP",
+          "mhc_allele_evidence": "Allele/Locus-specific Antibody",
+          "qualitative_measure": "Positive"
+        },
+        {
+          "elution_id": 16293092,
+          "parent_source_antigen_iri": "UNIPROT:Q01850",
+          "pubmed_id": "34357683",
+          "mhc_class": "II",
+          "mhc_allele_name": "HLA-DP",
+          "mhc_allele_evidence": "Allele/Locus-specific Antibody",
+          "qualitative_measure": "Positive"
+        },
+        {
+          "elution_id": 16543635,
+          "parent_source_antigen_iri": "UNIPROT:Q01850",
+          "pubmed_id": "33592498",
+          "mhc_class": "II",
+          "mhc_allele_name": "HLA-DRB1*03:01",
+          "mhc_allele_evidence": "Inferred by motif or alleles present",
+          "qualitative_measure": "Positive"
+        },
+        {
+          "elution_id": 16553502,
+          "parent_source_antigen_iri": "UNIPROT:Q01850",
+          "pubmed_id": "33592498",
+          "mhc_class": "II",
+          "mhc_allele_name": "HLA-DRB1*01:02",
+          "mhc_allele_evidence": "Inferred by motif or alleles present",
+          "qualitative_measure": "Positive"
+        },
+        {
+          "elution_id": 16559485,
+          "parent_source_antigen_iri": "UNIPROT:Q01850",
+          "pubmed_id": "33592498",
+          "mhc_class": "II",
+          "mhc_allele_name": "HLA-DRB1*01:02",
+          "mhc_allele_evidence": "Inferred by motif or alleles present",
+          "qualitative_measure": "Positive"
+        }
+      ],
+      "response_sha256_snapshot": "e846bb32d9b75be848aeddade77647abc933e52a4759b0099d506a4eb69acdd6",
+      "snapshot_note": "Non-stable API serialization; not the verification predicate."
     },
     {
       "label": "CDR2L class-II batch",
-      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.(11610866,18456218)&mhc_class=eq.II&select=elution_id,reference_id,pubmed_id,reference_titles,mhc_class,mhc_allele_name,mhc_allele_evidence,assay_names,qualitative_measure,parent_source_antigen_iri&limit=50",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.(11610866,18456218)&mhc_class=eq.II&select=elution_id,reference_id,pubmed_id,mhc_class,mhc_allele_name,mhc_allele_evidence,qualitative_measure,parent_source_antigen_iri&limit=50",
       "expected_row_count": 2,
-      "response_sha256": "a9af84003b52bb2522038f663f52a3f15e08f541cfd4b58f9e386271493fdea0"
+      "expected_assay_ids": [
+        11610866,
+        18456218
+      ],
+      "expected_rows": [
+        {
+          "elution_id": 11610866,
+          "parent_source_antigen_iri": "UNIPROT:Q86X02",
+          "pubmed_id": "33858848",
+          "mhc_class": "II",
+          "mhc_allele_name": "human",
+          "mhc_allele_evidence": "Allele/Locus-specific Antibody",
+          "qualitative_measure": "Positive"
+        },
+        {
+          "elution_id": 18456218,
+          "parent_source_antigen_iri": "UNIPROT:Q86X02",
+          "pubmed_id": "33968037",
+          "mhc_class": "II",
+          "mhc_allele_name": "human",
+          "mhc_allele_evidence": "Allele/Locus-specific Antibody",
+          "qualitative_measure": "Positive"
+        }
+      ],
+      "response_sha256_snapshot": "b7801c15a4b0ec6495f8b208c60767081307651bd6efd222cc4fce8d1a0478a1",
+      "snapshot_note": "Non-stable API serialization; not the verification predicate."
     }
   ],
   "pubmed_queries": [
@@ -50,5 +164,6 @@
       "run_date_utc": "2026-11-06"
     }
   ],
-  "prior_audit_cross_reference": "registries/antigen-metadata-audit-2026-11-05.json"
+  "prior_audit_cross_reference": "registries/antigen-metadata-audit-2026-11-05.json",
+  "revision": "2026-11-06 science review: removed brittle response_sha256 as verification predicate; fixed UniProt snapshot digests."
 }

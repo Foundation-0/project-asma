@@ -8,10 +8,24 @@ reported or inferred) separately from **receptor recognition** and **injury**.
 No new mechanism, patient result, or anti-Yo CD4 specificity is demonstrated.
 Claim labels follow [CLAIMS.md](../CLAIMS.md).
 
-**VERIFIED (this session):** repeating the nine canonical-parent IEDB class-II
-assay joins on **2026-11-06** returns the same seven CDR2 and two CDR2L positive
-cellular MHC/mass-spectrometry records as the **2026-11-05** audit
-([V20](../CLAIMS.md#verified), [S110](../registries/sources.json)).
+**Revision (2026-11-06, science review of PR #57):** an earlier draft of this report and
+**V27** incorrectly treated raw IEDB HTTP body SHA-256 as the verification
+predicate; independent replays matched **assay IDs and identity fields** but
+**not** those digests. The manifest and replay command now verify **assay ID set,
+row counts, parent protein IRI, PMID, MHC class, allele fields, and qualitative
+measure** ([V27](../CLAIMS.md#verified)). Optional `*_sha256_snapshot` values are
+point-in-time only. UniProt snapshot digests were also corrected (placeholders
+removed).
+
+**VERIFIED ([V27](../CLAIMS.md#verified), replay on 2026-11-06T04:04:19Z):** the
+nine-assay IEDB class-II batches return **7** rows with parent **UNIPROT:Q01850**
+and **2** rows with **UNIPROT:Q86X02**, with PMIDs and MHC metadata matching
+[registries/cdr2-hla-ii-evidence-map-2026-11-06.json](../registries/cdr2-hla-ii-evidence-map-2026-11-06.json).
+This aligns with the **2026-11-05** parent audit counts ([V20](../CLAIMS.md#verified)).
+Raw response byte hashes are **not** part of the check.
+
+**VERIFIED (same replay):** PubMed E-utilities counts **0** (CDR2L + HLA-II terms)
+and **23** (CDR2 excluding CDR2L token) on **2026-11-06**.
 
 **CONJECTURE:** ranking which source is most relevant to anti-Yo ovarian/neural
 biology is a research judgment only; this map does not perform that ranking.
@@ -95,8 +109,8 @@ Absence in these queries is **not** proof that no such receptor exists.
 
 | Question | Map answer | Label |
 | --- | --- | --- |
-| Are there curated **human HLA-II MS** links to CDR2/CDR2L? | Yes: **7 + 2** IEDB assay records across **five** publication systems (Table A). | **VERIFIED** (IEDB replay); **KNOWN** (methods limits in sources) |
-| Is **CDR2L** linked to Forlani CIITA GBM MS in the class-II join? | **No** in joined query (see audit). | **VERIFIED** |
+| Are there curated **human HLA-II MS** links to CDR2/CDR2L? | Yes: **7 + 2** IEDB assay records across **five** publication systems (Table A). | **VERIFIED** ([V27](../CLAIMS.md#verified) identity-field replay); **KNOWN** (methods limits in sources) |
+| Is **CDR2L** linked to Forlani CIITA GBM MS in the class-II join? | **No** in joined query (see audit). | **VERIFIED** ([V20](../CLAIMS.md#verified) join logic) |
 | Does any row establish **anti-Yo CD4** specificity? | **No** row in A–C. | **KNOWN** (negative claim = no supporting source found here) |
 | Does presentation imply **neural injury**? | **No** Table A source measures Purkinje/neural injury from that ligand. | **KNOWN** |
 | Best next desk step (research judgment) | Adjudicate **sequence uniqueness, allele, and original spectrum** for A2/A3 before receptor questions. | **CONJECTURE** ([C17](../CLAIMS.md)) |
@@ -105,38 +119,60 @@ Absence in these queries is **not** proof that no such receptor exists.
 
 ## Machine-checkable reproduction
 
-**Run date:** **2026-11-06 (UTC)**. Query manifest:
-[registries/cdr2-hla-ii-evidence-map-2026-11-06.json](../registries/cdr2-hla-ii-evidence-map-2026-11-06.json).
-Prior parent-enumeration audit:
+**Run date:** **2026-11-06T04:04:19Z**. Query manifest:
+[registries/cdr2-hla-ii-evidence-map-2026-11-06.json](../registries/cdr2-hla-ii-evidence-map-2026-11-06.json)
+(`verification_predicate` field). Prior parent-enumeration audit:
 [registries/antigen-metadata-audit-2026-11-05.json](../registries/antigen-metadata-audit-2026-11-05.json).
+
+**Note:** IEDB Query API JSON byte order and whitespace can change without altering
+curated fields. Replays must **not** fail on SHA-256 alone. The
+**2026-11-05** [antigen audit](../docs/antigen-discovery-round2-2026-11-05.md#what-was-actually-checked)
+used response hashes for that dated snapshot; this manifest supersedes hash-as-gate
+for the nine-assay batches only.
 
 ### UniProt (REST)
 
 ```text
-https://rest.uniprot.org/uniprotkb/Q01850.json
-https://rest.uniprot.org/uniprotkb/Q86X02.json
+https://rest.uniprot.org/uniprotkb/Q01850.json   → gene CDR2, RefSeq NP_001793.1
+https://rest.uniprot.org/uniprotkb/Q86X02.json   → gene CDR2L, RefSeq NP_055418.2
 ```
+
+Verification uses those accession/gene/RefSeq fields from the JSON entry, not a
+frozen digest (optional `uniprot_response_sha256_snapshot` in the manifest).
 
 ### IEDB Query API (class II on nine assay IDs)
 
 ```sh
 python3 - <<'PY'
-import hashlib, json, urllib.request
+import json, urllib.request
 from pathlib import Path
+
 manifest = json.loads(Path("registries/cdr2-hla-ii-evidence-map-2026-11-06.json").read_text())
-for q in manifest["iedb_queries"]:
+FIELDS = (
+    "elution_id", "parent_source_antigen_iri", "pubmed_id", "mhc_class",
+    "mhc_allele_name", "mhc_allele_evidence", "qualitative_measure",
+)
+
+def check_query(q):
     with urllib.request.urlopen(q["url"], timeout=60) as r:
-        body = r.read()
-    h = hashlib.sha256(body).hexdigest()
-    rows = json.loads(body)
-    ok = h == q["response_sha256"] and len(rows) == q["expected_row_count"]
-    print(q["label"], len(rows), h, ok)
+        rows = json.loads(r.read())
+    rows = sorted(rows, key=lambda x: x["elution_id"])
+    assert len(rows) == q["expected_row_count"]
+    assert [r["elution_id"] for r in rows] == q["expected_assay_ids"]
+    for got, exp in zip(rows, q["expected_rows"]):
+        for key in FIELDS:
+            assert got[key] == exp[key], (got["elution_id"], key, got[key], exp[key])
+    return len(rows)
+
+for q in manifest["iedb_queries"]:
+    n = check_query(q)
+    print(q["label"], n, "identity_ok")
 PY
 ```
 
-Expected on **2026-11-06:** `CDR2 class-II batch 7 … True` and
-`CDR2L class-II batch 2 … True`. API or curation changes should be preserved as a
-**new dated** manifest, not silent edits.
+Expected: `CDR2 class-II batch 7 identity_ok` and `CDR2L class-II batch 2 identity_ok`.
+If IEDB curation changes any pinned field, preserve a **new dated** manifest rather
+than silently editing expectations.
 
 Full parent enumeration (376 / 45 total assay IDs per parent) remains the
 **2026-11-05** audit replay in
@@ -144,10 +180,21 @@ Full parent enumeration (376 / 45 total assay IDs per parent) remains the
 
 ### PubMed (E-utilities)
 
-Exact queries and expected counts are in the JSON manifest (`pubmed_queries`).
-**2026-11-06:** CDR2L + HLA-II terms → **0** hits; CDR2 (excluding CDR2L token)
-+ HLA-II terms → **23** hits (mostly non–cerebellar-protein noise; not auto-imported
-as evidence).
+```sh
+python3 - <<'PY'
+import json, urllib.request
+from pathlib import Path
+manifest = json.loads(Path("registries/cdr2-hla-ii-evidence-map-2026-11-06.json").read_text())
+for q in manifest["pubmed_queries"]:
+    with urllib.request.urlopen(q["url"], timeout=60) as r:
+        count = json.loads(r.read())["esearchresult"]["count"]
+    assert count == q["expected_count"], (q["label"], count)
+    print(q["label"], count, "ok")
+PY
+```
+
+**2026-11-06:** CDR2L + HLA-II terms → **0**; CDR2 (excluding CDR2L token) + HLA-II
+terms → **23** (mostly non–cerebellar-protein noise; not auto-imported as evidence).
 
 ### IEDB web (manual cross-check)
 
