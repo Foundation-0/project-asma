@@ -49,6 +49,18 @@ class SourcePSMTests(unittest.TestCase):
         self.assertEqual(r['items'][0]['protein_evidence'][0]['protein']['accession'], 'SYNTHETIC')
         self.assertEqual(result['protocols'][0]['threshold_parameters'][0]['value'], '1')
 
+    def test_substitution_is_retained_not_reported_as_unmodified(self):
+        xml = fixture().replace(b'</PeptideSequence>', b'</PeptideSequence><SubstitutionModification originalResidue="S" replacementResidue="T" location="1" monoisotopicMassDelta="14.01565"/>')
+        modifications = inspect(xml)['matching_peptides'][0]['modifications']
+        self.assertEqual(modifications[0]['element'], 'SubstitutionModification')
+        self.assertEqual(modifications[0]['replacementResidue'], 'T')
+
+    def test_spectrum_id_format_and_file_format_retained(self):
+        xml = fixture().replace(b'location="synthetic.mgf"/>', b'location="synthetic.mgf"><FileFormat><cvParam accession="MS:1001062" name="Mascot MGF format"/></FileFormat><SpectrumIDFormat><cvParam accession="MS:1000774" name="multiple peak list nativeID format"/></SpectrumIDFormat></SpectraData>')
+        spectra = inspect(xml)['matching_results'][0]['spectra_data']
+        self.assertEqual(spectra['SpectrumIDFormat'][0]['accession'], 'MS:1000774')
+        self.assertEqual(spectra['FileFormat'][0]['accession'], 'MS:1001062')
+
     def test_expanded_payload_can_match_manifest_with_wrapper_difference_explicit(self):
         xml = fixture()
         blob = gzip.compress(xml, mtime=0)

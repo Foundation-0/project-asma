@@ -71,6 +71,7 @@ class IdentificationHandler(ContentHandler):
         self.results, self.protocols = [], []
         self.peptide = self.result = self.item = self.protocol = None
         self.sequence = []
+        self.current_spectra = None
         self.item_count = 0
 
     def startElement(self, name, attrs):
@@ -89,8 +90,8 @@ class IdentificationHandler(ContentHandler):
             self.peptide_ids.add(a["id"])
             self.peptide = {"id": a["id"], "modifications": []}
             self.sequence = []
-        elif name == "Modification" and self.peptide is not None:
-            self.peptide["modifications"].append(a)
+        elif name in ("Modification", "SubstitutionModification") and self.peptide is not None:
+            self.peptide["modifications"].append({"element": name, **a})
         elif name == "PeptideEvidence":
             require(a["id"] not in self.evidence_ids, "duplicate peptide-evidence identifier")
             self.evidence_ids.add(a["id"])
@@ -103,6 +104,7 @@ class IdentificationHandler(ContentHandler):
             require(bool(filename), "spectra location has no filename")
             self.spectra[a["id"]] = {"id": a["id"], "file_name": filename,
                 "source_location_sha256": hashlib.sha256(location.encode()).hexdigest()}
+            self.current_spectra = self.spectra[a["id"]]
         elif name == "SpectrumIdentificationResult":
             require(a["id"] not in self.result_ids, "duplicate result identifier")
             self.result_ids.add(a["id"])
@@ -116,6 +118,8 @@ class IdentificationHandler(ContentHandler):
         elif name == "SpectrumIdentificationProtocol":
             self.protocol = {"attributes": a, "threshold_parameters": []}
         elif name in ("cvParam", "userParam"):
+            if self.current_spectra is not None and parent in ("SpectrumIDFormat", "FileFormat"):
+                self.current_spectra.setdefault(parent, []).append(a)
             if self.item is not None and parent == "SpectrumIdentificationItem":
                 self.item["parameters"].append(a)
             if self.result is not None and parent == "SpectrumIdentificationResult":
@@ -132,7 +136,9 @@ class IdentificationHandler(ContentHandler):
 
     def endElement(self, name):
         name = name.split(":")[-1]
-        if name == "Peptide":
+        if name == "SpectraData":
+            self.current_spectra = None
+        elif name == "Peptide":
             if "".join(self.sequence).strip() == self.target:
                 self.matched_peptides[self.peptide["id"]] = self.peptide
             self.peptide = None

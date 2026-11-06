@@ -2,7 +2,7 @@
   "all_three_pinned_files_complete": true,
   "allotype_assigned": false,
   "assay_id": 18456218,
-  "completed_utc": "2026-11-06T19:30:49.405895+00:00",
+  "completed_utc": "2026-11-06T19:37:17.223599+00:00",
   "compressed_bytes": 15907955,
   "contract_basis": "Observed independently on all three files; not asserted as documented API semantics",
   "expanded_bytes": 226809010,
@@ -157,6 +157,20 @@
           ],
           "parameters": [],
           "spectra_data": {
+            "FileFormat": [
+              {
+                "accession": "MS:1001062",
+                "cvRef": "PSI-MS",
+                "name": "Mascot MGF file"
+              }
+            ],
+            "SpectrumIDFormat": [
+              {
+                "accession": "MS:1000774",
+                "cvRef": "PSI-MS",
+                "name": "multiple peak list nativeID format"
+              }
+            ],
             "file_name": "F1202000304_PF_MDAMB231_IFN-positive_replicate_5_pool_6_Immunopeptidomics-classII.mgf",
             "id": "SPECTRADATA_1111",
             "source_location_sha256": "c9211bdfe7a63a3451afd570287c341cc7ffa6ef8c590ea0660c818a4d3d2c42"
@@ -189,7 +203,7 @@
       "xml_complete": true
     }
   ],
-  "implementation_sha256": "134cee1d6778b1b27b5ee66b3f362c20644c2217e3e6adea10b8a3e183bd7ae6",
+  "implementation_sha256": "a41313a61ab0be74157792efa45d047ee3cb68a429da22aa088e24d18d5a79c2",
   "initial_rejected_assumption": "API checksum and size describe one byte representation",
   "metadata_contract": "API checksum matches served gzip SHA1; API size matches expanded XML bytes",
   "project": "PXD023044",
@@ -197,6 +211,6 @@
   "schema_version": 1,
   "source_license_metadata": "CC0",
   "spectra_reanalyzed": false,
-  "started_utc": "2026-11-06T19:29:56.208029+00:00",
+  "started_utc": "2026-11-06T19:36:40.912405+00:00",
   "target_sequence": "SQPEYKALFKEIFSR"
 }
