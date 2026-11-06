@@ -3,8 +3,8 @@
 Exact null distribution of the Mann-Whitney statistic, its one-sided critical
 values, and exact binomial intervals for the documented class counts. No
 scores, individual observations, network access, model fitting or study files.
-Every floating-point endpoint is the correctly rounded value of an exact
-rational root (sign tests in exact arithmetic, no libm call, no float
+Every floating-point endpoint is the correctly rounded root of an exact
+binomial-tail equation (sign tests in exact arithmetic, no libm call, no float
 summation), so the committed bytes do not depend on the interpreter version
 or platform. JSON on stdout is deterministic; --check compares it with the
 committed result.
@@ -130,7 +130,8 @@ def _root(function, increasing):
 
     Bisection over binary64 values until the bracket is two adjacent floats,
     every sign test evaluated exactly at Fraction(mid); the exact midpoint of
-    the final bracket then decides which neighbour is nearer the root.
+    the final bracket then decides which neighbour is nearer the root,
+    with exact halfway roots rounded to the neighbour with an even significand.
     """
     low, high = 0.0, 1.0
     while True:
@@ -141,7 +142,11 @@ def _root(function, increasing):
             low = mid
         else:
             high = mid
-    root_above_middle = (function((Fraction(low) + Fraction(high)) / 2) < 0) == increasing
+    midpoint = (Fraction(low) + Fraction(high)) / 2
+    value = function(midpoint)
+    if value == 0:
+        return float(midpoint)  # Fraction conversion rounds ties to even.
+    root_above_middle = (value < 0) == increasing
     return high if root_above_middle else low
 
 
@@ -228,8 +233,8 @@ def build_result(root=ROOT):
         },
         'method': ('Mann-Whitney null: all C(m+n, m) rank placements equally likely, no ties; '
                    'U = AUROC * m * n; rejection region U >= critical_u with P(U >= critical_u) <= alpha. '
-                   'Clopper-Pearson endpoints are the correctly rounded binary64 values of the exact '
-                   'rational roots of the binomial tails (bisection with exact sign tests; no libm call, '
+                   'Clopper-Pearson endpoints are the correctly rounded binary64 roots of exact '
+                   'binomial-tail equations (bisection with exact sign tests; no libm call, '
                    'no float summation; platform-independent bytes).'),
         'cohorts': cohorts,
         'assumptions_and_limits': [

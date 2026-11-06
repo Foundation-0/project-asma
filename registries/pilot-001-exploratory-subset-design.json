@@ -870,9 +870,9 @@
     "threshold_specificity_target": "49/50"
   },
   "implementation_sha256": {
-    "tools/plan_exploratory_subset_design.py": "073f2da790b29792dfb9e984d1afdb28c16cdc41dcee900f0c5aa443ba6a3ed3"
+    "tools/plan_exploratory_subset_design.py": "e3ffff060ddce23997d6bc73f87f53214cabedb7e88f8cffa533fb1592e0fbf1"
   },
-  "method": "Mann-Whitney null: all C(m+n, m) rank placements equally likely, no ties; U = AUROC * m * n; rejection region U >= critical_u with P(U >= critical_u) <= alpha. Clopper-Pearson endpoints are the correctly rounded binary64 values of the exact rational roots of the binomial tails (bisection with exact sign tests; no libm call, no float summation; platform-independent bytes).",
+  "method": "Mann-Whitney null: all C(m+n, m) rank placements equally likely, no ties; U = AUROC * m * n; rejection region U >= critical_u with P(U >= critical_u) <= alpha. Clopper-Pearson endpoints are the correctly rounded binary64 roots of exact binomial-tail equations (bisection with exact sign tests; no libm call, no float summation; platform-independent bytes).",
   "protocol": "protocols/pilot-001-exploratory-subset-plan.md",
   "schema_version": 1,
   "source_sha256": {

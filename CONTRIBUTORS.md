@@ -74,6 +74,10 @@ The **2026-11-06 pre-registered exploratory subset plan** (protocol, design tool
 tests, design record and ledger entries) was written by **Claude** (Anthropic) via
 Claude Code under human direction, with independent internal agent review of the
 design values and wording. Internal review is not external scientific peer review.
+The PR #62 follow-up fixes were prepared with OpenAI Codex and **GPT-6 Astra**
+agents: exact halfway-root regression coverage, a pre-metric score-precision
+stop rule, and stage-accurate stop reporting. Separate agents reviewed the
+arithmetic and execution contract using artificial inputs only.
 
 The **recruiting trial-landscape snapshot (2026-11-05 America/Chicago;
 2026-11-06 UTC)** was prepared with OpenAI Codex under human direction and

@@ -134,6 +134,25 @@ class ExploratorySubsetDesignTests(unittest.TestCase):
             self.assertTrue(nearest(lambda p: design.binomial_upper_tail(k, n, p) - one_sided_tail,
                                     design.one_sided_lower(k, n, confidence), True), (k, n))
 
+    def test_halfway_endpoints_round_to_even(self):
+        # With one trial these endpoints are linear in the confidence, so we
+        # can construct exact halfway roots without the binomial-tail helpers.
+        for endpoint, base in (('one_sided_lower', .25), ('lower', .25), ('upper', .75)):
+            low = base  # Each base has an even binary64 significand.
+            for even_is_lower in (True, False):
+                high = math.nextafter(low, math.inf)
+                midpoint = (Fraction(low) + Fraction(high)) / 2
+                expected = low if even_is_lower else high
+                with self.subTest(endpoint=endpoint, even_is_lower=even_is_lower):
+                    if endpoint == 'one_sided_lower':
+                        actual = design.one_sided_lower(1, 1, 1 - midpoint)
+                    elif endpoint == 'lower':
+                        actual = design.clopper_pearson(1, 1, 1 - 2 * midpoint)['lower']
+                    else:
+                        actual = design.clopper_pearson(0, 1, 2 * midpoint - 1)['upper']
+                    self.assertEqual(actual, expected)
+                low = high
+
     def test_edge_cases_and_bounds(self):
         with self.assertRaisesRegex(ValueError, '^no rejection region'):
             design.critical_value(8, 13, Fraction(1, 10 ** 7))
