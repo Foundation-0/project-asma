@@ -173,6 +173,11 @@ def build_result(root=ROOT):
             'sensitive_negative_count': negative, 'count_locator': locator,
             'carries_primary_decision_rule': decision_rule,
             'positive_negative_pairs': positive * negative,
+            # Joint patient draws miss a class with probability p^n + q^n; the
+            # 1,000-valid-draw minimum is therefore not binding at these counts.
+            'expected_class_empty_bootstrap_draws': float(PLAN['bootstrap_draws'] * (
+                Fraction(negative, positive + negative) ** (positive + negative)
+                + Fraction(positive, positive + negative) ** (positive + negative))),
             'null_upper_tail_by_u': {str(u): str(upper_tail(positive, negative, u))
                                      for u in range(positive * negative + 1)},
             'critical_values': [critical_value(positive, negative, alpha)

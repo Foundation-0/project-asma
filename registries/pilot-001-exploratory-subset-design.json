@@ -48,6 +48,7 @@
           "pairs": 104
         }
       ],
+      "expected_class_empty_bootstrap_draws": 0.08457683271741548,
       "null_upper_tail_by_u": {
         "0": "1",
         "1": "203489/203490",
@@ -398,6 +399,7 @@
           "pairs": 187
         }
       ],
+      "expected_class_empty_bootstrap_draws": 0.0017107128820946227,
       "null_upper_tail_by_u": {
         "0": "1",
         "1": "21474179/21474180",
@@ -868,7 +870,7 @@
     "threshold_specificity_target": "49/50"
   },
   "implementation_sha256": {
-    "tools/plan_exploratory_subset_design.py": "c92a40df476ee8c4ae2d13c9fdec46dc2b971e4f650842b6a1cea770480cedf1"
+    "tools/plan_exploratory_subset_design.py": "ff9df40cdd91047cd6c090b75af37e6c94cc6fb9fb9a8e2a2667271e8b0a0ac9"
   },
   "method": "Mann-Whitney null: all C(m+n, m) rank placements equally likely, no ties; U = AUROC * m * n; rejection region U >= critical_u with P(U >= critical_u) <= alpha. Clopper-Pearson intervals invert exact binomial tails by bisection (numerical endpoints).",
   "protocol": "protocols/pilot-001-exploratory-subset-plan.md",

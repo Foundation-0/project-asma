@@ -44,7 +44,9 @@ and linked specifications unless a dated amendment says otherwise:
 4. **Independent reconstruction** — discovery-only pipeline written without running
    author scripts ([reconstruction contract](../protocols/pilot-001-independent-reconstruction.md)).
 5. **Robustness and validation design** — frozen-cohort comparisons only after
-   independence is resolved; validation-capacity limits precomputed from documented counts.
+   independence is resolved; validation-capacity limits precomputed from documented counts;
+   the [exploratory subset plan](../protocols/pilot-001-exploratory-subset-plan.md)
+   (2026-11-06) pre-registers the 21-patient exploratory evaluation, not executed.
 
 Execution gates, data-use disposition, and stop rules are in the protocol and
 [data-use record](../docs/pilot-001-data-use.md). No study abundance matrices,

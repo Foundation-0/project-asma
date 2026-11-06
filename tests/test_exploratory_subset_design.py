@@ -108,6 +108,10 @@ class ExploratorySubsetDesignTests(unittest.TestCase):
         self.assertEqual([(c['refractory_positive_count'], c['sensitive_negative_count'])
                           for c in result['cohorts']], [(8, 13), (11, 17)])
         self.assertEqual([c['carries_primary_decision_rule'] for c in result['cohorts']], [True, False])
+        # Fewer than one class-empty draw is expected in 2,000 for either cohort.
+        self.assertTrue(all(0 < c['expected_class_empty_bootstrap_draws'] < 1 for c in result['cohorts']))
+        self.assertAlmostEqual(result['cohorts'][0]['expected_class_empty_bootstrap_draws'],
+                               2000 * ((13 / 21) ** 21 + (8 / 21) ** 21), places=9)
         self.assertEqual(result['calibration_set']['allowed_calibration_false_positives'], 0)
         self.assertTrue((ROOT / result['protocol']).is_file())
         self.assertEqual(set(result['implementation_sha256']), {'tools/plan_exploratory_subset_design.py'})

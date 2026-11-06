@@ -86,6 +86,10 @@ the documented aggregates; the plan freezes them as expectations and stop rules.
 | Calibration set | The 27 `Frozen_overlap_pred_scores` patients plus the 13 nonoverlap-sheet patients who do have a discovery record (34 − 21) | 40 (29 / 11) | Threshold selection only; never evaluated | KNOWN (K31), derived by subtraction |
 | Published frozen "independent" set | The whole 34-row sheet | 34 (22 / 12) | Reference for the printed metrics; not evaluated here | KNOWN (K30) |
 
+The calibration set is the only scored frozen material outside the evaluation
+subset. Its patients overlap discovery, which is permitted for threshold
+selection and forbidden for evaluation; it holds both classes (29 / 11).
+
 **Independence status (stated, not assumed).** The 21 did not take part in the
 published cross-cohort alignment, which pairs specimens by patient (open-questions
 section 4, "Likely"), and have no discovery measurement. They are **not an
@@ -124,9 +128,14 @@ and this plan, a **new performance result** that needs the owner's explicit,
 dated instruction naming this plan version before execution; a session's own
 checks never supply it, and Gate 0 Q5 alone is not read here as that
 instruction. No study matrix, no model fitting and no acquisition of PDC or
-author files is involved in Tier A, so the study-data host conditions (a)–(d)
-of [data-use](../docs/pilot-001-data-use.md) are not triggered by it; the
-owner's instruction names the host, and the handling rules of section 6 apply
+author files is involved in Tier A. The MMC workbooks are nonetheless listed as
+study data in the Gate 0 Q1 host record of
+[data-use](../docs/pilot-001-data-use.md), so Tier A runs where that record
+allows study data, the owner's MacBook in Canada, unless the owner's instruction
+records a different decision; the shared cloud host runs artificial inputs only.
+Whether the fair-dealing conditions (a)–(c) of that record apply to these
+workbooks is not decided here: their CC BY-NC-ND terms permit private
+noncommercial adaptation, and the aggregate-only handling of section 6 applies
 on any host. The 21-count is corroborated by the PDC catalog (21 frozen case
 records with no discovery match, [linkage summary](../registries/pilot-001-linkage-summary.json)),
 as a count only; exact correspondence between the two sets is not established.
@@ -152,18 +161,18 @@ holds the exact null distribution, critical values and interval tables (V28).
 
 | Item | Fixed value |
 | --- | --- |
-| Positive class and direction | Refractory positive; higher score predicts refractory (S95 of the paper, as fixed in the [score-verification specification](pilot-001-score-verification.md)); asserted in code, never reversed on inspection of results |
+| Positive class and direction | Refractory positive; higher score predicts refractory (article section S95, as fixed in the [score-verification specification](pilot-001-score-verification.md)); asserted in code, never reversed on inspection of results |
 | Primary estimand | Empirical AUROC on the 21: fraction of the 104 refractory–sensitive score pairs correctly ordered, half credit for exact ties, the convention shared by V08, `checked_auc` in `R/asma_core.R` and `evaluate_heldout`; cross-checked against the rank-sum formula as in V08, in exact fractions |
 | Primary decision rule | Exact one-sided conditional permutation test of the AUROC against 0.5 at **α = 0.05**, enumerating all C(21, 8) = 203,490 label placements over the observed scores. With no cross-class ties this is the Mann–Whitney null: reject when U ≥ **76** of 104, i.e. AUROC ≥ **19/26 = 0.7308** (exact p = 0.04452; p at U = 75 is 0.05210). With ties, the enumeration over the observed scores supplies the exact p-value; no other handling is permitted |
-| Primary uncertainty | 95% percentile interval from a patient-level bootstrap: **2,000** draws, seed **20261106**, draws jointly over the 21 patients, class-empty draws excluded and counted, at least **1,000** valid draws required, degenerate intervals flagged; conventions of [`tools/evaluate_heldout.py`](../tools/evaluate_heldout.py) |
-| Secondary interval | DeLong 95% interval on the same scores, with `delong_ci` of [`tools/analyze_auc_discrepancy.py`](../tools/analyze_auc_discrepancy.py) (the method of V23 (e)) |
-| Threshold | Chosen on the **calibration set only**, by the rule of `calibrate_threshold`: target specificity 0.98 on 29 negatives allows int(0.02 × 29) = **0** false positives, so the threshold is the smallest representable value above the largest sensitive calibration score; positive if score ≥ threshold. Fixed before any evaluation score is read |
-| Operating-point outputs | TP, FP, TN, FN on the 21; sensitivity k/8 and specificity j/13 with the exact two-sided 95% Clopper–Pearson intervals pre-tabulated in the design record; achieved specificity reported as observed, never forced to 98% |
-| Other secondary outputs | Grouped average precision with the subset prevalence 8/21 as its chance reference; Brier score of the released scores read as probabilities (S95); both descriptive within the selected-cohort design, not population calibration |
+| Primary uncertainty | 95% percentile interval from a patient-level bootstrap with the conventions of [`tools/evaluate_heldout.py`](../tools/evaluate_heldout.py), not the stratified bootstrap of the discrepancy tool: **2,000** draws from `random.Random(20261106)`, each draw one `randrange` index per patient over the 21 jointly (not stratified by class), class-empty draws excluded and counted, endpoints by linear interpolation at (n − 1)p for p = 0.025 and 0.975, at least **1,000** valid draws required, degenerate intervals flagged and the bootstrap range reported. The design record gives the expected class-empty count (about 0.09 of 2,000), so the minimum is not binding. The artifact records the Python implementation and version, since index sequences are not guaranteed across interpreters |
+| Secondary interval | DeLong 95% interval on the same scores, with `delong_ci` of [`tools/analyze_auc_discrepancy.py`](../tools/analyze_auc_discrepancy.py) (the method of V23 (e)); the executor adapts the keyed inputs to its score/label format and discards its `contains_printed_0_83` field, which has no meaning here. Both classes exceed one patient, as its variance requires |
+| Threshold | Chosen on the **calibration set only**, by the rule of `calibrate_threshold`: target specificity 0.98 on 29 negatives allows int(0.02 × 29) = **0** false positives, so the threshold is the smallest representable value above the largest sensitive calibration score; positive if score ≥ threshold. The operating point therefore rests on one order statistic of the 29 calibration negatives; that is reported, not adjusted. Fixed before any evaluation score is read |
+| Operating-point outputs | TP, FP, TN, FN on the 21; sensitivity k/8 and specificity j/13 with the two-sided 95% Clopper–Pearson intervals pre-tabulated in the design record (numerical roots of the exact binomial tails); achieved specificity reported as observed, never forced to 98% |
+| Other secondary outputs | Grouped average precision with the subset prevalence 8/21 as its chance reference; Brier score of the released scores read as probabilities (article section S95); both descriptive within the selected-cohort design, not population calibration |
 | Comparators (Tier A) | Chance (AUROC 0.5) through the decision rule; the printed frozen-independent AUC 0.79 (95% CI 0.63–0.96) and sensitivity 0.25 at 98% specificity, both on the 34-tumour set including 12 refractory (KNOWN, K30), reported **beside** the result with no agreement tolerance: different denominators, unknown published threshold rule, so no pass/fail |
 | Sensitivity analysis | The same AUROC, bootstrap interval and DeLong interval on the 28 (17/11). No decision rule; its design critical value (U ≥ 130 of 187, AUROC ≥ 0.6952) is recorded only so that no one invents one later |
 | Multiplicity | One primary endpoint, one decision rule, one prediction source per tier. Everything else is descriptive. Any further comparison is post hoc and labelled so |
-| Software | Python standard library only; an implementation committed **before** execution, with its SHA-256 and this file's SHA-256 recorded in the run artifact; the design record's `implementation_sha256` names the design tool |
+| Software | Python standard library only; an implementation committed **before** execution that reuses the workbook parser, exact-join and eligibility helpers of `tools/audit_published_cohorts.py` as the V08 tool did, with its SHA-256 and this file's SHA-256 recorded in the run artifact; the design record's `implementation_sha256` names the design tool |
 | Output | One aggregate JSON artifact and a dated result note. No patient key, score, rank, threshold position or per-patient hash leaves process memory, including terminal and agent-chat output |
 
 **Ties.** The released discovery scores had zero cross-class ties (V23 (a)). The
@@ -281,9 +290,13 @@ no threshold was selected, no AUROC was computed on any subset.
 
 ## 13. Limits on interpretation, publication and data protection
 
-- Aggregates only; small cells are inherent to n = 21 and the labels are public
-  released annotations, but a disclosure review still precedes publication, and
-  no per-patient value, key or hash is persisted or emitted.
+- Aggregates only. Disclosure rule, fixed now: the 2 × 2 counts on the 21 and
+  the tie counts may be published without cell suppression, because every label
+  and score behind them is already public per patient in the released
+  supplements and the counts derive nothing new about any patient; the review
+  before publication confirms that the artifact holds only the aggregates of
+  section 6, and no per-patient value, key, rank or hash is persisted or
+  emitted.
 - The released frozen scores are not established as the exact predictions behind
   the printed frozen metrics (open-questions section 4, "Open"); the released
   discovery sheet already misses the printed 0.83 (V08). Tier A evaluates the
