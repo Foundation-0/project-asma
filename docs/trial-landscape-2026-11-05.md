@@ -23,6 +23,13 @@ was committed before any trial response was requested. The initial commit was
 `476a6c5`; documentation-only corrections before acquisition removed unsupported
 NCTId sorting (`eba6549`) and clarified that later pages may omit totalCount
 (`5a50983`). No keyword list or text field was selected after inspecting results.
+The commit identifiers here refer to the original local history. Publication
+used the connected GitHub API because command-line Git/GitHub credentials were
+unavailable. API publication creates new commit IDs and timestamps; each commit
+message retains the original local ID and timestamp, while tree/file bytes and
+the execution's code/protocol SHA-256 pins remain unchanged. Thus publication
+time is distinct from local prespecification and acquisition time.
+
 These are original descriptive-audit rules; no existing locked Pilot checker
 was changed. The issue requests this new script and its result in one PR.
 
