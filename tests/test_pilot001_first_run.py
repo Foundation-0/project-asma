@@ -260,6 +260,7 @@ class TestAttestationAndGates(unittest.TestCase):
         report = run_linux_preflight(Path("/tmp/out"), runner)
         self.assertTrue(report.passed)
 
+    @mock.patch("pilot001_first_run.preflight.sys.platform", "linux")
     def test_linux_existing_output_skips_tmutil(self):
         calls = []
 
@@ -275,6 +276,28 @@ class TestAttestationAndGates(unittest.TestCase):
             report = run_linux_preflight(out, runner)
         self.assertTrue(report.passed)
         self.assertTrue(all("tmutil" not in " ".join(part for part in cmd) for cmd in calls))
+
+    @mock.patch("pilot001_first_run.preflight.sys.platform", "darwin")
+    def test_macos_existing_included_output_is_refused(self):
+        calls = []
+
+        def runner(command):
+            calls.append(command)
+            if "ulimit -c" in command[-1]:
+                return subprocess.CompletedProcess(command, 0, "0\n", "")
+            if command[:2] == ["tmutil", "isexcluded"]:
+                return subprocess.CompletedProcess(command, 0, "[Included] output\n", "")
+            return subprocess.CompletedProcess(command, 0, "ok\n", "")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "nested"
+            out.mkdir()
+            report = run_macos_preflight(out, runner, docker_desktop_swap=0)
+            expected = ["tmutil", "isexcluded", str(out.resolve())]
+        self.assertIn(expected, calls)
+        self.assertFalse(report.passed)
+        self.assertEqual(report.checks["output_path"], "FAIL:time_machine")
+        self.assertTrue(all(value == "PASS" for name, value in report.checks.items() if name != "output_path"))
 
     def test_macos_docker_swap_mock(self):
         def runner(command):
