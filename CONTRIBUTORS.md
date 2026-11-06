@@ -75,6 +75,13 @@ tests, design record and ledger entries) was written by **Claude** (Anthropic) v
 Claude Code under human direction, with independent internal agent review of the
 design values and wording. Internal review is not external scientific peer review.
 
+The **recruiting trial-landscape snapshot (2026-11-05 America/Chicago;
+2026-11-06 UTC)** was prepared with OpenAI Codex under human direction and
+**GPT-6 Astra** agents for method/terms review, implementation and artificial-test
+review. ClinicalTrials.gov/NLM is the source of registry metadata; original
+normalization, aggregate counting and reporting are this project's work.
+Internal checking is not external scientific or clinical peer review.
+
 ## Prior work credited by name
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);

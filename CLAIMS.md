@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-06):** PROVEN **0** · VERIFIED **27** · KNOWN **35** · CONJECTURE **23**
+**Counts (2026-11-06):** PROVEN **0** · VERIFIED **29** · KNOWN **37** · CONJECTURE **23**
 
 ---
 
@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`320` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`360` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
@@ -53,6 +53,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | V18 | Git does not track or stage owner attestation file (when `git` available) | `python3 tools/validate.py` |
 | V19 | Original synthetic two-state counterexamples, a hypothetical selection-bound calculation, exact sign-flip enumeration and a missing-clone sampling example give the values in the [identifiability record](docs/compartment-identifiability.md) | `python3 tools/analyze_compartment_identifiability.py`; invented inputs, not study analysis or a new biological result |
 | V20 | The dated, canonical-parent IEDB metadata queries return 7 CDR2 and 2 CDR2L positive HLA-II MS assay annotations across 3 and 2 references respectively | [Recorded replay command and limits](docs/antigen-discovery-round2-2026-11-05.md#what-was-actually-checked), [query manifest](registries/antigen-metadata-audit-2026-11-05.json); metadata only, not unique ligand validation or anti-Yo receptor recognition |
+| V27 | The nine-assay IEDB class-II batch replay (manifest [accessed_at_utc](registries/cdr2-hla-ii-evidence-map-2026-11-06.json)) returns seven CDR2 and two CDR2L rows whose **assay IDs**, **parent_source_antigen_iri** (UNIPROT:Q01850 / Q86X02), **pubmed_id**, **mhc_class**, **mhc_allele_name**, **mhc_allele_evidence**, and **qualitative_measure** match `expected_rows` — not raw HTTP SHA-256 | Identity replay in [evidence map](docs/cdr2-hla-ii-evidence-map-2026-11-06.md#machine-checkable-reproduction); optional `response_sha256_snapshot` is point-in-time only; metadata check, not ligand or anti-Yo receptor validation |
 | V23 | Pilot 001 discovery AUROC discrepancy candidates (a)–(e) on released scores: ties=0; polarity reverse=0.191; Mann–Whitney=trapezoidal=0.80885; DeLong and stratified bootstrap 95% CIs both contain printed 0.83 while the point estimate remains 0.80885; fold-wise mean AUC not testable from public material | `python3 tools/analyze_auc_discrepancy.py` (network); `python3 -m unittest tests.test_auc_discrepancy -v`; [analysis](docs/pilot-001-auc-discrepancy.md); [registry](registries/pilot-001-auc-discrepancy.json) |
 
 **PR #30 runtime summary (2026-11-04):** the **207** `unittest` cases, **179** R
@@ -175,6 +176,19 @@ and do **not** substitute for study-data execution.
 | K30 | KNOWN | The paper's frozen "independent" prediction set holds 34 tumours after neoadjuvant exclusion (P183), 13 of them from discovery patients (P145 with the audit's exact joins); its printed metrics are AUC 0.79 (95% CI 0.63–0.96) and sensitivity 0.25 at 98% specificity (P33), consistent with 3 of the sheet's 12 refractory tumours | Chowdhury et al., *Cell* 2023 (S01) as quoted in [open-questions section 4](docs/pilot-001-open-questions.md); sheet class counts 22/12 in the [supplement audit](registries/pilot-001-supplement-summary.json). The released sheet is not established as the exact input to the printed metrics |
 | K31 | KNOWN | Of those 34 patients, **21 (13 sensitive / 8 refractory)** appear in no discovery record of any kind, 28 (17/11) are outside the eligible discovery set, and the remaining 40 scored frozen patients (29/11: the 27 overlap-sheet patients plus 13) all have a discovery record | Registry fields `patient_keys_not_observed_in_all_discovery` (21) and `…_in_eligible_discovery` (28) in the [supplement audit](registries/pilot-001-supplement-summary.json); class splits from the 2026-10-25 bounded inspection in [open-questions section 4](docs/pilot-001-open-questions.md), inherited and not rerun. Membership facts; not proof of an untouched or independent evaluation set |
 | C22 | CONJECTURE | Within that 21-patient subset, refractory-prediction scores rank refractory above sensitive tumours better than chance | [Pre-registered plan](protocols/pilot-001-exploratory-subset-plan.md): one-sided exact test at α = 0.05 with critical value U ≥ 76 of 104 (AUROC ≥ 19/26), patient bootstrap and DeLong intervals, threshold fixed on the other 40 patients. Not executed; exploratory only under Gate 0 Q5 (K32); neither outcome is validation, reproduction or a clinical result |
+
+## Recruiting trial-landscape snapshot, 2026-11-05 America/Chicago
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V29 | VERIFIED | The live fixed ClinicalTrials.gov query returned 592 unique recruiting/interventional records; 155 matched at least one prespecified biomarker bucket, 120 at least one platinum bucket and 50 both | [Report and exact request](docs/trial-landscape-2026-11-05.md); [aggregate certificate](results/trial-landscape-2026-11-05/certificate.json); `python3 results/trial-landscape-2026-11-05/verify.py`. Retrieved 2026-11-05 America/Chicago (2026-11-06 UTC); finite metadata counting, not trial outcomes or eligibility. Offline verification cannot reconstruct unretained source classifications; live reruns may differ. |
+| K33 | KNOWN | ClinicalTrials.gov documents search expansion, projected fields, pagination and a UTC processing timestamp; source terms require attribution and describe modification/update obligations and copyright limits; listing does not mean government approval of study safety/science | Primary API documentation, terms and disclaimer, S126–S128; [source and reuse assessment](docs/trial-landscape-2026-11-05.md#reuse-attribution-and-source-limits). No blanket source-license or clinical-validity claim. |
+
+## CDR2 HLA-II evidence map, 2026-11-06
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| K29 | KNOWN | Nine curated IEDB class-II MS assay joins link human CDR2 (seven records, five source systems in the map) and CDR2L (two records); none establish anti-Yo CD4 receptor recognition or neural injury from that ligand evidence alone | [Evidence map](docs/cdr2-hla-ii-evidence-map-2026-11-06.md); identity-field IEDB replay [V27](docs/cdr2-hla-ii-evidence-map-2026-11-06.md#machine-checkable-reproduction); parent audit [V20](docs/antigen-discovery-round2-2026-11-05.md#what-was-actually-checked) |
 
 ## What this ledger does not claim
 

@@ -1,0 +1,134 @@
+{
+  "aggregate_payload_sha256": "6f53a8967a47f4a117fec06c75f2ffd3759b176ddb9f80f37d81cbf40fbe9410",
+  "counts": {
+    "any_keyword": 225,
+    "biomarker_platinum_overlap": {
+      "biomarker_only": 105,
+      "both": 50,
+      "neither": 367,
+      "platinum_only": 70
+    },
+    "bucket_counts": {
+      "biomarker_generic": 46,
+      "brca": 85,
+      "folate_receptor_alpha": 32,
+      "hrd": 48,
+      "platinum_refractory": 53,
+      "platinum_resistant": 111
+    },
+    "eligibility_bucket_counts": {
+      "biomarker_generic": 26,
+      "brca": 78,
+      "folate_receptor_alpha": 27,
+      "hrd": 41,
+      "platinum_refractory": 48,
+      "platinum_resistant": 92
+    },
+    "group_counts": {
+      "any_biomarker_bucket": 155,
+      "any_platinum_bucket": 120
+    },
+    "missing_text_fields": {
+      "brief_summary": 0,
+      "brief_title": 0,
+      "conditions": 0,
+      "eligibility": 0,
+      "keywords": 219,
+      "official_title": 1
+    },
+    "no_keyword": 367,
+    "other_text_bucket_counts": {
+      "biomarker_generic": 22,
+      "brca": 25,
+      "folate_receptor_alpha": 17,
+      "hrd": 26,
+      "platinum_refractory": 6,
+      "platinum_resistant": 71
+    },
+    "phase_counts": {
+      "EARLY_PHASE1": 7,
+      "NA": 172,
+      "PHASE1": 127,
+      "PHASE1+PHASE2": 91,
+      "PHASE2": 123,
+      "PHASE2+PHASE3": 11,
+      "PHASE3": 55,
+      "PHASE4": 6
+    },
+    "total_studies": 592
+  },
+  "implementation_sha256": {
+    "tools/audit_trial_landscape.py": "d8c66078363c7a70d9223d0eca7daed2a7e865c793bb7882e33aa341a25d1440"
+  },
+  "provenance": {
+    "api_total_count": 592,
+    "api_version_after": {
+      "response": {
+        "apiVersion": "2.0.5",
+        "dataTimestamp": "2026-11-05T10:00:06"
+      },
+      "response_sha256": "4675717d014700bb3d4fb709158e469103a772549ea0e75249bc60a075d5d679",
+      "url": "https://clinicaltrials.gov/api/v2/version"
+    },
+    "api_version_before": {
+      "response": {
+        "apiVersion": "2.0.5",
+        "dataTimestamp": "2026-11-05T10:00:06"
+      },
+      "response_sha256": "4675717d014700bb3d4fb709158e469103a772549ea0e75249bc60a075d5d679",
+      "url": "https://clinicaltrials.gov/api/v2/version"
+    },
+    "chicago_date": "2026-11-05",
+    "completed_at_chicago": "2026-11-05T22:52:38.957746-06:00",
+    "completed_at_utc": "2026-11-06T04:52:38.957746+00:00",
+    "page_count": 1,
+    "pages": [
+      {
+        "has_next_page": false,
+        "response_sha256": "ecb7cb2fc553121107663839bbb81daaa95a957cb0577361c8db21ff77b0ed93",
+        "study_count": 592,
+        "total_count": 592,
+        "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&filter.overallStatus=RECRUITING&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CEligibilityCriteria"
+      }
+    ],
+    "runtime": {
+      "python_version": "3.12.14",
+      "unicode_version": "15.0.0"
+    },
+    "started_at_chicago": "2026-11-05T22:52:35.477181-06:00",
+    "started_at_utc": "2026-11-06T04:52:35.477181+00:00",
+    "timezone": "America/Chicago"
+  },
+  "request_plan": {
+    "endpoint": "https://clinicaltrials.gov/api/v2/studies",
+    "fields": [
+      "NCTId",
+      "BriefTitle",
+      "OfficialTitle",
+      "OverallStatus",
+      "StudyType",
+      "Phase",
+      "Condition",
+      "Keyword",
+      "BriefSummary",
+      "EligibilityCriteria"
+    ],
+    "query": {
+      "filter.overallStatus": "RECRUITING",
+      "query.cond": "Ovarian Cancer",
+      "query.term": "AREA[StudyType]INTERVENTIONAL"
+    },
+    "request_options": {
+      "countTotal": "true",
+      "format": "json",
+      "pageSize": "1000"
+    },
+    "version_endpoint": "https://clinicaltrials.gov/api/v2/version"
+  },
+  "schema_version": 1,
+  "specification": {
+    "name": "recruiting-ovarian-trial-language-v1",
+    "path": "protocols/trial-landscape-keywords-v1.json",
+    "sha256": "986804b5f30c3ca244df9f0e83f450880415b27c6cc884f867154c56874ba8b6"
+  }
+}

@@ -90,3 +90,17 @@ reuse outside private research.
     identifiers, selections and omissions are recorded in
     `docs/site-structure-sources.md`. No article text or third-party artwork is
     copied, and neither reference is a patient-specific or ovarian-cancer model.
+
+15. **ClinicalTrials.gov public trial-registry metadata** — source: U.S. National
+    Library of Medicine, https://clinicaltrials.gov/; terms at
+    https://clinicaltrials.gov/about-site/terms-conditions (reviewed 2026-11-06
+    UTC). The recruiting ovarian-cancer landscape artifact contains aggregate
+    phase/keyword counts and acquisition provenance only. Source processing and
+    retrieval timestamps, field projection and all classification modifications
+    are documented in `docs/trial-landscape-2026-11-05.md`. This is a historical
+    snapshot, not a current enrollment directory. No raw trial records or
+    eligibility narratives are redistributed. Retain attribution, processing
+    dates and transformation disclosure; observe source terms, including their
+    update recommendation. Do not assert proprietary database rights or a
+    blanket CC0/CC BY license for the source; international and third-party
+    copyrights may apply. Listing is not government approval of safety/science.

@@ -8,7 +8,14 @@
 /processed/
 /manifests/private/
 /outputs/
-/results/
+# Keep result data ignored; permit only this reviewed aggregate-only audit record.
+/results/*
+!/results/trial-landscape-2026-11-05/
+/results/trial-landscape-2026-11-05/*
+!/results/trial-landscape-2026-11-05/PROOF.md
+!/results/trial-landscape-2026-11-05/certificate.json
+!/results/trial-landscape-2026-11-05/verify.py
+!/results/trial-landscape-2026-11-05/SHA256SUMS
 /artifacts/
 /checkpoints/
 /models/

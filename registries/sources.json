@@ -1332,6 +1332,54 @@
       "takeaway": "Coordinate archive and API data used for the site models are reusable under CC0 1.0; primary depositor and archive attribution retained.",
       "limitations": "This permission is for archive/API data, not a blanket licence to copy source papers or website illustrations.",
       "checked_on": "2026-11-05"
+    },
+    {
+      "id": "S125",
+      "title": "CDR2/CDR2L HLA-II evidence map query manifest",
+      "kind": "data_catalog",
+      "url": "https://query-api.iedb.org/",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://query-api.iedb.org/",
+      "locator": "registries/cdr2-hla-ii-evidence-map-2026-11-06.json; nine-assay class-II expected_rows identity check; PubMed E-utilities query URLs",
+      "takeaway": "Machine-checkable reproduction record for the 2026-11-06 evidence map; verifies assay IDs and curated identity fields, not raw IEDB body SHA-256.",
+      "limitations": "Does not validate unique protein assignment, original spectra, or anti-Yo receptor specificity; complements but does not replace antigen-metadata-audit-2026-11-05.json parent enumeration.",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S126",
+      "title": "ClinicalTrials.gov API v2 specification and search-field metadata",
+      "kind": "data_documentation",
+      "url": "https://clinicaltrials.gov/api/oas/v2",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://clinicaltrials.gov/api/oas/v2",
+      "locator": "GET /studies query.cond, query.term, filter.overallStatus, fields, countTotal, pageSize, pageToken and sort; GET /version. Supplemental official /api/v2/studies/search-areas, /metadata and /enums inspected 2026-11-06 UTC.",
+      "takeaway": "Documents the pinned recruiting/interventional query, field projection, pagination and UTC processing timestamp. ConditionSearch includes synonyms and several fields; a query match is not an ovarian-only or histotype-confirmed cohort.",
+      "limitations": "Live service with changing data, not an immutable historical archive. API correctness does not validate submitted clinical content. The audit retains only aggregates and provenance.",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S127",
+      "title": "ClinicalTrials.gov data terms and conditions",
+      "kind": "data_documentation",
+      "url": "https://clinicaltrials.gov/about-site/terms-conditions",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://clinicaltrials.gov/about-site/terms-conditions",
+      "locator": "Use-of-data conditions, attribution, processing date, updates, modifications, database rights, copyright and warranty paragraphs; rendered SPA text inspected in official chunk-D_cHimam2.js on 2026-11-06 UTC.",
+      "takeaway": "Attribute ClinicalTrials.gov, display the source processing date, describe modifications and observe the update recommendation. Source terms apply regardless of acquisition format; international and third-party copyright may apply.",
+      "limitations": "No blanket CC0 or repository-license grant. Dated historical aggregation is explicitly labelled; retaining that analytical snapshot is an implementation judgment, not an asserted terms exemption.",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S128",
+      "title": "ClinicalTrials.gov study-information disclaimer",
+      "kind": "data_documentation",
+      "url": "https://clinicaltrials.gov/about-site/disclaimer",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://clinicaltrials.gov/about-site/disclaimer",
+      "locator": "Sponsor/investigator responsibility, NLM apparent-error review, and government safety/science review statements; official site SPA asset inspected 2026-11-06 UTC.",
+      "takeaway": "Listing is not government approval of study safety/science; sponsors or investigators submit and are responsible for study information.",
+      "limitations": "Registry metadata are not trial results, independently verified eligibility or enrollment guidance. Linked broader NIH web-policy page returned HTTP 403 and was not used for further claims.",
+      "checked_on": "2026-11-06"
     }
   ]
 }
