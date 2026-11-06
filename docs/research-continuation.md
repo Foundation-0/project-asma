@@ -100,7 +100,8 @@ metadata audit does not change Pilot 001 execution gates or the biology track.
 
 The [executed follow-up](cdr2l-source-adjudication-2026-11-06.md) completes the
 broader sequence-service lookup, resolves the Atlas tissue association and
-traces the breast-cell-line lead into original deposited identification output.
+traces the breast-cell-line lead into original deposited identification output
+and a checksum-verified experimental peak list with an explicit scan locator.
 The two peptides overlap by only two canonical residues and remain separate
 source-specific leads. Neither has an experimentally assigned allotype here.
 The next discriminating result is bounded original-spectrum adjudication followed

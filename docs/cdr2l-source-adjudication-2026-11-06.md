@@ -13,7 +13,7 @@ cell-line identification inspection now narrow three specific uncertainties.
 | Lead | New evidence | Still unresolved |
 | --- | --- | --- |
 | IEDB 11610866, Q86X02 residues 445–464 | Official Atlas page reports one cerebellum source-association row and displayed q-value 0.00189334; a processed spectrum representation is accessible in PCI-DB | Original acquisition lineage and independent identification validation; presenting allotype; source cell type |
-| IEDB 18456218, Q86X02 residues 432–446 | Exact 15mer found once in the three original class-II mzIdentML result files from PXD023044, non-decoy Q86X02 at the expected coordinates | Raw-spectrum validation, peptide-specific error probability and presenting allotype |
+| IEDB 18456218, Q86X02 residues 432–446 | Exact 15mer found once in the three original class-II mzIdentML result files from PXD023044, non-decoy Q86X02 at the expected coordinates; linked experimental peak list located and verified | Raw-spectrum validation, peptide-specific error probability and presenting allotype |
 | Both sequences | UniProt human exact and I/L-equivalent searches return Q86X02 and A0ACI8RKQ2 only; every returned sequence is locally rechecked | Search completeness/synchronization and unrepresented sequences; biological specificity |
 
 These are different peptides from different source systems. Their canonical
@@ -82,7 +82,9 @@ The reported PEAKS score is 33.56. PSI-MS defines MS:1001950 as the PEAKS
 “no threshold”; the flag cannot independently confirm the paper's 1% FDR.
 The linked MGF basename places the acquisition in an IFN-positive MDA-MB-231
 class-II sample. Result-file r3 and acquisition replicate 5 are distinct labels.
-No RAW/MGF file or third-party analysis code was downloaded/executed.
+The identification pass read no RAW/MGF file and executed no third-party analysis
+code. A subsequent bounded MGF inspection is described below; no RAW file or
+search engine was used.
 
 The [detailed source report](cdr2l-source-identification-2026-11-06.md) and
 [identification certificate](../registries/cdr2l-source-identification-2026-11-06.json)
@@ -95,15 +97,33 @@ compressed and expanded sizes/digests and fails without a new artifact if any
 file fails integrity. A match in an original identification output strengthens
 source traceability; it does not independently reidentify the spectrum.
 
+## Linked experimental peak list: locator resolved
+
+The [executed spectrum-locator report](cdr2l-spectrum-locator-2026-11-06.md) and
+[compact peak-list certificate](../registries/cdr2l-spectrum-locator-2026-11-06.json)
+record a subsequent bounded inspection of the complete referenced MGF:
+72,832,889 bytes, pinned SHA1 `56fd6906ed468329c56962eb24a5429373265a60`,
+37,350 spectra. The source mzIdentML declares MS:1000774, whose official
+[PSI-MS definition](https://www.ebi.ac.uk/ols4/api/ontologies/ms/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FMS_1000774)
+specifies zero-based spectrum indexing. Consequently `index=22949` selects the
+22,950th spectrum without choosing an ordinal based on precursor agreement.
+
+That spectrum's title is `index=22949`, its scan is 23848, charge is 3+, retention
+time is 4337.466 seconds and precursor m/z is 614.999, exactly equal as a decimal
+to the submitted identification's 614.9990. Only its 173 original experimental
+peak entries and provenance are retained. This establishes the record-to-peak-list
+link, not independent sequence identification. MGF is a deposited peak-list
+representation; the original instrument RAW acquisition was not inspected.
+No fragment score, peptide-specific FDR or synthetic-standard match was invented.
+
 ## The next discriminating result
 
 The useful next question is **whether either exact peptide is securely identified
 and naturally presented by a defined HLA allotype**. More catalog matches or an
 unfitted simulation cannot answer that question.
 
-1. For the breast lead, use the verified original identification's native spectrum
-   locator and acquisition basename to obtain a bounded, rights-checked spectrum
-   review against the stated sequence and competing explanations. Preserve the
+1. For the breast lead, independently adjudicate the now-located experimental
+   spectrum against the stated sequence and competing explanations. Preserve the
    original search settings and distinguish identification confidence from protein
    inference. For the Atlas lead, first establish original-file lineage for the
    processed representation; do not treat the two PCI-DB releases as replication.
