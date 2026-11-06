@@ -19,6 +19,10 @@ import urllib.request
 
 from build_synthetic_runtime import ROOT, local_docker_env
 
+sys.path.insert(0, str(ROOT))
+
+from pilot001_first_run.cross_arch_equivalence import compute_synthetic_build_identity  # noqa: E402
+
 LOCKS = {
     "linux/amd64": ROOT / "runtime/source-adapter-python.json",
     "linux/arm64": ROOT / "runtime/source-adapter-python-arm64.json",
@@ -79,8 +83,14 @@ def build(cache=None, accept_rebuilt_base=False, platform="linux/amd64"):
     validation_path = VALIDATION[platform]
     prior = json.loads(validation_path.read_text()) if validation_path.is_file() else None
     dockerfile = ROOT / "runtime/Dockerfile.source-adapter"
+    identity_pin = record.get("base_synthetic_build_identity")
     expected_base = record.get("base_image_id")
-    if prior and expected_base and expected_base != prior["environment"]["runtime_image_id"]:
+    if platform == "linux/arm64":
+        if not identity_pin or compute_synthetic_build_identity(platform) != identity_pin:
+            raise ValueError(FAILURE)
+        if prior and prior.get("synthetic_build_identity") != identity_pin:
+            raise ValueError(FAILURE)
+    elif prior and expected_base and expected_base != prior["environment"]["runtime_image_id"]:
         raise ValueError(FAILURE)
     if (record["schema_version"] != 1 or record["platform"] != platform or
             dockerfile.read_text().splitlines()[0] != "FROM " + record["base_image_tag"]):
@@ -92,11 +102,14 @@ def build(cache=None, accept_rebuilt_base=False, platform="linux/amd64"):
                                 check=True, capture_output=True, text=True, timeout=60)
         return json.loads(result.stdout)[0]
     base = inspect(record["base_image_tag"])
-    # Image IDs are local to the daemon that built them. A rebuilt base needs an
-    # explicit opt-in; every other check still applies, and the output is marked.
-    rebuilt = base["Id"] != expected_base if expected_base else True
-    if rebuilt and not (accept_rebuilt_base and re.fullmatch(r"sha256:[0-9a-f]{64}", base["Id"])):
-        raise ValueError(FAILURE)
+    if platform == "linux/arm64":
+        rebuilt = False
+    else:
+        # Image IDs are local to the daemon that built them. A rebuilt base needs an
+        # explicit opt-in; every other check still applies, and the output is marked.
+        rebuilt = base["Id"] != expected_base if expected_base else True
+        if rebuilt and not (accept_rebuilt_base and re.fullmatch(r"sha256:[0-9a-f]{64}", base["Id"])):
+            raise ValueError(FAILURE)
     source = checked_download(record["cpython"], cache)
     converted = checked_python_tar(source, record["cpython"])
     with tempfile.TemporaryDirectory(prefix="asma-source-adapter-build-") as location:

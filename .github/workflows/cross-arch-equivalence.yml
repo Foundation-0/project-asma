@@ -94,12 +94,14 @@ jobs:
           merge-multiple: true
 
       - name: Compare aggregates and write pass record
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
           python3 tools/run_cross_arch_equivalence.py \
             --amd64-record cross-arch-input/synthetic-amd64-record.json \
             --arm64-record cross-arch-input/synthetic-arm64-record.json \
-            --git-sha "${GITHUB_SHA}" \
+            --git-sha "${HEAD_SHA}" \
             --write-pass pilot001-cross-arch-equivalence-pass.json \
             | tee cross-arch-pass.json
 

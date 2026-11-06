@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import subprocess
@@ -11,13 +12,16 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 TOLERANCE = ROOT / "registries/pilot-001-cross-arch-equivalence-tolerance.json"
+SYNTHETIC_LOCKS = {
+    "linux/amd64": ROOT / "runtime/synthetic-packages.json",
+    "linux/arm64": ROOT / "runtime/synthetic-packages-arm64.json",
+}
 PASS_FILENAME = "pilot001-cross-arch-equivalence-pass.json"
 PASS_ARTIFACT_NAME = "pilot001-cross-arch-equivalence-pass"
 WORKFLOW_FILE = "cross-arch-equivalence.yml"
-PASS_SCHEMA_VERSION = 2
+PASS_SCHEMA_VERSION = 3
 FAILURE_CODE = "P001-FAIL-CROSS-ARCH-EQUIVALENCE"
 GATE_FAILURE_CODE = "P001-FAIL-GATE-CROSS-ARCH-EQUIVALENCE"
-IMAGE_ID = re.compile(r"^sha256:[0-9a-f]{64}$")
 GIT_SHA = re.compile(r"^[0-9a-f]{40}$")
 NATIVE_ARM64_ARCH = frozenset({"arm64", "aarch64"})
 
@@ -61,11 +65,51 @@ class ComparisonResult:
         return payload
 
 
+def file_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def load_tolerance(path: Path | None = None) -> dict[str, Any]:
     data = json.loads((path or TOLERANCE).read_text(encoding="utf-8"))
     if data.get("schema_version") != 1:
         raise ValueError("invalid tolerance registry")
     return data
+
+
+def compared_paths(tolerance: dict[str, Any] | None = None) -> list[str]:
+    tolerance = tolerance or load_tolerance()
+    return list(tolerance["integer_paths"]) + list(tolerance["float_paths"])
+
+
+def compute_synthetic_build_identity(platform: str) -> dict[str, str]:
+    lock_path = SYNTHETIC_LOCKS[platform]
+    lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    dockerfile = ROOT / "runtime/Dockerfile.synthetic"
+    install_r = ROOT / "runtime/install.R"
+    package_hasher = hashlib.sha256()
+    for record in lock["packages_in_install_order"]:
+        package_hasher.update(record["sha256"].encode("ascii"))
+    return {
+        "platform": platform,
+        "base_image_pin": lock["base_image"],
+        "synthetic_lock_sha256": file_sha256(lock_path),
+        "dockerfile_synthetic_sha256": file_sha256(dockerfile),
+        "install_r_sha256": file_sha256(install_r),
+        "package_sources_sha256": package_hasher.hexdigest(),
+    }
+
+
+def compute_synthetic_stack_identity() -> dict[str, Any]:
+    return {
+        "schema_version": 1,
+        "amd64": compute_synthetic_build_identity("linux/amd64"),
+        "arm64": compute_synthetic_build_identity("linux/arm64"),
+        "tolerance_registry_sha256": file_sha256(TOLERANCE),
+    }
+
+
+def stack_identities_match(recorded: Any, local: dict[str, Any]) -> bool:
+    return isinstance(recorded, dict) and recorded == local
 
 
 def _resolve_path(payload: dict[str, Any], dotted: str) -> Any:
@@ -156,6 +200,56 @@ def compare_synthetic_records(
     return ComparisonResult(True, metrics=metrics)
 
 
+def recompute_pass_record_metrics(record: dict[str, Any]) -> bool:
+    """Recompute tolerance from stored amd64/arm64 values; ignore file verdict fields."""
+    tolerance = load_tolerance()
+    paths = compared_paths(tolerance)
+    metrics = record.get("metrics")
+    if not isinstance(metrics, list):
+        return False
+    by_path: dict[str, dict[str, Any]] = {}
+    for item in metrics:
+        if not isinstance(item, dict) or "path" not in item:
+            return False
+        by_path[str(item["path"])] = item
+    if set(by_path) != set(paths):
+        return False
+    for path in paths:
+        item = by_path[path]
+        if "amd64" not in item or "arm64" not in item:
+            return False
+        if path in tolerance["integer_paths"]:
+            left = item["amd64"]
+            right = item["arm64"]
+            if left != right:
+                return False
+            continue
+        left = float(item["amd64"])
+        right = float(item["arm64"])
+        if abs(left - right) > _allowed_delta(left, tolerance):
+            return False
+    return True
+
+
+def pass_record_has_required_shape(data: dict[str, Any]) -> bool:
+    if data.get("schema_version") != PASS_SCHEMA_VERSION:
+        return False
+    if normalize_git_sha(data.get("git_sha")) is None:
+        return False
+    if not isinstance(data.get("synthetic_stack_identity"), dict):
+        return False
+    metrics = data.get("metrics")
+    if not isinstance(metrics, list) or not metrics:
+        return False
+    for item in metrics:
+        if not isinstance(item, dict):
+            return False
+        for field in ("path", "amd64", "arm64"):
+            if field not in item:
+                return False
+    return True
+
+
 def build_pass_record(
     *,
     amd64_record: dict[str, Any],
@@ -164,30 +258,28 @@ def build_pass_record(
     git_sha: str | None = None,
     tolerance_path: Path | None = None,
 ) -> dict[str, Any]:
+    if not comparison.passed:
+        raise ValueError("refusing to write pass record for failed comparison")
     tolerance = load_tolerance(tolerance_path)
-    amd64_image = amd64_record.get("environment", {}).get("runtime_image_id")
-    arm64_image = arm64_record.get("environment", {}).get("runtime_image_id")
-    if not isinstance(amd64_image, str) or not IMAGE_ID.fullmatch(amd64_image):
-        raise ValueError("amd64 runtime_image_id missing")
-    if not isinstance(arm64_image, str) or not IMAGE_ID.fullmatch(arm64_image):
-        raise ValueError("arm64 runtime_image_id missing")
     if git_sha is not None and not GIT_SHA.fullmatch(git_sha):
         raise ValueError("git_sha must be a full 40-character commit hash")
     metrics = comparison.metrics or collect_metric_audits(amd64_record, arm64_record, tolerance=tolerance)
+    stack_identity = compute_synthetic_stack_identity()
     return {
         "schema_version": PASS_SCHEMA_VERSION,
-        "passed": comparison.passed,
-        "failure_code": comparison.failure_code,
         "git_sha": git_sha,
-        "amd64_synthetic_image_id": amd64_image,
-        "arm64_synthetic_image_id": arm64_image,
+        "synthetic_stack_identity": stack_identity,
         "tolerance_registry": "registries/pilot-001-cross-arch-equivalence-tolerance.json",
         "absolute_tolerance": tolerance["absolute_tolerance"],
         "relative_tolerance": tolerance["relative_tolerance"],
-        "compared_paths": tolerance["integer_paths"] + tolerance["float_paths"],
+        "compared_paths": compared_paths(tolerance),
         "metrics": metrics,
         "amd64_finished_at_utc": amd64_record.get("finished_at_utc"),
         "arm64_finished_at_utc": arm64_record.get("finished_at_utc"),
+        "ci_reference": {
+            "amd64_runtime_image_id": amd64_record.get("environment", {}).get("runtime_image_id"),
+            "arm64_runtime_image_id": arm64_record.get("environment", {}).get("runtime_image_id"),
+        },
     }
 
 
@@ -208,51 +300,40 @@ def git_sha_matches_head(record_sha: str | None, head_sha: str | None) -> bool:
     return record == head
 
 
-def verify_pass_record_payload(data: dict[str, Any]) -> bool:
-    if data.get("schema_version") != PASS_SCHEMA_VERSION or data.get("passed") is not True:
+def validate_pass_record_for_gate(
+    record: dict[str, Any] | None,
+    *,
+    head_git_sha: str,
+    local_stack_identity: dict[str, Any],
+) -> bool:
+    if record is None or not pass_record_has_required_shape(record):
         return False
-    if normalize_git_sha(data.get("git_sha")) is None:
+    if not git_sha_matches_head(record.get("git_sha"), head_git_sha):
         return False
-    for key in ("amd64_synthetic_image_id", "arm64_synthetic_image_id"):
-        value = data.get(key)
-        if not isinstance(value, str) or not IMAGE_ID.fullmatch(value):
-            return False
-    metrics = data.get("metrics")
-    if not isinstance(metrics, list) or not metrics:
+    if not stack_identities_match(record.get("synthetic_stack_identity"), local_stack_identity):
         return False
-    for item in metrics:
-        if not isinstance(item, dict):
-            return False
-        for field in ("path", "amd64", "arm64", "difference", "allowed_delta", "within_tolerance"):
-            if field not in item:
-                return False
+    if not recompute_pass_record_metrics(record):
+        return False
     return True
 
 
-def load_pass_record(path: Path, *, require_git_sha: str | None = None) -> dict[str, Any] | None:
+def parse_pass_record_file(path: Path) -> dict[str, Any] | None:
     if not path.is_file():
         return None
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return None
-    if not verify_pass_record_payload(data):
-        return None
-    if require_git_sha is not None and not git_sha_matches_head(data.get("git_sha"), require_git_sha):
+    if not isinstance(data, dict):
         return None
     return data
 
 
-def pass_record_matches_images(
-    record: dict[str, Any],
-    *,
-    amd64_image_id: str,
-    arm64_image_id: str,
-) -> bool:
-    return (
-        record.get("amd64_synthetic_image_id") == amd64_image_id
-        and record.get("arm64_synthetic_image_id") == arm64_image_id
-    )
+def load_pass_record(path: Path) -> dict[str, Any] | None:
+    data = parse_pass_record_file(path)
+    if data is None or not pass_record_has_required_shape(data):
+        return None
+    return data
 
 
 def try_download_pass_record_from_ci(*, git_sha: str, dest_dir: Path) -> dict[str, Any] | None:
@@ -312,7 +393,7 @@ def try_download_pass_record_from_ci(*, git_sha: str, dest_dir: Path) -> dict[st
         if not candidate.is_file():
             matches = list(dest_dir.glob(f"**/{PASS_FILENAME}"))
             candidate = matches[0] if matches else candidate
-        return load_pass_record(candidate, require_git_sha=head)
+        return parse_pass_record_file(candidate)
     except (OSError, ValueError, subprocess.TimeoutExpired, json.JSONDecodeError):
         return None
 

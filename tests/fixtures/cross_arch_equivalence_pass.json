@@ -1,9 +1,11 @@
 {
   "absolute_tolerance": 1e-06,
   "amd64_finished_at_utc": "2026-11-04T09:21:48.008309Z",
-  "amd64_synthetic_image_id": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
   "arm64_finished_at_utc": "2026-11-04T09:21:48.008309Z",
-  "arm64_synthetic_image_id": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+  "ci_reference": {
+    "amd64_runtime_image_id": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "arm64_runtime_image_id": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
   "compared_paths": [
     "integration.patients",
     "integration.features",
@@ -37,7 +39,6 @@
     "integration.xgb_aggregate.minimum",
     "integration.xgb_aggregate.maximum"
   ],
-  "failure_code": null,
   "git_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "metrics": [
     {
@@ -289,8 +290,27 @@
       "within_tolerance": true
     }
   ],
-  "passed": true,
   "relative_tolerance": 1e-09,
-  "schema_version": 2,
+  "schema_version": 3,
+  "synthetic_stack_identity": {
+    "amd64": {
+      "base_image_pin": "rocker/r-ver@sha256:3dae5d2eeddf74f10e0a81fb6b7ae350295e288000304f438b844b2c1e00fe2c",
+      "dockerfile_synthetic_sha256": "0f17ef9ad85abe588bee1d8c9e3330958ad9a11001c09e72d8c85047e56fbb7d",
+      "install_r_sha256": "5e00aa34a84836c2915cecc4f452254589576b2de3d6c1b88625c5827f2f41be",
+      "package_sources_sha256": "d0f2fec8a7f7c553136be331d1fc8c2a0a49b7fa7070df3431b759ad10579349",
+      "platform": "linux/amd64",
+      "synthetic_lock_sha256": "16148bb62730d34071abef3a408600dfe8109ea0bb553d1e26aa2b048596cbf0"
+    },
+    "arm64": {
+      "base_image_pin": "rocker/r-ver@sha256:3dae5d2eeddf74f10e0a81fb6b7ae350295e288000304f438b844b2c1e00fe2c",
+      "dockerfile_synthetic_sha256": "0f17ef9ad85abe588bee1d8c9e3330958ad9a11001c09e72d8c85047e56fbb7d",
+      "install_r_sha256": "5e00aa34a84836c2915cecc4f452254589576b2de3d6c1b88625c5827f2f41be",
+      "package_sources_sha256": "d0f2fec8a7f7c553136be331d1fc8c2a0a49b7fa7070df3431b759ad10579349",
+      "platform": "linux/arm64",
+      "synthetic_lock_sha256": "f5df9310a20728ff5a0dd31fc94af6b3e44d5c329c538edc26a0bfd8d981b52c"
+    },
+    "schema_version": 1,
+    "tolerance_registry_sha256": "ab0d67f5bba8f000ee543b7f78fbd8b323f2dcb3d975338742f8d5e47576a8ea"
+  },
   "tolerance_registry": "registries/pilot-001-cross-arch-equivalence-tolerance.json"
 }

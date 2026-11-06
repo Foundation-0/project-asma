@@ -54,7 +54,7 @@
     "runtime/Dockerfile.source-adapter": "4ec8f4246b9415b3406c389ceea1c2af645e90606c2a774fd91d892907a89734",
     "runtime/source-adapter-python.json": "ba3c90a5ad2fbd546cd10df3115e85657d841a00b902317df16760c0d02f6a68",
     "tests/test_source_adapter_runtime.py": "dc4fcef66226e0b59e846d174a69398d6ec565fe44ac317b7531e816f1cba86f",
-    "tools/build_source_adapter_runtime.py": "79ebd8e24bbf97ba003b8b6c5f3b2c9b4506e7b5083e32f1ad090e07bcf72bfa"
+    "tools/build_source_adapter_runtime.py": "9659d9fd4e2583cef5e9508b24a3ad994736207db7f11844852d2f6f7d064051"
   },
   "limitations": [
     "This verifies a local software build, not research-data permissions or actual source compatibility.",

@@ -18,6 +18,7 @@ from pilot001_first_run import failure_codes as codes  # noqa: E402
 from pilot001_first_run.config import RunConfig, default_input_manifest  # noqa: E402
 from pilot001_first_run.cross_arch_equivalence import (  # noqa: E402
     PASS_FILENAME as EQUIVALENCE_PASS_FILENAME,
+    compute_synthetic_stack_identity,
     load_pass_record,
     try_download_pass_record_from_ci,
 )
@@ -72,8 +73,8 @@ def main(argv: list[str] | None = None) -> int:
         "--equivalence-record",
         default=None,
         help=(
-            f"Offline override: path to {EQUIVALENCE_PASS_FILENAME} "
-            "(default: download CI artifact for HEAD, else output dir file)"
+            f"Offline tests only: explicit path to {EQUIVALENCE_PASS_FILENAME} "
+            "(default: download CI pass artifact for HEAD via gh; fail closed if missing)"
         ),
     )
     args = parser.parse_args(argv)
@@ -102,35 +103,30 @@ def main(argv: list[str] | None = None) -> int:
 
     if config.host == "macos" and not config.dry_run and platform.machine() in {"arm64", "aarch64"}:
         try:
-            amd64_inspect = inspect_image(args.reference_image)
-            arm64_inspect = inspect_image(args.image)
-            amd64_id = amd64_inspect["Id"]
-            arm64_id = arm64_inspect["Id"]
-            arm64_arch = arm64_inspect.get("Architecture", "")
+            arm64_arch = inspect_image(args.image).get("Architecture", "")
         except (subprocess.CalledProcessError, OSError, KeyError, IndexError, json.JSONDecodeError):
             emit_failure(codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE)
             return 1
 
+        local_stack = compute_synthetic_stack_identity()
         pass_record = None
         if args.equivalence_record is not None:
-            pass_record = load_pass_record(Path(args.equivalence_record), require_git_sha=head_sha)
+            pass_record = load_pass_record(Path(args.equivalence_record))
         else:
             with tempfile.TemporaryDirectory(prefix="pilot001-equiv-") as tmp:
                 pass_record = try_download_pass_record_from_ci(git_sha=head_sha, dest_dir=Path(tmp))
-            if pass_record is None:
-                pass_record = load_pass_record(
-                    config.output_dir / EQUIVALENCE_PASS_FILENAME,
-                    require_git_sha=head_sha,
-                )
+
+        if pass_record is None and args.equivalence_record is None:
+            emit_failure(codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE)
+            return 1
 
         cross_arch_gate = validate_cross_arch_equivalence_for_real_run(
             machine_arch=platform.machine(),
             real_mode=True,
             head_git_sha=head_sha,
-            amd64_image_id=amd64_id,
-            arm64_image_id=arm64_id,
             arm64_image_architecture=arm64_arch,
             pass_record=pass_record,
+            local_stack_identity=local_stack,
         )
         if cross_arch_gate:
             emit_failure(cross_arch_gate)

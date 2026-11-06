@@ -9,9 +9,7 @@ from pilot001_first_run import failure_codes as codes
 from pilot001_first_run.config import RunConfig, parse_attestation_ref
 from pilot001_first_run.cross_arch_equivalence import (
     NATIVE_ARM64_ARCH,
-    git_sha_matches_head,
-    pass_record_matches_images,
-    verify_pass_record_payload,
+    validate_pass_record_for_gate,
 )
 
 TORONTO = ZoneInfo("America/Toronto")
@@ -65,24 +63,19 @@ def validate_cross_arch_equivalence_for_real_run(
     machine_arch: str,
     real_mode: bool,
     head_git_sha: str,
-    amd64_image_id: str,
-    arm64_image_id: str,
     arm64_image_architecture: str,
     pass_record: dict | None,
+    local_stack_identity: dict,
 ) -> str | None:
-    """Refuse macOS arm64 --real unless a CI-auditable pass record matches HEAD and images."""
+    """Refuse macOS arm64 --real unless CI pass record matches HEAD and pinned stack identity."""
     if machine_arch not in NATIVE_ARM64_ARCH or not real_mode:
         return None
-    if pass_record is None or not verify_pass_record_payload(pass_record):
-        return codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE
-    if not git_sha_matches_head(pass_record.get("git_sha"), head_git_sha):
-        return codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE
     if str(arm64_image_architecture).lower() not in NATIVE_ARM64_ARCH:
         return codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE
-    if not pass_record_matches_images(
+    if not validate_pass_record_for_gate(
         pass_record,
-        amd64_image_id=amd64_image_id,
-        arm64_image_id=arm64_image_id,
+        head_git_sha=head_git_sha,
+        local_stack_identity=local_stack_identity,
     ):
         return codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE
     return None

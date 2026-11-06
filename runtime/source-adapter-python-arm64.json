@@ -2,7 +2,6 @@
   "schema_version": 1,
   "scope": "Software-only source-adapter runtime; no study data",
   "base_image_tag": "asma-synthetic:4.4.3-arm64",
-  "base_image_id": "sha256:5cc396d64b95c1652d25d747baa8957d87bcbca18ec8b910ae63a8290619f150",
   "image_tag": "asma-source-adapter:3.12.14-4.4.3-arm64",
   "platform": "linux/arm64",
   "cpython": {
@@ -83,5 +82,13 @@
     "CPython tests and ensurepip are excluded. No pip or third-party Python packages are installed.",
     "Source/archive and license hashes are observed content pins, not independently authenticated publisher signatures.",
     "All compilation RUN steps have network disabled. The image is local and is not redistributed or pushed by this builder."
-  ]
+  ],
+  "base_synthetic_build_identity": {
+    "platform": "linux/arm64",
+    "base_image_pin": "rocker/r-ver@sha256:3dae5d2eeddf74f10e0a81fb6b7ae350295e288000304f438b844b2c1e00fe2c",
+    "synthetic_lock_sha256": "f5df9310a20728ff5a0dd31fc94af6b3e44d5c329c538edc26a0bfd8d981b52c",
+    "dockerfile_synthetic_sha256": "0f17ef9ad85abe588bee1d8c9e3330958ad9a11001c09e72d8c85047e56fbb7d",
+    "install_r_sha256": "5e00aa34a84836c2915cecc4f452254589576b2de3d6c1b88625c5827f2f41be",
+    "package_sources_sha256": "d0f2fec8a7f7c553136be331d1fc8c2a0a49b7fa7070df3431b759ad10579349"
+  }
 }
