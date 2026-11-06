@@ -32,7 +32,7 @@ The exact [PRIDE peak-list URL](https://ftp.pride.ebi.ac.uk/pride/data/archive/2
 - Complete served SHA256: `19221e28bf764c2a1030ccafb1531150982e863f71ad6525b71215bd94c2f974`.
 - HTTP Content-Length also matches; the certificate records ETag and Last-Modified.
 
-Unlike the earlier gzip/XML mixed-domain observation, this uncompressed MGF size and checksum both describe the same served bytes. The tool requires complete block closure, EOF, pinned byte count and SHA1 before writing a certificate. It caps individual lines and selected peaks, preserves decimal source strings, and refuses missing or ambiguous locator-format information. It is a bounded locator inspector, not a general MGF validator. Nonselected peak bodies are discarded as they arrive. The identification certificate and implementation are SHA256-linked in the result.
+Unlike the earlier gzip/XML mixed-domain observation, this uncompressed MGF size and checksum both describe the same served bytes. The tool requires complete block closure, EOF, pinned byte count and SHA1 before writing a certificate. It caps individual lines and selected peaks, preserves decimal source strings, and refuses missing or ambiguous locator-format information. It is a bounded locator inspector, not a general MGF validator. Nonselected peak bodies are discarded as they arrive. The identification certificate and implementation are SHA256-linked in the result. Before selecting a spectrum, the tool requires the certificate's exact project, assay, target, three source-file identities, original checksum/size pins and byte domains, complete XML, unique unmodified peptide declaration and identification reference. This checks consistency against pinned provenance; the source certificate is a replayable local result, not a signed external attestation.
 
 ## What remains discriminating
 
@@ -54,6 +54,6 @@ python3 -m unittest discover -s tests
 python3 tools/validate.py
 ```
 
-All **384 local tests** passed on the isolated source branch, including 16 identification-parser tests and six spectrum-locator tests. The repository validator passed. Synthetic cases cover zero-based selection, exact decimal preservation, bad pins, late truncation, malformed blocks, limits, absent indices, duplicate metadata and refusal when source index-format evidence is missing. These establish software behavior; they do not validate biological or spectral correctness. Independent Astra review is recorded separately at the exact commit.
+All **384 local tests** passed on the isolated source branch, including 16 identification-parser tests and six spectrum-locator tests. The repository validator passed. Synthetic cases cover zero-based selection, exact decimal preservation, bad pins, late truncation, malformed blocks, limits, absent indices, duplicate metadata and refusal when source index-format evidence is missing. Ten certificate mutation probes additionally reject wrong project/assay/target, missing files, changed source pins, wrong spectrum identifier or peptide reference, and a modified target. These establish software behavior; they do not validate biological or spectral correctness. Independent Astra review is recorded separately at the exact commit.
 
 Prepared by gpt-forge with GPT-6 Astra.

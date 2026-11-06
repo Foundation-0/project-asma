@@ -1,4 +1,4 @@
-"""Synthetic spectra only; no network in tests."""
+"""Synthetic spectra and committed public provenance metadata; no test network."""
 import hashlib
 import io
 from pathlib import Path
@@ -46,14 +46,28 @@ class SpectrumLocatorTests(unittest.TestCase):
                      b'BEGIN IONS\nEND IONS\n'):
             with self.subTest(data=data), self.assertRaises(ValueError): inspect(data)
 
-    def test_source_format_is_required_not_inferred_from_precursor(self):
-        result = {'attributes': {'spectrumID': 'index=22949'}, 'spectra_data': {'file_name': NAME}, 'items': [{}]}
-        cert = {'all_three_pinned_files_complete': True, 'files': [{'matching_results': [result]}]}
-        with self.assertRaises(ValueError): source_link(cert)
-        result['spectra_data']['SpectrumIDFormat'] = [{'accession': 'MS:1000774'}]
-        self.assertIs(source_link(cert), result)
-        result['attributes']['spectrumID'] = 'scan=22949'
-        with self.assertRaises(ValueError): source_link(cert)
+    def test_source_certificate_identity_and_format_required(self):
+        import copy
+        import json
+        cert = json.loads((Path(__file__).resolve().parents[1] / 'registries/cdr2l-source-identification-2026-11-06.json').read_text())
+        self.assertEqual(source_link(cert)['attributes']['spectrumID'], 'index=22949')
+        mutations = [
+            lambda c: c.update(project='OTHER'),
+            lambda c: c.update(target_sequence='OTHER'),
+            lambda c: c.update(assay_id=0),
+            lambda c: c['files'].pop(),
+            lambda c: c['files'][0].update(sha1='0'*40),
+            lambda c: c['files'][0].update(expanded_bytes=1),
+            lambda c: c['files'][2]['matching_results'][0]['spectra_data'].pop('SpectrumIDFormat'),
+            lambda c: c['files'][2]['matching_results'][0]['attributes'].update(spectrumID='scan=22949'),
+            lambda c: c['files'][2]['matching_results'][0]['items'][0]['attributes'].update(peptide_ref='OTHER'),
+            lambda c: c['files'][2]['matching_peptides'][0].update(modifications=[{'element': 'SubstitutionModification'}]),
+        ]
+        for mutate in mutations:
+            changed = copy.deepcopy(cert)
+            mutate(changed)
+            with self.subTest(mutation=mutate), self.assertRaises((ValueError, KeyError)):
+                source_link(changed)
 
 
 if __name__ == '__main__': unittest.main()

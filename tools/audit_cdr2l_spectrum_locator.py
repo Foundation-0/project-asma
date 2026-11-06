@@ -12,7 +12,7 @@ from pathlib import Path
 import ssl
 import urllib.request
 
-from audit_cdr2l_source_psm import BASE, require
+from audit_cdr2l_source_psm import BASE, FILES, TARGET, require
 
 NAME = 'F1202000304_PF_MDAMB231_IFN-positive_replicate_5_pool_6_Immunopeptidomics-classII.mgf'
 SIZE = 72832889
@@ -74,7 +74,21 @@ def inspect_mgf(stream, *, expected_size, expected_sha1, index, limit=LIMIT):
 
 
 def source_link(certificate):
+    require(certificate.get('project') == 'PXD023044', 'unexpected identification project')
+    require(certificate.get('assay_id') == 18456218 and certificate.get('target_sequence') == TARGET,
+            'unexpected identification target or assay')
     require(certificate['all_three_pinned_files_complete'] is True, 'incomplete identification certificate')
+    files = certificate['files']
+    require(len(files) == len(FILES), 'missing or extra source files')
+    for record, (name, size, checksum) in zip(files, FILES):
+        require(record.get('file') == name and record.get('url') == BASE + name,
+                'unexpected identification source file')
+        require(record.get('sha1') == checksum and record.get('api_sha1') == checksum
+                and record.get('expanded_bytes') == size and record.get('api_size') == size
+                and record.get('xml_complete') is True
+                and record.get('metadata_size_domain') == 'expanded_mzidentml'
+                and record.get('metadata_checksum_domain') == 'served_gzip',
+                'source identity pins do not match')
     results = [r for f in certificate['files'] for r in f['matching_results']]
     require(len(results) == 1, 'expected exactly one linked identification')
     result = results[0]
@@ -83,6 +97,11 @@ def source_link(certificate):
     formats = result['spectra_data'].get('SpectrumIDFormat', [])
     require(len(formats) == 1 and formats[0]['accession'] == 'MS:1000774', 'unproved index convention')
     require(len(result['items']) == 1, 'ambiguous identification item')
+    declarations = [p for f in files for p in f['matching_peptides']]
+    require(len(declarations) == 1 and declarations[0]['modifications'] == [],
+            'expected one unmodified target declaration')
+    require(result['items'][0]['attributes']['peptide_ref'] == declarations[0]['id'],
+            'identification does not reference target declaration')
     return result
 
 
@@ -92,7 +111,9 @@ def live(certificate_path):
     class NoRedirect(urllib.request.HTTPRedirectHandler):
         def redirect_request(self, req, fp, code, msg, headers, newurl):
             return None
-    context = ssl.create_default_context(cafile='/etc/ssl/cert.pem')
+    context = ssl.create_default_context()
+    if Path('/etc/ssl/cert.pem').is_file():
+        context.load_verify_locations(cafile='/etc/ssl/cert.pem')
     opener = urllib.request.build_opener(NoRedirect(), urllib.request.HTTPSHandler(context=context))
     with opener.open(BASE + NAME, timeout=60) as response:
         require(response.status == 200, 'incomplete HTTP response')
