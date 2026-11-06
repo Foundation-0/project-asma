@@ -152,18 +152,19 @@ class TestAttestationAndGates(unittest.TestCase):
         self.assertIsNone(validate_real_run_gates(config, preflight_passed=True))
 
     @mock.patch("pilot001_first_run.gates.toronto_today", return_value=date(2026, 11, 5))
+    @mock.patch("run_pilot001_first_run.try_download_pass_record_from_ci", return_value=None)
+    @mock.patch("pilot001_first_run.gates.git_worktree_clean", return_value=True)
     @mock.patch("run_pilot001_first_run.inspect_image")
     @mock.patch("run_pilot001_first_run.platform.machine", return_value="arm64")
     @mock.patch("run_pilot001_first_run.run_preflight")
-    def test_macos_arm64_real_requires_equivalence_record(self, mock_preflight, _machine, mock_inspect, _today):
+    def test_macos_arm64_real_fails_without_ci_pass_record(
+        self, mock_preflight, _machine, mock_inspect, _clean, _mock_download, _today
+    ):
         from pilot001_first_run.preflight import PreflightReport
         import io
 
         mock_preflight.return_value = PreflightReport("macos", True, {"ulimit_core": "PASS"})
-        mock_inspect.side_effect = lambda tag: {
-            "Id": "sha256:" + ("2" * 64 if tag.endswith("-arm64") else "1" * 64),
-            "Architecture": "arm64" if tag.endswith("-arm64") else "amd64",
-        }
+        mock_inspect.return_value = {"Architecture": "arm64"}
         with tempfile.TemporaryDirectory() as tmp:
             buffer = io.StringIO()
             with mock.patch("sys.stdout", buffer):
@@ -186,22 +187,21 @@ class TestAttestationAndGates(unittest.TestCase):
         self.assertIn(codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE, buffer.getvalue())
 
     @mock.patch("pilot001_first_run.gates.toronto_today", return_value=date(2026, 11, 5))
+    @mock.patch("pilot001_first_run.gates.git_worktree_clean", return_value=True)
     @mock.patch("run_pilot001_first_run.try_download_pass_record_from_ci", return_value=None)
     @mock.patch("run_pilot001_first_run.inspect_image")
     @mock.patch("run_pilot001_first_run.platform.machine", return_value="arm64")
     @mock.patch("run_pilot001_first_run.run_preflight")
-    def test_macos_arm64_real_fails_closed_without_ci_or_explicit_record(
-        self, mock_preflight, _machine, mock_inspect, _mock_download, _today
+    def test_macos_arm64_real_rejects_equivalence_record_flag(
+        self, mock_preflight, _machine, mock_inspect, _mock_download, _clean, _today
     ):
         from pilot001_first_run.preflight import PreflightReport
         import io
 
         mock_preflight.return_value = PreflightReport("macos", True, {"ulimit_core": "PASS"})
         mock_inspect.return_value = {"Architecture": "arm64"}
-        fixture = json.loads((ROOT / "tests/fixtures/cross_arch_equivalence_pass.json").read_text())
+        fixture_path = ROOT / "tests/fixtures/cross_arch_equivalence_pass.json"
         with tempfile.TemporaryDirectory() as tmp:
-            out = Path(tmp)
-            (out / "pilot001-cross-arch-equivalence-pass.json").write_text(json.dumps(fixture))
             buffer = io.StringIO()
             with mock.patch("sys.stdout", buffer):
                 code = entry.main(
@@ -209,7 +209,7 @@ class TestAttestationAndGates(unittest.TestCase):
                         "--host",
                         "macos",
                         "--output-dir",
-                        str(out),
+                        tmp,
                         "--real",
                         "--gate0-signed",
                         "--gate0-attestation-ref",
@@ -217,10 +217,39 @@ class TestAttestationAndGates(unittest.TestCase):
                         "--dropbox-cleared",
                         "--image",
                         "asma-synthetic:4.4.3-arm64",
+                        "--equivalence-record",
+                        str(fixture_path),
                     ]
                 )
         self.assertEqual(code, 1)
-        self.assertIn(codes.P001_FAIL_GATE_CROSS_ARCH_EQUIVALENCE, buffer.getvalue())
+        self.assertIn(codes.P001_FAIL_GATE_EQUIVALENCE_RECORD, buffer.getvalue())
+
+    @mock.patch("pilot001_first_run.gates.toronto_today", return_value=date(2026, 11, 5))
+    @mock.patch("pilot001_first_run.gates.git_worktree_clean", return_value=False)
+    @mock.patch("run_pilot001_first_run.run_preflight")
+    def test_macos_real_refuses_dirty_worktree(self, mock_preflight, _dirty, _today):
+        from pilot001_first_run.preflight import PreflightReport
+        import io
+
+        mock_preflight.return_value = PreflightReport("macos", True, {"ulimit_core": "PASS"})
+        with tempfile.TemporaryDirectory() as tmp:
+            buffer = io.StringIO()
+            with mock.patch("sys.stdout", buffer):
+                code = entry.main(
+                    [
+                        "--host",
+                        "macos",
+                        "--output-dir",
+                        tmp,
+                        "--real",
+                        "--gate0-signed",
+                        "--gate0-attestation-ref",
+                        "owner:2026-11-05",
+                        "--dropbox-cleared",
+                    ]
+                )
+        self.assertEqual(code, 1)
+        self.assertIn(codes.P001_FAIL_GATE_DIRTY_WORKTREE, buffer.getvalue())
 
     def test_linux_ulimit_core_mock(self):
         def runner(command):

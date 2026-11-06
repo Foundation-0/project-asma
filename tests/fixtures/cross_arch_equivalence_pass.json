@@ -309,7 +309,14 @@
       "platform": "linux/arm64",
       "synthetic_lock_sha256": "f5df9310a20728ff5a0dd31fc94af6b3e44d5c329c538edc26a0bfd8d981b52c"
     },
-    "schema_version": 1,
+    "schema_version": 2,
+    "synthetic_r_sources_sha256": {
+      "R/asma_core.R": "df58ff172ba049e5671e864c0ba9e8a60e2684c4016b8bfe8402cff2eaae70c9",
+      "R/asma_input.R": "392b05aa111b719ba0a6fd9f6bc0e4350cd5e268d1272ad62790556669c4e4f2",
+      "R/asma_models.R": "4b277924efe37c5b3ce324ad63093db3a748a7f712410a55f602cb1ae885c5b6",
+      "tests/r/synthetic_fixture.R": "92d52f3d1a5e2504fe0a7eefb72091210c87e1d7d75c54d06bf6a7d060c8cd8f",
+      "tools/run_synthetic_pipeline.R": "c590a990b897b94beb9d0bc34b1018939812c08b39f305645fe941aea217fa9b"
+    },
     "tolerance_registry_sha256": "ab0d67f5bba8f000ee543b7f78fbd8b323f2dcb3d975338742f8d5e47576a8ea"
   },
   "tolerance_registry": "registries/pilot-001-cross-arch-equivalence-tolerance.json"

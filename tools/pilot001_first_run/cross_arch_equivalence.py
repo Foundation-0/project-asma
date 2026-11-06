@@ -16,6 +16,14 @@ SYNTHETIC_LOCKS = {
     "linux/amd64": ROOT / "runtime/synthetic-packages.json",
     "linux/arm64": ROOT / "runtime/synthetic-packages-arm64.json",
 }
+# R sources that define synthetic fixture assembly and integration aggregates (--full).
+SYNTHETIC_AGGREGATE_R_SOURCES: tuple[str, ...] = (
+    "R/asma_input.R",
+    "R/asma_core.R",
+    "R/asma_models.R",
+    "tools/run_synthetic_pipeline.R",
+    "tests/r/synthetic_fixture.R",
+)
 PASS_FILENAME = "pilot001-cross-arch-equivalence-pass.json"
 PASS_ARTIFACT_NAME = "pilot001-cross-arch-equivalence-pass"
 WORKFLOW_FILE = "cross-arch-equivalence.yml"
@@ -99,12 +107,17 @@ def compute_synthetic_build_identity(platform: str) -> dict[str, str]:
     }
 
 
+def compute_synthetic_r_sources_sha256() -> dict[str, str]:
+    return {relative: file_sha256(ROOT / relative) for relative in SYNTHETIC_AGGREGATE_R_SOURCES}
+
+
 def compute_synthetic_stack_identity() -> dict[str, Any]:
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "amd64": compute_synthetic_build_identity("linux/amd64"),
         "arm64": compute_synthetic_build_identity("linux/arm64"),
         "tolerance_registry_sha256": file_sha256(TOLERANCE),
+        "synthetic_r_sources_sha256": compute_synthetic_r_sources_sha256(),
     }
 
 
@@ -236,7 +249,11 @@ def pass_record_has_required_shape(data: dict[str, Any]) -> bool:
         return False
     if normalize_git_sha(data.get("git_sha")) is None:
         return False
-    if not isinstance(data.get("synthetic_stack_identity"), dict):
+    stack = data.get("synthetic_stack_identity")
+    if not isinstance(stack, dict) or stack.get("schema_version") != 2:
+        return False
+    r_sources = stack.get("synthetic_r_sources_sha256")
+    if not isinstance(r_sources, dict) or set(r_sources) != set(SYNTHETIC_AGGREGATE_R_SOURCES):
         return False
     metrics = data.get("metrics")
     if not isinstance(metrics, list) or not metrics:

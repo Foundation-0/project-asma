@@ -43,6 +43,21 @@ def git_sha() -> str:
         return "unknown"
 
 
+def git_worktree_clean() -> bool:
+    """True when the repository has no uncommitted changes (fail-closed if git is unavailable)."""
+    try:
+        completed = subprocess.run(
+            ["git", "-C", str(ROOT), "status", "--porcelain"],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=30,
+        )
+        return completed.stdout.strip() == ""
+    except (subprocess.CalledProcessError, OSError, subprocess.TimeoutExpired):
+        return False
+
+
 def docker_base() -> list[str]:
     return ["docker", "--host=unix:///var/run/docker.sock"]
 
