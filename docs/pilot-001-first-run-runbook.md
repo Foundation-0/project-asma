@@ -41,14 +41,36 @@ Measured reference (GitHub Actions Verify run [42095416191](https://github.com/F
 docker version --format 'Client={{.Client.Version}} Server={{.Server.Version}} Arch={{.Server.Arch}}' ; uname -m
 ```
 
-Record the output with the attestation notes. Expect `Arch=amd64` when the Linux images below are used via emulation on Apple Silicon.
+Record the output with the attestation notes. On Apple Silicon (`uname -m` = `arm64`), build and run the **linux/arm64** synthetic tag; keep the amd64 tag available as the recorded reference pair for equivalence.
+
+### Apple Silicon (arm64 Mac) before `--real`
+
+1. Build both synthetic images (step **2** twice with `--platform linux/amd64` and `--platform linux/arm64`).
+2. Run cross-arch equivalence on native builders (or download the CI pass artifact for `git rev-parse HEAD`):
+
+```bash
+python3 tools/run_cross_arch_equivalence.py --platform linux/amd64 --write-record /tmp/synthetic-amd64-record.json
+python3 tools/run_cross_arch_equivalence.py --platform linux/arm64 --write-record /tmp/synthetic-arm64-record.json
+python3 tools/run_cross_arch_equivalence.py \
+  --amd64-record /tmp/synthetic-amd64-record.json \
+  --arm64-record /tmp/synthetic-arm64-record.json \
+  --git-sha "$(git rev-parse HEAD)" \
+  --write-pass "$HOME/pilot001-first-run-out/pilot001-cross-arch-equivalence-pass.json"
+```
+
+On `--real`, the orchestrator downloads the CI pass artifact for **HEAD** via `gh` unless `--equivalence-record` is set (offline tests only).
+
+3. Use `--image asma-synthetic:4.4.3-arm64` and keep `--reference-image asma-synthetic:4.4.3` on the real-run command. The orchestrator refuses `--real` on arm64 hosts unless the pass record matches both image IDs.
+
+Expect `Arch=arm64` from step **0** when Docker runs the native arm64 image (not amd64 emulation).
 
 ### (2) Images and layers
 
 | Layer / tag | Identity | Notes |
 | --- | --- | --- |
 | **Base R image** | `rocker/r-ver@sha256:3dae5d2eeddf74f10e0a81fb6b7ae350295e288000304f438b844b2c1e00fe2c` from **docker.io** | Declared in [runtime/synthetic-packages.json](../runtime/synthetic-packages.json); R **4.4.3** on **linux/amd64**. |
-| **Synthetic runtime** | Tag `asma-synthetic:4.4.3` · Id `sha256:3ca00e6bf3ff5c7adee101802122a88bd3965920908853540206a62f47d005b5` · Size **444544832** B · platform **linux/amd64** | Rebuild: `python3 tools/build_synthetic_runtime.py` from repo root. **No published arm64 pin**; Apple Silicon runs **amd64 emulation** unless a future arm64 pin and equivalence check exist. |
+| **Synthetic runtime** | Tag `asma-synthetic:4.4.3` · platform **linux/amd64** · Tag `asma-synthetic:4.4.3-arm64` · platform **linux/arm64** (same CRAN package pins) | Rebuild amd64: `python3 tools/build_synthetic_runtime.py --platform linux/amd64`. Rebuild arm64: `python3 tools/build_synthetic_runtime.py --platform linux/arm64`. On Apple Silicon, prefer the **native arm64** tag over amd64 emulation. |
+| **Cross-arch equivalence** | Required before `--real` on **macOS arm64** | CI builds **linux/amd64** on `ubuntu-latest` and **linux/arm64** natively on `ubuntu-24.04-arm`, compares aggregate JSON in a third job, and uploads [`pilot001-cross-arch-equivalence-pass.json`](../tools/pilot001_first_run/cross_arch_equivalence.py) bound to `git_sha=HEAD`. Locally: run `--platform linux/amd64` and `--platform linux/arm64` on native hosts, then `--amd64-record` / `--arm64-record`, or download the CI pass artifact with `gh run download` for the current commit. Tolerances: [`registries/pilot-001-cross-arch-equivalence-tolerance.json`](../registries/pilot-001-cross-arch-equivalence-tolerance.json). |
 | **Source-adapter runtime** | Tag `asma-source-adapter:3.12.14-4.4.3` · Id `sha256:abe1ad546d148230e624ecf8d0a75ea8a0b50308f98b816582e7b6bc406e9300` (Verify CI; **size not teed** in workflow) | Rebuild: `python3 tools/build_source_adapter_runtime.py --accept-rebuilt-base`. Builder sets `base_rebuilt: true` when the live synthetic base differs from the **recorded** synthetic Id `sha256:ffc2f55117d54c3978eaa6d0bb242e6d5526e1667a70e78c724b2a59f3789e35` in [runtime/source-adapter-python.json](../runtime/source-adapter-python.json); both Ids are printed in the build JSON line. |
 | **CPython (adapter only)** | **3.12.14** pin | [runtime/source-adapter-python.json](../runtime/source-adapter-python.json) (`Python-3.12.14.tar.xz`). |
 
@@ -122,7 +144,7 @@ docker image inspect asma-source-adapter:3.12.14-4.4.3 --format 'Id={{.Id}} Size
 
 **Attestation:** The host runs the full attestation gate **before** phase 1. Phase **2** bind-mounts `registries/pilot-001-owner-attestations.json` (when present locally) for `parse_sources()` authorization. Phase **1** does not mount that file.
 
-**Native linux/arm64 synthetic builds and amd64↔arm64 equivalence checks** are intentionally **out of scope** (sibling PR).
+**Apple Silicon:** Before `--real` on an **arm64** Mac, build both synthetic tags, run [`run_cross_arch_equivalence.py`](../tools/run_cross_arch_equivalence.py) (step **2b**), and keep the pass record beside first-run outputs. Real mode still uses the two-phase fetch/analyze flow above; equivalence is an additional gate on native arm64 hosts only.
 
 ### (5) Exact approved command sequence
 
@@ -132,7 +154,8 @@ Run from the **repository root** after step **0**. Replace attestation ref and d
 | --- | --- | --- |
 | **0** | First probe (see **(1)**) | `docker version --format 'Client={{.Client.Version}} Server={{.Server.Version}} Arch={{.Server.Arch}}' ; uname -m` |
 | **1** | Configure Docker Desktop | **Swap = 0 MiB**; confirm Docker is running. |
-| **2** | Build synthetic image | `python3 tools/build_synthetic_runtime.py` |
+| **2** | Build synthetic images | `python3 tools/build_synthetic_runtime.py --platform linux/amd64` then `python3 tools/build_synthetic_runtime.py --platform linux/arm64` |
+| **2b** | Cross-arch equivalence (Apple Silicon / before `--real`) | Build/record on native amd64 + arm64 hosts (see **2b** above) or `gh run download` the CI pass artifact for HEAD into `$HOME/pilot001-first-run-out/` |
 | **3** | Build source-adapter image | `python3 tools/build_source_adapter_runtime.py --accept-rebuilt-base` |
 | **4** | Record image ids (optional) | `docker image inspect asma-synthetic:4.4.3 --format '{{.Id}} {{.Architecture}}'` |
 | **5** | Preflight (read-only) | `python3 tools/pilot001_preflight.py --host macos --output-dir "$HOME/pilot001-first-run-out"` |
@@ -149,7 +172,8 @@ python3 tools/run_pilot001_first_run.py \
   --gate0-signed \
   --gate0-attestation-ref 'OWNER_ID:2026-11-05' \
   --dropbox-cleared \
-  --image asma-synthetic:4.4.3
+  --reference-image asma-synthetic:4.4.3 \
+  --image asma-synthetic:4.4.3-arm64
 ```
 
 The attestation date must equal **today** in `America/Toronto`. Phase 1 writes verified **compressed** study bytes to a **tmpfs handoff volume** (not the host output directory). Phase 2 parses and models offline with **`--network=none`**; the host promotes validated aggregate JSON to the output bind mount from container stdout.

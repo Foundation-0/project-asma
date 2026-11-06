@@ -108,7 +108,7 @@ class SourceAdapterRuntimeTests(unittest.TestCase):
     def mocked_build(self, base_ids, accept=False, base_layers=("layer-a",),
                      image_layers=("layer-a", "layer-b"), lock=None):
         """Run build() against mocked Docker; inspect returns queued base IDs."""
-        record = json.loads(builder.LOCK.read_text())
+        record = json.loads(builder.LOCKS["linux/amd64"].read_text())
         queue, commands = list(base_ids), []
         def run(command, **options):
             commands.append(command[2])
@@ -124,7 +124,7 @@ class SourceAdapterRuntimeTests(unittest.TestCase):
             if lock is not None:
                 path = Path(directory) / "lock.json"
                 path.write_text(json.dumps(dict(record, **lock)))
-                stack.enter_context(mock.patch.object(builder, "LOCK", path))
+                stack.enter_context(mock.patch.object(builder, "LOCKS", {"linux/amd64": path, "linux/arm64": path}))
             stack.enter_context(mock.patch.object(builder.subprocess, "run", side_effect=run))
             stack.enter_context(mock.patch.object(builder, "checked_download", return_value=b"abstract"))
             stack.enter_context(mock.patch.object(builder, "checked_python_tar", return_value=b"abstract"))
@@ -136,7 +136,7 @@ class SourceAdapterRuntimeTests(unittest.TestCase):
         return json.loads(out.getvalue()), commands, record
 
     def test_recorded_base_output_is_unchanged_with_or_without_opt_in(self):
-        recorded = json.loads(builder.LOCK.read_text())["base_image_id"]
+        recorded = json.loads(builder.LOCKS["linux/amd64"].read_text())["base_image_id"]
         for accept in (False, True):
             printed, commands, _ = self.mocked_build([recorded, recorded], accept=accept)
             self.assertEqual(set(printed), {"image_id", "base_image_id", "scope"})
@@ -174,7 +174,7 @@ class SourceAdapterRuntimeTests(unittest.TestCase):
         for argv, accept in (([], False), (["--accept-rebuilt-base"], True)):
             with mock.patch.object(builder, "build") as build:
                 self.assertEqual(builder.main(argv), 0)
-            build.assert_called_once_with(None, accept)
+            build.assert_called_once_with(None, accept, "linux/amd64")
 
 
 if __name__ == "__main__":

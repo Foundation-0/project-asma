@@ -1,0 +1,316 @@
+{
+  "absolute_tolerance": 1e-06,
+  "amd64_finished_at_utc": "2026-11-04T09:21:48.008309Z",
+  "arm64_finished_at_utc": "2026-11-04T09:21:48.008309Z",
+  "ci_reference": {
+    "amd64_runtime_image_id": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "arm64_runtime_image_id": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "compared_paths": [
+    "integration.patients",
+    "integration.features",
+    "integration.repetitions",
+    "integration.outer_folds",
+    "integration.model_predictions",
+    "integration.ensemble_predictions",
+    "integration.final_scores",
+    "integration.positive_negative_pairs",
+    "integration.concordant_pairs",
+    "integration.discordant_pairs",
+    "integration.tied_pairs",
+    "integration.pair_credit_twice",
+    "integration.repetition_auc.count",
+    "integration.en_aggregate.n",
+    "integration.xgb_aggregate.n",
+    "integration.auc",
+    "integration.rank_auc",
+    "integration.repetition_auc.minimum",
+    "integration.repetition_auc.lower_quartile",
+    "integration.repetition_auc.median",
+    "integration.repetition_auc.upper_quartile",
+    "integration.repetition_auc.maximum",
+    "integration.repetition_auc.mean",
+    "integration.en_aggregate.mean",
+    "integration.en_aggregate.sd",
+    "integration.en_aggregate.minimum",
+    "integration.en_aggregate.maximum",
+    "integration.xgb_aggregate.mean",
+    "integration.xgb_aggregate.sd",
+    "integration.xgb_aggregate.minimum",
+    "integration.xgb_aggregate.maximum"
+  ],
+  "git_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "metrics": [
+    {
+      "allowed_delta": 0,
+      "amd64": 135,
+      "arm64": 135,
+      "difference": 0.0,
+      "path": "integration.patients",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 64,
+      "arm64": 64,
+      "difference": 0.0,
+      "path": "integration.features",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 100,
+      "arm64": 100,
+      "difference": 0.0,
+      "path": "integration.repetitions",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 500,
+      "arm64": 500,
+      "difference": 0.0,
+      "path": "integration.outer_folds",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 40500,
+      "arm64": 40500,
+      "difference": 0.0,
+      "path": "integration.model_predictions",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 13500,
+      "arm64": 13500,
+      "difference": 0.0,
+      "path": "integration.ensemble_predictions",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 135,
+      "arm64": 135,
+      "difference": 0.0,
+      "path": "integration.final_scores",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 4316,
+      "arm64": 4316,
+      "difference": 0.0,
+      "path": "integration.positive_negative_pairs",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 2200,
+      "arm64": 2200,
+      "difference": 0.0,
+      "path": "integration.concordant_pairs",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 2100,
+      "arm64": 2100,
+      "difference": 0.0,
+      "path": "integration.discordant_pairs",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 16,
+      "arm64": 16,
+      "difference": 0.0,
+      "path": "integration.tied_pairs",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 4416,
+      "arm64": 4416,
+      "difference": 0.0,
+      "path": "integration.pair_credit_twice",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 100,
+      "arm64": 100,
+      "difference": 0.0,
+      "path": "integration.repetition_auc.count",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 40500,
+      "arm64": 40500,
+      "difference": 0.0,
+      "path": "integration.en_aggregate.n",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 0,
+      "amd64": 40500,
+      "arm64": 40500,
+      "difference": 0.0,
+      "path": "integration.xgb_aggregate.n",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.512345678901234,
+      "arm64": 0.512345678901234,
+      "difference": 0.0,
+      "path": "integration.auc",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.512345678901234,
+      "arm64": 0.512345678901234,
+      "difference": 0.0,
+      "path": "integration.rank_auc",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.4,
+      "arm64": 0.4,
+      "difference": 0.0,
+      "path": "integration.repetition_auc.minimum",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.45,
+      "arm64": 0.45,
+      "difference": 0.0,
+      "path": "integration.repetition_auc.lower_quartile",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.51,
+      "arm64": 0.51,
+      "difference": 0.0,
+      "path": "integration.repetition_auc.median",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.55,
+      "arm64": 0.55,
+      "difference": 0.0,
+      "path": "integration.repetition_auc.upper_quartile",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.6,
+      "arm64": 0.6,
+      "difference": 0.0,
+      "path": "integration.repetition_auc.maximum",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.512,
+      "arm64": 0.512,
+      "difference": 0.0,
+      "path": "integration.repetition_auc.mean",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.501,
+      "arm64": 0.501,
+      "difference": 0.0,
+      "path": "integration.en_aggregate.mean",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.11,
+      "arm64": 0.11,
+      "difference": 0.0,
+      "path": "integration.en_aggregate.sd",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.01,
+      "arm64": 0.01,
+      "difference": 0.0,
+      "path": "integration.en_aggregate.minimum",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.99,
+      "arm64": 0.99,
+      "difference": 0.0,
+      "path": "integration.en_aggregate.maximum",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.502,
+      "arm64": 0.502,
+      "difference": 0.0,
+      "path": "integration.xgb_aggregate.mean",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.12,
+      "arm64": 0.12,
+      "difference": 0.0,
+      "path": "integration.xgb_aggregate.sd",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.02,
+      "arm64": 0.02,
+      "difference": 0.0,
+      "path": "integration.xgb_aggregate.minimum",
+      "within_tolerance": true
+    },
+    {
+      "allowed_delta": 1e-06,
+      "amd64": 0.98,
+      "arm64": 0.98,
+      "difference": 0.0,
+      "path": "integration.xgb_aggregate.maximum",
+      "within_tolerance": true
+    }
+  ],
+  "relative_tolerance": 1e-09,
+  "schema_version": 3,
+  "synthetic_stack_identity": {
+    "amd64": {
+      "base_image_pin": "rocker/r-ver@sha256:3dae5d2eeddf74f10e0a81fb6b7ae350295e288000304f438b844b2c1e00fe2c",
+      "dockerfile_synthetic_sha256": "0f17ef9ad85abe588bee1d8c9e3330958ad9a11001c09e72d8c85047e56fbb7d",
+      "install_r_sha256": "5e00aa34a84836c2915cecc4f452254589576b2de3d6c1b88625c5827f2f41be",
+      "package_sources_sha256": "d0f2fec8a7f7c553136be331d1fc8c2a0a49b7fa7070df3431b759ad10579349",
+      "platform": "linux/amd64",
+      "synthetic_lock_sha256": "16148bb62730d34071abef3a408600dfe8109ea0bb553d1e26aa2b048596cbf0"
+    },
+    "arm64": {
+      "base_image_pin": "rocker/r-ver@sha256:3dae5d2eeddf74f10e0a81fb6b7ae350295e288000304f438b844b2c1e00fe2c",
+      "dockerfile_synthetic_sha256": "0f17ef9ad85abe588bee1d8c9e3330958ad9a11001c09e72d8c85047e56fbb7d",
+      "install_r_sha256": "5e00aa34a84836c2915cecc4f452254589576b2de3d6c1b88625c5827f2f41be",
+      "package_sources_sha256": "d0f2fec8a7f7c553136be331d1fc8c2a0a49b7fa7070df3431b759ad10579349",
+      "platform": "linux/arm64",
+      "synthetic_lock_sha256": "f5df9310a20728ff5a0dd31fc94af6b3e44d5c329c538edc26a0bfd8d981b52c"
+    },
+    "schema_version": 1,
+    "tolerance_registry_sha256": "ab0d67f5bba8f000ee543b7f78fbd8b323f2dcb3d975338742f8d5e47576a8ea"
+  },
+  "tolerance_registry": "registries/pilot-001-cross-arch-equivalence-tolerance.json"
+}

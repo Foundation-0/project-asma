@@ -276,12 +276,18 @@ software review is not external scientific review.
 ## Commands
 
 Use Python 3.10+ on a Linux host with Docker access through
-`/var/run/docker.sock`. The build targets `linux/amd64`. From the repository root:
+`/var/run/docker.sock`. Default build targets `linux/amd64`; an arm64 lock lives in
+[`runtime/synthetic-packages-arm64.json`](../runtime/synthetic-packages-arm64.json)
+with the same CRAN pins. From the repository root:
 
 ```sh
-python3 tools/build_synthetic_runtime.py
+python3 tools/build_synthetic_runtime.py --platform linux/amd64
+python3 tools/build_synthetic_runtime.py --platform linux/arm64
 python3 tools/run_synthetic_pipeline.py
 python3 tools/run_synthetic_pipeline.py --full
+python3 tools/run_cross_arch_equivalence.py --platform linux/amd64 --write-record /tmp/synthetic-amd64-record.json
+python3 tools/run_cross_arch_equivalence.py --platform linux/arm64 --write-record /tmp/synthetic-arm64-record.json
+python3 tools/run_cross_arch_equivalence.py --amd64-record /tmp/synthetic-amd64-record.json --arm64-record /tmp/synthetic-arm64-record.json --git-sha "$(git rev-parse HEAD)"
 python3 tools/validate.py
 python3 -m unittest discover -s tests -v
 ```

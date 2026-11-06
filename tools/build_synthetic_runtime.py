@@ -14,9 +14,22 @@ import urllib.parse
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
-LOCK = ROOT / "runtime/synthetic-packages.json"
+LOCKS = {
+    "linux/amd64": ROOT / "runtime/synthetic-packages.json",
+    "linux/arm64": ROOT / "runtime/synthetic-packages-arm64.json",
+}
+DEFAULT_TAGS = {
+    "linux/amd64": "asma-synthetic:4.4.3",
+    "linux/arm64": "asma-synthetic:4.4.3-arm64",
+}
 MAX_SOURCE_BYTES = 20_000_000
 FAILURE = "ERROR: synthetic runtime build failed; no research data were accessed."
+
+
+def lock_path(platform: str) -> Path:
+    if platform not in LOCKS:
+        raise ValueError(FAILURE)
+    return LOCKS[platform]
 
 
 def checked_archive(record, source_cache=None):
@@ -48,10 +61,13 @@ def local_docker_env():
     return environment
 
 
-def build(tag, source_cache=None):
-    lock = json.loads(LOCK.read_text())
+def build(tag, source_cache=None, platform="linux/amd64"):
+    lock_file = lock_path(platform)
+    lock = json.loads(lock_file.read_text())
     dockerfile = ROOT / "runtime/Dockerfile.synthetic"
-    if lock["schema_version"] != 1 or dockerfile.read_text().splitlines()[0] != "FROM " + lock["base_image"]:
+    if lock["schema_version"] != 1 or lock["platform"] != platform:
+        raise ValueError(FAILURE)
+    if dockerfile.read_text().splitlines()[0] != "FROM " + lock["base_image"]:
         raise ValueError(FAILURE)
     docker = ["docker", "--host=unix:///var/run/docker.sock"]
     env = local_docker_env()
@@ -64,17 +80,28 @@ def build(tag, source_cache=None):
             (context / "packages" / name).write_bytes(body)
         shutil.copyfile(dockerfile, context / "Dockerfile")
         shutil.copyfile(ROOT / "runtime/install.R", context / "install.R")
-        subprocess.run(docker + ["build", "--network=none", "--platform=" + lock["platform"],
-                                 "-t", tag, str(context)], env=env, check=True, timeout=3600)
+        subprocess.run(
+            docker + ["build", "--network=none", "--platform=" + platform, "-t", tag, str(context)],
+            env=env,
+            check=True,
+            timeout=3600,
+        )
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--tag", default="asma-synthetic:4.4.3")
+    parser.add_argument("--tag", help="Image tag (default depends on --platform)")
+    parser.add_argument(
+        "--platform",
+        choices=sorted(LOCKS),
+        default="linux/amd64",
+        help="Target platform for the pinned synthetic runtime",
+    )
     parser.add_argument("--source-cache", type=Path, help="Optional directory of already downloaded package archives")
     args = parser.parse_args(argv)
+    tag = args.tag or DEFAULT_TAGS[args.platform]
     try:
-        build(args.tag, args.source_cache)
+        build(tag, args.source_cache, args.platform)
     except Exception:
         print(FAILURE, file=sys.stderr)
         return 1

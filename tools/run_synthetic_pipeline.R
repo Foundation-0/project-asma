@@ -27,7 +27,10 @@ main <- function(arguments) {
     # Preserve coverage evidence, not artificial AUROC or per-fixture scores.
     safe <- c("patients", "features", "repetitions", "outer_folds",
               "model_predictions", "ensemble_predictions", "final_scores",
-              "complete_prediction_coverage", "positive_negative_pairs")
+              "complete_prediction_coverage", "positive_negative_pairs",
+              "auc", "rank_auc", "concordant_pairs", "discordant_pairs",
+              "tied_pairs", "pair_credit_twice", "repetition_auc",
+              "en_aggregate", "xgb_aggregate")
     integration <- c(list(executed = TRUE, model_backend = "pinned_R_packages"),
                      result$summary[safe],
                      list(metric_formulations_agree = identical(result$summary$auc,

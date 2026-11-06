@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scope": "Synthetic cross-architecture aggregate comparison only; no study data",
+  "absolute_tolerance": 1e-6,
+  "relative_tolerance": 1e-9,
+  "integer_paths": [
+    "integration.patients",
+    "integration.features",
+    "integration.repetitions",
+    "integration.outer_folds",
+    "integration.model_predictions",
+    "integration.ensemble_predictions",
+    "integration.final_scores",
+    "integration.positive_negative_pairs",
+    "integration.concordant_pairs",
+    "integration.discordant_pairs",
+    "integration.tied_pairs",
+    "integration.pair_credit_twice",
+    "integration.repetition_auc.count",
+    "integration.en_aggregate.n",
+    "integration.xgb_aggregate.n"
+  ],
+  "float_paths": [
+    "integration.auc",
+    "integration.rank_auc",
+    "integration.repetition_auc.minimum",
+    "integration.repetition_auc.lower_quartile",
+    "integration.repetition_auc.median",
+    "integration.repetition_auc.upper_quartile",
+    "integration.repetition_auc.maximum",
+    "integration.repetition_auc.mean",
+    "integration.en_aggregate.mean",
+    "integration.en_aggregate.sd",
+    "integration.en_aggregate.minimum",
+    "integration.en_aggregate.maximum",
+    "integration.xgb_aggregate.mean",
+    "integration.xgb_aggregate.sd",
+    "integration.xgb_aggregate.minimum",
+    "integration.xgb_aggregate.maximum"
+  ],
+  "notes": [
+    "glmnet (en) and xgboost (xgb) aggregates are compared with the stated tolerances.",
+    "Integer coverage fields must match exactly between linux/amd64 and linux/arm64 synthetic runs.",
+    "Pass records bind the compared synthetic image IDs; preflight refuses macOS arm64 real mode without a matching pass."
+  ]
+}
