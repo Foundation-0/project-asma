@@ -22,13 +22,13 @@ jobs:
       - name: Check tracked study sources
         run: python3 tools/check_tracked_study_sources.py
 
-      - name: Python unit suite (310 tests)
+      - name: Python unit suite (317 tests)
         run: |
           set -euo pipefail
           set -o pipefail
           python3 -m unittest discover -s tests -v 2>&1 | tee python-suite.log
-          grep -E '^Ran [0-9]+ tests' python-suite.log | grep -Fq 'Ran 310 tests'
-          echo "Python suite count: Ran 310 tests"
+          grep -E '^Ran [0-9]+ tests' python-suite.log | grep -Fq 'Ran 317 tests'
+          echo "Python suite count: Ran 317 tests"
 
       - name: Educational site mathematics and reference models
         run: |

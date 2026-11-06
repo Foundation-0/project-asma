@@ -41,6 +41,7 @@ clinical validity, or improved patient outcomes.
 | [Discovery-score AUROC result](docs/pilot-001-score-verification-result.md) | Executed preliminary result, comparison failure and remaining provenance limits |
 | [Discovery AUROC discrepancy analysis](docs/pilot-001-auc-discrepancy.md) | Candidate explanations (a)–(e) for 0.80885 vs printed 0.83; public scores only |
 | [Validation capacity](docs/pilot-001-validation-capacity.md) | Executed aggregate calculation of what the available cohort can establish at 98% specificity |
+| [Exploratory subset plan](protocols/pilot-001-exploratory-subset-plan.md) | Pre-registered statistical contract for the 13/8 frozen subset: endpoints, permitted inputs, decision rules, uncertainty and stop rules fixed before any real-data number; not executed |
 | [Held-out evaluation tools](docs/heldout-evaluation.md) | Original evaluation code tested on artificial cases, with patient separation and paired comparisons |
 | [Independent progress](docs/pilot-001-independent-progress.md) | Matrix-header diagnostic, score lineage and concrete supplement-legend mismatch |
 | [Preprocessing provenance](docs/pilot-001-preprocessing-provenance.md) | Located transformations, replicate-averaging example and unresolved execution history |
