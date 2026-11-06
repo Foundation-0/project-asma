@@ -60,7 +60,8 @@ class ExploratorySubsetDesignTests(unittest.TestCase):
                 self.assertEqual(interval['upper'], 1)
 
     def test_reference_values_agree_with_the_capacity_record(self):
-        # Values stated in docs/pilot-001-validation-capacity.md.
+        # Full-precision values recorded in registries/pilot-001-validation-capacity.json;
+        # the report rounds them to 79.42% and 75.29%.
         self.assertAlmostEqual(design.one_sided_lower(13, 13, .95), .7941833348134493)
         self.assertAlmostEqual(design.clopper_pearson(13, 13, .95)['lower'], .752947361999529)
         two_of_eight = design.clopper_pearson(2, 8, .95)
