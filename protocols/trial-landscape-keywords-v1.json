@@ -103,6 +103,15 @@
     "at_utc": "2026-11-06T04:45:26+00:00",
     "reason": "Official API OpenAPI permits date/numeric sort fields, not NCTId. Omit sort; uniqueness and pagination checks do not depend on response ordering. No trial records have been requested.",
     "pagination_clarified_at_utc": "2026-11-06T04:46:58+00:00",
-    "pagination_reason": "Official API countTotal is ignored on subsequent pages; do not require their totalCount field. Empty intermediate pages with a nextPageToken are allowed."
-  }
+    "pagination_reason": "Official API countTotal is ignored on subsequent pages; do not require their totalCount field. Empty intermediate pages with a nextPageToken are allowed.",
+    "outputs_explicit_at_utc": "2026-11-06T04:50:10+00:00"
+  },
+  "count_outputs": [
+    "exclusive phase combinations",
+    "six whole-corpus keyword bucket counts",
+    "group unions, any-keyword union and no-keyword complement",
+    "four exclusive biomarker/platinum overlap cells",
+    "six bucket counts in eligibility text and six in other selected text (overlapping source-presence counts)",
+    "aggregate missing/empty optional field counts"
+  ]
 }
