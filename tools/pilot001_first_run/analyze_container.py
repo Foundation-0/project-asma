@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 
 from pilot001_first_run import failure_codes as codes  # noqa: E402
-from pilot001_first_run.config import default_input_manifest  # noqa: E402
+from pilot001_first_run.config import REAL_REPETITIONS, default_input_manifest  # noqa: E402
 from pilot001_first_run.study_fetch import (  # noqa: E402
     StudyFetchError,
     read_raw_handoff,
@@ -87,7 +87,7 @@ def main() -> int:
                 "--vanilla",
                 "tools/run_pilot001_reconstruction.R",
                 "--real",
-                "--repetitions=5",
+                f"--repetitions={REAL_REPETITIONS}",
             ],
             cwd=str(ROOT),
             env=env,
