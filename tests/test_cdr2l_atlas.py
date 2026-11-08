@@ -1,7 +1,11 @@
 """Artificial HTML fixtures test source scope and non-retention of identifiers."""
 import copy
 import json
+from pathlib import Path
+import sys
+import tempfile
 import unittest
+from unittest import mock
 
 from tools import audit_cdr2l_atlas as atlas
 
@@ -68,7 +72,8 @@ class AtlasAuditTests(unittest.TestCase):
     def test_certificate_and_rehashed_overclaims(self):
         report = json.loads(atlas.RESULT.read_text())
         self.assertTrue(atlas.check_report(report))
-        mutations = [lambda r: r.update(donor="PRIVATE"),
+        mutations = [lambda r: r.update(script_sha256="0" * 64),
+                     lambda r: r.update(donor="PRIVATE"),
                      lambda r: r.update(source="https://example.com"),
                      lambda r: r.update(peptide_sha256="0" * 64),
                      lambda r: r.update(limits=["arbitrary source content"]),
@@ -83,6 +88,17 @@ class AtlasAuditTests(unittest.TestCase):
             changed["certificate_sha256"] = atlas.sha(atlas.canonical({k: v for k, v in changed.items() if k != "certificate_sha256"}))
             with self.assertRaises(ValueError):
                 atlas.check_report(changed)
+
+    def test_live_refuses_to_overwrite_existing_output(self):
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / "certificate.json"
+            output.write_bytes(b"historical receipt\n")
+            with mock.patch.object(atlas, "live_audit", return_value={"summary": {}}) as live_audit, \
+                    mock.patch.object(sys, "argv", ["audit", "--live", "--output", str(output)]):
+                with self.assertRaises(ValueError):
+                    atlas.main()
+            self.assertEqual(output.read_bytes(), b"historical receipt\n")
+            live_audit.assert_not_called()
 
 
 if __name__ == "__main__":

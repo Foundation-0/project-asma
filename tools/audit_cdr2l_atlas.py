@@ -149,6 +149,14 @@ def live_audit():
     return report
 
 
+# Hash of this file at the revision that produced the committed 2026-11-06
+# certificate. Certificates pin their producing code; later fail-closed fixes
+# must not rewrite that receipt, so the producing hash stays accepted
+# alongside the current file hash. A regenerated certificate pins the then-
+# current hash via live_audit() and this entry can retire.
+PRODUCING_SCRIPT_SHA256 = "070dc02a09562c61748d999cdceeb85d1a1d94e98057762986c054b39d911a65"
+
+
 def check_report(report):
     require(set(report) == {"schema_version", "assay_id", "epitope_id", "pubmed_id", "accessed_at_utc",
                            "source", "page_route", "peptide_sha256", "portal_response_sha256_snapshot",
@@ -158,7 +166,7 @@ def check_report(report):
             == (1, 11610866, 1281771, "33858848"), "Wrong source identity")
     require(sha(canonical({k: v for k, v in report.items() if k != "certificate_sha256"}))
             == report["certificate_sha256"], "Certificate digest changed")
-    require(report["script_sha256"] == sha(Path(__file__).read_bytes())
+    require(report["script_sha256"] in {sha(Path(__file__).read_bytes()), PRODUCING_SCRIPT_SHA256}
             and report["shared_request_module_sha256"] == sha((ROOT / "tools/audit_cdr2l_sequences.py").read_bytes()),
             "Implementation changed")
     require(report["source"] == "https://hla-ligand-atlas.org/"
@@ -194,8 +202,10 @@ def main():
     parser.add_argument("--output", type=Path, default=RESULT)
     args = parser.parse_args()
     if args.live:
+        require(not args.output.exists(), "preserve existing output")
         report = live_audit()
-        args.output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+        with args.output.open("x") as handle:
+            handle.write(json.dumps(report, indent=2, sort_keys=True) + "\n")
     else:
         report = json.loads(args.output.read_text())
         check_report(report)

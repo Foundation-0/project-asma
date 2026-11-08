@@ -12,7 +12,10 @@ from pathlib import Path
 import ssl
 import urllib.request
 
-from audit_cdr2l_source_psm import BASE, FILES, TARGET, require
+try:
+    from .audit_cdr2l_source_psm import BASE, FILES, TARGET, require
+except ImportError:
+    from audit_cdr2l_source_psm import BASE, FILES, TARGET, require
 
 NAME = 'F1202000304_PF_MDAMB231_IFN-positive_replicate_5_pool_6_Immunopeptidomics-classII.mgf'
 SIZE = 72832889
@@ -123,9 +126,16 @@ def live(certificate_path):
         result = inspect_mgf(response, expected_size=SIZE, expected_sha1=SHA1, index=INDEX)
     metadata = result['selected_spectrum']['metadata']
     item = linked['items'][0]['attributes']
+    require(metadata.get('TITLE') == linked['attributes']['spectrumID'],
+            'selected TITLE does not match linked spectrumID')
+    require(metadata.get('SCANS'), 'selected spectrum missing SCANS')
+    require(metadata.get('PEPMASS'), 'selected spectrum missing PEPMASS')
     precursor = Decimal(metadata['PEPMASS'].split()[0])
     experimental = Decimal(item['experimentalMassToCharge'])
     charge_matches = metadata.get('CHARGE') == item['chargeState'] + '+'
+    require(precursor == experimental,
+            'selected PEPMASS does not match linked experimentalMassToCharge')
+    require(charge_matches, 'selected CHARGE does not match linked chargeState')
     result.update(schema_version=1, project='PXD023044', source_license_metadata='CC0',
         url=BASE+NAME, file=NAME, http_metadata=headers,
         retrieved_utc=datetime.now(timezone.utc).isoformat(),
