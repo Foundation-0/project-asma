@@ -99,7 +99,7 @@ The breast-cancer abstract says all 22 anti-Yo breast cancers in that study had 
 
 PMC12851941 is Avsec and colleagues, Nature, 2026, PMID 41606153, DOI [10.1038/s41586-025-10014-0](https://doi.org/10.1038/s41586-025-10014-0). PubMed and the PMC article page agree. The abstract states an input of 1 Mb of DNA. A text search of that PMC page found no CDR2, no EEF1D, no Purkinje, and neither base-pair window named in the notes.
 
-NCBI Gene 30850 places human CDR2L on NC_000017.11 at 74,987,631-75,005,799, in band 17q25.1. The notes' interval 74,992,096-75,021,497 is on chromosome 17 in the same band. It is a different base interval.
+NCBI Gene 30850 places human CDR2L on NC_000017.11 (GRCh38.p14, 1-based) at 74,987,632-75,005,800, in band 17q25.1. The notes' interval 74,992,096-75,021,497 is on chromosome 17 in the same band. It is a different base interval.
 
 ## Proposals that were not re-run
 
