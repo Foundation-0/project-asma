@@ -50,6 +50,18 @@
     "tools/probe_execution_conditions.py": {
       "allowed_recorded_hash": "0410d3f4294dfeb3d69e1a88c9f8d1c58c6900b8f926a97b16da14961db26bd3",
       "git_commit": "ef1f5226e279721da4f669c84fb1def0b2156ee1"
+    },
+    "tests/test_source_adapter_runtime.py": {
+      "allowed_recorded_hash": "dc4fcef66226e0b59e846d174a69398d6ec565fe44ac317b7531e816f1cba86f",
+      "git_commit": "5026273dfb757b6ee0acab6c1887b7c1a826993d"
+    },
+    "tools/build_source_adapter_runtime.py": {
+      "allowed_recorded_hash": "9659d9fd4e2583cef5e9508b24a3ad994736207db7f11844852d2f6f7d064051",
+      "git_commit": "5026273dfb757b6ee0acab6c1887b7c1a826993d"
+    },
+    "registries/pilot-001-source-adapter-runtime.json": {
+      "allowed_recorded_hash": "d33d8f0f7e0637256e61f4c28bbb769098b6696ce661c0cb624af1984eb90bd9",
+      "git_commit": "5026273dfb757b6ee0acab6c1887b7c1a826993d"
     }
   },
   "limitations": [
