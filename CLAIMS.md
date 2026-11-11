@@ -196,6 +196,15 @@ and do **not** substitute for study-data execution.
 | --- | --- | --- | --- |
 | V30 | VERIFIED | Both selected IEDB CDR2L HLA-II peptides match canonical Q86X02 at curated coordinates and the explicitly checked unreviewed CDR2L entry A0ACI8RKQ2; neither matches the explicitly checked CDR2 entry Q01850, including I/L-equivalent comparison | [Executed named-candidate result](docs/cdr2l-sequence-adjudication-2026-11-06.md), [aggregate certificate](registries/cdr2l-sequence-audit-2026-11-06.json), `python3 tools/audit_cdr2l_sequences.py`. Three named reference sequences only; remote database search unavailable, no global uniqueness claim, no spectra/allotype/receptor/injury validation. Sources S129–S131 and earlier source map. |
 
+## Convergence-note extract, 2026-11-11
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V31 | VERIFIED | One-sided 95% lower specificity bounds for eight stated sensitive denominators, at 0, 1 and 2 false positives, match the binomial tail. The bound reaches 98% at n = 149 with 0 false positives and at n = 236 with 1. Two-sided 95% intervals for 9/26, 163/166, 7/20 and 78/80 match the intervals written in the 11 November notes | `python3 tools/check_stated_specificity_bounds.py --check`; [extract](docs/google-bio-convergence-2026-11-11.md#specificity-bounds-on-stated-denominators). Arithmetic on stated fractions. Not a cohort audit and not measured performance. The audited discovery split remains 83 sensitive by 52 refractory |
+| K34 | KNOWN | Europe PMC titles and DOIs checked on 2026-11-11 name the ER-sheet papers and four further papers cited beside the notes | [Title table](docs/google-bio-convergence-2026-11-11.md#papers-named-in-the-notes). Titles only. Residues, constants and prevalence ranges in the notes were not re-extracted |
+| K35 | KNOWN | Europe PMC titles on 2026-11-11 identify the 2018 anti-Yo HLA association paper (PMID 29306402) and AlphaMissense (PMID 37733863) | Same title table. Odds ratios and variant scores in the notes were not re-extracted |
+| C23 | CONJECTURE | HLA pocket chemistry, EEF1D splicing, chromosome 17 co-location and a multi-analyte blood index may deserve a later bounded protocol | [Unrun proposals](docs/google-bio-convergence-2026-11-11.md#proposals-that-were-not-re-run). The named simulator files were not in the commit. No regimen is proposed |
+
 ## What this ledger does not claim
 
 - Clinical validity, diagnostic accuracy, treatment benefit, or individual patient guidance.
