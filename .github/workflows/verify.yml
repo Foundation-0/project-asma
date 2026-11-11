@@ -12,7 +12,8 @@ permissions:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    # ubuntu-24.04 avoids outbound TLS regressions on ubuntu-latest (26.x / Python 3.14).
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -92,7 +93,7 @@ jobs:
           attempt=1
           while [ "$attempt" -le "$max_attempts" ]; do
             set +e
-            python3 tools/build_source_adapter_runtime.py --accept-rebuilt-base --source-cache "$ASMA_PACKAGE_CACHE" 2>&1 | tee "adapter-build-${attempt}.log"
+            python3 tools/build_source_adapter_runtime.py --accept-rebuilt-base --show-build-errors --source-cache "$ASMA_PACKAGE_CACHE" 2>&1 | tee "adapter-build-${attempt}.log"
             status=${PIPESTATUS[0]}
             set -e
             if [ "$status" -eq 0 ]; then
