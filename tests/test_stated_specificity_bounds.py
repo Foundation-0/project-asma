@@ -71,6 +71,28 @@ class StatedSpecificityBoundsTests(unittest.TestCase):
                 self.assertIn(f"{value:.2f}%", page)
         for marker in PRIVATE_MARKERS:
             self.assertNotIn(marker, page)
+        for snippet in (
+            "10 / 11", "10 / 10", "22 / 20", "22 / 12", "44 / 42",
+            "42 / 19", "91 / 67", "115 / 83",
+            "74,987,631-75,005,799", "74,992,096-75,021,497",
+            "1114-1153", "1114-1157",
+            "41606153", "10.1038/s41586-025-10014-0",
+            "5.4", "8.87",
+        ):
+            self.assertIn(snippet, page)
+        self.assertNotIn("10.7150/ijbs.133555", page)
+
+    def test_note_cohort_pairs_against_the_supplement_audit(self):
+        summary = bounds.load_supplement(ROOT)
+        pairs = bounds.check_stated_cohorts(summary)
+        self.assertIn((83, 52), pairs)
+        self.assertIn((22, 12), pairs)
+        self.assertIn((10, 10), pairs)
+        self.assertNotIn((10, 11), pairs)
+        self.assertNotIn((22, 20), pairs)
+        self.assertNotIn((44, 42), pairs)
+        self.assertNotIn((115, 83), pairs)
+        self.assertNotIn((13, 8), pairs)
 
     def test_rejects_bad_counts(self):
         for n, k in ((0, 0), (10, -1), (10, 11), (True, 0)):

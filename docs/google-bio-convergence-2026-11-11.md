@@ -1,6 +1,6 @@
 # Public extract of the 11 November 2026 convergence notes
 
-Three research notes were committed on 11 November 2026. This page keeps the part that belongs in the public repository. That part is arithmetic on counts the notes stated, titles of papers the notes named, and a list of calculations the notes described but did not commit.
+Three research notes were committed on 11 November 2026. This page keeps the part that belongs in the public repository. That part is arithmetic on counts the notes stated, a comparison of those counts with the existing supplement audit, and sentences checked in papers the notes named. Calculations the notes described but did not commit stay listed as proposals.
 
 The notes also contained a private clinical section and routing instructions. Those are not copied here. No study file was read for this page. Nothing here is a diagnosis or a treatment recommendation.
 
@@ -44,7 +44,7 @@ python3 -m unittest tests.test_stated_specificity_bounds -v
 
 ## Papers named in the notes
 
-Titles and DOIs below were read from Europe PMC on 11 November 2026. Residue numbers, binding constants, splicing fractions and prevalence ranges in the notes were not re-extracted.
+Titles and DOIs below were read from Europe PMC on 11 November 2026. Residue sentences, three abstracts and the AlphaGenome record were checked later the same day. Binding constants, splicing fractions, occupancy percentages and the notes' prevalence range were not adopted.
 
 | What the notes used it for | Year | Title | Record |
 | --- | --- | --- | --- |
@@ -58,9 +58,48 @@ Titles and DOIs below were read from Europe PMC on 11 November 2026. Residue num
 | CDR2 and CDR2L review | 2024 | Roles of CDR2 and CDR2L in Anti-Yo Paraneoplastic Cerebellar Degeneration: A Literature Review | [10.3390/ijms26010070](https://doi.org/10.3390/ijms26010070) |
 | Ovarian cancer etiology review | 2022 | An Etiological Investigation of Paraneoplastic Cerebellar Degeneration in Ovarian Cancer Patients: A Systematic Review | [10.7759/cureus.31154](https://doi.org/10.7759/cureus.31154) |
 
-Europe PMC's record PMC12851941 is titled "AlphaGenome: a framework for integrated regulatory variant interpretation" and carries DOI [10.7150/ijbs.133555](https://doi.org/10.7150/ijbs.133555). The notes use AlphaGenome as a method name from DeepMind. This page does not treat that PMC record as that method.
+The notes also name AlphaFold 3, AlphaProteo and Cell2Sentence-Scale. No methods citation is added for those names. Chowdhury et al. remains the existing source for the cohort counts already audited.
 
-The notes also name AlphaFold 3, AlphaProteo and Cell2Sentence-Scale. This page does not add a methods citation for those names. Chowdhury et al. remains the existing source for the cohort counts already audited.
+## Stated cohort pairs against the supplement audit
+
+The notes named six sensitive and refractory pairs. The command in the specificity section also reads the [supplement audit](../registries/pilot-001-supplement-summary.json) and checks the fields this table cites. It does not open a study workbook.
+
+| Notes' name | Notes | Audit field | Audit counts |
+| --- | --- | --- | --- |
+| FFPE validation | 10 / 11 | FFPE_valid_pred_scores | 10 / 10 |
+| Frozen independent, no neoadjuvant | 22 / 20 | Frozen_nonoverlap_pred_scores | 22 / 12 |
+| Full frozen validation | 44 / 42 | Frozen_clinical class counts. Eligible counts are separate | 44 / 20. Eligible counts are 42 / 19 |
+| FFPE discovery | 83 / 52 | FFPE_pred_scores and the eligible discovery counts | 83 / 52 |
+| All non-overlapping cohorts | 115 / 83 | No class-count pair in the summary | Not present |
+| Frozen subset | 13 / 8 | No class-count pair in the summary | [K31](../CLAIMS.md) records this split among 21 frozen patients with no discovery record |
+
+Counts are sensitive, then refractory. The discovery clinical sheet has 168 response-labelled measurement rows. The discovery score sheet has 135 patient keys. The panel list has 64 symbols. Those three figures match the audit. K11 records the 64 symbols among 8,800 feature rows. The unfiltered discovery clinical sheet is 91 / 67, so 83 / 52 is the eligible pair, not every labelled row.
+
+One note calls 0.818 a Table S3 summary. A Europe PMC search for PMC10414761 and the string 0.818 returned no article. In this repository, 0.8181818 is the fraction 9/11 on the [validation-capacity grid](../registries/pilot-001-validation-capacity.json). It is not a discovery AUC.
+
+Only the 83 / 52 pair matches the audit on both numbers.
+
+## Sentences checked in the named papers
+
+The PMC page for the 2025 kinectin paper, [10.1083/jcb.202411034](https://doi.org/10.1083/jcb.202411034), was read on 11 November 2026.
+
+The CC1 box deletion is residues 23-39. CDR2 residues 1-146 form a complex with dynein light intermediate chain residues 388-523. The C-terminal CDR2 helix 404-454 localizes to ER sheets. One deletion of the kinectin binding site is 1114-1153. A later experiment deletes 1114-1157. The notes' span 1114-1157 matches the second deletion.
+
+The paper says residues 33-60 of eEF1Bβ, the beta subunit of elongation factor eEF1B, are predicted to occupy the same kinectin site. It identifies that subunit as UniProt P29692, encoded by EEF1D. The binding experiment uses residues 30-66. The paper places HBS1 about 30 residues after the CC1 box. It does not call residues 23-145 the HBS1 motif.
+
+The kinectin-complex abstract says the complex has eight aminoacyl-tRNA synthetases and three other proteins, and that exon V2 and QARS are required to recruit it to the ER. The abstract does not give an N-terminal domain, a UniProt accession for QARS, or a chromosome 14 window.
+
+The EEF1D abstract says exon 5 is required for anchoring to kinectin and RRBP1. It does not give a splicing fraction or a chromosome 8 window.
+
+The 2018 HLA abstract reports an odds ratio of 5.4 for DRB1*13:01~DQA1*01:03~DQB1*06:03 in ovarian cases, and an odds ratio of 0 for DRB1*04:01~DQA1*03:03. Both are given with p = 0.0016. The notes' range 5.4-8.87 is not that abstract.
+
+The breast-cancer abstract says all 22 anti-Yo breast cancers in that study had at least one CDR2L alteration. A 59 to 65 percent figure in the notes is not that sentence.
+
+## AlphaGenome record and the CDR2L span
+
+PMC12851941 is Avsec and colleagues, Nature, 2026, PMID 41606153, DOI [10.1038/s41586-025-10014-0](https://doi.org/10.1038/s41586-025-10014-0). PubMed and the PMC article page agree. The abstract states an input of 1 Mb of DNA. A text search of that PMC page found no CDR2, no EEF1D, no Purkinje, and neither base-pair window named in the notes.
+
+NCBI Gene 30850 places human CDR2L on NC_000017.11 at 74,987,631-75,005,799, in band 17q25.1. The notes' interval 74,992,096-75,021,497 is on chromosome 17 in the same band. It is a different base interval.
 
 ## Proposals that were not re-run
 
@@ -77,4 +116,4 @@ A second note names `spatial_hgsoc_clonal_divergence.py` and `purkinje_anti_yo_e
 
 ## Boundary
 
-No private-archive identifier, image name, correspondence or row-level measurement is on this page. The claim rows for this extract are V31, K34, K35 and C23 in the [claims ledger](../CLAIMS.md).
+No private-archive identifier, image name, correspondence or row-level measurement is on this page. The claim rows for this extract are V31, V32, K34, K35, K36, K37 and C23 in the [claims ledger](../CLAIMS.md).

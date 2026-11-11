@@ -5,8 +5,10 @@ cohort and does not read a study file. A zero-false-positive bound is
 ``0.05 ** (1 / n)``, the same quantity as ``tools/analyze_validation_capacity.py``.
 """
 
-import math
 import argparse
+import json
+import math
+from pathlib import Path
 
 
 STATED_N = (10, 13, 22, 44, 83, 115, 149, 236)
@@ -102,6 +104,90 @@ def percent(value):
     return round(100.0 * value + 1e-12, 2)
 
 
+def _walk(node, path):
+    for key in path:
+        node = node[key]
+    return node
+
+
+def _class_pair(node):
+    return int(node["sensitive"]), int(node["refractory"])
+
+
+def _all_class_pairs(node):
+    found = []
+    if isinstance(node, dict):
+        if set(node) == {"sensitive", "refractory"}:
+            found.append(_class_pair(node))
+        else:
+            for value in node.values():
+                found.extend(_all_class_pairs(value))
+    elif isinstance(node, list):
+        for value in node:
+            found.extend(_all_class_pairs(value))
+    return found
+
+
+# Sensitive/refractory pairs written in the 11 November notes, in note order.
+# Compared with registries/pilot-001-supplement-summary.json. Not a new audit.
+NOTE_COHORT_PAIRS = (
+    ("FFPE validation", 10, 11),
+    ("Frozen independent non-NACT", 22, 20),
+    ("Full frozen validation", 44, 42),
+    ("FFPE discovery", 83, 52),
+    ("All non-overlapping", 115, 83),
+    ("Frozen subset 13/8", 13, 8),
+)
+
+# Fields this page cites. A change in the pinned summary fails the check.
+AUDIT_FIELDS = (
+    (("clinical_cohorts", "FFPE_Discovery_clinical", "eligible_class_counts"), (83, 52)),
+    (("clinical_cohorts", "FFPE_Discovery_clinical", "class_counts"), (91, 67)),
+    (("clinical_cohorts", "Frozen_clinical", "class_counts"), (44, 20)),
+    (("clinical_cohorts", "Frozen_clinical", "eligible_class_counts"), (42, 19)),
+    (("published_score_subsets", "FFPE_pred_scores", "class_counts"), (83, 52)),
+    (("published_score_subsets", "FFPE_valid_pred_scores", "class_counts"), (10, 10)),
+    (("published_score_subsets", "Frozen_nonoverlap_pred_scores", "class_counts"), (22, 12)),
+)
+
+
+def load_supplement(root):
+    path = Path(root) / "registries/pilot-001-supplement-summary.json"
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def cohort_field(summary, path):
+    return _class_pair(_walk(summary, path))
+
+
+def check_stated_cohorts(summary):
+    """Fail if a cited audit field moved, or if a note pair was silently adopted."""
+    for path, expected in AUDIT_FIELDS:
+        got = cohort_field(summary, path)
+        if got != expected:
+            raise ValueError(f"{'.'.join(path)} is {got}, expected {expected}")
+    clinical = summary["clinical_cohorts"]["FFPE_Discovery_clinical"]
+    if clinical["response_labelled_measurement_rows"] != 168:
+        raise ValueError("discovery measurement-row count moved")
+    scores = summary["published_score_subsets"]["FFPE_pred_scores"]
+    if scores["unique_patient_keys"] != 135:
+        raise ValueError("discovery score-sheet patient count moved")
+    if summary["panel"]["count"] != 64:
+        raise ValueError("panel count moved")
+    nonoverlap = summary["published_score_subsets"]["Frozen_nonoverlap_pred_scores"]
+    if nonoverlap["patient_keys_not_observed_in_all_discovery"] != 21:
+        raise ValueError("no-discovery-record count moved")
+    pairs = set(_all_class_pairs(summary))
+    if (83, 52) not in pairs:
+        raise ValueError("audited discovery pair missing")
+    for _label, sensitive, refractory in NOTE_COHORT_PAIRS:
+        if (sensitive, refractory) == (83, 52):
+            continue
+        if (sensitive, refractory) in pairs:
+            raise ValueError(f"note pair {sensitive}/{refractory} is now an audit pair")
+    return pairs
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
@@ -120,6 +206,9 @@ def main():
     for n, successes in STATED_FRACTIONS:
         lower, upper = two_sided_interval(n, successes)
         print(f"{successes}/{n}  {percent(successes / n):6.2f}%  {percent(lower):6.2f}% to {percent(upper):6.2f}%")
+    summary = load_supplement(Path(__file__).resolve().parents[1])
+    pairs = check_stated_cohorts(summary)
+    print("audit pairs", " ".join(f"{s}/{r}" for s, r in sorted(pairs)))
     if args.check:
         print("stated specificity bounds match")
 
