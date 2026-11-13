@@ -104,3 +104,13 @@ reuse outside private research.
     update recommendation. Do not assert proprietary database rights or a
     blanket CC0/CC BY license for the source; international and third-party
     copyrights may apply. Listing is not government approval of safety/science.
+    The 2026-11-13 all-status artifact
+    (`results/trial-landscape-v2-2026-11-13/`) additionally keeps the projected
+    API pages: NCT identifiers, titles, brief summaries, conditions, keywords,
+    status, phase, and intervention names and types. Eligibility narratives and
+    participant-level rows are not included. Those pages remain ClinicalTrials.gov
+    material under the source terms, not a grant of the repository's MIT or
+    CC BY licence over the registry. Retrieval clocks, field projection, and
+    keyword rules are disclosed in `docs/trial-landscape-v2-2026-11-13.md`.
+    The copy is a dated analytical snapshot, not a current enrollment directory,
+    and it is not treatment guidance.

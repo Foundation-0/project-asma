@@ -17,16 +17,16 @@
     },
     {
       "artifact_paths": [],
-      "canonical_sha256": "33fc4347b81421de63cc810a2ffbd49267569a2aba4cc78b7e0ebe422c9f66d0",
+      "canonical_sha256": "ee78794ab0c32ece653b25baa51ad21f189b8565af6842f82db9fa91c601a81f",
       "certificate_paths": [],
       "id": "V02",
       "label": "VERIFIED",
       "recheck_commands": [
         "python3 -m unittest discover -s tests -v"
       ],
-      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`427` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |",
+      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`451` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |",
       "source_ids": [],
-      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`427` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`)"
+      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`451` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`)"
     },
     {
       "artifact_paths": [],
@@ -1446,7 +1446,7 @@
         "tools/check_sha256_manifests.py",
         "tools/export_claims_ledger.py"
       ],
-      "canonical_sha256": "5a7b32b2aa876ee7dcd691415ca1e12cb8f21039712adc63a50b47e864cdcaa6",
+      "canonical_sha256": "6526708ad38ff84fcda3cf94b93a0027c6f92541b6f96cbe7d6ead823ed8615d",
       "certificate_paths": [],
       "id": "V41",
       "label": "VERIFIED",
@@ -1456,18 +1456,42 @@
         "python3 tools/audit_checkers.py --check",
         "python3 results/integrity-audit-2026-11-13/verify.py"
       ],
-      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 39 VERIFIED rows, 23 offline checkers, 22 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
+      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 40 VERIFIED rows, 24 offline checkers, 23 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
       "source_ids": [],
-      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 39 VERIFIED rows, 23 offline checkers, 22 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only)"
+      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 40 VERIFIED rows, 24 offline checkers, 23 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only)"
+    },
+    {
+      "artifact_paths": [
+        "results/trial-landscape-v2-2026-11-13/certificate.json",
+        "results/trial-landscape-v2-2026-11-13/verify.py"
+      ],
+      "canonical_sha256": "a84ea79634e9c5c7697809c6325490f4ba27f74d62649165a5a01f104d304a40",
+      "certificate_paths": [
+        "results/trial-landscape-v2-2026-11-13/certificate.json"
+      ],
+      "id": "V42",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 results/trial-landscape-v2-2026-11-13/verify.py"
+      ],
+      "row_text": "| V42 | VERIFIED | The frozen ClinicalTrials.gov API v2 pull started 2026-11-13T04:57:57Z (2026-11-12 22:57 America/Chicago; dataTimestamp 2026-11-12T10:00:05) returned 4260 unique interventional studies for condition query Ovarian Cancer. Status and phase counts each sum to 4260. The same recruiting query as 2026-11-05 returned 591, against 592 in that certificate. The earlier certificate has no NCT identifiers, so new, removed, and status-changed NCT IDs are not reconstructable. Corpus status RECRUITING is also 591. Two independent readers agree. Target-class hits: folr1 language 53, FRα ADC name or phrase 39, PARP-inhibitor lexicon 324, CDR2/CDR2L 0, mesothelin 39, MUC16 8, immunotherapy lexicon 510; 842 studies hit at least one target class. CA-125 language is 65 and is not an MUC16-directed class. These are registration counts, not efficacy or treatment guidance | [Report and exact requests](docs/trial-landscape-v2-2026-11-13.md); [certificate](results/trial-landscape-v2-2026-11-13/certificate.json); `python3 results/trial-landscape-v2-2026-11-13/verify.py`. S126, S127, S128, S158, S159. Pinned pages only. Not clinical advice, not eligibility, and not a measure of benefit. |",
+      "source_ids": [
+        "S126",
+        "S127",
+        "S128",
+        "S158",
+        "S159"
+      ],
+      "statement": "The frozen ClinicalTrials.gov API v2 pull started 2026-11-13T04:57:57Z (2026-11-12 22:57 America/Chicago; dataTimestamp 2026-11-12T10:00:05) returned 4260 unique interventional studies for condition query Ovarian Cancer. Status and phase counts each sum to 4260. The same recruiting query as 2026-11-05 returned 591, against 592 in that certificate. The earlier certificate has no NCT identifiers, so new, removed, and status-changed NCT IDs are not reconstructable. Corpus status RECRUITING is also 591. Two independent readers agree. Target-class hits: folr1 language 53, FRα ADC name or phrase 39, PARP-inhibitor lexicon 324, CDR2/CDR2L 0, mesothelin 39, MUC16 8, immunotherapy lexicon 510; 842 studies hit at least one target class. CA-125 language is 65 and is not an MUC16-directed class. These are registration counts, not efficacy or treatment guidance"
     }
   ],
   "counts": {
     "CONJECTURE": 25,
     "KNOWN": 44,
     "PROVEN": 0,
-    "VERIFIED": 39
+    "VERIFIED": 40
   },
-  "ledger_sha256": "329f3334e3d713d3519a99da4be4e5abc34f5d73d73d4d175cedc815e9a74304",
+  "ledger_sha256": "ec973c8f6d05b35578b6d78661bc1c8b4fea64564c476af2d15f41f519386e35",
   "schema_version": 1,
   "source": "CLAIMS.md"
 }

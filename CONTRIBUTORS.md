@@ -94,6 +94,12 @@ checks) are credited in the atlas note and are not re-claimed as new results.
 The offline checker agreement is an internal file check, not external scientific
 peer review and not clinical validation.
 
+The **2026-11-13 UTC ovarian interventional trial landscape** was prepared by a
+Cursor cloud agent (**Grok 4.7**) under human direction. ClinicalTrials.gov /
+NLM is the source of the registry pages. The pinned keyword map, the dual
+offline recount, and the report are this project's work. The recount is not
+external scientific or clinical peer review, and it is not treatment guidance.
+
 ## Prior work credited by name
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);

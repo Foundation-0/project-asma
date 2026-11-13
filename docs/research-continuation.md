@@ -20,7 +20,10 @@ below remains the dated record of the first exploration.
 
 **Latest recruiting trial-landscape snapshot: [2026-11-05 America/Chicago](trial-landscape-2026-11-05.md).**
 Finite ClinicalTrials.gov metadata counts, aggregate certificate and replay
-commands; not trial outcomes or eligibility.
+commands; not trial outcomes or eligibility. A later all-status interventional
+snapshot, [2026-11-13 UTC](trial-landscape-v2-2026-11-13.md), does not replace
+it. That later note counts registrations and states that an NCT-level diff
+against the 2026-11-05 certificate is not reconstructable.
 
 **Snapshot: 2026-11-04.** This is the entry point for the expanded research
 review. It preserves appropriate public evidence, concise decision rationale,

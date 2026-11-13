@@ -1,0 +1,104 @@
+{
+  "archive_rule": "SHA-256 of the raw study-page bodies concatenated in page order, with no separator.",
+  "archive_sha256": "73bb1e758985afc2762c9c1045d3cbba4ec9610ca9ada1b60dde94fa22c6cd41",
+  "comparison_query": {
+    "filter.overallStatus": "RECRUITING",
+    "query.cond": "Ovarian Cancer",
+    "query.term": "AREA[StudyType]INTERVENTIONAL"
+  },
+  "comparison_url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&filter.overallStatus=RECRUITING&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1&countTotal=true&fields=NCTId%2COverallStatus%2CStudyType",
+  "endpoint": "https://clinicaltrials.gov/api/v2/studies",
+  "fields": [
+    "NCTId",
+    "BriefTitle",
+    "OfficialTitle",
+    "OverallStatus",
+    "StudyType",
+    "Phase",
+    "Condition",
+    "Keyword",
+    "BriefSummary",
+    "InterventionType",
+    "InterventionName"
+  ],
+  "files": [
+    {
+      "kind": "raw",
+      "path": "snapshot/version-before.json",
+      "role": "api_version_before",
+      "url": "https://clinicaltrials.gov/api/v2/version"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/version-after.json",
+      "role": "api_version_after",
+      "url": "https://clinicaltrials.gov/api/v2/version"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/recruiting-query.json",
+      "role": "recruiting_comparison_query",
+      "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&filter.overallStatus=RECRUITING&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1&countTotal=true&fields=NCTId%2COverallStatus%2CStudyType"
+    },
+    {
+      "bytes": 1598043,
+      "kind": "raw",
+      "path": "snapshot/studies-page-00.json",
+      "role": "studies_page",
+      "study_count": 1000,
+      "total_count": 4260,
+      "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CInterventionType%2CInterventionName"
+    },
+    {
+      "bytes": 1616795,
+      "kind": "raw",
+      "path": "snapshot/studies-page-01.json",
+      "role": "studies_page",
+      "study_count": 1000,
+      "total_count": null,
+      "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CInterventionType%2CInterventionName&pageToken=ZVNj7o2Elu8o3lpyWN2mp7LumpOQJJxmZvKj2PcW"
+    },
+    {
+      "bytes": 1583328,
+      "kind": "raw",
+      "path": "snapshot/studies-page-02.json",
+      "role": "studies_page",
+      "study_count": 1000,
+      "total_count": null,
+      "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CInterventionType%2CInterventionName&pageToken=ZVNj7o2Elu8o3lpyWN2mp7LumpOQJJxubPCm1PwckA"
+    },
+    {
+      "bytes": 1599499,
+      "kind": "raw",
+      "path": "snapshot/studies-page-03.json",
+      "role": "studies_page",
+      "study_count": 1000,
+      "total_count": null,
+      "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CInterventionType%2CInterventionName&pageToken=ZVNj7o2Elu8o3lpyWN2mp7LumpOQJJxtbPCm2fcfkA"
+    },
+    {
+      "bytes": 415446,
+      "kind": "raw",
+      "path": "snapshot/studies-page-04.json",
+      "role": "studies_page",
+      "study_count": 260,
+      "total_count": null,
+      "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CInterventionType%2CInterventionName&pageToken=ZVNj7o2Elu8o3lpyWN2mp7LumpOQJJxsbPKh2vMckA"
+    }
+  ],
+  "note": "Projected public registry fields only. No eligibility text and no participant-level data. Registration metadata is not efficacy or treatment guidance.",
+  "query": {
+    "query.cond": "Ovarian Cancer",
+    "query.term": "AREA[StudyType]INTERVENTIONAL"
+  },
+  "request_options": {
+    "countTotal": "true",
+    "format": "json",
+    "pageSize": "1000"
+  },
+  "retrieved_completed_utc": "2026-11-13T04:58:02.241219+00:00",
+  "retrieved_started_utc": "2026-11-13T04:57:57.835069+00:00",
+  "schema_version": 1,
+  "specification": "protocols/trial-landscape-keywords-v2.json",
+  "version_url": "https://clinicaltrials.gov/api/v2/version"
+}
