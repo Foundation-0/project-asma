@@ -1,4 +1,4 @@
-"""Verifier for Subspace-Flag Paraneoplastic Gates, C15 Monoid Collapse, and N=1 FFPE Calibration."""
+"""Comprehensive Pure-Stdlib Verifier Across Five Project Asma Research Paths."""
 
 from __future__ import annotations
 
@@ -9,11 +9,88 @@ import random
 from fractions import Fraction
 from typing import Dict, List, Sequence, Tuple
 
+CDR2L_Q86X02 = (
+    "MRRAAGMEDFSAEEEESWYDQQDLEQDLHLAAELGKTLLERNKELEGSLQQMYSTNEEQV"
+    "QEIEYLTKQLDTLRHVNEQHAKVYEQLDLTARDLELTNHRLVLESKAAQQKIHGLTETIE"
+    "RLQAQVEELQAQVEQLRGLEQLRVLREKRERRRTIHTFPCLKELCTSPRCKDAFRLHSSS"
+    "LELGPRPLEQENERLQTLVGALRSQVSQERQRKERAEREYTAVLQEYSELERQLCEMEAC"
+    "RLRVQELEAELLELQQMKQAKTYLLGPDDHLAEALLAPLTQAPEADDPQPGRGDDLGAQD"
+    "GVSSPAASPGHVVRKSCSDTALNAIVAKDPASRHAGNLTLHANSVRKRGMSILREVDEQY"
+    "HALLEKYEELLSKCRQHGAGVRHAGVQTSRPISRDSSWRDLRGGEEGQGEVKAGEKSLSQ"
+    "HVEAVDKRLEQSQPEYKALFKEIFSRIQKTKADINATKVKTHSSK"
+)
+
+CDR2_Q01850 = (
+    "MLAENLVEEFEMKEDEPWYDHQDLQQDLQLAAELGKTLLDRNTELEDSVQQMYTTNQEQL"
+    "QEIEYLTKQVELLRQMNEQHAKVYEQLDVTARELEETNQKLVADSKASQQKILSLTETIE"
+    "CLQTNIDHLQSQVEELKSSGQGRRSPGKCDQEKPAPSFACLKELYDLRQHFVYDHVFAEK"
+    "ITSLQGQPSPDEEENEHLKKTVTMLQAQLSLERQKRVTMEEEYGLVLKENSELEQQLGAT"
+    "GAYRARALELEAEVAEMRQMLQSEHPFVNGVEKLVPDSLYVPFKEPSQSLLEEMFLTVPE"
+    "SHRKPLKRSSSETILSSLAGSDIVKGHEETCIRRAKAVKQRGISLLHEVDTQYSALKVKY"
+    "EELLKKCQEEQDSLSHKAVQTSRAAAKDLTGVNAQSEPVASGWELASVNPEPVSSPTTPP"
+    "EYKALFKEIFSCIKKTKQEIDEQRTKYRSLSSHS"
+)
+
+MONO_AA_MASS = {
+    "A": 71.03711, "R": 156.10111, "N": 114.04293, "D": 115.02694, "C": 103.00919,
+    "E": 129.04259, "Q": 128.05858, "G": 57.02146, "H": 137.05891, "I": 113.08406,
+    "L": 113.08406, "K": 128.09496, "M": 131.04049, "F": 147.06841, "P": 97.05276,
+    "S": 87.03203, "T": 101.04768, "W": 186.07931, "Y": 163.06333, "V": 99.06841,
+}
+
+
+def verify_cdr2l_mhc2_core_bifurcation() -> Dict[str, object]:
+    assert len(CDR2L_Q86X02) == 465
+    assert len(CDR2_Q01850) == 454
+    assert hashlib.md5(CDR2L_Q86X02.encode("ascii")).hexdigest().upper() == "03593414DBB55B4A7F44D99B348723F3"
+    assert hashlib.md5(CDR2_Q01850.encode("ascii")).hexdigest().upper() == "CCD9FF24C811DAD3EB3D1007AC803946"
+
+    ep1 = CDR2L_Q86X02[431:446]
+    ep2 = CDR2L_Q86X02[444:464]
+    assert ep1 == "SQPEYKALFKEIFSR"
+    assert ep2 == "SRIQKTKADINATKVKTHSS"
+
+    cdr2_12mers = {CDR2_Q01850[j : j + 12] for j in range(len(CDR2_Q01850) - 11)}
+    shared_12mers = [CDR2L_Q86X02[i : i + 12] for i in range(len(CDR2L_Q86X02) - 11) if CDR2L_Q86X02[i : i + 12] in cdr2_12mers]
+    assert shared_12mers == ["NEQHAKVYEQLD", "PEYKALFKEIFS"]
+
+    def best_9mer_match(core9: str) -> int:
+        return max(
+            sum(a == b for a, b in zip(core9, CDR2_Q01850[j : j + 9]))
+            for j in range(len(CDR2_Q01850) - 8)
+        )
+
+    ep1_cores = [best_9mer_match(ep1[k : k + 9]) for k in range(len(ep1) - 8)]
+    ep2_cores = [best_9mer_match(ep2[k : k + 9]) for k in range(len(ep2) - 8)]
+    assert ep1_cores.count(9) == 4
+    assert max(ep2_cores) == 5
+
+    y1_cdr2l_arg = round(MONO_AA_MASS["R"] + 18.01056 + 1.00728, 5)
+    y1_cdr2_cys = round(MONO_AA_MASS["C"] + 18.01056 + 1.00728, 5)
+    assert abs((y1_cdr2l_arg - y1_cdr2_cys) - 53.09192) < 1e-4
+
+    p_pf27644 = Fraction(34, 451) * Fraction(29, 446)
+    assert p_pf27644 == Fraction(493, 100573)
+
+    return {
+        "cdr2l_432_446_peptide": ep1,
+        "cdr2l_445_464_peptide": ep2,
+        "shared_12mer_islands_proteome_wide": shared_12mers,
+        "ep1_exact_9_of_9_cdr2_cores": ep1_cores.count(9),
+        "ep2_max_9mer_identity_with_cdr2": max(ep2_cores),
+        "pf27644_dual_localization_prob": f"{p_pf27644.numerator}/{p_pf27644.denominator}",
+        "diagnostic_y1_arg446_vs_cys436_delta_da": round(y1_cdr2l_arg - y1_cdr2_cys, 5),
+    }
+
+
+def survival_q(p: Fraction, r: Fraction, c: Fraction) -> Fraction:
+    one = Fraction(1, 1)
+    return (r * p + c * (one - p)) / (r * p + (one - p))
+
 
 def survival_three_pathway(p: Fraction, r: Fraction, c1: Fraction, a2: Fraction) -> Fraction:
     one = Fraction(1, 1)
-    q_inner = (r * p + c1 * (one - p)) / (r * p + (one - p))
-    return (one - a2) * q_inner + a2
+    return (one - a2) * survival_q(p, r, c1) + a2
 
 
 def demorgan_combine(c1: Fraction, a2: Fraction) -> Fraction:
@@ -28,64 +105,119 @@ def recover_three_pathway_via_flag(
 ) -> Tuple[Fraction, Fraction, Fraction]:
     one = Fraction(1, 1)
     a2 = y_v0_apc_free_p0
-    if a2 >= one:
-        raise ValueError("paralog bleed saturates dynamic range (a2 >= 1)")
     c1 = (y_v1_apc_intact_p0 - a2) / (one - a2)
-    if c1 >= one:
-        raise ValueError("indirect conversion saturates dynamic range (c1 >= 1)")
     phi_p = (one - p_interior) / (one - y_v2_interior)
     scale = (one - c1) * (one - a2)
     r_minus_1 = (phi_p * scale - one) / p_interior
     return (r_minus_1 + one, c1, a2)
 
 
-def verify_c15_monoid_and_flag() -> Dict[str, object]:
+def pairwise_offset_sep_bound(
+    p_low: Fraction,
+    p_high: Fraction,
+    w1: Tuple[Fraction, Fraction],
+    w2: Tuple[Fraction, Fraction],
+    offset_cap: Fraction = Fraction(1, 20),
+) -> Fraction:
+    d_low = survival_q(p_low, w1[0], w1[1]) - survival_q(p_low, w2[0], w2[1])
+    d_high = survival_q(p_high, w1[0], w1[1]) - survival_q(p_high, w2[0], w2[1])
+    db = (d_low + d_high) / 2
+    two_b = 2 * offset_cap
+    if db > two_b:
+        db = two_b
+    elif db < -two_b:
+        db = -two_b
+    return max(abs(d_low - db), abs(d_high - db)) / 2
+
+
+def verify_c15_monoid_and_offset_saturation() -> Dict[str, object]:
     r_true = Fraction(11, 1)
-    worlds = {
-        "W_indirect_only": (Fraction(1, 4), Fraction(0, 1)),
-        "W_paralog_only": (Fraction(0, 1), Fraction(1, 4)),
-        "W_coexisting_both": (Fraction(1, 7), Fraction(1, 8)),
-    }
-    grid = [
-        Fraction(0, 1),
-        Fraction(1, 20),
-        Fraction(1, 10),
-        Fraction(1, 5),
+    worlds_c15 = [
+        (Fraction(1, 4), Fraction(0, 1)),
+        (Fraction(0, 1), Fraction(1, 4)),
+        (Fraction(1, 7), Fraction(1, 8)),
+    ]
+    grid = [Fraction(0, 1), Fraction(1, 20), Fraction(1, 10), Fraction(1, 5), Fraction(3, 8), Fraction(2, 5), Fraction(3, 4), Fraction(1, 1)]
+    ref = [survival_three_pathway(p, r_true, Fraction(1, 4), Fraction(0, 1)) for p in grid]
+    for c1, a2 in worlds_c15:
+        assert demorgan_combine(c1, a2) == Fraction(1, 4)
+        assert [survival_three_pathway(p, r_true, c1, a2) for p in grid] == ref
+
+    rec = recover_three_pathway_via_flag(
+        survival_three_pathway(Fraction(0, 1), r_true, Fraction(0, 1), Fraction(1, 8)),
+        survival_three_pathway(Fraction(0, 1), r_true, Fraction(1, 7), Fraction(1, 8)),
         Fraction(3, 8),
-        Fraction(2, 5),
-        Fraction(3, 4),
-        Fraction(1, 1),
+        survival_three_pathway(Fraction(3, 8), r_true, Fraction(1, 7), Fraction(1, 8)),
+    )
+    assert rec == (Fraction(11, 1), Fraction(1, 7), Fraction(1, 8))
+
+    snap_worlds = [
+        (Fraction(16, 1), Fraction(0, 1)),
+        (Fraction(11, 1), Fraction(1, 4)),
+        (Fraction(6, 1), Fraction(1, 2)),
+        (Fraction(1, 1), Fraction(3, 4)),
     ]
 
-    ref_curve = [survival_three_pathway(p, r_true, Fraction(1, 4), Fraction(0, 1)) for p in grid]
-    for name, (c1, a2) in worlds.items():
-        if demorgan_combine(c1, a2) != Fraction(1, 4):
-            raise AssertionError(f"monoid mismatch in {name}")
-        curve = [survival_three_pathway(p, r_true, c1, a2) for p in grid]
-        if curve != ref_curve:
-            raise AssertionError(f"curve mismatch in {name}")
+    def all4_min(p_l: Fraction, p_h: Fraction) -> Fraction:
+        return min(
+            pairwise_offset_sep_bound(p_l, p_h, snap_worlds[i], snap_worlds[j])
+            for i in range(4)
+            for j in range(i + 1, 4)
+        )
 
-    c1_co, a2_co = worlds["W_coexisting_both"]
-    y_v0 = survival_three_pathway(Fraction(0, 1), r_true, Fraction(0, 1), a2_co)
-    y_v1 = survival_three_pathway(Fraction(0, 1), r_true, c1_co, a2_co)
-    p_int = Fraction(3, 8)
-    y_v2 = survival_three_pathway(p_int, r_true, c1_co, a2_co)
-    rec_r, rec_c1, rec_a2 = recover_three_pathway_via_flag(y_v0, y_v1, p_int, y_v2)
-    assert (rec_r, rec_c1, rec_a2) == (r_true, c1_co, a2_co)
+    b_pr78 = all4_min(Fraction(1, 10), Fraction(2, 5))
+    b_pr83 = all4_min(Fraction(1, 20), Fraction(3, 8))
+    b_2pct = all4_min(Fraction(1, 50), Fraction(3, 8))
+    b_1pct = all4_min(Fraction(1, 100), Fraction(1, 3))
+    b_zero = all4_min(Fraction(0, 1), Fraction(2, 7))
+    assert b_pr78 == Fraction(3, 448)
+    assert b_pr83 == Fraction(10179, 563920)
+    assert b_2pct == Fraction(152579, 4189120)
+    assert b_1pct == Fraction(20467, 430560)
+    assert b_zero == Fraction(3, 40)
 
-    c25_opt_ceiling = Fraction(10179, 563920)
-    noise_floor = Fraction(1, 60)
-    alpha_crit = Fraction(1, 1) - noise_floor / c25_opt_ceiling
-    assert alpha_crit == Fraction(2341, 30537)
-    assert (Fraction(1, 1) - Fraction(2340, 30537)) * c25_opt_ceiling > noise_floor
-    assert (Fraction(1, 1) - Fraction(2341, 30537)) * c25_opt_ceiling == noise_floor
-    assert (Fraction(1, 1) - Fraction(2342, 30537)) * c25_opt_ceiling < noise_floor
+    noise = Fraction(1, 60)
+    alpha_crit_pr83 = Fraction(1, 1) - noise / b_pr83
+    alpha_crit_2pct = Fraction(1, 1) - noise / b_2pct
+    alpha_crit_zero = Fraction(1, 1) - noise / b_zero
+    assert alpha_crit_pr83 == Fraction(2341, 30537)
+    assert alpha_crit_zero == Fraction(7, 9)
 
     return {
         "monoid_collision_worlds_verified": 3,
-        "recovered_coexisting_world": [str(rec_r), str(rec_c1), str(rec_a2)],
-        "c25_critical_paralog_bleed_fraction": f"{alpha_crit.numerator}/{alpha_crit.denominator}",
-        "c25_critical_paralog_bleed_pct": round(float(alpha_crit) * 100.0, 4),
+        "recovered_coexisting_world": [str(rec[0]), str(rec[1]), str(rec[2])],
+        "c25_critical_paralog_bleed_fraction": f"{alpha_crit_pr83.numerator}/{alpha_crit_pr83.denominator}",
+        "all4_bound_pr78_lh": str(b_pr78),
+        "all4_bound_pr83_5pct": str(b_pr83),
+        "all4_bound_2pct_seed": str(b_2pct),
+        "all4_bound_1pct_seed": str(b_1pct),
+        "all4_bound_0pct_supremum": str(b_zero),
+        "bleed_tol_2pct_pct": round(float(alpha_crit_2pct) * 100.0, 2),
+        "bleed_tol_0pct_pct": round(float(alpha_crit_zero) * 100.0, 2),
+    }
+
+
+def verify_soko_ilp_minimal_assays() -> Dict[str, object]:
+    assays = [
+        ("A0_Bulk_LH", [1, 1, 1, 0, 0, 1]),
+        ("A1_APC_Free_p0_CDR2", [0, 0, 1, 0, 0, 0]),
+        ("A2_APC_Intact_p0", [0, 1, 1, 0, 0, 0]),
+        ("A3_Orth_445_464_Tetramer", [1, 1, 0, 1, 0, 0]),
+        ("A4_Paired_CSF_Blood_TCR", [0, 0, 0, 1, 0, 0]),
+        ("A5_QC_NullSpace_Audit", [0, 0, 0, 0, 0, 1]),
+    ]
+    valid_by_size: Dict[int, List[List[str]]] = {}
+    for mask in range(1, 1 << len(assays)):
+        picked = [assays[i] for i in range(len(assays)) if (mask >> i) & 1]
+        sigs = {tuple(a[1][w] for a in picked) for w in range(6)}
+        if len(sigs) == 6:
+            valid_by_size.setdefault(len(picked), []).append([a[0] for a in picked])
+    min_k = min(valid_by_size)
+    assert min_k == 3
+    assert 1 not in valid_by_size and 2 not in valid_by_size
+    return {
+        "minimal_assay_cardinality": min_k,
+        "optimal_three_assay_sets": valid_by_size[min_k],
     }
 
 
@@ -100,43 +232,23 @@ def mat_add_id_int(delta: Sequence[Sequence[int]], scale_id: int = 1) -> List[Li
 
 def verify_paraneoplastic_cascade_gate() -> Dict[str, object]:
     scale = 10
-    delta1_ungated = [
-        [-4, 0, 0, 0],
-        [3, 0, 0, 0],
-        [3, 0, 0, 0],
-        [0, 0, 0, 0],
-    ]
-    delta2 = [
-        [-2, -5, 0, 0],
-        [0, 2, 0, 0],
-        [0, 0, 2, 0],
-        [0, 0, 4, 0],
-    ]
-    m1_ungated = mat_add_id_int(delta1_ungated, scale)
+    delta1_ungated = [[-4, 0, 0, 0], [3, 0, 0, 0], [3, 0, 0, 0], [0, 0, 0, 0]]
+    delta2 = [[-2, -5, 0, 0], [0, 2, 0, 0], [0, 0, 2, 0], [0, 0, 4, 0]]
+    delta1_gated = [[-4, 0, 0, 0], [3, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+    m1_u = mat_add_id_int(delta1_ungated, scale)
     m2 = mat_add_id_int(delta2, scale)
-
-    delta1_gated = [
-        [-4, 0, 0, 0],
-        [3, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-    ]
-    m1_gated = mat_add_id_int(delta1_gated, scale)
+    m1_g = mat_add_id_int(delta1_gated, scale)
 
     for b0 in (50, 100, 240):
         x0 = [b0, 0, 0, 0]
-        s1_only = mat_vec_int(m1_ungated, x0)
-        assert s1_only[3] == 0
-        s2_only = mat_vec_int(m2, x0)
-        assert s2_only[3] == 0
-        rev_state = mat_vec_int(m1_ungated, mat_vec_int(m2, x0))
-        assert rev_state[3] == 0
-        fwd_ungated = mat_vec_int(m2, mat_vec_int(m1_ungated, x0))
-        assert fwd_ungated[3] == 12 * b0
-        fwd_gated = mat_vec_int(m2, mat_vec_int(m1_gated, x0))
-        assert fwd_gated[3] == 0
-        assert fwd_gated[0] == fwd_ungated[0] == 33 * b0
-        assert fwd_gated[0] < rev_state[0] == 48 * b0
+        assert mat_vec_int(m1_u, x0)[3] == 0
+        assert mat_vec_int(m2, x0)[3] == 0
+        rev = mat_vec_int(m1_u, mat_vec_int(m2, x0))
+        fwd_u = mat_vec_int(m2, mat_vec_int(m1_u, x0))
+        fwd_g = mat_vec_int(m2, mat_vec_int(m1_g, x0))
+        assert rev[3] == 0 and rev[0] == 48 * b0
+        assert fwd_u[3] == 12 * b0 and fwd_u[0] == 33 * b0
+        assert fwd_g[3] == 0 and fwd_g[0] == 33 * b0
 
     return {
         "residual_tumor_pct_reversed": 48.0,
@@ -167,7 +279,7 @@ def gram_schmidt_columns(cols: Sequence[Sequence[float]], tol: float = 1e-12) ->
     return basis
 
 
-def exact_auroc(scores: Sequence[float], labels: Sequence[int]) -> float:
+def exact_mann_whitney_wins(scores: Sequence[float], labels: Sequence[int]) -> float:
     pos = [s for s, y in zip(scores, labels) if y == 1]
     neg = [s for s, y in zip(scores, labels) if y == 0]
     wins = 0.0
@@ -177,7 +289,7 @@ def exact_auroc(scores: Sequence[float], labels: Sequence[int]) -> float:
                 wins += 1.0
             elif abs(sp - sn) <= 1e-15:
                 wins += 0.5
-    return wins / float(len(pos) * len(neg))
+    return wins
 
 
 def midrank_normalize(fold_scores: Sequence[float]) -> List[float]:
@@ -189,53 +301,61 @@ def midrank_normalize(fold_scores: Sequence[float]) -> List[float]:
         j = i
         while j + 1 < n and abs(indexed[j + 1][1] - indexed[i][1]) <= 1e-15:
             j += 1
-        avg_rank = 0.5 * (i + j) + 1.0
-        val = (avg_rank - 0.5) / float(n)
+        val = (0.5 * (i + j) + 0.5) / float(n)
         for m in range(i, j + 1):
             out[indexed[m][0]] = val
         i = j + 1
     return out
 
 
-def verify_prospective_n1_batch_nullspace(n_reps: int = 24) -> Dict[str, float | int]:
+def exact_c22_mann_whitney_distribution() -> Tuple[Fraction, Fraction]:
+    dp: Dict[Tuple[int, int], Dict[int, int]] = {(0, 0): {0: 1}}
+    for _ in range(21):
+        ndp: Dict[Tuple[int, int], Dict[int, int]] = {}
+        for (i, j), umap in dp.items():
+            if j < 8:
+                tgt = ndp.setdefault((i, j + 1), {})
+                for u, c in umap.items():
+                    tgt[u] = tgt.get(u, 0) + c
+            if i < 13:
+                tgt = ndp.setdefault((i + 1, j), {})
+                for u, c in umap.items():
+                    tgt[u + j] = tgt.get(u + j, 0) + c
+        dp = ndp
+    dist = dp[(13, 8)]
+    tot = sum(dist.values())
+    assert tot == 203490
+    p_ge_76 = Fraction(sum(c for u, c in dist.items() if u >= 76), tot)
+    p_ge_75 = Fraction(sum(c for u, c in dist.items() if u >= 75), tot)
+    assert p_ge_76 == Fraction(302, 6783)
+    assert p_ge_75 == Fraction(10601, 203490)
+    return p_ge_76, p_ge_75
+
+
+def verify_prospective_n1_and_c22_power(n_reps: int = 24, c22_trials: int = 400) -> Dict[str, object]:
+    p_ge_76, p_ge_75 = exact_c22_mann_whitney_distribution()
+
     p_dim = 64
     n_ref, n_sens = 52, 83
     labels = [1] * n_ref + [0] * n_sens
-    folds = [0] * len(labels)
-    for idx in range(n_ref):
-        folds[idx] = idx % 5
-    for idx in range(n_sens):
-        folds[n_ref + idx] = idx % 5
-
-    within_pairs = sum(
-        1 for i in range(n_ref) for j in range(n_sens) if folds[i] == folds[n_ref + j]
-    )
-    cross_pairs = (n_ref * n_sens) - within_pairs
-    assert n_ref * n_sens == 4316
-    assert 862 <= within_pairs <= 864
-    assert 3452 <= cross_pairs <= 3454
+    folds = [idx % 5 for idx in range(n_ref)] + [idx % 5 for idx in range(n_sens)]
+    total_pairs = n_ref * n_sens
 
     aucs_clean: List[float] = []
-    aucs_raw_pooled: List[float] = []
-    aucs_midrank_batch27: List[float] = []
-    aucs_midrank_prospective_n1: List[float] = []
-    aucs_nullgate_prospective_n1: List[float] = []
-    max_logit_drift_nullgate = 0.0
+    aucs_raw: List[float] = []
+    aucs_mid27: List[float] = []
+    aucs_mid1: List[float] = []
+    aucs_null1: List[float] = []
+    max_drift = 0.0
 
     for rep in range(n_reps):
         rng = random.Random(20261113 + rep * 97)
-        raw_vecs = [[rng.gauss(0.0, 1.0) for _ in range(p_dim)] for _ in range(5)]
-        ortho = gram_schmidt_columns(raw_vecs)
-        u_bio = ortho[0]
-        q_batch = ortho[1:5]
+        ortho = gram_schmidt_columns([[rng.gauss(0.0, 1.0) for _ in range(p_dim)] for _ in range(5)])
+        u_bio, q_batch = ortho[0], ortho[1:5]
+        leaks = [0.68, -0.58, 0.52, -0.46]
+        beta_hat = [1.35 * u_bio[d] + sum(lw * qb[d] for lw, qb in zip(leaks, q_batch)) + rng.gauss(0.0, 0.03) for d in range(p_dim)]
 
-        leak_weights = [0.68, -0.58, 0.52, -0.46]
-        beta_hat = [
-            1.35 * u_bio[d] + sum(lw * qb[d] for lw, qb in zip(leak_weights, q_batch)) + rng.gauss(0.0, 0.03)
-            for d in range(p_dim)
-        ]
-
-        qc_probes: List[List[float]] = []
+        qc_probes = []
         for _ in range(12):
             w_qc = [rng.gauss(0.0, 1.0) for _ in range(4)]
             qc_probes.append([sum(w_qc[m] * q_batch[m][d] for m in range(4)) for d in range(p_dim)])
@@ -247,76 +367,91 @@ def verify_prospective_n1_batch_nullspace(n_reps: int = 24) -> Dict[str, float |
                 pr = dot_f(beta_perp, q)
                 beta_perp = [b - pr * qd for b, qd in zip(beta_perp, q)]
 
-        fold_offsets = [[rng.gauss(0.0, 1.35) for _ in range(4)] for _ in range(5)]
-
-        scores_clean: List[float] = []
-        scores_raw: List[float] = []
-        scores_null_n1: List[float] = []
-
+        fold_off = [[rng.gauss(0.0, 1.35) for _ in range(4)] for _ in range(5)]
+        sc_clean, sc_raw, sc_null = [], [], []
         for idx, y in enumerate(labels):
-            f_id = folds[idx]
             z_bio = (0.76 if y == 1 else -0.76) + rng.gauss(0.0, 1.0)
-            x_clean = [z_bio * u_bio[d] + rng.gauss(0.0, 0.30) for d in range(p_dim)]
+            x_c = [z_bio * u_bio[d] + rng.gauss(0.0, 0.30) for d in range(p_dim)]
+            ffpe = [fold_off[folds[idx]][m] + rng.gauss(0.0, 1.15) for m in range(4)]
+            x_s = [x_c[d] + sum(ffpe[m] * q_batch[m][d] for m in range(4)) for d in range(p_dim)]
+            c_i, r_i, n_i = dot_f(x_c, beta_perp), dot_f(x_s, beta_hat), dot_f(x_s, beta_perp)
+            max_drift = max(max_drift, abs(n_i - c_i))
+            sc_clean.append(c_i)
+            sc_raw.append(r_i)
+            sc_null.append(n_i)
 
-            specimen_ffpe = [fold_offsets[f_id][m] + rng.gauss(0.0, 1.15) for m in range(4)]
-            x_shifted = [
-                x_clean[d] + sum(specimen_ffpe[m] * q_batch[m][d] for m in range(4))
-                for d in range(p_dim)
-            ]
-
-            s_clean_i = dot_f(x_clean, beta_perp)
-            s_raw_i = dot_f(x_shifted, beta_hat)
-            s_null_i = dot_f(x_shifted, beta_perp)
-            max_logit_drift_nullgate = max(max_logit_drift_nullgate, abs(s_null_i - s_clean_i))
-
-            scores_clean.append(s_clean_i)
-            scores_raw.append(s_raw_i)
-            scores_null_n1.append(s_null_i)
-
-        scores_mid_batch = [0.0] * len(labels)
+        sc_mid_b = [0.0] * len(labels)
         for f_id in range(5):
-            f_indices = [i for i, f in enumerate(folds) if f == f_id]
-            normed = midrank_normalize([scores_raw[i] for i in f_indices])
-            for loc, glob_i in enumerate(f_indices):
-                scores_mid_batch[glob_i] = normed[loc]
+            f_idx = [i for i, f in enumerate(folds) if f == f_id]
+            normed = midrank_normalize([sc_raw[i] for i in f_idx])
+            for loc, gi in enumerate(f_idx):
+                sc_mid_b[gi] = normed[loc]
+        sc_mid_1 = [midrank_normalize([s])[0] for s in sc_raw]
 
-        scores_mid_n1 = [midrank_normalize([s])[0] for s in scores_raw]
+        aucs_clean.append(exact_mann_whitney_wins(sc_clean, labels) / total_pairs)
+        aucs_raw.append(exact_mann_whitney_wins(sc_raw, labels) / total_pairs)
+        aucs_mid27.append(exact_mann_whitney_wins(sc_mid_b, labels) / total_pairs)
+        aucs_mid1.append(exact_mann_whitney_wins(sc_mid_1, labels) / total_pairs)
+        aucs_null1.append(exact_mann_whitney_wins(sc_null, labels) / total_pairs)
 
-        aucs_clean.append(exact_auroc(scores_clean, labels))
-        aucs_raw_pooled.append(exact_auroc(scores_raw, labels))
-        aucs_midrank_batch27.append(exact_auroc(scores_mid_batch, labels))
-        aucs_midrank_prospective_n1.append(exact_auroc(scores_mid_n1, labels))
-        aucs_nullgate_prospective_n1.append(exact_auroc(scores_null_n1, labels))
+    rng21 = random.Random(20261113)
+    labels21 = [1] * 13 + [0] * 8
+    centers21 = [i % 3 for i in range(21)]
+    pass_c, pass_r, pass_m, pass_n = 0, 0, 0, 0
+    for _ in range(c22_trials):
+        c_drifts = [[rng21.gauss(0.0, 1.25) for _ in range(4)] for _ in range(3)]
+        s_c, s_r, s_n = [], [], []
+        for idx, y in enumerate(labels21):
+            xb = (0.68 if y == 1 else -0.68) + rng21.gauss(0.0, 1.0)
+            ff = [c_drifts[centers21[idx]][m] + rng21.gauss(0.0, 1.05) for m in range(4)]
+            s_c.append(1.35 * xb)
+            s_r.append(1.35 * xb + 0.68 * ff[0] - 0.58 * ff[1] + 0.52 * ff[2] - 0.46 * ff[3])
+            s_n.append(1.35 * xb)
+        s_m = [0.0] * 21
+        for cid in range(3):
+            c_idx = [i for i, c in enumerate(centers21) if c == cid]
+            nrm = midrank_normalize([s_r[i] for i in c_idx])
+            for loc, gi in enumerate(c_idx):
+                s_m[gi] = nrm[loc]
+        if exact_mann_whitney_wins(s_c, labels21) >= 76.0:
+            pass_c += 1
+        if exact_mann_whitney_wins(s_r, labels21) >= 76.0:
+            pass_r += 1
+        if exact_mann_whitney_wins(s_m, labels21) >= 76.0:
+            pass_m += 1
+        if exact_mann_whitney_wins(s_n, labels21) >= 76.0:
+            pass_n += 1
 
-    def mean(xs: Sequence[float]) -> float:
+    def avg(xs: Sequence[float]) -> float:
         return round(sum(xs) / float(len(xs)), 5)
 
     return {
-        "n_patients": len(labels),
-        "p_features": p_dim,
-        "total_pairs": n_ref * n_sens,
-        "within_fold_pairs": within_pairs,
-        "cross_fold_pairs": cross_pairs,
-        "auroc_clean_oracle_mean": mean(aucs_clean),
-        "auroc_raw_pooled_shifted_mean": mean(aucs_raw_pooled),
-        "auroc_midrank_batch27_mean": mean(aucs_midrank_batch27),
-        "auroc_midrank_prospective_n1_mean": mean(aucs_midrank_prospective_n1),
-        "auroc_nullspace_gate_prospective_n1_mean": mean(aucs_nullgate_prospective_n1),
-        "max_logit_drift_under_batch_shift": round(max_logit_drift_nullgate, 14),
+        "total_pairs": total_pairs,
+        "auroc_clean_oracle_mean": avg(aucs_clean),
+        "auroc_raw_pooled_shifted_mean": avg(aucs_raw),
+        "auroc_midrank_batch27_mean": avg(aucs_mid27),
+        "auroc_midrank_prospective_n1_mean": avg(aucs_mid1),
+        "auroc_nullspace_gate_prospective_n1_mean": avg(aucs_null1),
+        "max_logit_drift_under_batch_shift": round(max_drift, 14),
+        "c22_exact_p_u_ge_76": f"{p_ge_76.numerator}/{p_ge_76.denominator}",
+        "c22_exact_p_u_ge_75": f"{p_ge_75.numerator}/{p_ge_75.denominator}",
+        "c22_power_raw_shifted": round(pass_r / float(c22_trials), 4),
+        "c22_power_3center_midrank": round(pass_m / float(c22_trials), 4),
+        "c22_power_nullspace_n1": round(pass_n / float(c22_trials), 4),
     }
 
 
 def run_all_verifications() -> Dict[str, object]:
     res = {
-        "c15_monoid_and_flag": verify_c15_monoid_and_flag(),
+        "cdr2l_mhc2_core_bifurcation": verify_cdr2l_mhc2_core_bifurcation(),
+        "c15_monoid_and_offset_saturation": verify_c15_monoid_and_offset_saturation(),
+        "soko_ilp_minimal_assays": verify_soko_ilp_minimal_assays(),
         "c10_c19_paraneoplastic_cascade_gate": verify_paraneoplastic_cascade_gate(),
-        "c20_prospective_n1_batch_nullspace": verify_prospective_n1_batch_nullspace(),
+        "c20_c22_prospective_n1_and_power": verify_prospective_n1_and_c22_power(),
     }
-    digest = hashlib.sha256(json.dumps(res, sort_keys=True).encode("utf-8")).hexdigest()
-    res["verification_sha256"] = digest
+    res["verification_sha256"] = hashlib.sha256(json.dumps(res, sort_keys=True).encode("utf-8")).hexdigest()
     return res
 
 
 if __name__ == "__main__":
-    summary = run_all_verifications()
-    print(json.dumps(summary, indent=2, sort_keys=True))
+    print(json.dumps(run_all_verifications(), indent=2, sort_keys=True))
