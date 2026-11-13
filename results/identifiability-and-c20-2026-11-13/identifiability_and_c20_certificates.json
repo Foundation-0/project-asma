@@ -1,0 +1,183 @@
+{
+  "cdr2_cdr2l_pgl2_gauge": {
+    "anchored_two_point_recovery_verified": {
+      "alpha_known": "3/20",
+      "recovered_r_c": [
+        "6",
+        "1/2"
+      ],
+      "true_r_c": [
+        "6",
+        "1/2"
+      ]
+    },
+    "exact_gauge_identity": "(1 - c)*q(p; r, 0) + c == q(p; r, c) for all p in [0, 1]",
+    "grid_identities_verified": 84
+  },
+  "compartment_identifiability": {
+    "global_high_seed_argmax_C50": {
+      "closed_form": "(7 + 8*sqrt(3)) / 55",
+      "decimal": 0.37920739
+    },
+    "linearized_survival_pencil": {
+      "C25": {
+        "intercept": "4/3",
+        "slope": "40/3"
+      },
+      "C50": {
+        "intercept": "2",
+        "slope": "10"
+      },
+      "C75": {
+        "intercept": "4",
+        "slope": "0"
+      },
+      "S": {
+        "intercept": "1",
+        "slope": "15"
+      }
+    },
+    "paired_design_comparison": {
+      "Anchor_0_to_3_8": {
+        "ceilings": {
+          "C25": {
+            "decimal": 0.06358615,
+            "exact_fraction": "2049/32224",
+            "exceeds_benchmark_1_60": true
+          },
+          "C50": {
+            "decimal": 0.12858901,
+            "exact_fraction": "627/4876",
+            "exceeds_benchmark_1_60": true
+          },
+          "C75": {
+            "decimal": 0.20297759,
+            "exact_fraction": "1377/6784",
+            "exceeds_benchmark_1_60": true
+          }
+        },
+        "p_H": "3/8",
+        "p_L": "0",
+        "q_S_at_pL_pH": [
+          "0",
+          "48/53"
+        ],
+        "worlds_separated_at_eps_1_60": [
+          "C25",
+          "C50",
+          "C75"
+        ]
+      },
+      "OptLow_1_20_to_3_8": {
+        "ceilings": {
+          "C25": {
+            "decimal": 0.01805043,
+            "exact_fraction": "10179/563920",
+            "exceeds_benchmark_1_60": true
+          },
+          "C50": {
+            "decimal": 0.04430329,
+            "exact_fraction": "9451/213325",
+            "exceeds_benchmark_1_60": true
+          },
+          "C75": {
+            "decimal": 0.09181688,
+            "exact_fraction": "21801/237440",
+            "exceeds_benchmark_1_60": true
+          }
+        },
+        "p_H": "3/8",
+        "p_L": "1/20",
+        "q_S_at_pL_pH": [
+          "16/35",
+          "48/53"
+        ],
+        "worlds_separated_at_eps_1_60": [
+          "C25",
+          "C50",
+          "C75"
+        ]
+      },
+      "PR78_LH_1_10_to_2_5": {
+        "ceilings": {
+          "C25": {
+            "decimal": 0.00669643,
+            "exact_fraction": "3/448",
+            "exceeds_benchmark_1_60": false
+          },
+          "C50": {
+            "decimal": 0.01857143,
+            "exact_fraction": "13/700",
+            "exceeds_benchmark_1_60": true
+          },
+          "C75": {
+            "decimal": 0.04982143,
+            "exact_fraction": "279/5600",
+            "exceeds_benchmark_1_60": true
+          }
+        },
+        "p_H": "2/5",
+        "p_L": "1/10",
+        "q_S_at_pL_pH": [
+          "16/25",
+          "32/35"
+        ],
+        "worlds_separated_at_eps_1_60": [
+          "C50",
+          "C75"
+        ]
+      }
+    },
+    "snapshot_reference": {
+      "p_R": "1/5",
+      "pivot_Phi": "4",
+      "q_R": "4/5"
+    },
+    "universal_gap_formula": "c*(5*p - 1)*(1 - p) / ((15*p + 1)*((15 - 20*c)*p + 1))"
+  },
+  "date": "2026-11-13",
+  "epistemic_scope": "Deterministic rational algebra + seeded finite-sample simulation (research-only; zero patient data ingested).",
+  "pilot001_c20_shift_attenuation": {
+    "analytical_binormal_shift_solution": {
+      "latent_d_prime": 1.349393,
+      "required_cross_fold_auroc": 0.803565,
+      "sigma_delta_over_sigma_s": 0.497088,
+      "target_5fold_mean_auroc": 0.83
+    },
+    "cohort_counts": {
+      "n_refractory": 52,
+      "n_sensitive": 83,
+      "total_pairs": 4316,
+      "u_observed": 3491
+    },
+    "exact_pooled_auroc_decimal": 0.8088507878,
+    "exact_pooled_auroc_fraction": "3491/4316",
+    "monte_carlo_4000_trials": {
+      "constructive_exact_3491_witness": {
+        "fold_aurocs": [
+          0.7273,
+          0.8068,
+          0.8235,
+          0.8412,
+          0.9563
+        ],
+        "fold_mean_auroc": 0.831009,
+        "pooled_raw_auroc": 0.80885079,
+        "pooled_u_concordant": 3491,
+        "rank_calibrated_pooled_auroc": 0.82785,
+        "trial_index": 2718
+      },
+      "mean_5fold_auroc": 0.828896,
+      "mean_pooled_raw_auroc": 0.807768,
+      "mean_rank_calibrated_pooled_auroc": 0.828748,
+      "seed": 20261113
+    },
+    "stratified_5fold_cross_pair_share": 0.800046,
+    "stratified_5fold_within_pairs": {
+      "aligned": 864,
+      "anti": 862,
+      "mixed": 863
+    }
+  },
+  "schema": "foundation-0.project-asma.identifiability-and-c20-certificates.v1"
+}

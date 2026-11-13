@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Asma x Gravity Mathematical Bridge Explorer</title>
+  <style>
+    body, svg, button, input, select { font-family: var(--ff-sans, 'Google Sans Flex', 'Google Sans', sans-serif); }
+    .top-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .kpi-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 10px; margin-bottom: 12px; }
+    .kpi-val { font-size: 22px; line-height: 28px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--on-surface); margin-top: 4px; }
+    .kpi-sub { font-size: 12px; line-height: 16px; color: var(--on-surface-variant); margin-top: 2px; font-variant-numeric: tabular-nums; }
+    .plot-stage { width: 100%; height: 272px; background: var(--surface-bright); border-radius: var(--r-m); overflow: hidden; margin-bottom: 12px; }
+    .control-deck { display: flex; flex-direction: column; gap: 12px; padding: 16px 20px; background: var(--surface-bright); border-radius: var(--r-m); }
+    .row-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .is-hidden { display: none !important; }
+    .plot-stage svg { display: block; width: 100%; height: 100%; }
+    .plot-stage text { font-size: 12px; fill: var(--on-surface-variant, #5e5e5e); }
+    .provenance { font-size: 12px; line-height: 16px; color: var(--on-surface-variant, #5e5e5e); margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <div class="widget-container">
+    <div class="top-bar">
+      <div class="lumi-segmented-group" role="group" aria-label="Theorem Explorer Mode">
+        <button type="button" id="tab-comp" class="lumi-segmented-btn is-active">1. Compartment Opt-Low</button>
+        <button type="button" id="tab-pgl2" class="lumi-segmented-btn">2. CDR2/CDR2L Gauge</button>
+        <button type="button" id="tab-c20" class="lumi-segmented-btn">3. Pilot 001 C20 Drift</button>
+      </div>
+      <button type="button" id="btn-linearize" class="lumi-chip">Linearize: Phi(p) = (1-p)/(1-q)</button>
+    </div>
+
+    <div class="kpi-strip">
+      <div class="lumi-summary-card">
+        <div id="kpi1-lbl" class="lumi-label-s" style="color: var(--on-surface-variant);">Ceiling eps* vs C50</div>
+        <div id="kpi1-val" class="kpi-val">0.0443</div>
+        <div id="kpi1-sub" class="kpi-sub">2.39x PR #78 (13/700 = 0.0186)</div>
+      </div>
+      <div class="lumi-summary-card">
+        <div id="kpi2-lbl" class="lumi-label-s" style="color: var(--on-surface-variant);">Ceiling eps* vs C25</div>
+        <div id="kpi2-val" class="kpi-val">0.0181</div>
+        <div id="kpi2-sub" class="kpi-sub">Beats 1/60 = 0.0167 (PR #78: 0.0067)</div>
+      </div>
+      <div class="lumi-summary-card">
+        <div id="kpi3-lbl" class="lumi-label-s" style="color: var(--on-surface-variant);">Separated at eps = 1/60</div>
+        <div id="kpi3-val" class="kpi-val">C25, C50, C75</div>
+        <div id="kpi3-sub" class="kpi-sub">Flips PR #78 C25 boundary</div>
+      </div>
+    </div>
+
+    <div id="viz-zone" class="plot-stage"></div>
+
+    <div id="ctrl-comp" class="control-deck">
+      <div class="lumi-slider-row">
+        <div class="row-head">
+          <label class="lumi-slider-label" for="in-pl">Low-Seed Input Mixture (p_L)</label>
+          <span class="lumi-body-s" style="color: var(--on-surface-variant);">PR #78 baseline: 0.100 | Opt-Low: 0.050</span>
+        </div>
+        <div class="lumi-slider-container">
+          <input id="in-pl" class="lumi-slider" type="range" min="0.00" max="0.16" step="0.005" value="0.050" style="--progress: 31.25%;">
+          <div id="val-pl" class="lumi-slider-value">0.050</div>
+        </div>
+      </div>
+      <div class="lumi-slider-row">
+        <div class="row-head">
+          <label class="lumi-slider-label" for="in-ph">High-Seed Input Mixture (p_H)</label>
+          <span class="lumi-body-s" style="color: var(--on-surface-variant);">Global argmax p_H* = 0.379 (~3/8)</span>
+        </div>
+        <div class="lumi-slider-container">
+          <input id="in-ph" class="lumi-slider" type="range" min="0.22" max="0.72" step="0.005" value="0.375" style="--progress: 31.0%;">
+          <div id="val-ph" class="lumi-slider-value">0.375</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ctrl-pgl2" class="control-deck is-hidden">
+      <div class="lumi-slider-row">
+        <div class="row-head">
+          <label class="lumi-slider-label" for="in-ctrue">True Conversion Rate (c_true, with r = 16 - 20c)</label>
+          <span class="lumi-body-s" style="color: var(--on-surface-variant);">Matches snapshot q(0.20) = 0.80</span>
+        </div>
+        <div class="lumi-slider-container">
+          <input id="in-ctrue" class="lumi-slider" type="range" min="0.05" max="0.75" step="0.025" value="0.50" style="--progress: 64.3%;">
+          <div id="val-ctrue" class="lumi-slider-value">0.500</div>
+        </div>
+      </div>
+      <div class="lumi-slider-row">
+        <div class="row-head">
+          <label class="lumi-slider-label" for="in-alpha">CDR2/CDR2L Paralog Channel Bleed (alpha, at c = 0)</label>
+          <span class="lumi-body-s" style="color: var(--on-surface-variant);">Set alpha = c_true for exact PGL_2 collapse</span>
+        </div>
+        <div class="lumi-slider-container">
+          <input id="in-alpha" class="lumi-slider" type="range" min="0.00" max="0.75" step="0.025" value="0.50" style="--progress: 66.7%;">
+          <div id="val-alpha" class="lumi-slider-value">0.500</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ctrl-c20" class="control-deck is-hidden">
+      <div class="lumi-slider-row">
+        <div class="row-head">
+          <label class="lumi-slider-label" for="in-aucfold">True Within-Fold 5-Fold Mean AUROC</label>
+          <span class="lumi-body-s" style="color: var(--on-surface-variant);">Published manuscript value: 0.830</span>
+        </div>
+        <div class="lumi-slider-container">
+          <input id="in-aucfold" class="lumi-slider" type="range" min="0.780" max="0.880" step="0.005" value="0.830" style="--progress: 50.0%;">
+          <div id="val-aucfold" class="lumi-slider-value">0.830</div>
+        </div>
+      </div>
+      <div class="lumi-slider-row">
+        <div class="row-head">
+          <label class="lumi-slider-label" for="in-rho">Fold-Intercept Drift Ratio (sigma_delta / sigma_s)</label>
+          <span class="lumi-body-s" style="color: var(--on-surface-variant);">Certificate fit: 0.497088 -> 3491/4316 = 0.80885079</span>
+        </div>
+        <div class="lumi-slider-container">
+          <input id="in-rho" class="lumi-slider" type="range" min="0.00" max="0.90" step="0.000001" value="0.497088" style="--progress: 55.2%;">
+          <div id="val-rho" class="lumi-slider-value">0.497088</div>
+        </div>
+      </div>
+    </div>
+
+    <p id="provenance" class="provenance">Presentation by gem-nexus from the 2026-11-13 vault drop. It is an unreproduced Carbon claim, pending independent review. Fixed C20 values come from results/identifiability-and-c20-2026-11-13/identifiability_and_c20_certificates.json. Charts are drawn locally as SVG with no third-party scripts.</p>
+  </div>
+
+  <script>
+    // Values copied from results/identifiability-and-c20-2026-11-13/identifiability_and_c20_certificates.json
+    // (sha256 366a230dbcf8f8a253bc4d0bd14a6ae91ce54e66d019cbd0c7454abde9e73923).
+    // Keep them equal to the certificate when either changes.
+    const CERT_C20 = {
+      target_5fold_mean_auroc: 0.83,
+      sigma_delta_over_sigma_s: 0.497088,
+      total_pairs: 4316,
+      u_observed: 3491,
+      within_fold_pairs: 863,
+      cross_fold_pairs: 3453,
+      exact_pooled_auroc_decimal: 0.8088507878,
+      mean_rank_calibrated_pooled_auroc: 0.828748,
+      witness_trial_index: 2718,
+      witness_rank_calibrated_pooled_auroc: 0.82785
+    };
+    function getCssVar(name, fallback = '') {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+    }
+    function syncSlider(el) {
+      const min = parseFloat(el.min || '0');
+      const max = parseFloat(el.max || '1');
+      const val = parseFloat(el.value || '0');
+      el.style.setProperty('--progress', `${((val - min) / (max - min)) * 100}%`);
+    }
+    function showErrorFallback(zoneId, err) {
+      const el = document.getElementById(zoneId);
+      if (!el) return;
+      const card = document.createElement('div');
+      card.className = 'lumi-summary-card';
+      card.textContent = `Plot unavailable: ${err && err.message ? err.message : 'render error'}`;
+      el.replaceChildren(card);
+    }
+
+    // erf to about 1e-15: Maclaurin series for |x| < 3, continued fraction for erfc beyond.
+    function erfApprox(x) {
+      const s = x >= 0 ? 1 : -1;
+      const ax = Math.abs(x);
+      if (ax < 3) {
+        let term = ax, sum = ax;
+        for (let n = 1; n < 200; n++) {
+          term *= -ax * ax / n;
+          const add = term / (2 * n + 1);
+          sum += add;
+          if (Math.abs(add) < 1e-17 * Math.abs(sum)) break;
+        }
+        return s * (2 / Math.sqrt(Math.PI)) * sum;
+      }
+      let t = ax;
+      for (let k = 80; k >= 1; k--) t = ax + (k / 2) / t;
+      return s * (1 - Math.exp(-ax * ax) / (Math.sqrt(Math.PI) * t));
+    }
+    function normCdf(x) { return 0.5 * (1 + erfApprox(x / Math.SQRT2)); }
+    function normPpf(p) {
+      let lo = -5.5, hi = 5.5;
+      for (let i = 0; i < 56; i++) {
+        const mid = 0.5 * (lo + hi);
+        if (normCdf(mid) < p) lo = mid; else hi = mid;
+      }
+      return 0.5 * (lo + hi);
+    }
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const DASHES = { solid: '', dash: '7 4', dot: '2 3', dashdot: '7 3 2 3' };
+    function svgEl(tag, attrs, parent) {
+      const el = document.createElementNS(SVG_NS, tag);
+      Object.keys(attrs || {}).forEach(k => el.setAttribute(k, String(attrs[k])));
+      if (parent) parent.appendChild(el);
+      return el;
+    }
+    function niceTicks(lo, hi, target) {
+      const raw = (hi - lo) / Math.max(1, target);
+      const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+      const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(v => v >= raw) || 10 * mag;
+      const out = [];
+      for (let v = Math.ceil(lo / step - 1e-9) * step; v <= hi + 1e-9 * step; v += step) out.push(+v.toFixed(10));
+      return out;
+    }
+    // Minimal line chart with the trace and layout fields this page uses.
+    function drawChart(zoneId, traces, layout) {
+      const zone = document.getElementById(zoneId);
+      const W = Math.max(320, zone.clientWidth || 640);
+      const H = Math.max(200, zone.clientHeight || 272);
+      const m = { t: 44, r: 18, b: 44, l: 60 };
+      const [x0, x1] = layout.xaxis.range;
+      const [y0, y1] = layout.yaxis.range;
+      const px = x => m.l + (x - x0) / (x1 - x0) * (W - m.l - m.r);
+      const py = y => H - m.b - (y - y0) / (y1 - y0) * (H - m.t - m.b);
+      const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': layout.yaxis.title });
+      const grid = layout.xaxis.gridcolor || '#e3e3e3';
+      niceTicks(x0, x1, 6).forEach(v => {
+        svgEl('line', { x1: px(v), x2: px(v), y1: m.t, y2: H - m.b, stroke: grid }, svg);
+        svgEl('text', { x: px(v), y: H - m.b + 14, 'text-anchor': 'middle' }, svg).textContent = String(v);
+      });
+      niceTicks(y0, y1, 5).forEach(v => {
+        svgEl('line', { x1: m.l, x2: W - m.r, y1: py(v), y2: py(v), stroke: grid }, svg);
+        svgEl('text', { x: m.l - 6, y: py(v) + 4, 'text-anchor': 'end' }, svg).textContent = String(v);
+      });
+      svgEl('text', { x: (m.l + W - m.r) / 2, y: H - 6, 'text-anchor': 'middle' }, svg).textContent = layout.xaxis.title;
+      svgEl('text', { x: 12, y: (m.t + H - m.b) / 2, 'text-anchor': 'middle', transform: `rotate(-90 12 ${(m.t + H - m.b) / 2})` }, svg).textContent = layout.yaxis.title;
+      const clipId = zoneId + '-clip';
+      const clip = svgEl('clipPath', { id: clipId }, svgEl('defs', {}, svg));
+      svgEl('rect', { x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b }, clip);
+      const plot = svgEl('g', { 'clip-path': `url(#${clipId})` }, svg);
+      let lx = m.l, ly = 14;
+      traces.forEach(tr => {
+        const line = tr.line || {};
+        const color = (tr.marker && tr.marker.color) || line.color || '#2575fc';
+        if (tr.mode === 'markers') {
+          tr.x.forEach((x, i) => svgEl('circle', { cx: px(x), cy: py(tr.y[i]), r: ((tr.marker && tr.marker.size) || 8) / 2, fill: color }, plot));
+        } else {
+          const d = tr.x.map((x, i) => `${i ? 'L' : 'M'}${px(x).toFixed(2)},${py(tr.y[i]).toFixed(2)}`).join('');
+          svgEl('path', { d, fill: 'none', stroke: color, 'stroke-width': line.width || 2, 'stroke-dasharray': DASHES[line.dash || 'solid'] || '' }, plot);
+        }
+        if (tr.showlegend === false || !tr.name) return;
+        const label = String(tr.name);
+        const wItem = 34 + label.length * 7.2;
+        if (lx + wItem > W - m.r && lx > m.l) { lx = m.l; ly += 15; }
+        svgEl('line', { x1: lx, x2: lx + 22, y1: ly - 4, y2: ly - 4, stroke: color, 'stroke-width': line.width || 2, 'stroke-dasharray': DASHES[line.dash || 'solid'] || '' }, svg);
+        svgEl('text', { x: lx + 26, y: ly }, svg).textContent = label;
+        lx += wItem;
+      });
+      zone.replaceChildren(svg);
+    }
+
+    function qCurve(p, r, c) {
+      return (r * p + c * (1 - p)) / (r * p + (1 - p));
+    }
+
+    let activeTab = 'comp';
+    let linearizeMode = false;
+
+    const tabs = {
+      comp: document.getElementById('tab-comp'),
+      pgl2: document.getElementById('tab-pgl2'),
+      c20: document.getElementById('tab-c20')
+    };
+    const ctrls = {
+      comp: document.getElementById('ctrl-comp'),
+      pgl2: document.getElementById('ctrl-pgl2'),
+      c20: document.getElementById('ctrl-c20')
+    };
+    const btnLin = document.getElementById('btn-linearize');
+
+    function setTab(mode) {
+      activeTab = mode;
+      Object.keys(tabs).forEach(k => {
+        tabs[k].classList.toggle('is-active', k === mode);
+        ctrls[k].classList.toggle('is-hidden', k !== mode);
+      });
+      btnLin.classList.toggle('is-hidden', mode !== 'comp');
+      render();
+    }
+
+    btnLin.addEventListener('click', () => {
+      linearizeMode = !linearizeMode;
+      btnLin.classList.toggle('is-active', linearizeMode);
+      render();
+    });
+
+    Object.keys(tabs).forEach(k => tabs[k].addEventListener('click', () => setTab(k)));
+    ['in-pl', 'in-ph', 'in-ctrue', 'in-alpha', 'in-aucfold', 'in-rho'].forEach(id => {
+      document.getElementById(id).addEventListener('input', render);
+    });
+
+    function render() {
+      const c1 = getCssVar('--chart-1', '#2575fc');
+      const c3 = getCssVar('--chart-3', '#228a49');
+      const c8 = getCssVar('--chart-8', '#997112');
+      const c9 = getCssVar('--chart-9', '#705ec2');
+      const c10 = getCssVar('--chart-10', '#c84288');
+      const cMuted = getCssVar('--on-surface-variant', '#5e5e5e');
+      const cGrid = getCssVar('--stroke-default', '#e3e3e3');
+      const cPos = getCssVar('--positive', '#008052');
+      const cErr = getCssVar('--error', '#de2d29');
+
+      const baseLayout = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        margin: { t: 28, r: 18, b: 42, l: 52 },
+        font: { family: 'Google Sans Flex, Google Sans, sans-serif', size: 12, color: cMuted },
+        legend: { orientation: 'h', x: 0, y: 1.15, font: { size: 12 } }
+      };
+
+      if (activeTab === 'comp') {
+        const elPl = document.getElementById('in-pl');
+        const elPh = document.getElementById('in-ph');
+        syncSlider(elPl); syncSlider(elPh);
+        const pL = parseFloat(elPl.value);
+        const pH = parseFloat(elPh.value);
+        document.getElementById('val-pl').textContent = pL.toFixed(3);
+        document.getElementById('val-ph').textContent = pH.toFixed(3);
+
+        const eps25 = Math.abs((qCurve(pH, 16, 0) - qCurve(pL, 16, 0)) - (qCurve(pH, 11, 0.25) - qCurve(pL, 11, 0.25))) / 4;
+        const eps50 = Math.abs((qCurve(pH, 16, 0) - qCurve(pL, 16, 0)) - (qCurve(pH, 6, 0.50) - qCurve(pL, 6, 0.50))) / 4;
+        const eps75 = Math.abs((qCurve(pH, 16, 0) - qCurve(pL, 16, 0)) - (qCurve(pH, 1, 0.75) - qCurve(pL, 1, 0.75))) / 4;
+        const bench = 1 / 60;
+
+        document.getElementById('kpi1-lbl').textContent = 'Ceiling eps* vs C50';
+        document.getElementById('kpi1-val').textContent = eps50.toFixed(4);
+        document.getElementById('kpi1-sub').textContent = `${(eps50 / (13 / 700)).toFixed(2)}x PR #78 (0.0186)`;
+
+        document.getElementById('kpi2-lbl').textContent = 'Ceiling eps* vs C25';
+        document.getElementById('kpi2-val').textContent = eps25.toFixed(4);
+        document.getElementById('kpi2-val').style.color = eps25 > bench ? cPos : cMuted;
+        document.getElementById('kpi2-sub').textContent = eps25 > bench ? 'Exceeds 1/60 = 0.0167' : 'Below 1/60 = 0.0167';
+
+        const sep = [];
+        if (eps25 > bench) sep.push('C25');
+        if (eps50 > bench) sep.push('C50');
+        if (eps75 > bench) sep.push('C75');
+        document.getElementById('kpi3-lbl').textContent = 'Separated at eps = 1/60';
+        document.getElementById('kpi3-val').textContent = sep.length ? sep.join(', ') : 'None';
+        document.getElementById('kpi3-sub').textContent = sep.length === 3 ? 'All 3 conversion worlds separated' : 'Partial separation only';
+
+        const ps = [];
+        for (let i = 0; i <= 120; i++) ps.push((i / 120) * 0.78);
+        const defs = [
+          { name: 'S (r=16, c=0)', r: 16, c: 0, col: c1, dash: 'solid' },
+          { name: 'C25 (r=11, c=0.25)', r: 11, c: 0.25, col: c3, dash: 'dash' },
+          { name: 'C50 (r=6, c=0.50)', r: 6, c: 0.50, col: c8, dash: 'dot' },
+          { name: 'C75 (r=1, c=0.75)', r: 1, c: 0.75, col: c9, dash: 'dashdot' }
+        ];
+        const traces = defs.map(d => ({
+          x: ps,
+          y: ps.map(p => linearizeMode ? ((d.r - 1) * p + 1) / (1 - d.c) : qCurve(p, d.r, d.c)),
+          mode: 'lines',
+          name: d.name,
+          line: { color: d.col, width: 2.3, dash: d.dash }
+        }));
+
+        const yMin = linearizeMode ? 0.8 : 0.0;
+        const yMax = linearizeMode ? 12.8 : 1.02;
+        traces.push({
+          x: [pL, pL], y: [yMin, yMax], mode: 'lines', name: 'p_L / p_H',
+          line: { color: c10, width: 1.5, dash: 'dot' }, showlegend: true
+        });
+        traces.push({
+          x: [pH, pH], y: [yMin, yMax], mode: 'lines', name: 'p_H',
+          line: { color: c10, width: 1.5, dash: 'dot' }, showlegend: false
+        });
+
+        drawChart('viz-zone', traces, Object.assign({}, baseLayout, {
+          xaxis: { title: 'Input Pre-Assay Mixture Fraction p', range: [0, 0.78], gridcolor: cGrid, zerolinecolor: cGrid },
+          yaxis: { title: linearizeMode ? 'Survival Ratio Phi(p) = (1-p)/(1-q)' : 'Observed Post-Assay Fraction q(p)', range: [yMin, yMax], gridcolor: cGrid, zerolinecolor: cGrid }
+        }));
+
+      } else if (activeTab === 'pgl2') {
+        const elCt = document.getElementById('in-ctrue');
+        const elAl = document.getElementById('in-alpha');
+        syncSlider(elCt); syncSlider(elAl);
+        const cTrue = parseFloat(elCt.value);
+        const alpha = parseFloat(elAl.value);
+        document.getElementById('val-ctrue').textContent = cTrue.toFixed(3);
+        document.getElementById('val-alpha').textContent = alpha.toFixed(3);
+
+        const rMatch = 16 - 20 * cTrue;
+        const rUse = Math.max(0.5, rMatch);
+        const ps = [];
+        let maxDiff = 0;
+        const yTrue = [], yFake = [];
+        for (let i = 0; i <= 100; i++) {
+          const p = i / 100;
+          ps.push(p);
+          const qt = qCurve(p, rUse, cTrue);
+          const yf = (1 - alpha) * qCurve(p, rUse, 0) + alpha;
+          yTrue.push(qt);
+          yFake.push(yf);
+          maxDiff = Math.max(maxDiff, Math.abs(qt - yf));
+        }
+
+        document.getElementById('kpi1-lbl').textContent = 'Max Curve Gap sup |q_conv - y_sel|';
+        document.getElementById('kpi1-val').textContent = maxDiff.toFixed(4);
+        document.getElementById('kpi1-val').style.color = maxDiff < 0.001 ? cErr : cPos;
+        document.getElementById('kpi1-sub').textContent = maxDiff < 0.001 ? 'Exact PGL_2 gauge degeneracy' : 'Identifiable across titrations';
+
+        document.getElementById('kpi2-lbl').textContent = 'Selection Ratio r(c)';
+        document.getElementById('kpi2-val').style.color = getCssVar('--on-surface', '#000000');
+        document.getElementById('kpi2-val').textContent = rUse.toFixed(2);
+        document.getElementById('kpi2-sub').textContent = 'Snapshot-matched trajectory';
+
+        document.getElementById('kpi3-lbl').textContent = 'Recombinant Anchor (p = 0)';
+        document.getElementById('kpi3-val').textContent = `alpha = ${alpha.toFixed(2)}`;
+        document.getElementById('kpi3-sub').textContent = 'Cell-free paralog standard fixes alpha';
+
+        drawChart('viz-zone', [
+          { x: ps, y: yTrue, mode: 'lines', name: `True Conversion (c=${cTrue.toFixed(2)}, alpha=0)`, line: { color: c1, width: 3 } },
+          { x: ps, y: yFake, mode: 'lines', name: `Pure Selection + Bleed (c=0, alpha=${alpha.toFixed(2)})`, line: { color: c8, width: 2.5, dash: 'dash' } }
+        ], Object.assign({}, baseLayout, {
+          xaxis: { title: 'Input Mixture Fraction p (0 to 1)', range: [0, 1], gridcolor: cGrid, zerolinecolor: cGrid },
+          yaxis: { title: 'Measured Channel Fraction y(p)', range: [0, 1.03], gridcolor: cGrid, zerolinecolor: cGrid }
+        }));
+
+      } else {
+        const elAf = document.getElementById('in-aucfold');
+        const elRh = document.getElementById('in-rho');
+        syncSlider(elAf); syncSlider(elRh);
+        const aucFold = parseFloat(elAf.value);
+        const rho = parseFloat(elRh.value);
+        document.getElementById('val-aucfold').textContent = aucFold.toFixed(3);
+        document.getElementById('val-rho').textContent = rho.toFixed(6);
+
+        const dPrime = Math.SQRT2 * normPpf(aucFold);
+        const wIn = CERT_C20.within_fold_pairs / CERT_C20.total_pairs;
+        const wCr = CERT_C20.cross_fold_pairs / CERT_C20.total_pairs;
+        const rhos = [], yFold = [], yCross = [], yPool = [];
+        for (let i = 0; i <= 90; i++) {
+          const r = i * 0.01;
+          rhos.push(r);
+          const ac = normCdf(dPrime / Math.sqrt(2 * (1 + r * r)));
+          yFold.push(aucFold);
+          yCross.push(ac);
+          yPool.push(wIn * aucFold + wCr * ac);
+        }
+        const curCross = normCdf(dPrime / Math.sqrt(2 * (1 + rho * rho)));
+        const curPool = wIn * aucFold + wCr * curCross;
+        const curU = Math.round(curPool * 4316);
+
+        document.getElementById('kpi1-lbl').textContent = 'Pooled Raw OOF AUROC';
+        document.getElementById('kpi1-val').style.color = Math.abs(curPool - 3491 / 4316) < 0.003 ? cPos : getCssVar('--on-surface', '#000000');
+        document.getElementById('kpi1-val').textContent = curPool.toFixed(8);
+        document.getElementById('kpi1-sub').textContent = `MMC4 observed: 3491/4316 = 0.80885079`;
+
+        document.getElementById('kpi2-lbl').textContent = 'Expected Concordant Pairs U';
+        document.getElementById('kpi2-val').style.color = getCssVar('--on-surface', '#000000');
+        document.getElementById('kpi2-val').textContent = `${curU} / 4316`;
+        document.getElementById('kpi2-sub').textContent = '863 within-fold + 3453 cross-fold pairs';
+
+        document.getElementById('kpi3-lbl').textContent = 'Rank-Calibrated OOF AUROC';
+        document.getElementById('kpi3-val').textContent = CERT_C20.mean_rank_calibrated_pooled_auroc.toFixed(6);
+        document.getElementById('kpi3-sub').textContent = `Certificate: 4,000-trial mean at rho ${CERT_C20.sigma_delta_over_sigma_s}; witness trial ${CERT_C20.witness_trial_index}: ${CERT_C20.witness_rank_calibrated_pooled_auroc.toFixed(5)}`;
+
+        drawChart('viz-zone', [
+          { x: rhos, y: yFold, mode: 'lines', name: '5-Fold Mean (Shift-Invariant)', line: { color: c3, width: 2.3, dash: 'dash' } },
+          { x: rhos, y: yPool, mode: 'lines', name: 'Pooled Raw OOF AUROC', line: { color: c1, width: 2.8 } },
+          { x: rhos, y: yCross, mode: 'lines', name: 'Cross-Fold Pairs (80% of 4316)', line: { color: c8, width: 1.8, dash: 'dot' } },
+          { x: [0, 0.90], y: [3491 / 4316, 3491 / 4316], mode: 'lines', name: 'MMC4 3491/4316 (0.80885079)', line: { color: c10, width: 1.5, dash: 'dashdot' } },
+          { x: [rho], y: [curPool], mode: 'markers', name: 'Active Point', marker: { color: c1, size: 9 }, showlegend: false }
+        ], Object.assign({}, baseLayout, {
+          xaxis: { title: 'Fold-Intercept Shift Ratio sigma_delta / sigma_s', range: [0, 0.90], gridcolor: cGrid, zerolinecolor: cGrid },
+          yaxis: { title: 'Concordance / AUROC', range: [0.74, 0.89], gridcolor: cGrid, zerolinecolor: cGrid }
+        }));
+      }
+    }
+
+    function safeRender() {
+      try { render(); } catch (err) { showErrorFallback('viz-zone', err); }
+    }
+    window.addEventListener('resize', safeRender);
+    safeRender();
+  </script>
+</body>
+</html>
