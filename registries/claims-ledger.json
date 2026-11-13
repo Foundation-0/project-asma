@@ -1,0 +1,1473 @@
+{
+  "claims": [
+    {
+      "artifact_paths": [
+        "tools/validate.py"
+      ],
+      "canonical_sha256": "c7b154ae4c4a78a3a6e1c968a3cb2deff8db7b0d6936af52429f0c0dc51e60d6",
+      "certificate_paths": [],
+      "id": "V01",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/validate.py"
+      ],
+      "row_text": "| V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |",
+      "source_ids": [],
+      "statement": "Registry JSON schema and cross-references validate offline"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "33fc4347b81421de63cc810a2ffbd49267569a2aba4cc78b7e0ebe422c9f66d0",
+      "certificate_paths": [],
+      "id": "V02",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 -m unittest discover -s tests -v"
+      ],
+      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`427` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |",
+      "source_ids": [],
+      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`427` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`)"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "a3a0e8a7f59b48ef7a0421cb9ee60f6e7005b4c0eda30f2eed5fba56b5462a80",
+      "certificate_paths": [],
+      "id": "V03",
+      "label": "VERIFIED",
+      "recheck_commands": [],
+      "row_text": "| V03 | **181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |",
+      "source_ids": [],
+      "statement": "**181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model)"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "0305df6936097f00cf0b4fb55cb9d287297c41a40f48dca0926e37bb9e44a00c",
+      "certificate_paths": [],
+      "id": "V04",
+      "label": "VERIFIED",
+      "recheck_commands": [],
+      "row_text": "| V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |",
+      "source_ids": [],
+      "statement": "Full **100-repeat** synthetic model pipeline completes on abstract fixtures"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "3d90380afedf825ba3934d87cb06a8719407af0bebb82fa4fb2721efc2f8cc81",
+      "certificate_paths": [],
+      "id": "V05",
+      "label": "VERIFIED",
+      "recheck_commands": [],
+      "row_text": "| V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |",
+      "source_ids": [],
+      "statement": "Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures**"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "e3527189cfdfae4f9ef4f067ab0cc3ed3b3178db65f3c48685a466ceb55e4db1",
+      "certificate_paths": [],
+      "id": "V06",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 -m unittest tests.test_execution_conditions -v"
+      ],
+      "row_text": "| V06 | **40** combined-runtime execution-condition checks observed on rebuilt image (2026-11-04 rerun) | Source-adapter doc; `python3 -m unittest tests.test_execution_conditions -v` covers probe logic offline |",
+      "source_ids": [],
+      "statement": "**40** combined-runtime execution-condition checks observed on rebuilt image (2026-11-04 rerun)"
+    },
+    {
+      "artifact_paths": [
+        "tools/check_implementation_hashes.py"
+      ],
+      "canonical_sha256": "f2c7ee01869b53a8d5cb56855a269ee5bb29ff69e5c259299711efd87cdefddc",
+      "certificate_paths": [],
+      "id": "V07",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/check_implementation_hashes.py"
+      ],
+      "row_text": "| V07 | Registry `implementation_sha256` entries match **current** file bytes, or a **documented stale** hash (`implementation_hash_drift`) tied to a verifiable git revision | `python3 tools/check_implementation_hashes.py` (**git checkout** with top level equal to the repository root; exits **1** with an error otherwise; reports OK / STALE / UNKNOWN when history is available) |",
+      "source_ids": [],
+      "statement": "Registry `implementation_sha256` entries match **current** file bytes, or a **documented stale** hash (`implementation_hash_drift`) tied to a verifiable git revision"
+    },
+    {
+      "artifact_paths": [
+        "tools/verify_published_auc.py"
+      ],
+      "canonical_sha256": "0fb6eecc71893cda636b2658cf667bbb651b0a441a02b4dceae6a929397c9cbd",
+      "certificate_paths": [],
+      "id": "V08",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/verify_published_auc.py"
+      ],
+      "row_text": "| V08 | Published discovery-score AUROC **0.8088507878** vs printed **0.83**; tolerance **0.02** not met | `python3 tools/verify_published_auc.py` (network; reads pinned public workbooks in memory; see [result](docs/pilot-001-score-verification-result.md)) |",
+      "source_ids": [],
+      "statement": "Published discovery-score AUROC **0.8088507878** vs printed **0.83**; tolerance **0.02** not met"
+    },
+    {
+      "artifact_paths": [
+        "tools/analyze_validation_capacity.py"
+      ],
+      "canonical_sha256": "6ca73ae9927c70be63df837b23a9fc6a6837c45ffc3e9923df87397ff201256a",
+      "certificate_paths": [],
+      "id": "V09",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/analyze_validation_capacity.py",
+        "python3 -m unittest tests.test_validation_capacity -v"
+      ],
+      "row_text": "| V09 | Validation-capacity binomial bounds from documented cohort counts (e.g. 13 sensitive → 79.4% one-sided 95% LB if perfect) | `python3 tools/analyze_validation_capacity.py` and `python3 -m unittest tests.test_validation_capacity -v` |",
+      "source_ids": [],
+      "statement": "Validation-capacity binomial bounds from documented cohort counts (e.g. 13 sensitive → 79.4% one-sided 95% LB if perfect)"
+    },
+    {
+      "artifact_paths": [
+        "tools/audit_pdc_metadata.py"
+      ],
+      "canonical_sha256": "fc8674187145e18edc1f51e012584c7a4902afe48d3fad8df1254c21f8fb525b",
+      "certificate_paths": [],
+      "id": "V10",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_pdc_metadata.py"
+      ],
+      "row_text": "| V10 | PDC catalog overlap aggregates match registry | `python3 tools/audit_pdc_metadata.py` (network) |",
+      "source_ids": [],
+      "statement": "PDC catalog overlap aggregates match registry"
+    },
+    {
+      "artifact_paths": [
+        "tools/audit_published_cohorts.py"
+      ],
+      "canonical_sha256": "692fe1ea4eff7af378310550acf488271cc40980417ebc76978cce385544bcba",
+      "certificate_paths": [],
+      "id": "V11",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_published_cohorts.py"
+      ],
+      "row_text": "| V11 | Published workbook membership and panel joins match registry | `python3 tools/audit_published_cohorts.py` (network) |",
+      "source_ids": [],
+      "statement": "Published workbook membership and panel joins match registry"
+    },
+    {
+      "artifact_paths": [
+        "tools/audit_matrix_headers.py"
+      ],
+      "canonical_sha256": "14ec7bd3c3a478770ff4b5c6e78437e266d084ac54dd9fb6a5e0ae988cfa2041",
+      "certificate_paths": [],
+      "id": "V12",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_matrix_headers.py"
+      ],
+      "row_text": "| V12 | Matrix-header diagnostic aggregates match registry | `python3 tools/audit_matrix_headers.py` (network) |",
+      "source_ids": [],
+      "statement": "Matrix-header diagnostic aggregates match registry"
+    },
+    {
+      "artifact_paths": [
+        "tools/audit_author_archive.py"
+      ],
+      "canonical_sha256": "c2bf1a14cf53f44778e946aff85fbf0a77df73ceed32dd9d6a0b48a6ee2c25a6",
+      "certificate_paths": [],
+      "id": "V13",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_author_archive.py"
+      ],
+      "row_text": "| V13 | Author archive header linkage aggregates match registry | `python3 tools/audit_author_archive.py` (network) |",
+      "source_ids": [],
+      "statement": "Author archive header linkage aggregates match registry"
+    },
+    {
+      "artifact_paths": [
+        "tools/audit_author_features.py"
+      ],
+      "canonical_sha256": "76c4fb8367a44d14a3640267b831af77a468a5889642f6d4bd62cea2e186337b",
+      "certificate_paths": [],
+      "id": "V14",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_author_features.py"
+      ],
+      "row_text": "| V14 | Author feature member CRC and 64/64 panel coverage counts match registry | `python3 tools/audit_author_features.py` (network; bounded inspection) |",
+      "source_ids": [],
+      "statement": "Author feature member CRC and 64/64 panel coverage counts match registry"
+    },
+    {
+      "artifact_paths": [
+        "tools/audit_panel_names.py"
+      ],
+      "canonical_sha256": "90569c2bfa44e05a0d72d7d8a98cb44c6fa1e096be0f30e39c055ffb2bccae52",
+      "certificate_paths": [],
+      "id": "V15",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_panel_names.py"
+      ],
+      "row_text": "| V15 | Panel symbol `make.names` alteration count 0/64 | `python3 tools/audit_panel_names.py` (network) |",
+      "source_ids": [],
+      "statement": "Panel symbol `make.names` alteration count 0/64"
+    },
+    {
+      "artifact_paths": [
+        "tools/audit_validation_panel_coverage.py"
+      ],
+      "canonical_sha256": "5b1f3d802fdb21c7974086aa09cb6fc93b47f1104289e00f715c090793066857",
+      "certificate_paths": [],
+      "id": "V16",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_validation_panel_coverage.py"
+      ],
+      "row_text": "| V16 | MMC1 validation cohort feature lists contain all 64 panel symbols once each | `python3 tools/audit_validation_panel_coverage.py` (network) |",
+      "source_ids": [],
+      "statement": "MMC1 validation cohort feature lists contain all 64 panel symbols once each"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "c1bc00fb0f006eb66283482db85897b067ce1329dca678e737499f73f36f90f7",
+      "certificate_paths": [],
+      "id": "V17",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 -m unittest tests.test_evaluate_heldout -v"
+      ],
+      "row_text": "| V17 | Held-out evaluation helpers behave on **artificial** test cases | `python3 -m unittest tests.test_evaluate_heldout -v` |",
+      "source_ids": [],
+      "statement": "Held-out evaluation helpers behave on **artificial** test cases"
+    },
+    {
+      "artifact_paths": [
+        "tools/validate.py"
+      ],
+      "canonical_sha256": "d8359fbe6c444c423900972917d341ed60737cc344db6fd5f71da7afe790e7af",
+      "certificate_paths": [],
+      "id": "V18",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/validate.py"
+      ],
+      "row_text": "| V18 | Git does not track or stage owner attestation file (when `git` available) | `python3 tools/validate.py` |",
+      "source_ids": [],
+      "statement": "Git does not track or stage owner attestation file (when `git` available)"
+    },
+    {
+      "artifact_paths": [
+        "tools/analyze_compartment_identifiability.py"
+      ],
+      "canonical_sha256": "6d88dde8d6db495b0733b82104eb6c1ebabaf76625c7ecfa07d2b0cf96592dd0",
+      "certificate_paths": [],
+      "id": "V19",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/analyze_compartment_identifiability.py"
+      ],
+      "row_text": "| V19 | Original synthetic two-state counterexamples, a hypothetical selection-bound calculation, exact sign-flip enumeration and a missing-clone sampling example give the values in the [identifiability record](docs/compartment-identifiability.md) | `python3 tools/analyze_compartment_identifiability.py`; invented inputs, not study analysis or a new biological result |",
+      "source_ids": [],
+      "statement": "Original synthetic two-state counterexamples, a hypothetical selection-bound calculation, exact sign-flip enumeration and a missing-clone sampling example give the values in the [identifiability record](docs/compartment-identifiability.md)"
+    },
+    {
+      "artifact_paths": [
+        "registries/antigen-metadata-audit-2026-11-05.json"
+      ],
+      "canonical_sha256": "78cdb5c524211ffd2d12460bde7ac436e631e014780eded9f44f93dc7e19cf5a",
+      "certificate_paths": [
+        "registries/antigen-metadata-audit-2026-11-05.json"
+      ],
+      "id": "V20",
+      "label": "VERIFIED",
+      "recheck_commands": [],
+      "row_text": "| V20 | The dated, canonical-parent IEDB metadata queries return 7 CDR2 and 2 CDR2L positive HLA-II MS assay annotations across 3 and 2 references respectively | [Recorded replay command and limits](docs/antigen-discovery-round2-2026-11-05.md#what-was-actually-checked), [query manifest](registries/antigen-metadata-audit-2026-11-05.json); metadata only, not unique ligand validation or anti-Yo receptor recognition |",
+      "source_ids": [],
+      "statement": "The dated, canonical-parent IEDB metadata queries return 7 CDR2 and 2 CDR2L positive HLA-II MS assay annotations across 3 and 2 references respectively"
+    },
+    {
+      "artifact_paths": [
+        "registries/cdr2-hla-ii-evidence-map-2026-11-06.json"
+      ],
+      "canonical_sha256": "efa9b6d98a58be252819211669f80038294e0dd0cd20dd40b8e4e687d51e963d",
+      "certificate_paths": [
+        "registries/cdr2-hla-ii-evidence-map-2026-11-06.json"
+      ],
+      "id": "V27",
+      "label": "VERIFIED",
+      "recheck_commands": [],
+      "row_text": "| V27 | The nine-assay IEDB class-II batch replay (manifest [accessed_at_utc](registries/cdr2-hla-ii-evidence-map-2026-11-06.json)) returns seven CDR2 and two CDR2L rows whose **assay IDs**, **parent_source_antigen_iri** (UNIPROT:Q01850 / Q86X02), **pubmed_id**, **mhc_class**, **mhc_allele_name**, **mhc_allele_evidence**, and **qualitative_measure** match `expected_rows` — not raw HTTP SHA-256 | Identity replay in [evidence map](docs/cdr2-hla-ii-evidence-map-2026-11-06.md#machine-checkable-reproduction); optional `response_sha256_snapshot` is point-in-time only; metadata check, not ligand or anti-Yo receptor validation |",
+      "source_ids": [],
+      "statement": "The nine-assay IEDB class-II batch replay (manifest [accessed_at_utc](registries/cdr2-hla-ii-evidence-map-2026-11-06.json)) returns seven CDR2 and two CDR2L rows whose **assay IDs**, **parent_source_antigen_iri** (UNIPROT:Q01850 / Q86X02), **pubmed_id**, **mhc_class**, **mhc_allele_name**, **mhc_allele_evidence**, and **qualitative_measure** match `expected_rows` — not raw HTTP SHA-256"
+    },
+    {
+      "artifact_paths": [
+        "registries/pilot-001-auc-discrepancy.json",
+        "tools/analyze_auc_discrepancy.py"
+      ],
+      "canonical_sha256": "636c865730c3a1126d244e7ba8b4ca72673d615c4070f1c37cb228116a51f37b",
+      "certificate_paths": [
+        "registries/pilot-001-auc-discrepancy.json"
+      ],
+      "id": "V23",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/analyze_auc_discrepancy.py",
+        "python3 -m unittest tests.test_auc_discrepancy -v"
+      ],
+      "row_text": "| V23 | Pilot 001 discovery AUROC discrepancy candidates (a)–(e) on released scores: ties=0; polarity reverse=0.191; Mann–Whitney=trapezoidal=0.80885; DeLong and stratified bootstrap 95% CIs both contain printed 0.83 while the point estimate remains 0.80885; fold-wise mean AUC not testable from public material | `python3 tools/analyze_auc_discrepancy.py` (network); `python3 -m unittest tests.test_auc_discrepancy -v`; [analysis](docs/pilot-001-auc-discrepancy.md); [registry](registries/pilot-001-auc-discrepancy.json) |",
+      "source_ids": [],
+      "statement": "Pilot 001 discovery AUROC discrepancy candidates (a)–(e) on released scores: ties=0; polarity reverse=0.191; Mann–Whitney=trapezoidal=0.80885; DeLong and stratified bootstrap 95% CIs both contain printed 0.83 while the point estimate remains 0.80885; fold-wise mean AUC not testable from public material"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "271ae52cf6bd7ef2ca60069ca9816fc812dec0c829e05eab7e03f0f1b8ec79a9",
+      "certificate_paths": [],
+      "id": "K01",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K01 | Discovery fivefold-CV AUC **0.83** (95% CI 0.77–0.90) for primary refractory HGSOC | Chowdhury et al., *Cell* 2023, https://doi.org/10.1016/j.cell.2023.07.004 |",
+      "source_ids": [],
+      "statement": "Discovery fivefold-CV AUC **0.83** (95% CI 0.77–0.90) for primary refractory HGSOC"
+    },
+    {
+      "artifact_paths": [
+        "registries/datasets.json"
+      ],
+      "canonical_sha256": "6dde11f5b5939ea020faa1c6aed0480b45d0a71b5e329b84ddbb167df364d068",
+      "certificate_paths": [
+        "registries/datasets.json"
+      ],
+      "id": "K02",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K02 | Six PDC PTRC HGSOC studies in the catalog: **PDC000358/360/362** proteome (pilot candidates) and **PDC000357/359/361** phosphoproteome (context only); PDC open-data terms **CC BY 4.0** | [datasets.json](registries/datasets.json); PDC GraphQL `submitter_id_name` rechecked 2026-11-04 |",
+      "source_ids": [],
+      "statement": "Six PDC PTRC HGSOC studies in the catalog: **PDC000358/360/362** proteome (pilot candidates) and **PDC000357/359/361** phosphoproteome (context only); PDC open-data terms **CC BY 4.0**"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "933e3c00fcac2e0fc8df00af79b9eef208651da44e490b6b7e91582e52bb9cc0",
+      "certificate_paths": [],
+      "id": "K03",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K03 | NLM supplemental MMC1 (clinical) and MMC4 (panel/membership) associated with **CC BY-NC-ND 4.0** | Article version record cited in [data-use](docs/pilot-001-data-use.md) |",
+      "source_ids": [],
+      "statement": "NLM supplemental MMC1 (clinical) and MMC4 (panel/membership) associated with **CC BY-NC-ND 4.0**"
+    },
+    {
+      "artifact_paths": [
+        "registries/sources.json"
+      ],
+      "canonical_sha256": "1f50085f9d52cdc456ebc35b2f28d63b5ee41a76c46530fe67089791f063b7c9",
+      "certificate_paths": [
+        "registries/sources.json"
+      ],
+      "id": "K04",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K04 | Publisher correction to supplemental legend text | Chowdhury et al., *Cell* **187**, 1016 (2024), https://doi.org/10.1016/j.cell.2024.01.016 (S11 in [sources.json](registries/sources.json)) |",
+      "source_ids": [
+        "S11"
+      ],
+      "statement": "Publisher correction to supplemental legend text"
+    },
+    {
+      "artifact_paths": [
+        "protocols/pilot-001.md"
+      ],
+      "canonical_sha256": "5576b898ad3c9bbf37b532e2a24d8c547140d401f82ebdb54b32783cef6678cc",
+      "certificate_paths": [],
+      "id": "K05",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K05 | Author analysis scripts exist at inspected commit; not executed here | WangLab-MSSM/CPTAC_Ovarian_Chemo_Response commit `48357fd…` (see [pilot 001](protocols/pilot-001.md)) |",
+      "source_ids": [],
+      "statement": "Author analysis scripts exist at inspected commit; not executed here"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "137063f336df5f4f504c64c778caa32d8fa9f31d03e345d01be933f0dd4401d8",
+      "certificate_paths": [],
+      "id": "K06",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K06 | Primary refractory vs later platinum-resistant recurrence are distinct endpoints | Stated in protocol from primary literature review ([feasibility audit](docs/pilot-001-feasibility-audit.md)) |",
+      "source_ids": [],
+      "statement": "Primary refractory vs later platinum-resistant recurrence are distinct endpoints"
+    },
+    {
+      "artifact_paths": [
+        "protocols/pilot-001-score-verification.md"
+      ],
+      "canonical_sha256": "0a1a3779cd0b4f915bc9f43e123007e8e6de74b76661cfa7d23e09fda68c7d70",
+      "certificate_paths": [],
+      "id": "K07",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K07 | Published discovery score sheet row counts and class balance (135 rows; 52 refractory / 83 sensitive) | Paper supplementary locations S95/S99 as recorded in [score verification protocol](protocols/pilot-001-score-verification.md) |",
+      "source_ids": [
+        "S95",
+        "S99"
+      ],
+      "statement": "Published discovery score sheet row counts and class balance (135 rows; 52 refractory / 83 sensitive)"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "86304e233ad90d781482ee373a67aa754cfc69539aa7b559298148c3d5c2d0b4",
+      "certificate_paths": [],
+      "id": "K08",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K08 | PDC processed-file metadata and version-1 study headers were readable on audited dates | [Input resolution](docs/pilot-001-input-resolution.md); registry summaries |",
+      "source_ids": [],
+      "statement": "PDC processed-file metadata and version-1 study headers were readable on audited dates"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "970c2a852e1dc09f532b3e32fdaf1ed818db9681ec81be3407fc9316fdd78d52",
+      "certificate_paths": [],
+      "id": "K09",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K09 | Six frozen patient keys appear in both published frozen nonoverlap scores and eligible discovery scores | [Input resolution](docs/pilot-001-input-resolution.md) — membership fact, independence not proven |",
+      "source_ids": [],
+      "statement": "Six frozen patient keys appear in both published frozen nonoverlap scores and eligible discovery scores"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "c5ebbcb8d814055f0f1893a9f914e6079570a31000877903625b6c9bc459785d",
+      "certificate_paths": [],
+      "id": "K10",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K10 | Recovered author discovery matrix header matches 168 response-labelled rows and 135 score keys | [Independent progress](docs/pilot-001-independent-progress.md); registry V13/V14 |",
+      "source_ids": [],
+      "statement": "Recovered author discovery matrix header matches 168 response-labelled rows and 135 score keys"
+    },
+    {
+      "artifact_paths": [
+        "registries/pilot-001-author-feature-summary.json"
+      ],
+      "canonical_sha256": "c8e6462831d2ce88cca7ad3ecb476799d04af5f3fbabc2c3683f1400ff38fe8b",
+      "certificate_paths": [
+        "registries/pilot-001-author-feature-summary.json"
+      ],
+      "id": "K11",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K11 | 64 panel symbols appear once among 8,800 feature rows in pinned author member (bounded audit) | [Author feature registry](registries/pilot-001-author-feature-summary.json) |",
+      "source_ids": [],
+      "statement": "64 panel symbols appear once among 8,800 feature rows in pinned author member (bounded audit)"
+    },
+    {
+      "artifact_paths": [
+        "registries/pilot-001-validation-panel-coverage.json"
+      ],
+      "canonical_sha256": "2f8a6151064f74685e81d920ea1aef6e91f1dea3e854b78a42ff936947f997b9",
+      "certificate_paths": [
+        "registries/pilot-001-validation-panel-coverage.json"
+      ],
+      "id": "K12",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K12 | 64/64 panel symbols in published MMC1 association lists for three cohort feature sets | [Validation panel registry](registries/pilot-001-validation-panel-coverage.json) |",
+      "source_ids": [],
+      "statement": "64/64 panel symbols in published MMC1 association lists for three cohort feature sets"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "3e7c3be06a2a6a992530b3491aaeaa23c7c2c443f01a8d5ecfbc5bfa17e94433",
+      "certificate_paths": [],
+      "id": "K13",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K13 | Copyright Act s. 29 fair-dealing framework described for conditional Canadian research-use assessment | *CCH Canadian Ltd. v. Law Society of Upper Canada*, 2004 SCC 13 (quoted in [data-use](docs/pilot-001-data-use.md)) |",
+      "source_ids": [],
+      "statement": "Copyright Act s. 29 fair-dealing framework described for conditional Canadian research-use assessment"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "382f0c9e8346800b8e7488a7080cc40e7b3373cba44719b4b7d8e55a233da835",
+      "certificate_paths": [],
+      "id": "K90",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K90 | Institutional history and article affiliations distinguish the Toronto/Beaumont gynecologic oncologist from the FIU biochemist; P is not an exclusion rule | [Rosen survey identity evidence](docs/research/barry-rosen.md#identity-and-attribution), S90–S91 |",
+      "source_ids": [
+        "S90",
+        "S91"
+      ],
+      "statement": "Institutional history and article affiliations distinguish the Toronto/Beaumont gynecologic oncologist from the FIU biochemist; P is not an exclusion rule"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "270ba95d53e8d354f6da5b63a58e62760223a16cf2bd7bd4f6e56d552ab2bfcd",
+      "certificate_paths": [],
+      "id": "K91",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K91 | GSE51831 public series metadata links PMID 24982872 and lists expression files; data reuse and model-training rights remain unresolved | [Rosen resource assessment](docs/research/barry-rosen.md#data-code-and-reuse-observed-availability), S92–S93 |",
+      "source_ids": [
+        "S92",
+        "S93"
+      ],
+      "statement": "GSE51831 public series metadata links PMID 24982872 and lists expression files; data reuse and model-training rights remain unresolved"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "05d10339cb237b622ddec7624d8da3af748220e19504194fbd64a38228b59d1f",
+      "certificate_paths": [],
+      "id": "K93",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K93 | The NK leukemogenesis paper names Boas Rosen at NCI-Frederick; the glutaminase preprint/journal maps Rosen to FIU, so neither establishes the clinician’s ovarian immunotherapy work | [2026-11-05 primary identity checks](docs/research/barry-rosen.md#high-value-cross-checks), S96–S97 |",
+      "source_ids": [
+        "S96",
+        "S97"
+      ],
+      "statement": "The NK leukemogenesis paper names Boas Rosen at NCI-Frederick; the glutaminase preprint/journal maps Rosen to FIU, so neither establishes the clinician’s ovarian immunotherapy work"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "3359bb294d7c74a6083766aa6117fde6914f6b2a8fe66de183fc2098bf1179ec",
+      "certificate_paths": [],
+      "id": "K92",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K92 | The 2013 MSI risk-factor paper has an indexed retraction; retained as bibliography only | [Notice checks](docs/research/barry-rosen.md#corrections-and-related-records) |",
+      "source_ids": [],
+      "statement": "The 2013 MSI risk-factor paper has an indexed retraction; retained as bibliography only"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "1611ecf09621cf62d00d8669631beb47ec751508fd8591d125555d93bdfce17e",
+      "certificate_paths": [],
+      "id": "K14",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K14 | Mission tribute: project honours Asma Ansari | [README](README.md) opening — biographical, not a research cohort claim |",
+      "source_ids": [],
+      "statement": "Mission tribute: project honours Asma Ansari"
+    },
+    {
+      "artifact_paths": [
+        "registries/sources.json"
+      ],
+      "canonical_sha256": "2532ffad8a5660db4b67ad540c513bca9f6d7384c1774c679b0a98252aa27a5d",
+      "certificate_paths": [
+        "registries/sources.json"
+      ],
+      "id": "K15",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K15 | Petitpré study methods/access qualifications and review history are documented in the [source audit](docs/anti-yo-frontier-2026-11-04.md#source-audit) | S37–S38; exact PDF pages and hashes in [sources.json](registries/sources.json) |",
+      "source_ids": [
+        "S37",
+        "S38"
+      ],
+      "statement": "Petitpré study methods/access qualifications and review history are documented in the [source audit](docs/anti-yo-frontier-2026-11-04.md#source-audit)"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "a42b0393fc253ecff49ae71f38a0c3d38f1e8796e25d255ff8ec37f34cd6bfe4",
+      "certificate_paths": [],
+      "id": "K16",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K16 | Anti-Yo antigen biology, HLA associations and context-dependent immune responses have substantial prior art | S39–S45, S48, S50–S51, S76; [frontier prior-art table](docs/anti-yo-frontier-2026-11-04.md#prior-art-and-the-remaining-gap) and molecular handoff |",
+      "source_ids": [
+        "S39",
+        "S45",
+        "S48",
+        "S50",
+        "S51",
+        "S76"
+      ],
+      "statement": "Anti-Yo antigen biology, HLA associations and context-dependent immune responses have substantial prior art"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "e37e618858f63d563a8d3858a6afa38ec7cc4b75262de488474c50c67b98cffb",
+      "certificate_paths": [],
+      "id": "K17",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K17 | ALS compartment methods and the ROHHAD AEGIS preprint are cross-disease precedents, not anti-Yo validation | S46–S47; AEGIS is explicitly a preprint; [frontier](docs/anti-yo-frontier-2026-11-04.md) |",
+      "source_ids": [
+        "S46",
+        "S47"
+      ],
+      "statement": "ALS compartment methods and the ROHHAD AEGIS preprint are cross-disease precedents, not anti-Yo validation"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "e0d5664689ffaba49a3bdedee55901c37140ff8340c31d9397d427ae2eb21372",
+      "certificate_paths": [],
+      "id": "K18",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K18 | Longitudinal clone tracking, KELIM and CA125-triggered intervention studies address different evidence questions | S02, S52–S53; [handoff](docs/research-handoff-2026-11-04.md) H01–H03 |",
+      "source_ids": [
+        "S02",
+        "S52",
+        "S53"
+      ],
+      "statement": "Longitudinal clone tracking, KELIM and CA125-triggered intervention studies address different evidence questions"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "a90826f08ae993a1b36c404f57a6605b88ee2b9d18fe7a2f3868008016676747",
+      "certificate_paths": [],
+      "id": "K19",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K19 | Spatial/perturbational profiling and small organoid studies motivate further evaluation without establishing assay-guided clinical benefit | S03, S54–S55; handoff H04–H06 |",
+      "source_ids": [
+        "S03",
+        "S54",
+        "S55"
+      ],
+      "statement": "Spatial/perturbational profiling and small organoid studies motivate further evaluation without establishing assay-guided clinical benefit"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "2ef45754aaabdc2f817821961f4138ec6516d4763835403b9554314c05246d6a",
+      "certificate_paths": [],
+      "id": "K20",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K20 | TrialGPT workflow findings and PRO-TECT clinical workflow outcomes do not establish benefit from a new standalone application | S56–S57; handoff H07–H08 |",
+      "source_ids": [
+        "S56",
+        "S57"
+      ],
+      "statement": "TrialGPT workflow findings and PRO-TECT clinical workflow outcomes do not establish benefit from a new standalone application"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "d3c4744e4380a72fb5066e3c71a715184812fc9ac4ad8addf0a382e248d1d6eb",
+      "certificate_paths": [],
+      "id": "K21",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K21 | Anti-Yo checkpoint-inhibitor case evidence is a limited safety research signal | S49; five selected cases, no incidence estimate or individual treatment inference |",
+      "source_ids": [
+        "S49"
+      ],
+      "statement": "Anti-Yo checkpoint-inhibitor case evidence is a limited safety research signal"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "6d81ff8f4bd529ebc232172bc85dfd5cbfec6f1fe00400c6f80f3cc7964f6429",
+      "certificate_paths": [],
+      "id": "K22",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K22 | FDA notices describe dated, assay/context-specific US indications; target-heterogeneity studies are separate evidence | S04–S05, S59–S62; [molecular handoff](docs/molecular-research-handoff-2026-11-04.md) |",
+      "source_ids": [
+        "S04",
+        "S05",
+        "S59",
+        "S62"
+      ],
+      "statement": "FDA notices describe dated, assay/context-specific US indications; target-heterogeneity studies are separate evidence"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "145d5ce50a3e32d0fe8bb21697fe39a47def78ba27cc2967116ee5b155e56c7a",
+      "certificate_paths": [],
+      "id": "K23",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K23 | MUC16, replication-stress, adaptive-resistance, ADC and ascites leads span preclinical, observational and prospective evidence | S58, S63–S64, S66–S69; molecular handoff; no new target validation |",
+      "source_ids": [
+        "S58",
+        "S63",
+        "S64",
+        "S66",
+        "S69"
+      ],
+      "statement": "MUC16, replication-stress, adaptive-resistance, ADC and ascites leads span preclinical, observational and prospective evidence"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "a4a5690db60b5b7d9b0d08b8ee9449f8caa55cb3c0fb1ee8754f41fad4057fd5",
+      "certificate_paths": [],
+      "id": "K24",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K24 | Reviewed code licenses and catalog pointers have source-specific limits | S65, S70–S75; handoffs and registry record what was inspected; no dataset-use grant inferred |",
+      "source_ids": [
+        "S65",
+        "S70",
+        "S75"
+      ],
+      "statement": "Reviewed code licenses and catalog pointers have source-specific limits"
+    },
+    {
+      "artifact_paths": [
+        "protocols/pilot-001.md"
+      ],
+      "canonical_sha256": "25f3440dff780d46900f265f7c3bc53d8f86eb79e5896387754733e9139e8926",
+      "certificate_paths": [],
+      "id": "C01",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C01 | Full Figure 3D model reproduction is achievable with permitted inputs | [Pilot 001](protocols/pilot-001.md) target; Gate 0 partially closed (2026-11-05); Gates 1–2 open |",
+      "source_ids": [],
+      "statement": "Full Figure 3D model reproduction is achievable with permitted inputs"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "1851dd3c95b4024e0a12142c7dffa52ff87c595d986c61fd92a5c9338daa5f87",
+      "certificate_paths": [],
+      "id": "C02",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C02 | Independent reconstruction will agree with published metrics within ≤0.02 AUC when fairly compared | Predeclared tolerance; not tested on study data |",
+      "source_ids": [],
+      "statement": "Independent reconstruction will agree with published metrics within ≤0.02 AUC when fairly compared"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "c749b830564e637866f0e14fc34a7ceb3d4ed72b2fdfef428819cfe8cf622978",
+      "certificate_paths": [],
+      "id": "C03",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C03 | Author-released matrix can support the selected reconstruction after transformation gaps close | Naming/feature coverage improved; workspace provenance open |",
+      "source_ids": [],
+      "statement": "Author-released matrix can support the selected reconstruction after transformation gaps close"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "fda45b27ffea0bde3c8d96c62a265368dd8c0ef0325dbf95b4bbe76d8c39c90a",
+      "certificate_paths": [],
+      "id": "C04",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C04 | Conditional Canadian fair-dealing route applies to a future narrow research run on the owner's MacBook in Ontario | Condition (a) attestation met for **2026-11-05 only**; still needs macOS preflight (b), no row-level leakage (c), and fresh attestation for later run dates ([data-use](docs/pilot-001-data-use.md#assessment-for-owner-macbook-in-canada-gate-0-q1-update-2026-11-05)) |",
+      "source_ids": [],
+      "statement": "Conditional Canadian fair-dealing route applies to a future narrow research run on the owner's MacBook in Ontario"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "fa20d30d95419d708690f028cb9778ea1ad4e01446dc33f573f807bd9eeb2266",
+      "certificate_paths": [],
+      "id": "C05",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C05 | The owner's consolidated [source request](templates/pilot-001-source-request.md) may resolve missing inputs | Sent by owner; canonical [sending record](docs/pilot-001-source-request-handoff.md); answers and research gates remain open |",
+      "source_ids": [],
+      "statement": "The owner's consolidated [source request](templates/pilot-001-source-request.md) may resolve missing inputs"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "7c154c1574b7281e209242105cee95ce675a775a9febd7ccf31f7098b22c16d3",
+      "certificate_paths": [],
+      "id": "C06",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C06 | Future confirmatory validation could meet a 98% specificity lower bound | Requires ~149 independent sensitive patients ([validation capacity](docs/pilot-001-validation-capacity.md)) |",
+      "source_ids": [],
+      "statement": "Future confirmatory validation could meet a 98% specificity lower bound"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "f6893a6d6533dba0ae914b83883b96992775a97c0b90c44bdb17250fee464279",
+      "certificate_paths": [],
+      "id": "C07",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C07 | Independent evaluation could eventually inform research decisions with appropriate review | Mission aspiration; no current clinical result |",
+      "source_ids": [],
+      "statement": "Independent evaluation could eventually inform research decisions with appropriate review"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "9b799644208645120ef22f4bc38787b10dad6148722e78b4d7133b78b06332e9",
+      "certificate_paths": [],
+      "id": "C90",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C90 | The ranked Rosen-survey questions may yield useful research artifacts | [Candidate/deferred questions](docs/research/barry-rosen.md#ranked-project-asma-research-fit-questions); not executed or adopted |",
+      "source_ids": [],
+      "statement": "The ranked Rosen-survey questions may yield useful research artifacts"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "8657921c1838a886163184120d53199d1851e112ce904feaf82198f43f780c1c",
+      "certificate_paths": [],
+      "id": "C08",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C08 | Prior-art searches listed in audits did not locate a corrected MMC4 artifact | Documented as \"not found\", **not** \"novel\" |",
+      "source_ids": [],
+      "statement": "Prior-art searches listed in audits did not locate a corrected MMC4 artifact"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "298c48db7f5946089efa63cafe0e3d6eedabc1df0e981e1a5def1611de2b5324",
+      "certificate_paths": [],
+      "id": "C09",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C09 | Validated receptor/antigen/presenter evidence would help resolve competing anti-Yo CD4 explanations | Proposed H1–H5 matrix in the [frontier proposal](docs/anti-yo-frontier-2026-11-04.md); untested |",
+      "source_ids": [],
+      "statement": "Validated receptor/antigen/presenter evidence would help resolve competing anti-Yo CD4 explanations"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "3437bf84a48053fb0d479550426e46d86b749f774cd37c5b08caf804920c92df",
+      "certificate_paths": [],
+      "id": "C10",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C10 | Presenting context may separate tumor response from neural injury | Mechanistic comparison proposed, no separation or safe intervention demonstrated |",
+      "source_ids": [],
+      "statement": "Presenting context may separate tumor response from neural injury"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "ebd4562f52c900207dbedbe6198f217950ca6a9a8eefdfbe8ff30488e6308cb7",
+      "certificate_paths": [],
+      "id": "C11",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C11 | Antigen processing may uncouple abundance from immune recognition | Conditional hypothesis; no empirical chain established here |",
+      "source_ids": [],
+      "statement": "Antigen processing may uncouple abundance from immune recognition"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "064b2b0604225d39f257283666c790f487d3b3063cc6df973ee64f5084f58719",
+      "certificate_paths": [],
+      "id": "C12",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C12 | Synthetic identifiability checks and proposed annotation/control sensitivities can improve the next study's design | Calculations executed; their practical research value is a judgment; no study reanalysis |",
+      "source_ids": [],
+      "statement": "Synthetic identifiability checks and proposed annotation/control sensitivities can improve the next study's design"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "53655d81cdf1fd392030d6d8aa80eeabed3bf9d3c4ecd434547b3efa9d73f4fa",
+      "certificate_paths": [],
+      "id": "C13",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C13 | Broader longitudinal, spatial, organoid, navigation and symptom avenues merit the ranked next tasks | [Research handoff](docs/research-handoff-2026-11-04.md); prioritization is not measured benefit or novelty |",
+      "source_ids": [],
+      "statement": "Broader longitudinal, spatial, organoid, navigation and symptom avenues merit the ranked next tasks"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "734c1b9f782088802a8375c8cc38a497a2e59638c28539b26aed75307574eda9",
+      "certificate_paths": [],
+      "id": "C14",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C14 | Assay-aware molecular, perturbation and adaptive-resistance work may contribute to the expanded mission | [Molecular handoff](docs/molecular-research-handoff-2026-11-04.md); proposals and stop rules, no individual target assignment |",
+      "source_ids": [],
+      "statement": "Assay-aware molecular, perturbation and adaptive-resistance work may contribute to the expanded mission"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "f82189e61ef55446b029b3513ffa30e1cf0c2e0de63728e29aed3517f0defa9d",
+      "certificate_paths": [],
+      "id": "C20",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C20 | The printed discovery 0.83 may be a mean of fold-wise AUCs or may use predictions that are not identical to the released `FFPE_pred_scores` sheet | Leading open explanation after VERIFIED rejection of ties/polarity/ordinary rounding; see [discrepancy analysis](docs/pilot-001-auc-discrepancy.md) |",
+      "source_ids": [],
+      "statement": "The printed discovery 0.83 may be a mean of fold-wise AUCs or may use predictions that are not identical to the released `FFPE_pred_scores` sheet"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "aa07a22300e95efb2f57faba134b1223c2fc96f4f7ca9feab299ceaacae1b373",
+      "certificate_paths": [],
+      "id": "K25",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K25 | KNOWN | Public epitope-catalog annotations narrow the previous CDR2L HLA-II search gap; presentation is distinct from anti-Yo receptor specificity | [Antigen audit](docs/antigen-discovery-round2-2026-11-05.md); exact protein/class/reference joins and remaining validation limits |",
+      "source_ids": [],
+      "statement": "Public epitope-catalog annotations narrow the previous CDR2L HLA-II search gap; presentation is distinct from anti-Yo receptor specificity"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "5c692a2d77df7c56d410574988f2faa259664bdf39d707e69b17f566c8f7d2ab",
+      "certificate_paths": [],
+      "id": "K26",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K26 | KNOWN | CDR adaptor biology, ovarian-knockout measurement limits and CMV-associated CD4 states provide relevant alternative explanations | [Tumor review](docs/tumor-discovery-round2-2026-11-05.md) and [causal review](docs/causal-discovery-round2-2026-11-05.md); model, preparation and disease transfers remain explicit |",
+      "source_ids": [],
+      "statement": "CDR adaptor biology, ovarian-knockout measurement limits and CMV-associated CD4 states provide relevant alternative explanations"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "724ebc9967721f5ef56752caf6956f6dd5c7ffb4ad1837c786b369e1705d0a68",
+      "certificate_paths": [],
+      "id": "C15",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C15 | CONJECTURE | CDR2L dependence can arise from direct recognition, indirect antigen delivery or both | [Round-2 synthesis](docs/discovery-round2-2026-11-05.md); conceptual alternatives, no observed anti-Yo experiment |",
+      "source_ids": [],
+      "statement": "CDR2L dependence can arise from direct recognition, indirect antigen delivery or both"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "3b77444aa16b3d924cb583337f722a975232a434dae20fc3384b173c8e2875db",
+      "certificate_paths": [],
+      "id": "C16",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C16 | CONJECTURE | Linked recognition or historically antiviral cytotoxic cells could explain portions of the immune response without the assumed direct CDR2L pathway | Antigen and causal reviews; no anti-Yo demonstration, and helper function does not establish injury |",
+      "source_ids": [],
+      "statement": "Linked recognition or historically antiviral cytotoxic cells could explain portions of the immune response without the assumed direct CDR2L pathway"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "029fad63af0bfac2cc7f0596c71647aa5c963e84eb22cd88aa4d50d2d7c3e000",
+      "certificate_paths": [],
+      "id": "C17",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C17 | CONJECTURE | Ligand/receptor mapping, source/presenter separation and independent injury measurements are the highest-value next comparisons | Round-2 priorities are research judgments, not discoveries or clinical recommendations |",
+      "source_ids": [],
+      "statement": "Ligand/receptor mapping, source/presenter separation and independent injury measurements are the highest-value next comparisons"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "d8abecfce4c194cfb0c772e08c01401de5e766cf891d5e907225b600a7d6ba73",
+      "certificate_paths": [],
+      "id": "V21",
+      "label": "VERIFIED",
+      "recheck_commands": [],
+      "row_text": "| V21 | VERIFIED | An offline evidence graph matches 22 scoped requests against 24 curated assertions, retaining 15 unresolved requests and one scoped negative result | [Executed result](docs/evidence-graph-result-2026-11-05.md); regression expectations are manually specified, not an independent scientific accuracy benchmark |",
+      "source_ids": [],
+      "statement": "An offline evidence graph matches 22 scoped requests against 24 curated assertions, retaining 15 unresolved requests and one scoped negative result"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "6f3eb643946b8fa3da633b17a3ddf1432cc189ed2cea9f841227b497debd26a7",
+      "certificate_paths": [],
+      "id": "C18",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C18 | CONJECTURE | Separating ligand/source dependence from injury mechanism improves the next research comparison | Same result; direct CDR2L recognition and indirect injury can coexist, but neither has been established by the graph |",
+      "source_ids": [],
+      "statement": "Separating ligand/source dependence from injury mechanism improves the next research comparison"
+    },
+    {
+      "artifact_paths": [
+        "tools/analyze_treatment_sequence.py"
+      ],
+      "canonical_sha256": "2e6242573b78d2399c30c5668ded824ad6ca11ffdc45d24e179360d84c1a81f9",
+      "certificate_paths": [],
+      "id": "V22",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/analyze_treatment_sequence.py"
+      ],
+      "row_text": "| V22 | VERIFIED | In 84 invented parameter cases, proportional surgery gives equal endpoints in both orders; capped fixed-residual surgery gives 54 chemo-first-higher and 30 equal endpoints, with equal final resistant fractions in all 84 | `python3 tools/analyze_treatment_sequence.py`; [protocol, exact algebra and results](docs/research/rosen-treatment-sequence-assumptions.md). Synthetic finite check, not clinical evidence or full Gu-model reproduction; growth and unequal-target reversals retained. |",
+      "source_ids": [],
+      "statement": "In 84 invented parameter cases, proportional surgery gives equal endpoints in both orders; capped fixed-residual surgery gives 54 chemo-first-higher and 30 equal endpoints, with equal final resistant fractions in all 84"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "20322b2f57e10a3da03cc22fc4ae52220ffdb62a3121ef3c48e89df8e8f8a914",
+      "certificate_paths": [],
+      "id": "K27",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K27 | KNOWN | Fixed-fraction surgery and comparison of growth/cell-kill assumptions are explicit prior art for ovarian treatment-sequence modeling | Kohandel, Sivaloganathan and Oza (2006), DOI https://doi.org/10.1016/j.jtbi.2006.02.001, abstract inspected; S119. No novelty claim. |",
+      "source_ids": [
+        "S119"
+      ],
+      "statement": "Fixed-fraction surgery and comparison of growth/cell-kill assumptions are explicit prior art for ovarian treatment-sequence modeling"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "ade1cc987f5cb5934363d93d5c607892014aa92bb588d3a0816011ffb95b8d57",
+      "certificate_paths": [],
+      "id": "C19",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C19 | CONJECTURE | Quantitative pre/postoperative burden, anatomy, composition and timing may distinguish competing surgery response maps and improve subsequent model comparisons | [Prospective design and stop rule](docs/research/rosen-treatment-sequence-assumptions.md#the-next-discriminating-research-question). Not an adopted study, validated measurement system or causal treatment-policy estimate. |",
+      "source_ids": [],
+      "statement": "Quantitative pre/postoperative burden, anatomy, composition and timing may distinguish competing surgery response maps and improve subsequent model comparisons"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "068e36fbddedbea5eb0b10f584b4eaaa4207223cd8be1b1bf7ae48c4f0d123c4",
+      "certificate_paths": [],
+      "id": "K32",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K32 | KNOWN | Pilot 001 Gate 0 owner decisions recorded 2026-11-05 (Q1–Q5); study data on owner's MacBook in **Ontario**; shared cloud (AWS us-east-1) CI/artificial dry runs only; execution-context attestation verbatim on #31 **met condition (a) for 2026-11-05 only**; Ontario provincial note closed in data-use; Dropbox matrix **conditional go** when (b) preflight and (c) no row-level leakage met; Q4 **not externally reviewed**; Q5 exploratory cohort | [Roadmap Gate 0](docs/roadmap.md#pilot-001--gate-0-owner-decisions-2026-11-05); [#31 Gate 0](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662111371), [#31 Q1](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662169564), [#31 attestation](https://github.com/Foundation-0/project-asma/issues/31#issuecomment-6662220698) |",
+      "source_ids": [],
+      "statement": "Pilot 001 Gate 0 owner decisions recorded 2026-11-05 (Q1–Q5); study data on owner's MacBook in **Ontario**; shared cloud (AWS us-east-1) CI/artificial dry runs only; execution-context attestation verbatim on #31 **met condition (a) for 2026-11-05 only**; Ontario provincial note closed in data-use; Dropbox matrix **conditional go** when (b) preflight and (c) no row-level leakage met; Q4 **not externally reviewed**; Q5 exploratory cohort"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "df61f8deb49835499d43721eebfcd62b8dc38071014621924b0eb851ef4c2482",
+      "certificate_paths": [],
+      "id": "V24",
+      "label": "VERIFIED",
+      "recheck_commands": [],
+      "row_text": "| V24 | VERIFIED | The merged Virtual Human reaction/intervention increment passed 153 Python tests and JavaScript checks; its optional bridge matched twelve synthetic Asma operator outcomes within the declared absolute tolerance | [Dated vision/current-capability record](docs/virtual-human-vision.md#the-foundation-we-actually-have) links pinned reports and commands. Exact conservation and independent numerical comparisons establish bounded software properties, not a proof-assistant implementation, complete human model or clinical efficacy. |",
+      "source_ids": [],
+      "statement": "The merged Virtual Human reaction/intervention increment passed 153 Python tests and JavaScript checks; its optional bridge matched twelve synthetic Asma operator outcomes within the declared absolute tolerance"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "89d247697e9fc245a2078729f7437649bee1148ba59eee40b695e9ad01c44881",
+      "certificate_paths": [],
+      "id": "C21",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C21 | CONJECTURE | Connected biological models with explicit evidence, machine-checkable mathematical obligations and independent empirical validation could improve research, experiment/trial design, medicine development and understanding of the body | [Long-term vision](docs/virtual-human-vision.md). All applications are conditional aspirations. Formal correctness cannot establish biological completeness, empirical validity or patient benefit; synthesis/manufacturing and future personal models require separate capabilities and evidence. |",
+      "source_ids": [],
+      "statement": "Connected biological models with explicit evidence, machine-checkable mathematical obligations and independent empirical validation could improve research, experiment/trial design, medicine development and understanding of the body"
+    },
+    {
+      "artifact_paths": [
+        "tools/check_site_models.py"
+      ],
+      "canonical_sha256": "76c7e1e436ca32a5fa3bda4d19cff8a3f94da67a3eda2ffbacd448d47596de04",
+      "certificate_paths": [],
+      "id": "V25",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/check_site_models.py"
+      ],
+      "row_text": "| V25 | VERIFIED | The site's two reference-coordinate assets pass offline identity, topology and omission checks; derivation from pinned archive files is reproducible | [Structure provenance](docs/site-structure-sources.md); `python3 tools/check_site_models.py`. Checks establish the selected coordinate representation, not biological dynamics, original crystallographic accuracy or clinical performance. |",
+      "source_ids": [],
+      "statement": "The site's two reference-coordinate assets pass offline identity, topology and omission checks; derivation from pinned archive files is reproducible"
+    },
+    {
+      "artifact_paths": [
+        "tools/test_research_lab.cjs"
+      ],
+      "canonical_sha256": "21425987934d79de06a4cabd8a31193d1e7e72058dfe68b011c0ea10d9646daa",
+      "certificate_paths": [],
+      "id": "V26",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "node tools/test_research_lab.cjs"
+      ],
+      "row_text": "| V26 | VERIFIED | The browser assumption experiment obeys the exact toy-model boundaries across its 10,000 integer slider combinations | `node tools/test_research_lab.cjs`; [research experiment](docs/research/rosen-treatment-sequence-assumptions.md). Artificial material only; no patient parameters, treatment advice or full Gu-model reproduction. |",
+      "source_ids": [],
+      "statement": "The browser assumption experiment obeys the exact toy-model boundaries across its 10,000 integer slider combinations"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "38ad9c6ac99b189672f5e2e6d71222ea28f947cabc2b243b1e5ff0240655ba84",
+      "certificate_paths": [],
+      "id": "K28",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K28 | KNOWN | RCSB entries 1TRZ and 1BNA describe a crystalline biosynthetic human-insulin assembly and a synthetic DNA dodecamer respectively; public archive/API data have CC0 terms | Sources S122–S124 and [selection/omission record](docs/site-structure-sources.md). Displayed insulin is one selected molecule; displayed DNA is not a human genome fragment. |",
+      "source_ids": [
+        "S122",
+        "S124"
+      ],
+      "statement": "RCSB entries 1TRZ and 1BNA describe a crystalline biosynthetic human-insulin assembly and a synthetic DNA dodecamer respectively; public archive/API data have CC0 terms"
+    },
+    {
+      "artifact_paths": [
+        "registries/pilot-001-exploratory-subset-design.json",
+        "tools/plan_exploratory_subset_design.py"
+      ],
+      "canonical_sha256": "27b4eb455fd54e2599041bc7e19f720a044fcb90eb93a577c51ae2f7f058620e",
+      "certificate_paths": [
+        "registries/pilot-001-exploratory-subset-design.json"
+      ],
+      "id": "V28",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/plan_exploratory_subset_design.py --check",
+        "python3 -m unittest tests.test_exploratory_subset_design -v"
+      ],
+      "row_text": "| V28 | VERIFIED | For 8 refractory versus 13 sensitive patients, the exact Mann–Whitney null rejects AUROC = 0.5 one-sided at the 5% level only for U ≥ **76** of 104 pairs (AUROC ≥ 19/26 ≈ 0.7308; exact p = 0.04452, and 0.05210 at U = 75); for 11 versus 17 the region is U ≥ 130 of 187; two-sided 95% Clopper–Pearson intervals for every k/8 and j/13 are tabulated as correctly rounded roots of the exact binomial tails (exact rational sign tests, platform-independent bytes) | `python3 tools/plan_exploratory_subset_design.py --check`; `python3 -m unittest tests.test_exploratory_subset_design -v`; [design record](registries/pilot-001-exploratory-subset-design.json). Offline calculation on documented counts; no score was read and no model performance was measured |",
+      "source_ids": [],
+      "statement": "For 8 refractory versus 13 sensitive patients, the exact Mann–Whitney null rejects AUROC = 0.5 one-sided at the 5% level only for U ≥ **76** of 104 pairs (AUROC ≥ 19/26 ≈ 0.7308; exact p = 0.04452, and 0.05210 at U = 75); for 11 versus 17 the region is U ≥ 130 of 187; two-sided 95% Clopper–Pearson intervals for every k/8 and j/13 are tabulated as correctly rounded roots of the exact binomial tails (exact rational sign tests, platform-independent bytes)"
+    },
+    {
+      "artifact_paths": [
+        "registries/pilot-001-supplement-summary.json"
+      ],
+      "canonical_sha256": "d71744bc92b46bc1ab78100d13aa75a03b1fbcbbafae6b1a2cd631a27b336a4e",
+      "certificate_paths": [
+        "registries/pilot-001-supplement-summary.json"
+      ],
+      "id": "K30",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K30 | KNOWN | The paper's frozen \"independent\" prediction set holds 34 tumours after neoadjuvant exclusion (P183), 13 of them from discovery patients (P145 with the audit's exact joins); its printed metrics are AUC 0.79 (95% CI 0.63–0.96) and sensitivity 0.25 at 98% specificity (P33), consistent with 3 of the sheet's 12 refractory tumours | Chowdhury et al., *Cell* 2023 (S01) as quoted in [open-questions section 4](docs/pilot-001-open-questions.md); sheet class counts 22/12 in the [supplement audit](registries/pilot-001-supplement-summary.json). The released sheet is not established as the exact input to the printed metrics |",
+      "source_ids": [
+        "S01"
+      ],
+      "statement": "The paper's frozen \"independent\" prediction set holds 34 tumours after neoadjuvant exclusion (P183), 13 of them from discovery patients (P145 with the audit's exact joins); its printed metrics are AUC 0.79 (95% CI 0.63–0.96) and sensitivity 0.25 at 98% specificity (P33), consistent with 3 of the sheet's 12 refractory tumours"
+    },
+    {
+      "artifact_paths": [
+        "registries/pilot-001-supplement-summary.json"
+      ],
+      "canonical_sha256": "7bf8f1fcb02b9939db965c1835729f6619b70feaffab0645ecd927e9545e0463",
+      "certificate_paths": [
+        "registries/pilot-001-supplement-summary.json"
+      ],
+      "id": "K31",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K31 | KNOWN | Of those 34 patients, **21 (13 sensitive / 8 refractory)** appear in no discovery record of any kind, 28 (17/11) are outside the eligible discovery set, and the remaining 40 scored frozen patients (29/11: the 27 overlap-sheet patients plus 13) all have a discovery record | Registry fields `patient_keys_not_observed_in_all_discovery` (21) and `…_in_eligible_discovery` (28) in the [supplement audit](registries/pilot-001-supplement-summary.json); class splits from the 2026-10-25 bounded inspection in [open-questions section 4](docs/pilot-001-open-questions.md), inherited and not rerun. Membership facts; not proof of an untouched or independent evaluation set |",
+      "source_ids": [],
+      "statement": "Of those 34 patients, **21 (13 sensitive / 8 refractory)** appear in no discovery record of any kind, 28 (17/11) are outside the eligible discovery set, and the remaining 40 scored frozen patients (29/11: the 27 overlap-sheet patients plus 13) all have a discovery record"
+    },
+    {
+      "artifact_paths": [
+        "protocols/pilot-001-exploratory-subset-plan.md"
+      ],
+      "canonical_sha256": "43916d8057d491a18bc4180bd7a5f127bfa4d9c8b6e53e70ffbe9c476b4d2cd9",
+      "certificate_paths": [],
+      "id": "C22",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C22 | CONJECTURE | Within that 21-patient subset, refractory-prediction scores rank refractory above sensitive tumours better than chance | [Pre-registered plan](protocols/pilot-001-exploratory-subset-plan.md): one-sided exact test at α = 0.05 with critical value U ≥ 76 of 104 (AUROC ≥ 19/26), patient bootstrap and DeLong intervals, threshold fixed on the other 40 patients. Not executed; exploratory only under Gate 0 Q5 (K32); neither outcome is validation, reproduction or a clinical result |",
+      "source_ids": [],
+      "statement": "Within that 21-patient subset, refractory-prediction scores rank refractory above sensitive tumours better than chance"
+    },
+    {
+      "artifact_paths": [
+        "results/trial-landscape-2026-11-05/certificate.json",
+        "results/trial-landscape-2026-11-05/verify.py"
+      ],
+      "canonical_sha256": "44fadf57395b8f6bb76851e343861b027ba064af754da9c28926620f380f2947",
+      "certificate_paths": [
+        "results/trial-landscape-2026-11-05/certificate.json"
+      ],
+      "id": "V29",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 results/trial-landscape-2026-11-05/verify.py"
+      ],
+      "row_text": "| V29 | VERIFIED | The live fixed ClinicalTrials.gov query returned 592 unique recruiting/interventional records; 155 matched at least one prespecified biomarker bucket, 120 at least one platinum bucket and 50 both | [Report and exact request](docs/trial-landscape-2026-11-05.md); [aggregate certificate](results/trial-landscape-2026-11-05/certificate.json); `python3 results/trial-landscape-2026-11-05/verify.py`. Retrieved 2026-11-05 America/Chicago (2026-11-06 UTC); finite metadata counting, not trial outcomes or eligibility. Offline verification cannot reconstruct unretained source classifications; live reruns may differ. |",
+      "source_ids": [],
+      "statement": "The live fixed ClinicalTrials.gov query returned 592 unique recruiting/interventional records; 155 matched at least one prespecified biomarker bucket, 120 at least one platinum bucket and 50 both"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "2dba20d510dc6ce17c315cb9167e73e11a60fe7cb488319ad41e6b7997cb4fa9",
+      "certificate_paths": [],
+      "id": "K33",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K33 | KNOWN | ClinicalTrials.gov documents search expansion, projected fields, pagination and a UTC processing timestamp; source terms require attribution and describe modification/update obligations and copyright limits; listing does not mean government approval of study safety/science | Primary API documentation, terms and disclaimer, S126–S128; [source and reuse assessment](docs/trial-landscape-2026-11-05.md#reuse-attribution-and-source-limits). No blanket source-license or clinical-validity claim. |",
+      "source_ids": [
+        "S126",
+        "S128"
+      ],
+      "statement": "ClinicalTrials.gov documents search expansion, projected fields, pagination and a UTC processing timestamp; source terms require attribution and describe modification/update obligations and copyright limits; listing does not mean government approval of study safety/science"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "3b58456cec335aaeb1912eff88301197cab5c9991e584c6c741f3d89a8720e67",
+      "certificate_paths": [],
+      "id": "K29",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K29 | KNOWN | Nine curated IEDB class-II MS assay joins link human CDR2 (seven records, five source systems in the map) and CDR2L (two records); none establish anti-Yo CD4 receptor recognition or neural injury from that ligand evidence alone | [Evidence map](docs/cdr2-hla-ii-evidence-map-2026-11-06.md); identity-field IEDB replay [V27](docs/cdr2-hla-ii-evidence-map-2026-11-06.md#machine-checkable-reproduction); parent audit [V20](docs/antigen-discovery-round2-2026-11-05.md#what-was-actually-checked) |",
+      "source_ids": [],
+      "statement": "Nine curated IEDB class-II MS assay joins link human CDR2 (seven records, five source systems in the map) and CDR2L (two records); none establish anti-Yo CD4 receptor recognition or neural injury from that ligand evidence alone"
+    },
+    {
+      "artifact_paths": [
+        "registries/cdr2l-sequence-audit-2026-11-06.json",
+        "tools/audit_cdr2l_sequences.py"
+      ],
+      "canonical_sha256": "778aa92e89fd8883a99995802d8636e2ad03778670f01942da073d4b09b66a21",
+      "certificate_paths": [
+        "registries/cdr2l-sequence-audit-2026-11-06.json"
+      ],
+      "id": "V30",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_cdr2l_sequences.py"
+      ],
+      "row_text": "| V30 | VERIFIED | Both selected IEDB CDR2L HLA-II peptides match canonical Q86X02 at curated coordinates and the explicitly checked unreviewed CDR2L entry A0ACI8RKQ2; neither matches the explicitly checked CDR2 entry Q01850, including I/L-equivalent comparison | [Executed named-candidate result](docs/cdr2l-sequence-adjudication-2026-11-06.md), [aggregate certificate](registries/cdr2l-sequence-audit-2026-11-06.json), `python3 tools/audit_cdr2l_sequences.py`. Three named reference sequences only; remote database search unavailable, no global uniqueness claim, no spectra/allotype/receptor/injury validation. Sources S129–S131 and earlier source map. |",
+      "source_ids": [
+        "S129",
+        "S131"
+      ],
+      "statement": "Both selected IEDB CDR2L HLA-II peptides match canonical Q86X02 at curated coordinates and the explicitly checked unreviewed CDR2L entry A0ACI8RKQ2; neither matches the explicitly checked CDR2 entry Q01850, including I/L-equivalent comparison"
+    },
+    {
+      "artifact_paths": [
+        "tools/check_stated_specificity_bounds.py"
+      ],
+      "canonical_sha256": "12db4e7960db579660d7cc558f378a9c154c0180d62940b0f151ace897263da6",
+      "certificate_paths": [],
+      "id": "V31",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/check_stated_specificity_bounds.py --check"
+      ],
+      "row_text": "| V31 | VERIFIED | One-sided 95% lower specificity bounds for eight stated sensitive denominators, at 0, 1 and 2 false positives, match the binomial tail. The bound reaches 98% at n = 149 with 0 false positives and at n = 236 with 1. Two-sided 95% intervals for 9/26, 163/166, 7/20 and 78/80 match the intervals written in the 11 November notes | `python3 tools/check_stated_specificity_bounds.py --check`; [extract](docs/google-bio-convergence-2026-11-11.md#specificity-bounds-on-stated-denominators). Arithmetic on stated fractions. Not a cohort audit and not measured performance. The audited discovery split remains 83 sensitive by 52 refractory |",
+      "source_ids": [],
+      "statement": "One-sided 95% lower specificity bounds for eight stated sensitive denominators, at 0, 1 and 2 false positives, match the binomial tail. The bound reaches 98% at n = 149 with 0 false positives and at n = 236 with 1. Two-sided 95% intervals for 9/26, 163/166, 7/20 and 78/80 match the intervals written in the 11 November notes"
+    },
+    {
+      "artifact_paths": [
+        "tools/check_stated_specificity_bounds.py"
+      ],
+      "canonical_sha256": "eb52552e5829c509506f5a979dfd48e21d087c73612a737037bf6b255d91868e",
+      "certificate_paths": [],
+      "id": "V32",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/check_stated_specificity_bounds.py --check"
+      ],
+      "row_text": "| V32 | VERIFIED | Of six sensitive/refractory pairs written in the 11 November notes, only 83 and 52 match a class-count pair in the supplement summary on both numbers. The summary has no class-count pair 10/11, 22/20, 44/42, 115/83 or 13/8 | `python3 tools/check_stated_specificity_bounds.py --check`. [Cohort table](docs/google-bio-convergence-2026-11-11.md#stated-cohort-pairs-against-the-supplement-audit). Comparison with the existing audit. Not a new workbook read. The 13/8 split remains the one already recorded as K31 |",
+      "source_ids": [],
+      "statement": "Of six sensitive/refractory pairs written in the 11 November notes, only 83 and 52 match a class-count pair in the supplement summary on both numbers. The summary has no class-count pair 10/11, 22/20, 44/42, 115/83 or 13/8"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "711238e7f3707a3c1633c646ba3c90481b1b803981d952ce3f0baa7b2ac1d684",
+      "certificate_paths": [],
+      "id": "K34",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K34 | KNOWN | Europe PMC titles and DOIs checked on 2026-11-11 name the ER-sheet papers and four further papers cited beside the notes | [Title table](docs/google-bio-convergence-2026-11-11.md#papers-named-in-the-notes). Titles and DOIs. Residue sentences and abstracts are K36. The AlphaGenome record and the CDR2L span are K37 |",
+      "source_ids": [],
+      "statement": "Europe PMC titles and DOIs checked on 2026-11-11 name the ER-sheet papers and four further papers cited beside the notes"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "28980face81de774805f0f1127f1c175cbe58fffc0e890555b4f8c48e67de413",
+      "certificate_paths": [],
+      "id": "K35",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K35 | KNOWN | Europe PMC titles on 2026-11-11 identify the 2018 anti-Yo HLA association paper (PMID 29306402) and AlphaMissense (PMID 37733863) | Same title table. The HLA abstract odds ratios are in K36. AlphaMissense scores in the notes were not re-extracted |",
+      "source_ids": [],
+      "statement": "Europe PMC titles on 2026-11-11 identify the 2018 anti-Yo HLA association paper (PMID 29306402) and AlphaMissense (PMID 37733863)"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "c1ddec6dff9611344bc632288f39b85fbac2253edf3e95ed035e00e3d2ec3c54",
+      "certificate_paths": [],
+      "id": "K36",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K36 | KNOWN | On 2026-11-11 the PMC page for the 2025 kinectin paper and four abstracts were read. Matched residue spans, the 11-protein complex count, exon 5 anchoring, HLA odds ratios 5.4 and 0, and 22/22 CDR2L alterations in the breast-cancer abstract are stated on the extract. The notes' span 23-145, range 5.4-8.87, splicing fractions and prevalence range were not adopted | [Checked sentences](docs/google-bio-convergence-2026-11-11.md#sentences-checked-in-the-named-papers). Passages read that day. Not a re-extraction of binding constants or occupancy |",
+      "source_ids": [],
+      "statement": "On 2026-11-11 the PMC page for the 2025 kinectin paper and four abstracts were read. Matched residue spans, the 11-protein complex count, exon 5 anchoring, HLA odds ratios 5.4 and 0, and 22/22 CDR2L alterations in the breast-cancer abstract are stated on the extract. The notes' span 23-145, range 5.4-8.87, splicing fractions and prevalence range were not adopted"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "65e5ca38d19e98215bd1fd1631e0bd5a8926a4da7a9becba0ee8a51dd305a582",
+      "certificate_paths": [],
+      "id": "K37",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K37 | KNOWN | PMC12851941 is Avsec and colleagues, Nature, 2026, PMID 41606153, DOI 10.1038/s41586-025-10014-0. NCBI Gene 30850 (GRCh38.p14, 1-based) places human CDR2L at 74,987,632-75,005,800 on NC_000017.11, band 17q25.1. The notes' base interval differs | [AlphaGenome and CDR2L span](docs/google-bio-convergence-2026-11-11.md#alphagenome-record-and-the-cdr2l-span). PubMed, the PMC page and the gene record. The paper's 1 Mb input does not include the notes' windows |",
+      "source_ids": [],
+      "statement": "PMC12851941 is Avsec and colleagues, Nature, 2026, PMID 41606153, DOI 10.1038/s41586-025-10014-0. NCBI Gene 30850 (GRCh38.p14, 1-based) places human CDR2L at 74,987,632-75,005,800 on NC_000017.11, band 17q25.1. The notes' base interval differs"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "1ddf137333435d88c6e8c7b9c17ed68d01ca4d476ec57cf24fc3ac25c20f2a75",
+      "certificate_paths": [],
+      "id": "C23",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C23 | CONJECTURE | HLA pocket chemistry, EEF1D splicing, chromosome 17 co-location and a multi-analyte blood index may deserve a later bounded protocol | [Unrun proposals](docs/google-bio-convergence-2026-11-11.md#proposals-that-were-not-re-run). The named simulator files were not in the commit. No regimen is proposed |",
+      "source_ids": [],
+      "statement": "HLA pocket chemistry, EEF1D splicing, chromosome 17 co-location and a multi-analyte blood index may deserve a later bounded protocol"
+    },
+    {
+      "artifact_paths": [
+        "registries/cdr2l-database-search-2026-11-06.json"
+      ],
+      "canonical_sha256": "606b6879b04b5024d83042eed130e7bb82c300189c56fd917c0701cc08ce2b82",
+      "certificate_paths": [
+        "registries/cdr2l-database-search-2026-11-06.json"
+      ],
+      "id": "V35",
+      "label": "VERIFIED",
+      "recheck_commands": [],
+      "row_text": "| V35 | VERIFIED | A subsequent completed UniProt service search returns only Q86X02 and A0ACI8RKQ2 for both selected peptides in human exact and I/L-equivalent queries, including unreviewed entries; returned sequences were locally rechecked | [Executed follow-up](docs/cdr2l-source-adjudication-2026-11-06.md), [new certificate](registries/cdr2l-database-search-2026-11-06.json). Service completeness/synchronization not proved; the historical V30 search limitation is preserved. |",
+      "source_ids": [],
+      "statement": "A subsequent completed UniProt service search returns only Q86X02 and A0ACI8RKQ2 for both selected peptides in human exact and I/L-equivalent queries, including unreviewed entries; returned sequences were locally rechecked"
+    },
+    {
+      "artifact_paths": [
+        "registries/cdr2l-atlas-source-2026-11-06.json",
+        "tools/audit_cdr2l_atlas.py"
+      ],
+      "canonical_sha256": "e338c10462035f0171e1dd457827f775819f90617aea18f27c28dcb365339c42",
+      "certificate_paths": [
+        "registries/cdr2l-atlas-source-2026-11-06.json"
+      ],
+      "id": "V36",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_cdr2l_atlas.py"
+      ],
+      "row_text": "| V36 | VERIFIED | The official Atlas peptide page for IEDB 11610866 displays one cerebellum source-association row, q-value 0.00189334 and no prediction-based binding evidence | [Aggregate certificate](registries/cdr2l-atlas-source-2026-11-06.json), `python3 tools/audit_cdr2l_atlas.py`, [source interpretation](docs/cdr2l-source-adjudication-2026-11-06.md). Portal metadata, not independently validated identification, source cell type, allotype or mechanism. |",
+      "source_ids": [],
+      "statement": "The official Atlas peptide page for IEDB 11610866 displays one cerebellum source-association row, q-value 0.00189334 and no prediction-based binding evidence"
+    },
+    {
+      "artifact_paths": [
+        "registries/cdr2l-source-identification-2026-11-06.json",
+        "tools/audit_cdr2l_source_psm.py"
+      ],
+      "canonical_sha256": "fb77d748b5c44435f6dcbebae1c17fbfc848b54d0869aa70e127713e320fc1e0",
+      "certificate_paths": [
+        "registries/cdr2l-source-identification-2026-11-06.json"
+      ],
+      "id": "V37",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_cdr2l_source_psm.py --check"
+      ],
+      "row_text": "| V37 | VERIFIED | Complete integrity-checked streaming inspection of three original PXD023044 class-II identification files finds the exact breast-cell-line CDR2L 15mer once in r3, non-decoy Q86X02 residues 432–446, native spectrum `index=22949` | `python3 tools/audit_cdr2l_source_psm.py --check`; [Original identification result](docs/cdr2l-source-identification-2026-11-06.md), [certificate](registries/cdr2l-source-identification-2026-11-06.json). Search-output provenance, not independent spectrum validation, peptide-specific FDR, HLA allotype or receptor recognition. |",
+      "source_ids": [],
+      "statement": "Complete integrity-checked streaming inspection of three original PXD023044 class-II identification files finds the exact breast-cell-line CDR2L 15mer once in r3, non-decoy Q86X02 residues 432–446, native spectrum `index=22949`"
+    },
+    {
+      "artifact_paths": [
+        "registries/cdr2l-spectrum-locator-2026-11-06.json",
+        "tools/audit_cdr2l_spectrum_locator.py"
+      ],
+      "canonical_sha256": "4505c3e319e4c19d8ccb527d491ee591968aba854b50a997643966a39b51a06f",
+      "certificate_paths": [
+        "registries/cdr2l-spectrum-locator-2026-11-06.json"
+      ],
+      "id": "V38",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/audit_cdr2l_spectrum_locator.py --check"
+      ],
+      "row_text": "| V38 | VERIFIED | The completely checksum-verified source MGF links documented zero-based `index=22949` to scan 23848, charge 3+, precursor m/z 614.999, exactly agreeing with the original submitted identification; 173 experimental peaks retained | `python3 tools/audit_cdr2l_spectrum_locator.py --check`; [Executed peak-list locator](docs/cdr2l-spectrum-locator-2026-11-06.md), [certificate](registries/cdr2l-spectrum-locator-2026-11-06.json). Source linkage and metadata agreement, not independent identification, FDR calibration, RAW acquisition verification or biological replication. |",
+      "source_ids": [],
+      "statement": "The completely checksum-verified source MGF links documented zero-based `index=22949` to scan 23848, charge 3+, precursor m/z 614.999, exactly agreeing with the original submitted identification; 173 experimental peaks retained"
+    },
+    {
+      "artifact_paths": [
+        "results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py"
+      ],
+      "canonical_sha256": "55fd019ecc210bade8719f38c54818cdc13dae37691bf948f66671e3db1e7681",
+      "certificate_paths": [],
+      "id": "V39",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py"
+      ],
+      "row_text": "| V39 | VERIFIED | Repeating the 2026-11-05 IEDB parent procedure returns 7 CDR2 (Q01850) and 2 CDR2L (Q86X02) positive class-II mass-spectrometry assay rows, 3 and 2 references, the same assay ids as that audit. Parent elution-id lists are 383 and 45. The 7 ids added to CDR2 are class I, PMID 42653321. CDR2L antigen, parent-card and class-II bytes match the 2026-11-05 hashes; the CDR2 antigen body does not. Two independent readers agree | `python3 results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py`. Pinned responses only. Assay rows are not patients, peptides, or anti-Yo receptor evidence. |",
+      "source_ids": [],
+      "statement": "Repeating the 2026-11-05 IEDB parent procedure returns 7 CDR2 (Q01850) and 2 CDR2L (Q86X02) positive class-II mass-spectrometry assay rows, 3 and 2 references, the same assay ids as that audit. Parent elution-id lists are 383 and 45. The 7 ids added to CDR2 are class I, PMID 42653321. CDR2L antigen, parent-card and class-II bytes match the 2026-11-05 hashes; the CDR2 antigen body does not. Two independent readers agree"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "d051b712a648d197edd40a45ca15bb13c0e44377301cdb0c9fa11fc8c46ab773",
+      "certificate_paths": [],
+      "id": "V40",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py"
+      ],
+      "row_text": "| V40 | VERIFIED | Pinned UniProt bytes give reviewed human CDR2 Q01850 (454 amino acids, GeneID 1039, HGNC:1799, ENSG00000140743.9) and CDR2L Q86X02 (465 amino acids, GeneID 30850, HGNC:29999, ENSG00000109089.8). Pinned Human Protein Atlas version 26.0 extracts give the nTPM and ovarian IHC patient counts in the atlas count block, including cerebellum 16.1 and 58.8 nTPM and 12 patients in each ovarian IHC row | Same command. Consensus nTPM is the Atlas maximum of HPA and GTEx and has no donor count in the file. IHC bins are patient counts, not an effect size. TCGA 349 is the ovary serous cystadenocarcinoma cohort size, not a gene-level result. |",
+      "source_ids": [],
+      "statement": "Pinned UniProt bytes give reviewed human CDR2 Q01850 (454 amino acids, GeneID 1039, HGNC:1799, ENSG00000140743.9) and CDR2L Q86X02 (465 amino acids, GeneID 30850, HGNC:29999, ENSG00000109089.8). Pinned Human Protein Atlas version 26.0 extracts give the nTPM and ovarian IHC patient counts in the atlas count block, including cerebellum 16.1 and 58.8 nTPM and 12 patients in each ovarian IHC row"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "91f5dca9ebe67de23cb1ce3e7bc83a304500c767e4226e3c18937194a852a98f",
+      "certificate_paths": [],
+      "id": "K38",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K38 | KNOWN | The cited abstracts report the case-series and serum counts in the atlas literature table: Peterson 52/55 malignancies, Eichler 36/42 dual-positive Yo sera, 5/179 and 4/114 without PNS, 0/100 donors, and Raspotnig 16/16 ovarian cancers expressing both proteins | [Atlas literature table](docs/cdr2-cdr2l-evidence-atlas-2026-11-13.md#primary-literature-counts), S149–S156. Abstracts only. Authors' causal and management sentences are not adopted. No new odds ratio was calculated. |",
+      "source_ids": [
+        "S149",
+        "S156"
+      ],
+      "statement": "The cited abstracts report the case-series and serum counts in the atlas literature table: Peterson 52/55 malignancies, Eichler 36/42 dual-positive Yo sera, 5/179 and 4/114 without PNS, 0/100 donors, and Raspotnig 16/16 ovarian cancers expressing both proteins"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "6779f2cbb107b7444af6445271dd6ae7db298d6174d6d299904e70878ab67732",
+      "certificate_paths": [],
+      "id": "K39",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K39 | KNOWN | Human Protein Atlas version 26.0 defines consensus nTPM as the maximum of HPA and GTEx across 51 tissues, and cancer IHC columns as patient counts in staining bins | S141–S143. A definition and a file layout, not a measured anti-Yo effect. |",
+      "source_ids": [
+        "S141",
+        "S143"
+      ],
+      "statement": "Human Protein Atlas version 26.0 defines consensus nTPM as the maximum of HPA and GTEx across 51 tissues, and cancer IHC columns as patient counts in staining bins"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "5a65fa6aa2a590c67f2192f11bdc0ce6d38f0ecd39b3926e36d705c802e9831a",
+      "certificate_paths": [],
+      "id": "K40",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K40 | KNOWN | PMID 42653321 (PMC13513872) is a psoriatic-arthritis MHC class I immunopeptidome paper. The seven CDR2 parent ids added since 2026-11-05 are class I rows from that paper | S140 and S157. Catalog context for the parent-list change. Not an anti-Yo class-II finding. |",
+      "source_ids": [
+        "S140",
+        "S157"
+      ],
+      "statement": "PMID 42653321 (PMC13513872) is a psoriatic-arthritis MHC class I immunopeptidome paper. The seven CDR2 parent ids added since 2026-11-05 are class I rows from that paper"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "57ba7bfa719278c98631d47b539eb0765a559d56495ef8a362adb2d7bd4231fb",
+      "certificate_paths": [],
+      "id": "C24",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C24 | CONJECTURE | The class-II ligands and the expression patterns may still be worth comparing with anti-Yo receptor specificity, but this atlas does not decide that comparison | Open question carried forward from the evidence map. Expression in antibody-negative tumours is a reason not to treat presence as specific. |",
+      "source_ids": [],
+      "statement": "The class-II ligands and the expression patterns may still be worth comparing with anti-Yo receptor specificity, but this atlas does not decide that comparison"
+    },
+    {
+      "artifact_paths": [
+        "results/integrity-audit-2026-11-13/audit.json",
+        "results/integrity-audit-2026-11-13/verify.py",
+        "tools/audit_checkers.py",
+        "tools/check_sha256_manifests.py",
+        "tools/export_claims_ledger.py"
+      ],
+      "canonical_sha256": "5a7b32b2aa876ee7dcd691415ca1e12cb8f21039712adc63a50b47e864cdcaa6",
+      "certificate_paths": [],
+      "id": "V41",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/export_claims_ledger.py --check",
+        "python3 tools/check_sha256_manifests.py",
+        "python3 tools/audit_checkers.py --check",
+        "python3 results/integrity-audit-2026-11-13/verify.py"
+      ],
+      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 39 VERIFIED rows, 23 offline checkers, 22 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
+      "source_ids": [],
+      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 39 VERIFIED rows, 23 offline checkers, 22 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only)"
+    }
+  ],
+  "counts": {
+    "CONJECTURE": 25,
+    "KNOWN": 44,
+    "PROVEN": 0,
+    "VERIFIED": 39
+  },
+  "ledger_sha256": "329f3334e3d713d3519a99da4be4e5abc34f5d73d73d4d175cedc815e9a74304",
+  "schema_version": 1,
+  "source": "CLAIMS.md"
+}

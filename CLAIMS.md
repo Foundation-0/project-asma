@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-13):** PROVEN **0** · VERIFIED **38** · KNOWN **44** · CONJECTURE **25**
+**Counts (2026-11-13):** PROVEN **0** · VERIFIED **39** · KNOWN **44** · CONJECTURE **25**
 
 ---
 
@@ -214,8 +214,8 @@ and do **not** substitute for study-data execution.
 | --- | --- | --- | --- |
 | V35 | VERIFIED | A subsequent completed UniProt service search returns only Q86X02 and A0ACI8RKQ2 for both selected peptides in human exact and I/L-equivalent queries, including unreviewed entries; returned sequences were locally rechecked | [Executed follow-up](docs/cdr2l-source-adjudication-2026-11-06.md), [new certificate](registries/cdr2l-database-search-2026-11-06.json). Service completeness/synchronization not proved; the historical V30 search limitation is preserved. |
 | V36 | VERIFIED | The official Atlas peptide page for IEDB 11610866 displays one cerebellum source-association row, q-value 0.00189334 and no prediction-based binding evidence | [Aggregate certificate](registries/cdr2l-atlas-source-2026-11-06.json), `python3 tools/audit_cdr2l_atlas.py`, [source interpretation](docs/cdr2l-source-adjudication-2026-11-06.md). Portal metadata, not independently validated identification, source cell type, allotype or mechanism. |
-| V37 | VERIFIED | Complete integrity-checked streaming inspection of three original PXD023044 class-II identification files finds the exact breast-cell-line CDR2L 15mer once in r3, non-decoy Q86X02 residues 432–446, native spectrum `index=22949` | [Original identification result](docs/cdr2l-source-identification-2026-11-06.md), [certificate](registries/cdr2l-source-identification-2026-11-06.json). Search-output provenance, not independent spectrum validation, peptide-specific FDR, HLA allotype or receptor recognition. |
-| V38 | VERIFIED | The completely checksum-verified source MGF links documented zero-based `index=22949` to scan 23848, charge 3+, precursor m/z 614.999, exactly agreeing with the original submitted identification; 173 experimental peaks retained | [Executed peak-list locator](docs/cdr2l-spectrum-locator-2026-11-06.md), [certificate](registries/cdr2l-spectrum-locator-2026-11-06.json). Source linkage and metadata agreement, not independent identification, FDR calibration, RAW acquisition verification or biological replication. |
+| V37 | VERIFIED | Complete integrity-checked streaming inspection of three original PXD023044 class-II identification files finds the exact breast-cell-line CDR2L 15mer once in r3, non-decoy Q86X02 residues 432–446, native spectrum `index=22949` | `python3 tools/audit_cdr2l_source_psm.py --check`; [Original identification result](docs/cdr2l-source-identification-2026-11-06.md), [certificate](registries/cdr2l-source-identification-2026-11-06.json). Search-output provenance, not independent spectrum validation, peptide-specific FDR, HLA allotype or receptor recognition. |
+| V38 | VERIFIED | The completely checksum-verified source MGF links documented zero-based `index=22949` to scan 23848, charge 3+, precursor m/z 614.999, exactly agreeing with the original submitted identification; 173 experimental peaks retained | `python3 tools/audit_cdr2l_spectrum_locator.py --check`; [Executed peak-list locator](docs/cdr2l-spectrum-locator-2026-11-06.md), [certificate](registries/cdr2l-spectrum-locator-2026-11-06.json). Source linkage and metadata agreement, not independent identification, FDR calibration, RAW acquisition verification or biological replication. |
 
 ## CDR2/CDR2L public evidence atlas, 2026-11-13
 
@@ -227,6 +227,12 @@ and do **not** substitute for study-data execution.
 | K39 | KNOWN | Human Protein Atlas version 26.0 defines consensus nTPM as the maximum of HPA and GTEx across 51 tissues, and cancer IHC columns as patient counts in staining bins | S141–S143. A definition and a file layout, not a measured anti-Yo effect. |
 | K40 | KNOWN | PMID 42653321 (PMC13513872) is a psoriatic-arthritis MHC class I immunopeptidome paper. The seven CDR2 parent ids added since 2026-11-05 are class I rows from that paper | S140 and S157. Catalog context for the parent-list change. Not an anti-Yo class-II finding. |
 | C24 | CONJECTURE | The class-II ligands and the expression patterns may still be worth comparing with anti-Yo receptor specificity, but this atlas does not decide that comparison | Open question carried forward from the evidence map. Expression in antibody-negative tumours is a reason not to treat presence as specific. |
+
+## Integrity layer, 2026-11-13
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 39 VERIFIED rows, 23 offline checkers, 22 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |
 
 ## What this ledger does not claim
 

@@ -1,14 +1,20 @@
 """Synthetic, nonclinical fixtures for bounded source-identification inspection."""
+import copy
 import gzip
 import hashlib
 import io
+import json
 from pathlib import Path
+import subprocess
 import sys
 import unittest
 import xml.sax
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from audit_cdr2l_source_psm import inspect_stream, TARGET
+from audit_cdr2l_source_psm import inspect_stream, TARGET, check_certificate, PRODUCING_SCRIPT_SHA256
+
+ROOT = Path(__file__).resolve().parents[1]
+IDENT_CERT = ROOT / "registries/cdr2l-source-identification-2026-11-06.json"
 
 
 def fixture(sequence=TARGET):
@@ -158,6 +164,55 @@ class SourcePSMTests(unittest.TestCase):
                         (b'peptideEvidence_ref="ev1"',b'peptideEvidence_ref="absent"'),
                         (b'dBSequence_ref="db1"',b'dBSequence_ref="absent"')]:
             with self.subTest(old=old),self.assertRaises(ValueError):inspect(fixture().replace(old,new))
+
+
+    def test_offline_certificate_check_passes(self):
+        code = subprocess.run(
+            [sys.executable, str(ROOT / 'tools/audit_cdr2l_source_psm.py'), '--check'],
+            check=False,
+        ).returncode
+        self.assertEqual(code, 0)
+
+    def test_producing_implementation_hash_passes_and_arbitrary_hash_fails(self):
+        report = json.loads(IDENT_CERT.read_text(encoding='utf-8'))
+        report['implementation_sha256'] = PRODUCING_SCRIPT_SHA256
+        import tempfile
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as handle:
+            json.dump(report, handle)
+            path = Path(handle.name)
+        try:
+            check_certificate(path)
+        finally:
+            path.unlink()
+        bad = copy.deepcopy(report)
+        bad['implementation_sha256'] = '0' * 64
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as handle:
+            json.dump(bad, handle)
+            path = Path(handle.name)
+        try:
+            with self.assertRaises(ValueError):
+                check_certificate(path)
+        finally:
+            path.unlink()
+
+    def test_offline_check_binds_recorded_identification_match(self):
+        report = json.loads(IDENT_CERT.read_text(encoding='utf-8'))
+        import tempfile
+        for mutate in (
+            lambda r: r.update(assay_id=0),
+            lambda r: r['files'][2]['matching_results'][0]['attributes'].update(spectrumID='index=0'),
+            lambda r: r['files'][2]['matching_results'][0]['items'][0]['protein_evidence'][0]['attributes'].update(start='1'),
+        ):
+            changed = copy.deepcopy(report)
+            mutate(changed)
+            with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as handle:
+                json.dump(changed, handle)
+                path = Path(handle.name)
+            try:
+                with self.assertRaises(ValueError):
+                    check_certificate(path)
+            finally:
+                path.unlink()
 
 
 if __name__ == '__main__': unittest.main()
