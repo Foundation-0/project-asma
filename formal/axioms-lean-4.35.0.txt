@@ -1,0 +1,17 @@
+# Output of: cd formal && lake env lean AsmaIdentifiabilityProofs.lean
+# Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)
+'AsmaIdentifiabilityProofs.snapshot_four_worlds_indistinguishable' does not depend on any axioms
+'AsmaIdentifiabilityProofs.pr78_sharp_separation_hierarchy' does not depend on any axioms
+'AsmaIdentifiabilityProofs.opt_low_seed_flips_c25_and_doubles_c50' does not depend on any axioms
+'AsmaIdentifiabilityProofs.opt_low_seed_conversion_worlds_pairwise' does not depend on any axioms
+'AsmaIdentifiabilityProofs.universal_snapshot_gap_factorization' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'AsmaIdentifiabilityProofs.survival_ratio_pencil' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AsmaIdentifiabilityProofs.survival_ratio_pencil_four_worlds' does not depend on any axioms
+'AsmaIdentifiabilityProofs.pgl2_paralog_cross_reactivity_isomorphism' depends on axioms: [propext, Quot.sound]
+'AsmaIdentifiabilityProofs.pilot001_stratified_5fold_pair_split' does not depend on any axioms
+'AsmaIdentifiabilityProofs.within_fold_concordance_shift_invariant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'AsmaIdentifiabilityProofs.cross_fold_concordance_broken_by_shift' does not depend on any axioms
