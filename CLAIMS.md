@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-06):** PROVEN **0** · VERIFIED **36** · KNOWN **41** · CONJECTURE **24**
+**Counts (2026-11-13):** PROVEN **0** · VERIFIED **38** · KNOWN **44** · CONJECTURE **25**
 
 ---
 
@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`361` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`427` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
@@ -216,6 +216,17 @@ and do **not** substitute for study-data execution.
 | V36 | VERIFIED | The official Atlas peptide page for IEDB 11610866 displays one cerebellum source-association row, q-value 0.00189334 and no prediction-based binding evidence | [Aggregate certificate](registries/cdr2l-atlas-source-2026-11-06.json), `python3 tools/audit_cdr2l_atlas.py`, [source interpretation](docs/cdr2l-source-adjudication-2026-11-06.md). Portal metadata, not independently validated identification, source cell type, allotype or mechanism. |
 | V37 | VERIFIED | Complete integrity-checked streaming inspection of three original PXD023044 class-II identification files finds the exact breast-cell-line CDR2L 15mer once in r3, non-decoy Q86X02 residues 432–446, native spectrum `index=22949` | [Original identification result](docs/cdr2l-source-identification-2026-11-06.md), [certificate](registries/cdr2l-source-identification-2026-11-06.json). Search-output provenance, not independent spectrum validation, peptide-specific FDR, HLA allotype or receptor recognition. |
 | V38 | VERIFIED | The completely checksum-verified source MGF links documented zero-based `index=22949` to scan 23848, charge 3+, precursor m/z 614.999, exactly agreeing with the original submitted identification; 173 experimental peaks retained | [Executed peak-list locator](docs/cdr2l-spectrum-locator-2026-11-06.md), [certificate](registries/cdr2l-spectrum-locator-2026-11-06.json). Source linkage and metadata agreement, not independent identification, FDR calibration, RAW acquisition verification or biological replication. |
+
+## CDR2/CDR2L public evidence atlas, 2026-11-13
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V39 | VERIFIED | Repeating the 2026-11-05 IEDB parent procedure returns 7 CDR2 (Q01850) and 2 CDR2L (Q86X02) positive class-II mass-spectrometry assay rows, 3 and 2 references, the same assay ids as that audit. Parent elution-id lists are 383 and 45. The 7 ids added to CDR2 are class I, PMID 42653321. CDR2L antigen, parent-card and class-II bytes match the 2026-11-05 hashes; the CDR2 antigen body does not. Two independent readers agree | `python3 results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py`. Pinned responses only. Assay rows are not patients, peptides, or anti-Yo receptor evidence. |
+| V40 | VERIFIED | Pinned UniProt bytes give reviewed human CDR2 Q01850 (454 amino acids, GeneID 1039, HGNC:1799, ENSG00000140743.9) and CDR2L Q86X02 (465 amino acids, GeneID 30850, HGNC:29999, ENSG00000109089.8). Pinned Human Protein Atlas version 26.0 extracts give the nTPM and ovarian IHC patient counts in the atlas count block, including cerebellum 16.1 and 58.8 nTPM and 12 patients in each ovarian IHC row | Same command. Consensus nTPM is the Atlas maximum of HPA and GTEx and has no donor count in the file. IHC bins are patient counts, not an effect size. TCGA 349 is the ovary serous cystadenocarcinoma cohort size, not a gene-level result. |
+| K38 | KNOWN | The cited abstracts report the case-series and serum counts in the atlas literature table: Peterson 52/55 malignancies, Eichler 36/42 dual-positive Yo sera, 5/179 and 4/114 without PNS, 0/100 donors, and Raspotnig 16/16 ovarian cancers expressing both proteins | [Atlas literature table](docs/cdr2-cdr2l-evidence-atlas-2026-11-13.md#primary-literature-counts), S149–S156. Abstracts only. Authors' causal and management sentences are not adopted. No new odds ratio was calculated. |
+| K39 | KNOWN | Human Protein Atlas version 26.0 defines consensus nTPM as the maximum of HPA and GTEx across 51 tissues, and cancer IHC columns as patient counts in staining bins | S141–S143. A definition and a file layout, not a measured anti-Yo effect. |
+| K40 | KNOWN | PMID 42653321 (PMC13513872) is a psoriatic-arthritis MHC class I immunopeptidome paper. The seven CDR2 parent ids added since 2026-11-05 are class I rows from that paper | S140 and S157. Catalog context for the parent-list change. Not an anti-Yo class-II finding. |
+| C24 | CONJECTURE | The class-II ligands and the expression patterns may still be worth comparing with anti-Yo receptor specificity, but this atlas does not decide that comparison | Open question carried forward from the evidence map. Expression in antibody-negative tumours is a reason not to treat presence as specific. |
 
 ## What this ledger does not claim
 

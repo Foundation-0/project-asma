@@ -257,6 +257,13 @@ html:not(.js) .viewer-loading { display: none; }
 .observatory .foot-grid p { font-size: 12px; }
 .observatory .foot-cols a { font-size: 12px; }
 .observatory .stamp { font-size: 10px; }
+.atlas-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 12px; }
+.atlas-filters button { min-height: 44px; padding: 8px 14px; border: 1px solid var(--line-ui); background: transparent; color: var(--ink); font: 500 12px/1.4 var(--f-sans); cursor: pointer; }
+.atlas-filters button[aria-pressed="true"] { border-color: var(--bio); color: var(--bio); }
+.atlas-status, .atlas-note { color: var(--ink-3); font-size: 12px; line-height: 1.7; }
+.atlas-table th, .atlas-table td { text-align: left; }
+.atlas-table td:nth-child(3) { text-align: right; }
+.atlas-counts { margin-top: 22px; padding: 16px; overflow-x: auto; border: 1px solid var(--line); background: var(--bg-1); color: var(--ink-2); font: 12px/1.6 var(--f-mono); white-space: pre; }
 
 /* The composition changes at content-driven breakpoints, without shrinking
    controls or making reading depend on scrolling horizontally. */

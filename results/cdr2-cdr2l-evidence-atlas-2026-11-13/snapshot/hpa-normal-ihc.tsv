@@ -1,0 +1,164 @@
+Gene	Gene name	Tissue	IHC tissue name	Cell type	Level	Reliability
+ENSG00000109089	CDR2L	Adipose tissue	Adipose tissue	adipocytes	Low	Approved
+ENSG00000109089	CDR2L	Adrenal gland	Adrenal gland	glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Appendix	Appendix	glandular cells	High	Approved
+ENSG00000109089	CDR2L	Appendix	Appendix	lymphoid tissue	High	Approved
+ENSG00000109089	CDR2L	Bone marrow	Bone marrow	hematopoietic cells	Medium	Approved
+ENSG00000109089	CDR2L	Breast	Breast	adipocytes	Not detected	Approved
+ENSG00000109089	CDR2L	Breast	Breast	glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Breast	Breast	myoepithelial cells	Medium	Approved
+ENSG00000109089	CDR2L	Bronchus	Bronchus	respiratory epithelial cells	Medium	Approved
+ENSG00000109089	CDR2L	Caudate	Caudate	glial cells	Low	Approved
+ENSG00000109089	CDR2L	Caudate	Caudate	neuronal cells	Medium	Approved
+ENSG00000109089	CDR2L	Cerebellum	Cerebellum	cells in granular layer	High	Approved
+ENSG00000109089	CDR2L	Cerebellum	Cerebellum	cells in molecular layer	Medium	Approved
+ENSG00000109089	CDR2L	Cerebellum	Cerebellum	Purkinje cells	High	Approved
+ENSG00000109089	CDR2L	Cerebral cortex	Cerebral cortex	endothelial cells	Low	Approved
+ENSG00000109089	CDR2L	Cerebral cortex	Cerebral cortex	glial cells	Not detected	Approved
+ENSG00000109089	CDR2L	Cerebral cortex	Cerebral cortex	neuronal cells	Not detected	Approved
+ENSG00000109089	CDR2L	Cerebral cortex	Cerebral cortex	neuropil	Medium	Approved
+ENSG00000109089	CDR2L	Cervix	Cervix	squamous epithelial cells	High	Approved
+ENSG00000109089	CDR2L	Colon	Colon	endothelial cells	Low	Approved
+ENSG00000109089	CDR2L	Colon	Colon	glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Colon	Colon	peripheral nerve/ganglion	Medium	Approved
+ENSG00000109089	CDR2L	Duodenum	Duodenum	glandular cells	High	Approved
+ENSG00000109089	CDR2L	Endometrium	Endometrium 1	cells in endometrial stroma	Low	Approved
+ENSG00000109089	CDR2L	Endometrium	Endometrium 1	glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Endometrium	Endometrium 2	glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Epididymis	Epididymis	glandular cells	Not detected	Approved
+ENSG00000109089	CDR2L	Esophagus	Esophagus	squamous epithelial cells	High	Approved
+ENSG00000109089	CDR2L	Fallopian tube	Fallopian tube	glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Gallbladder	Gallbladder	glandular cells	High	Approved
+ENSG00000109089	CDR2L	Heart muscle	Heart muscle	cardiomyocytes	Low	Approved
+ENSG00000109089	CDR2L	Hippocampus	Hippocampus	glial cells	Not detected	Approved
+ENSG00000109089	CDR2L	Hippocampus	Hippocampus	neuronal cells	Medium	Approved
+ENSG00000109089	CDR2L	Kidney	Kidney	cells in glomeruli	Low	Approved
+ENSG00000109089	CDR2L	Kidney	Kidney	cells in tubules	Medium	Approved
+ENSG00000109089	CDR2L	Liver	Liver	cholangiocytes	Not detected	Approved
+ENSG00000109089	CDR2L	Liver	Liver	hepatocytes	Low	Approved
+ENSG00000109089	CDR2L	Lung	Lung	alveolar cells type I	Not detected	Approved
+ENSG00000109089	CDR2L	Lung	Lung	alveolar cells type II	Low	Approved
+ENSG00000109089	CDR2L	Lung	Lung	endothelial cells	Not detected	Approved
+ENSG00000109089	CDR2L	Lung	Lung	macrophages	Medium	Approved
+ENSG00000109089	CDR2L	Lymph node	Lymph node	germinal center cells	Medium	Approved
+ENSG00000109089	CDR2L	Lymph node	Lymph node	non-germinal center cells	Medium	Approved
+ENSG00000109089	CDR2L	Nasopharynx	Nasopharynx	respiratory epithelial cells	Medium	Approved
+ENSG00000109089	CDR2L	Oral mucosa	Oral mucosa	squamous epithelial cells	Medium	Approved
+ENSG00000109089	CDR2L	Ovary	Ovary	ovarian stroma cells	Low	Approved
+ENSG00000109089	CDR2L	Pancreas	Pancreas	exocrine glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Pancreas	Pancreas	pancreatic endocrine cells	Medium	Approved
+ENSG00000109089	CDR2L	Parathyroid gland	Parathyroid gland	glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Placenta	Placenta	decidual cells	High	Approved
+ENSG00000109089	CDR2L	Placenta	Placenta	trophoblastic cells	Medium	Approved
+ENSG00000109089	CDR2L	Prostate	Prostate	glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Rectum	Rectum	glandular cells	High	Approved
+ENSG00000109089	CDR2L	Salivary gland	Salivary gland	glandular cells	Low	Approved
+ENSG00000109089	CDR2L	Seminal vesicle	Seminal vesicle	glandular cells	Low	Approved
+ENSG00000109089	CDR2L	Skeletal muscle	Skeletal muscle	myocytes	Low	Approved
+ENSG00000109089	CDR2L	Skin	Skin 1	fibroblasts	Medium	Approved
+ENSG00000109089	CDR2L	Skin	Skin 1	keratinocytes	Medium	Approved
+ENSG00000109089	CDR2L	Skin	Skin 1	Langerhans	Low	Approved
+ENSG00000109089	CDR2L	Skin	Skin 1	melanocytes	Medium	Approved
+ENSG00000109089	CDR2L	Skin	Skin 2	epidermal cells	Medium	Approved
+ENSG00000109089	CDR2L	Small intestine	Small intestine	glandular cells	High	Approved
+ENSG00000109089	CDR2L	Smooth muscle	Smooth muscle	smooth muscle cells	Low	Approved
+ENSG00000109089	CDR2L	Soft tissue	Soft tissue 1	fibroblasts	Medium	Approved
+ENSG00000109089	CDR2L	Soft tissue	Soft tissue 2	fibroblasts	Medium	Approved
+ENSG00000109089	CDR2L	Spleen	Spleen	cells in red pulp	Medium	Approved
+ENSG00000109089	CDR2L	Spleen	Spleen	cells in white pulp	Low	Approved
+ENSG00000109089	CDR2L	Stomach	Stomach 1	glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Stomach	Stomach 2	glandular cells	High	Approved
+ENSG00000109089	CDR2L	Testis	Testis	elongated or late spermatids	Not detected	Approved
+ENSG00000109089	CDR2L	Testis	Testis	Leydig cells	Not detected	Approved
+ENSG00000109089	CDR2L	Testis	Testis	pachytene spermatocytes	Medium	Approved
+ENSG00000109089	CDR2L	Testis	Testis	peritubular cells	Not detected	Approved
+ENSG00000109089	CDR2L	Testis	Testis	preleptotene spermatocytes	Medium	Approved
+ENSG00000109089	CDR2L	Testis	Testis	round or early spermatids	Not detected	Approved
+ENSG00000109089	CDR2L	Testis	Testis	sertoli cells	Medium	Approved
+ENSG00000109089	CDR2L	Testis	Testis	spermatogonia cells	Low	Approved
+ENSG00000109089	CDR2L	Thyroid gland	Thyroid gland	glandular cells	Medium	Approved
+ENSG00000109089	CDR2L	Tonsil	Tonsil	germinal center cells	High	Approved
+ENSG00000109089	CDR2L	Tonsil	Tonsil	non-germinal center cells	Medium	Approved
+ENSG00000109089	CDR2L	Tonsil	Tonsil	squamous epithelial cells	High	Approved
+ENSG00000109089	CDR2L	Urinary bladder	Urinary bladder	urothelial cells	Medium	Approved
+ENSG00000109089	CDR2L	Vagina	Vagina	squamous epithelial cells	Medium	Approved
+ENSG00000140743	CDR2	Adipose tissue	Adipose tissue	adipocytes	Medium	Uncertain
+ENSG00000140743	CDR2	Adrenal gland	Adrenal gland	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Appendix	Appendix	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Appendix	Appendix	lymphoid tissue	Medium	Uncertain
+ENSG00000140743	CDR2	Bone marrow	Bone marrow	hematopoietic cells	Medium	Uncertain
+ENSG00000140743	CDR2	Breast	Breast	adipocytes	Medium	Uncertain
+ENSG00000140743	CDR2	Breast	Breast	glandular cells	Medium	Uncertain
+ENSG00000140743	CDR2	Breast	Breast	myoepithelial cells	Medium	Uncertain
+ENSG00000140743	CDR2	Bronchus	Bronchus	respiratory epithelial cells	High	Uncertain
+ENSG00000140743	CDR2	Caudate	Caudate	glial cells	Medium	Uncertain
+ENSG00000140743	CDR2	Caudate	Caudate	neuronal cells	Medium	Uncertain
+ENSG00000140743	CDR2	Cerebellum	Cerebellum	cells in granular layer	Medium	Uncertain
+ENSG00000140743	CDR2	Cerebellum	Cerebellum	cells in molecular layer	Medium	Uncertain
+ENSG00000140743	CDR2	Cerebellum	Cerebellum	Purkinje cells	Medium	Uncertain
+ENSG00000140743	CDR2	Cerebral cortex	Cerebral cortex	endothelial cells	Medium	Uncertain
+ENSG00000140743	CDR2	Cerebral cortex	Cerebral cortex	glial cells	Low	Uncertain
+ENSG00000140743	CDR2	Cerebral cortex	Cerebral cortex	neuronal cells	High	Uncertain
+ENSG00000140743	CDR2	Cerebral cortex	Cerebral cortex	neuropil	Not detected	Uncertain
+ENSG00000140743	CDR2	Cervix	Cervix	glandular cells	Medium	Uncertain
+ENSG00000140743	CDR2	Cervix	Cervix	squamous epithelial cells	High	Uncertain
+ENSG00000140743	CDR2	Colon	Colon	endothelial cells	Medium	Uncertain
+ENSG00000140743	CDR2	Colon	Colon	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Colon	Colon	peripheral nerve/ganglion	Medium	Uncertain
+ENSG00000140743	CDR2	Duodenum	Duodenum	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Endometrium	Endometrium 1	cells in endometrial stroma	Medium	Uncertain
+ENSG00000140743	CDR2	Endometrium	Endometrium 1	glandular cells	Medium	Uncertain
+ENSG00000140743	CDR2	Endometrium	Endometrium 2	cells in endometrial stroma	Medium	Uncertain
+ENSG00000140743	CDR2	Endometrium	Endometrium 2	glandular cells	Medium	Uncertain
+ENSG00000140743	CDR2	Epididymis	Epididymis	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Esophagus	Esophagus	squamous epithelial cells	High	Uncertain
+ENSG00000140743	CDR2	Fallopian tube	Fallopian tube	glandular cells	Medium	Uncertain
+ENSG00000140743	CDR2	Gallbladder	Gallbladder	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Heart muscle	Heart muscle	cardiomyocytes	Medium	Uncertain
+ENSG00000140743	CDR2	Hippocampus	Hippocampus	glial cells	Medium	Uncertain
+ENSG00000140743	CDR2	Hippocampus	Hippocampus	neuronal cells	Low	Uncertain
+ENSG00000140743	CDR2	Kidney	Kidney	cells in glomeruli	High	Uncertain
+ENSG00000140743	CDR2	Kidney	Kidney	cells in tubules	High	Uncertain
+ENSG00000140743	CDR2	Liver	Liver	cholangiocytes	Low	Uncertain
+ENSG00000140743	CDR2	Liver	Liver	hepatocytes	Medium	Uncertain
+ENSG00000140743	CDR2	Lung	Lung	alveolar cells	Medium	Uncertain
+ENSG00000140743	CDR2	Lung	Lung	macrophages	High	Uncertain
+ENSG00000140743	CDR2	Lymph node	Lymph node	germinal center cells	Medium	Uncertain
+ENSG00000140743	CDR2	Lymph node	Lymph node	non-germinal center cells	Medium	Uncertain
+ENSG00000140743	CDR2	Nasopharynx	Nasopharynx	respiratory epithelial cells	High	Uncertain
+ENSG00000140743	CDR2	Oral mucosa	Oral mucosa	squamous epithelial cells	High	Uncertain
+ENSG00000140743	CDR2	Ovary	Ovary	follicle cells	Medium	Uncertain
+ENSG00000140743	CDR2	Ovary	Ovary	ovarian stroma cells	Medium	Uncertain
+ENSG00000140743	CDR2	Pancreas	Pancreas	exocrine glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Pancreas	Pancreas	pancreatic endocrine cells	Medium	Uncertain
+ENSG00000140743	CDR2	Parathyroid gland	Parathyroid gland	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Placenta	Placenta	decidual cells	High	Uncertain
+ENSG00000140743	CDR2	Placenta	Placenta	trophoblastic cells	High	Uncertain
+ENSG00000140743	CDR2	Prostate	Prostate	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Rectum	Rectum	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Salivary gland	Salivary gland	glandular cells	Medium	Uncertain
+ENSG00000140743	CDR2	Seminal vesicle	Seminal vesicle	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Skeletal muscle	Skeletal muscle	myocytes	Medium	Uncertain
+ENSG00000140743	CDR2	Skin	Skin 1	fibroblasts	Medium	Uncertain
+ENSG00000140743	CDR2	Skin	Skin 1	keratinocytes	Medium	Uncertain
+ENSG00000140743	CDR2	Skin	Skin 1	Langerhans	Medium	Uncertain
+ENSG00000140743	CDR2	Skin	Skin 1	melanocytes	Medium	Uncertain
+ENSG00000140743	CDR2	Skin	Skin 2	epidermal cells	High	Uncertain
+ENSG00000140743	CDR2	Small intestine	Small intestine	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Smooth muscle	Smooth muscle	smooth muscle cells	Medium	Uncertain
+ENSG00000140743	CDR2	Soft tissue	Soft tissue 1	fibroblasts	Medium	Uncertain
+ENSG00000140743	CDR2	Soft tissue	Soft tissue 1	peripheral nerve	Medium	Uncertain
+ENSG00000140743	CDR2	Soft tissue	Soft tissue 2	fibroblasts	Medium	Uncertain
+ENSG00000140743	CDR2	Soft tissue	Soft tissue 2	peripheral nerve	Medium	Uncertain
+ENSG00000140743	CDR2	Spleen	Spleen	cells in red pulp	Medium	Uncertain
+ENSG00000140743	CDR2	Spleen	Spleen	cells in white pulp	Medium	Uncertain
+ENSG00000140743	CDR2	Stomach	Stomach 1	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Stomach	Stomach 2	glandular cells	High	Uncertain
+ENSG00000140743	CDR2	Testis	Testis	cells in seminiferous ducts	High	Uncertain
+ENSG00000140743	CDR2	Testis	Testis	Leydig cells	High	Uncertain
+ENSG00000140743	CDR2	Thyroid gland	Thyroid gland	glandular cells	Medium	Uncertain
+ENSG00000140743	CDR2	Tonsil	Tonsil	germinal center cells	Medium	Uncertain
+ENSG00000140743	CDR2	Tonsil	Tonsil	non-germinal center cells	Medium	Uncertain
+ENSG00000140743	CDR2	Tonsil	Tonsil	squamous epithelial cells	High	Uncertain
+ENSG00000140743	CDR2	Urinary bladder	Urinary bladder	urothelial cells	High	Uncertain
+ENSG00000140743	CDR2	Vagina	Vagina	squamous epithelial cells	High	Uncertain

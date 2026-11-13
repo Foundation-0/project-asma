@@ -86,6 +86,14 @@ review. ClinicalTrials.gov/NLM is the source of registry metadata; original
 normalization, aggregate counting and reporting are this project's work.
 Internal checking is not external scientific or clinical peer review.
 
+The **2026-11-13 CDR2/CDR2L public evidence atlas** was prepared by a Cursor
+cloud agent (**Grok 4.7**) under human direction. IEDB, UniProt and the Human
+Protein Atlas supplied the pinned records. Earlier repository audits (the
+2026-11-05 IEDB parent procedure and the 2026-11-06 HLA-II map and CDR2L source
+checks) are credited in the atlas note and are not re-claimed as new results.
+The offline checker agreement is an internal file check, not external scientific
+peer review and not clinical validation.
+
 ## Prior work credited by name
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);

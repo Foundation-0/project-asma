@@ -1,5 +1,12 @@
 # Registries
 
+- [CDR2/CDR2L public evidence atlas, 2026-11-13](../results/cdr2-cdr2l-evidence-atlas-2026-11-13/manifest.json):
+  pinned IEDB, UniProt and Human Protein Atlas responses, with SHA-256 in
+  `SHA256SUMS`. Replay with
+  `python3 results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py`.
+  Sources S136–S157. The note is
+  [docs/cdr2-cdr2l-evidence-atlas-2026-11-13.md](../docs/cdr2-cdr2l-evidence-atlas-2026-11-13.md).
+
 - [Antigen metadata audit, 2026-11-05](antigen-metadata-audit-2026-11-05.json):
   exact IEDB canonical-parent queries, class-II assay/reference joins, finite
   counts and response hashes. Public assay/bibliographic metadata only; no
