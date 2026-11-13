@@ -457,10 +457,22 @@
       "run_executed": true,
       "run_exit_zero": true,
       "runs_offline": true
+    },
+    {
+      "certificate_path": "results/trial-landscape-v2-2026-11-13/certificate.json",
+      "checker": "results/trial-landscape-v2-2026-11-13/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V42",
+      "recheck_commands": [
+        "python3 results/trial-landscape-v2-2026-11-13/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
     }
   ],
-  "generated_utc": "2026-11-13T04:36:40.958808+00:00",
-  "ledger_sha256": "329f3334e3d713d3519a99da4be4e5abc34f5d73d73d4d175cedc815e9a74304",
+  "generated_utc": "2026-11-13T05:37:57.459792+00:00",
+  "ledger_sha256": "67ad6d988fd31dc4df042c3bba5ab0db6b315b75e34f362b2927da4b9e336547",
   "schema_version": 1,
   "summary": {
     "no_offline_checker": {
@@ -485,14 +497,14 @@
         "V35"
       ]
     },
-    "offline_ran_exit_zero": 22,
-    "offline_recheck_defined": 23,
+    "offline_ran_exit_zero": 23,
+    "offline_recheck_defined": 24,
     "skipped_heavy_recheck": [
       "V02"
     ],
     "tamper_applicable": 4,
     "tamper_fails_on_tamper": 4,
     "tamper_misses": [],
-    "verified_claims": 39
+    "verified_claims": 40
   }
 }

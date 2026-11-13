@@ -32,6 +32,7 @@ clinical validity, or improved patient outcomes.
 | [Purpose and measures of success](docs/mission.md) | Open-ended mission, guardrails, and measures of progress |
 | [Candidate research directions](docs/directions.md) | Ranked public-data directions and verification log |
 | [Recruiting trial-landscape snapshot](docs/trial-landscape-2026-11-05.md) | **VERIFIED** aggregate phase/keyword audit of public registry text; no eligibility or clinical inference |
+| [Interventional trial landscape, 2026-11-13 UTC](docs/trial-landscape-v2-2026-11-13.md) | **VERIFIED** all-status registration counts and a pinned keyword map; not efficacy or treatment guidance |
 | [Research preservation and continuation](docs/research-continuation.md) | Public-source handoffs, frontier hypotheses, rejected interpretations and executable synthetic checks |
 | [Discovery round 2 — 2026-11-05](docs/discovery-round2-2026-11-05.md) | CDR2L HLA-II evidence, protein-function alternatives and independent tests of immune specificity and harm |
 | [Research frontier — 2026-10-22](docs/frontier-2026-10-22.md) | Evidence, open questions, and limits |
