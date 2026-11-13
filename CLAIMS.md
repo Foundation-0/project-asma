@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-06):** PROVEN **0** · VERIFIED **29** · KNOWN **37** · CONJECTURE **23**
+**Counts (2026-11-12):** PROVEN **0** · VERIFIED **32** · KNOWN **42** · CONJECTURE **25**
 
 ---
 
@@ -218,3 +218,10 @@ and do **not** substitute for study-data execution.
 - A project-wide license grant for third-party study files (see [NOTICE](NOTICE)).
 
 Update this file when README, mission, or protocol statements change.
+
+## Ecosystem research-fit assessment, 2026-11-12 America/Chicago
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| K38 | KNOWN | At the inspected revisions, Soko implements rechecked search exclusions and scoped finite bounds; the Proven Commons and Foundation-0 records distinguish proof statements, structural checks and exact certificates, with the implementation and licensing limits recorded in the assessment | [Pinned primary-source assessment](docs/ecosystem-research-fit-2026-11-12.md); S136–S143. Static code/report inspection, not a fresh replay or a biological validation claim. |
+| C24 | CONJECTURE | A bounded synthetic search with an independent checker, followed by separately gated candidate-spectrum or measurement-design work, may expose unsupported inferences or distinguish competing explanations useful to Project Asma | [Proposed contract, comparison baseline and stops](docs/ecosystem-research-fit-2026-11-12.md#a-bounded-next-increment). No prototype, novel biological result, source-data execution or dependency adoption follows from accepting the assessment. |
