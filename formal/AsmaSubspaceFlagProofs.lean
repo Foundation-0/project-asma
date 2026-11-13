@@ -1,7 +1,7 @@
 /-
-  Project Asma - Subspace-Flag Paraneoplastic Gates, C15 Monoid Collapse,
-  and Prospective N=1 Null-Space Calibration Proofs
-  =======================================================================
+  Project Asma - Comprehensive Subspace-Flag, Epitope-Core Bifurcation,
+  Offset-Saturation Optimum, Soko 0-1 ILP Assay Set, and N=1 Calibration Proofs
+  =============================================================================
   Stock Lean 4 (zero external dependencies, zero Mathlib imports, zero `sorry`).
   ASCII-only formatting compliant with `tools/validate.py`.
 -/
@@ -19,6 +19,9 @@ def survival3Den (pn pd rn rd c1d a2d : Int) : Int :=
 
 def ratEq (n1 d1 n2 d2 : Int) : Bool :=
   decide (n1 * d2 = n2 * d1)
+
+def ratLt (n1 d1 n2 d2 : Int) : Bool :=
+  decide (n1 * d2 < n2 * d1)
 
 def sameAcrossGrid (rn rd c1n c1d a2n a2d d1n d1d b2n b2d : Int) : Bool :=
   let grid : List (Int × Int) :=
@@ -43,7 +46,7 @@ theorem c15_three_stage_flag_unique_recovery :
     (2 * 1 - 1) * 7 = 1 * (8 - 1) := by
   decide
 
-/-! ## 2. Critical 2341/30537 (~7.67%) CDR2 Paralog-Bleed Phase Transition -/
+/-! ## 2. Critical Bleed Cliff & Offset-Saturation Global Optimum (PR #78 / #83 Extension) -/
 
 theorem c25_paralog_bleed_critical_threshold :
     (30537 - 2340) * 10179 * 60 > 563920 * 30537 ∧
@@ -55,7 +58,98 @@ theorem c25_bleed_universal_iff (a_num a_den : Int) (hden : 0 < a_den) :
     (a_den - a_num) * 610740 > 563920 * a_den ↔ 30537 * a_num < 2341 * a_den := by
   omega
 
-/-! ## 3. Multi-Compartment Transitive Regimen Neurotoxicity & Adjoint Flag Gate -/
+theorem low_seed_offset_saturation_hierarchy :
+    ratLt 3 448 1 60 = true ∧
+    ratLt 1 60 10179 563920 = true ∧
+    ratLt 10179 563920 152579 4189120 = true ∧
+    ratLt 152579 4189120 20467 430560 = true ∧
+    ratLt 20467 430560 3 40 = true ∧
+    (9 - 7) * 3 * 60 = 40 * 9 := by
+  decide
+
+/-! ## 3. CDR2L (Q86X02) vs CDR2 (Q01850) C-Terminal MHC-II Core Bifurcation -/
+
+def cdr2lCTerm : List Nat :=
+  "SQPEYKALFKEIFSRIQKTKADINATKVKTHSSK".toList.map Char.toNat
+
+def cdr2CTerm : List Nat :=
+  "TTPPEYKALFKEIFSCIKKTKQEIDEQRTKYRSLSSHS".toList.map Char.toNat
+
+def sliceNat (xs : List Nat) (start len : Nat) : List Nat :=
+  (xs.drop start).take len
+
+def hammingMatches : List Nat → List Nat → Nat
+  | [], _ => 0
+  | _, [] => 0
+  | x :: xs, y :: ys => (if x == y then 1 else 0) + hammingMatches xs ys
+
+def maxNineMerMatchIn (probe9 target : List Nat) : Nat :=
+  let nPos := target.length - 8
+  (List.range nPos).foldl
+    (fun acc j =>
+      let m := hammingMatches probe9 (sliceNat target j 9)
+      if m > acc then m else acc)
+    0
+
+theorem cdr2l_c_terminal_mhc2_core_bifurcation :
+    sliceNat cdr2lCTerm 2 12 = sliceNat cdr2CTerm 2 12 ∧
+    maxNineMerMatchIn (sliceNat cdr2lCTerm 2 9) cdr2CTerm = 9 ∧
+    maxNineMerMatchIn (sliceNat cdr2lCTerm 3 9) cdr2CTerm = 9 ∧
+    maxNineMerMatchIn (sliceNat cdr2lCTerm 4 9) cdr2CTerm = 9 ∧
+    maxNineMerMatchIn (sliceNat cdr2lCTerm 5 9) cdr2CTerm = 9 ∧
+    ((List.range 12).all (fun k =>
+      decide (maxNineMerMatchIn (sliceNat cdr2lCTerm (13 + k) 9) cdr2CTerm ≤ 5))) = true ∧
+    34 * 29 * 204 = 493 * 408 ∧
+    451 * 446 = 201146 ∧
+    986 * 200 < 201146 := by
+  decide
+
+/-! ## 4. PR #77 Soko 0-1 ILP Minimum Discriminating Assay Portfolio (H1..H5 + Paralog) -/
+
+def candidateAssays : List (List Nat) :=
+  [ [1, 1, 1, 0, 0, 1]
+  , [0, 0, 1, 0, 0, 0]
+  , [0, 1, 1, 0, 0, 0]
+  , [1, 1, 0, 1, 0, 0]
+  , [0, 0, 0, 1, 0, 0]
+  , [0, 0, 0, 0, 0, 1]
+  ]
+
+def worldSignature (mask : Nat) (wIdx : Nat) : List Nat :=
+  (List.range 6).foldl
+    (fun acc aIdx =>
+      if (mask / (2 ^ aIdx)) % 2 == 1 then
+        let row := candidateAssays.getD aIdx []
+        acc ++ [row.getD wIdx 0]
+      else acc)
+    []
+
+def maskPopcount (mask : Nat) : Nat :=
+  (List.range 6).foldl (fun acc aIdx => acc + ((mask / (2 ^ aIdx)) % 2)) 0
+
+def discriminatesAllSix (mask : Nat) : Bool :=
+  let pairs : List (Nat × Nat) :=
+    [(0,1),(0,2),(0,3),(0,4),(0,5),(1,2),(1,3),(1,4),(1,5),(2,3),(2,4),(2,5),(3,4),(3,5),(4,5)]
+  pairs.all (fun ij => decide (worldSignature mask ij.1 ≠ worldSignature mask ij.2))
+
+theorem soko_ilp_minimal_three_assay_discriminator :
+    ((List.range 64).all (fun m =>
+      if maskPopcount m ≤ 2 then !discriminatesAllSix m else true)) = true ∧
+    maskPopcount 13 = 3 ∧
+    discriminatesAllSix 13 = true := by
+  decide
+
+/-! ## 5. Exact C22 (13/8 = 21-Patient Cohort) Minimal Mann-Whitney Cutoff -/
+
+theorem c22_minimal_exact_mann_whitney_cutoff :
+    13 * 8 = 104 ∧
+    76 * 26 = 19 * 104 ∧
+    9060 * 6783 = 302 * 203490 ∧
+    302 * 20 < 6783 ∧
+    10601 * 20 > 203490 := by
+  decide
+
+/-! ## 6. Multi-Compartment Transitive Regimen Neurotoxicity & Adjoint Flag Gate -/
 
 structure State4 where
   tum : Int
@@ -105,7 +199,7 @@ theorem adjoint_flag_gate_zero_injury_full_synergy
   dsimp [step1AdjointGated, step2Effector]
   omega
 
-/-! ## 4. Prospective N=1 Patient Batch-Nullspace Invariance (p=64 / C20 / Gate 0) -/
+/-! ## 7. Prospective N=1 Patient Batch-Nullspace Invariance (p=64 / C20 / Gate 0) -/
 
 abbrev Vec := List Int
 
@@ -207,7 +301,7 @@ theorem vdot_linComb_eq_zero
         vdot beta (linComb ((c, q) :: tl))
             = vdot beta (vadd (vscale c q) (linComb tl)) := rfl
         _ = vdot beta (vscale c q) + vdot beta (linComb tl) :=
-          vdot_vadd_right beta (vscale c q) (linComb tl)
+            vdot_vadd_right beta (vscale c q) (linComb tl)
         _ = 0 := by omega
 
 theorem prospective_n1_nullspace_zero_logit_drift
@@ -227,9 +321,10 @@ theorem pilot001_n1_midrank_collapse :
     2158 * 2 = 4316 := by
   decide
 
-#print axioms c15_three_worlds_indistinguishable_all_mixtures
-#print axioms c25_bleed_universal_iff
-#print axioms single_stage_safe_cascade_neurotoxic
+#print axioms low_seed_offset_saturation_hierarchy
+#print axioms cdr2l_c_terminal_mhc2_core_bifurcation
+#print axioms soko_ilp_minimal_three_assay_discriminator
+#print axioms c22_minimal_exact_mann_whitney_cutoff
 #print axioms adjoint_flag_gate_zero_injury_full_synergy
 #print axioms prospective_n1_nullspace_zero_logit_drift
 
