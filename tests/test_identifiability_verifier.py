@@ -1,4 +1,4 @@
-"""Run the identifiability verifier and the archived v1 certificate check."""
+"""Run the identifiability verifier and the v1 certificate regeneration check."""
 
 import subprocess
 import sys
@@ -24,8 +24,8 @@ class IdentifiabilityVerifierTest(unittest.TestCase):
         self.assertIn("fitted consistency check", done.stdout)
         self.assertIn("OK: exact rational checks passed", done.stdout)
 
-    def test_archived_v1_certificate_regenerates(self):
-        done = self.run_script("results/identifiability-and-c20-2026-11-13/verify.py")
+    def test_v1_certificate_regenerates(self):
+        done = self.run_script("tools/check_identifiability_certificate_v1.py")
         self.assertEqual(done.returncode, 0, done.stderr)
         self.assertIn("366a230dbcf8f8a253bc4d0bd14a6ae91ce54e66d019cbd0c7454abde9e73923", done.stdout)
 
