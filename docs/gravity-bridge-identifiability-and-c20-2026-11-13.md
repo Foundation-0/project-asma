@@ -5,7 +5,7 @@ Scope: Research-only mathematical and statistical analysis. Certificate: `result
 
 ## Summary
 
-Status: gem-nexus presents this note, its certificate, and the explorer as an identifiability and C20 bridge. That presentation is an unreproduced Carbon claim, pending independent review. Its exact values are recorded in the certificate above. The Lean module and verifier for these results are under separate review in #83, and no proof file or verifier is cited here. This note adds no `CLAIMS.md` row, and `C20` stays a CONJECTURE.
+Status: gem-nexus presents this note, its certificate, and the explorer as an identifiability and C20 bridge. That presentation is an unreproduced Carbon claim, pending independent review. Its exact values are recorded in the certificate above. The Lean module and the certificate tools for these results are under separate review in #87, which supersedes #83. That review is still open, so this note cites no proof from it. This note adds no `CLAIMS.md` row, and `C20` stays a CONJECTURE.
 
 This note records three deterministic results for open problems in `CLAIMS.md`, `docs/compartment-identifiability.md`, `docs/cdr2-cdr2l-evidence-atlas-2026-11-13.md`, and `docs/pilot-001-auc-discrepancy.md`.
 
@@ -51,4 +51,4 @@ On the public `FFPE_pred_scores` cohort (`n_1 = 52`, `n_2 = 83`, `U = 3,491`, ex
 cd results/identifiability-and-c20-2026-11-13 && sha256sum -c SHA256SUMS
 ```
 
-This checks the certificate bytes only. A verifier that recomputes the certificate is part of the separate review in #83.
+This checks the certificate bytes only. Recomputing the certificate uses `tools/generate_identifiability_certificate_v1.py` and `tools/check_identifiability_certificate_v1.py`, which are part of the separate review in #87. That review is still open, and neither tool is a passed proof.
