@@ -26,6 +26,10 @@
 # registry fields only: no eligibility narratives and no participant rows.
 !/results/trial-landscape-v2-2026-11-13/
 !/results/trial-landscape-v2-2026-11-13/**
+# Open GDC and cBioPortal aggregate metadata for the 2026-11-13 TCGA-OV
+# cohort reconciliation. Counts and set hashes only; no case identifiers.
+!/results/tcga-ov-cohort-reconciliation-20261113/
+!/results/tcga-ov-cohort-reconciliation-20261113/**
 /artifacts/
 /checkpoints/
 /models/

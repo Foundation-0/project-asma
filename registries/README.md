@@ -1,5 +1,14 @@
 # Registries
 
+- [TCGA-OV cohort reconciliation, 2026-11-13 UTC](../results/tcga-ov-cohort-reconciliation-20261113/manifest.json):
+  open GDC and cBioPortal aggregate responses, with SHA-256 in `SHA256SUMS`.
+  Case and sample identifiers were counted in memory and not stored.
+  Replay with
+  `python3 results/tcga-ov-cohort-reconciliation-20261113/verify.py`.
+  Sources S160–S173. The note is
+  [docs/tcga-ov-cohort-reconciliation-20261113.md](../docs/tcga-ov-cohort-reconciliation-20261113.md).
+  Catalog denominators only; not a biological conclusion and not clinical guidance.
+
 - [Ovarian interventional trial landscape, 2026-11-13 UTC](../results/trial-landscape-v2-2026-11-13/manifest.json):
   projected ClinicalTrials.gov API v2 pages with contact emails redacted,
   post-redaction SHA-256 in `SHA256SUMS` (as-fetched archive hash pinned separately).
