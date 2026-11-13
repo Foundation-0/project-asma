@@ -33,9 +33,12 @@
     "templates/pilot-001-source-request.md": 1,
     "tests/test_auc_discrepancy.py": 2,
     "tools/analyze_auc_discrepancy.py": 13,
+    "tools/check_identifiability_certificate_v1.py": 1,
+    "tools/generate_identifiability_certificate_v1.py": 1,
     "tools/run_pilot001_reconstruction.R": 1,
+    "tools/verify_identifiability_and_c20.py": 3,
     "tools/verify_published_auc.py": 1
   },
-  "hit_count": 162,
+  "hit_count": 167,
   "token": "0\\.80885\\d*|(?<![\\d.])0\\.83(?!\\d)"
 }
