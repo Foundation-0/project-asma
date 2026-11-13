@@ -1,0 +1,280 @@
+{
+  "implementation": "tools/analyze_formal_synthesis.py",
+  "implementation_sha256": "14cdbf820a8c2b9228cf4acb34a7e90facb393009a188817cceaa0247d6cb51e",
+  "limits": [
+    "Proves mathematical properties of defined algebraic models, Mann-Whitney estimators, and canonical amino-acid masses only.",
+    "Does not establish clinical treatment selection, biomarker validity, or biological receptor recognition.",
+    "Scan 23848 deconvolution analyzes retained public CC0 MDA-MB-231 cell-line peaks only; physical validation requires synthetic SQPEYKALFKEIFSR mirror MS/MS or narrow-window PRM."
+  ],
+  "p01_scan23848_deconvolution": {
+    "c_terminal_r_fixed_class_size": 16,
+    "cdr2l_cleaved_bonds": [
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "cdr2l_max_abs_ppm": 5.15,
+    "cdr2l_median_abs_ppm": 1.97,
+    "cdr2l_uncleaved_bonds": [
+      1,
+      4,
+      13,
+      14
+    ],
+    "chimeric_offset_from_614_999_mz": 0.02668,
+    "chimeric_precursor_mz3": 615.02568,
+    "disjoint_partition": {
+      "cdr2l_aux_immonium": {
+        "ion_current_pct": 12.39,
+        "peaks": 8
+      },
+      "cdr2l_primary_by": {
+        "ion_current_pct": 16.8,
+        "peaks": 12
+      },
+      "chimeric_615_026_ladder": {
+        "ion_current_pct": 35.96,
+        "peaks": 19
+      },
+      "unassigned_background": {
+        "ion_current_pct": 34.86,
+        "peaks": 134
+      }
+    },
+    "p01_canonical_suffix_count": 0,
+    "p01_lattice_nodes_checked": 3630,
+    "p01_suffix_window_da": [
+      "309.9772",
+      "310.1273"
+    ],
+    "peak_count": 173,
+    "primary_ion_isobaric_class_size": 96,
+    "target_peptide_sha256": "90a79abab9ed2ea04b55f304c01cb0eed3f84c8f989a1a9531f9e615e9e9d31d",
+    "theorem_id": "P01"
+  },
+  "p02_c20_fold_vs_pooled_auc": {
+    "negative_count": 83,
+    "permutation_expected_fold_mean_exact": "3491/4316",
+    "pooled_auc_exact": "3491/4316",
+    "positive_count": 52,
+    "theorem_id": "P02",
+    "witness_fold_mean_exact": "7773/9350",
+    "witness_fold_mean_rounded_2dp": "0.83",
+    "witness_fold_sizes_neg": [
+      17,
+      17,
+      17,
+      16,
+      16
+    ],
+    "witness_fold_sizes_pos": [
+      11,
+      11,
+      10,
+      10,
+      10
+    ],
+    "witness_folds": [
+      {
+        "fold": 1,
+        "negatives_num_1e6": [
+          422412,
+          289900,
+          58157,
+          204266,
+          30907,
+          287274,
+          126706,
+          -256992,
+          375241,
+          228291,
+          406570,
+          203142,
+          227693,
+          413065,
+          267559,
+          247600,
+          832878
+        ],
+        "positives_num_1e6": [
+          250500,
+          603659,
+          818297,
+          341266,
+          472167,
+          314360,
+          426585,
+          740664,
+          617069,
+          250113,
+          764640
+        ]
+      },
+      {
+        "fold": 2,
+        "negatives_num_1e6": [
+          494453,
+          235538,
+          266109,
+          390119,
+          328442,
+          383394,
+          37783,
+          220076,
+          12505,
+          381255,
+          361043,
+          235237,
+          319170,
+          -56303,
+          428806,
+          161546,
+          280810
+        ],
+        "positives_num_1e6": [
+          438362,
+          540529,
+          869146,
+          331270,
+          281082,
+          162764,
+          613803,
+          627792,
+          636382,
+          220752,
+          716230
+        ]
+      },
+      {
+        "fold": 3,
+        "negatives_num_1e6": [
+          276639,
+          247337,
+          393928,
+          319168,
+          85206,
+          286391,
+          573526,
+          301379,
+          145908,
+          478384,
+          -50689,
+          -104053,
+          326960,
+          358600,
+          364080,
+          141443,
+          295783
+        ],
+        "positives_num_1e6": [
+          804228,
+          400378,
+          821419,
+          591817,
+          575920,
+          686770,
+          308125,
+          694762,
+          582917,
+          787618
+        ]
+      },
+      {
+        "fold": 4,
+        "negatives_num_1e6": [
+          457071,
+          137810,
+          115948,
+          704215,
+          518636,
+          224161,
+          439994,
+          513389,
+          421259,
+          834456,
+          506156,
+          -213596,
+          328429,
+          237685,
+          355561,
+          387693
+        ],
+        "positives_num_1e6": [
+          335948,
+          660712,
+          281208,
+          596056,
+          689932,
+          261513,
+          525274,
+          800511,
+          960283,
+          308126
+        ]
+      },
+      {
+        "fold": 5,
+        "negatives_num_1e6": [
+          344171,
+          681108,
+          411510,
+          -4356,
+          463187,
+          93167,
+          411135,
+          452984,
+          369739,
+          152616,
+          226854,
+          283521,
+          405697,
+          707700,
+          681009,
+          356185
+        ],
+        "positives_num_1e6": [
+          563260,
+          469510,
+          986315,
+          825442,
+          559145,
+          842726,
+          841788,
+          966135,
+          476282,
+          863775
+        ]
+      }
+    ],
+    "witness_per_fold_aucs_exact": [
+      "14/17",
+      "147/187",
+      "161/170",
+      "27/40",
+      "37/40"
+    ],
+    "witness_pooled_concordant_pairs": 3491,
+    "witness_tied_pairs": 0
+  },
+  "p03_treatment_sequence_identities": {
+    "composition_invariant_formula": "(b * r0) / (a * s0 + b * r0)",
+    "dual_checker_distinct_alpha_skeleton": true,
+    "impl_skeleton_sha256": "fe657e4196e5f6a909e11aa29476db8c52766e0c484e6a1c2b5394f9c5f9f03b",
+    "matched_cap_resistant_ratio_formula": "min(1 / q, 1 / g)",
+    "parameter_tuples_dual_verified": 3375,
+    "reference_90_10_resistant_fraction": "10/19",
+    "spec_skeleton_sha256": "60493247a5876c44c29ca43c036c1627db8e870d2060aef4c47aec50bd24f300",
+    "theorem_id": "P03",
+    "unequal_cap_reversal_iff": "tau_2 < g * min(s0 + r0, tau_1)"
+  },
+  "schema_version": 1,
+  "status": "offline_exact_rational_proofs_and_cc0_spectrum_deconvolution",
+  "study_data_or_network_used": false
+}
