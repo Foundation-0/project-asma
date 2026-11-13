@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-06):** PROVEN **0** · VERIFIED **36** · KNOWN **41** · CONJECTURE **24**
+**Counts (2026-11-13 UTC):** PROVEN **0** · VERIFIED **37** · KNOWN **41** · CONJECTURE **24**
 
 ---
 
@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`361` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`436` cases, all run; 2026-11-13 UTC). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
@@ -216,6 +216,12 @@ and do **not** substitute for study-data execution.
 | V36 | VERIFIED | The official Atlas peptide page for IEDB 11610866 displays one cerebellum source-association row, q-value 0.00189334 and no prediction-based binding evidence | [Aggregate certificate](registries/cdr2l-atlas-source-2026-11-06.json), `python3 tools/audit_cdr2l_atlas.py`, [source interpretation](docs/cdr2l-source-adjudication-2026-11-06.md). Portal metadata, not independently validated identification, source cell type, allotype or mechanism. |
 | V37 | VERIFIED | Complete integrity-checked streaming inspection of three original PXD023044 class-II identification files finds the exact breast-cell-line CDR2L 15mer once in r3, non-decoy Q86X02 residues 432–446, native spectrum `index=22949` | [Original identification result](docs/cdr2l-source-identification-2026-11-06.md), [certificate](registries/cdr2l-source-identification-2026-11-06.json). Search-output provenance, not independent spectrum validation, peptide-specific FDR, HLA allotype or receptor recognition. |
 | V38 | VERIFIED | The completely checksum-verified source MGF links documented zero-based `index=22949` to scan 23848, charge 3+, precursor m/z 614.999, exactly agreeing with the original submitted identification; 173 experimental peaks retained | [Executed peak-list locator](docs/cdr2l-spectrum-locator-2026-11-06.md), [certificate](registries/cdr2l-spectrum-locator-2026-11-06.json). Source linkage and metadata agreement, not independent identification, FDR calibration, RAW acquisition verification or biological replication. |
+
+## Compartment measurement design, 2026-11-13 UTC
+
+| ID | Label | Claim | Evidence and limits |
+| --- | --- | --- | --- |
+| V39 | VERIFIED | In the declared synthetic four-world, three-action model, only LH among the six designs of at most two observations separates zero conversion from both material-conversion worlds at residual error 1/60. Its exact boundary is epsilon < 13/700, compared with < 3/200 for LR and < 1/280 for RH. No guaranteed all-four discrimination; independent offsets or changing selection admit explicit target collisions | `python3 results/compartment-design-2026-11-13/verify.py`; [report and continuous-family argument](docs/research/compartment-measurement-design.md), [frozen protocol](protocols/compartment-measurement-design.md), [certificate](results/compartment-design-2026-11-13/certificate.json). Original rational arithmetic and independently implemented checking; not empirical assay precision, biological identification, a novel method, or a clinical result. |
 
 ## What this ledger does not claim
 

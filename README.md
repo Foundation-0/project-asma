@@ -58,6 +58,7 @@ clinical validity, or improved patient outcomes.
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
 | [Contributing](CONTRIBUTING.md) / [agent guidance](AGENTS.md) | Review and evidence standards |
 | [Claims ledger](CLAIMS.md) | PROVEN / VERIFIED / KNOWN / CONJECTURE labels for public statements |
+| [Compartment measurement design](docs/research/compartment-measurement-design.md) | Synthetic precision boundaries for distinguishing selection from substantial conversion; independent checker and assumption-failure controls |
 | [Paper scaffold](paper/manuscript.md) | Working manuscript: question, pre-registered methods, Results not yet run |
 | [Question](templates/research-question.md), [experiment](templates/experiment.md), [manifest](templates/provenance-manifest.md) templates | Reusable working records |
 

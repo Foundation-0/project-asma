@@ -8,7 +8,7 @@
 /processed/
 /manifests/private/
 /outputs/
-# Keep result data ignored; permit only this reviewed aggregate-only audit record.
+# Keep result data ignored; permit only named reviewed aggregate/synthetic records.
 /results/*
 !/results/trial-landscape-2026-11-05/
 /results/trial-landscape-2026-11-05/*
@@ -16,6 +16,12 @@
 !/results/trial-landscape-2026-11-05/certificate.json
 !/results/trial-landscape-2026-11-05/verify.py
 !/results/trial-landscape-2026-11-05/SHA256SUMS
+!/results/compartment-design-2026-11-13/
+/results/compartment-design-2026-11-13/*
+!/results/compartment-design-2026-11-13/PROOF.md
+!/results/compartment-design-2026-11-13/certificate.json
+!/results/compartment-design-2026-11-13/verify.py
+!/results/compartment-design-2026-11-13/SHA256SUMS
 /artifacts/
 /checkpoints/
 /models/
