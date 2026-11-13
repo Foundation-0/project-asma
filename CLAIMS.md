@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-13):** PROVEN **0** · VERIFIED **39** · KNOWN **44** · CONJECTURE **25**
+**Counts (2026-11-13):** PROVEN **0** · VERIFIED **40** · KNOWN **44** · CONJECTURE **25**
 
 ---
 
@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`427` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`452` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
@@ -232,7 +232,13 @@ and do **not** substitute for study-data execution.
 
 | ID | Label | Statement | Evidence and boundary |
 | --- | --- | --- | --- |
-| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 39 VERIFIED rows, 23 offline checkers, 22 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |
+| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 40 VERIFIED rows, 24 offline checkers, 23 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |
+
+## Ovarian interventional trial landscape, 2026-11-13 UTC
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V42 | VERIFIED | The frozen ClinicalTrials.gov API v2 pull started 2026-11-13T04:57:57Z (2026-11-12 22:57 America/Chicago; dataTimestamp 2026-11-12T10:00:05) returned 4260 unique interventional studies for condition query Ovarian Cancer. Status and phase counts each sum to 4260. The same recruiting query as 2026-11-05 returned 591, against 592 in that certificate. The earlier certificate has no NCT identifiers, so new, removed, and status-changed NCT IDs are not reconstructable. Corpus status RECRUITING is also 591. Two independent readers agree. Target-class hits: folr1 language 53, FRα ADC name or phrase 39, PARP-inhibitor lexicon 324, CDR2/CDR2L 0, mesothelin 39, MUC16 8, immunotherapy lexicon 510; 842 studies hit at least one target class. CA-125 language is 65 and is not an MUC16-directed class. These are registration counts, not efficacy or treatment guidance | [Report and exact requests](docs/trial-landscape-v2-2026-11-13.md); [certificate](results/trial-landscape-v2-2026-11-13/certificate.json); `python3 results/trial-landscape-v2-2026-11-13/verify.py`. S126, S127, S128, S158, S159. Pinned pages only. Not clinical advice, not eligibility, and not a measure of benefit. |
 
 ## What this ledger does not claim
 

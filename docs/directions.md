@@ -116,7 +116,7 @@ ranking here must not be interpreted as a novelty ranking.
 
 ### 8. Recruiting interventional trial landscape (ClinicalTrials.gov metadata)
 
-**Executed follow-up:** [frozen snapshot, 2026-11-05 America/Chicago](trial-landscape-2026-11-05.md). The table below preserves the original 2026-11-04 proposal; its count is historical, not the new result.
+**Executed follow-up:** [frozen snapshot, 2026-11-05 America/Chicago](trial-landscape-2026-11-05.md). The table below preserves the original 2026-11-04 proposal; its count is historical, not the new result. A later all-status count is the [2026-11-13 UTC landscape](trial-landscape-v2-2026-11-13.md); it is registration metadata, not a replacement for the recruiting snapshot and not treatment guidance.
 
 | Field | Content |
 | --- | --- |

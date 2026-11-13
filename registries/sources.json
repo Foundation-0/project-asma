@@ -1728,6 +1728,30 @@
       "takeaway": "The seven CDR2 parent ids added since 2026-11-05 point at this class I paper. The abstract describes psoriatic-arthritis and healthy-control MHC class I peptides.",
       "limitations": "Abstract only. Not an anti-Yo or class-II study. Catalog linkage is not a biological claim about cerebellar disease.",
       "checked_on": "2026-11-13"
+    },
+    {
+      "id": "S158",
+      "title": "ClinicalTrials.gov API v2 interventional ovarian-cancer studies, 2026-11-13 UTC",
+      "kind": "data_catalog",
+      "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CInterventionType%2CInterventionName",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CInterventionType%2CInterventionName",
+      "locator": "First-page URL above; later page URLs, archive_sha256, and archive_as_fetched_sha256 are in results/trial-landscape-v2-2026-11-13/manifest.json. Post-redaction per-page SHA-256 values are in results/trial-landscape-v2-2026-11-13/SHA256SUMS and certificate.json (provenance.pages). Study-page bodies redact contact emails per redaction_rule. Version URL https://clinicaltrials.gov/api/v2/version returned apiVersion 2.0.5 and dataTimestamp 2026-11-12T10:00:05 before and after the pull. Retrieval 2026-11-13T04:57:57Z to 2026-11-13T04:58:02Z (2026-11-12 22:57–22:58 America/Chicago).",
+      "takeaway": "The frozen pages contain 4260 interventional studies for this condition query. Counts are registrations, not outcomes.",
+      "limitations": "Condition search expansion is not a histotype cohort. Projected fields omit eligibility text and results. The copy is historical, not a live enrollment list. Source terms are S126–S128, not a repository licence over the registry.",
+      "checked_on": "2026-11-13"
+    },
+    {
+      "id": "S159",
+      "title": "ClinicalTrials.gov API v2 recruiting interventional ovarian-cancer count, 2026-11-13 UTC",
+      "kind": "data_catalog",
+      "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&filter.overallStatus=RECRUITING&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1&countTotal=true&fields=NCTId%2COverallStatus%2CStudyType",
+      "verification": "metadata_reviewed",
+      "reviewed_via": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&filter.overallStatus=RECRUITING&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1&countTotal=true&fields=NCTId%2COverallStatus%2CStudyType",
+      "locator": "Exact URL above; frozen body snapshot/recruiting-query.json in results/trial-landscape-v2-2026-11-13. Same query parameters as the 2026-11-05 recruiting snapshot, with pageSize 1 and countTotal true. Retrieved in the same interval as S158.",
+      "takeaway": "totalCount on this response is 591, one below the 592 stored in the 2026-11-05 certificate. The earlier certificate has no NCT identifiers, so the study that accounts for the change is not named.",
+      "limitations": "A totalCount is not an identifier diff and not evidence of efficacy. One returned study body is an API page, not the recruiting membership list. Listing is not government approval of a study.",
+      "checked_on": "2026-11-13"
     }
   ]
 }
