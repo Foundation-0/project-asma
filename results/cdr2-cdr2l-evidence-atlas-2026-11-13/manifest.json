@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "retrieved_on": "2026-11-13",
+  "procedure": "Repeat the 2026-11-05 IEDB procedure: antigen_search parent_source_antigen_iri=eq.UNIPROT:<accession>, select=elution_ids, limit=1; parent card select=parent_source_antigen_id,parent_source_antigen_iri,elution_ids, limit=2, Prefer count=exact; mhc_search on those ids in batches of at most 50 with mhc_class=eq.II, limit=50, select=elution_id,reference_id,pubmed_id,reference_titles,mhc_class,mhc_allele_name,mhc_allele_evidence,assay_names,qualitative_measure. The seven parent ids present on this date and absent on 2026-11-05 were queried separately without an MHC-class filter.",
+  "files": [
+    {
+      "path": "snapshot/iedb-antigen-Q01850.json",
+      "role": "iedb_antigen",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/antigen_search?parent_source_antigen_iri=eq.UNIPROT%3AQ01850&select=elution_ids&limit=1",
+      "accession": "Q01850",
+      "content_range": "0-0/*"
+    },
+    {
+      "path": "snapshot/iedb-parent-card-Q01850.json",
+      "role": "iedb_parent_card",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/antigen_search?parent_source_antigen_iri=eq.UNIPROT%3AQ01850&select=parent_source_antigen_id%2Cparent_source_antigen_iri%2Celution_ids&limit=2",
+      "accession": "Q01850",
+      "content_range": "0-0/1",
+      "request_headers": {
+        "Prefer": "count=exact"
+      }
+    },
+    {
+      "path": "snapshot/iedb-antigen-Q86X02.json",
+      "role": "iedb_antigen",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/antigen_search?parent_source_antigen_iri=eq.UNIPROT%3AQ86X02&select=elution_ids&limit=1",
+      "accession": "Q86X02",
+      "content_range": "0-0/*"
+    },
+    {
+      "path": "snapshot/iedb-parent-card-Q86X02.json",
+      "role": "iedb_parent_card",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/antigen_search?parent_source_antigen_iri=eq.UNIPROT%3AQ86X02&select=parent_source_antigen_id%2Cparent_source_antigen_iri%2Celution_ids&limit=2",
+      "accession": "Q86X02",
+      "content_range": "0-0/1",
+      "request_headers": {
+        "Prefer": "count=exact"
+      }
+    },
+    {
+      "path": "snapshot/iedb-mhc-Q01850-00.json",
+      "role": "iedb_mhc",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.%281822377%2C2064951%2C2068713%2C2068893%2C2070640%2C2099294%2C2099906%2C2101366%2C2400018%2C2401167%2C2476578%2C2478450%2C2478451%2C2478452%2C2478532%2C2478533%2C2478534%2C2495079%2C2510323%2C2514395%2C2531489%2C2536197%2C2572262%2C2572301%2C2585792%2C2587052%2C2588512%2C2594343%2C2595848%2C2637466%2C2638545%2C2721950%2C2913558%2C2914065%2C3034275%2C3036427%2C3037004%2C3039672%2C3047004%2C3048558%2C3051783%2C3055342%2C3104018%2C3108330%2C3165954%2C3185122%2C3243484%2C3247002%2C3247774%2C3284978%29&mhc_class=eq.II&select=elution_id%2Creference_id%2Cpubmed_id%2Creference_titles%2Cmhc_class%2Cmhc_allele_name%2Cmhc_allele_evidence%2Cassay_names%2Cqualitative_measure&limit=50",
+      "accession": "Q01850",
+      "content_range": "*/*"
+    },
+    {
+      "path": "snapshot/iedb-mhc-Q01850-01.json",
+      "role": "iedb_mhc",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.%283286737%2C3290300%2C3299628%2C3299861%2C3299980%2C3358300%2C3360036%2C3471281%2C3577201%2C3583421%2C3585536%2C3597633%2C3597634%2C3597774%2C3597775%2C3598780%2C3599323%2C3599324%2C3599539%2C3600642%2C3604869%2C3607250%2C3616204%2C3617030%2C3746591%2C3768099%2C3776393%2C3780469%2C3828183%2C3963314%2C3963315%2C3964105%2C3967927%2C4118561%2C4129054%2C4138163%2C4139786%2C5161161%2C5161162%2C5296794%2C5304297%2C5318284%2C5361598%2C5481989%2C5487623%2C5494919%2C5514180%2C5519849%2C5522453%2C5522737%29&mhc_class=eq.II&select=elution_id%2Creference_id%2Cpubmed_id%2Creference_titles%2Cmhc_class%2Cmhc_allele_name%2Cmhc_allele_evidence%2Cassay_names%2Cqualitative_measure&limit=50",
+      "accession": "Q01850",
+      "content_range": "*/*"
+    },
+    {
+      "path": "snapshot/iedb-mhc-Q01850-02.json",
+      "role": "iedb_mhc",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.%285524940%2C5525103%2C5526645%2C5533397%2C5546822%2C5551622%2C5553549%2C6002122%2C6004078%2C6004477%2C6008243%2C6294242%2C6294940%2C6296636%2C6326380%2C6327788%2C6519750%2C6526575%2C6531162%2C6548649%2C7333238%2C7333239%2C7366071%2C7435546%2C7441851%2C7450843%2C7450844%2C7452528%2C7460805%2C7466675%2C7499230%2C7500575%2C7502371%2C7502372%2C7502373%2C7507717%2C7507718%2C7507719%2C7509819%2C7510693%2C7516754%2C7540259%2C7540260%2C7567974%2C8256735%2C8266458%2C8562007%2C8562008%2C8562009%2C8584470%29&mhc_class=eq.II&select=elution_id%2Creference_id%2Cpubmed_id%2Creference_titles%2Cmhc_class%2Cmhc_allele_name%2Cmhc_allele_evidence%2Cassay_names%2Cqualitative_measure&limit=50",
+      "accession": "Q01850",
+      "content_range": "*/*"
+    },
+    {
+      "path": "snapshot/iedb-mhc-Q01850-03.json",
+      "role": "iedb_mhc",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.%289184925%2C9187166%2C11263717%2C11263718%2C11263719%2C11430606%2C11440905%2C11440906%2C11440907%2C11440908%2C11440909%2C11440910%2C11440911%2C11453657%2C11460393%2C11480011%2C11599755%2C11638554%2C11638555%2C11638556%2C11638557%2C11638558%2C11638559%2C11638560%2C11638561%2C11638562%2C11638563%2C11638564%2C11638565%2C11638566%2C11638567%2C11638568%2C11638569%2C11638570%2C11638571%2C11638572%2C11638573%2C11638574%2C11638575%2C11638576%2C11638577%2C12404225%2C12407133%2C12407134%2C12407319%2C12407320%2C12407321%2C12426147%2C12432576%2C12461704%29&mhc_class=eq.II&select=elution_id%2Creference_id%2Cpubmed_id%2Creference_titles%2Cmhc_class%2Cmhc_allele_name%2Cmhc_allele_evidence%2Cassay_names%2Cqualitative_measure&limit=50",
+      "accession": "Q01850",
+      "content_range": "0-0/*"
+    },
+    {
+      "path": "snapshot/iedb-mhc-Q01850-04.json",
+      "role": "iedb_mhc",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.%2812461705%2C12467368%2C12528709%2C12876532%2C12888393%2C13854497%2C13855338%2C13867356%2C13874216%2C13874217%2C13880466%2C15050286%2C15051104%2C15052131%2C15201251%2C15203113%2C15205845%2C15206361%2C16032574%2C16033417%2C16034520%2C16035806%2C16038025%2C16050979%2C16051411%2C16051412%2C16067647%2C16293090%2C16293091%2C16293092%2C16476113%2C16526984%2C16543635%2C16549221%2C16553502%2C16559485%2C17311419%2C17311420%2C17324464%2C17335113%2C17335114%2C17354977%2C17354978%2C17354979%2C17354980%2C17354981%2C17388370%2C17388371%2C17397550%2C17397551%29&mhc_class=eq.II&select=elution_id%2Creference_id%2Cpubmed_id%2Creference_titles%2Cmhc_class%2Cmhc_allele_name%2Cmhc_allele_evidence%2Cassay_names%2Cqualitative_measure&limit=50",
+      "accession": "Q01850",
+      "content_range": "0-5/*"
+    },
+    {
+      "path": "snapshot/iedb-mhc-Q01850-05.json",
+      "role": "iedb_mhc",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.%2817397552%2C17397553%2C17598693%2C17599071%2C17815300%2C17815301%2C17828322%2C17828323%2C17978062%2C18008895%2C18045159%2C18106764%2C18107813%2C18110295%2C18112839%2C18114757%2C18118465%2C18119667%2C18376965%2C18377248%2C18381542%2C18396269%2C18401358%2C18401623%2C18411009%2C18634425%2C18640708%2C18640917%2C18646533%2C18648525%2C18648609%2C18661219%2C18680863%2C18696628%2C18702780%2C18703640%2C21229304%2C21259867%2C21263529%2C21265669%2C21430622%2C22248704%2C22456186%2C22456561%2C22988756%2C23432657%2C23441071%2C23441072%2C23441261%2C23606172%29&mhc_class=eq.II&select=elution_id%2Creference_id%2Cpubmed_id%2Creference_titles%2Cmhc_class%2Cmhc_allele_name%2Cmhc_allele_evidence%2Cassay_names%2Cqualitative_measure&limit=50",
+      "accession": "Q01850",
+      "content_range": "*/*"
+    },
+    {
+      "path": "snapshot/iedb-mhc-Q01850-06.json",
+      "role": "iedb_mhc",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.%2823634058%2C23634059%2C23687642%2C23687643%2C23687644%2C23693481%2C23693482%2C23726286%2C23733107%2C23853195%2C24953227%2C25003482%2C25020184%2C25020955%2C25020956%2C25086187%2C25086188%2C25089882%2C25089883%2C25090314%2C25099781%2C25099782%2C25126830%2C25521091%2C25521092%2C25905777%2C26172495%2C26185059%2C29196403%2C29198558%2C29203275%2C29312305%2C29313456%2C29315018%2C29320488%2C29320536%2C29320537%2C29581754%2C29589682%2C29607176%2C29632531%2C29635247%2C29643819%2C29644036%2C29650848%2C29650849%2C29650850%2C29656503%2C29685149%2C29821780%29&mhc_class=eq.II&select=elution_id%2Creference_id%2Cpubmed_id%2Creference_titles%2Cmhc_class%2Cmhc_allele_name%2Cmhc_allele_evidence%2Cassay_names%2Cqualitative_measure&limit=50",
+      "accession": "Q01850",
+      "content_range": "*/*"
+    },
+    {
+      "path": "snapshot/iedb-mhc-Q01850-07.json",
+      "role": "iedb_mhc",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.%2829879102%2C30552445%2C30556270%2C30566536%2C30578414%2C30595589%2C30602693%2C30604163%2C30616194%2C30616320%2C30621955%2C30621956%2C30627827%2C30707124%2C30725972%2C30725973%2C30725974%2C30725975%2C30776834%2C30803786%2C30803787%2C30840506%2C30854563%2C30856460%2C30925949%2C30925950%2C31042323%2C31042324%2C31042325%2C31042326%2C31048994%2C31083521%2C31100939%29&mhc_class=eq.II&select=elution_id%2Creference_id%2Cpubmed_id%2Creference_titles%2Cmhc_class%2Cmhc_allele_name%2Cmhc_allele_evidence%2Cassay_names%2Cqualitative_measure&limit=50",
+      "accession": "Q01850",
+      "content_range": "*/*"
+    },
+    {
+      "path": "snapshot/iedb-mhc-Q86X02-00.json",
+      "role": "iedb_mhc",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.%283745353%2C5514139%2C7580738%2C7583259%2C11610866%2C12127591%2C12127592%2C12127593%2C12127594%2C12127595%2C12127596%2C12127597%2C12127598%2C12127599%2C13791731%2C16060386%2C16561020%2C17323133%2C17331763%2C17363537%2C17363538%2C17386076%2C17388292%2C17980331%2C17998586%2C18378366%2C18381354%2C18383548%2C18393462%2C18417618%2C18420880%2C18456218%2C18640388%2C18695806%2C21441757%2C21474071%2C22247725%2C25052929%2C25052930%2C29824321%2C30498792%2C30569902%2C30650847%2C30826898%2C30875511%29&mhc_class=eq.II&select=elution_id%2Creference_id%2Cpubmed_id%2Creference_titles%2Cmhc_class%2Cmhc_allele_name%2Cmhc_allele_evidence%2Cassay_names%2Cqualitative_measure&limit=50",
+      "accession": "Q86X02",
+      "content_range": "0-1/*"
+    },
+    {
+      "path": "snapshot/iedb-class-i-delta.json",
+      "role": "iedb_class_i_delta",
+      "kind": "raw",
+      "url": "https://query-api.iedb.org/mhc_search?elution_id=in.%2831042323%2C31042324%2C31042325%2C31042326%2C31048994%2C31083521%2C31100939%29&select=elution_id%2Cmhc_class%2Cmhc_allele_name%2Cassay_names%2Cqualitative_measure%2Cpubmed_id&limit=50",
+      "content_range": "0-6/*"
+    },
+    {
+      "path": "snapshot/uniprot-Q01850.json",
+      "role": "uniprot",
+      "kind": "raw",
+      "url": "https://rest.uniprot.org/uniprotkb/Q01850.json",
+      "accession": "Q01850"
+    },
+    {
+      "path": "snapshot/uniprot-Q86X02.json",
+      "role": "uniprot",
+      "kind": "raw",
+      "url": "https://rest.uniprot.org/uniprotkb/Q86X02.json",
+      "accession": "Q86X02"
+    },
+    {
+      "path": "snapshot/hpa-gene-Q01850.json",
+      "role": "hpa_gene",
+      "kind": "raw",
+      "url": "https://www.proteinatlas.org/ENSG00000140743.json",
+      "accession": "Q01850"
+    },
+    {
+      "path": "snapshot/hpa-gene-Q86X02.json",
+      "role": "hpa_gene",
+      "kind": "raw",
+      "url": "https://www.proteinatlas.org/ENSG00000109089.json",
+      "accession": "Q86X02"
+    },
+    {
+      "path": "snapshot/hpa-consensus.tsv",
+      "role": "hpa_consensus",
+      "kind": "zip-gene-extract",
+      "url": "https://www.proteinatlas.org/download/tsv/rna_tissue_consensus.tsv.zip",
+      "source_zip_sha256": "1238e89fb1094c031db0b44cba9ed97e69f2465bdcc9065d13771fd05414108b",
+      "member": "rna_tissue_consensus.tsv"
+    },
+    {
+      "path": "snapshot/hpa-consensus-tissues.tsv",
+      "role": "hpa_consensus_tissues",
+      "kind": "zip-member",
+      "url": "https://www.proteinatlas.org/download/tsv/rna_tissue_consensus_tissues.tsv.zip",
+      "source_zip_sha256": "151fb6a1c0585e5024cbcdc0888d654e9a66598d688078573b1a7d5c73b2f4a7",
+      "member": "rna_tissue_consensus_tissues.tsv"
+    },
+    {
+      "path": "snapshot/hpa-cancer-ihc.tsv",
+      "role": "hpa_cancer_ihc",
+      "kind": "zip-gene-extract",
+      "url": "https://www.proteinatlas.org/download/tsv/cancer_data.tsv.zip",
+      "source_zip_sha256": "37fdc5beb4ccb27196dc41baa262f886ad68ffbf9951eecc8de50ce784011a0e",
+      "member": "cancer_data.tsv"
+    },
+    {
+      "path": "snapshot/hpa-normal-ihc.tsv",
+      "role": "hpa_normal_ihc",
+      "kind": "zip-gene-extract",
+      "url": "https://www.proteinatlas.org/download/tsv/normal_ihc_data.tsv.zip",
+      "source_zip_sha256": "d53cc1d677892359489528fd9ac733656a23f19106b0c975bd84b61b56d99846",
+      "member": "normal_ihc_data.tsv"
+    },
+    {
+      "path": "snapshot/hpa-tcga-cancers.tsv",
+      "role": "hpa_tcga_cancers",
+      "kind": "zip-member",
+      "url": "https://www.proteinatlas.org/download/tsv/cancer_rna_tcga_cancers.tsv.zip",
+      "source_zip_sha256": "17b7fb3dd6cffc2ecb337680045feab7677672117698a53933734c0fc96467f5",
+      "member": "cancer_rna_tcga_cancers.tsv"
+    }
+  ]
+}

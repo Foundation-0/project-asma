@@ -8,7 +8,7 @@
 /processed/
 /manifests/private/
 /outputs/
-# Keep result data ignored; permit only this reviewed aggregate-only audit record.
+# Keep result data ignored; permit only reviewed aggregate-only records.
 /results/*
 !/results/trial-landscape-2026-11-05/
 /results/trial-landscape-2026-11-05/*
@@ -16,6 +16,9 @@
 !/results/trial-landscape-2026-11-05/certificate.json
 !/results/trial-landscape-2026-11-05/verify.py
 !/results/trial-landscape-2026-11-05/SHA256SUMS
+# Public IEDB, UniProt and Human Protein Atlas records for the 2026-11-13 atlas.
+!/results/cdr2-cdr2l-evidence-atlas-2026-11-13/
+!/results/cdr2-cdr2l-evidence-atlas-2026-11-13/**
 /artifacts/
 /checkpoints/
 /models/
@@ -39,6 +42,8 @@
 *.csv.gz
 *.tsv
 *.tsv.gz
+# Atlas extracts are two-gene or legend tables, not study sample rows.
+!/results/cdr2-cdr2l-evidence-atlas-2026-11-13/**/*.tsv
 *.xls
 *.xlsx
 *.feather
