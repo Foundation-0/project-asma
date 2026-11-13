@@ -3,6 +3,7 @@ import gzip
 import hashlib
 import io
 from pathlib import Path
+import subprocess
 import sys
 import unittest
 import xml.sax
@@ -158,6 +159,15 @@ class SourcePSMTests(unittest.TestCase):
                         (b'peptideEvidence_ref="ev1"',b'peptideEvidence_ref="absent"'),
                         (b'dBSequence_ref="db1"',b'dBSequence_ref="absent"')]:
             with self.subTest(old=old),self.assertRaises(ValueError):inspect(fixture().replace(old,new))
+
+
+    def test_offline_certificate_check_passes(self):
+        code = subprocess.run(
+            [sys.executable, str(Path(__file__).resolve().parents[1] / 'tools/audit_cdr2l_source_psm.py'),
+             '--check'],
+            check=False,
+        ).returncode
+        self.assertEqual(code, 0)
 
 
 if __name__ == '__main__': unittest.main()

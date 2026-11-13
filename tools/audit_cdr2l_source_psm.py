@@ -264,11 +264,41 @@ def live_inspection():
             "spectra_reanalyzed": False, "allotype_assigned": False}
 
 
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_CERT = ROOT / "registries/cdr2l-source-identification-2026-11-06.json"
+
+
+def check_certificate(path: Path) -> None:
+    require(path.is_file(), f"missing certificate {path}")
+    report = json.loads(path.read_text(encoding="utf-8"))
+    require(hashlib.sha256(Path(__file__).read_bytes()).hexdigest() == report.get("implementation_sha256"),
+            "implementation_sha256 mismatch")
+    require(report.get("project") == PROJECT and report.get("target_sequence") == TARGET, "identity drift")
+    require(report.get("all_three_pinned_files_complete") is True, "incomplete certificate")
+    require(len(report.get("files", [])) == len(FILES), "wrong file count")
+    matches = 0
+    for record in report["files"]:
+        require(record.get("xml_complete") is True, f"incomplete xml: {record.get('file')}")
+        if record.get("matching_results"):
+            matches += 1
+    require(matches == 1, "expected one file with a target identification")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--live", action="store_true", help="Inspect exactly the three pinned public result files")
+    parser.add_argument("--check", action="store_true", help="Verify the committed identification certificate offline")
+    parser.add_argument("--certificate", type=Path, default=DEFAULT_CERT, help="Certificate JSON for --check")
     parser.add_argument("--output", type=Path, help="Write compact target-only identification metadata after all files verify")
     args = parser.parse_args()
+    if args.check:
+        try:
+            check_certificate(args.certificate)
+        except ValueError as error:
+            print(f"FAIL: {error}", file=sys.stderr)
+            return 1
+        print("PASS: offline identification certificate digest and identity")
+        return 0
     if not args.live:
         parser.print_help()
         return 0

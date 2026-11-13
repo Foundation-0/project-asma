@@ -107,6 +107,14 @@ class SpectrumLocatorTests(unittest.TestCase):
             with self.subTest(variant=name), self.assertRaises(ValueError):
                 run_live(data)
 
+    def test_offline_certificate_check_passes(self):
+        code = subprocess.run(
+            [sys.executable, str(ROOT / 'tools/audit_cdr2l_spectrum_locator.py'), '--check'],
+            cwd=ROOT,
+            check=False,
+        ).returncode
+        self.assertEqual(code, 0)
+
     def test_package_import(self):
         completed = subprocess.run(
             [sys.executable, '-c', 'from tools import audit_cdr2l_spectrum_locator'],
