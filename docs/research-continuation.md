@@ -1,5 +1,7 @@
 # Research preservation and continuation
 
+**Cross-repository reassessment, 12 November 2026:** [from plausible explanations to discriminating tests](ecosystem-research-fit-2026-11-12.md). Current Asma and Virtual Human state, Soko search/checker patterns, Proven Commons statement-review lessons, and bounded proposed next steps. Static assessment; no new study execution or dependency adoption.
+
 **Latest executed catalog check: [CDR2L named-sequence adjudication](cdr2l-sequence-adjudication-2026-11-06.md).** Two curated peptides match their CDR2L coordinates and do not match the explicitly checked CDR2 reference. Broad database uniqueness remains unresolved; spectra, allotype and receptor evidence remain the next questions.
 
 **Preservation extract, 11 November 2026: [public portion of the convergence notes](google-bio-convergence-2026-11-11.md).** Replayable arithmetic and title checks from those notes. It does not replace the catalog check above, and it does not include private archive material.

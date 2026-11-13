@@ -1464,6 +1464,102 @@
       "takeaway": "Source index 22949 maps to scan 23848, matching submitted precursor and charge; only 173 selected experimental peaks retained after complete-file integrity verification.",
       "limitations": "Deposited peak-list linkage, not independent identification, fragment rescoring, calibrated FDR, RAW verification or allotype assignment.",
       "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S136",
+      "title": "Soko: checked search constraints, finite bounds and provenance-aware portfolio triage",
+      "kind": "code",
+      "url": "https://github.com/ahrazzle/soko/tree/27406dd2c5599c91fa2b63e8f577861a78c22ffb",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://github.com/ahrazzle/soko/tree/27406dd2c5599c91fa2b63e8f577861a78c22ffb",
+      "locator": "experiments/causal_solver/refinement.py; experiments/transport_relaxation/cut_certificate.py; experiments/portfolio/triage.py; soko_mcp/formal_kernel.py; adversarial tests and pyproject.toml",
+      "takeaway": "Candidate exclusions are rechecked against model metadata; unknown results do not justify exclusions. The portfolio adapter preserves reported-only bounds, unlike the generic supplied-floor triage helper.",
+      "limitations": "Static review only; deterministic puzzle semantics do not transfer unchanged to biology. Reported full-suite failures remain. Apache-2.0 is declared in package metadata but standalone license/notice and issue-prose rights were not established.",
+      "checked_on": "2026-11-12"
+    },
+    {
+      "id": "S137",
+      "title": "Proven Commons anthology: pinned Lean libraries and axiom audit",
+      "kind": "code",
+      "url": "https://github.com/Foundation-0/proven-commons/tree/903c1858be856776de21675cf5c4e26fb9eebcdf",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://github.com/Foundation-0/proven-commons/tree/903c1858be856776de21675cf5c4e26fb9eebcdf",
+      "locator": "README.md; scripts/audit.py; LICENSE; sync run https://github.com/Foundation-0/proven-commons/actions/runs/43232349581",
+      "takeaway": "Anthology builds and axiom checks concern specified statements and pinned packages. The November 12 sync completed build/audit before its PR-publication step failed.",
+      "limitations": "Main is an older snapshot; current upstream namespace and license facts differ. Axiom checks do not establish statement fidelity, independent specification approval or biological validity. No Lean builds rerun here.",
+      "checked_on": "2026-11-12"
+    },
+    {
+      "id": "S138",
+      "title": "Proven Commons mission: adversarial review of claim versus theorem",
+      "kind": "evidence_summary",
+      "url": "https://github.com/Proven-Commons/mission/tree/7b22e542f0db0f3013ab1439cf5d1947676a5083",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://github.com/Proven-Commons/mission/tree/7b22e542f0db0f3013ab1439cf5d1947676a5083",
+      "locator": "reviews/tar/2026-10-24-bar-audit.md, F1; README.md verification bar",
+      "takeaway": "The historical tar audit found that a standard-axiom theorem omitted slash-free component requirements needed for the advertised confinement claim.",
+      "limitations": "This is a historical statement-scope finding, not a demonstrated implementation path escape or a fresh audit of every current library. Review prose is paraphrased and linked, not copied.",
+      "checked_on": "2026-11-12"
+    },
+    {
+      "id": "S139",
+      "title": "Finite-state recurrence certificates and independent checker",
+      "kind": "code",
+      "url": "https://github.com/Foundation-0/finite-state-proofs/tree/9eeb3da2cdd6ba6b100ac24d23b32c369c0db8ec",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://github.com/Foundation-0/finite-state-proofs/tree/9eeb3da2cdd6ba6b100ac24d23b32c369c0db8ec",
+      "locator": "PROOF.md; certificate generator and independent verifier; NOTICE.md; open licensing PR #3",
+      "takeaway": "A written finite-state correspondence and exact zero-vector residual certificates establish the specified recurrences beyond a finite sample; independent representation and corruption controls support checking.",
+      "limitations": "Not Lean-formalized; human sign-off pending. Main has no repository-wide license grant; open PR #3 is a proposal. No code or certificate copied, no upstream checker executed, no biological transfer established.",
+      "checked_on": "2026-11-12"
+    },
+    {
+      "id": "S140",
+      "title": "Formal claims audit: verdict schema and structural checker",
+      "kind": "code",
+      "url": "https://github.com/Foundation-0/formal-claims-audit/tree/bacf05953c10bf5105fa1209a127392d395e2f92",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://github.com/Foundation-0/formal-claims-audit/tree/bacf05953c10bf5105fa1209a127392d395e2f92",
+      "locator": "scripts/check_verdicts.py; README.md; verdict schema; LICENSE",
+      "takeaway": "Explicit source pins, independently stated claims and review evidence are separated from structural JSON validity; the current checker rejects malformed structures and duplicate keys.",
+      "limitations": "Zero completed research verdicts at this snapshot. Structural checking neither runs Lean nor proves statement equivalence, source truth or review independence. Apache-2.0 own code; no code copied.",
+      "checked_on": "2026-11-12"
+    },
+    {
+      "id": "S141",
+      "title": "Proven Commons CSV round-trip theorem and current license",
+      "kind": "code",
+      "url": "https://github.com/Proven-Commons/csv/tree/9d15dc85f786e7b99b2bb6c6e6b72db79ee1c9b4",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://github.com/Proven-Commons/csv/tree/9d15dc85f786e7b99b2bb6c6e6b72db79ee1c9b4",
+      "locator": "Csv/Proofs/RoundTrip.lean parse_print; README.md; LICENSE",
+      "takeaway": "The round-trip theorem is conditional on well-formed documents whose records have at least one field. The inspected current upstream includes an Apache-2.0 license.",
+      "limitations": "Not a complete CSV dialect/grammar, clinical-column semantics or performance guarantee. Separate specification approval remains pending. No parser adoption or proof execution.",
+      "checked_on": "2026-11-12"
+    },
+    {
+      "id": "S142",
+      "title": "Proven Commons JSON proof scope and current license",
+      "kind": "code",
+      "url": "https://github.com/Proven-Commons/json/tree/4ff8eb6483e21ec87da03a80abdb0af45ba9b7f2",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://github.com/Proven-Commons/json/tree/4ff8eb6483e21ec87da03a80abdb0af45ba9b7f2",
+      "locator": "README.md proof and limitations sections; proof modules; LICENSE",
+      "takeaway": "Documents round-trip and canonical-decimal properties, with particular malformed-input examples. The inspected upstream includes an Apache-2.0 license.",
+      "limitations": "Does not establish general grammar completeness, every numeric parse or object-lookup semantics; duplicate keys remain ordered entries. No parser adoption or proof execution.",
+      "checked_on": "2026-11-12"
+    },
+    {
+      "id": "S143",
+      "title": "Virtual Human merged evidence bindings and reaction-model boundary",
+      "kind": "code",
+      "url": "https://github.com/Foundation-0/virtual-human/tree/6b10b458704e36cd592552ab8165d55ce5fe64ec",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://github.com/Foundation-0/virtual-human/tree/6b10b458704e36cd592552ab8165d55ce5fe64ec",
+      "locator": "vh/graph/evidence.py; docs/evidence_bindings.md; docs/project-asma-integration.md; SBML and reaction reports; LICENSE",
+      "takeaway": "Merged optional scalar bindings preserve input source, meaning, units, basis, context and uncertainty metadata; existing reaction/intervention and restricted SBML work provide bounded synthetic capabilities.",
+      "limitations": "No uncertainty propagation or automatic biological applicability. SBML units are not checked; missing ovarian kinetics stay missing. MIT/Rohan Arun attribution retained; no new code adoption or model execution in this assessment.",
+      "checked_on": "2026-11-12"
     }
   ]
 }

@@ -86,6 +86,13 @@ review. ClinicalTrials.gov/NLM is the source of registry metadata; original
 normalization, aggregate counting and reporting are this project's work.
 Internal checking is not external scientific or clinical peer review.
 
+The **12 November 2026 ecosystem reassessment** was prepared with OpenAI Codex
+and **GPT-6 Astra** agents for current Asma state, Soko method transfer and
+Proven Commons/Foundation-0 source review. It credits the linked source authors,
+proposes bounded research tests and preserves existing teams’ open work.
+No upstream code was executed or copied; no proofs were rerun, and no private
+data or new study analysis was used in this assessment; proposed use is not adoption or scientific validation.
+
 ## Prior work credited by name
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);

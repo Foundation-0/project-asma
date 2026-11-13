@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-06):** PROVEN **0** · VERIFIED **36** · KNOWN **41** · CONJECTURE **24**
+**Counts (2026-11-13 UTC):** PROVEN **0** · VERIFIED **36** · KNOWN **42** · CONJECTURE **25**
 
 ---
 
@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`361` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`417` cases, all run; 2026-11-13 UTC). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
@@ -227,3 +227,10 @@ and do **not** substitute for study-data execution.
 - A project-wide license grant for third-party study files (see [NOTICE](NOTICE)).
 
 Update this file when README, mission, or protocol statements change.
+
+## Ecosystem research-fit assessment, 2026-11-12 America/Chicago
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| K38 | KNOWN | At the inspected revisions, Soko implements rechecked search exclusions and scoped finite bounds; the Proven Commons and Foundation-0 records distinguish proof statements, structural checks and exact certificates, with the implementation and licensing limits recorded in the assessment | [Pinned primary-source assessment](docs/ecosystem-research-fit-2026-11-12.md); S136–S143. Static code/report inspection, not a fresh replay or a biological validation claim. |
+| C24 | CONJECTURE | A bounded synthetic search with an independent checker, followed by separately gated candidate-spectrum or measurement-design work, may expose unsupported inferences or distinguish competing explanations useful to Project Asma | [Proposed contract, comparison baseline and stops](docs/ecosystem-research-fit-2026-11-12.md#a-bounded-next-increment). No prototype, novel biological result, source-data execution or dependency adoption follows from accepting the assessment. |
