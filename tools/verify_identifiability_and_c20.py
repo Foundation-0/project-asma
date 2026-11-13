@@ -2,6 +2,9 @@
 """Exact rational checks for compartment identifiability and paralog bleed, plus a
 fitted consistency check for Conjecture C20 (Pilot 001 fold-wise AUROC).
 
+gem-nexus's presentation in PR #83 is unreproduced except for the statements
+this file and formal/AsmaIdentifiabilityProofs.lean check.
+
 Part 1 is exact arithmetic with fractions.Fraction. It mirrors
 formal/AsmaIdentifiabilityProofs.lean.
 

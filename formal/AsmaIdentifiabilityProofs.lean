@@ -11,6 +11,9 @@
   report for every theorem is at the end of this file and in
   formal/axioms-lean-4.35.0.txt.
 
+  gem-nexus's presentation in PR #83 is unreproduced except for the statements
+  this file proves.
+
   Compartment model (docs/compartment-identifiability.md):
     q(p; r, c) = (r*p + c*(1-p)) / (r*p + (1-p)).
   With p = pN/pD and c = cN/cD, qNum/qDen below is that fraction scaled by pD*cD.
@@ -34,7 +37,7 @@ theorem snapshot_four_worlds_indistinguishable :
   decide
 
 /-- Paired design (L, H) = (1/10, 2/5): contrast ceilings eps*_C25 = 3/448 and
-eps*_C50 = 13/700, and 3/448 < 3/200 < 1/60 < 13/700. -/
+eps*_C50 = 13/700, with 3/448 < 1/60 < 13/700. -/
 theorem pr78_sharp_separation_hierarchy :
     qNum 1 10 16 0 1 * 25  = 16 * qDen 1 10 16 0 1 ∧
     qNum 2 5  16 0 1 * 35  = 32 * qDen 2 5  16 0 1 ∧
@@ -44,8 +47,7 @@ theorem pr78_sharp_separation_hierarchy :
     qNum 2 5  6  1 2 * 10  = 9  * qDen 2 5  6  1 2 ∧
     ((32 * 25 - 16 * 35) * 10 - (9 - 7) * (35 * 25)) * 700 = 4 * 13 * (35 * 25 * 10) ∧
     ((32 * 25 - 16 * 35) * 400 - (91 * 4 - 53 * 5) * (35 * 25)) * 448 = 4 * 3 * (35 * 25 * 400) ∧
-    (3 : Int) * 200 < 3 * 448 ∧
-    (3 : Int) * 60  < 1 * 200 ∧
+    (3 : Int) * 60  < 1 * 448 ∧
     (1 : Int) * 700 < 13 * 60 := by
   decide
 
@@ -53,8 +55,9 @@ theorem pr78_sharp_separation_hierarchy :
 q-values at L: S 16/35, C25 21/40, C50 31/50, C75 61/80.
 q-values at H: S 48/53, C25 137/152, C50 41/46, C75 27/32.
 Contrast ceilings against S: eps*_C25 = 10179/563920, eps*_C50 = 9451/213325,
-eps*_C75 = 21801/237440. Each exceeds 1/60, and eps*_C50 exceeds 26/700 = 2 * 13/700. -/
-theorem opt_low_seed_flips_c25_and_doubles_c50 :
+eps*_C75 = 21801/237440. Each exceeds 1/60, and eps*_C50 exceeds 26/700 = 2 * 13/700.
+This states the ceilings for these two seeds. It makes no claim that the seeds are optimal. -/
+theorem low_seed_1_20_3_8_ceilings_vs_snapshot :
     qNum 1 20 16 0 1 * 35  = 16  * qDen 1 20 16 0 1 ∧
     qNum 3 8  16 0 1 * 53  = 48  * qDen 3 8  16 0 1 ∧
     qNum 1 20 11 1 4 * 40  = 21  * qDen 1 20 11 1 4 ∧
@@ -77,7 +80,7 @@ theorem opt_low_seed_flips_c25_and_doubles_c50 :
 /-- Pairwise ceilings among the conversion worlds at (1/20, 3/8):
 C25 vs C50 = 4589/174800, C25 vs C75 = 897/12160, C50 vs C75 = 3497/73600.
 Each exceeds 1/60. -/
-theorem opt_low_seed_conversion_worlds_pairwise :
+theorem low_seed_1_20_3_8_pairwise_conversion_ceilings :
     ((137 * 40 - 21 * 152) * (46 * 50) - (41 * 50 - 31 * 46) * (152 * 40)) * 174800 =
       4 * 4589 * (152 * 40 * 46 * 50) ∧
     (4589 : Int) * 60 > 1 * 174800 ∧
@@ -121,7 +124,7 @@ theorem survival_ratio_pencil_four_worlds :
 
 /-- (1 - c) * q(p; r, 0) + c = q(p; r, c), cross-multiplied over the shared
 denominator (r - 1)*p + 1. -/
-theorem pgl2_paralog_cross_reactivity_isomorphism (p r c : Int) :
+theorem blend_numerator_equality (p r c : Int) :
     (1 - c) * (r * p) + c * ((r - 1) * p + 1) = (r - c) * p + c := by
   calc
     (1 - c) * (r * p) + c * ((r - 1) * p + 1)
@@ -155,11 +158,14 @@ theorem pilot001_stratified_5fold_pair_split :
     11 * 17 + 11 * 17 + 10 * 17 + 10 * 16 + 10 * 16 = 864 := by
   decide
 
-theorem within_fold_concordance_shift_invariant (sPos sNeg delta : Int) :
+/-- Integer order: adding the same integer to both sides preserves `>`. -/
+theorem int_gt_cancel_common_addend (sPos sNeg delta : Int) :
     (sPos + delta > sNeg + delta) ↔ (sPos > sNeg) := by
   omega
 
-theorem cross_fold_concordance_broken_by_shift :
+/-- Integer order: adding different integers can reverse `>`. Witness 10 > 5
+while 10 + 0 is not greater than 5 + 6. -/
+theorem int_gt_unequal_addends_witness :
     ∃ (sPos sNeg deltaPos deltaNeg : Int),
       sPos > sNeg ∧ ¬ (sPos + deltaPos > sNeg + deltaNeg) := by
   exact ⟨10, 5, 0, 6, by decide, by decide⟩
@@ -168,12 +174,12 @@ end AsmaIdentifiabilityProofs
 
 #print axioms AsmaIdentifiabilityProofs.snapshot_four_worlds_indistinguishable
 #print axioms AsmaIdentifiabilityProofs.pr78_sharp_separation_hierarchy
-#print axioms AsmaIdentifiabilityProofs.opt_low_seed_flips_c25_and_doubles_c50
-#print axioms AsmaIdentifiabilityProofs.opt_low_seed_conversion_worlds_pairwise
+#print axioms AsmaIdentifiabilityProofs.low_seed_1_20_3_8_ceilings_vs_snapshot
+#print axioms AsmaIdentifiabilityProofs.low_seed_1_20_3_8_pairwise_conversion_ceilings
 #print axioms AsmaIdentifiabilityProofs.universal_snapshot_gap_factorization
 #print axioms AsmaIdentifiabilityProofs.survival_ratio_pencil
 #print axioms AsmaIdentifiabilityProofs.survival_ratio_pencil_four_worlds
-#print axioms AsmaIdentifiabilityProofs.pgl2_paralog_cross_reactivity_isomorphism
+#print axioms AsmaIdentifiabilityProofs.blend_numerator_equality
 #print axioms AsmaIdentifiabilityProofs.pilot001_stratified_5fold_pair_split
-#print axioms AsmaIdentifiabilityProofs.within_fold_concordance_shift_invariant
-#print axioms AsmaIdentifiabilityProofs.cross_fold_concordance_broken_by_shift
+#print axioms AsmaIdentifiabilityProofs.int_gt_cancel_common_addend
+#print axioms AsmaIdentifiabilityProofs.int_gt_unequal_addends_witness
