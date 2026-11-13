@@ -13,3 +13,6 @@
 'AsmaIdentifiabilityProofs.pilot001_stratified_5fold_pair_split' does not depend on any axioms
 'AsmaIdentifiabilityProofs.int_gt_cancel_common_addend' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AsmaIdentifiabilityProofs.int_gt_unequal_addends_witness' does not depend on any axioms
+'AsmaIdentifiabilityProofs.paralog_semigroup_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AsmaIdentifiabilityProofs.chebyshev_linf_c25_19_560' does not depend on any axioms
+'AsmaIdentifiabilityProofs.paralog_blind_spot_10179_63232' does not depend on any axioms

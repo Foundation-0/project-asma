@@ -169,6 +169,69 @@ theorem int_gt_unequal_addends_witness :
     ∃ (sPos sNeg deltaPos deltaNeg : Int),
       sPos > sNeg ∧ ¬ (sPos + deltaPos > sNeg + deltaNeg) := by
   exact ⟨10, 5, 0, 6, by decide, by decide⟩
+def cEffNum (cN cD aN aD : Int) : Int :=
+  cN * aD + aN * (cD - cN)
+
+def cEffDen (cD aD : Int) : Int :=
+  cD * aD
+/-- Joint contamination-paralog semigroup law: combining compartment contamination
+c = cN/cD with paralog bleed a = aN/aD yields effective contamination
+c oplus a = (cN*aD + aN*(cD - cN)) / (cD*aD) with complement (cD - cN)*(aD - aN),
+commutativity in (c, a), and p = 0 patient-matrix evaluation equal to c oplus a
+(whereas c = 0 buffer gives aN/aD). -/
+theorem paralog_semigroup_law (pN pD r cN cD aN aD : Int) :
+  (aD - aN) * qNum pN pD r cN cD + aN * qDen pN pD r cN cD =
+    qNum pN pD r (cEffNum cN cD aN aD) (cEffDen cD aD) ∧
+  aD * qDen pN pD r cN cD =
+    qDen pN pD r (cEffNum cN cD aN aD) (cEffDen cD aD) ∧
+  cEffDen cD aD - cEffNum cN cD aN aD = (cD - cN) * (aD - aN) ∧
+  cEffNum cN cD aN aD = cEffNum aN aD cN cD ∧
+  qNum 0 pD r (cEffNum cN cD aN aD) (cEffDen cD aD) = cEffNum cN cD aN aD * pD ∧
+  qDen 0 pD r (cEffNum cN cD aN aD) (cEffDen cD aD) = pD * cEffDen cD aD ∧
+  cEffNum 0 1 aN aD = aN ∧
+  cEffDen 1 aD = aD := by
+  dsimp only [qNum, qDen, cEffNum, cEffDen]
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> grind
+
+/-- Chebyshev L_infty two-well half-gap on (1/20, 3/8) between S (16, 0) and
+C25 (11, 1/4) equals 19/560 (dominating high-seed half-gap 35/16112), clearing
+twice the 1/60 noise benchmark (1/30) and lifting the 10179/563920 slope ceiling
+by more than 9/5 (1.88x); on (1/10, 2/5) Chebyshev half-gap is 9/800 > 3/448. -/
+theorem chebyshev_linf_c25_19_560 :
+  (qNum 1 20 11 1 4 * qDen 1 20 16 0 1 - qNum 1 20 16 0 1 * qDen 1 20 11 1 4) * 560 =
+    2 * 19 * (qDen 1 20 11 1 4 * qDen 1 20 16 0 1) ∧
+  (qNum 3 8 16 0 1 * qDen 3 8 11 1 4 - qNum 3 8 11 1 4 * qDen 3 8 16 0 1) * 16112 =
+    2 * 35 * (qDen 3 8 16 0 1 * qDen 3 8 11 1 4) ∧
+  (35 : Int) * 560 < 19 * 16112 ∧
+  (19 : Int) * 30 > 1 * 560 ∧
+  (19 : Int) * 563920 * 5 > 9 * 10179 * 560 ∧
+  (qNum 1 10 11 1 4 * qDen 1 10 16 0 1 - qNum 1 10 16 0 1 * qDen 1 10 11 1 4) * 800 =
+    2 * 9 * (qDen 1 10 11 1 4 * qDen 1 10 16 0 1) ∧
+  (qNum 2 5 16 0 1 * qDen 2 5 11 1 4 - qNum 2 5 11 1 4 * qDen 2 5 16 0 1) * 7000 =
+    2 * 15 * (qDen 2 5 16 0 1 * qDen 2 5 11 1 4) ∧
+  (15 : Int) * 800 < 9 * 7000 ∧
+  (9 : Int) * 448 > 3 * 800 := by
+  decide
+
+/-- Exact 10179/63232 paralog-slope blind spot and 2D/pivot remedies: under
+paralog bleed a* = 10179/63232, World S (16, 0) gives 697/1280 at p = 1/20 and
+4479/4864 at p = 3/8, whose 1D difference 143/380 matches C25 (137/152 - 21/40)
+with zero slope gap, whereas 2D Chebyshev half-gap is 5/512 at both endpoints
+and the p = 1/5 pivot shifts from 4/5 to 20239/24320 (half-gap 10179/632320). -/
+theorem paralog_blind_spot_10179_63232 :
+  qNum 1 20 16 10179 63232 * 1280 = 697 * qDen 1 20 16 10179 63232 ∧
+  qNum 3 8 16 10179 63232 * 4864 = 4479 * qDen 3 8 16 10179 63232 ∧
+  ((4479 : Int) * 1280 - 697 * 4864) * 380 = 143 * (4864 * 1280) ∧
+  ((137 : Int) * 40 - 21 * 152) * 380 = 143 * (152 * 40) ∧
+  ((4479 : Int) * 1280 - 697 * 4864) * (152 * 40) =
+    ((137 : Int) * 40 - 21 * 152) * (4864 * 1280) ∧
+  ((697 : Int) * 40 - 21 * 1280) * 512 = 2 * 5 * (1280 * 40) ∧
+  ((4479 : Int) * 152 - 137 * 4864) * 512 = 2 * 5 * (4864 * 152) ∧
+  qNum 1 5 16 10179 63232 * 24320 = 20239 * qDen 1 5 16 10179 63232 ∧
+  ((20239 : Int) * 5 - 4 * 24320) * 632320 = 2 * 10179 * (24320 * 5) := by
+  decide
+
+
 
 end AsmaIdentifiabilityProofs
 
@@ -183,3 +246,6 @@ end AsmaIdentifiabilityProofs
 #print axioms AsmaIdentifiabilityProofs.pilot001_stratified_5fold_pair_split
 #print axioms AsmaIdentifiabilityProofs.int_gt_cancel_common_addend
 #print axioms AsmaIdentifiabilityProofs.int_gt_unequal_addends_witness
+#print axioms AsmaIdentifiabilityProofs.paralog_semigroup_law
+#print axioms AsmaIdentifiabilityProofs.chebyshev_linf_c25_19_560
+#print axioms AsmaIdentifiabilityProofs.paralog_blind_spot_10179_63232
