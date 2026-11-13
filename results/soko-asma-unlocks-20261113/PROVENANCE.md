@@ -13,7 +13,19 @@ The four payload files match the zip's `SHA256SUMS`, checked from the repository
 
 `SHA256SUMS` itself is `b653bd5724020a1ce6144df42e87012dc97e5e8a60cb24e5aa308c2989b7b935`.
 
-The checker, tests, README, certificate, and `SHA256SUMS` are the vault payload, kept byte-identical. Numbers and status words inside those files are unreproduced Carbon claims, pending independent review. The four design ceilings restated under `pinned_s16_lh_bounds` already appear on main from #87.
+The checker, tests, README, certificate, and `SHA256SUMS` are the vault payload, kept byte-identical. Numbers and status words inside those files are unreproduced Carbon claims, pending independent review.
+
+The certificate is a nine-counter toy model and does not reproduce ahrazzle/soko `9fcb6cfa`. The III-14 figures below are recorded on that tree.
+
+The 15x7 catalog III-14 sticky-door route `LULULUULRURRURURUALDRRUDRRUDDRURRR` is 34 steps. Under exact Part III rules the Druid is crushed on purple door `(8, 3)` at step 30. The ledger records a floor of 38 or more from the finished `f=37` layer: `expanded = 38,578,394`, `unique_canon_states = 117,766,522`, `edges_verified = 181,959,400`. See `evidence/2026-11-13-iii14-15x7-floor38-ledger/README.md` on that tree.
+
+The toy uses `pull_aura=3`. Bard's aura there is a 5x5 Chebyshev square (radius 2). See `soko_mcp/oracle.py` and the mask in `soko_mcp/flat_oracle.py`, and the 5x5 `notes_mask` note in `docs/iii14-15x7-catalog-floor34.md`.
+
+The checker's `r33` construction is a peptide residue swap (`dipeptide_swap_chimera_decoy` in `tools/verify_soko_asma_unlocks.py`). The transport-relaxation rung `r33` on the same ledger is `H=33`, `t_L=32`, with Hall 9/9, HeroFlow 9/9, and IntactFlow 9/9.
+
+The checker comment at line 81 calls the toy gate law "the exact III-14 rule". That wording overstates the correspondence. The hash-pinned payload bytes are kept as delivered.
+
+The four design ceilings restated under `pinned_s16_lh_bounds` already appear on main from #87.
 
 Replay from the repository root:
 
