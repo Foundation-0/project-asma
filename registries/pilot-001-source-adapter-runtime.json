@@ -56,6 +56,16 @@
     "tests/test_source_adapter_runtime.py": "dc4fcef66226e0b59e846d174a69398d6ec565fe44ac317b7531e816f1cba86f",
     "tools/build_source_adapter_runtime.py": "9659d9fd4e2583cef5e9508b24a3ad994736207db7f11844852d2f6f7d064051"
   },
+  "implementation_hash_drift": {
+    "tests/test_source_adapter_runtime.py": {
+      "allowed_recorded_hash": "dc4fcef66226e0b59e846d174a69398d6ec565fe44ac317b7531e816f1cba86f",
+      "git_commit": "5026273dfb757b6ee0acab6c1887b7c1a826993d"
+    },
+    "tools/build_source_adapter_runtime.py": {
+      "allowed_recorded_hash": "9659d9fd4e2583cef5e9508b24a3ad994736207db7f11844852d2f6f7d064051",
+      "git_commit": "5026273dfb757b6ee0acab6c1887b7c1a826993d"
+    }
+  },
   "limitations": [
     "This verifies a local software build, not research-data permissions or actual source compatibility.",
     "Only required Python modules were exercised; missing optional extension modules and deliberately disabled test modules are not supported.",
