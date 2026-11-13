@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-06):** PROVEN **0** · VERIFIED **35** · KNOWN **37** · CONJECTURE **23**
+**Counts (2026-11-06):** PROVEN **0** · VERIFIED **36** · KNOWN **41** · CONJECTURE **24**
 
 ---
 
