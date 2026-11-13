@@ -17,16 +17,16 @@
     },
     {
       "artifact_paths": [],
-      "canonical_sha256": "ee78794ab0c32ece653b25baa51ad21f189b8565af6842f82db9fa91c601a81f",
+      "canonical_sha256": "a6a09decee2c5c4845af4f3e8a80c08a9f9434ec2a89e03c1219abc1555e65ee",
       "certificate_paths": [],
       "id": "V02",
       "label": "VERIFIED",
       "recheck_commands": [
         "python3 -m unittest discover -s tests -v"
       ],
-      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`451` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |",
+      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`452` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |",
       "source_ids": [],
-      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`451` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`)"
+      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`452` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`)"
     },
     {
       "artifact_paths": [],
@@ -1491,7 +1491,7 @@
     "PROVEN": 0,
     "VERIFIED": 40
   },
-  "ledger_sha256": "ec973c8f6d05b35578b6d78661bc1c8b4fea64564c476af2d15f41f519386e35",
+  "ledger_sha256": "67ad6d988fd31dc4df042c3bba5ab0db6b315b75e34f362b2927da4b9e336547",
   "schema_version": 1,
   "source": "CLAIMS.md"
 }
