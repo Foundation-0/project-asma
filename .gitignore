@@ -19,6 +19,9 @@
 # Public IEDB, UniProt and Human Protein Atlas records for the 2026-11-13 atlas.
 !/results/cdr2-cdr2l-evidence-atlas-2026-11-13/
 !/results/cdr2-cdr2l-evidence-atlas-2026-11-13/**
+# Integrity-layer checker audit (aggregate JSON only).
+!/results/integrity-audit-2026-11-13/
+!/results/integrity-audit-2026-11-13/**
 /artifacts/
 /checkpoints/
 /models/

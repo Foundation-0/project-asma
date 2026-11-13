@@ -1,0 +1,456 @@
+{
+  "claims": [
+    {
+      "certificate_path": null,
+      "checker": "tools/validate.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V01",
+      "recheck_commands": [
+        "python3 tools/validate.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V02",
+      "recheck_commands": [
+        "python3 -m unittest discover -s tests -v"
+      ],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V03",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V04",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V05",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V06",
+      "recheck_commands": [
+        "python3 -m unittest tests.test_execution_conditions -v"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "tools/check_implementation_hashes.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V07",
+      "recheck_commands": [
+        "python3 tools/check_implementation_hashes.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V08",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": "tools/analyze_validation_capacity.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V09",
+      "recheck_commands": [
+        "python3 tools/analyze_validation_capacity.py",
+        "python3 -m unittest tests.test_validation_capacity -v"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V10",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V11",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V12",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V13",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V14",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V15",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V16",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V17",
+      "recheck_commands": [
+        "python3 -m unittest tests.test_evaluate_heldout -v"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "tools/validate.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V18",
+      "recheck_commands": [
+        "python3 tools/validate.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "tools/analyze_compartment_identifiability.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V19",
+      "recheck_commands": [
+        "python3 tools/analyze_compartment_identifiability.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": "registries/antigen-metadata-audit-2026-11-05.json",
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V20",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V21",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": "tools/analyze_treatment_sequence.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V22",
+      "recheck_commands": [
+        "python3 tools/analyze_treatment_sequence.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": "registries/pilot-001-auc-discrepancy.json",
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V23",
+      "recheck_commands": [
+        "python3 -m unittest tests.test_auc_discrepancy -v"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V24",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": null,
+      "checker": "tools/check_site_models.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V25",
+      "recheck_commands": [
+        "python3 tools/check_site_models.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V26",
+      "recheck_commands": [
+        "node tools/test_research_lab.cjs"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": "registries/cdr2-hla-ii-evidence-map-2026-11-06.json",
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V27",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": "registries/pilot-001-exploratory-subset-design.json",
+      "checker": "tools/plan_exploratory_subset_design.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V28",
+      "recheck_commands": [
+        "python3 tools/plan_exploratory_subset_design.py --check",
+        "python3 -m unittest tests.test_exploratory_subset_design -v"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": "results/trial-landscape-2026-11-05/certificate.json",
+      "checker": "results/trial-landscape-2026-11-05/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V29",
+      "recheck_commands": [
+        "python3 results/trial-landscape-2026-11-05/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": "registries/cdr2l-sequence-audit-2026-11-06.json",
+      "checker": "tools/audit_cdr2l_sequences.py",
+      "fails_on_tamper": "yes",
+      "id": "V30",
+      "recheck_commands": [
+        "python3 tools/audit_cdr2l_sequences.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "tools/check_stated_specificity_bounds.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V31",
+      "recheck_commands": [
+        "python3 tools/check_stated_specificity_bounds.py --check"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "tools/check_stated_specificity_bounds.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V32",
+      "recheck_commands": [
+        "python3 tools/check_stated_specificity_bounds.py --check"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": "registries/cdr2l-database-search-2026-11-06.json",
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V35",
+      "recheck_commands": [],
+      "run_executed": false,
+      "run_exit_zero": null,
+      "runs_offline": false
+    },
+    {
+      "certificate_path": "registries/cdr2l-atlas-source-2026-11-06.json",
+      "checker": "tools/audit_cdr2l_atlas.py",
+      "fails_on_tamper": "yes",
+      "id": "V36",
+      "recheck_commands": [
+        "python3 tools/audit_cdr2l_atlas.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": "registries/cdr2l-source-identification-2026-11-06.json",
+      "checker": "tools/audit_cdr2l_source_psm.py",
+      "fails_on_tamper": "yes",
+      "id": "V37",
+      "recheck_commands": [
+        "python3 tools/audit_cdr2l_source_psm.py --check"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": "registries/cdr2l-spectrum-locator-2026-11-06.json",
+      "checker": "tools/audit_cdr2l_spectrum_locator.py",
+      "fails_on_tamper": "yes",
+      "id": "V38",
+      "recheck_commands": [
+        "python3 tools/audit_cdr2l_spectrum_locator.py --check"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V39",
+      "recheck_commands": [
+        "python3 results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V40",
+      "recheck_commands": [
+        "python3 results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "results/integrity-audit-2026-11-13/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V41",
+      "recheck_commands": [
+        "python3 tools/export_claims_ledger.py --check",
+        "python3 tools/check_sha256_manifests.py",
+        "python3 tools/audit_checkers.py --check",
+        "python3 results/integrity-audit-2026-11-13/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    }
+  ],
+  "generated_utc": "2026-11-13T04:24:46.291072+00:00",
+  "ledger_sha256": "44e7e5176a72daa8172c7a1adad9abc96426844dcfef324355ac170a6e2b0683",
+  "schema_version": 1,
+  "summary": {
+    "gaps": [],
+    "offline_ran_exit_zero": 22,
+    "offline_recheck_defined": 23,
+    "tamper_applicable": 4,
+    "tamper_fails_on_tamper": 4,
+    "verified_claims": 39
+  }
+}
