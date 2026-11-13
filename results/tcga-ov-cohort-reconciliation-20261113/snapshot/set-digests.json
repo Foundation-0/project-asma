@@ -1,0 +1,303 @@
+{
+  "gdc_cases": {
+    "count": 608,
+    "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4",
+    "unparsed": 0
+  },
+  "gdc_cases_without_tumor_tissue": {
+    "count": 8,
+    "sha256": "9066f064472a6dd0d5a747d7e971c36763cef6c8dc8a56cf3f7dc183ed06b7a0"
+  },
+  "gdc_primary_tumor_cases": {
+    "count": 599,
+    "sha256": "80eeb974fbe39ac118a9dfab2711d6cb3d9ac38caf7d932ef3afc196de8ac4f6"
+  },
+  "gdc_tumor_tissue_cases": {
+    "count": 600,
+    "sha256": "05879e649150863629721804f5f3c0ec6c47873be7ecdc2ed98683791589dd51"
+  },
+  "id_rule": "Patient values are the uppercase 12-character TCGA participant barcode. A longer TCGA sample barcode contributes only that participant portion. Sample values keep the full uppercase sample barcode. SHA-256 covers the sorted unique values, one UTF-8 line each, including the final newline. The identifiers themselves are not stored.",
+  "open_file_cases": {
+    "any": {
+      "count": 608,
+      "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+    },
+    "by_data_category": {
+      "Biospecimen": {
+        "count": 608,
+        "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+      },
+      "Clinical": {
+        "count": 608,
+        "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+      },
+      "Copy Number Variation": {
+        "count": 601,
+        "sha256": "ed6aacd005f34bed082bf8b1795fed208076ee954bdff4d26448876c6c52dcdc"
+      },
+      "DNA Methylation": {
+        "count": 602,
+        "sha256": "dc7242694727351a2bd924e50af26d36001e610df7b2fb705b8aa4fdca02a2ff"
+      },
+      "Proteome Profiling": {
+        "count": 422,
+        "sha256": "af4c11e3df81f86561a0fbf79f7128580cbcc1fc0fe9e8f088dfa8579920d6a9"
+      },
+      "Simple Nucleotide Variation": {
+        "count": 419,
+        "sha256": "3fc3ea8dea81c14d3abaa938611be2eba26155a1f92a7de791b057b5dd932e7e"
+      },
+      "Transcriptome Profiling": {
+        "count": 559,
+        "sha256": "396c324e45a45fb4bb47c0de283832b82c4adf8ad253c9c22b7eb7f00c7eda7f"
+      }
+    },
+    "by_data_type": {
+      "Allele-specific Copy Number Segment": {
+        "count": 570,
+        "sha256": "de3f066262e65e9f552dc3f69fada2e5a429f634776aa688b0e6863de9af8fba"
+      },
+      "Biospecimen Supplement": {
+        "count": 608,
+        "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+      },
+      "Clinical Supplement": {
+        "count": 608,
+        "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+      },
+      "Copy Number Segment": {
+        "count": 601,
+        "sha256": "ed6aacd005f34bed082bf8b1795fed208076ee954bdff4d26448876c6c52dcdc"
+      },
+      "Gene Expression Quantification": {
+        "count": 427,
+        "sha256": "c9c9c63ba5ec238a3a3d7ebdd734f3c1998bb5bf71510dc12b49ba0322fa6220"
+      },
+      "Gene Level Copy Number": {
+        "count": 578,
+        "sha256": "8388c76b4d51c55a7031d7532e76ba4244ac795d40f4b515c36830e21260e4b2"
+      },
+      "Isoform Expression Quantification": {
+        "count": 522,
+        "sha256": "280620566d13b46d1dc66492bec67875c4fa86674cdf95372b830e027b0ab831"
+      },
+      "Masked Copy Number Segment": {
+        "count": 597,
+        "sha256": "233abcb316107c4a6da8fb928827d965b67f4e0e6e7fe14c8e158f51e73fe95e"
+      },
+      "Masked Intensities": {
+        "count": 602,
+        "sha256": "dc7242694727351a2bd924e50af26d36001e610df7b2fb705b8aa4fdca02a2ff"
+      },
+      "Masked Somatic Mutation": {
+        "count": 419,
+        "sha256": "3fc3ea8dea81c14d3abaa938611be2eba26155a1f92a7de791b057b5dd932e7e"
+      },
+      "Methylation Beta Value": {
+        "count": 602,
+        "sha256": "dc7242694727351a2bd924e50af26d36001e610df7b2fb705b8aa4fdca02a2ff"
+      },
+      "Pathology Report": {
+        "count": 590,
+        "sha256": "c35bf76f0d824def7c37f2a3950af0e5d1bb5bb2160441e87c91bf3592d0dbe5"
+      },
+      "Protein Expression Quantification": {
+        "count": 422,
+        "sha256": "af4c11e3df81f86561a0fbf79f7128580cbcc1fc0fe9e8f088dfa8579920d6a9"
+      },
+      "Raw Intensities": {
+        "count": 530,
+        "sha256": "54fa254011cd5dc12ecab04eb4e1cd75088ee6b95e26c890aa48ddcdaf218398"
+      },
+      "Slide Image": {
+        "count": 590,
+        "sha256": "c35bf76f0d824def7c37f2a3950af0e5d1bb5bb2160441e87c91bf3592d0dbe5"
+      },
+      "miRNA Expression Quantification": {
+        "count": 522,
+        "sha256": "280620566d13b46d1dc66492bec67875c4fa86674cdf95372b830e027b0ab831"
+      }
+    },
+    "by_experimental_strategy": {
+      "Diagnostic Slide": {
+        "count": 106,
+        "sha256": "13d60874f0ed61d036aa3ec466467627457b81818d4069e904f30f825a014125"
+      },
+      "Expression Array": {
+        "count": 530,
+        "sha256": "54fa254011cd5dc12ecab04eb4e1cd75088ee6b95e26c890aa48ddcdaf218398"
+      },
+      "Genotyping Array": {
+        "count": 597,
+        "sha256": "233abcb316107c4a6da8fb928827d965b67f4e0e6e7fe14c8e158f51e73fe95e"
+      },
+      "Methylation Array": {
+        "count": 602,
+        "sha256": "dc7242694727351a2bd924e50af26d36001e610df7b2fb705b8aa4fdca02a2ff"
+      },
+      "RNA-Seq": {
+        "count": 427,
+        "sha256": "c9c9c63ba5ec238a3a3d7ebdd734f3c1998bb5bf71510dc12b49ba0322fa6220"
+      },
+      "Reverse Phase Protein Array": {
+        "count": 422,
+        "sha256": "af4c11e3df81f86561a0fbf79f7128580cbcc1fc0fe9e8f088dfa8579920d6a9"
+      },
+      "Tissue Slide": {
+        "count": 589,
+        "sha256": "be403c80b7960f5461bfc6e6acbed3dbe214d00ffce22f6c032c651918ac219d"
+      },
+      "WGS": {
+        "count": 331,
+        "sha256": "5c9b57c9112d5176f4b5c2df338d148dad7bcd5f0ff377a5b2cabca4bccd6ae1"
+      },
+      "WXS": {
+        "count": 419,
+        "sha256": "3fc3ea8dea81c14d3abaa938611be2eba26155a1f92a7de791b057b5dd932e7e"
+      },
+      "_missing": {
+        "count": 608,
+        "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+      },
+      "miRNA-Seq": {
+        "count": 522,
+        "sha256": "280620566d13b46d1dc66492bec67875c4fa86674cdf95372b830e027b0ab831"
+      }
+    },
+    "files_read": 14519,
+    "files_with_unparsed_case": 0,
+    "files_without_case": 0,
+    "gdc_cases_without_open_snv": {
+      "count": 189,
+      "sha256": "7785e597747f3c3476285efe972b85e0fd1f898f811bd887eed5662bc2783722"
+    },
+    "open_cna": {
+      "count": 601,
+      "sha256": "ed6aacd005f34bed082bf8b1795fed208076ee954bdff4d26448876c6c52dcdc"
+    },
+    "open_snv": {
+      "count": 419,
+      "sha256": "3fc3ea8dea81c14d3abaa938611be2eba26155a1f92a7de791b057b5dd932e7e"
+    },
+    "open_snv_and_cna": {
+      "count": 417,
+      "sha256": "5af395afeb3d1da74e8ea2ea547c92f44056a966d74b5040fb0f387603088ce0"
+    },
+    "open_wxs": {
+      "count": 419,
+      "sha256": "3fc3ea8dea81c14d3abaa938611be2eba26155a1f92a7de791b057b5dd932e7e"
+    },
+    "outside_gdc_case_set": 0
+  },
+  "schema_version": 1,
+  "studies": {
+    "ov_tcga": {
+      "overlap_patients_with_gdc_cases": {
+        "count": 600,
+        "gdc_only": 8,
+        "gdc_only_sha256": "9066f064472a6dd0d5a747d7e971c36763cef6c8dc8a56cf3f7dc183ed06b7a0",
+        "portal_only": 0,
+        "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256": "05879e649150863629721804f5f3c0ec6c47873be7ecdc2ed98683791589dd51"
+      },
+      "overlap_sample_patients_with_gdc_cases": {
+        "count": 600,
+        "gdc_only": 8,
+        "gdc_only_sha256": "9066f064472a6dd0d5a747d7e971c36763cef6c8dc8a56cf3f7dc183ed06b7a0",
+        "portal_only": 0,
+        "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256": "05879e649150863629721804f5f3c0ec6c47873be7ecdc2ed98683791589dd51"
+      },
+      "patients": {
+        "count": 600,
+        "sha256": "05879e649150863629721804f5f3c0ec6c47873be7ecdc2ed98683791589dd51",
+        "unparsed": 0
+      },
+      "patients_with_a_sample": {
+        "count": 600,
+        "sha256": "05879e649150863629721804f5f3c0ec6c47873be7ecdc2ed98683791589dd51"
+      },
+      "patients_without_a_sample": {
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "samples": {
+        "count": 617,
+        "sha256": "06d0306cc090630a6d8ba40f11d1af4e8bae16cf4e3caa512c5797e346135fc1",
+        "unparsed": 0
+      }
+    },
+    "ov_tcga_pan_can_atlas_2018": {
+      "overlap_patients_with_gdc_cases": {
+        "count": 585,
+        "gdc_only": 23,
+        "gdc_only_sha256": "6dcfeacef775d1d7e688bb51fabec8b85a52e9e6d9609f67d16a4838250a39f2",
+        "portal_only": 0,
+        "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256": "44a29d6797768496b083869d88acfa46db479d956e0363a4b7b74f252b19f79d"
+      },
+      "overlap_sample_patients_with_gdc_cases": {
+        "count": 585,
+        "gdc_only": 23,
+        "gdc_only_sha256": "6dcfeacef775d1d7e688bb51fabec8b85a52e9e6d9609f67d16a4838250a39f2",
+        "portal_only": 0,
+        "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256": "44a29d6797768496b083869d88acfa46db479d956e0363a4b7b74f252b19f79d"
+      },
+      "patients": {
+        "count": 585,
+        "sha256": "44a29d6797768496b083869d88acfa46db479d956e0363a4b7b74f252b19f79d",
+        "unparsed": 0
+      },
+      "patients_with_a_sample": {
+        "count": 585,
+        "sha256": "44a29d6797768496b083869d88acfa46db479d956e0363a4b7b74f252b19f79d"
+      },
+      "patients_without_a_sample": {
+        "count": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "samples": {
+        "count": 585,
+        "sha256": "d0191fc69321703411617511d6219a5ddcd3b96768fc3789b5b5eb1bf7248a16",
+        "unparsed": 0
+      }
+    },
+    "ov_tcga_pub": {
+      "overlap_patients_with_gdc_cases": {
+        "count": 492,
+        "gdc_only": 116,
+        "gdc_only_sha256": "6b9c69b5b092d301207144b7fceaeeb0b2b5ee5a3d8d97cd57be46fb01046ed2",
+        "portal_only": 0,
+        "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256": "a97109d515733e7402173aae8f25aa03cf687b55c9448e0b9b7b80ebe65ce479"
+      },
+      "overlap_sample_patients_with_gdc_cases": {
+        "count": 489,
+        "gdc_only": 119,
+        "gdc_only_sha256": "261b3b6f50d86ca51069a18dbcfb37f9cdc9b8964fdd48c7d08779035469d97f",
+        "portal_only": 0,
+        "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256": "d94f80170afb4edfafc90020cdfa998369dddd62898d9ac37e93c662b7ec0e8a"
+      },
+      "patients": {
+        "count": 492,
+        "sha256": "a97109d515733e7402173aae8f25aa03cf687b55c9448e0b9b7b80ebe65ce479",
+        "unparsed": 0
+      },
+      "patients_with_a_sample": {
+        "count": 489,
+        "sha256": "d94f80170afb4edfafc90020cdfa998369dddd62898d9ac37e93c662b7ec0e8a"
+      },
+      "patients_without_a_sample": {
+        "count": 3,
+        "sha256": "edfa9a07889a9b810bd004a688675ea1ff1497b34bd5f884720f41729fdc6aa1"
+      },
+      "samples": {
+        "count": 489,
+        "sha256": "30db7b91c5905c272c7b3f46093f95e07c19fb25cb31f922531a5ffbdf81da4d",
+        "unparsed": 0
+      }
+    }
+  }
+}

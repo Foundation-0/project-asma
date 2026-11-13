@@ -17,16 +17,16 @@
     },
     {
       "artifact_paths": [],
-      "canonical_sha256": "a6a09decee2c5c4845af4f3e8a80c08a9f9434ec2a89e03c1219abc1555e65ee",
+      "canonical_sha256": "8a825d8407632a1ba3478eb7f0c7d49cd6d0295270bbf9ac832d1b8af9f1c17e",
       "certificate_paths": [],
       "id": "V02",
       "label": "VERIFIED",
       "recheck_commands": [
         "python3 -m unittest discover -s tests -v"
       ],
-      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`452` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |",
+      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`457` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |",
       "source_ids": [],
-      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`452` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`)"
+      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`457` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`)"
     },
     {
       "artifact_paths": [],
@@ -1381,7 +1381,7 @@
       "recheck_commands": [
         "python3 results/cdr2-cdr2l-evidence-atlas-2026-11-13/verify.py"
       ],
-      "row_text": "| V40 | VERIFIED | Pinned UniProt bytes give reviewed human CDR2 Q01850 (454 amino acids, GeneID 1039, HGNC:1799, ENSG00000140743.9) and CDR2L Q86X02 (465 amino acids, GeneID 30850, HGNC:29999, ENSG00000109089.8). Pinned Human Protein Atlas version 26.0 extracts give the nTPM and ovarian IHC patient counts in the atlas count block, including cerebellum 16.1 and 58.8 nTPM and 12 patients in each ovarian IHC row | Same command. Consensus nTPM is the Atlas maximum of HPA and GTEx and has no donor count in the file. IHC bins are patient counts, not an effect size. TCGA 349 is the ovary serous cystadenocarcinoma cohort size, not a gene-level result. |",
+      "row_text": "| V40 | VERIFIED | Pinned UniProt bytes give reviewed human CDR2 Q01850 (454 amino acids, GeneID 1039, HGNC:1799, ENSG00000140743.9) and CDR2L Q86X02 (465 amino acids, GeneID 30850, HGNC:29999, ENSG00000109089.8). Pinned Human Protein Atlas version 26.0 extracts give the nTPM and ovarian IHC patient counts in the atlas count block, including cerebellum 16.1 and 58.8 nTPM and 12 patients in each ovarian IHC row | Same command. Consensus nTPM is the Atlas maximum of HPA and GTEx and has no donor count in the file. IHC bins are patient counts, not an effect size. TCGA 349 is the Human Protein Atlas version 26.0 RNA cohort size for ovary serous cystadenocarcinoma, not the GDC TCGA-OV case count and not the 2011 analysed-sample count, and not a gene-level result. |",
       "source_ids": [],
       "statement": "Pinned UniProt bytes give reviewed human CDR2 Q01850 (454 amino acids, GeneID 1039, HGNC:1799, ENSG00000140743.9) and CDR2L Q86X02 (465 amino acids, GeneID 30850, HGNC:29999, ENSG00000109089.8). Pinned Human Protein Atlas version 26.0 extracts give the nTPM and ovarian IHC patient counts in the atlas count block, including cerebellum 16.1 and 58.8 nTPM and 12 patients in each ovarian IHC row"
     },
@@ -1446,7 +1446,7 @@
         "tools/check_sha256_manifests.py",
         "tools/export_claims_ledger.py"
       ],
-      "canonical_sha256": "6526708ad38ff84fcda3cf94b93a0027c6f92541b6f96cbe7d6ead823ed8615d",
+      "canonical_sha256": "27ebb7984d480a53a3890ecff79d9848949e9c063830f5a0dee5c3ed4c805333",
       "certificate_paths": [],
       "id": "V41",
       "label": "VERIFIED",
@@ -1456,9 +1456,9 @@
         "python3 tools/audit_checkers.py --check",
         "python3 results/integrity-audit-2026-11-13/verify.py"
       ],
-      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 40 VERIFIED rows, 24 offline checkers, 23 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
+      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 41 VERIFIED rows, 25 offline checkers, 24 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
       "source_ids": [],
-      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 40 VERIFIED rows, 24 offline checkers, 23 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only)"
+      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 41 VERIFIED rows, 25 offline checkers, 24 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only)"
     },
     {
       "artifact_paths": [
@@ -1483,15 +1483,100 @@
         "S159"
       ],
       "statement": "The frozen ClinicalTrials.gov API v2 pull started 2026-11-13T04:57:57Z (2026-11-12 22:57 America/Chicago; dataTimestamp 2026-11-12T10:00:05) returned 4260 unique interventional studies for condition query Ovarian Cancer. Status and phase counts each sum to 4260. The same recruiting query as 2026-11-05 returned 591, against 592 in that certificate. The earlier certificate has no NCT identifiers, so new, removed, and status-changed NCT IDs are not reconstructable. Corpus status RECRUITING is also 591. Two independent readers agree. Target-class hits: folr1 language 53, FRα ADC name or phrase 39, PARP-inhibitor lexicon 324, CDR2/CDR2L 0, mesothelin 39, MUC16 8, immunotherapy lexicon 510; 842 studies hit at least one target class. CA-125 language is 65 and is not an MUC16-directed class. These are registration counts, not efficacy or treatment guidance"
+    },
+    {
+      "artifact_paths": [
+        "results/tcga-ov-cohort-reconciliation-20261113/certificate.json",
+        "results/tcga-ov-cohort-reconciliation-20261113/verify.py"
+      ],
+      "canonical_sha256": "ecd10b7e3d99b446ff863e43f35972f074089ed88709b3626fa2e320d9fd3da7",
+      "certificate_paths": [
+        "results/tcga-ov-cohort-reconciliation-20261113/certificate.json"
+      ],
+      "id": "V43",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 results/tcga-ov-cohort-reconciliation-20261113/verify.py"
+      ],
+      "row_text": "| V43 | VERIFIED | On 2026-11-13T06:03:12Z to 2026-11-13T06:03:41Z, GDC Data Release 46.0 (tag 8.5.0, API version 1) returns 608 TCGA-OV cases, 32891 project files, 14519 open files and 18372 controlled-access file records. Open simple-nucleotide-variation files cover 419 cases and open copy-number files cover 601 cases; their case intersection is 417. cBioPortal ov_tcga_pub has 489 samples, 316 sequenced samples, and 492 patients, all 492 inside the GDC case set, with 116 GDC cases outside. ov_tcga has 617 samples and 600 patients (overlap 600). ov_tcga_pan_can_atlas_2018 has 585 samples and 585 patients (overlap 585). Two independent readers agree. These are catalog counts, not a biological conclusion and not clinical guidance | `python3 results/tcga-ov-cohort-reconciliation-20261113/verify.py`. [Report](docs/tcga-ov-cohort-reconciliation-20261113.md); [certificate](results/tcga-ov-cohort-reconciliation-20261113/certificate.json). S160, S161, S162, S163, S164, S165, S166, S167, S168, S169, S170, S171, S172, S173. Identifier sets were hashed and not stored. Controlled-access file contents were not downloaded. The ov_tcga_pub description sentence that says whole exome sequencing of 489 conflicts with sequencedSampleCount 316 and with PMID 21720365. |",
+      "source_ids": [
+        "S160",
+        "S161",
+        "S162",
+        "S163",
+        "S164",
+        "S165",
+        "S166",
+        "S167",
+        "S168",
+        "S169",
+        "S170",
+        "S171",
+        "S172",
+        "S173"
+      ],
+      "statement": "On 2026-11-13T06:03:12Z to 2026-11-13T06:03:41Z, GDC Data Release 46.0 (tag 8.5.0, API version 1) returns 608 TCGA-OV cases, 32891 project files, 14519 open files and 18372 controlled-access file records. Open simple-nucleotide-variation files cover 419 cases and open copy-number files cover 601 cases; their case intersection is 417. cBioPortal ov_tcga_pub has 489 samples, 316 sequenced samples, and 492 patients, all 492 inside the GDC case set, with 116 GDC cases outside. ov_tcga has 617 samples and 600 patients (overlap 600). ov_tcga_pan_can_atlas_2018 has 585 samples and 585 patients (overlap 585). Two independent readers agree. These are catalog counts, not a biological conclusion and not clinical guidance"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "27e4178cf0e3fcaf7b077ea764ece6ea7ddfd09f734360116311dad692221621",
+      "certificate_paths": [],
+      "id": "K41",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K41 | KNOWN | PMID 21720365 (DOI 10.1038/nature10166) says the TCGA project analyzed mRNA expression, miRNA expression, promoter methylation, and DNA copy number in 489 high-grade serous ovarian adenocarcinomas and the DNA sequences of exons from coding genes in 316 of these tumors | S160. PMC3163504 summary first sentence, read 2026-11-13. A published cohort definition, not a current GDC case count and not clinical guidance. |",
+      "source_ids": [
+        "S160"
+      ],
+      "statement": "PMID 21720365 (DOI 10.1038/nature10166) says the TCGA project analyzed mRNA expression, miRNA expression, promoter methylation, and DNA copy number in 489 high-grade serous ovarian adenocarcinomas and the DNA sequences of exons from coding genes in 316 of these tumors"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "3c0b422f77243adbe92d89a3897795a383e0750a73b1ff46e714ebc4a466679e",
+      "certificate_paths": [],
+      "id": "K42",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K42 | KNOWN | GDC documents that some data is open access, needing no authentication or authorization, and other data is controlled access, needing dbGaP authorization and eRA Commons authentication. The API facets parameter provides aggregate information for a specified field. Authentication is required for downloading controlled-access data and for data submission | S161, S162, S163. Access class and facet documentation. Not a finding about any tumour and not a licence grant. |",
+      "source_ids": [
+        "S161",
+        "S162",
+        "S163"
+      ],
+      "statement": "GDC documents that some data is open access, needing no authentication or authorization, and other data is controlled access, needing dbGaP authorization and eRA Commons authentication. The API facets parameter provides aggregate information for a specified field. Authentication is required for downloading controlled-access data and for data submission"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "0846296b3790c3b3aaca177ce7baecd6962130dbad832c3a0c8f4e5a3561ba9f",
+      "certificate_paths": [],
+      "id": "K43",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K43 | KNOWN | cBioPortal provides a public REST API, described with Swagger/OpenAPI, for programmatic access to the same data as the website | S169. API documentation. A study description on the portal is portal text, not a re-derivation of PMID 21720365. |",
+      "source_ids": [
+        "S169"
+      ],
+      "statement": "cBioPortal provides a public REST API, described with Swagger/OpenAPI, for programmatic access to the same data as the website"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "22d73131452fa88df76efe4a57e243df33806dbd005f6a855990072359696e76",
+      "certificate_paths": [],
+      "id": "C25",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C25 | CONJECTURE | Why 116 GDC TCGA-OV cases are absent from the ov_tcga_pub patient set, and why 3 ov_tcga_pub patients have no sample, is not established by these catalog counts | Open. The overlap counts are V43. The cause is not identified. Not a claim that those cases lack a tumour or a sequencing file. |",
+      "source_ids": [],
+      "statement": "Why 116 GDC TCGA-OV cases are absent from the ov_tcga_pub patient set, and why 3 ov_tcga_pub patients have no sample, is not established by these catalog counts"
     }
   ],
   "counts": {
-    "CONJECTURE": 25,
-    "KNOWN": 44,
+    "CONJECTURE": 26,
+    "KNOWN": 47,
     "PROVEN": 0,
-    "VERIFIED": 40
+    "VERIFIED": 41
   },
-  "ledger_sha256": "67ad6d988fd31dc4df042c3bba5ab0db6b315b75e34f362b2927da4b9e336547",
+  "ledger_sha256": "0112efeda45149afc5b0fc02b3bf4d94df4f88ceb0f88e9259fd378ea7960a23",
   "schema_version": 1,
   "source": "CLAIMS.md"
 }

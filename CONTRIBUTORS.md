@@ -100,6 +100,13 @@ NLM is the source of the registry pages. The pinned keyword map, the dual
 offline recount, and the report are this project's work. The recount is not
 external scientific or clinical peer review, and it is not treatment guidance.
 
+The **2026-11-13 UTC TCGA-OV cohort reconciliation** was prepared by a Cursor
+cloud agent (**Grok 4.7**) under human direction. The Genomic Data Commons and
+cBioPortal supplied the open aggregate responses. The 2011 cohort definition is
+from the TCGA Research Network paper, PMID 21720365. The dual offline recount
+and the denominator table are this project's work. The recount is not external
+scientific or clinical peer review, and it is not clinical guidance.
+
 ## Prior work credited by name
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);

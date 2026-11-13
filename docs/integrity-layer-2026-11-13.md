@@ -12,10 +12,10 @@ This note records an offline bookkeeping layer for the public claims ledger. It 
 
 `tools/audit_cdr2l_source_psm.py --check` and `tools/audit_cdr2l_spectrum_locator.py --check` verify committed certificates against pinned producing-code `implementation_sha256` (and the current tool hash where it differs), identification match fields, and MGF byte pins without `--live` network retrieval.
 
-## Audit coverage (40 VERIFIED rows)
+## Audit coverage (41 VERIFIED rows)
 
-- **24** rows name at least one offline re-check command (`runs_offline: true`).
-- **23** of those first commands replay with exit 0 inside the audit; **V02** (`python3 -m unittest discover -s tests -v`) is listed under `skipped_heavy_recheck` and is not executed in the audit (CI still runs the full suite). The added offline row is V42, the frozen 2026-11-13 trial-landscape recount.
+- **25** rows name at least one offline re-check command (`runs_offline: true`).
+- **24** of those first commands replay with exit 0 inside the audit; **V02** (`python3 -m unittest discover -s tests -v`) is listed under `skipped_heavy_recheck` and is not executed in the audit (CI still runs the full suite). The added offline row is V43, the frozen 2026-11-13 TCGA-OV cohort reconciliation. V42 remains the trial-landscape recount.
 - **16** rows have no offline checker (`no_offline_checker` in the audit summary):
   - **Doc-only (no command):** V03, V04, V05, V20, V21, V24, V27, V35.
   - **Network-only (commands filtered):** V08, V10, V11, V12, V13, V14, V15, V16.
