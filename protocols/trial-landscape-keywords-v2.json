@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "name": "ovarian-interventional-trial-landscape-v2",
+  "prespecified_at_utc": "2026-11-13T04:55:00+00:00",
+  "endpoint": "https://clinicaltrials.gov/api/v2/studies",
+  "version_endpoint": "https://clinicaltrials.gov/api/v2/version",
+  "query": {
+    "query.cond": "Ovarian Cancer",
+    "query.term": "AREA[StudyType]INTERVENTIONAL"
+  },
+  "comparison_query": {
+    "query.cond": "Ovarian Cancer",
+    "filter.overallStatus": "RECRUITING",
+    "query.term": "AREA[StudyType]INTERVENTIONAL"
+  },
+  "request_options": {
+    "format": "json",
+    "pageSize": "1000",
+    "countTotal": "true"
+  },
+  "comparison_request_options": {
+    "format": "json",
+    "pageSize": "1",
+    "countTotal": "true"
+  },
+  "fields": [
+    "NCTId",
+    "BriefTitle",
+    "OfficialTitle",
+    "OverallStatus",
+    "StudyType",
+    "Phase",
+    "Condition",
+    "Keyword",
+    "BriefSummary",
+    "InterventionType",
+    "InterventionName"
+  ],
+  "comparison_fields": [
+    "NCTId",
+    "OverallStatus",
+    "StudyType"
+  ],
+  "text_fields": [
+    "brief_title",
+    "official_title",
+    "brief_summary",
+    "conditions",
+    "keywords",
+    "intervention_names"
+  ],
+  "array_text_fields": [
+    "conditions",
+    "keywords",
+    "intervention_names"
+  ],
+  "normalization": "Unicode NFKC, casefold, Greek alpha α to 'alpha', Unicode dash punctuation and ASCII '-' to spaces, collapse Unicode whitespace. Unicode word-boundary literal phrases, independently within each field or list item. No stemming, negation removal, or inference that a mention is an eligibility rule or an outcome.",
+  "phase_order": [
+    "EARLY_PHASE1",
+    "PHASE1",
+    "PHASE2",
+    "PHASE3",
+    "PHASE4",
+    "NA"
+  ],
+  "missing_phase_label": "NOT_REPORTED",
+  "missing_intervention_label": "NOT_REPORTED",
+  "phase_rule": "One study in its canonical combined-phase category. NA is distinct from an absent phase list. Reject unknown, duplicate, or NA mixed with another phase.",
+  "intervention_rule": "Count a study once in each distinct intervention type string on its intervention list. An empty or absent list is NOT_REPORTED and is not also counted under a type. A list that has types is not also NOT_REPORTED. These are study-level presence counts, so the type columns overlap and need not sum to the cohort.",
+  "status_rule": "One overallStatus value per study. The status counts sum to the cohort. This is the status field on the retrieved record, not a reconstructed history.",
+  "classes": {
+    "folr1_language": [
+      "folr1",
+      "fralpha",
+      "fr alpha",
+      "folate receptor alpha"
+    ],
+    "fralpha_adc_names": [
+      "mirvetuximab",
+      "soravtansine",
+      "elahere",
+      "imgn853",
+      "imgn-853"
+    ],
+    "fralpha_adc_context": [
+      "antibody-drug conjugate",
+      "antibody-drug conjugates",
+      "adc",
+      "adcs"
+    ],
+    "parp_inhibitor": [
+      "parp inhibitor",
+      "parp inhibitors",
+      "parpi",
+      "olaparib",
+      "niraparib",
+      "rucaparib",
+      "talazoparib",
+      "veliparib",
+      "pamiparib",
+      "fuzuloparib",
+      "senaparib",
+      "saruparib",
+      "lynparza",
+      "zejula",
+      "rubraca",
+      "talzenna"
+    ],
+    "cdr2_cdr2l": [
+      "cdr2",
+      "cdr2l",
+      "anti-yo",
+      "anti yo"
+    ],
+    "mesothelin": [
+      "mesothelin",
+      "msln"
+    ],
+    "muc16": [
+      "muc16",
+      "muc-16"
+    ],
+    "ca125_language": [
+      "ca-125",
+      "ca125"
+    ],
+    "immunotherapy": [
+      "immunotherapy",
+      "immune checkpoint",
+      "checkpoint inhibitor",
+      "checkpoint inhibitors",
+      "pd-1",
+      "pd1",
+      "pd-l1",
+      "pdl1",
+      "ctla-4",
+      "ctla4",
+      "pembrolizumab",
+      "nivolumab",
+      "atezolizumab",
+      "durvalumab",
+      "avelumab",
+      "ipilimumab",
+      "dostarlimab",
+      "cemiplimab",
+      "tremelimumab",
+      "chimeric antigen receptor",
+      "car-t"
+    ],
+    "biomarker_generic": [
+      "biomarker",
+      "biomarkers"
+    ],
+    "brca": [
+      "brca",
+      "brca1",
+      "brca2",
+      "brca1/2"
+    ],
+    "hrd": [
+      "hrd",
+      "homologous recombination deficiency",
+      "homologous recombination deficient"
+    ],
+    "platinum_resistant": [
+      "platinum resistant",
+      "platinum resistance"
+    ],
+    "platinum_refractory": [
+      "platinum refractory",
+      "platinum refractoriness"
+    ]
+  },
+  "reported_classes": [
+    "folr1_language",
+    "fralpha_adc",
+    "parp_inhibitor",
+    "cdr2_cdr2l",
+    "mesothelin",
+    "muc16",
+    "ca125_language",
+    "immunotherapy",
+    "biomarker_generic",
+    "brca",
+    "hrd",
+    "platinum_resistant",
+    "platinum_refractory"
+  ],
+  "target_classes": [
+    "folr1_language",
+    "fralpha_adc",
+    "parp_inhibitor",
+    "cdr2_cdr2l",
+    "mesothelin",
+    "muc16",
+    "immunotherapy"
+  ],
+  "fralpha_adc_rule": "Count fralpha_adc when any fralpha_adc_names term matches, or when any folr1_language term and any fralpha_adc_context term both match. Context terms alone do not count. This is name and phrase presence for the agent in the repository FDA notice (mirvetuximab soravtansine) plus a folate-receptor ADC phrase. It is not a complete ADC catalogue and not evidence of benefit.",
+  "ca125_rule": "ca125_language is marker phrasing. It is not counted as an MUC16-directed target class.",
+  "language_buckets_note": "biomarker_generic, brca, hrd, platinum_resistant and platinum_refractory repeat the 2026-11-05 dictionary on this field set only. Eligibility text is not searched and the cohort is not limited to recruiting studies, so these counts are not a replay of that snapshot.",
+  "searched_fields_note": "Titles, brief summary, condition list, keyword list, and intervention names. Eligibility criteria were not requested and are not archived.",
+  "efficacy": "Outcome, results, and adverse-event fields were not requested. Class counts are registrations whose text matched a lexicon. They are not response rates, not survival, and not a treatment recommendation.",
+  "prior_snapshot": {
+    "path": "results/trial-landscape-2026-11-05/certificate.json",
+    "retained_nct_ids": false
+  },
+  "limits": {
+    "max_pages": 20,
+    "max_response_bytes": 8388608
+  },
+  "interpretation": "Public registry metadata only. A keyword hit can be a negation, an exclusion, a background sentence, or a basket trial. No eligibility inference, ranking, or clinical guidance."
+}
