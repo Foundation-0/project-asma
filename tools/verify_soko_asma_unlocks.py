@@ -273,68 +273,83 @@ def _dinic_bipartite_unit(num_left: int, num_right: int, edges: List[Tuple[int, 
     return flow
 
 
+def score_ms2_candidate_unlabelled(
+    ions: List[Tuple[str, int, int, bool]],
+    observed_mzs: List[int],
+    precursor_m_plus_2h: int,
+    num_rungs: int = 5,
+) -> Dict[str, object]:
+    static_edges = [
+        (i, j) for i, (_, _, mu, _) in enumerate(ions) for j, mz in enumerate(observed_mzs) if mz == mu
+    ]
+    static_flow = _dinic_bipartite_unit(len(ions), len(observed_mzs), static_edges)
+    conserved_rungs = set()
+    for k in range(1, num_rungs + 1):
+        b_mu = [mu for lbl, rk, mu, loss in ions if rk == k and not loss and lbl.startswith("b")][0]
+        y_mu = [mu for lbl, rk, mu, loss in ions if rk == k and not loss and lbl.startswith("y")][0]
+        b_hits = [idx for idx, mz in enumerate(observed_mzs) if mz == b_mu]
+        y_hits = [idx for idx, mz in enumerate(observed_mzs) if mz == y_mu]
+        for bi in b_hits:
+            for yi in y_hits:
+                if bi != yi and (observed_mzs[bi] + observed_mzs[yi]) == precursor_m_plus_2h:
+                    conserved_rungs.add(k)
+    causal_edges = [
+        (i, j)
+        for i, (_, rk, mu, is_loss) in enumerate(ions)
+        if (not is_loss or rk in conserved_rungs)
+        for j, mz in enumerate(observed_mzs)
+        if mz == mu
+    ]
+    cnf_blocked = sum(
+        1
+        for _, rk, mu, is_loss in ions
+        if is_loss and rk not in conserved_rungs and any(mz == mu for mz in observed_mzs)
+    )
+    return {
+        "total_theoretical_ions": len(ions),
+        "static_p01_flow": static_flow,
+        "conserved_backbone_rungs": sorted(conserved_rungs),
+        "cnf_blocked_orphan_losses": cnf_blocked,
+        "causal_p01_plus_flow": _dinic_bipartite_unit(len(ions), len(observed_mzs), causal_edges),
+        "diagnostic_rung_3_conserved": 3 in conserved_rungs,
+    }
+
+
 def evaluate_ms2_static_vs_causal() -> Dict[str, object]:
-    res_true = [113, 128, 147, 115, 129, 174]
-    res_swap = [113, 128, 115, 147, 129, 174]
-    proton, water = 1, 18
-
-    def build_ions(residues: List[int]) -> List[Tuple[str, int, int, bool]]:
-        ions: List[Tuple[str, int, int, bool]] = []
-        ln, total = len(residues), sum(residues)
-        for k in range(1, ln):
-            ions.append((f"b{k}", k, sum(residues[:k]) + proton, False))
-            ions.append((f"y{ln-k}", k, total - sum(residues[:k]) + proton, False))
-        ions.append(("b3-H2O", 3, sum(residues[:3]) + proton - water, True))
-        return ions
-
-    true_ions = build_ions(res_true)
-    swap_ions = build_ions(res_swap)
-    observed_peaks: List[Tuple[int, bool]] = [(mz, True) for _, _, mz, _ in true_ions]
-    observed_peaks.extend([(357, False), (451, False), (339, True)])
+    res_true, res_swap, proton, water = [113, 128, 147, 115, 129, 174], [113, 128, 115, 147, 129, 174], 1, 18
     m_plus_2h = sum(res_true) + 2 * proton
 
-    def score(ions: List[Tuple[str, int, int, bool]]) -> Dict[str, object]:
-        static_edges = [
-            (i, j) for i, (_, _, mu, _) in enumerate(ions) for j, (mz, _) in enumerate(observed_peaks) if mz == mu
-        ]
-        static_flow = _dinic_bipartite_unit(len(ions), len(observed_peaks), static_edges)
-        intact_peaks = [(idx, mz) for idx, (mz, intact) in enumerate(observed_peaks) if intact]
-        conserved_rungs = set()
-        for k in range(1, 6):
-            b_mu = [mu for lbl, rk, mu, loss in ions if rk == k and not loss and lbl.startswith("b")][0]
-            y_mu = [mu for lbl, rk, mu, loss in ions if rk == k and not loss and lbl.startswith("y")][0]
-            b_hits = [idx for idx, mz in intact_peaks if mz == b_mu]
-            y_hits = [idx for idx, mz in intact_peaks if mz == y_mu]
-            for bi in b_hits:
-                for yi in y_hits:
-                    if bi != yi and (observed_peaks[bi][0] + observed_peaks[yi][0]) == m_plus_2h:
-                        conserved_rungs.add(k)
+    def build_ions(res: List[int]) -> List[Tuple[str, int, int, bool]]:
+        ln, tot = len(res), sum(res)
+        out = [(f"b{k}", k, sum(res[:k]) + proton, False) for k in range(1, ln)]
+        out += [(f"y{ln-k}", k, tot - sum(res[:k]) + proton, False) for k in range(1, ln)]
+        out.append(("b3-H2O", 3, sum(res[:3]) + proton - water, True))
+        return out
 
-        causal_edges: List[Tuple[int, int]] = []
-        cnf_blocked = 0
-        for i, (_, rk, mu, is_loss) in enumerate(ions):
-            if is_loss and rk not in conserved_rungs:
-                if any(mz == mu for _, mz in intact_peaks):
-                    cnf_blocked += 1
-                continue
-            for j, mz in intact_peaks:
-                if mz == mu:
-                    causal_edges.append((i, j))
-
-        return {
-            "total_theoretical_ions": len(ions),
-            "static_p01_flow": static_flow,
-            "conserved_backbone_rungs": sorted(conserved_rungs),
-            "cnf_blocked_orphan_losses": cnf_blocked,
-            "causal_p01_plus_flow": _dinic_bipartite_unit(len(ions), len(observed_peaks), causal_edges),
-            "diagnostic_rung_3_conserved": 3 in conserved_rungs,
-        }
-
+    true_ions, swap_ions = build_ions(res_true), build_ions(res_swap)
+    single_mzs = [mz for _, _, mz, loss in true_ions if not loss] + [357, 339]
+    c1_t = score_ms2_candidate_unlabelled(true_ions, single_mzs, m_plus_2h)
+    c1_s = score_ms2_candidate_unlabelled(swap_ions, single_mzs, m_plus_2h)
+    chimera_mzs = [mz for _, _, mz, _ in true_ions] + [357, 451, 339]
+    neg_t = score_ms2_candidate_unlabelled(true_ions, chimera_mzs, m_plus_2h)
+    neg_s = score_ms2_candidate_unlabelled(swap_ions, chimera_mzs, m_plus_2h)
     return {
         "intensity_bytes_retained": 0,
-        "true_target_candidate": score(true_ions),
-        "dipeptide_swap_chimera_decoy": score(swap_ions),
+        "oracle_flags_used": 0,
+        "single_sided_interferent_spectrum": {
+            "true_target_candidate": c1_t,
+            "dipeptide_swap_decoy": c1_s,
+            "separated_by_observable_rung_and_cnf": c1_t["static_p01_flow"] == c1_s["static_p01_flow"]
+            and c1_t["causal_p01_plus_flow"] > c1_s["causal_p01_plus_flow"],
+        },
+        "full_complementary_chimera_negative_control": {
+            "true_target_candidate": neg_t,
+            "dipeptide_swap_decoy": neg_s,
+            "ambiguous_tie_as_expected": neg_t["causal_p01_plus_flow"] == neg_s["causal_p01_plus_flow"]
+            and neg_s["diagnostic_rung_3_conserved"],
+        },
     }
+
 
 
 def q_total_resistant(p: Fraction, r: Fraction, c: Fraction) -> Fraction:
