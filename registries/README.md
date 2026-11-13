@@ -1,7 +1,9 @@
 # Registries
 
 - [Ovarian interventional trial landscape, 2026-11-13 UTC](../results/trial-landscape-v2-2026-11-13/manifest.json):
-  projected ClinicalTrials.gov API v2 pages, SHA-256 in `SHA256SUMS`. Replay with
+  projected ClinicalTrials.gov API v2 pages with contact emails redacted,
+  post-redaction SHA-256 in `SHA256SUMS` (as-fetched archive hash pinned separately).
+  Replay with
   `python3 results/trial-landscape-v2-2026-11-13/verify.py`. Sources S158–S159.
   The note is [docs/trial-landscape-v2-2026-11-13.md](../docs/trial-landscape-v2-2026-11-13.md).
   Registration counts only; not efficacy or treatment guidance.

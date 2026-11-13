@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -29,6 +30,13 @@ PINNED_CODE = (
     "tools/trial_landscape_v2_recompute.py",
     "results/trial-landscape-v2-2026-11-13/verify.py",
 )
+ARCHIVE_AS_FETCHED_SHA256 = (
+    "73bb1e758985afc2762c9c1045d3cbba4ec9610ca9ada1b60dde94fa22c6cd41"
+)
+EMAIL_ADDRESS = re.compile(
+    r"(?<![A-Za-z0-9._%+-])([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})"
+    r"(?![A-Za-z0-9.-])"
+)
 
 
 def sha256(data):
@@ -42,6 +50,7 @@ def render(result):
         f"api_version: {result['api_version']}",
         f"data_timestamp: {result['data_timestamp']}",
         f"page_count: {len(result['page_meta'])}",
+        f"archive_as_fetched_sha256: {ARCHIVE_AS_FETCHED_SHA256}",
         f"archive_sha256: {result['archive_sha256']}",
         f"same_query_recruiting_total: {result['same_query_recruiting_total']}",
         f"corpus_recruiting: {result['corpus_recruiting']}",
@@ -81,6 +90,24 @@ def resolve_sum_path(name):
     if name.startswith(("protocols/", "tools/", "results/", "registries/")):
         return ROOT / name
     return RESULT / name
+
+
+def check_no_contact_emails():
+    for path in sorted((RESULT / "snapshot").glob("studies-page-*.json")):
+        text = path.read_text(encoding="utf-8")
+        if EMAIL_ADDRESS.search(text):
+            raise ValueError(f"Contact email remains in {path.name}.")
+
+
+def check_redaction_metadata(manifest, certificate):
+    for key in ("redaction_rule", "archive_as_fetched_sha256", "email_redactions"):
+        if manifest.get(key) != certificate.get(key):
+            raise ValueError(f"Manifest and certificate disagree on {key}.")
+    if manifest["archive_as_fetched_sha256"] != ARCHIVE_AS_FETCHED_SHA256:
+        raise ValueError("Pinned as-fetched archive hash differs.")
+    for entry in manifest["email_redactions"]:
+        if set(entry) != {"field", "nct_id"}:
+            raise ValueError("Malformed email_redactions entry.")
 
 
 def check_sums():
@@ -142,6 +169,8 @@ def main():
         raise ValueError("Certificate recruiting delta differs.")
     if comparison["diff"] != result["diff"]:
         raise ValueError("Certificate identifier diff differs.")
+    if certificate["archive_as_fetched_sha256"] != ARCHIVE_AS_FETCHED_SHA256:
+        raise ValueError("Certificate as-fetched archive hash differs.")
     if certificate["archive_sha256"] != result["archive_sha256"]:
         raise ValueError("Certificate archive hash differs.")
     if certificate["nct_status_sha256"] != result["nct_status_sha256"]:
@@ -154,9 +183,17 @@ def main():
     for path in PINNED_CODE:
         if certificate["implementation_sha256"][path] != sha256((ROOT / path).read_bytes()):
             raise ValueError(f"Implementation hash differs for {path}.")
+    check_no_contact_emails()
     manifest = check_sums()
+    check_redaction_metadata(manifest, certificate)
+    if manifest["archive_as_fetched_sha256"] != ARCHIVE_AS_FETCHED_SHA256:
+        raise ValueError("Manifest as-fetched archive hash differs.")
     if manifest["archive_sha256"] != result["archive_sha256"]:
         raise ValueError("Manifest archive hash differs.")
+    for page in certificate["provenance"]["pages"]:
+        meta = next((item for item in result["page_meta"] if item["path"] == page["path"]), None)
+        if meta is None or page["sha256"] != meta["sha256"]:
+            raise ValueError(f"Certificate page hash differs for {page['path']}.")
     doc = DOC.read_text(encoding="utf-8")
     if marked(doc) != render(result):
         raise ValueError("Report count block differs from the checkers.")

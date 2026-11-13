@@ -1,6 +1,7 @@
 {
-  "archive_rule": "SHA-256 of the raw study-page bodies concatenated in page order, with no separator.",
-  "archive_sha256": "73bb1e758985afc2762c9c1045d3cbba4ec9610ca9ada1b60dde94fa22c6cd41",
+  "archive_as_fetched_sha256": "73bb1e758985afc2762c9c1045d3cbba4ec9610ca9ada1b60dde94fa22c6cd41",
+  "archive_rule": "SHA-256 of the study-page bodies concatenated in page order, with no separator, after the redaction rule.",
+  "archive_sha256": "b494f83190d9b78cf7286b8ae09fb88d29a4bb2325b6b950e1366c8c4afe3258",
   "clinical_guidance": "none",
   "comparison_to_2026_11_05": {
     "aggregate_recruiting_delta": -1,
@@ -81,9 +82,15 @@
     "total_studies": 4260
   },
   "efficacy_evidence": "none",
+  "email_redactions": [
+    {
+      "field": "descriptionModule.briefSummary",
+      "nct_id": "NCT02834013"
+    }
+  ],
   "implementation_sha256": {
     "protocols/trial-landscape-keywords-v2.json": "e4491d07e52aa056532028aca7cc62e9e60614b9a9cd57ea49be9ba7c8724d0c",
-    "results/trial-landscape-v2-2026-11-13/verify.py": "e0eda8edadb3f8f64cec7c14d339c2d4e27817d6111907805ce13fab8b24ac09",
+    "results/trial-landscape-v2-2026-11-13/verify.py": "0665e7a55caa317177ebca7d1e36a110f7f567c1ca9ab37489d184d62488e172",
     "tools/trial_landscape_v2_export.py": "af1f4c0dc9cafcd326881c9367a15524f616570450fc2b0a09978a601fe81124",
     "tools/trial_landscape_v2_recompute.py": "0e086925ddf89694e7746839f6cd7e3798c296178f39a18b6a47a0879d6d5f2b"
   },
@@ -109,7 +116,7 @@
       {
         "bytes": 1616795,
         "path": "snapshot/studies-page-01.json",
-        "sha256": "42886a358cc4e14eeda312651e6dd34aa0846ed7119bc297ffc3570115ea8fe9",
+        "sha256": "609a0957faaf180b428b40953274edd0478f9cefff077c6d08df4d2427b922ec",
         "study_count": 1000,
         "total_count": null,
         "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CInterventionType%2CInterventionName&pageToken=ZVNj7o2Elu8o3lpyWN2mp7LumpOQJJxmZvKj2PcW"
@@ -150,6 +157,7 @@
     "version_before_sha256": "a7f492a3458a561b1178f2abf923d80384679d64a234b6c633e1be294b66d43b",
     "version_url": "https://clinicaltrials.gov/api/v2/version"
   },
+  "redaction_rule": "Contact email addresses matching user@domain.tld in study-page bodies are replaced with the literal [email redacted]. Non-mailbox at-signs (for example program names or dose timing) are unchanged.",
   "request_plan": {
     "endpoint": "https://clinicaltrials.gov/api/v2/studies",
     "fields": [

@@ -106,7 +106,8 @@ reuse outside private research.
     copyrights may apply. Listing is not government approval of safety/science.
     The 2026-11-13 all-status artifact
     (`results/trial-landscape-v2-2026-11-13/`) additionally keeps the projected
-    API pages: NCT identifiers, titles, brief summaries, conditions, keywords,
+    API pages (contact emails in study-page bodies redacted): NCT identifiers,
+    titles, brief summaries, conditions, keywords,
     status, phase, and intervention names and types. Eligibility narratives and
     participant-level rows are not included. Those pages remain ClinicalTrials.gov
     material under the source terms, not a grant of the repository's MIT or

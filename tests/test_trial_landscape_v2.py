@@ -1,6 +1,7 @@
 """Synthetic checks for the v2 trial-landscape readers. No network and no patients."""
 
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -11,6 +12,11 @@ from tools import trial_landscape_v2_export as export_reader
 from tools import trial_landscape_v2_recompute as recompute_reader
 
 SPEC = export_reader.load_spec()
+RESULT = ROOT / "results/trial-landscape-v2-2026-11-13"
+EMAIL_ADDRESS = re.compile(
+    r"(?<![A-Za-z0-9._%+-])([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})"
+    r"(?![A-Za-z0-9.-])"
+)
 
 
 def study(nct, title="", summary="", official="", status="RECRUITING", phases=None,
@@ -166,6 +172,12 @@ class TrialLandscapeV2(unittest.TestCase):
         diff = export_reader.diff_against_prior(text, [])
         self.assertEqual(diff["nct_level_diff"], "not_reconstructable")
         self.assertIsNone(diff["status_changes"])
+
+    def test_frozen_pages_have_no_contact_emails(self):
+        for path in sorted((RESULT / "snapshot").glob("studies-page-*.json")):
+            text = path.read_text(encoding="utf-8")
+            match = EMAIL_ADDRESS.search(text)
+            self.assertIsNone(match, f"mailbox address remains in {path.name}: {match}")
 
 
 if __name__ == "__main__":

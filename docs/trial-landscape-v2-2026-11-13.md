@@ -32,15 +32,22 @@ after the pull are identical: apiVersion `2.0.5`, dataTimestamp
 `2026-11-12T10:00:05` (the API documents that timestamp as UTC). The observed
 interpreter was CPython 3.12.3, Unicode 15.0.0.
 
-Five raw page bodies are stored under
+Five projected API page bodies are stored under
 [results/trial-landscape-v2-2026-11-13/snapshot/](../results/trial-landscape-v2-2026-11-13/manifest.json).
-Their concatenated SHA-256, with no separator, is the archive hash in the count
-block. Exact page URLs, including pagination tokens, are in
+They are not untouched raw responses: contact email addresses matching
+`user@domain.tld` in study-page bodies were replaced with the literal
+`[email redacted]` (non-mailbox at-signs such as program names are unchanged).
+The redaction list is pinned in `manifest.json` and `certificate.json`. Their
+concatenated SHA-256 after redaction, with no separator, is `archive_sha256` in
+the count block; the pre-redaction concatenated hash is `archive_as_fetched_sha256`.
+Exact page URLs, including pagination tokens, are in
 [manifest.json](../results/trial-landscape-v2-2026-11-13/manifest.json). The
 projected fields are public registry text: identifiers, titles, status, phase,
 conditions, keywords, brief summaries, and intervention names and types.
 Eligibility criteria were not requested and are not archived. No participant-level
 rows were requested or stored.
+
+**Email redactions (NCT id, field):** NCT02834013, `descriptionModule.briefSummary`.
 
 The recruiting comparison uses the 2026-11-05 query unchanged, with `pageSize=1`
 and `countTotal=true`, and is frozen as `snapshot/recruiting-query.json`:
@@ -63,7 +70,8 @@ api_total_count: 4260
 api_version: 2.0.5
 data_timestamp: 2026-11-12T10:00:05
 page_count: 5
-archive_sha256: 73bb1e758985afc2762c9c1045d3cbba4ec9610ca9ada1b60dde94fa22c6cd41
+archive_as_fetched_sha256: 73bb1e758985afc2762c9c1045d3cbba4ec9610ca9ada1b60dde94fa22c6cd41
+archive_sha256: b494f83190d9b78cf7286b8ae09fb88d29a4bb2325b6b950e1366c8c4afe3258
 same_query_recruiting_total: 591
 corpus_recruiting: 591
 prior_total_studies: 592
@@ -185,7 +193,8 @@ note selects, ranks, or recommends a trial or a drug.
 
 Source terms remain those of ClinicalTrials.gov (S126–S128). This repository
 does not claim a licence over the registry. The frozen pages are a dated,
-field-projected copy with the transformations above disclosed.
+field-projected copy with contact-email redaction and the transformations above
+disclosed.
 
 ## Reproduction
 

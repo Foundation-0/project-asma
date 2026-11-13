@@ -1,6 +1,14 @@
 {
-  "archive_rule": "SHA-256 of the raw study-page bodies concatenated in page order, with no separator.",
-  "archive_sha256": "73bb1e758985afc2762c9c1045d3cbba4ec9610ca9ada1b60dde94fa22c6cd41",
+  "archive_as_fetched_sha256": "73bb1e758985afc2762c9c1045d3cbba4ec9610ca9ada1b60dde94fa22c6cd41",
+  "archive_rule": "SHA-256 of the study-page bodies concatenated in page order, with no separator, after the redaction rule.",
+  "archive_sha256": "b494f83190d9b78cf7286b8ae09fb88d29a4bb2325b6b950e1366c8c4afe3258",
+  "email_redactions": [
+    {
+      "field": "descriptionModule.briefSummary",
+      "nct_id": "NCT02834013"
+    }
+  ],
+  "redaction_rule": "Contact email addresses matching user@domain.tld in study-page bodies are replaced with the literal [email redacted]. Non-mailbox at-signs (for example program names or dose timing) are unchanged.",
   "comparison_query": {
     "filter.overallStatus": "RECRUITING",
     "query.cond": "Ovarian Cancer",
@@ -42,7 +50,7 @@
     },
     {
       "bytes": 1598043,
-      "kind": "raw",
+      "kind": "projected",
       "path": "snapshot/studies-page-00.json",
       "role": "studies_page",
       "study_count": 1000,
@@ -51,7 +59,7 @@
     },
     {
       "bytes": 1616795,
-      "kind": "raw",
+      "kind": "projected",
       "path": "snapshot/studies-page-01.json",
       "role": "studies_page",
       "study_count": 1000,
@@ -60,7 +68,7 @@
     },
     {
       "bytes": 1583328,
-      "kind": "raw",
+      "kind": "projected",
       "path": "snapshot/studies-page-02.json",
       "role": "studies_page",
       "study_count": 1000,
@@ -69,7 +77,7 @@
     },
     {
       "bytes": 1599499,
-      "kind": "raw",
+      "kind": "projected",
       "path": "snapshot/studies-page-03.json",
       "role": "studies_page",
       "study_count": 1000,
@@ -78,7 +86,7 @@
     },
     {
       "bytes": 415446,
-      "kind": "raw",
+      "kind": "projected",
       "path": "snapshot/studies-page-04.json",
       "role": "studies_page",
       "study_count": 260,
@@ -86,7 +94,7 @@
       "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Ovarian+Cancer&query.term=AREA%5BStudyType%5DINTERVENTIONAL&format=json&pageSize=1000&countTotal=true&fields=NCTId%2CBriefTitle%2COfficialTitle%2COverallStatus%2CStudyType%2CPhase%2CCondition%2CKeyword%2CBriefSummary%2CInterventionType%2CInterventionName&pageToken=ZVNj7o2Elu8o3lpyWN2mp7LumpOQJJxsbPKh2vMckA"
     }
   ],
-  "note": "Projected public registry fields only. No eligibility text and no participant-level data. Registration metadata is not efficacy or treatment guidance.",
+  "note": "Projected public registry fields only, with contact emails redacted in study-page bodies per redaction_rule. No eligibility text and no participant-level data. Registration metadata is not efficacy or treatment guidance.",
   "query": {
     "query.cond": "Ovarian Cancer",
     "query.term": "AREA[StudyType]INTERVENTIONAL"
