@@ -1,0 +1,5 @@
+name = "asma_formal"
+defaultTargets = ["AsmaIdentifiabilityProofs"]
+
+[[lean_lib]]
+name = "AsmaIdentifiabilityProofs"
