@@ -38,9 +38,10 @@ jobs:
           lean --version | tee lean-version.txt
           grep -q "version 4.35.0" lean-version.txt
           lake build
-          lake env lean AsmaIdentifiabilityProofs.lean | tee axioms.txt
+          lake env lean           lake env lean AsmaIdentifiabilityProofs.lean | tee axioms.txt
+          lake env lean FloatingSelectionAndCrushingGate.lean
           tail -n +3 axioms-lean-4.35.0.txt | diff - axioms.txt
-          if grep -nE '\b(sorry|admit|native_decide)\b|^axiom ' AsmaIdentifiabilityProofs.lean | grep -v 'no sorry'; then
+          if grep -nE '\b(sorry|admit|native_decide)\b|^axiom ' AsmaIdentifiabilityProofs.lean FloatingSelectionAndCrushingGate.lean | grep -v 'no sorry'; then
             echo "forbidden token in Lean source" >&2
             exit 1
           fi
