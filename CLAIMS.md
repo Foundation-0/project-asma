@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-12):** PROVEN **0** · VERIFIED **32** · KNOWN **42** · CONJECTURE **25**
+**Counts (2026-11-13 UTC):** PROVEN **0** · VERIFIED **36** · KNOWN **42** · CONJECTURE **25**
 
 ---
 
@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`361` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`417` cases, all run; 2026-11-13 UTC). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
@@ -207,6 +207,15 @@ and do **not** substitute for study-data execution.
 | K36 | KNOWN | On 2026-11-11 the PMC page for the 2025 kinectin paper and four abstracts were read. Matched residue spans, the 11-protein complex count, exon 5 anchoring, HLA odds ratios 5.4 and 0, and 22/22 CDR2L alterations in the breast-cancer abstract are stated on the extract. The notes' span 23-145, range 5.4-8.87, splicing fractions and prevalence range were not adopted | [Checked sentences](docs/google-bio-convergence-2026-11-11.md#sentences-checked-in-the-named-papers). Passages read that day. Not a re-extraction of binding constants or occupancy |
 | K37 | KNOWN | PMC12851941 is Avsec and colleagues, Nature, 2026, PMID 41606153, DOI 10.1038/s41586-025-10014-0. NCBI Gene 30850 (GRCh38.p14, 1-based) places human CDR2L at 74,987,632-75,005,800 on NC_000017.11, band 17q25.1. The notes' base interval differs | [AlphaGenome and CDR2L span](docs/google-bio-convergence-2026-11-11.md#alphagenome-record-and-the-cdr2l-span). PubMed, the PMC page and the gene record. The paper's 1 Mb input does not include the notes' windows |
 | C23 | CONJECTURE | HLA pocket chemistry, EEF1D splicing, chromosome 17 co-location and a multi-analyte blood index may deserve a later bounded protocol | [Unrun proposals](docs/google-bio-convergence-2026-11-11.md#proposals-that-were-not-re-run). The named simulator files were not in the commit. No regimen is proposed |
+
+## CDR2L original-source adjudication, 2026-11-06
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| V35 | VERIFIED | A subsequent completed UniProt service search returns only Q86X02 and A0ACI8RKQ2 for both selected peptides in human exact and I/L-equivalent queries, including unreviewed entries; returned sequences were locally rechecked | [Executed follow-up](docs/cdr2l-source-adjudication-2026-11-06.md), [new certificate](registries/cdr2l-database-search-2026-11-06.json). Service completeness/synchronization not proved; the historical V30 search limitation is preserved. |
+| V36 | VERIFIED | The official Atlas peptide page for IEDB 11610866 displays one cerebellum source-association row, q-value 0.00189334 and no prediction-based binding evidence | [Aggregate certificate](registries/cdr2l-atlas-source-2026-11-06.json), `python3 tools/audit_cdr2l_atlas.py`, [source interpretation](docs/cdr2l-source-adjudication-2026-11-06.md). Portal metadata, not independently validated identification, source cell type, allotype or mechanism. |
+| V37 | VERIFIED | Complete integrity-checked streaming inspection of three original PXD023044 class-II identification files finds the exact breast-cell-line CDR2L 15mer once in r3, non-decoy Q86X02 residues 432–446, native spectrum `index=22949` | [Original identification result](docs/cdr2l-source-identification-2026-11-06.md), [certificate](registries/cdr2l-source-identification-2026-11-06.json). Search-output provenance, not independent spectrum validation, peptide-specific FDR, HLA allotype or receptor recognition. |
+| V38 | VERIFIED | The completely checksum-verified source MGF links documented zero-based `index=22949` to scan 23848, charge 3+, precursor m/z 614.999, exactly agreeing with the original submitted identification; 173 experimental peaks retained | [Executed peak-list locator](docs/cdr2l-spectrum-locator-2026-11-06.md), [certificate](registries/cdr2l-spectrum-locator-2026-11-06.json). Source linkage and metadata agreement, not independent identification, FDR calibration, RAW acquisition verification or biological replication. |
 
 ## What this ledger does not claim
 

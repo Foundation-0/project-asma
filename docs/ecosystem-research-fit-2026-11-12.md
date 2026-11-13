@@ -247,3 +247,22 @@ Prepared with OpenAI Codex and GPT-6 Astra agents for Asma status, Soko methods,
 and Proven Commons/Foundation-0 evidence assessment. Internal review is not
 external scientific peer review. Implementation, merges and deployments are not
 part of this assessment.
+
+## Subsequent integration — 13 November 2026 UTC
+
+The assessment branch was refreshed against main
+`0d8a9418596ab64d337c15e0e3f1fb6e870eb9e3`, which now includes merged
+[#66](https://github.com/Foundation-0/project-asma/pull/66) and
+[#67](https://github.com/Foundation-0/project-asma/pull/67). Their source records
+and claims are retained alongside this assessment's S136–S143, K38 and C24.
+The dated inspection pins, original review status and reported test evidence
+above remain historical; this integration does not re-audit those studies.
+
+The subsequently authorized original synthetic observation-design experiment
+is separately preserved in [PR #78](https://github.com/Foundation-0/project-asma/pull/78),
+with its [report pinned at the published result commit](https://github.com/Foundation-0/project-asma/blob/13d86d80aaf345dc529bacd79b982e8d768746a3/docs/research/compartment-measurement-design.md).
+It demonstrates a conditional precision boundary and retains counterexamples
+when shared measurement or mechanism assumptions fail. It is method-pattern
+use, not adoption of upstream code, an empirical biological finding or a reason
+to expand generic solver infrastructure. The experiment's own protocol,
+certificate and verification record are authoritative for its executed result.
