@@ -1425,7 +1425,7 @@
       "verification": "metadata_reviewed",
       "reviewed_via": "https://hla-ligand-atlas.org/peptide/SRIQKTKADINATKVKTHSS",
       "locator": "HLA-II source-association table and binding-evidence message; interface release2020.12",
-      "takeaway": "One cerebellum source association, displayed q-value0.00189334 and explicit absence of binding prediction.",
+      "takeaway": "One cerebellum source association, displayed q-value 0.00189334 and explicit absence of binding prediction.",
       "limitations": "Portal metadata; q-value aggregation, presenting cell, original spectrum validation and peptide-specific allotype unresolved.",
       "checked_on": "2026-11-06"
     },
