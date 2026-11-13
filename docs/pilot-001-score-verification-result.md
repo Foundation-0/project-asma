@@ -4,8 +4,10 @@
 published predictions, under the user's explicit instruction to proceed.
 External scientific review remains pending. No model was fitted or regenerated.
 
-The fixed check produced **AUROC 0.8088507878**, which rounds to **0.81**.
-It did not recover the printed discovery value **0.83** and did not meet the
+The fixed check produced **AUROC 0.8088507878**. Half-up rounding to two decimals
+is **0.81**. That two-decimal string is also the printed frozen-overlap AUC on
+Figure 3 (n=27), which is a different comparison. The sheet value did not recover
+the printed discovery value **0.83** and did not meet the
 predeclared absolute-difference tolerance of **0.02** against that printed value.
 The result is retained unchanged; no cohort, score direction or comparison
 criterion was adjusted after observing it.
@@ -28,9 +30,13 @@ contains the exact statistic, source hashes, selection checks and environment.
 | Predeclared tolerance ≤0.02 | Not met |
 | Published confidence interval | Not recalculated or reproduced. The pinned code's `roc(ci = TRUE)` defaults to a DeLong interval (registry S19); the paper describes a bootstrap (article S99). |
 
-The paper's S12 reports discovery fivefold-CV AUC 0.83 (95% CI 0.77–0.90).
-S99 supplies the 83 sensitive / 52 refractory denominator, and S95 describes
-scores as the probability of refractory disease. These source locations and
+Europe PMC XML section id S12, paragraph P33, reports discovery fivefold-CV
+AUC 0.83 (95% CI 0.77–0.90). Those XML ids are not registry source ids. XML
+section id S99, paragraph P183, supplies the 83 sensitive / 52 refractory
+denominator, and XML section id S95, paragraph P179, describes scores as the
+probability of refractory disease. Figure 3’s discovery panel also prints
+n=135. The [2026-11-13 provenance note](auroc-provenance-20261113.md) is the
+locator record. These source locations and
 the fixed contract are recorded in the
 [analysis specification](../protocols/pilot-001-score-verification.md).
 

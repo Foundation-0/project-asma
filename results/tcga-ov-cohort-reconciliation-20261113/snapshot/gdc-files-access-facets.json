@@ -1,0 +1,1 @@
+{"data": {"hits": [], "aggregations": {"access": {"buckets": [{"doc_count": 18372, "key": "controlled"}, {"doc_count": 14519, "key": "open"}]}}, "pagination": {"count": 0, "total": 32891, "size": 0, "from": 0, "sort": "", "page": 1, "pages": 32891}}, "warnings": {}}

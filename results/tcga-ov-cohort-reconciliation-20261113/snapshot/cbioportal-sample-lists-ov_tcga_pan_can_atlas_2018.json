@@ -1,0 +1,122 @@
+{
+  "lists": [
+    {
+      "category": "all_cases_with_mutation_and_cna_and_mrna_data",
+      "description": "Samples with mutation, CNA and expression data (201 samples)",
+      "name": "Complete samples",
+      "sampleCount": 201,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_3way_complete",
+      "sample_id_count": 201,
+      "source_response_sha256": "f478eea5c1a16933d46feac3c95cad4400c30ef3cc447cc802314cb2e25cf7b0"
+    },
+    {
+      "category": "all_cases_in_study",
+      "description": "All samples (585 samples)",
+      "name": "All samples",
+      "sampleCount": 585,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_all",
+      "sample_id_count": 585,
+      "source_response_sha256": "4c79a9dcdabf637f6d36ecf516fea89c8fc32830ec5d8bb059fbf2572576da84"
+    },
+    {
+      "category": "all_cases_with_cna_data",
+      "description": "Samples with CNA data (572 samples)",
+      "name": "Samples with CNA data",
+      "sampleCount": 572,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_cna",
+      "sample_id_count": 572,
+      "source_response_sha256": "ab49b8a3622595684bb3d42c2907172cfaac8050be37a546fc6db5e0a613f20b"
+    },
+    {
+      "category": "all_cases_with_mutation_and_cna_data",
+      "description": "Samples with mutation and CNA data (398 samples)",
+      "name": "Samples with mutation and CNA data",
+      "sampleCount": 398,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_cnaseq",
+      "sample_id_count": 398,
+      "source_response_sha256": "7faac17667ae26155b5fb01af3b8f099bde13e25443a0ca667c7c40644eaeeb3"
+    },
+    {
+      "category": "all_cases_with_log2_cna_data",
+      "description": "Samples with log2 copy-number data (572 samples)",
+      "name": "Samples with log2 copy-number data",
+      "sampleCount": 572,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_log2CNA",
+      "sample_id_count": 572,
+      "source_response_sha256": "643d19f08889dc8a7caf4618bc2fa125d13363bb2fe58d518ae2297ddbcb13af"
+    },
+    {
+      "category": "all_cases_with_methylation_data",
+      "description": "Samples with methylation data (584 samples)",
+      "name": "Samples with methylation data",
+      "sampleCount": 584,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_methylation_all",
+      "sample_id_count": 584,
+      "source_response_sha256": "327b88c86601cf1db35735dd75c3a78c5ba33065e4ccd6d5f6dc32adf9d372b5"
+    },
+    {
+      "category": "all_cases_with_methylation_data",
+      "description": "Samples with methylation (HM450) data (10 samples)",
+      "name": "Samples with methylation data (HM450)",
+      "sampleCount": 10,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_methylation_hm450",
+      "sample_id_count": 10,
+      "source_response_sha256": "df03f64f5b02111983253998a90ca74837876c777a9e361ea49a8638eab11bad"
+    },
+    {
+      "category": "other",
+      "description": "Tumor samples with phosphoprotein quantification data (68 samples)",
+      "name": "Samples with phosphoprotein quantification data (mass spectrometry by CPTAC)",
+      "sampleCount": 68,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_phosphoprotein_quantification",
+      "sample_id_count": 68,
+      "source_response_sha256": "9591bbe9c495396a0e779ca5e7e05cb354ed4f9dc4e219fcf2b133e80ef7575b"
+    },
+    {
+      "category": "other",
+      "description": "Samples with protein data (Mass Spec) (121 samples)",
+      "name": "Samples with protein data (Mass Spec)",
+      "sampleCount": 121,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_protein_quantification",
+      "sample_id_count": 121,
+      "source_response_sha256": "6cd3fb7dd6cd4bf559d3294f061e2dbd56ca85bdbe0c0808d040a3f05243c913"
+    },
+    {
+      "category": "all_cases_with_mrna_rnaseq_data",
+      "description": "Samples with mRNA expression data (300 samples)",
+      "name": "Samples with mRNA data (RNA Seq V2)",
+      "sampleCount": 300,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_rna_seq_v2_mrna",
+      "sample_id_count": 300,
+      "source_response_sha256": "04cc7a872188d988e145803d66e12a83d9d71d96da7b3284c80606a72b306f63"
+    },
+    {
+      "category": "all_cases_with_rppa_data",
+      "description": "Samples with protein data (RPPA) (414 samples)",
+      "name": "Samples with protein data (RPPA)",
+      "sampleCount": 414,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_rppa",
+      "sample_id_count": 414,
+      "source_response_sha256": "a76b27c1fe73e82e763b3cf5649eeeca0ce736551c38f0bfc66b29d7cc665180"
+    },
+    {
+      "category": "all_cases_with_mutation_data",
+      "description": "Samples with mutation data (523 samples)",
+      "name": "Samples with mutation data",
+      "sampleCount": 523,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_sequenced",
+      "sample_id_count": 523,
+      "source_response_sha256": "aef7a21994f6aae903c0175223a8ed846429baad623359e5c4b092cfb5d6ae7c"
+    },
+    {
+      "category": "all_cases_with_sv_data",
+      "description": "All samples",
+      "name": "Samples with SV data",
+      "sampleCount": 523,
+      "sampleListId": "ov_tcga_pan_can_atlas_2018_sv",
+      "sample_id_count": 523,
+      "source_response_sha256": "92608653e4aaf197e44f8e2324807866d73bbdce1316a651b96323677355fb88"
+    }
+  ],
+  "study_id": "ov_tcga_pan_can_atlas_2018"
+}
