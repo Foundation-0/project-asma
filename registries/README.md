@@ -1,5 +1,14 @@
 # Registries
 
+- [Discovery AUROC provenance, 2026-11-13](../results/auroc-provenance-20261113/manifest.json):
+  pair and rank AUROC of the public FFPE prediction sheet, DeLong and bootstrap
+  intervals, and the printed 0.83 locators. SHA-256 in `SHA256SUMS`. Scores and
+  sample identifiers were not stored. Replay with
+  `python3 results/auroc-provenance-20261113/verify.py`.
+  Sources S174–S176. The note is
+  [docs/auroc-provenance-20261113.md](../docs/auroc-provenance-20261113.md).
+  Discrimination of released scores only; not clinical utility.
+
 - [TCGA-OV cohort reconciliation, 2026-11-13 UTC](../results/tcga-ov-cohort-reconciliation-20261113/manifest.json):
   open GDC and cBioPortal aggregate responses, with SHA-256 in `SHA256SUMS`.
   Case and sample identifiers were counted in memory and not stored.

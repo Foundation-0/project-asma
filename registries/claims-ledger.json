@@ -319,13 +319,15 @@
     },
     {
       "artifact_paths": [],
-      "canonical_sha256": "271ae52cf6bd7ef2ca60069ca9816fc812dec0c829e05eab7e03f0f1b8ec79a9",
+      "canonical_sha256": "c88d3908b0ebf6e5ba66feabf532161f445ff7f7dc831cbbdd3cd8b5949622ee",
       "certificate_paths": [],
       "id": "K01",
       "label": "KNOWN",
       "recheck_commands": [],
-      "row_text": "| K01 | Discovery fivefold-CV AUC **0.83** (95% CI 0.77–0.90) for primary refractory HGSOC | Chowdhury et al., *Cell* 2023, https://doi.org/10.1016/j.cell.2023.07.004 |",
-      "source_ids": [],
+      "row_text": "| K01 | Discovery fivefold-CV AUC **0.83** (95% CI 0.77–0.90) for primary refractory HGSOC | Chowdhury et al., *Cell* 2023, paragraph P33 and Figure 3 panel D3, https://doi.org/10.1016/j.cell.2023.07.004 ; S174. The released-sheet AUROC is V44 |",
+      "source_ids": [
+        "S174"
+      ],
       "statement": "Discovery fivefold-CV AUC **0.83** (95% CI 0.77–0.90) for primary refractory HGSOC"
     },
     {
@@ -399,15 +401,14 @@
       "artifact_paths": [
         "protocols/pilot-001-score-verification.md"
       ],
-      "canonical_sha256": "0a1a3779cd0b4f915bc9f43e123007e8e6de74b76661cfa7d23e09fda68c7d70",
+      "canonical_sha256": "ec1cdb7e5cb1a9471d28b8440f99d2b98ac1b529a8b3485de7d72841a0fa7161",
       "certificate_paths": [],
       "id": "K07",
       "label": "KNOWN",
       "recheck_commands": [],
-      "row_text": "| K07 | Published discovery score sheet row counts and class balance (135 rows; 52 refractory / 83 sensitive) | Paper supplementary locations S95/S99 as recorded in [score verification protocol](protocols/pilot-001-score-verification.md) |",
+      "row_text": "| K07 | Published discovery score sheet row counts and class balance (135 rows; 52 refractory / 83 sensitive) | Paragraphs P177 and P183 print 83 sensitive and 52 refractory. Paragraph P179 defines the score as the probability the tumour is refractory. The numeral 135 is their sum, the public sheet row count, and the Figure 3 discovery-panel label. S174. [Score verification protocol](protocols/pilot-001-score-verification.md) |",
       "source_ids": [
-        "S95",
-        "S99"
+        "S174"
       ],
       "statement": "Published discovery score sheet row counts and class balance (135 rows; 52 refractory / 83 sensitive)"
     },
@@ -1446,7 +1447,7 @@
         "tools/check_sha256_manifests.py",
         "tools/export_claims_ledger.py"
       ],
-      "canonical_sha256": "27ebb7984d480a53a3890ecff79d9848949e9c063830f5a0dee5c3ed4c805333",
+      "canonical_sha256": "ff8d3d99a1a819fc69bea3794a7d99d029e730ac6cede48f5dcf5f4f4e5a133f",
       "certificate_paths": [],
       "id": "V41",
       "label": "VERIFIED",
@@ -1456,9 +1457,9 @@
         "python3 tools/audit_checkers.py --check",
         "python3 results/integrity-audit-2026-11-13/verify.py"
       ],
-      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 41 VERIFIED rows, 25 offline checkers, 24 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
+      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 42 VERIFIED rows, 26 offline checkers, 25 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
       "source_ids": [],
-      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 41 VERIFIED rows, 25 offline checkers, 24 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only)"
+      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 42 VERIFIED rows, 26 offline checkers, 25 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only)"
     },
     {
       "artifact_paths": [
@@ -1568,15 +1569,75 @@
       "row_text": "| C25 | CONJECTURE | Why 116 GDC TCGA-OV cases are absent from the ov_tcga_pub patient set, and why 3 ov_tcga_pub patients have no sample, is not established by these catalog counts | Open. The overlap counts are V43. The cause is not identified. Not a claim that those cases lack a tumour or a sequencing file. |",
       "source_ids": [],
       "statement": "Why 116 GDC TCGA-OV cases are absent from the ov_tcga_pub patient set, and why 3 ov_tcga_pub patients have no sample, is not established by these catalog counts"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "0c4a5721ab7a423618d1f4536418a674b2d48abe229308d61ece7d8078f0a35e",
+      "certificate_paths": [],
+      "id": "K44",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K44 | KNOWN | Chowdhury et al., Cell 2023, print one discovery AUC of 0.83 (95% CI 0.77–0.90) for the 64-protein ensemble on FFPE discovery proteomic data, five-fold cross-validation. The sentence is paragraph P33. Figure 3 panel D3 prints AUC = 0.83 and n=135. The figure caption does not restate 0.83. Paragraphs P177 and P183 print 83 sensitive and 52 refractory tumours. Paragraph P183 says the AUC intervals were calculated by bootstrap. The article XML does not contain 0.80885. The same figure’s 0.81 is the frozen-overlap panel, n=27. The 2024 correction does not mention this AUC. These are discrimination numbers | S174, S175, S11. [Provenance note](docs/auroc-provenance-20261113.md). JATS pages 3476–3498.e35; the Figure 3 JPEG comment says 3476-3498.e36. Paragraph P33 has no page of its own in the author-manuscript XML. Not clinical utility. |",
+      "source_ids": [
+        "S11",
+        "S174",
+        "S175"
+      ],
+      "statement": "Chowdhury et al., Cell 2023, print one discovery AUC of 0.83 (95% CI 0.77–0.90) for the 64-protein ensemble on FFPE discovery proteomic data, five-fold cross-validation. The sentence is paragraph P33. Figure 3 panel D3 prints AUC = 0.83 and n=135. The figure caption does not restate 0.83. Paragraphs P177 and P183 print 83 sensitive and 52 refractory tumours. Paragraph P183 says the AUC intervals were calculated by bootstrap. The article XML does not contain 0.80885. The same figure’s 0.81 is the frozen-overlap panel, n=27. The 2024 correction does not mention this AUC. These are discrimination numbers"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "27299dd70d8e2f2a67ca88ea8c64629b09aa09fa88f267b4a59b6129da2360e1",
+      "certificate_paths": [],
+      "id": "K45",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K45 | KNOWN | At commit 48357fd, Figure_3D_part3.R line 184 draws the literal string AUC = 0.83. The string does not read or round roc.all1. None of the 42 R or Rmd files in that commit contains n=135. The n=135 on the published figure is an image label | S176. [Provenance note](docs/auroc-provenance-20261113.md). The unrounded roc.all1 value is not in the script. Not clinical utility. |",
+      "source_ids": [
+        "S176"
+      ],
+      "statement": "At commit 48357fd, Figure_3D_part3.R line 184 draws the literal string AUC = 0.83. The string does not read or round roc.all1. None of the 42 R or Rmd files in that commit contains n=135. The n=135 on the published figure is an image label"
+    },
+    {
+      "artifact_paths": [
+        "results/auroc-provenance-20261113/certificate.json",
+        "results/auroc-provenance-20261113/verify.py"
+      ],
+      "canonical_sha256": "17790780b10391351969719844fc349c32edf2026c0287bd5041f2f98a2c5636",
+      "certificate_paths": [
+        "results/auroc-provenance-20261113/certificate.json"
+      ],
+      "id": "V44",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 results/auroc-provenance-20261113/verify.py"
+      ],
+      "row_text": "| V44 | VERIFIED | On public MMC1 and MMC4, FFPE_pred_scores joined to FFPE_Discovery_clinical has 135 rows, 52 refractory and 83 sensitive. Pair and rank readers agree: the Mann–Whitney AUROC with half credit for ties is 3491/4316 = 0.8088507877664504. Half-up rounding is 0.81 to two decimals and 0.809 to three decimals. The absolute difference from the printed 0.83 is 1141/53950, which exceeds 0.02. The DeLong 95% interval is 0.7347956138 to 0.8829059617. A stratified bootstrap of 2000 resamples with seed 20261113 has 95% percentile interval 0.7309951344 to 0.8760484245. Both intervals contain 0.83. This is discrimination of released scores | `python3 results/auroc-provenance-20261113/verify.py`. [Note](docs/auroc-provenance-20261113.md); [certificate](results/auroc-provenance-20261113/certificate.json). S14, S174. Workbook SHA-256 values are in the certificate. Scores were not stored. Offline replay uses the frozen aggregates and does not re-read the workbooks. Not a refit, not clinical utility, and not evidence that the sheet is the Figure 3D prediction vector. |",
+      "source_ids": [
+        "S14",
+        "S174"
+      ],
+      "statement": "On public MMC1 and MMC4, FFPE_pred_scores joined to FFPE_Discovery_clinical has 135 rows, 52 refractory and 83 sensitive. Pair and rank readers agree: the Mann–Whitney AUROC with half credit for ties is 3491/4316 = 0.8088507877664504. Half-up rounding is 0.81 to two decimals and 0.809 to three decimals. The absolute difference from the printed 0.83 is 1141/53950, which exceeds 0.02. The DeLong 95% interval is 0.7347956138 to 0.8829059617. A stratified bootstrap of 2000 resamples with seed 20261113 has 95% percentile interval 0.7309951344 to 0.8760484245. Both intervals contain 0.83. This is discrimination of released scores"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "a430d3ae4c938a7056e2f59b61f443d2607074a8f1dae56f3a3d0f2a91334bd7",
+      "certificate_paths": [],
+      "id": "C26",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C26 | CONJECTURE | The unrounded five-fold CV AUC that the authors displayed as 0.83 is absent from the public article, the public score sheet, and the pinned scripts. Whether 0.83 displays some other unrounded ROC, and whether the released sheet is that ROC’s input, remains open | C20 already records the sheet-versus-figure gap. This row adds that the plot label is a literal and that the unrounded roc.all1 value was not found. It does not assert that the paper misquoted 0.80885. |",
+      "source_ids": [],
+      "statement": "The unrounded five-fold CV AUC that the authors displayed as 0.83 is absent from the public article, the public score sheet, and the pinned scripts. Whether 0.83 displays some other unrounded ROC, and whether the released sheet is that ROC’s input, remains open"
     }
   ],
   "counts": {
-    "CONJECTURE": 26,
-    "KNOWN": 47,
+    "CONJECTURE": 27,
+    "KNOWN": 49,
     "PROVEN": 0,
-    "VERIFIED": 41
+    "VERIFIED": 42
   },
-  "ledger_sha256": "0112efeda45149afc5b0fc02b3bf4d94df4f88ceb0f88e9259fd378ea7960a23",
+  "ledger_sha256": "72631b30fbe0cb6b0e6d5ce5d32bd6879fbf7e69181a108dd2a42d93588fdbf0",
   "schema_version": 1,
   "source": "CLAIMS.md"
 }

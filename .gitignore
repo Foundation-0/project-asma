@@ -30,6 +30,10 @@
 # cohort reconciliation. Counts and set hashes only; no case identifiers.
 !/results/tcga-ov-cohort-reconciliation-20261113/
 !/results/tcga-ov-cohort-reconciliation-20261113/**
+# Discovery AUROC provenance. Frozen pair counts, intervals, and locators.
+# No scores and no sample identifiers.
+!/results/auroc-provenance-20261113/
+!/results/auroc-provenance-20261113/**
 /artifacts/
 /checkpoints/
 /models/

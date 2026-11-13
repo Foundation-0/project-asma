@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-13):** PROVEN **0** · VERIFIED **41** · KNOWN **47** · CONJECTURE **26**
+**Counts (2026-11-13):** PROVEN **0** · VERIFIED **42** · KNOWN **49** · CONJECTURE **27**
 
 ---
 
@@ -68,13 +68,13 @@ and do **not** substitute for study-data execution.
 
 | ID | Claim | Citation |
 | --- | --- | --- |
-| K01 | Discovery fivefold-CV AUC **0.83** (95% CI 0.77–0.90) for primary refractory HGSOC | Chowdhury et al., *Cell* 2023, https://doi.org/10.1016/j.cell.2023.07.004 |
+| K01 | Discovery fivefold-CV AUC **0.83** (95% CI 0.77–0.90) for primary refractory HGSOC | Chowdhury et al., *Cell* 2023, paragraph P33 and Figure 3 panel D3, https://doi.org/10.1016/j.cell.2023.07.004 ; S174. The released-sheet AUROC is V44 |
 | K02 | Six PDC PTRC HGSOC studies in the catalog: **PDC000358/360/362** proteome (pilot candidates) and **PDC000357/359/361** phosphoproteome (context only); PDC open-data terms **CC BY 4.0** | [datasets.json](registries/datasets.json); PDC GraphQL `submitter_id_name` rechecked 2026-11-04 |
 | K03 | NLM supplemental MMC1 (clinical) and MMC4 (panel/membership) associated with **CC BY-NC-ND 4.0** | Article version record cited in [data-use](docs/pilot-001-data-use.md) |
 | K04 | Publisher correction to supplemental legend text | Chowdhury et al., *Cell* **187**, 1016 (2024), https://doi.org/10.1016/j.cell.2024.01.016 (S11 in [sources.json](registries/sources.json)) |
 | K05 | Author analysis scripts exist at inspected commit; not executed here | WangLab-MSSM/CPTAC_Ovarian_Chemo_Response commit `48357fd…` (see [pilot 001](protocols/pilot-001.md)) |
 | K06 | Primary refractory vs later platinum-resistant recurrence are distinct endpoints | Stated in protocol from primary literature review ([feasibility audit](docs/pilot-001-feasibility-audit.md)) |
-| K07 | Published discovery score sheet row counts and class balance (135 rows; 52 refractory / 83 sensitive) | Paper supplementary locations S95/S99 as recorded in [score verification protocol](protocols/pilot-001-score-verification.md) |
+| K07 | Published discovery score sheet row counts and class balance (135 rows; 52 refractory / 83 sensitive) | Paragraphs P177 and P183 print 83 sensitive and 52 refractory. Paragraph P179 defines the score as the probability the tumour is refractory. The numeral 135 is their sum, the public sheet row count, and the Figure 3 discovery-panel label. S174. [Score verification protocol](protocols/pilot-001-score-verification.md) |
 | K08 | PDC processed-file metadata and version-1 study headers were readable on audited dates | [Input resolution](docs/pilot-001-input-resolution.md); registry summaries |
 | K09 | Six frozen patient keys appear in both published frozen nonoverlap scores and eligible discovery scores | [Input resolution](docs/pilot-001-input-resolution.md) — membership fact, independence not proven |
 | K10 | Recovered author discovery matrix header matches 168 response-labelled rows and 135 score keys | [Independent progress](docs/pilot-001-independent-progress.md); registry V13/V14 |
@@ -232,7 +232,7 @@ and do **not** substitute for study-data execution.
 
 | ID | Label | Statement | Evidence and boundary |
 | --- | --- | --- | --- |
-| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 41 VERIFIED rows, 25 offline checkers, 24 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |
+| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 42 VERIFIED rows, 26 offline checkers, 25 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |
 
 ## Ovarian interventional trial landscape, 2026-11-13 UTC
 
@@ -249,6 +249,15 @@ and do **not** substitute for study-data execution.
 | K42 | KNOWN | GDC documents that some data is open access, needing no authentication or authorization, and other data is controlled access, needing dbGaP authorization and eRA Commons authentication. The API facets parameter provides aggregate information for a specified field. Authentication is required for downloading controlled-access data and for data submission | S161, S162, S163. Access class and facet documentation. Not a finding about any tumour and not a licence grant. |
 | K43 | KNOWN | cBioPortal provides a public REST API, described with Swagger/OpenAPI, for programmatic access to the same data as the website | S169. API documentation. A study description on the portal is portal text, not a re-derivation of PMID 21720365. |
 | C25 | CONJECTURE | Why 116 GDC TCGA-OV cases are absent from the ov_tcga_pub patient set, and why 3 ov_tcga_pub patients have no sample, is not established by these catalog counts | Open. The overlap counts are V43. The cause is not identified. Not a claim that those cases lack a tumour or a sequencing file. |
+
+## Discovery AUROC provenance, 2026-11-13
+
+| ID | Label | Statement | Evidence and boundary |
+| --- | --- | --- | --- |
+| K44 | KNOWN | Chowdhury et al., Cell 2023, print one discovery AUC of 0.83 (95% CI 0.77–0.90) for the 64-protein ensemble on FFPE discovery proteomic data, five-fold cross-validation. The sentence is paragraph P33. Figure 3 panel D3 prints AUC = 0.83 and n=135. The figure caption does not restate 0.83. Paragraphs P177 and P183 print 83 sensitive and 52 refractory tumours. Paragraph P183 says the AUC intervals were calculated by bootstrap. The article XML does not contain 0.80885. The same figure’s 0.81 is the frozen-overlap panel, n=27. The 2024 correction does not mention this AUC. These are discrimination numbers | S174, S175, S11. [Provenance note](docs/auroc-provenance-20261113.md). JATS pages 3476–3498.e35; the Figure 3 JPEG comment says 3476-3498.e36. Paragraph P33 has no page of its own in the author-manuscript XML. Not clinical utility. |
+| K45 | KNOWN | At commit 48357fd, Figure_3D_part3.R line 184 draws the literal string AUC = 0.83. The string does not read or round roc.all1. None of the 42 R or Rmd files in that commit contains n=135. The n=135 on the published figure is an image label | S176. [Provenance note](docs/auroc-provenance-20261113.md). The unrounded roc.all1 value is not in the script. Not clinical utility. |
+| V44 | VERIFIED | On public MMC1 and MMC4, FFPE_pred_scores joined to FFPE_Discovery_clinical has 135 rows, 52 refractory and 83 sensitive. Pair and rank readers agree: the Mann–Whitney AUROC with half credit for ties is 3491/4316 = 0.8088507877664504. Half-up rounding is 0.81 to two decimals and 0.809 to three decimals. The absolute difference from the printed 0.83 is 1141/53950, which exceeds 0.02. The DeLong 95% interval is 0.7347956138 to 0.8829059617. A stratified bootstrap of 2000 resamples with seed 20261113 has 95% percentile interval 0.7309951344 to 0.8760484245. Both intervals contain 0.83. This is discrimination of released scores | `python3 results/auroc-provenance-20261113/verify.py`. [Note](docs/auroc-provenance-20261113.md); [certificate](results/auroc-provenance-20261113/certificate.json). S14, S174. Workbook SHA-256 values are in the certificate. Scores were not stored. Offline replay uses the frozen aggregates and does not re-read the workbooks. Not a refit, not clinical utility, and not evidence that the sheet is the Figure 3D prediction vector. |
+| C26 | CONJECTURE | The unrounded five-fold CV AUC that the authors displayed as 0.83 is absent from the public article, the public score sheet, and the pinned scripts. Whether 0.83 displays some other unrounded ROC, and whether the released sheet is that ROC’s input, remains open | C20 already records the sheet-versus-figure gap. This row adds that the plot label is a literal and that the unrounded roc.all1 value was not found. It does not assert that the paper misquoted 0.80885. |
 
 ## What this ledger does not claim
 
