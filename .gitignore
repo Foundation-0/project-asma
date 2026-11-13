@@ -22,6 +22,9 @@
 # Integrity-layer checker audit (aggregate JSON only).
 !/results/integrity-audit-2026-11-13/
 !/results/integrity-audit-2026-11-13/**
+# Identifiability and C20 v1 certificate archive (exact rationals and seeded simulation only).
+!/results/identifiability-and-c20-2026-11-13/
+!/results/identifiability-and-c20-2026-11-13/**
 /artifacts/
 /checkpoints/
 /models/
