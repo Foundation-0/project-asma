@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+import copy
 import json
 import subprocess
 import sys
 import tempfile
 import unittest
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 from unittest import mock
 
@@ -90,6 +91,56 @@ def minimal_valid_aggregate(**overrides):
         },
         "limitations": ["Exploratory outputs only."],
     }
+    payload.update(overrides)
+    return payload
+
+
+def protocol_summary(**overrides):
+    summary = {
+        "patients": 135,
+        "features": 64,
+        "repetitions": 100,
+        "outer_folds": 5,
+        "model_predictions": 13500,
+        "ensemble_predictions": 13500,
+        "final_scores": 135,
+        "complete_prediction_coverage": True,
+        "positive_negative_pairs": 4316,
+        "auc": 0.5,
+        "rank_auc": 0.5,
+        "repetition_auc": {
+            "count": 100,
+            "minimum": 0.5,
+            "lower_quartile": 0.5,
+            "median": 0.5,
+            "upper_quartile": 0.5,
+            "maximum": 0.5,
+            "mean": 0.5,
+        },
+    }
+    summary.update(overrides)
+    return summary
+
+
+def real_valid_aggregate(**overrides):
+    payload = minimal_valid_aggregate()
+    payload.update(
+        {"input_mode": "pinned_real_sources", "real_study_data_executed": True}
+    )
+    payload["configurations"] = [
+        {
+            "label": label,
+            "outer_seed_start": seed_start,
+            "xgb_tree_method": method,
+            "summary": protocol_summary(),
+            "metric_formulations_agree": True,
+        }
+        for label, seed_start, method in (
+            ("primary", 1, "exact"),
+            ("sensitivity_xgb_hist", 1, "hist"),
+            ("sensitivity_seed_block_101_200", 101, "exact"),
+        )
+    ]
     payload.update(overrides)
     return payload
 
@@ -314,7 +365,7 @@ class TestOutputValidator(unittest.TestCase):
     def test_rejects_row_level_payload(self):
         bad = minimal_valid_aggregate()
         bad["scores"] = {"patient-001": 0.5}
-        errors = validate_aggregate_document(bad)
+        errors = validate_aggregate_document(bad, "dry")
         self.assertTrue(errors)
 
     def test_rejects_grk_proof_strict_schema_leaks(self):
@@ -340,7 +391,7 @@ class TestOutputValidator(unittest.TestCase):
         for name, mutate in cases:
             payload = minimal_valid_aggregate()
             mutate(payload)
-            errors = validate_aggregate_document(payload)
+            errors = validate_aggregate_document(payload, "dry")
             self.assertTrue(errors, msg=name)
 
     def test_rejects_grk_proof_typed_leaks(self):
@@ -381,7 +432,7 @@ class TestOutputValidator(unittest.TestCase):
         for name, mutate in cases:
             payload = minimal_valid_aggregate()
             mutate(payload)
-            errors = validate_aggregate_document(payload)
+            errors = validate_aggregate_document(payload, "dry")
             self.assertTrue(errors, msg=name)
 
     def test_rejects_proof_review_cases(self):
@@ -400,32 +451,32 @@ class TestOutputValidator(unittest.TestCase):
         for mutate in cases:
             payload = minimal_valid_aggregate()
             mutate(payload)
-            errors = validate_aggregate_document(payload)
+            errors = validate_aggregate_document(payload, "dry")
             self.assertTrue(errors, msg=f"expected rejection after {mutate.__name__}")
 
     def test_proof_exact_scores_case_bypass_payload(self):
-        errors = validate_aggregate_document({"Scores": {"TCGA-04-1331": 0.5}})
+        errors = validate_aggregate_document({"Scores": {"TCGA-04-1331": 0.5}}, "dry")
         self.assertTrue(errors)
 
     def test_proof_exact_three_hundred_float_dict(self):
-        errors = validate_aggregate_document({f"case-{index}": 0.5 for index in range(300)})
+        errors = validate_aggregate_document({f"case-{index}": 0.5 for index in range(300)}, "dry")
         self.assertTrue(errors)
 
     def test_proof_exact_sixty_float_list(self):
-        errors = validate_aggregate_document({"vector": [0.5] * 60})
+        errors = validate_aggregate_document({"vector": [0.5] * 60}, "dry")
         self.assertTrue(errors)
 
     def test_proof_exact_five_hundred_numeric_strings(self):
-        errors = validate_aggregate_document({"strings": ["0.5"] * 500})
+        errors = validate_aggregate_document({"strings": ["0.5"] * 500}, "dry")
         self.assertTrue(errors)
 
     def test_proof_exact_tcga_barcode_string(self):
-        errors = validate_aggregate_document({"note": "TCGA-04-1331-01A"})
+        errors = validate_aggregate_document({"note": "TCGA-04-1331-01A"}, "dry")
         self.assertTrue(errors)
 
     def test_proof_forbidden_key_after_list_index_200(self):
         errors = validate_aggregate_document(
-            {"rows": [{"ok": 1}] * 200 + [{"scores": {"patient": 0.5}}]}
+            {"rows": [{"ok": 1}] * 200 + [{"scores": {"patient": 0.5}}]}, "dry"
         )
         self.assertTrue(errors)
 
@@ -439,7 +490,7 @@ class TestAggregatePromotion(unittest.TestCase):
             bad = minimal_valid_aggregate()
             bad["configurations"][0]["summary"].update({"Scores": {"TCGA-04-1331": 0.5}})
             with self.assertRaises(ValueError):
-                _promote_aggregate(out, bad)
+                _promote_aggregate(out, bad, "dry")
             self.assertFalse((out / AGGREGATE_FILENAME).exists())
             self.assertFalse((out / STAGING_AGGREGATE).exists())
 
@@ -695,7 +746,7 @@ class TestRealPipelineTwoPhase(unittest.TestCase):
         self, mock_inspect, mock_run, _mock_vol, _mock_cleanup, _mock_git, _mock_attest
     ):
         mock_inspect.return_value = {"Id": "sha256:abc", "Architecture": "amd64"}
-        aggregate = minimal_valid_aggregate()
+        aggregate = real_valid_aggregate()
         fetch_result = subprocess.CompletedProcess([], 0, "", "")
         analyze_result = subprocess.CompletedProcess([], 0, json.dumps(aggregate), "")
         pending = [fetch_result, analyze_result]
@@ -852,8 +903,166 @@ class TestRealRunTimeoutCleanup(unittest.TestCase):
 
 class TestSimulatedRealOutput(unittest.TestCase):
     def test_aggregate_only_shape(self):
-        good = minimal_valid_aggregate(real_study_data_executed=True)
-        self.assertEqual(validate_aggregate_document(good), [])
+        good = real_valid_aggregate()
+        self.assertEqual(validate_aggregate_document(good, "real"), [])
+
+
+class TestRepetitionsConformance(unittest.TestCase):
+    def test_real_analyze_argv_carries_100_repetitions(self):
+        import io
+
+        from pilot001_first_run import analyze_container
+
+        completed = subprocess.CompletedProcess([], 0, "{}\n", "")
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.dict(
+            "os.environ", {"PILOT001_OWNER_ATTESTATION_ID": "owner"}
+        ), mock.patch.object(
+            analyze_container, "PAYLOAD_PATH", Path(tmp) / "payload.json"
+        ), mock.patch.object(
+            analyze_container, "read_raw_handoff", return_value=(b"c", b"cl", b"p")
+        ), mock.patch.object(
+            analyze_container, "verify_uncompressed_member_for_analysis"
+        ), mock.patch.object(
+            analyze_container, "parse_sources", return_value={}
+        ), mock.patch.object(
+            analyze_container.subprocess, "run", return_value=completed
+        ) as mock_run, mock.patch(
+            "sys.stdout", io.StringIO()
+        ):
+            code = analyze_container.main()
+        self.assertEqual(code, 0)
+        argv = mock_run.call_args.args[0]
+        self.assertIn("--real", argv)
+        self.assertIn("--repetitions=100", argv)
+        self.assertNotIn("--repetitions=5", argv)
+
+    def test_dry_run_argv_carries_5_smoke_repetitions(self):
+        config = RunConfig(host="linux-ci", output_dir=Path("/tmp/out"), dry_run=True)
+        with mock.patch(
+            "pilot001_first_run.runner.inspect_image",
+            return_value={"Id": "sha256:dead", "Architecture": "amd64"},
+        ):
+            argv = build_container_run_argv(
+                config=config,
+                image_tag="asma-synthetic:4.4.3",
+                output_dir=Path("/tmp/out"),
+                container_name="pilot001-run-test",
+            )
+        self.assertIn("--dry-run", argv)
+        self.assertIn("--repetitions=5", argv)
+        self.assertNotIn("--repetitions=100", argv)
+
+
+class TestValidatorProfiles(unittest.TestCase):
+    def test_real_profile_accepts_protocol_aggregate(self):
+        self.assertEqual(validate_aggregate_document(real_valid_aggregate(), "real"), [])
+
+    def test_real_profile_rejects_wrong_repetitions(self):
+        payload = real_valid_aggregate()
+        payload["configurations"][0]["summary"]["repetitions"] = 5
+        payload["configurations"][0]["summary"]["repetition_auc"]["count"] = 5
+        self.assertTrue(validate_aggregate_document(payload, "real"))
+
+    def test_real_profile_rejects_missing_configuration(self):
+        payload = real_valid_aggregate()
+        payload["configurations"] = [
+            cfg
+            for cfg in payload["configurations"]
+            if cfg["label"] != "sensitivity_xgb_hist"
+        ]
+        self.assertTrue(validate_aggregate_document(payload, "real"))
+
+    def test_real_profile_rejects_misordered_configurations(self):
+        payload = real_valid_aggregate()
+        configs = payload["configurations"]
+        payload["configurations"] = [configs[0], configs[2], configs[1]]
+        self.assertTrue(validate_aggregate_document(payload, "real"))
+
+    def test_real_profile_rejects_label_seed_method_mismatch(self):
+        cases = [
+            ("primary_with_hist", 0, {"xgb_tree_method": "hist"}),
+            ("hist_with_exact", 1, {"xgb_tree_method": "exact"}),
+            ("seed_block_with_start_1", 2, {"outer_seed_start": 1}),
+            ("primary_with_start_101", 0, {"outer_seed_start": 101}),
+        ]
+        for name, index, patch in cases:
+            with self.subTest(name=name):
+                payload = copy.deepcopy(real_valid_aggregate())
+                payload["configurations"][index].update(patch)
+                self.assertTrue(validate_aggregate_document(payload, "real"))
+
+    def test_real_profile_rejects_wrong_denominators(self):
+        cases = [
+            ("patients", {"patients": 158}),
+            ("features", {"features": 63}),
+            ("positive_negative_pairs", {"positive_negative_pairs": 10}),
+        ]
+        for name, patch in cases:
+            with self.subTest(name=name):
+                payload = copy.deepcopy(real_valid_aggregate())
+                payload["configurations"][0]["summary"].update(patch)
+                self.assertTrue(validate_aggregate_document(payload, "real"))
+
+    def test_dry_profile_accepts_smoke_aggregate(self):
+        self.assertEqual(validate_aggregate_document(minimal_valid_aggregate(), "dry"), [])
+
+    def test_dry_profile_rejects_non_smoke_repetitions(self):
+        payload = minimal_valid_aggregate()
+        payload["configurations"][0]["summary"]["repetitions"] = 100
+        self.assertTrue(validate_aggregate_document(payload, "dry"))
+
+    def test_validator_rejects_unknown_profile(self):
+        self.assertTrue(validate_aggregate_document(minimal_valid_aggregate(), "bogus"))
+
+
+class TestTorontoToday(unittest.TestCase):
+    def _today_at(self, utc_instant):
+        class FakeDatetime(datetime):
+            fixed = utc_instant
+
+            @classmethod
+            def now(cls, tz=None):
+                return cls.fixed.astimezone(tz)
+
+        with mock.patch("pilot001_first_run.gates.datetime", FakeDatetime):
+            return toronto_today()
+
+    def test_toronto_today_before_toronto_midnight(self):
+        # 2026-11-05 04:30 UTC is 2026-11-04 23:30 in Toronto (EST, UTC-5).
+        instant = datetime(2026, 11, 5, 4, 30, tzinfo=timezone.utc)
+        self.assertEqual(self._today_at(instant), date(2026, 11, 4))
+
+    def test_toronto_today_after_toronto_midnight(self):
+        # 2026-11-05 05:30 UTC is 2026-11-05 00:30 in Toronto (EST, UTC-5).
+        instant = datetime(2026, 11, 5, 5, 30, tzinfo=timezone.utc)
+        self.assertEqual(self._today_at(instant), date(2026, 11, 5))
+
+
+class TestEntrypointDefaults(unittest.TestCase):
+    @mock.patch(
+        "run_pilot001_first_run.run_container_pipeline",
+        return_value=(1, codes.P001_FAIL_CONTAINER),
+    )
+    @mock.patch("run_pilot001_first_run.run_preflight")
+    def test_no_flags_defaults_to_dry_run_with_gates_off(
+        self, mock_preflight, mock_pipeline
+    ):
+        import io
+
+        from pilot001_first_run.preflight import PreflightReport
+
+        mock_preflight.return_value = PreflightReport(
+            "linux-ci", True, {"ulimit_core": "PASS"}
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            buffer = io.StringIO()
+            with mock.patch("sys.stdout", buffer):
+                code = entry.main(["--host", "linux-ci", "--output-dir", tmp])
+        self.assertEqual(code, 1)
+        config = mock_pipeline.call_args.args[0]
+        self.assertTrue(config.dry_run)
+        self.assertFalse(config.gate0_signed)
+        self.assertFalse(config.dropbox_cleared)
 
 
 if __name__ == "__main__":

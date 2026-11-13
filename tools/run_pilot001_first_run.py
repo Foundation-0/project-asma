@@ -26,7 +26,7 @@ from pilot001_first_run.gates import (  # noqa: E402
     validate_dropbox_flag,
     validate_real_run_gates,
 )
-from pilot001_first_run.output_validator import validate_output_dir  # noqa: E402
+from pilot001_first_run.output_validator import PROFILE_DRY, PROFILE_REAL, validate_output_dir  # noqa: E402
 from pilot001_first_run.preflight import run_preflight  # noqa: E402
 from pilot001_first_run.runner import (  # noqa: E402
     AGGREGATE_FILENAME,
@@ -139,7 +139,11 @@ def main(argv: list[str] | None = None) -> int:
         emit_failure(_detail if codes.is_aggregate_failure_line(_detail) else codes.P001_FAIL_CONTAINER)
         return 1
 
-    validation_errors = validate_output_dir(config.output_dir, frozenset({AGGREGATE_FILENAME, PREFLIGHT_FILENAME}))
+    validation_errors = validate_output_dir(
+        config.output_dir,
+        frozenset({AGGREGATE_FILENAME, PREFLIGHT_FILENAME}),
+        PROFILE_DRY if config.dry_run else PROFILE_REAL,
+    )
     if validation_errors:
         aggregate_path = config.output_dir / AGGREGATE_FILENAME
         staging_path = config.output_dir / STAGING_AGGREGATE
