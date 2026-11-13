@@ -15,7 +15,7 @@ import audit_checkers as audit
 class AuditCheckersTests(unittest.TestCase):
     def test_skip_run_structure(self):
         report = audit.build_audit(run_checks=False)
-        self.assertEqual(report["summary"]["verified_claims"], 41)
+        self.assertEqual(report["summary"]["verified_claims"], 42)
 
     def test_stale_audit_fails_check(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -24,10 +24,13 @@ changes the published groups nor treats the frozen cohort as independent.
 
 The source article is [Chowdhury et al., Cell 2023](https://doi.org/10.1016/j.cell.2023.07.004),
 reviewed through [Europe PMC full-text XML](https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10414761/fullTextXML).
-Section S12, “A protein panel predictive of refractoriness,” reports discovery
-CV AUC **0.83** and 95% CI **0.77–0.90**. S99, “Prediction Performance
-Evaluation,” specifies 83 sensitive and 52 refractory tumors and fivefold CV.
-These are published reference values, not Project Asma results.
+Europe PMC XML section id S12, “A protein panel predictive of refractoriness,”
+reports discovery CV AUC **0.83** and 95% CI **0.77–0.90** in paragraph P33.
+XML section id S99, “Prediction Performance Evaluation,” specifies 83 sensitive
+and 52 refractory tumors and fivefold CV in paragraph P183. These XML ids are
+not registry source ids. The 2026-11-13 reading is
+[AUROC provenance](../docs/auroc-provenance-20261113.md). These are published
+reference values, not Project Asma results.
 
 S95, “Prediction Model Building,” describes the output as “a score between 0
 and 1, indicating the probability of the tumor to be refractory.” Accordingly,

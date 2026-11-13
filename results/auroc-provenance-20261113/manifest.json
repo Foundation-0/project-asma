@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "description": "Aggregate discovery-AUROC provenance. Scores and identifiers are not stored.",
+  "files": [
+    {
+      "path": "PROOF.md",
+      "role": "statement"
+    },
+    {
+      "path": "arithmetic.py",
+      "role": "arithmetic"
+    },
+    {
+      "path": "certificate.json",
+      "role": "aggregate"
+    },
+    {
+      "path": "occurrences.json",
+      "role": "inventory"
+    },
+    {
+      "path": "recompute.py",
+      "role": "workbook_recompute"
+    },
+    {
+      "path": "verify.py",
+      "role": "offline_checker"
+    }
+  ]
+}

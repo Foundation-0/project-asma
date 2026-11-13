@@ -481,10 +481,22 @@
       "run_executed": true,
       "run_exit_zero": true,
       "runs_offline": true
+    },
+    {
+      "certificate_path": "results/auroc-provenance-20261113/certificate.json",
+      "checker": "results/auroc-provenance-20261113/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V44",
+      "recheck_commands": [
+        "python3 results/auroc-provenance-20261113/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
     }
   ],
-  "generated_utc": "2026-11-13T06:11:36.946469+00:00",
-  "ledger_sha256": "0112efeda45149afc5b0fc02b3bf4d94df4f88ceb0f88e9259fd378ea7960a23",
+  "generated_utc": "2026-11-13T06:39:32.559566+00:00",
+  "ledger_sha256": "72631b30fbe0cb6b0e6d5ce5d32bd6879fbf7e69181a108dd2a42d93588fdbf0",
   "schema_version": 1,
   "summary": {
     "no_offline_checker": {
@@ -509,14 +521,14 @@
         "V35"
       ]
     },
-    "offline_ran_exit_zero": 24,
-    "offline_recheck_defined": 25,
+    "offline_ran_exit_zero": 25,
+    "offline_recheck_defined": 26,
     "skipped_heavy_recheck": [
       "V02"
     ],
     "tamper_applicable": 4,
     "tamper_fails_on_tamper": 4,
     "tamper_misses": [],
-    "verified_claims": 41
+    "verified_claims": 42
   }
 }

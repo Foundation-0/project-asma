@@ -1920,6 +1920,42 @@
       "takeaway": "allSampleCount is 585, sequencedSampleCount is 523, and cnaSampleCount is 572. The patient set is also 585.",
       "limitations": "A Pan-Cancer Atlas study count. Not 608 and not 489.",
       "checked_on": "2026-11-13"
+    },
+    {
+      "id": "S174",
+      "title": "Chowdhury et al. 2023 discovery AUC locators, re-read 2026-11-13",
+      "kind": "paper",
+      "url": "https://doi.org/10.1016/j.cell.2023.07.004",
+      "verification": "full_text_reviewed",
+      "reviewed_via": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10414761/fullTextXML",
+      "locator": "Paragraph P33 in the section titled A protein panel predictive of refractoriness; Figure 3 caption at figure id F3, graphic nihms-1918576-f0004.jpg; STAR Methods paragraphs P177, P179, and P183. JATS fpage 3476, lpage 3498.e35. XML SHA-256 ec2715aeaedae2cc5a63cbf0993d7331d5208bfed3b481326a31d7c116e154b3.",
+      "takeaway": "The article prints one discovery AUC of 0.83 (95% CI 0.77-0.90) for the 64-protein ensemble, five-fold cross-validation, FFPE discovery proteomic data. Paragraphs P177 and P183 print 83 sensitive and 52 refractory tumours. Paragraph P179 defines the score as the probability the tumour is refractory. Paragraph P183 says AUC intervals were calculated by bootstrap. The XML does not contain 0.80885. The figure caption does not restate 0.83.",
+      "limitations": "Author-manuscript XML, read 2026-11-13. The cross-reference text is Figures 3D3. The Figure 3 JPEG comment says pages 3476-3498.e36, which disagrees with the JATS lpage by one supplement page. Paragraph P33 has no page number of its own. The unrounded cross-validation AUC is not in the XML. This is a discrimination citation, not clinical utility. The 2024 correction, re-read the same day, does not mention the AUC.",
+      "checked_on": "2026-11-13"
+    },
+    {
+      "id": "S175",
+      "title": "Chowdhury et al. 2023 Figure 3 JPEG, discovery ROC label",
+      "kind": "paper",
+      "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/8861/10414761/c1fa630d67b1/nihms-1918576-f0004.jpg",
+      "verification": "page_reviewed",
+      "reviewed_via": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/8861/10414761/c1fa630d67b1/nihms-1918576-f0004.jpg",
+      "locator": "Figure 3 panel marked 3. File nihms-1918576-f0004.jpg, 1,556,827 bytes, SHA-256 1a6adc10e31f7bca7cd94d3f18a88a1d74cc8b6133bbb3576d3ecaa2a9858e4c. OCR of the ROC row on 2026-11-13.",
+      "takeaway": "The discovery ROC is labelled AUC = 0.83 and n=135. The same row labels frozen non-overlap AUC = 0.79 n=34, frozen overlap AUC = 0.81 n=27, and FFPE validation AUC = 0.91 n=20.",
+      "limitations": "The JPEG was read for the labels and was not committed. OCR is a finite reading of the pixels, not a re-derivation of the curve. The image was not stored. The labels are discrimination annotations, not clinical utility.",
+      "checked_on": "2026-11-13"
+    },
+    {
+      "id": "S176",
+      "title": "Pinned Figure 3D part 3 script, literal AUC annotation",
+      "kind": "code",
+      "url": "https://github.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/blob/48357fd63ccbfe3954f38c8efc558b4f88bd6051/Protein_prediction_refractoriness/Figure_3D_part3.R",
+      "verification": "code_inspected",
+      "reviewed_via": "https://raw.githubusercontent.com/WangLab-MSSM/CPTAC_Ovarian_Chemo_Response/48357fd63ccbfe3954f38c8efc558b4f88bd6051/Protein_prediction_refractoriness/Figure_3D_part3.R",
+      "locator": "Line 184, label=\"AUC = 0.83\". File SHA-256 c1327f639739f3cea548824b4602bc6f5efd12321b7bb2ec3d06f06a6ba470e1. All 42 R and Rmd files at commit 48357fd were searched for n=135.",
+      "takeaway": "The discovery plot annotation is a literal string. It does not read or round roc.all1. No inspected script in that commit writes n=135. roc.all1 is built from the simple mean of three model probabilities averaged over 100 repetitions, with ci=TRUE.",
+      "limitations": "Static reading of the pinned commit. The script was not executed. The unrounded roc.all1 value is not in the file. Absence of n=135 in these 42 files does not by itself say how the published figure was assembled. Not clinical utility.",
+      "checked_on": "2026-11-13"
     }
   ]
 }
