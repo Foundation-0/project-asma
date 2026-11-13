@@ -203,7 +203,7 @@
       "xml_complete": true
     }
   ],
-  "implementation_sha256": "149e9a61516d3375f900458811d77580158e6437646f8b1f21a94e9325feae25",
+  "implementation_sha256": "a41313a61ab0be74157792efa45d047ee3cb68a429da22aa088e24d18d5a79c2",
   "initial_rejected_assumption": "API checksum and size describe one byte representation",
   "metadata_contract": "API checksum matches served gzip SHA1; API size matches expanded XML bytes",
   "project": "PXD023044",

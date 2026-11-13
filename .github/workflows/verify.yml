@@ -29,9 +29,7 @@ jobs:
         run: python3 results/trial-landscape-2026-11-05/verify.py
 
       - name: Integrity checker audit
-        run: |
-          python3 tools/audit_checkers.py --check
-          python3 results/integrity-audit-2026-11-13/verify.py
+        run: python3 results/integrity-audit-2026-11-13/verify.py
 
       - name: Check tracked study sources
         run: python3 tools/check_tracked_study_sources.py

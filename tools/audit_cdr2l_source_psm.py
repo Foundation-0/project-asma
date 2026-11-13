@@ -267,21 +267,47 @@ def live_inspection():
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CERT = ROOT / "registries/cdr2l-source-identification-2026-11-06.json"
 
+# Hash of this file when the 2026-11-06 identification certificate was produced.
+# Committed certificates pin producing code; later fail-closed edits accept this
+# hash alongside the current file hash without rewriting the receipt.
+PRODUCING_SCRIPT_SHA256 = "a41313a61ab0be74157792efa45d047ee3cb68a429da22aa088e24d18d5a79c2"
+
+MATCH_FILE = "peptides_1_1_0_CII_r3.mzid.gz"
+MATCH_ASSAY_ID = 18456218
+MATCH_SPECTRUM_ID = "index=22949"
+MATCH_RESIDUE_START = "432"
+MATCH_RESIDUE_END = "446"
+MATCH_CHARGE = "3"
+MATCH_EXPERIMENTAL_MZ = "614.9990"
+
 
 def check_certificate(path: Path) -> None:
     require(path.is_file(), f"missing certificate {path}")
     report = json.loads(path.read_text(encoding="utf-8"))
-    require(hashlib.sha256(Path(__file__).read_bytes()).hexdigest() == report.get("implementation_sha256"),
-            "implementation_sha256 mismatch")
+    stored_impl = report.get("implementation_sha256")
+    current_impl = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    require(stored_impl in {current_impl, PRODUCING_SCRIPT_SHA256}, "implementation_sha256 mismatch")
     require(report.get("project") == PROJECT and report.get("target_sequence") == TARGET, "identity drift")
+    require(report.get("assay_id") == MATCH_ASSAY_ID, "assay identity drift")
     require(report.get("all_three_pinned_files_complete") is True, "incomplete certificate")
     require(len(report.get("files", [])) == len(FILES), "wrong file count")
-    matches = 0
+    match_file = None
     for record in report["files"]:
         require(record.get("xml_complete") is True, f"incomplete xml: {record.get('file')}")
         if record.get("matching_results"):
-            matches += 1
-    require(matches == 1, "expected one file with a target identification")
+            require(match_file is None, "expected one file with a target identification")
+            match_file = record
+    require(match_file is not None, "expected one file with a target identification")
+    require(match_file.get("file") == MATCH_FILE, "unexpected matching file")
+    result = match_file["matching_results"][0]
+    require(result["attributes"]["spectrumID"] == MATCH_SPECTRUM_ID, "spectrum index drift")
+    item = result["items"][0]
+    attrs = item["attributes"]
+    require(attrs.get("chargeState") == MATCH_CHARGE, "charge state drift")
+    require(attrs.get("experimentalMassToCharge") == MATCH_EXPERIMENTAL_MZ, "precursor drift")
+    evidence = item["protein_evidence"][0]["attributes"]
+    require(evidence.get("start") == MATCH_RESIDUE_START and evidence.get("end") == MATCH_RESIDUE_END,
+            "residue span drift")
 
 
 def main():

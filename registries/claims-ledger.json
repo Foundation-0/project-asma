@@ -1446,7 +1446,7 @@
         "tools/check_sha256_manifests.py",
         "tools/export_claims_ledger.py"
       ],
-      "canonical_sha256": "00f78a873bf77634d6d91d65a7962ed626a00c18a352bddb9b4545d047235dd5",
+      "canonical_sha256": "5a7b32b2aa876ee7dcd691415ca1e12cb8f21039712adc63a50b47e864cdcaa6",
       "certificate_paths": [],
       "id": "V41",
       "label": "VERIFIED",
@@ -1456,9 +1456,9 @@
         "python3 tools/audit_checkers.py --check",
         "python3 results/integrity-audit-2026-11-13/verify.py"
       ],
-      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 39 VERIFIED rows, 23 named offline re-checks, 22 executed exit 0 on the first listed command (V02 full unittest replay omitted inside audit), 4 digest-bound tamper checks yes, 0 committed gaps | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
+      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 39 VERIFIED rows, 23 offline checkers, 22 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
       "source_ids": [],
-      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 39 VERIFIED rows, 23 named offline re-checks, 22 executed exit 0 on the first listed command (V02 full unittest replay omitted inside audit), 4 digest-bound tamper checks yes, 0 committed gaps"
+      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 39 VERIFIED rows, 23 offline checkers, 22 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only)"
     }
   ],
   "counts": {
@@ -1467,7 +1467,7 @@
     "PROVEN": 0,
     "VERIFIED": 39
   },
-  "ledger_sha256": "44e7e5176a72daa8172c7a1adad9abc96426844dcfef324355ac170a6e2b0683",
+  "ledger_sha256": "329f3334e3d713d3519a99da4be4e5abc34f5d73d73d4d175cedc815e9a74304",
   "schema_version": 1,
   "source": "CLAIMS.md"
 }

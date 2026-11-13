@@ -10,11 +10,19 @@ This note records an offline bookkeeping layer for the public claims ledger. It 
 
 ## V37 and V38 offline replay
 
-`tools/audit_cdr2l_source_psm.py --check` and `tools/audit_cdr2l_spectrum_locator.py --check` now verify committed certificates against tool `implementation_sha256` and pinned identity fields without `--live` network retrieval.
+`tools/audit_cdr2l_source_psm.py --check` and `tools/audit_cdr2l_spectrum_locator.py --check` verify committed certificates against pinned producing-code `implementation_sha256` (and the current tool hash where it differs), identification match fields, and MGF byte pins without `--live` network retrieval.
+
+## Audit coverage (39 VERIFIED rows)
+
+- **23** rows name at least one offline re-check command (`runs_offline: true`).
+- **22** of those first commands replay with exit 0 inside the audit; **V02** (`python3 -m unittest discover -s tests -v`) is listed under `skipped_heavy_recheck` and is not executed in the audit (CI still runs the full suite).
+- **16** rows have no offline checker (`no_offline_checker` in the audit summary):
+  - **Doc-only (no command):** V03, V04, V05, V20, V21, V24, V27, V35.
+  - **Network-only (commands filtered):** V08, V10, V11, V12, V13, V14, V15, V16.
+- **`tamper_misses`** counts digest-bound certificates where a tamper probe did not fail (target 0). This is not the same as lacking an offline checker.
 
 ## Limits
 
-- Doc-only re-checks (synthetic validation write-ups, IEDB prose replay commands without a ledger command) are reported as lacking offline CLI in the audit.
 - Network metadata audits are not replayed in this layer.
 - Tamper probes cover certificates with `certificate_sha256` or a string `implementation_sha256` on digest-bound tools only.
 

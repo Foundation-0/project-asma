@@ -62,6 +62,15 @@ def offline_command(command: str) -> bool:
     return not any(marker in command for marker in NETWORK_MARKERS)
 
 
+def offline_absence_reason(row: dict) -> str | None:
+    cmds = row.get("recheck_commands") or []
+    if not cmds:
+        return "no_command"
+    if not any(offline_command(cmd) for cmd in cmds):
+        return "network_only"
+    return None
+
+
 def primary_checker(command: str) -> str | None:
     match = re.search(r"(?:^|[\s`])(tools/[\w_./-]+\.py)", command)
     if match:
@@ -160,7 +169,9 @@ def build_audit(run_checks: bool = True) -> dict:
     verified = [row for row in ledger["claims"] if row["label"] == "VERIFIED"]
     command_cache: dict[str, tuple[bool, int]] = {}
     claims_out = []
-    gaps = []
+    tamper_misses: list[str] = []
+    no_offline_checker: dict[str, list[str]] = {"no_command": [], "network_only": []}
+    skipped_heavy_recheck: list[str] = []
     offline_defined = offline_ran_ok = tamper_applicable = tamper_failed = 0
 
     for row in sorted(verified, key=lambda item: item["id"]):
@@ -171,12 +182,18 @@ def build_audit(run_checks: bool = True) -> dict:
         offline_defined_row = bool(cmds)
         if offline_defined_row:
             offline_defined += 1
+        else:
+            reason = offline_absence_reason(row)
+            if reason:
+                no_offline_checker[reason].append(row["id"])
         ran = False
         exit_zero = False
+        skipped_heavy = False
         if run_checks and cmds:
             cmd = cmds[0]
             if cmd in SKIP_HEAVY_RECHECK:
-                pass
+                skipped_heavy = True
+                skipped_heavy_recheck.append(row["id"])
             elif cmd in SKIP_SELF_RECHECK:
                 ran = True
                 exit_zero = True
@@ -188,8 +205,6 @@ def build_audit(run_checks: bool = True) -> dict:
                 exit_zero, _ = command_cache[cmd]
                 if exit_zero:
                     offline_ran_ok += 1
-        elif offline_defined_row and not cmds:
-            gaps.append(f"{row['id']}: no runnable offline command extracted")
 
         cert = certificate_path(row)
         digest = has_recorded_digest(cert, checker)
@@ -202,19 +217,22 @@ def build_audit(run_checks: bool = True) -> dict:
                 if failed:
                     tamper_failed += 1
                 else:
-                    gaps.append(f"{row['id']}: tamper did not fail for {checker}")
-        claims_out.append(
-            {
-                "id": row["id"],
-                "checker": checker,
-                "recheck_commands": cmds,
-                "runs_offline": offline_defined_row,
-                "run_executed": ran,
-                "run_exit_zero": exit_zero if ran else None,
-                "certificate_path": str(cert.relative_to(ROOT)) if cert else None,
-                "fails_on_tamper": tamper,
-            }
-        )
+                    tamper_misses.append(f"{row['id']}: tamper did not fail for {checker}")
+        claim = {
+            "id": row["id"],
+            "checker": checker,
+            "recheck_commands": cmds,
+            "runs_offline": offline_defined_row,
+            "run_executed": ran,
+            "run_exit_zero": exit_zero if ran else None,
+            "certificate_path": str(cert.relative_to(ROOT)) if cert else None,
+            "fails_on_tamper": tamper,
+        }
+        if skipped_heavy:
+            claim["skipped_heavy_recheck"] = True
+        if not offline_defined_row:
+            claim["offline_absence_reason"] = offline_absence_reason(row)
+        claims_out.append(claim)
 
     return {
         "schema_version": 1,
@@ -226,7 +244,9 @@ def build_audit(run_checks: bool = True) -> dict:
             "offline_ran_exit_zero": offline_ran_ok,
             "tamper_applicable": tamper_applicable,
             "tamper_fails_on_tamper": tamper_failed,
-            "gaps": gaps,
+            "tamper_misses": tamper_misses,
+            "no_offline_checker": no_offline_checker,
+            "skipped_heavy_recheck": skipped_heavy_recheck,
         },
         "claims": claims_out,
     }
@@ -250,6 +270,11 @@ def main(argv: list[str] | None = None) -> int:
             if committed.get(key) != report.get(key):
                 print(f"FAIL: stale field {key} in audit.json", file=sys.stderr)
                 return 1
+        if committed.get("summary", {}).get("tamper_misses"):
+            print("FAIL: committed tamper_misses is non-empty", file=sys.stderr)
+            for item in committed["summary"]["tamper_misses"]:
+                print(item, file=sys.stderr)
+            return 1
         print("PASS: integrity audit report matches live audit")
         return 0
     if args.write:
@@ -258,8 +283,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Wrote {AUDIT_JSON.relative_to(ROOT)}")
     else:
         print(rendered, end="")
-    if report["summary"]["gaps"] and args.check:
-        for item in report["summary"]["gaps"]:
+    if report["summary"]["tamper_misses"]:
+        for item in report["summary"]["tamper_misses"]:
             print(item, file=sys.stderr)
         return 1
     return 0
@@ -267,4 +292,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
