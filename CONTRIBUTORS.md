@@ -88,6 +88,14 @@ Internal checking is not external scientific or clinical peer review.
 
 ## Prior work credited by name
 
+The **2026-11-13 synthetic compartment measurement-design experiment** was
+prepared with OpenAI Codex and **GPT-6 Astra** agents for mathematical design,
+original implementation, a separately written checker, and independent internal
+review. The checker author did not read or import the producer implementation;
+both used the same declared model. Internal AI review is not external scientific
+peer review. Soko and finite-state-proofs informed the verification discipline;
+their code was not copied or executed.
+
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);
   its MIT-licensed graph core is used unchanged by the evidence-graph prototype.
   The source README credits Claude for implementation under his direction.

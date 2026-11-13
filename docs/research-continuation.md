@@ -1,5 +1,14 @@
 # Research preservation and continuation
 
+**Synthetic measurement-design continuation, 2026-11-13 UTC:**
+[Which extra observation distinguishes the mechanisms?](research/compartment-measurement-design.md)
+compares all six designs from a three-observation menu, with exact measurement
+error boundaries and an independently implemented checker. A paired contrast
+can distinguish the declared conversion alternatives despite shared measurement
+bias; different offsets or changing selection destroy that guarantee. This is
+conditional mathematics and an experimental-design requirement, not biological
+identification. The continuous-family extension and failure controls are retained.
+
 **Latest executed catalog check: [CDR2L named-sequence adjudication](cdr2l-sequence-adjudication-2026-11-06.md).** Two curated peptides match their CDR2L coordinates and do not match the explicitly checked CDR2 reference. Broad database uniqueness remains unresolved; spectra, allotype and receptor evidence remain the next questions.
 
 **Preservation extract, 11 November 2026: [public portion of the convergence notes](google-bio-convergence-2026-11-11.md).** Replayable arithmetic and title checks from those notes. It does not replace the catalog check above, and it does not include private archive material.

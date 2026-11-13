@@ -1,0 +1,1600 @@
+{
+  "schema_version": 1,
+  "contract_id": "asma-compartment-design-v1",
+  "status": "complete",
+  "protocol": "protocols/compartment-measurement-design.md",
+  "protocol_sha256": "23a9e656b903c005559554f0d0bd1f02600016fc8d0557af1694c05f5bb29220",
+  "implementation": "tools/analyze_compartment_design.py",
+  "implementation_sha256": "73f6ec914e152cebd2e0e35535471452d1afb45b10a680a570a173769379d989",
+  "contract": {
+    "worlds": [
+      {
+        "id": "S",
+        "r": "16",
+        "c": "0"
+      },
+      {
+        "id": "C25",
+        "r": "11",
+        "c": "1/4"
+      },
+      {
+        "id": "C50",
+        "r": "6",
+        "c": "1/2"
+      },
+      {
+        "id": "C75",
+        "r": "1",
+        "c": "3/4"
+      }
+    ],
+    "actions": [
+      {
+        "id": "L",
+        "input_high_fraction": "1/10"
+      },
+      {
+        "id": "R",
+        "input_high_fraction": "1/5"
+      },
+      {
+        "id": "H",
+        "input_high_fraction": "2/5"
+      }
+    ],
+    "bias_bound": "1/20",
+    "epsilon": "1/60",
+    "noise_max": "1/40",
+    "noise_sweep": [
+      "0",
+      "1/280",
+      "9/1600",
+      "3/448",
+      "3/200",
+      "1/60",
+      "13/700",
+      "1/40"
+    ],
+    "action_budget": 2,
+    "target_groups": {
+      "zero_conversion": [
+        "S"
+      ],
+      "material_conversion": [
+        "C50",
+        "C75"
+      ],
+      "intermediate": [
+        "C25"
+      ]
+    }
+  },
+  "predictions": [
+    {
+      "world_id": "S",
+      "readouts": {
+        "L": "16/25",
+        "R": "4/5",
+        "H": "32/35"
+      }
+    },
+    {
+      "world_id": "C25",
+      "readouts": {
+        "L": "53/80",
+        "R": "4/5",
+        "H": "91/100"
+      }
+    },
+    {
+      "world_id": "C50",
+      "readouts": {
+        "L": "7/10",
+        "R": "4/5",
+        "H": "9/10"
+      }
+    },
+    {
+      "world_id": "C75",
+      "readouts": {
+        "L": "31/40",
+        "R": "4/5",
+        "H": "17/20"
+      }
+    }
+  ],
+  "designs": [
+    {
+      "actions": [
+        "L"
+      ],
+      "pairs": [
+        {
+          "world_ids": [
+            "S",
+            "C25"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "521/800"
+            },
+            "biases": {
+              "S": "9/800",
+              "C25": "-9/800"
+            },
+            "errors": {
+              "S": {
+                "L": "0"
+              },
+              "C25": {
+                "L": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C50"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "67/100"
+            },
+            "biases": {
+              "S": "3/100",
+              "C50": "-3/100"
+            },
+            "errors": {
+              "S": {
+                "L": "0"
+              },
+              "C50": {
+                "L": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C75"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "7/400",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": false,
+          "independent_offset_critical_noise": "7/400",
+          "independent_offset_overlap_at_epsilon": false,
+          "threshold_witness": {
+            "readouts": {
+              "L": "283/400"
+            },
+            "biases": {
+              "S": "1/20",
+              "C75": "-1/20"
+            },
+            "errors": {
+              "S": {
+                "L": "7/400"
+              },
+              "C75": {
+                "L": "-7/400"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C50"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "109/160"
+            },
+            "biases": {
+              "C25": "3/160",
+              "C50": "-3/160"
+            },
+            "errors": {
+              "C25": {
+                "L": "0"
+              },
+              "C50": {
+                "L": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "1/160",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "1/160",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "23/32"
+            },
+            "biases": {
+              "C25": "1/20",
+              "C75": "-1/20"
+            },
+            "errors": {
+              "C25": {
+                "L": "1/160"
+              },
+              "C75": {
+                "L": "-1/160"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C50",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "59/80"
+            },
+            "biases": {
+              "C50": "3/80",
+              "C75": "-3/80"
+            },
+            "errors": {
+              "C50": {
+                "L": "0"
+              },
+              "C75": {
+                "L": "0"
+              }
+            }
+          }
+        }
+      ],
+      "target_critical_noise": "0",
+      "all_world_critical_noise": "0",
+      "target_separates_at_epsilon": false,
+      "all_world_separates_at_epsilon": false,
+      "independent_offsets_target_separates_at_epsilon": false,
+      "noise_sweep": [
+        {
+          "epsilon": "0",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/280",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "9/1600",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/448",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/200",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/60",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "13/700",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/40",
+          "target_separates": false,
+          "all_world_separates": false
+        }
+      ]
+    },
+    {
+      "actions": [
+        "R"
+      ],
+      "pairs": [
+        {
+          "world_ids": [
+            "S",
+            "C25"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5"
+            },
+            "biases": {
+              "S": "0",
+              "C25": "0"
+            },
+            "errors": {
+              "S": {
+                "R": "0"
+              },
+              "C25": {
+                "R": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C50"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5"
+            },
+            "biases": {
+              "S": "0",
+              "C50": "0"
+            },
+            "errors": {
+              "S": {
+                "R": "0"
+              },
+              "C50": {
+                "R": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C75"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5"
+            },
+            "biases": {
+              "S": "0",
+              "C75": "0"
+            },
+            "errors": {
+              "S": {
+                "R": "0"
+              },
+              "C75": {
+                "R": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C50"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5"
+            },
+            "biases": {
+              "C25": "0",
+              "C50": "0"
+            },
+            "errors": {
+              "C25": {
+                "R": "0"
+              },
+              "C50": {
+                "R": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5"
+            },
+            "biases": {
+              "C25": "0",
+              "C75": "0"
+            },
+            "errors": {
+              "C25": {
+                "R": "0"
+              },
+              "C75": {
+                "R": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C50",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5"
+            },
+            "biases": {
+              "C50": "0",
+              "C75": "0"
+            },
+            "errors": {
+              "C50": {
+                "R": "0"
+              },
+              "C75": {
+                "R": "0"
+              }
+            }
+          }
+        }
+      ],
+      "target_critical_noise": "0",
+      "all_world_critical_noise": "0",
+      "target_separates_at_epsilon": false,
+      "all_world_separates_at_epsilon": false,
+      "independent_offsets_target_separates_at_epsilon": false,
+      "noise_sweep": [
+        {
+          "epsilon": "0",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/280",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "9/1600",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/448",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/200",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/60",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "13/700",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/40",
+          "target_separates": false,
+          "all_world_separates": false
+        }
+      ]
+    },
+    {
+      "actions": [
+        "H"
+      ],
+      "pairs": [
+        {
+          "world_ids": [
+            "S",
+            "C25"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "H": "1277/1400"
+            },
+            "biases": {
+              "S": "-3/1400",
+              "C25": "3/1400"
+            },
+            "errors": {
+              "S": {
+                "H": "0"
+              },
+              "C25": {
+                "H": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C50"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "H": "127/140"
+            },
+            "biases": {
+              "S": "-1/140",
+              "C50": "1/140"
+            },
+            "errors": {
+              "S": {
+                "H": "0"
+              },
+              "C50": {
+                "H": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C75"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "H": "247/280"
+            },
+            "biases": {
+              "S": "-9/280",
+              "C75": "9/280"
+            },
+            "errors": {
+              "S": {
+                "H": "0"
+              },
+              "C75": {
+                "H": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C50"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "H": "181/200"
+            },
+            "biases": {
+              "C25": "-1/200",
+              "C50": "1/200"
+            },
+            "errors": {
+              "C25": {
+                "H": "0"
+              },
+              "C50": {
+                "H": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "H": "22/25"
+            },
+            "biases": {
+              "C25": "-3/100",
+              "C75": "3/100"
+            },
+            "errors": {
+              "C25": {
+                "H": "0"
+              },
+              "C75": {
+                "H": "0"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C50",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "0",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "H": "7/8"
+            },
+            "biases": {
+              "C50": "-1/40",
+              "C75": "1/40"
+            },
+            "errors": {
+              "C50": {
+                "H": "0"
+              },
+              "C75": {
+                "H": "0"
+              }
+            }
+          }
+        }
+      ],
+      "target_critical_noise": "0",
+      "all_world_critical_noise": "0",
+      "target_separates_at_epsilon": false,
+      "all_world_separates_at_epsilon": false,
+      "independent_offsets_target_separates_at_epsilon": false,
+      "noise_sweep": [
+        {
+          "epsilon": "0",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/280",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "9/1600",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/448",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/200",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/60",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "13/700",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/40",
+          "target_separates": false,
+          "all_world_separates": false
+        }
+      ]
+    },
+    {
+      "actions": [
+        "L",
+        "R"
+      ],
+      "pairs": [
+        {
+          "world_ids": [
+            "S",
+            "C25"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "9/1600",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "521/800",
+              "R": "4/5"
+            },
+            "biases": {
+              "S": "9/1600",
+              "C25": "-9/1600"
+            },
+            "errors": {
+              "S": {
+                "L": "9/1600",
+                "R": "-9/1600"
+              },
+              "C25": {
+                "L": "-9/1600",
+                "R": "9/1600"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C50"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "3/200",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "67/100",
+              "R": "4/5"
+            },
+            "biases": {
+              "S": "3/200",
+              "C50": "-3/200"
+            },
+            "errors": {
+              "S": {
+                "L": "3/200",
+                "R": "-3/200"
+              },
+              "C50": {
+                "L": "-3/200",
+                "R": "3/200"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C75"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "27/800",
+          "critical_noise_within_domain": false,
+          "overlap_at_epsilon": false,
+          "independent_offset_critical_noise": "7/400",
+          "independent_offset_overlap_at_epsilon": false,
+          "threshold_witness": {
+            "readouts": {
+              "L": "283/400",
+              "R": "4/5"
+            },
+            "biases": {
+              "S": "27/800",
+              "C75": "-27/800"
+            },
+            "errors": {
+              "S": {
+                "L": "27/800",
+                "R": "-27/800"
+              },
+              "C75": {
+                "L": "-27/800",
+                "R": "27/800"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C50"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "3/320",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "109/160",
+              "R": "4/5"
+            },
+            "biases": {
+              "C25": "3/320",
+              "C50": "-3/320"
+            },
+            "errors": {
+              "C25": {
+                "L": "3/320",
+                "R": "-3/320"
+              },
+              "C50": {
+                "L": "-3/320",
+                "R": "3/320"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "9/320",
+          "critical_noise_within_domain": false,
+          "overlap_at_epsilon": false,
+          "independent_offset_critical_noise": "1/160",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "23/32",
+              "R": "4/5"
+            },
+            "biases": {
+              "C25": "9/320",
+              "C75": "-9/320"
+            },
+            "errors": {
+              "C25": {
+                "L": "9/320",
+                "R": "-9/320"
+              },
+              "C75": {
+                "L": "-9/320",
+                "R": "9/320"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C50",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "3/160",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": false,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "59/80",
+              "R": "4/5"
+            },
+            "biases": {
+              "C50": "3/160",
+              "C75": "-3/160"
+            },
+            "errors": {
+              "C50": {
+                "L": "3/160",
+                "R": "-3/160"
+              },
+              "C75": {
+                "L": "-3/160",
+                "R": "3/160"
+              }
+            }
+          }
+        }
+      ],
+      "target_critical_noise": "3/200",
+      "all_world_critical_noise": "9/1600",
+      "target_separates_at_epsilon": false,
+      "all_world_separates_at_epsilon": false,
+      "independent_offsets_target_separates_at_epsilon": false,
+      "noise_sweep": [
+        {
+          "epsilon": "0",
+          "target_separates": true,
+          "all_world_separates": true
+        },
+        {
+          "epsilon": "1/280",
+          "target_separates": true,
+          "all_world_separates": true
+        },
+        {
+          "epsilon": "9/1600",
+          "target_separates": true,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/448",
+          "target_separates": true,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/200",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/60",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "13/700",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/40",
+          "target_separates": false,
+          "all_world_separates": false
+        }
+      ]
+    },
+    {
+      "actions": [
+        "L",
+        "H"
+      ],
+      "pairs": [
+        {
+          "world_ids": [
+            "S",
+            "C25"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "3/448",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "521/800",
+              "H": "1277/1400"
+            },
+            "biases": {
+              "S": "51/11200",
+              "C25": "-51/11200"
+            },
+            "errors": {
+              "S": {
+                "L": "3/448",
+                "H": "-3/448"
+              },
+              "C25": {
+                "L": "-3/448",
+                "H": "3/448"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C50"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "13/700",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": false,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "67/100",
+              "H": "127/140"
+            },
+            "biases": {
+              "S": "2/175",
+              "C50": "-2/175"
+            },
+            "errors": {
+              "S": {
+                "L": "13/700",
+                "H": "-13/700"
+              },
+              "C50": {
+                "L": "-13/700",
+                "H": "13/700"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C75"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "279/5600",
+          "critical_noise_within_domain": false,
+          "overlap_at_epsilon": false,
+          "independent_offset_critical_noise": "7/400",
+          "independent_offset_overlap_at_epsilon": false,
+          "threshold_witness": {
+            "readouts": {
+              "L": "283/400",
+              "H": "247/280"
+            },
+            "biases": {
+              "S": "99/5600",
+              "C75": "-99/5600"
+            },
+            "errors": {
+              "S": {
+                "L": "279/5600",
+                "H": "-279/5600"
+              },
+              "C75": {
+                "L": "-279/5600",
+                "H": "279/5600"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C50"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "19/1600",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "109/160",
+              "H": "181/200"
+            },
+            "biases": {
+              "C25": "11/1600",
+              "C50": "-11/1600"
+            },
+            "errors": {
+              "C25": {
+                "L": "19/1600",
+                "H": "-19/1600"
+              },
+              "C50": {
+                "L": "-19/1600",
+                "H": "19/1600"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "69/1600",
+          "critical_noise_within_domain": false,
+          "overlap_at_epsilon": false,
+          "independent_offset_critical_noise": "1/160",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "23/32",
+              "H": "22/25"
+            },
+            "biases": {
+              "C25": "21/1600",
+              "C75": "-21/1600"
+            },
+            "errors": {
+              "C25": {
+                "L": "69/1600",
+                "H": "-69/1600"
+              },
+              "C75": {
+                "L": "-69/1600",
+                "H": "69/1600"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C50",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "1/32",
+          "critical_noise_within_domain": false,
+          "overlap_at_epsilon": false,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "L": "59/80",
+              "H": "7/8"
+            },
+            "biases": {
+              "C50": "1/160",
+              "C75": "-1/160"
+            },
+            "errors": {
+              "C50": {
+                "L": "1/32",
+                "H": "-1/32"
+              },
+              "C75": {
+                "L": "-1/32",
+                "H": "1/32"
+              }
+            }
+          }
+        }
+      ],
+      "target_critical_noise": "13/700",
+      "all_world_critical_noise": "3/448",
+      "target_separates_at_epsilon": true,
+      "all_world_separates_at_epsilon": false,
+      "independent_offsets_target_separates_at_epsilon": false,
+      "noise_sweep": [
+        {
+          "epsilon": "0",
+          "target_separates": true,
+          "all_world_separates": true
+        },
+        {
+          "epsilon": "1/280",
+          "target_separates": true,
+          "all_world_separates": true
+        },
+        {
+          "epsilon": "9/1600",
+          "target_separates": true,
+          "all_world_separates": true
+        },
+        {
+          "epsilon": "3/448",
+          "target_separates": true,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/200",
+          "target_separates": true,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/60",
+          "target_separates": true,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "13/700",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/40",
+          "target_separates": false,
+          "all_world_separates": false
+        }
+      ]
+    },
+    {
+      "actions": [
+        "R",
+        "H"
+      ],
+      "pairs": [
+        {
+          "world_ids": [
+            "S",
+            "C25"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "3/2800",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5",
+              "H": "1277/1400"
+            },
+            "biases": {
+              "S": "-3/2800",
+              "C25": "3/2800"
+            },
+            "errors": {
+              "S": {
+                "R": "3/2800",
+                "H": "-3/2800"
+              },
+              "C25": {
+                "R": "-3/2800",
+                "H": "3/2800"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C50"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "1/280",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5",
+              "H": "127/140"
+            },
+            "biases": {
+              "S": "-1/280",
+              "C50": "1/280"
+            },
+            "errors": {
+              "S": {
+                "R": "1/280",
+                "H": "-1/280"
+              },
+              "C50": {
+                "R": "-1/280",
+                "H": "1/280"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "S",
+            "C75"
+          ],
+          "is_target_pair": true,
+          "critical_noise": "9/560",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5",
+              "H": "247/280"
+            },
+            "biases": {
+              "S": "-9/560",
+              "C75": "9/560"
+            },
+            "errors": {
+              "S": {
+                "R": "9/560",
+                "H": "-9/560"
+              },
+              "C75": {
+                "R": "-9/560",
+                "H": "9/560"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C50"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "1/400",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5",
+              "H": "181/200"
+            },
+            "biases": {
+              "C25": "-1/400",
+              "C50": "1/400"
+            },
+            "errors": {
+              "C25": {
+                "R": "1/400",
+                "H": "-1/400"
+              },
+              "C50": {
+                "R": "-1/400",
+                "H": "1/400"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C25",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "3/200",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5",
+              "H": "22/25"
+            },
+            "biases": {
+              "C25": "-3/200",
+              "C75": "3/200"
+            },
+            "errors": {
+              "C25": {
+                "R": "3/200",
+                "H": "-3/200"
+              },
+              "C75": {
+                "R": "-3/200",
+                "H": "3/200"
+              }
+            }
+          }
+        },
+        {
+          "world_ids": [
+            "C50",
+            "C75"
+          ],
+          "is_target_pair": false,
+          "critical_noise": "1/80",
+          "critical_noise_within_domain": true,
+          "overlap_at_epsilon": true,
+          "independent_offset_critical_noise": "0",
+          "independent_offset_overlap_at_epsilon": true,
+          "threshold_witness": {
+            "readouts": {
+              "R": "4/5",
+              "H": "7/8"
+            },
+            "biases": {
+              "C50": "-1/80",
+              "C75": "1/80"
+            },
+            "errors": {
+              "C50": {
+                "R": "1/80",
+                "H": "-1/80"
+              },
+              "C75": {
+                "R": "-1/80",
+                "H": "1/80"
+              }
+            }
+          }
+        }
+      ],
+      "target_critical_noise": "1/280",
+      "all_world_critical_noise": "3/2800",
+      "target_separates_at_epsilon": false,
+      "all_world_separates_at_epsilon": false,
+      "independent_offsets_target_separates_at_epsilon": false,
+      "noise_sweep": [
+        {
+          "epsilon": "0",
+          "target_separates": true,
+          "all_world_separates": true
+        },
+        {
+          "epsilon": "1/280",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "9/1600",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/448",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "3/200",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/60",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "13/700",
+          "target_separates": false,
+          "all_world_separates": false
+        },
+        {
+          "epsilon": "1/40",
+          "target_separates": false,
+          "all_world_separates": false
+        }
+      ]
+    }
+  ],
+  "optimal_designs": [
+    [
+      "L",
+      "H"
+    ]
+  ],
+  "optimal_design_cost": 2,
+  "controls": {
+    "independent_offsets_collision": {
+      "world_ids": [
+        "S",
+        "C50"
+      ],
+      "readouts": {
+        "L": "67/100",
+        "R": "4/5",
+        "H": "127/140"
+      },
+      "biases": {
+        "S": {
+          "L": "3/100",
+          "R": "0",
+          "H": "-1/140"
+        },
+        "C50": {
+          "L": "-3/100",
+          "R": "0",
+          "H": "1/140"
+        }
+      },
+      "errors": {
+        "S": {
+          "L": "0",
+          "R": "0",
+          "H": "0"
+        },
+        "C50": {
+          "L": "0",
+          "R": "0",
+          "H": "0"
+        }
+      }
+    },
+    "heterogeneous_selection_collision": {
+      "reference_world_id": "C50",
+      "conversion": "0",
+      "selection_by_action": {
+        "L": "21",
+        "R": "16",
+        "H": "27/2"
+      },
+      "readouts": {
+        "L": "7/10",
+        "R": "4/5",
+        "H": "9/10"
+      }
+    }
+  },
+  "unsupported_claims": [
+    "biological_mechanism_identification",
+    "arbitrarily_small_conversion_detection",
+    "clinical_measurement_feasibility",
+    "clinical_efficacy_or_treatment_selection",
+    "novelty_to_literature",
+    "independent_scientific_peer_review"
+  ]
+}
