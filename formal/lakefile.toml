@@ -1,5 +1,8 @@
 name = "asma_formal"
-defaultTargets = ["AsmaIdentifiabilityProofs"]
+defaultTargets = ["AsmaIdentifiabilityProofs", "FloatingSelectionAndCrushingGate"]
 
 [[lean_lib]]
 name = "AsmaIdentifiabilityProofs"
+
+[[lean_lib]]
+name = "FloatingSelectionAndCrushingGate"

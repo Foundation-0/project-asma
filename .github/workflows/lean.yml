@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Install elan (v4.2.4, pinned script hash)
         run: |
@@ -31,7 +31,7 @@ jobs:
           sh elan-init.sh -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
-      - name: Build formal module with the pinned toolchain
+      - name: Build formal modules with the pinned toolchain
         working-directory: formal
         run: |
           set -euo pipefail
@@ -40,7 +40,7 @@ jobs:
           lake build
           lake env lean AsmaIdentifiabilityProofs.lean | tee axioms.txt
           tail -n +3 axioms-lean-4.35.0.txt | diff - axioms.txt
-          if grep -nE '\b(sorry|admit|native_decide)\b|^axiom ' AsmaIdentifiabilityProofs.lean | grep -v 'no sorry'; then
+          if grep -nE '\b(sorry|admit|native_decide)\b|^axiom ' AsmaIdentifiabilityProofs.lean FloatingSelectionAndCrushingGate.lean | grep -v 'no sorry'; then
             echo "forbidden token in Lean source" >&2
             exit 1
           fi
