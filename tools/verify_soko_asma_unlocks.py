@@ -111,7 +111,8 @@ def solve_and_audit_scaffold_gate(
             nxt = step_scaffold_gate(
                 sim, act, switch_req=switch_req, pull_aura=pull_aura, sticky_relaxation=False
             )
-            assert nxt is not None
+            if nxt is None:
+                raise RuntimeError("next state missing")
             sim = nxt
             if sim.crushed:
                 crushed_at_step = idx
@@ -392,6 +393,8 @@ def verify_floating_rs_continuum_impossibility() -> Dict[str, object]:
     quad_1_25 = 125 * p_fail * p_fail + 328 * p_fail - 13
     quad_1_26 = 125 * p_pass * p_pass + 328 * p_pass - 13
 
+    # Float approximation only (sampled, not exact): the eps_star values below
+    # are display estimates; every exact claim rests on the Fraction quantities.
     def curve_minimax_with_anchor(p_low: Fraction) -> float:
         k1, k0 = float(p_low / (1 - p_low)), 0.25
         y1, y0 = float(q_total_resistant(p_low, Fraction(11, 1), Fraction(1, 4))), 0.8

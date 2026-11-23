@@ -4,7 +4,7 @@
 
 ## Verified Mathematical Results
 
-1. **Floating-Selection (`r_S = 19`) Continuum Impossibility & Exact Remedies (`PROVEN`):**
+1. **Floating-Selection (`r_S = 19`) Continuum Impossibility & Exact Remedies (exact Lean identities; CLAIMS ledger `PROVEN` stays 0):**
    - Against externally pinned pure selection `S(16, 0)`, shifting `(1/10, 2/5)` ([PR #78](https://github.com/Foundation-0/project-asma/pull/78)) to `(1/20, 3/8)` ([Issue #82](https://github.com/Foundation-0/project-asma/issues/82)) raises the uniform `LH` separation against `C25(11, 1/4)` from `3/448` to `10179/563920` (`0.01805 > 1/60`).
    - When pure selection's fitness ratio `r_S > 0` floats, the integer witness `r_S = 19` satisfies `q(p; 19, 0) - q(p; 11, 1/4) = (14p - 1)(1 - p) / (4(18p + 1)(10p + 1))`, which equals `-1/40` at `p = 1/20` (half-gap `1/80 < 1/60`), crosses zero at `p = 1/14`, and remains strictly within `+-1/30` across all `p in [1/20, 1]` because `2(18p + 1)(10p + 1) - 15(14p - 1)(1 - p) = 570p^2 - 169p + 17 > 0` (`Delta = -10199 < 0`).
    - **Remedy A:** Pairing `p_0 = 1/5` (`r_S <= 20` at `eps = 1/60`) with `p_low` satisfying `125p^2 + 328p - 13 < 0` (`p_low <= 1/26`; `p = 1/25` fails at `+8/25`, `p = 1/26` succeeds at `-135/676`) restores single-channel separation across all `r_S > 0`.
