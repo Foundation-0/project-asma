@@ -227,6 +227,6 @@ No row-level scores, matrices, or study files are written.
 
 ## What this repository proves without a real run
 
-- Amendment 1 code paths (A1 distribution, A2 hist + seed block 101–200, A3 strict warnings/messages/console) on synthetic fixtures.
+- Amendment 1 code paths (A1 distribution, A2 hist + seed block 101–200, A3 strict warnings/messages/console) on synthetic fixtures, at dry-run smoke scale (5 repetitions; outer seeds 1–5 and 101–105). The real path runs the frozen 100 repetitions (outer seeds 1–100 and 101–200).
 - Gating and grk-helix `--dropbox-cleared` rules in unit tests.
-- CI dry run through the same orchestration entrypoint with flags default off and **no study bytes fetched**.
+- CI dry run (5-repetition smoke run) through the same orchestration entrypoint with flags default off and **no study bytes fetched**.
