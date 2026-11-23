@@ -6,6 +6,7 @@ verify: verify-fast
 
 verify-fast: verify-trial-landscape
 	python3 results/trial-landscape-v2-2026-11-13/verify.py
+	python3 results/tcga-ov-cohort-reconciliation-20261113/verify.py
 	python3 tools/validate.py
 	python3 tools/check_implementation_hashes.py
 	python3 tools/check_tracked_study_sources.py

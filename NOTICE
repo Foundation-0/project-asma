@@ -115,3 +115,19 @@ reuse outside private research.
     keyword rules are disclosed in `docs/trial-landscape-v2-2026-11-13.md`.
     The copy is a dated analytical snapshot, not a current enrollment directory,
     and it is not treatment guidance.
+
+16. **GDC open metadata and cBioPortal public study responses, 2026-11-13 UTC** —
+    source: Genomic Data Commons, https://api.gdc.cancer.gov/, and cBioPortal,
+    https://www.cbioportal.org/api/. The TCGA-OV reconciliation artifact
+    (`results/tcga-ov-cohort-reconciliation-20261113/`) keeps aggregate JSON:
+    project and file counts, facet buckets, study summaries, molecular-profile
+    metadata, and sample-list counts. Case, patient, and sample identifiers were
+    used in memory to compute set counts and SHA-256 values and were not stored.
+    Controlled-access file contents were not downloaded. The controlled-access
+    file count is an open metadata tally. These responses remain GDC and
+    cBioPortal material under their source terms, not a grant of this
+    repository's MIT or CC BY licence over the catalogs, and not clinical
+    guidance. The 2011 cohort sentence is cited from the TCGA Research Network
+    paper (PMID 21720365) and is not reproduced beyond that sentence. Retrieval
+    clocks and exact request URLs are in
+    `docs/tcga-ov-cohort-reconciliation-20261113.md`.

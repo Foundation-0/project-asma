@@ -52,7 +52,7 @@ ranking here must not be interpreted as a novelty ranking.
 | **Licence summary** | GDC open-access tier — read current rules in [GDC documentation](https://docs.gdc.cancer.gov/) before download. dbGaP-controlled **copy** of TCGA is **out of scope** without DAR + owner decision. cBioPortal: public study export; cite TCGA and cBioPortal. |
 | **Deliverable** | Script querying GDC/cBioPortal (or pinned export files) that prints fixed tables: sample/case counts, alteration frequencies, Kaplan–Meier summary statistics with declared censoring — all aggregates, no row-level commits. |
 | **Feasibility** | **Medium:** mature APIs and prior code examples; treatment covariates need careful endpoint definitions. |
-| **Main limitation** | **TCGA-OV is serous ovarian carcinoma, not a multi-histotype pan-ovarian cohort** (608 GDC cases). cBioPortal **`ov_tcga_pub`** profile count (489) differs from GDC case count — document which denominator each table uses. Survival analyses are **observational**. |
+| **Main limitation** | **TCGA-OV is serous ovarian carcinoma, not a multi-histotype pan-ovarian cohort** (608 GDC cases). cBioPortal **`ov_tcga_pub`** `allSampleCount` (489) is the 2011 expression, miRNA, methylation and copy-number cohort, not the exome count (316) and not the GDC case count. The [2026-11-13 reconciliation](tcga-ov-cohort-reconciliation-20261113.md) reconfirmed both printed digits and separates the denominators. Survival analyses are **observational**. |
 
 ### 3. CPTAC ovarian proteogenomics via GDC aggregator (cross-resource audit)
 
@@ -180,3 +180,5 @@ Sources: [Crossref REST API](https://api.crossref.org/),
 This log does not prove scientific conclusions, licence interpretation for your
 jurisdiction, or that downloads will remain unchanged. Re-run the API checks
 before executing a protocol that depends on them.
+
+The **608** and **489** rows above are the 2026-11-04 retrieval. A later open-metadata retrieval on 2026-11-13 UTC still returned those two digits, on GDC Data Release 46.0, and records what each one counts. 489 remains `ov_tcga_pub` `allSampleCount`. It is not the exome or mutation-and-CNA count; that count is **316**. See [TCGA-OV cohort reconciliation](tcga-ov-cohort-reconciliation-20261113.md). The historical rows are not rewritten.

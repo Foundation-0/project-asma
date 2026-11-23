@@ -33,6 +33,7 @@ clinical validity, or improved patient outcomes.
 | [Candidate research directions](docs/directions.md) | Ranked public-data directions and verification log |
 | [Recruiting trial-landscape snapshot](docs/trial-landscape-2026-11-05.md) | **VERIFIED** aggregate phase/keyword audit of public registry text; no eligibility or clinical inference |
 | [Interventional trial landscape, 2026-11-13 UTC](docs/trial-landscape-v2-2026-11-13.md) | **VERIFIED** all-status registration counts and a pinned keyword map; not efficacy or treatment guidance |
+| [TCGA-OV cohort reconciliation, 2026-11-13 UTC](docs/tcga-ov-cohort-reconciliation-20261113.md) | **VERIFIED** catalog counts for 608 GDC cases and 489 cBioPortal samples; data availability only, not biology or clinical guidance |
 | [Research preservation and continuation](docs/research-continuation.md) | Public-source handoffs, frontier hypotheses, rejected interpretations and executable synthetic checks |
 | [Discovery round 2 — 2026-11-05](docs/discovery-round2-2026-11-05.md) | CDR2L HLA-II evidence, protein-function alternatives and independent tests of immune specificity and harm |
 | [Research frontier — 2026-10-22](docs/frontier-2026-10-22.md) | Evidence, open questions, and limits |
@@ -42,6 +43,7 @@ clinical validity, or improved patient outcomes.
 | [Published-score verification specification](protocols/pilot-001-score-verification.md) | Fixed numerical check and recorded execution basis |
 | [Discovery-score AUROC result](docs/pilot-001-score-verification-result.md) | Executed preliminary result, comparison failure and remaining provenance limits |
 | [Discovery AUROC discrepancy analysis](docs/pilot-001-auc-discrepancy.md) | Candidate explanations (a)–(e) for 0.80885 vs printed 0.83; public scores only |
+| [Discovery AUROC provenance, 2026-11-13](docs/auroc-provenance-20261113.md) | Where 0.83 and 0.80885 each come from; sheet recalculation with an interval; discrimination, not clinical utility |
 | [Validation capacity](docs/pilot-001-validation-capacity.md) | Executed aggregate calculation of what the available cohort can establish at 98% specificity |
 | [Exploratory subset plan](protocols/pilot-001-exploratory-subset-plan.md) | Pre-registered statistical contract for the 13/8 frozen subset: endpoints, permitted inputs, decision rules, uncertainty and stop rules fixed before any real-data number; not executed |
 | [Held-out evaluation tools](docs/heldout-evaluation.md) | Original evaluation code tested on artificial cases, with patient separation and paired comparisons |
@@ -108,7 +110,7 @@ reviewed aggregate results and source provenance are retained here.
 
 The [published-score check](docs/pilot-001-score-verification-result.md) has now
 run under the user's explicit instruction: discovery AUROC is **0.80885**
-(rounds to **0.81**), versus printed **0.83**, with difference **0.02115** outside
+(half-up to two decimals is **0.81**), versus printed discovery **0.83**, with difference **0.02115** outside
 the fixed 0.02 tolerance. Source files and exact joins passed validation; this
 is a preliminary supplied-score discrepancy, not evidence of an original-paper
 error or completed model reproduction. External scientific review is **deferred**
