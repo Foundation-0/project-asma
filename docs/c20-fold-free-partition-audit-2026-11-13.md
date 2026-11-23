@@ -4,20 +4,22 @@
 **Date:** 2026-11-13  
 **Scope:** Research-only statistical and combinatorial audit of Conjecture C20 (`#82`) and Pilot 001 real-path telemetry (`#68`). Discrimination audit only; no clinical utility or clinical guidance claim is made, and zero patient-level rows or identifiers are stored.
 
+|**Verification status:** Section 1 inputs are frozen certificate values. Sections 2-3 numbers (partition extrema, null tails, Kruskal-Wallis sensitivities) are author-reported and **unverified**: no generator, checker, Ferrers matrix, or witnesses are committed, so they do not yet meet this repo's replay standard for sampled claims. They are recorded as leads for C20, not as verified results. Novelty `N0`.
+
 ## 1. Frozen Cohort Inputs
 
-From `results/auroc-provenance-20261113/certificate.json`, the discovery cohort comprises `n = 135` (`52` refractory, `83` sensitive, `4,316` cross-class pairs, `3,491` concordant, `825` discordant, `0` ties, pooled pair fraction `3,491 / 4,316`, DeLong `SE = 0.0386705700547796`, DeLong 95% CI `[0.73296, 0.88474]`, stratified 2,000-resample bootstrap 95% CI `[0.73100, 0.88000]`).
+From `results/auroc-provenance-20261113/certificate.json`, the discovery cohort comprises `n = 135` (`52` refractory, `83` sensitive, `4,316` cross-class pairs, `3,491` concordant, `825` discordant, `0` ties, pooled pair fraction `3,491 / 4,316`, DeLong `SE = 0.0377839462852535`, DeLong 95% CI `[0.7347956137938536, 0.8829059617390471]`, stratified 2,000-resample bootstrap 95% CI `[0.7309951343836887, 0.8760484244670992]`, bootstrap seed `20261113`).
 
 ## 2. Exact `0-1` Stratified Partition Feasibility Envelope (`SEED = 20261113`)
 
-On the balanced 27-per-fold stratified split (`[11, 11, 10, 10, 10]` positives paired with `[16, 16, 17, 17, 17]` negatives, `862` within-fold pairs, common five-fold denominator `74,800` with fold pair weights `[85, 85, 88, 88, 88]`), a tie-free `52 x 83` Ferrers concordance matrix calibrated to `U = 3,491` and `DeLong SE = 0.0386696` (`sum_r = 3,491`, `sum_r2 = 254,389`, `sum_c2 = 154,183`) admits constructive `0-1` partition witnesses spanning:
+On the balanced 27-per-fold stratified split (`[11, 11, 10, 10, 10]` positives paired with `[16, 16, 17, 17, 17]` negatives, `862` within-fold pairs, common five-fold denominator `74,800` with fold pair weights `[85, 85, 88, 88, 88]`), a tie-free `52 x 83` Ferrers concordance matrix with author-reported moments (`sum_r = 3,491`, `sum_r2 = 254,389`, `sum_c2 = 154,183`) is reported to admit constructive `0-1` partition witnesses spanning:
 
 | Partition Regime | Min Witness (`AUC_5`) | Max Witness (`AUC_5`) | Cross-Class Fold-Rank Corr (`MAX` / `MIN`) | Interpretation |
 | --- | --- | --- | --- | --- |
 | Unconstrained stratified `862`-pair split | `0.688088` | `0.993182` | `+0.6657` / `-0.9693` | Comonotone quantile pairing loses only `6 / 862` within-fold pairs |
 | Rank-balanced (`±2.0%` around `0.50` per fold in both classes) | `0.744412` | `0.917620` | `+0.2590` / `-0.3894` | Within-fold dispersion mismatch alone spans `17.3` AUROC points |
 
-Conjecture C20 is therefore algebraically underdetermined from unlabeled scores alone.
+If the reported witnesses replay, Conjecture C20 is algebraically underdetermined from unlabeled scores alone; the confirmed combinatorics are the 862 within-fold pairs, the 74,800 common denominator, and fold weights [85, 85, 88, 88, 88].
 
 ## 3. Uniform Stratified Null (`100,000` Splits) vs. Joint Kruskal-Wallis Separator
 
@@ -33,4 +35,4 @@ Across `100,000` uniform random stratified splits (`rho = 0`, `SEED = 20261113`)
 
 ## 4. Pilot 001 Pre-Run Telemetry Requirement (`#68`)
 
-Retaining three zero-identifier aggregate scalars per repetition in `R/asma_core.R` (`repetition_fold_mean_auc`, `repetition_fold_minus_pooled_gap`, and `repetition_within_class_kw_h`) alongside pooled `repetition_auc` enables the 100-repetition real-path run in `#68` to settle C20 empirically.
+Retaining three zero-identifier aggregate scalars per repetition in `R/asma_core.R` (`repetition_fold_mean_auc`, `repetition_fold_minus_pooled_gap`, and `repetition_within_class_kw_h`) alongside pooled `repetition_auc` gives the 100-repetition real-path run in `#68` a prospective diagnostic for C20-like gaps. It cannot settle the historical 0.83 provenance, which needs the original fold assignments and model provenance (see docs/pilot-001-auc-discrepancy.md).
