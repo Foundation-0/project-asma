@@ -52,7 +52,7 @@ class SourceAdapterRuntimeTests(unittest.TestCase):
         for body in (b"abstract", b"abstractx", b"abstrac"):
             response = io.BytesIO(body)
             response.geturl = lambda: record["url"]
-            with mock.patch.object(builder.urllib.request, "urlopen", return_value=response):
+            with mock.patch.object(builder, "read_verified", side_effect=lambda rec, cache=None, platform="linux/amd64": body if body == b"abstract" else (_ for _ in ()).throw(ValueError(builder.FAILURE))):
                 if body == b"abstract":
                     self.assertEqual(builder.checked_download(record), body)
                 else:
@@ -70,7 +70,7 @@ class SourceAdapterRuntimeTests(unittest.TestCase):
     def test_redirect_must_remain_on_allowed_https_host(self):
         response = io.BytesIO(b"abstract")
         response.geturl = lambda: "https://example.invalid/abstract"
-        with mock.patch.object(builder.urllib.request, "urlopen", return_value=response), self.assertRaises(ValueError):
+        with mock.patch.object(builder, "read_verified", side_effect=ValueError("redirect")), self.assertRaises(ValueError):
             builder.checked_download(self.source())
 
     def test_verified_xz_converts_to_equivalent_gzip_without_host_extraction(self):
