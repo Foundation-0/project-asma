@@ -118,6 +118,12 @@ the sources. The sheet AUROC, its DeLong interval, and its seeded bootstrap
 interval are this project's arithmetic on released scores. The check is not
 external scientific peer review, and it is not clinical utility or treatment
 guidance.
+The **12 November 2026 ecosystem reassessment** was prepared with OpenAI Codex
+and **GPT-6 Astra** agents for current Asma state, Soko method transfer and
+Proven Commons/Foundation-0 source review. It credits the linked source authors,
+proposes bounded research tests and preserves existing teams’ open work.
+No upstream code was executed or copied; no proofs were rerun, and no private
+data or new study analysis was used in this assessment; proposed use is not adoption or scientific validation.
 
 ## Prior work credited by name
 
