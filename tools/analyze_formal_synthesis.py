@@ -164,8 +164,9 @@ def prove_p01_and_deconvolve_scan23848(peaks: list[tuple[F, F]]) -> dict:
 
 def prove_p02_and_construct_c20_witness() -> dict:
     auc_meta = json.loads(AUC_REGISTRY.read_text(encoding="utf-8"))
-    m_pos, n_neg = int(auc_meta["positive_count"]), int(auc_meta["negative_count"])
-    concordant = int(auc_meta["pair_counts"]["concordant_pairs"])
+    baseline = auc_meta["baseline"]
+    m_pos, n_neg = int(baseline["positive_count"]), int(baseline["negative_count"])
+    concordant = int(baseline["pair_counts"]["concordant_pairs"])
     total_pairs = m_pos * n_neg
     pooled_exact = F(concordant, total_pairs)
     if pooled_exact != F(3491, 4316):

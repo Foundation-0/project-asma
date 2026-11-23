@@ -1,6 +1,6 @@
 {
   "implementation": "tools/analyze_formal_synthesis.py",
-  "implementation_sha256": "14cdbf820a8c2b9228cf4acb34a7e90facb393009a188817cceaa0247d6cb51e",
+  "implementation_sha256": "c2002d37f0ba49237c953ab9c21262862c71e81359d212d680f752e29a7ff00f",
   "limits": [
     "Proves mathematical properties of defined algebraic models, Mann-Whitney estimators, and canonical amino-acid masses only.",
     "Does not establish clinical treatment selection, biomarker validity, or biological receptor recognition.",
@@ -266,11 +266,11 @@
   "p03_treatment_sequence_identities": {
     "composition_invariant_formula": "(b * r0) / (a * s0 + b * r0)",
     "dual_checker_distinct_alpha_skeleton": true,
-    "impl_skeleton_sha256": "fe657e4196e5f6a909e11aa29476db8c52766e0c484e6a1c2b5394f9c5f9f03b",
+    "impl_skeleton_sha256": "fb39e20d0b56ce78f621bb95ca27cc3abcd14759a865d0749a2ab789939ed7ae",
     "matched_cap_resistant_ratio_formula": "min(1 / q, 1 / g)",
     "parameter_tuples_dual_verified": 3375,
     "reference_90_10_resistant_fraction": "10/19",
-    "spec_skeleton_sha256": "60493247a5876c44c29ca43c036c1627db8e870d2060aef4c47aec50bd24f300",
+    "spec_skeleton_sha256": "a30d78a977206bc4db929d69128bea9f78f142841105c2f8ff5cf2823cf4922c",
     "theorem_id": "P03",
     "unequal_cap_reversal_iff": "tau_2 < g * min(s0 + r0, tau_1)"
   },

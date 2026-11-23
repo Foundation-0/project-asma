@@ -7,7 +7,7 @@ Independently checks:
    the recursive rational branch-and-bound in tools/analyze_formal_synthesis.py) + independent
    re-verification of the 173-peak disjoint ion-current partition of Scan 23848.
 3. Theorem P02 via exact integer cross-multiplication of the 135-score C20 witness (`0` ties,
-   `3491/4316` pooled concordance, `124513/149600` 5-fold mean AUROC).
+   `3491/4316` pooled concordance, `7773/9350` 5-fold mean AUROC).
 4. Theorem P03 via symbolic rational verification and AST soundness / anti-tautology check.
 """
 
