@@ -22,6 +22,9 @@
 # Integrity-layer checker audit (aggregate JSON only).
 !/results/integrity-audit-2026-11-13/
 !/results/integrity-audit-2026-11-13/**
+# Identifiability and C20 certificates from the 2026-11-13 vault drop (aggregate JSON only).
+!/results/identifiability-and-c20-2026-11-13/
+!/results/identifiability-and-c20-2026-11-13/**
 # Synthetic Soko-to-Asma unlocks drop (aggregate JSON only).
 !/results/soko-asma-unlocks-20261113/
 !/results/soko-asma-unlocks-20261113/**

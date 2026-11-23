@@ -6,6 +6,7 @@
     "docs/auroc-provenance-20261113.md": 12,
     "docs/directions.md": 1,
     "docs/google-bio-convergence-2026-11-11.md": 3,
+    "docs/gravity-bridge-identifiability-and-c20-2026-11-13.md": 3,
     "docs/pilot-001-auc-discrepancy.md": 14,
     "docs/pilot-001-code-audit-addendum.md": 3,
     "docs/pilot-001-feasibility-audit.md": 2,
@@ -14,6 +15,7 @@
     "docs/pilot-001-score-verification-result.md": 8,
     "docs/pilot-001-synthetic-validation.md": 1,
     "docs/roadmap.md": 2,
+    "interactive/asma_gravity_explorer.html": 5,
     "paper/manuscript.md": 3,
     "protocols/pilot-001-exploratory-subset-plan.md": 3,
     "protocols/pilot-001-independent-reconstruction.md": 2,
@@ -30,6 +32,7 @@
     "results/auroc-provenance-20261113/certificate.json": 6,
     "results/auroc-provenance-20261113/recompute.py": 2,
     "results/auroc-provenance-20261113/verify.py": 5,
+    "results/identifiability-and-c20-2026-11-13/identifiability_and_c20_certificates.json": 3,
     "templates/pilot-001-source-request.md": 1,
     "tests/test_auc_discrepancy.py": 2,
     "tools/analyze_auc_discrepancy.py": 13,
@@ -39,6 +42,6 @@
     "tools/verify_identifiability_and_c20.py": 3,
     "tools/verify_published_auc.py": 1
   },
-  "hit_count": 167,
+  "hit_count": 178,
   "token": "0\\.80885\\d*|(?<![\\d.])0\\.83(?!\\d)"
 }
