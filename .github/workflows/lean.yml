@@ -41,7 +41,9 @@ jobs:
           lake env lean AsmaIdentifiabilityProofs.lean | tee axioms.txt
           tail -n +3 axioms-lean-4.35.0.txt | diff - axioms.txt
           lake env lean AsmaNegativeControls.lean
-          if grep -nE '\b(sorry|admit|native_decide)\b|^axiom ' AsmaIdentifiabilityProofs.lean AsmaNegativeControls.lean | grep -v 'no sorry'; then
+          lake env lean AsmaSubspaceFlagProofs.lean
+          lake env lean FloatingSelectionAndCrushingGate.lean
+          if grep -nE '\b(sorry|admit|native_decide)\b|^axiom ' AsmaIdentifiabilityProofs.lean AsmaNegativeControls.lean AsmaSubspaceFlagProofs.lean FloatingSelectionAndCrushingGate.lean | grep -v 'no sorry'; then
             echo "forbidden token in Lean source" >&2
             exit 1
           fi
