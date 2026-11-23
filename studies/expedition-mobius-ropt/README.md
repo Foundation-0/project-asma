@@ -1,10 +1,10 @@
 # Exact `PGL(2)` Möbius Cross-Ratio Invariant & Optimal Spectral-Inertia Rank Bound (`R_opt`)
 
-**Status:** Independently **`VERIFIED`** (`AUDIT-002` `N2` core `R_opt`, `AUDIT-006R` `VERIFIED`) — 100% zero-float exact rational (`fractions.Fraction`, pure Python 3 stdlib, zero external dependencies).
+**Status:** Author self-checked (cave expedition `AUDIT-002`/`AUDIT-006R` labels are external to this repo; no in-repo second checker or ledger row yet). Novelty `N0` (textbook Möbius invariance; bound derivation is a docstring sketch plus seeded property tests). Exact decision paths are zero-float rational (`fractions.Fraction`, pure Python 3 stdlib); Check 5's transcendental `r_eff` comparison alone uses `float` with a `1e-12` tolerance and is `sampled`, not exact.
 
 ## Summary of Exact Results
 
-[`optimal_inertia_rank.py`](./optimal_inertia_rank.py) provides two zero-float exact-rational instruments directly applicable to `Foundation-0/project-asma`:
+[`optimal_inertia_rank.py`](./optimal_inertia_rank.py) provides two exact-rational instruments (zero-float on exact decision paths) directly applicable to `Foundation-0/project-asma`:
 
 1. **Parameter-Free `PGL(2)` Möbius Cross-Ratio Invariant (Check 10, Portal 11):**
    - In `formal/AsmaIdentifiabilityProofs.lean`, the two-compartment observation map
@@ -18,7 +18,7 @@
 
 2. **Scale-Invariant Optimal Spectral-Inertia Rank Bound `R_opt` & Trace-Slack Sensitivity Law (Checks 1–9):**
    - For any symmetric rational $M = P + Q$ ($P \succeq 0$, $n_+(Q) \le b$ certified via exact block-$LDL^\top$ congruence over $\mathbb{Q}$, $W = \operatorname{range}(Q_+)$), the closed-form rational bound
-     $$R_{\mathrm{opt}} = \begin{cases} \dfrac{(t_M - t_-)^2}{S - t_-^2 / b} & \text{if } b > 0,\; t_- > 0,\; b t_M > t_- \text{ and } b S > t_-^2, \\ \max\!\left(0, \dfrac{t_M^2}{S} - b\right) & \text{otherwise} \end{cases}$$
+     $$R_{\mathrm{opt}} = \begin{cases} \dfrac{b\,(t_M - t_-)^2}{b S - t_-^2} & \text{if } b > 0,\; t_- > 0 \text{ and } t_- t_M \ge b S \text{ (else inconsistent when } b S - t_-^2 \le 0\text{)}, \\ \max\!\left(0, \dfrac{t_M^2}{S} - b\right) & \text{otherwise} \end{cases}$$
      provably lower-bounds $\operatorname{rank}(\Pi_{W^\perp} P \Pi_{W^\perp}) \le \operatorname{rank}(P)$ (`1000/1000` random non-commuting matrices & `200/200` Portal 1 novel-subspace trials, `0` violations), is strictly invariant under global scaling and orthogonal conjugation, and strictly dominates fixed-$c$ and `loom#7` $R_G$ bounds via exact algebraic square identities.
    - **Trace-Slack Amplification Law (Check 4):** On a 3-component `project-asma` chimeric Gram matrix (`w_1 = 9/10` backbone + two `1/20` chimeric species) under unknown PSD noise $0 \preceq N \preceq \tau I_5$, the exact critical slack threshold is $\Delta t^* = \|P\|_F^2 / (2 t) = 1/360$. Below threshold ($\tau = 1/5000$), $R_{\mathrm{opt}} = 1.530561 > 1$ **uniquely certifies $\operatorname{rank}(P_{\mathrm{chim}}) \ge 2$** while Mode A (`0.226`), Session 2 `c=2` (`0.424`), and `loom` $R_G$ (`0.184`) all fail (single-chimeric negative control rejected).
    - **Hardened R3/R4 TCB:** Strict canonical lowest-terms ASCII rational parser + fail-closed exact matrix type/shape guards (`7/7` built-in adversarial forgeries rejected; `23/23` + `6/6` independent verifier forgeries blocked in `AUDIT-006R`).

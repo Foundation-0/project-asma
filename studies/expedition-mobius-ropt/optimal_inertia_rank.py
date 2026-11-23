@@ -1091,7 +1091,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if args.json:
         print(json.dumps(rep, indent=2))
     else:
-        print("=== optimal_inertia_rank.py: ALL CHECKS PASSED (ZERO FLOAT TCB) ===")
+        print("=== optimal_inertia_rank.py: ALL CHECKS PASSED (exact decision paths zero-float; Check 5 sampled/float) ===")
         c = rep["checks"]
         print(f"1. Session 2 Mode B exploit: naive forged bound={c['session2_mode_b_exploit']['naive_forged_bound_on_2x2']} on 2x2; patched TCB rejected={c['session2_mode_b_exploit']['patched_tcb_rejected_with_P_NOT_PSD']}")
         print(f"2. Scale invariance (lam=1/100..100): R_opt=2 at ALL 5 scales; R_loom_doc10 ranges {[r['R_loom_doc10'] for r in c['scale_invariance_and_dominance']]}; S2(c=2)={c['scale_invariance_and_dominance'][0]['R_session2_c2']}")
