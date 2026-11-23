@@ -17,16 +17,16 @@
     },
     {
       "artifact_paths": [],
-      "canonical_sha256": "8a825d8407632a1ba3478eb7f0c7d49cd6d0295270bbf9ac832d1b8af9f1c17e",
+      "canonical_sha256": "d79fd7cab88b3c170d000a4f2b95cd85f8214712b9aa69ee5c45837361201c8b",
       "certificate_paths": [],
       "id": "V02",
       "label": "VERIFIED",
       "recheck_commands": [
         "python3 -m unittest discover -s tests -v"
       ],
-      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`457` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |",
+      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`506` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |",
       "source_ids": [],
-      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`457` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`)"
+      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`506` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`)"
     },
     {
       "artifact_paths": [],
@@ -1447,7 +1447,7 @@
         "tools/check_sha256_manifests.py",
         "tools/export_claims_ledger.py"
       ],
-      "canonical_sha256": "ff8d3d99a1a819fc69bea3794a7d99d029e730ac6cede48f5dcf5f4f4e5a133f",
+      "canonical_sha256": "9ae310022957968a9fc2943dbea73d2e4615caf2ecd7adcd2ddd9396fdea7b63",
       "certificate_paths": [],
       "id": "V41",
       "label": "VERIFIED",
@@ -1457,9 +1457,9 @@
         "python3 tools/audit_checkers.py --check",
         "python3 results/integrity-audit-2026-11-13/verify.py"
       ],
-      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 42 VERIFIED rows, 26 offline checkers, 25 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
+      "row_text": "| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 46 VERIFIED rows, 30 offline checkers, 29 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |",
       "source_ids": [],
-      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 42 VERIFIED rows, 26 offline checkers, 25 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only)"
+      "statement": "Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 46 VERIFIED rows, 30 offline checkers, 29 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only)"
     },
     {
       "artifact_paths": [
@@ -1620,6 +1620,53 @@
       "statement": "On public MMC1 and MMC4, FFPE_pred_scores joined to FFPE_Discovery_clinical has 135 rows, 52 refractory and 83 sensitive. Pair and rank readers agree: the Mann–Whitney AUROC with half credit for ties is 3491/4316 = 0.8088507877664504. Half-up rounding is 0.81 to two decimals and 0.809 to three decimals. The absolute difference from the printed 0.83 is 1141/53950, which exceeds 0.02. The DeLong 95% interval is 0.7347956138 to 0.8829059617. A stratified bootstrap of 2000 resamples with seed 20261113 has 95% percentile interval 0.7309951344 to 0.8760484245. Both intervals contain 0.83. This is discrimination of released scores"
     },
     {
+      "artifact_paths": [
+        "results/soko-weft-discriminators-20261113/verify.py",
+        "tools/analyze_soko_weft_discriminators.py"
+      ],
+      "canonical_sha256": "29222dca4ccd095ebee709fc97b457cea853f1d17e20f7eb4fc05ca7d4f73487",
+      "certificate_paths": [],
+      "id": "V45",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/analyze_soko_weft_discriminators.py --check",
+        "python3 results/soko-weft-discriminators-20261113/verify.py"
+      ],
+      "row_text": "| V45 | VERIFIED | On 24 deterministic synthetic spectra from four invented 9-mer strings (in neither Q86X02 nor Q01850; no accession or deamidation claim), naive and uncalibrated Dinic counters admit 24/24 swap decoys while Helly-Dinic achieves 24/24 target recall and 0/24 false admissions, with 0 retained intensity bytes | `python3 tools/analyze_soko_weft_discriminators.py --check`; `python3 results/soko-weft-discriminators-20261113/verify.py`. [Note](docs/research/soko-weft-discriminating-tests.md). Synthetic fixtures only; rates describe the invented strings, not study spectra. |",
+      "source_ids": [],
+      "statement": "On 24 deterministic synthetic spectra from four invented 9-mer strings (in neither Q86X02 nor Q01850; no accession or deamidation claim), naive and uncalibrated Dinic counters admit 24/24 swap decoys while Helly-Dinic achieves 24/24 target recall and 0/24 false admissions, with 0 retained intensity bytes"
+    },
+    {
+      "artifact_paths": [
+        "results/soko-weft-discriminators-20261113/verify.py",
+        "tools/analyze_soko_weft_discriminators.py"
+      ],
+      "canonical_sha256": "a2b4d76f31c10c8c91bab862510fa40643ef8fa47c0f47c03b5d56aa975f5b9f",
+      "certificate_paths": [],
+      "id": "V46",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 tools/analyze_soko_weft_discriminators.py --check",
+        "python3 results/soko-weft-discriminators-20261113/verify.py"
+      ],
+      "row_text": "| V46 | VERIFIED | Exact rational Farkas dual vectors reproduce the checked scalar compartment bounds (LH S vs C50 = 13/700, S vs C25 = 3/448 < 1/60), exhibit the 590/21 two-clone shedding blind spot, and show orthogonal 2-channel mitosis lifts worst-case separation across all 6 checked world pairs to 69/320 > 1/60 | `python3 tools/analyze_soko_weft_discriminators.py --check`; `python3 results/soko-weft-discriminators-20261113/verify.py`. Finite-fixture verification in Fraction arithmetic with a zero-shared-code second checker; not a mechanized proof and not clinical evidence. |",
+      "source_ids": [],
+      "statement": "Exact rational Farkas dual vectors reproduce the checked scalar compartment bounds (LH S vs C50 = 13/700, S vs C25 = 3/448 < 1/60), exhibit the 590/21 two-clone shedding blind spot, and show orthogonal 2-channel mitosis lifts worst-case separation across all 6 checked world pairs to 69/320 > 1/60"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "0966fe26e759a5b81782cc017a596993a828ea171a99d417aef3548aa11efe88",
+      "certificate_paths": [],
+      "id": "V47",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 -m unittest discover -s tests -p 'test_soko_weft_*.py' -v"
+      ],
+      "row_text": "| V47 | VERIFIED | Across 16 synthetic multi-compartment intervention cohorts (T = 6, 4,096 trajectories each), greedy scalar-marker selection violates C1/C2 safety in 16/16 cohorts while the safe Bellman-Pareto search matches the exhaustive safe oracle on 16/16 with 0 violations, pruning 70.94% of transitions | `python3 -m unittest discover -s tests -p 'test_soko_weft_*.py' -v`; same verify commands as V45. Synthetic cohorts only. |",
+      "source_ids": [],
+      "statement": "Across 16 synthetic multi-compartment intervention cohorts (T = 6, 4,096 trajectories each), greedy scalar-marker selection violates C1/C2 safety in 16/16 cohorts while the safe Bellman-Pareto search matches the exhaustive safe oracle on 16/16 with 0 violations, pruning 70.94% of transitions"
+    },
+    {
       "artifact_paths": [],
       "canonical_sha256": "a430d3ae4c938a7056e2f59b61f443d2607074a8f1dae56f3a3d0f2a91334bd7",
       "certificate_paths": [],
@@ -1629,15 +1676,59 @@
       "row_text": "| C26 | CONJECTURE | The unrounded five-fold CV AUC that the authors displayed as 0.83 is absent from the public article, the public score sheet, and the pinned scripts. Whether 0.83 displays some other unrounded ROC, and whether the released sheet is that ROC’s input, remains open | C20 already records the sheet-versus-figure gap. This row adds that the plot label is a literal and that the unrounded roc.all1 value was not found. It does not assert that the paper misquoted 0.80885. |",
       "source_ids": [],
       "statement": "The unrounded five-fold CV AUC that the authors displayed as 0.83 is absent from the public article, the public score sheet, and the pinned scripts. Whether 0.83 displays some other unrounded ROC, and whether the released sheet is that ROC’s input, remains open"
+    },
+    {
+      "artifact_paths": [
+        "protocols/compartment-measurement-design.md",
+        "results/compartment-design-2026-11-13/certificate.json",
+        "results/compartment-design-2026-11-13/verify.py"
+      ],
+      "canonical_sha256": "d5797cc02f4198418cdaef3b980a068f0051a1bc567d8866fb3543415a21a0b7",
+      "certificate_paths": [
+        "results/compartment-design-2026-11-13/certificate.json"
+      ],
+      "id": "V48",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 results/compartment-design-2026-11-13/verify.py"
+      ],
+      "row_text": "| V48 | VERIFIED | In the declared synthetic four-world, three-action model, only LH among the six designs of at most two observations separates zero conversion from both material-conversion worlds at residual error 1/60. Its exact boundary is epsilon < 13/700, compared with < 3/200 for LR and < 1/280 for RH. No guaranteed all-four discrimination; independent offsets or changing selection admit explicit target collisions | `python3 results/compartment-design-2026-11-13/verify.py`; [report and continuous-family argument](docs/research/compartment-measurement-design.md), [frozen protocol](protocols/compartment-measurement-design.md), [certificate](results/compartment-design-2026-11-13/certificate.json). Original rational arithmetic and independently implemented checking; not empirical assay precision, biological identification, a novel method, or a clinical result. |",
+      "source_ids": [],
+      "statement": "In the declared synthetic four-world, three-action model, only LH among the six designs of at most two observations separates zero conversion from both material-conversion worlds at residual error 1/60. Its exact boundary is epsilon < 13/700, compared with < 3/200 for LR and < 1/280 for RH. No guaranteed all-four discrimination; independent offsets or changing selection admit explicit target collisions"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "ae586735364aca9218a28a29fb229c490d73480a6007260935983b4f8f53111b",
+      "certificate_paths": [],
+      "id": "K46",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K46 | KNOWN | At the inspected revisions, Soko implements rechecked search exclusions and scoped finite bounds; the Proven Commons and Foundation-0 records distinguish proof statements, structural checks and exact certificates, with the implementation and licensing limits recorded in the assessment | [Pinned primary-source assessment](docs/ecosystem-research-fit-2026-11-12.md); S177–S184. Static code/report inspection, not a fresh replay or a biological validation claim. |",
+      "source_ids": [
+        "S177",
+        "S184"
+      ],
+      "statement": "At the inspected revisions, Soko implements rechecked search exclusions and scoped finite bounds; the Proven Commons and Foundation-0 records distinguish proof statements, structural checks and exact certificates, with the implementation and licensing limits recorded in the assessment"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "ae926101f8415731df4a7bc85adb5efbaf1d4f845c7b10f914d32983977767d6",
+      "certificate_paths": [],
+      "id": "C27",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C27 | CONJECTURE | A bounded synthetic search with an independent checker, followed by separately gated candidate-spectrum or measurement-design work, may expose unsupported inferences or distinguish competing explanations useful to Project Asma | [Proposed contract, comparison baseline and stops](docs/ecosystem-research-fit-2026-11-12.md#a-bounded-next-increment). No prototype, novel biological result, source-data execution or dependency adoption follows from accepting the assessment. |",
+      "source_ids": [],
+      "statement": "A bounded synthetic search with an independent checker, followed by separately gated candidate-spectrum or measurement-design work, may expose unsupported inferences or distinguish competing explanations useful to Project Asma"
     }
   ],
   "counts": {
-    "CONJECTURE": 27,
-    "KNOWN": 49,
+    "CONJECTURE": 28,
+    "KNOWN": 50,
     "PROVEN": 0,
-    "VERIFIED": 42
+    "VERIFIED": 46
   },
-  "ledger_sha256": "72631b30fbe0cb6b0e6d5ce5d32bd6879fbf7e69181a108dd2a42d93588fdbf0",
+  "ledger_sha256": "149e596fa9afdfb8e86342bd09cfda760fbf5b90fd1deecdff1060faa7e697ab",
   "schema_version": 1,
   "source": "CLAIMS.md"
 }

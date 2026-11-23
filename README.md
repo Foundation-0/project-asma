@@ -34,6 +34,7 @@ clinical validity, or improved patient outcomes.
 | [Recruiting trial-landscape snapshot](docs/trial-landscape-2026-11-05.md) | **VERIFIED** aggregate phase/keyword audit of public registry text; no eligibility or clinical inference |
 | [Interventional trial landscape, 2026-11-13 UTC](docs/trial-landscape-v2-2026-11-13.md) | **VERIFIED** all-status registration counts and a pinned keyword map; not efficacy or treatment guidance |
 | [TCGA-OV cohort reconciliation, 2026-11-13 UTC](docs/tcga-ov-cohort-reconciliation-20261113.md) | **VERIFIED** catalog counts for 608 GDC cases and 489 cBioPortal samples; data availability only, not biology or clinical guidance |
+| [Current ecosystem research fit](docs/ecosystem-research-fit-2026-11-12.md) | Source-pinned Soko / Proven Commons / Foundation-0 assessment, existing team dependencies and bounded proposed research tests |
 | [Research preservation and continuation](docs/research-continuation.md) | Public-source handoffs, frontier hypotheses, rejected interpretations and executable synthetic checks |
 | [Discovery round 2 — 2026-11-05](docs/discovery-round2-2026-11-05.md) | CDR2L HLA-II evidence, protein-function alternatives and independent tests of immune specificity and harm |
 | [Research frontier — 2026-10-22](docs/frontier-2026-10-22.md) | Evidence, open questions, and limits |
@@ -61,6 +62,7 @@ clinical validity, or improved patient outcomes.
 | [Reproducibility and data protection](docs/reproducibility-and-data.md) | What may be collected, stored, and published |
 | [Contributing](CONTRIBUTING.md) / [agent guidance](AGENTS.md) | Review and evidence standards |
 | [Claims ledger](CLAIMS.md) | PROVEN / VERIFIED / KNOWN / CONJECTURE labels for public statements |
+| [Compartment measurement design](docs/research/compartment-measurement-design.md) | Synthetic precision boundaries for distinguishing selection from substantial conversion; independent checker and assumption-failure controls |
 | [Paper scaffold](paper/manuscript.md) | Working manuscript: question, pre-registered methods, Results not yet run |
 | [Question](templates/research-question.md), [experiment](templates/experiment.md), [manifest](templates/provenance-manifest.md) templates | Reusable working records |
 
