@@ -4,6 +4,7 @@
     "CLAIMS.md": 8,
     "README.md": 4,
     "docs/auroc-provenance-20261113.md": 12,
+    "docs/bidirectional-epistemic-symbiosis-2026-11-13.md": 1,
     "docs/directions.md": 1,
     "docs/google-bio-convergence-2026-11-11.md": 3,
     "docs/gravity-bridge-identifiability-and-c20-2026-11-13.md": 3,
@@ -46,6 +47,6 @@
     "tools/verify_identifiability_and_c20.py": 3,
     "tools/verify_published_auc.py": 1
   },
-  "hit_count": 182,
+  "hit_count": 183,
   "token": "0\\.80885\\d*|(?<![\\d.])0\\.83(?!\\d)"
 }

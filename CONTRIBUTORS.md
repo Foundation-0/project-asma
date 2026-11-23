@@ -33,6 +33,10 @@ The 2026-11-04 research preservation, anti-Yo frontier exploration and synthetic
 identifiability implementation were prepared with **OpenAI Codex (GPT-6)** and
 collaborating agents under human direction. Internal agent critique is not
 external scientific peer review.
+The **2026-11-13 Soko-Weft discriminating-test bundle** (V45-V47) was prepared by
+the agentic team under human direction; merge-time corrections (claim renumbering,
+fixture description, disclosure) were made with **Muse Code (muse-wonder-full-1.0)**.
+
 
 The pull request *Bring Asma up to the repository standard* was **prepared by
 grk-helix**, an AI agent operated by **Alkindus Arifuddin**, via a Cursor cloud
