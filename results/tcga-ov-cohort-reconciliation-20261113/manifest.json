@@ -1,0 +1,645 @@
+{
+  "cbioportal_api": "https://www.cbioportal.org/api",
+  "ephemeral_requests": [
+    {
+      "bytes": 138477,
+      "reason": "case barcodes reduced to a count and SHA-256",
+      "retained": false,
+      "role": "gdc_case_identifiers",
+      "sha256": "8f0b14dfa4620169eb47d8c7ce22ca28f32dd9e8672ba2ac4bc7eff4fe3cd98e",
+      "url": "https://api.gdc.cancer.gov/cases?pretty=false&size=2000&filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22project.project_id%22%2C%22value%22%3A%22TCGA-OV%22%7D%7D%5D%7D&fields=submitter_id%2Csamples.sample_type%2Csamples.tissue_type"
+    },
+    {
+      "bytes": 1211254,
+      "reason": "open-file case barcodes reduced to counts and SHA-256",
+      "retained": false,
+      "role": "gdc_open_file_metadata",
+      "sha256": "8d3cc67fc167d4ef2ff723cf4472cf263896dba6211054ca4b7058d4061a8bf1",
+      "url": "https://api.gdc.cancer.gov/files?pretty=false&size=5000&filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22cases.project.project_id%22%2C%22value%22%3A%22TCGA-OV%22%7D%7D%2C%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22access%22%2C%22value%22%3A%22open%22%7D%7D%5D%7D&from=0&fields=cases.submitter_id%2Cdata_category%2Cdata_type%2Cexperimental_strategy%2Caccess"
+    },
+    {
+      "bytes": 1351805,
+      "reason": "open-file case barcodes reduced to counts and SHA-256",
+      "retained": false,
+      "role": "gdc_open_file_metadata",
+      "sha256": "1d2a6a380667e6076ef119a018e90bca8efc1d7dd92384c5917e5b416f48ac55",
+      "url": "https://api.gdc.cancer.gov/files?pretty=false&size=5000&filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22cases.project.project_id%22%2C%22value%22%3A%22TCGA-OV%22%7D%7D%2C%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22access%22%2C%22value%22%3A%22open%22%7D%7D%5D%7D&from=5000&fields=cases.submitter_id%2Cdata_category%2Cdata_type%2Cexperimental_strategy%2Caccess"
+    },
+    {
+      "bytes": 1059221,
+      "reason": "open-file case barcodes reduced to counts and SHA-256",
+      "retained": false,
+      "role": "gdc_open_file_metadata",
+      "sha256": "325a61c023c06684d07907cbfacc13fa83bc1a67d360a5e160dae5a9ad5f7d82",
+      "url": "https://api.gdc.cancer.gov/files?pretty=false&size=5000&filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22cases.project.project_id%22%2C%22value%22%3A%22TCGA-OV%22%7D%7D%2C%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22access%22%2C%22value%22%3A%22open%22%7D%7D%5D%7D&from=10000&fields=cases.submitter_id%2Cdata_category%2Cdata_type%2Cexperimental_strategy%2Caccess"
+    },
+    {
+      "bytes": 58802,
+      "reason": "identifier body reduced to a count and SHA-256",
+      "retained": false,
+      "role": "identifier_page",
+      "row_count": 600,
+      "sha256": "41ec93c789bfc723a5388724a94a1665ec89f90f7222d77769eebc0e92f29dc7",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga/patients?pageSize=1000&pageNumber=0"
+    },
+    {
+      "bytes": 132076,
+      "reason": "identifier body reduced to a count and SHA-256",
+      "retained": false,
+      "role": "identifier_page",
+      "row_count": 617,
+      "sha256": "872a3d514968b0005a8d0126ce5cb28fc9602ee689c086ef2e0ff174a9bb29b4",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga/samples?pageSize=1000&pageNumber=0"
+    },
+    {
+      "bytes": 2690,
+      "reason": "replaced by projected lists with sampleIds removed",
+      "retained": false,
+      "role": "sample_list_index",
+      "sha256": "cf2207e3a6c16bf2f19e49448f929dd529c87036cce8fb29a03cad5cc62df869",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga/sample-lists"
+    },
+    {
+      "bytes": 3531,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "d0a69acbcafb4899307979bfe6855c8ac7790193f4458531cdecd3d85bbcdae0",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_3way_complete"
+    },
+    {
+      "bytes": 11284,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "4fd86fe56f554dcd733a2a8b44da8a3678e6f3abcf286d957c59ea6e419f842f",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_all"
+    },
+    {
+      "bytes": 10625,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "04573b94a52d676400205bc1ae21e07fedc73aad44b237d9053cd5a447f70d9b",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_cna"
+    },
+    {
+      "bytes": 5843,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "8ffa40d61bda91fb2cab87723abb472eaa05c8f3e5a59d34c9e9cc42acfa23f7",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_cnaseq"
+    },
+    {
+      "bytes": 10895,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "d18b136ef122a544a0e1a4df9ff6c207f8ea66ae2a7a967aa6db3323ea4313c7",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_methylation_all"
+    },
+    {
+      "bytes": 10910,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "75d830a66970812aad4cdef2af07e759da968662e615ad0ed1bb6e3deaab5d4a",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_methylation_hm27"
+    },
+    {
+      "bytes": 10289,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "d243d431e7ad90fa3d91ded6b5c7e8b045cee28861d6a8e303973cfd295e3158",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_mrna"
+    },
+    {
+      "bytes": 9882,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "fe9c0da00ea60239e967e341ffbab81ddcc5ca1ae0934428d36bae201d7ad74e",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_mrna_U133"
+    },
+    {
+      "bytes": 1538,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "eea1b77b9a32e396e9c185377b485edc4b59b3f5d0234574b61ee69da7955b1b",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_phosphoprotein_quantification"
+    },
+    {
+      "bytes": 3368,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "b5895bba620583458377d4dc3b53e9ca685f766cdd629fc2c1864265b2b45061",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_protein_quantification"
+    },
+    {
+      "bytes": 5775,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "e5c27232cc916a2ce455c34c17730c5c460b633913c7d0a7080f9d5b43b2cff2",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_rna_seq_v2_mrna"
+    },
+    {
+      "bytes": 8075,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "02844c3a8a4c80331d4df739ce7e4af9d7f3f833ba7c25a6dd151a6dce132f69",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_rppa"
+    },
+    {
+      "bytes": 5912,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "5d757d4059d6fa11b5d5d6c96780a2c8ce7f22a5a60e6f3c56763494443db787",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_sequenced"
+    },
+    {
+      "bytes": 52646,
+      "reason": "identifier body reduced to a count and SHA-256",
+      "retained": false,
+      "role": "identifier_page",
+      "row_count": 492,
+      "sha256": "6fd239cc2e10f4279ba250c17cf91cff98439b9a566e72ba248a2e9473f91048",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pub/patients?pageSize=1000&pageNumber=0"
+    },
+    {
+      "bytes": 111494,
+      "reason": "identifier body reduced to a count and SHA-256",
+      "retained": false,
+      "role": "identifier_page",
+      "row_count": 489,
+      "sha256": "0e937febd56f4b0da0d896bd1a94d304b3fddecbde98dd436301b23d137121aa",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pub/samples?pageSize=1000&pageNumber=0"
+    },
+    {
+      "bytes": 4210,
+      "reason": "replaced by projected lists with sampleIds removed",
+      "retained": false,
+      "role": "sample_list_index",
+      "sha256": "e34175673f7cc052ffb231942587b37214e7246712e8b3c2aa4cd991987da5d4",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pub/sample-lists"
+    },
+    {
+      "bytes": 5951,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "27fc85bcfefa1e4ff8cafaeb6f340851206518ed7ed6fe1ed0f8c064c338dc07",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_3way_complete"
+    },
+    {
+      "bytes": 8988,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "ae83dbc4aa27f3e74b484494012f09e7a894daa59112e8cbfe7ff7e0bd933ccc",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_all"
+    },
+    {
+      "bytes": 9013,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "40c28dfa1d36ddd626cc5b0f8cbe41b8dffead3638a789021529d1e2bbf0f827",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_cna"
+    },
+    {
+      "bytes": 5942,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "a04a807ce5159d7049e853f4c9548c5d733a862af22b11faccad60d093603d4f",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_cna_seq"
+    },
+    {
+      "bytes": 5943,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "10330743b50e0842068021fcfdb1fb7a111ec1cda476661caf606f41c2f6ba82",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_complete_manuscript"
+    },
+    {
+      "bytes": 2688,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "bc759e7b964d24e5a4202cd6613171be7806a06a5b5896d3f453e82792a4d048",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_exp1"
+    },
+    {
+      "bytes": 2266,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "7b646512de3a20e9a311d9606bc161571ec82b45daf455ea6f78a4734533d928",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_exp2"
+    },
+    {
+      "bytes": 2224,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "49941f7aa29218be8be7cb30c4ca899769edf890f2ded1e2c81aa8641e9e253f",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_exp3"
+    },
+    {
+      "bytes": 2750,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "0eb8edfd8532ce253f12064777a961bf7b222cda66ae0268a5c9403ba82d81be",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_exp4"
+    },
+    {
+      "bytes": 8904,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "6a4edb267c16994600c8b6855f949e1a2c63e96888445183b2d163a6bd7f74f7",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_log2CNA"
+    },
+    {
+      "bytes": 2617,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "f882b57cddf15e9b014a8e3ae85ad61965c8516a4e9103f9b4938d9588dbfa80",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_meth1"
+    },
+    {
+      "bytes": 1409,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "124764f8e02789be24155b93b9739bb4cbd1d2d55e0641c99684e03758dd9f8a",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_meth2"
+    },
+    {
+      "bytes": 3067,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "3aaee9a08218864c7f58a8a885851f8f47eaec4d5ebcb0ade3c8206aad8e9eda",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_meth3"
+    },
+    {
+      "bytes": 2743,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "204778532e89ac5536c9098611bad8194bc01626e8bc250d6e761ecd7f5ce8f8",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_meth4"
+    },
+    {
+      "bytes": 9049,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "9eb31deba234415068e796dcb4754eb167e0eaa9d00f71de65f78676c09e5216",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_methylation_all"
+    },
+    {
+      "bytes": 9064,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "51b97eb6869e4faab161abb52fb399839e28bc1a0c43af6ea4b52a105075c6bb",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_methylation_hm27"
+    },
+    {
+      "bytes": 9048,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "0fe45835243e83b8c0577fa16855a7ea9b890a36ddac6d029674eb1228a07ea4",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_microrna"
+    },
+    {
+      "bytes": 9055,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "3e5004d60b88867c27e820fbf06bec7bc5ffa62928b99cec5e270074395f664d",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_mrna"
+    },
+    {
+      "bytes": 5920,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "30dd768b3d176822ad707a226dc94f4277ee4c78f12b3fdc11fcccb104710a3b",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pub_sequenced"
+    },
+    {
+      "bytes": 83072,
+      "reason": "identifier body reduced to a count and SHA-256",
+      "retained": false,
+      "role": "identifier_page",
+      "row_count": 585,
+      "sha256": "847a5bdf65bfe4c792d5533c10634d853155b74e1eec4ebb56a2e8918c1d2ee2",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pan_can_atlas_2018/patients?pageSize=1000&pageNumber=0"
+    },
+    {
+      "bytes": 165561,
+      "reason": "identifier body reduced to a count and SHA-256",
+      "retained": false,
+      "role": "identifier_page",
+      "row_count": 585,
+      "sha256": "11bcc28e4cf72f94826e7a03a25640a3a70f9e57c9cacd25a5878db026d83b10",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pan_can_atlas_2018/samples?pageSize=1000&pageNumber=0"
+    },
+    {
+      "bytes": 3103,
+      "reason": "replaced by projected lists with sampleIds removed",
+      "retained": false,
+      "role": "sample_list_index",
+      "sha256": "9b7624965f1706e41b6f391697ced7be2237cc5692719c9457d6ea53a8553d4c",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pan_can_atlas_2018/sample-lists"
+    },
+    {
+      "bytes": 3911,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "f478eea5c1a16933d46feac3c95cad4400c30ef3cc447cc802314cb2e25cf7b0",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_3way_complete"
+    },
+    {
+      "bytes": 10746,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "4c79a9dcdabf637f6d36ecf516fea89c8fc32830ec5d8bb059fbf2572576da84",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_all"
+    },
+    {
+      "bytes": 10537,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "ab49b8a3622595684bb3d42c2907172cfaac8050be37a546fc6db5e0a613f20b",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_cna"
+    },
+    {
+      "bytes": 7447,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "7faac17667ae26155b5fb01af3b8f099bde13e25443a0ca667c7c40644eaeeb3",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_cnaseq"
+    },
+    {
+      "bytes": 10572,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "643d19f08889dc8a7caf4618bc2fa125d13363bb2fe58d518ae2297ddbcb13af",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_log2CNA"
+    },
+    {
+      "bytes": 10789,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "327b88c86601cf1db35735dd75c3a78c5ba33065e4ccd6d5f6dc32adf9d372b5",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_methylation_all"
+    },
+    {
+      "bytes": 473,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "df03f64f5b02111983253998a90ca74837876c777a9e361ea49a8638eab11bad",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_methylation_hm450"
+    },
+    {
+      "bytes": 1558,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "9591bbe9c495396a0e779ca5e7e05cb354ed4f9dc4e219fcf2b133e80ef7575b",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_phosphoprotein_quantification"
+    },
+    {
+      "bytes": 2452,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "6cd3fb7dd6cd4bf559d3294f061e2dbd56ca85bdbe0c0808d040a3f05243c913",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_protein_quantification"
+    },
+    {
+      "bytes": 5687,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "04cc7a872188d988e145803d66e12a83d9d71d96da7b3284c80606a72b306f63",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_rna_seq_v2_mrna"
+    },
+    {
+      "bytes": 7717,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "a76b27c1fe73e82e763b3cf5649eeeca0ce736551c38f0bfc66b29d7cc665180",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_rppa"
+    },
+    {
+      "bytes": 9676,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "aef7a21994f6aae903c0175223a8ed846429baad623359e5c4b092cfb5d6ae7c",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_sequenced"
+    },
+    {
+      "bytes": 9628,
+      "reason": "sampleIds removed after counting",
+      "retained": false,
+      "role": "sample_list",
+      "sha256": "92608653e4aaf197e44f8e2324807866d73bbdce1316a651b96323677355fb88",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/sample-lists/ov_tcga_pan_can_atlas_2018_sv"
+    }
+  ],
+  "files": [
+    {
+      "kind": "raw",
+      "path": "snapshot/gdc-status.json",
+      "role": "gdc_status",
+      "url": "https://api.gdc.cancer.gov/status"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/gdc-project-tcga-ov.json",
+      "role": "gdc_project",
+      "url": "https://api.gdc.cancer.gov/projects/TCGA-OV?pretty=false&size=0&expand=summary%2Csummary.data_categories%2Csummary.experimental_strategies"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/gdc-cases-facets.json",
+      "role": "gdc_cases_facets",
+      "url": "https://api.gdc.cancer.gov/cases?pretty=false&size=0&filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22project.project_id%22%2C%22value%22%3A%22TCGA-OV%22%7D%7D%5D%7D&facets=disease_type%2Cprimary_site%2Csamples.sample_type%2Csamples.tissue_type"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/gdc-files-open-facets.json",
+      "role": "gdc_files_open_facets",
+      "url": "https://api.gdc.cancer.gov/files?pretty=false&size=0&filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22cases.project.project_id%22%2C%22value%22%3A%22TCGA-OV%22%7D%7D%2C%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22access%22%2C%22value%22%3A%22open%22%7D%7D%5D%7D&facets=data_category%2Cdata_type%2Cexperimental_strategy"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/gdc-files-access-facets.json",
+      "role": "gdc_files_access_facets",
+      "url": "https://api.gdc.cancer.gov/files?pretty=false&size=0&filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22%3D%22%2C%22content%22%3A%7B%22field%22%3A%22cases.project.project_id%22%2C%22value%22%3A%22TCGA-OV%22%7D%7D%5D%7D&facets=access"
+    },
+    {
+      "kind": "projected",
+      "path": "snapshot/cbioportal-info.json",
+      "role": "cbioportal_info",
+      "source_response_sha256": "489eebc96b41d3473bcc1d4249ae37cf98ebd85e5e9b731a8cf718fd67380ebc",
+      "url": "https://www.cbioportal.org/api/info"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/cbioportal-study-ov_tcga.json",
+      "role": "cbioportal_study",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/cbioportal-profiles-ov_tcga.json",
+      "role": "cbioportal_profiles",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga/molecular-profiles"
+    },
+    {
+      "kind": "projected",
+      "path": "snapshot/cbioportal-sample-lists-ov_tcga.json",
+      "role": "cbioportal_sample_lists",
+      "study_id": "ov_tcga",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga/sample-lists"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/cbioportal-study-ov_tcga_pub.json",
+      "role": "cbioportal_study",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pub"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/cbioportal-profiles-ov_tcga_pub.json",
+      "role": "cbioportal_profiles",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pub/molecular-profiles"
+    },
+    {
+      "kind": "projected",
+      "path": "snapshot/cbioportal-sample-lists-ov_tcga_pub.json",
+      "role": "cbioportal_sample_lists",
+      "study_id": "ov_tcga_pub",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pub/sample-lists"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/cbioportal-study-ov_tcga_pan_can_atlas_2018.json",
+      "role": "cbioportal_study",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pan_can_atlas_2018"
+    },
+    {
+      "kind": "raw",
+      "path": "snapshot/cbioportal-profiles-ov_tcga_pan_can_atlas_2018.json",
+      "role": "cbioportal_profiles",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pan_can_atlas_2018/molecular-profiles"
+    },
+    {
+      "kind": "projected",
+      "path": "snapshot/cbioportal-sample-lists-ov_tcga_pan_can_atlas_2018.json",
+      "role": "cbioportal_sample_lists",
+      "study_id": "ov_tcga_pan_can_atlas_2018",
+      "url": "https://www.cbioportal.org/api/studies/ov_tcga_pan_can_atlas_2018/sample-lists"
+    },
+    {
+      "kind": "derived",
+      "note": "Counts and SHA-256 values computed in memory from identifier responses that were not stored.",
+      "path": "snapshot/set-digests.json",
+      "role": "set_digests",
+      "url": null
+    }
+  ],
+  "gdc_api": "https://api.gdc.cancer.gov",
+  "gdc_data_release": "Data Release 46.0 - August 10, 2026",
+  "gdc_tag": "8.5.0",
+  "note": "Aggregate and projected JSON only. Identifier bodies were hashed in memory and not stored. No controlled-access file content was requested. Counts are data availability, not a biological conclusion and not clinical guidance.",
+  "retrieved_completed_utc": "2026-11-13T06:03:41.863445+00:00",
+  "retrieved_started_utc": "2026-11-13T06:03:12.019489+00:00",
+  "schema_version": 1
+}

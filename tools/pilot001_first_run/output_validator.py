@@ -7,6 +7,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from pilot001_first_run.config import DRY_REPETITIONS, REAL_REPETITIONS
+
 TCGA_BARCODE = re.compile(
     r"TCGA-[0-9A-Z]{2}-[0-9A-Z0-9]{4}(?:-[0-9A-Z0-9]{2,})*",
     re.I,
@@ -100,6 +102,20 @@ MAX_LIMITATIONS = 12
 MIN_OUTER_SEED = 1
 MAX_OUTER_SEED = 10_000
 
+PROFILE_DRY = "dry"
+PROFILE_REAL = "real"
+PROFILES = frozenset({PROFILE_DRY, PROFILE_REAL})
+
+# Frozen protocol configuration set: (label, outer_seed_start, xgb_tree_method).
+REAL_CONFIGURATIONS = (
+    ("primary", 1, "exact"),
+    ("sensitivity_xgb_hist", 1, "hist"),
+    ("sensitivity_seed_block_101_200", 101, "exact"),
+)
+REAL_PATIENTS = 135
+REAL_FEATURES = 64
+REAL_POSITIVE_NEGATIVE_PAIRS = 4316
+
 SUMMARY_INT_FIELDS = frozenset(
     {
         "patients",
@@ -189,7 +205,7 @@ def _require_number(value: Any, path: str, errors: list[str]) -> None:
         errors.append(f"type:{path}")
 
 
-def _validate_repetition_auc(item: Any, path: str, errors: list[str]) -> None:
+def _validate_repetition_auc(item: Any, path: str, errors: list[str], profile: str) -> None:
     if isinstance(item, list):
         if len(item) > MAX_NUMERIC_VECTOR and all(
             isinstance(x, (int, float)) and not isinstance(x, bool) for x in item
@@ -203,11 +219,15 @@ def _validate_repetition_auc(item: Any, path: str, errors: list[str]) -> None:
     if not _exact_keys(item, REPETITION_AUC_KEYS, path, errors):
         return
     _require_int(item["count"], f"{path}.count", errors)
+    if profile == PROFILE_REAL:
+        count = item["count"]
+        if isinstance(count, int) and not isinstance(count, bool) and count != REAL_REPETITIONS:
+            errors.append(f"repetitions:{path}.count")
     for key in REPETITION_AUC_FLOAT_KEYS:
         _require_number(item[key], f"{path}.{key}", errors)
 
 
-def _validate_summary(value: Any, path: str, errors: list[str]) -> None:
+def _validate_summary(value: Any, path: str, errors: list[str], profile: str) -> None:
     if not isinstance(value, dict):
         errors.append(f"schema:{path}")
         return
@@ -220,14 +240,31 @@ def _validate_summary(value: Any, path: str, errors: list[str]) -> None:
         if key in SUMMARY_FLOAT_FIELDS:
             _require_number(item, f"{path}.{key}", errors)
         elif key == "repetition_auc":
-            _validate_repetition_auc(item, f"{path}.repetition_auc", errors)
+            _validate_repetition_auc(item, f"{path}.repetition_auc", errors, profile)
         elif key in SUMMARY_INT_FIELDS:
             _require_int(item, f"{path}.{key}", errors)
         elif key in SUMMARY_BOOL_FIELDS:
             _require_bool(item, f"{path}.{key}", errors)
+    expected_repetitions = REAL_REPETITIONS if profile == PROFILE_REAL else DRY_REPETITIONS
+    repetitions = value["repetitions"]
+    if (
+        isinstance(repetitions, int)
+        and not isinstance(repetitions, bool)
+        and repetitions != expected_repetitions
+    ):
+        errors.append(f"repetitions:{path}.repetitions")
+    if profile == PROFILE_REAL:
+        for key, expected in (
+            ("patients", REAL_PATIENTS),
+            ("features", REAL_FEATURES),
+            ("positive_negative_pairs", REAL_POSITIVE_NEGATIVE_PAIRS),
+        ):
+            actual = value[key]
+            if isinstance(actual, int) and not isinstance(actual, bool) and actual != expected:
+                errors.append(f"denominator:{path}.{key}")
 
 
-def _validate_configuration(value: Any, path: str, errors: list[str]) -> None:
+def _validate_configuration(value: Any, path: str, errors: list[str], profile: str) -> None:
     if not isinstance(value, dict):
         errors.append(f"schema:{path}")
         return
@@ -249,7 +286,7 @@ def _validate_configuration(value: Any, path: str, errors: list[str]) -> None:
     if not isinstance(method, str) or method not in ALLOWED_XGB_TREE_METHODS:
         errors.append(f"type:{path}.xgb_tree_method")
     _require_bool(value["metric_formulations_agree"], f"{path}.metric_formulations_agree", errors)
-    _validate_summary(value["summary"], f"{path}.summary", errors)
+    _validate_summary(value["summary"], f"{path}.summary", errors, profile)
 
 
 def _validate_metadata(value: Any, path: str, errors: list[str]) -> None:
@@ -284,7 +321,7 @@ def _validate_amendment(value: Any, path: str, errors: list[str]) -> None:
         errors.append(f"type:{path}.A3")
 
 
-def _validate_root(payload: dict[str, Any], errors: list[str]) -> None:
+def _validate_root(payload: dict[str, Any], errors: list[str], profile: str) -> None:
     path = "root"
     if not _exact_keys(payload, ROOT_KEYS, path, errors):
         return
@@ -315,7 +352,16 @@ def _validate_root(payload: dict[str, Any], errors: list[str]) -> None:
         errors.append(f"configurations_count:{path}")
     else:
         for index, cfg in enumerate(configurations):
-            _validate_configuration(cfg, f"{path}.configurations[{index}]", errors)
+            _validate_configuration(cfg, f"{path}.configurations[{index}]", errors, profile)
+        if profile == PROFILE_REAL:
+            actual = [
+                (cfg.get("label"), cfg.get("outer_seed_start"), cfg.get("xgb_tree_method"))
+                if isinstance(cfg, dict)
+                else None
+                for cfg in configurations
+            ]
+            if actual != list(REAL_CONFIGURATIONS):
+                errors.append(f"configurations_profile:{path}.configurations")
     _validate_metadata(payload["run_metadata"], f"{path}.run_metadata", errors)
     _validate_amendment(payload["amendment_1"], f"{path}.amendment_1", errors)
 
@@ -369,16 +415,22 @@ def _deep_leak_scan(value: Any, path: str, errors: list[str]) -> None:
         _suspicious_string(value, path, errors)
 
 
-def validate_aggregate_document(payload: dict[str, Any]) -> list[str]:
+def validate_aggregate_document(payload: dict[str, Any], profile: str) -> list[str]:
+    if profile not in PROFILES:
+        return ["profile:root"]
     errors: list[str] = []
     if not isinstance(payload, dict):
         return ["schema:root"]
-    _validate_root(payload, errors)
+    _validate_root(payload, errors, profile)
     _deep_leak_scan(payload, "root", errors)
     return errors
 
 
-def validate_output_dir(output_dir: Path, declared_files: frozenset[str]) -> list[str]:
+def validate_output_dir(
+    output_dir: Path, declared_files: frozenset[str], profile: str
+) -> list[str]:
+    if profile not in PROFILES:
+        return ["profile:root"]
     errors: list[str] = []
     if not output_dir.is_dir():
         return ["missing_output_dir"]
@@ -399,5 +451,7 @@ def validate_output_dir(output_dir: Path, declared_files: frozenset[str]) -> lis
             errors.append(f"invalid_json:{name}")
             continue
         if name == aggregate_name:
-            errors.extend(f"{name}:{item}" for item in validate_aggregate_document(payload))
+            errors.extend(
+                f"{name}:{item}" for item in validate_aggregate_document(payload, profile)
+            )
     return errors

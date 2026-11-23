@@ -20,8 +20,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Claims ledger and SHA-256 manifests
+        run: |
+          python3 tools/export_claims_ledger.py --check
+          python3 tools/check_sha256_manifests.py
+
       - name: Frozen trial-landscape aggregate
         run: python3 results/trial-landscape-2026-11-05/verify.py
+
+      - name: Integrity checker audit
+        run: python3 results/integrity-audit-2026-11-13/verify.py
 
       - name: Check tracked study sources
         run: python3 tools/check_tracked_study_sources.py

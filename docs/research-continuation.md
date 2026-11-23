@@ -1,5 +1,10 @@
 # Research preservation and continuation
 
+**Denominator check: [TCGA-OV cohort reconciliation, 2026-11-13 UTC](tcga-ov-cohort-reconciliation-20261113.md).** Open GDC and cBioPortal counts for the 608 and 489 figures already cited in the directions log. Data-availability counts only. It does not replace the atlas below and it is not clinical guidance.
+
+**Latest executed catalog check: [CDR2/CDR2L public evidence atlas, 2026-11-13](cdr2-cdr2l-evidence-atlas-2026-11-13.md).** Two independent readers re-derive 7 CDR2 and 2 CDR2L class-II assay annotations from a pinned snapshot, plus UniProt identity and public expression counts. The nine annotations match the 2026-11-05 audit. Receptor recognition and injury remain open.
+
+**Prior executed catalog check: [CDR2L named-sequence adjudication](cdr2l-sequence-adjudication-2026-11-06.md).** Two curated peptides match their CDR2L coordinates and do not match the explicitly checked CDR2 reference. Broad database uniqueness remains unresolved; spectra, allotype and receptor evidence remain the next questions.
 **Cross-repository reassessment, 12 November 2026:** [from plausible explanations to discriminating tests](ecosystem-research-fit-2026-11-12.md). Current Asma and Virtual Human state, Soko search/checker patterns, Proven Commons statement-review lessons, and bounded proposed next steps. Static assessment; no new study execution or dependency adoption.
 
 **Latest executed catalog check: [CDR2L named-sequence adjudication](cdr2l-sequence-adjudication-2026-11-06.md).** Two curated peptides match their CDR2L coordinates and do not match the explicitly checked CDR2 reference. Broad database uniqueness remains unresolved; spectra, allotype and receptor evidence remain the next questions.
@@ -20,7 +25,10 @@ below remains the dated record of the first exploration.
 
 **Latest recruiting trial-landscape snapshot: [2026-11-05 America/Chicago](trial-landscape-2026-11-05.md).**
 Finite ClinicalTrials.gov metadata counts, aggregate certificate and replay
-commands; not trial outcomes or eligibility.
+commands; not trial outcomes or eligibility. A later all-status interventional
+snapshot, [2026-11-13 UTC](trial-landscape-v2-2026-11-13.md), does not replace
+it. That later note counts registrations and states that an NCT-level diff
+against the 2026-11-05 certificate is not reconstructable.
 
 **Snapshot: 2026-11-04.** This is the entry point for the expanded research
 review. It preserves appropriate public evidence, concise decision rationale,

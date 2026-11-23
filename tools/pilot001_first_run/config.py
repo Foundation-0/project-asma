@@ -13,6 +13,10 @@ MANIFEST = ROOT / "registries/pilot-001-first-run-input-manifest.json"
 
 HOSTS = frozenset({"linux-ci", "macos"})
 
+# Frozen protocol scale for real runs; dry runs are smoke-only.
+REAL_REPETITIONS = 100
+DRY_REPETITIONS = 5
+
 
 @dataclass(frozen=True)
 class InputPin:

@@ -4,8 +4,8 @@
 Static assessment of current public code, reports and review state. No upstream
 solver, Lean proof, study-source analysis or patient model was executed. This
 record preserves a research recommendation, not adoption or a new biological
-finding. Source observations are **KNOWN (K38)**; proposed transfers and their
-expected value are **CONJECTURE (C24)**.
+finding. Source observations are **KNOWN (K46)**; proposed transfers and their
+expected value are **CONJECTURE (C27)**.
 
 ## Recommendation
 
@@ -228,7 +228,7 @@ explicitly corrects. Do not import performance headlines as Asma predictions.
 
 ## Preservation and verification
 
-Primary code/report pointers and inspection limits are recorded as S136–S143 in
+Primary code/report pointers and inspection limits are recorded as S177–S184 in
 [the source registry](../registries/sources.json). Source credit belongs to the
 linked repositories' authors, with Rohan Arun's Virtual Human lineage retained.
 The user pointed out these projects in this session; that discovery pointer is
@@ -254,7 +254,7 @@ The assessment branch was refreshed against main
 `0d8a9418596ab64d337c15e0e3f1fb6e870eb9e3`, which now includes merged
 [#66](https://github.com/Foundation-0/project-asma/pull/66) and
 [#67](https://github.com/Foundation-0/project-asma/pull/67). Their source records
-and claims are retained alongside this assessment's S136–S143, K38 and C24.
+and claims are retained alongside this assessment's S177–S184, K46 and C27.
 The dated inspection pins, original review status and reported test evidence
 above remain historical; this integration does not re-audit those studies.
 

@@ -10,6 +10,7 @@ import hashlib
 import json
 from pathlib import Path
 import ssl
+import sys
 import urllib.request
 
 try:
@@ -150,12 +151,55 @@ def live(certificate_path):
     return result
 
 
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_CERT = ROOT / 'registries/cdr2l-spectrum-locator-2026-11-06.json'
+DEFAULT_ID = ROOT / 'registries/cdr2l-source-identification-2026-11-06.json'
+
+# Hash of this file when the 2026-11-06 spectrum locator certificate was produced.
+PRODUCING_SCRIPT_SHA256 = '41cf8988d1fbc6a7ccbda09a2cdbc80cbdbc8d099ead661a996536120be8a7c3'
+PINNED_IDENTIFICATION_CERTIFICATE_SHA256 = (
+    '943f25251323f288069bc03046dde569e46ddca88ca2cb1cd541d20f764be4cf'
+)
+PINNED_MGF_SHA256 = '19221e28bf764c2a1030ccafb1531150982e863f71ad6525b71215bd94c2f974'
+
+
+def check_certificate(path: Path, identification: Path) -> None:
+    require(path.is_file(), f'missing certificate {path}')
+    require(identification.is_file(), f'missing identification certificate {identification}')
+    report = json.loads(path.read_text(encoding='utf-8'))
+    stored_impl = report.get('implementation_sha256')
+    current_impl = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    require(stored_impl in {current_impl, PRODUCING_SCRIPT_SHA256}, 'implementation_sha256 mismatch')
+    id_digest = hashlib.sha256(identification.read_bytes()).hexdigest()
+    require(id_digest == PINNED_IDENTIFICATION_CERTIFICATE_SHA256, 'identification certificate drift')
+    require(report.get('identification_certificate_sha256') == id_digest, 'identification digest mismatch')
+    selected = report.get('selected_spectrum') or {}
+    require(report.get('complete') is True and report.get('bytes') == SIZE and report.get('sha1') == SHA1,
+            'source pin drift')
+    require(report.get('sha256') == PINNED_MGF_SHA256, 'source pin drift')
+    require(selected.get('zero_based_index') == INDEX, 'spectrum index mismatch')
+    require(len(selected.get('peaks') or []) == 173, 'peak count mismatch')
+    meta = selected.get('metadata') or {}
+    require(meta.get('SCANS') == '23848' and meta.get('CHARGE') == '3+'
+            and meta.get('PEPMASS') == '614.999', 'metadata mismatch')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--live', action='store_true')
-    parser.add_argument('--identification-certificate', type=Path)
+    parser.add_argument('--check', action='store_true', help='Verify the committed spectrum locator certificate offline')
+    parser.add_argument('--certificate', type=Path, default=DEFAULT_CERT)
+    parser.add_argument('--identification-certificate', type=Path, default=DEFAULT_ID)
     parser.add_argument('--output', type=Path)
     args = parser.parse_args()
+    if args.check:
+        try:
+            check_certificate(args.certificate, args.identification_certificate)
+        except ValueError as error:
+            print(f'FAIL: {error}', file=sys.stderr)
+            return 1
+        print('PASS: offline spectrum locator certificate digest and linkage')
+        return 0
     if not args.live:
         parser.print_help(); return 0
     require(args.identification_certificate and args.output, 'certificate and new output required')

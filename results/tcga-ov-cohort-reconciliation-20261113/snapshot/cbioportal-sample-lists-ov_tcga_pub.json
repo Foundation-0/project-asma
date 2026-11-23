@@ -1,0 +1,176 @@
+{
+  "lists": [
+    {
+      "category": "all_cases_with_mutation_and_cna_and_mrna_data",
+      "description": "Samples with mutation, CNA and expression data (316 samples)",
+      "name": "Complete samples",
+      "sampleCount": 316,
+      "sampleListId": "ov_tcga_pub_3way_complete",
+      "sample_id_count": 316,
+      "source_response_sha256": "27fc85bcfefa1e4ff8cafaeb6f340851206518ed7ed6fe1ed0f8c064c338dc07"
+    },
+    {
+      "category": "all_cases_in_study",
+      "description": "All samples (489 samples)",
+      "name": "All samples",
+      "sampleCount": 489,
+      "sampleListId": "ov_tcga_pub_all",
+      "sample_id_count": 489,
+      "source_response_sha256": "ae83dbc4aa27f3e74b484494012f09e7a894daa59112e8cbfe7ff7e0bd933ccc"
+    },
+    {
+      "category": "all_cases_with_cna_data",
+      "description": "Samples with CNA data (489 samples)",
+      "name": "Samples with CNA data",
+      "sampleCount": 489,
+      "sampleListId": "ov_tcga_pub_cna",
+      "sample_id_count": 489,
+      "source_response_sha256": "40c28dfa1d36ddd626cc5b0f8cbe41b8dffead3638a789021529d1e2bbf0f827"
+    },
+    {
+      "category": "all_cases_with_mutation_and_cna_data",
+      "description": "Samples with mutation and CNA data (316 samples)",
+      "name": "Samples with mutation and CNA data",
+      "sampleCount": 316,
+      "sampleListId": "ov_tcga_pub_cna_seq",
+      "sample_id_count": 316,
+      "source_response_sha256": "a04a807ce5159d7049e853f4c9548c5d733a862af22b11faccad60d093603d4f"
+    },
+    {
+      "category": "other",
+      "description": "All tumor samples that have mRNA, CNA, methylation and sequencing data (316 samples)",
+      "name": "Manuscript samples",
+      "sampleCount": 316,
+      "sampleListId": "ov_tcga_pub_complete_manuscript",
+      "sample_id_count": 316,
+      "source_response_sha256": "10330743b50e0842068021fcfdb1fb7a111ec1cda476661caf606f41c2f6ba82"
+    },
+    {
+      "category": "other",
+      "description": "Tumors assigned to \"Fallopian\" expression cluster, as described in the 2011 Nature manuscript (134 samples).",
+      "name": "Expression Cluster Fallopian",
+      "sampleCount": 134,
+      "sampleListId": "ov_tcga_pub_exp1",
+      "sample_id_count": 134,
+      "source_response_sha256": "bc759e7b964d24e5a4202cd6613171be7806a06a5b5896d3f453e82792a4d048"
+    },
+    {
+      "category": "other",
+      "description": "Tumors assigned to \"Immunoreactive\" expression cluster, as described in the 2011 Nature manuscript (110 samples).",
+      "name": "Expression Cluster Immunoreactive",
+      "sampleCount": 110,
+      "sampleListId": "ov_tcga_pub_exp2",
+      "sample_id_count": 110,
+      "source_response_sha256": "7b646512de3a20e9a311d9606bc161571ec82b45daf455ea6f78a4734533d928"
+    },
+    {
+      "category": "other",
+      "description": "Tumors assigned to \"Mesenchymal\" expression cluster, as described in the 2011 Nature manuscript (108 samples).",
+      "name": "Expression Cluster Mesenchymal",
+      "sampleCount": 108,
+      "sampleListId": "ov_tcga_pub_exp3",
+      "sample_id_count": 108,
+      "source_response_sha256": "49941f7aa29218be8be7cb30c4ca899769edf890f2ded1e2c81aa8641e9e253f"
+    },
+    {
+      "category": "other",
+      "description": "Tumors assigned to \"Proliferative\" expression cluster, as described in the 2011 Nature manuscript (137 samples).",
+      "name": "Expression Cluster Proliferative",
+      "sampleCount": 137,
+      "sampleListId": "ov_tcga_pub_exp4",
+      "sample_id_count": 137,
+      "source_response_sha256": "0eb8edfd8532ce253f12064777a961bf7b222cda66ae0268a5c9403ba82d81be"
+    },
+    {
+      "category": "all_cases_with_log2_cna_data",
+      "description": "Samples with log2 copy-number data (481 samples)",
+      "name": "Samples with log2 copy-number data",
+      "sampleCount": 481,
+      "sampleListId": "ov_tcga_pub_log2CNA",
+      "sample_id_count": 481,
+      "source_response_sha256": "6a4edb267c16994600c8b6855f949e1a2c63e96888445183b2d163a6bd7f74f7"
+    },
+    {
+      "category": "other",
+      "description": "Tumors assigned to methylation cluster 1, as described in the 2011 Nature manuscript (131 samples).",
+      "name": "Methylation cluster 1",
+      "sampleCount": 131,
+      "sampleListId": "ov_tcga_pub_meth1",
+      "sample_id_count": 131,
+      "source_response_sha256": "f882b57cddf15e9b014a8e3ae85ad61965c8516a4e9103f9b4938d9588dbfa80"
+    },
+    {
+      "category": "other",
+      "description": "Tumors assigned to methylation cluster 2, as described in the 2011 Nature manuscript (64 samples).",
+      "name": "Methylation cluster 2",
+      "sampleCount": 64,
+      "sampleListId": "ov_tcga_pub_meth2",
+      "sample_id_count": 64,
+      "source_response_sha256": "124764f8e02789be24155b93b9739bb4cbd1d2d55e0641c99684e03758dd9f8a"
+    },
+    {
+      "category": "other",
+      "description": "Tumors assigned to methylation cluster 3, as described in the 2011 Nature manuscript (156 samples).",
+      "name": "Methylation cluster 3",
+      "sampleCount": 156,
+      "sampleListId": "ov_tcga_pub_meth3",
+      "sample_id_count": 156,
+      "source_response_sha256": "3aaee9a08218864c7f58a8a885851f8f47eaec4d5ebcb0ade3c8206aad8e9eda"
+    },
+    {
+      "category": "other",
+      "description": "Tumors assigned to methylation cluster 4, as described in the 2011 Nature manuscript (138 samples).",
+      "name": "Methylation cluster 4",
+      "sampleCount": 138,
+      "sampleListId": "ov_tcga_pub_meth4",
+      "sample_id_count": 138,
+      "source_response_sha256": "204778532e89ac5536c9098611bad8194bc01626e8bc250d6e761ecd7f5ce8f8"
+    },
+    {
+      "category": "all_cases_with_methylation_data",
+      "description": "Samples with methylation data (489 samples)",
+      "name": "Samples with methylation data",
+      "sampleCount": 489,
+      "sampleListId": "ov_tcga_pub_methylation_all",
+      "sample_id_count": 489,
+      "source_response_sha256": "9eb31deba234415068e796dcb4754eb167e0eaa9d00f71de65f78676c09e5216"
+    },
+    {
+      "category": "all_cases_with_methylation_data",
+      "description": "Samples with methylation data (HM27) (489 samples)",
+      "name": "Samples with methylation data (HM27)",
+      "sampleCount": 489,
+      "sampleListId": "ov_tcga_pub_methylation_hm27",
+      "sample_id_count": 489,
+      "source_response_sha256": "51b97eb6869e4faab161abb52fb399839e28bc1a0c43af6ea4b52a105075c6bb"
+    },
+    {
+      "category": "all_cases_with_microrna_data",
+      "description": "Samples with microRNA data (489 samples)",
+      "name": "Samples with microRNA data (microRNA-Seq)",
+      "sampleCount": 489,
+      "sampleListId": "ov_tcga_pub_microrna",
+      "sample_id_count": 489,
+      "source_response_sha256": "0fe45835243e83b8c0577fa16855a7ea9b890a36ddac6d029674eb1228a07ea4"
+    },
+    {
+      "category": "all_cases_with_mrna_array_data",
+      "description": "Samples with mRNA expression data (489 samples)",
+      "name": "Samples with mRNA data (Agilent microarray)",
+      "sampleCount": 489,
+      "sampleListId": "ov_tcga_pub_mrna",
+      "sample_id_count": 489,
+      "source_response_sha256": "3e5004d60b88867c27e820fbf06bec7bc5ffa62928b99cec5e270074395f664d"
+    },
+    {
+      "category": "all_cases_with_mutation_data",
+      "description": "Samples with mutation data (316 samples)",
+      "name": "Samples with mutation data",
+      "sampleCount": 316,
+      "sampleListId": "ov_tcga_pub_sequenced",
+      "sample_id_count": 316,
+      "source_response_sha256": "30dd768b3d176822ad707a226dc94f4277ee4c78f12b3fdc11fcccb104710a3b"
+    }
+  ],
+  "study_id": "ov_tcga_pub"
+}
