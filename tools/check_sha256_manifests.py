@@ -31,7 +31,7 @@ def parse_sums(path: Path) -> dict[str, str]:
             raise ValueError(f"{path}:{lineno}: invalid digest")
         if name in table:
             raise ValueError(f"{path}:{lineno}: duplicate path {name}")
-        target = (ROOT / name) if name.startswith(("protocols/", "tools/", "results/", "registries/")) else path.parent / name
+        target = (ROOT / name) if name.startswith(("protocols/", "tools/", "tests/", "results/", "registries/")) else path.parent / name
         if not target.is_file():
             raise ValueError(f"{path}:{lineno}: missing file {name}")
         got = sha256_bytes(target.read_bytes())
