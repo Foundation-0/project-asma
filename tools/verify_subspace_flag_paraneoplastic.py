@@ -39,20 +39,25 @@ MONO_AA_MASS = {
 }
 
 
+def require(cond: bool, label: str = "check") -> None:
+    if not cond:
+        raise RuntimeError(f"verification failed: {label}")
+
+
 def verify_cdr2l_mhc2_core_bifurcation() -> Dict[str, object]:
-    assert len(CDR2L_Q86X02) == 465
-    assert len(CDR2_Q01850) == 454
-    assert hashlib.md5(CDR2L_Q86X02.encode("ascii")).hexdigest().upper() == "03593414DBB55B4A7F44D99B348723F3"
-    assert hashlib.md5(CDR2_Q01850.encode("ascii")).hexdigest().upper() == "CCD9FF24C811DAD3EB3D1007AC803946"
+    require(len(CDR2L_Q86X02) == 465)
+    require(len(CDR2_Q01850) == 454)
+    require(hashlib.md5(CDR2L_Q86X02.encode("ascii")).hexdigest().upper() == "03593414DBB55B4A7F44D99B348723F3")
+    require(hashlib.md5(CDR2_Q01850.encode("ascii")).hexdigest().upper() == "CCD9FF24C811DAD3EB3D1007AC803946")
 
     ep1 = CDR2L_Q86X02[431:446]
     ep2 = CDR2L_Q86X02[444:464]
-    assert ep1 == "SQPEYKALFKEIFSR"
-    assert ep2 == "SRIQKTKADINATKVKTHSS"
+    require(ep1 == "SQPEYKALFKEIFSR")
+    require(ep2 == "SRIQKTKADINATKVKTHSS")
 
     cdr2_12mers = {CDR2_Q01850[j : j + 12] for j in range(len(CDR2_Q01850) - 11)}
     shared_12mers = [CDR2L_Q86X02[i : i + 12] for i in range(len(CDR2L_Q86X02) - 11) if CDR2L_Q86X02[i : i + 12] in cdr2_12mers]
-    assert shared_12mers == ["NEQHAKVYEQLD", "PEYKALFKEIFS"]
+    require(shared_12mers == ["NEQHAKVYEQLD", "PEYKALFKEIFS"])
 
     def best_9mer_match(core9: str) -> int:
         return max(
@@ -62,15 +67,15 @@ def verify_cdr2l_mhc2_core_bifurcation() -> Dict[str, object]:
 
     ep1_cores = [best_9mer_match(ep1[k : k + 9]) for k in range(len(ep1) - 8)]
     ep2_cores = [best_9mer_match(ep2[k : k + 9]) for k in range(len(ep2) - 8)]
-    assert ep1_cores.count(9) == 4
-    assert max(ep2_cores) == 5
+    require(ep1_cores.count(9) == 4)
+    require(max(ep2_cores) == 5)
 
     y1_cdr2l_arg = round(MONO_AA_MASS["R"] + 18.01056 + 1.00728, 5)
     y1_cdr2_cys = round(MONO_AA_MASS["C"] + 18.01056 + 1.00728, 5)
-    assert abs((y1_cdr2l_arg - y1_cdr2_cys) - 53.09192) < 1e-4
+    require(abs((y1_cdr2l_arg - y1_cdr2_cys) - 53.09192) < 1e-4)
 
     p_pf27644 = Fraction(34, 451) * Fraction(29, 446)
-    assert p_pf27644 == Fraction(493, 100573)
+    require(p_pf27644 == Fraction(493, 100573))
 
     return {
         "cdr2l_432_446_peptide": ep1,
@@ -140,8 +145,8 @@ def verify_c15_monoid_and_offset_saturation() -> Dict[str, object]:
     grid = [Fraction(0, 1), Fraction(1, 20), Fraction(1, 10), Fraction(1, 5), Fraction(3, 8), Fraction(2, 5), Fraction(3, 4), Fraction(1, 1)]
     ref = [survival_three_pathway(p, r_true, Fraction(1, 4), Fraction(0, 1)) for p in grid]
     for c1, a2 in worlds_c15:
-        assert demorgan_combine(c1, a2) == Fraction(1, 4)
-        assert [survival_three_pathway(p, r_true, c1, a2) for p in grid] == ref
+        require(demorgan_combine(c1, a2) == Fraction(1, 4))
+        require([survival_three_pathway(p, r_true, c1, a2) for p in grid] == ref)
 
     rec = recover_three_pathway_via_flag(
         survival_three_pathway(Fraction(0, 1), r_true, Fraction(0, 1), Fraction(1, 8)),
@@ -149,7 +154,7 @@ def verify_c15_monoid_and_offset_saturation() -> Dict[str, object]:
         Fraction(3, 8),
         survival_three_pathway(Fraction(3, 8), r_true, Fraction(1, 7), Fraction(1, 8)),
     )
-    assert rec == (Fraction(11, 1), Fraction(1, 7), Fraction(1, 8))
+    require(rec == (Fraction(11, 1), Fraction(1, 7), Fraction(1, 8)))
 
     snap_worlds = [
         (Fraction(16, 1), Fraction(0, 1)),
@@ -170,18 +175,18 @@ def verify_c15_monoid_and_offset_saturation() -> Dict[str, object]:
     b_2pct = all4_min(Fraction(1, 50), Fraction(3, 8))
     b_1pct = all4_min(Fraction(1, 100), Fraction(1, 3))
     b_zero = all4_min(Fraction(0, 1), Fraction(2, 7))
-    assert b_pr78 == Fraction(3, 448)
-    assert b_pr83 == Fraction(10179, 563920)
-    assert b_2pct == Fraction(152579, 4189120)
-    assert b_1pct == Fraction(20467, 430560)
-    assert b_zero == Fraction(3, 40)
+    require(b_pr78 == Fraction(3, 448))
+    require(b_pr83 == Fraction(10179, 563920))
+    require(b_2pct == Fraction(152579, 4189120))
+    require(b_1pct == Fraction(20467, 430560))
+    require(b_zero == Fraction(3, 40))
 
     noise = Fraction(1, 60)
     alpha_crit_pr83 = Fraction(1, 1) - noise / b_pr83
     alpha_crit_2pct = Fraction(1, 1) - noise / b_2pct
     alpha_crit_zero = Fraction(1, 1) - noise / b_zero
-    assert alpha_crit_pr83 == Fraction(2341, 30537)
-    assert alpha_crit_zero == Fraction(7, 9)
+    require(alpha_crit_pr83 == Fraction(2341, 30537))
+    require(alpha_crit_zero == Fraction(7, 9))
 
     return {
         "monoid_collision_worlds_verified": 3,
@@ -213,8 +218,8 @@ def verify_soko_ilp_minimal_assays() -> Dict[str, object]:
         if len(sigs) == 6:
             valid_by_size.setdefault(len(picked), []).append([a[0] for a in picked])
     min_k = min(valid_by_size)
-    assert min_k == 3
-    assert 1 not in valid_by_size and 2 not in valid_by_size
+    require(min_k == 3)
+    require(1 not in valid_by_size and 2 not in valid_by_size)
     return {
         "minimal_assay_cardinality": min_k,
         "optimal_three_assay_sets": valid_by_size[min_k],
@@ -241,14 +246,14 @@ def verify_paraneoplastic_cascade_gate() -> Dict[str, object]:
 
     for b0 in (50, 100, 240):
         x0 = [b0, 0, 0, 0]
-        assert mat_vec_int(m1_u, x0)[3] == 0
-        assert mat_vec_int(m2, x0)[3] == 0
+        require(mat_vec_int(m1_u, x0)[3] == 0)
+        require(mat_vec_int(m2, x0)[3] == 0)
         rev = mat_vec_int(m1_u, mat_vec_int(m2, x0))
         fwd_u = mat_vec_int(m2, mat_vec_int(m1_u, x0))
         fwd_g = mat_vec_int(m2, mat_vec_int(m1_g, x0))
-        assert rev[3] == 0 and rev[0] == 48 * b0
-        assert fwd_u[3] == 12 * b0 and fwd_u[0] == 33 * b0
-        assert fwd_g[3] == 0 and fwd_g[0] == 33 * b0
+        require(rev[3] == 0 and rev[0] == 48 * b0)
+        require(fwd_u[3] == 12 * b0 and fwd_u[0] == 33 * b0)
+        require(fwd_g[3] == 0 and fwd_g[0] == 33 * b0)
 
     return {
         "residual_tumor_pct_reversed": 48.0,
@@ -324,11 +329,11 @@ def exact_c22_mann_whitney_distribution() -> Tuple[Fraction, Fraction]:
         dp = ndp
     dist = dp[(13, 8)]
     tot = sum(dist.values())
-    assert tot == 203490
+    require(tot == 203490)
     p_ge_76 = Fraction(sum(c for u, c in dist.items() if u >= 76), tot)
     p_ge_75 = Fraction(sum(c for u, c in dist.items() if u >= 75), tot)
-    assert p_ge_76 == Fraction(302, 6783)
-    assert p_ge_75 == Fraction(10601, 203490)
+    require(p_ge_76 == Fraction(302, 6783))
+    require(p_ge_75 == Fraction(10601, 203490))
     return p_ge_76, p_ge_75
 
 

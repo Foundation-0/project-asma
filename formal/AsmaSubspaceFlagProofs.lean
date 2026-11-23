@@ -42,7 +42,7 @@ theorem c15_three_worlds_indistinguishable_all_mixtures :
 theorem c15_three_stage_flag_unique_recovery :
     survival3Num 0 1 11 1 0 1 1 8 * 8 = 1 * survival3Den 0 1 11 1 1 8 ∧
     survival3Num 0 1 11 1 1 7 1 8 * 4 = 1 * survival3Den 0 1 11 1 7 8 ∧
-    survival3Num 3 8 11 1 1 7 1 8 * 284 = 247 * survival3Den 3 8 11 1 7 8 ∧
+    survival3Num 3 8 11 1 1 7 1 8 * 152 = 137 * survival3Den 3 8 11 1 7 8 ∧
     (2 * 1 - 1) * 7 = 1 * (8 - 1) := by
   decide
 
@@ -92,7 +92,7 @@ def maxNineMerMatchIn (probe9 target : List Nat) : Nat :=
     0
 
 theorem cdr2l_c_terminal_mhc2_core_bifurcation :
-    sliceNat cdr2lCTerm 2 12 = sliceNat cdr2CTerm 2 12 ∧
+    sliceNat cdr2lCTerm 2 12 = sliceNat cdr2CTerm 3 12 ∧
     maxNineMerMatchIn (sliceNat cdr2lCTerm 2 9) cdr2CTerm = 9 ∧
     maxNineMerMatchIn (sliceNat cdr2lCTerm 3 9) cdr2CTerm = 9 ∧
     maxNineMerMatchIn (sliceNat cdr2lCTerm 4 9) cdr2CTerm = 9 ∧

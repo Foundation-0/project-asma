@@ -2,7 +2,7 @@
 # Five-Path Subspace-Flag, Epitope-Core, Assay-ILP, Cascade, and N=1 Calibration Synthesis (2026-11-13)
 
 - **Author / Agent Disclosure:** Contributed by `mithrax-exo` with AI assistance (Gemini).
-- **Epistemic Scope (`CONTRIBUTING.md` & `CLAIMS.md`):** All mathematical theorems (`formal/AsmaSubspaceFlagProofs.lean`, 12 stock Lean 4 theorems, zero `sorry`) carry `PROVEN` status on synthetic algebraic models, and all sequence/immunopeptidomic/simulation audits (`tools/verify_subspace_flag_paraneoplastic.py`, SHA-256 `65d72fe7c88c98116fb11f5b5ac7db33c3f3d6b033f9e8de71f2fe4fae87cfe3`, `tests/test_subspace_flag_paraneoplastic.py`) carry `VERIFIED` deterministic replay status on canonical UniProt sequences (`Q86X02`, `Q01850`) and synthetic fixtures. None of these results claim clinical cohort validation of open `CONJECTURE` items (`C01`-`C24`).
+- **Epistemic Scope (`CONTRIBUTING.md` & `CLAIMS.md`):** All mathematical theorems (`formal/AsmaSubspaceFlagProofs.lean`, stock Lean 4, zero `sorry`) are exact kernel-checked identities on synthetic algebraic models (the CLAIMS ledger keeps `PROVEN` at 0; no ledger rows are added here), and all sequence/immunopeptidomic/simulation audits (`tools/verify_subspace_flag_paraneoplastic.py`, SHA-256 `20cd7bc20766aa4576514061639ff39786a809309efdbe9cf3431f12f17da88f`, `tests/test_subspace_flag_paraneoplastic.py`) carry `VERIFIED` deterministic replay status on canonical UniProt sequences (`Q86X02`, `Q01850`) and synthetic fixtures. None of these results claim clinical cohort validation of open `CONJECTURE` items (`C01`-`C24`).
 
 ## 1. Path 1 - CDR2L / CDR2 9-Mer MHC-II Core Bifurcation & R446/C436 Cleavage Switch (`C09`, `C11`, `C15`, `C16`, `C24`, Issue #71)
 
@@ -15,7 +15,7 @@
 
 ## 2. Path 2 - C15 De Morgan Monoid Collapse, 2341/30537 Bleed Cliff, & 3/40 Global Seed Supremum (PR #78 & PR #83)
 
-- **Exact Monoid Collapse (`c15_paralog_bleed_monoid_collapse`):** Under direct selection `r`, indirect APC delivery `c1`, and `CDR2` paralog bleed `a2` (`C15`), `y(p, r, c1, a2) = (1 - a2) * q(p, r, c1) + a2 = q(p, r, c1 + a2 - c1 * a2)` for every `p in [0, 1]`. Distinct `(c1, a2)` pairs `(1/4, 0)`, `(0, 1/4)`, and `(1/7, 1/8)` are unidentifiable across all bulk mixtures `p in [0, 1]` including `p = 0` (`y(0) = 1/4`), whereas a 3-stage flag (`V0` APC-free `p = 0` -> `1/8`, `V1` APC-intact `p = 0` -> `1/4`, `V2` `p = 3/8` -> `247/284`) uniquely recovers `(r = 11, c1 = 1/7, a2 = 1/8)` (`three_stage_flag_identifiability`).
+- **Exact Monoid Collapse (`c15_paralog_bleed_monoid_collapse`):** Under direct selection `r`, indirect APC delivery `c1`, and `CDR2` paralog bleed `a2` (`C15`), `y(p, r, c1, a2) = (1 - a2) * q(p, r, c1) + a2 = q(p, r, c1 + a2 - c1 * a2)` for every `p in [0, 1]`. Distinct `(c1, a2)` pairs `(1/4, 0)`, `(0, 1/4)`, and `(1/7, 1/8)` are unidentifiable across all bulk mixtures `p in [0, 1]` including `p = 0` (`y(0) = 1/4`), whereas a 3-stage flag (`V0` APC-free `p = 0` -> `1/8`, `V1` APC-intact `p = 0` -> `1/4`, `V2` `p = 3/8` -> `137/152`) uniquely recovers `(r = 11, c1 = 1/7, a2 = 1/8)` (`three_stage_flag_identifiability`).
 - **Offset-Saturation Seed Design (`two_pct_seed_beats_five_pct` & `zero_seed_hits_three_fortieths_ceiling`):** Under PR #78's exact offset+noise model (`|b| <= 1/20`, `|e_a| <= 1/60`):
   - PR #78 `(1/10, 2/5)`: `eps* = 3/448 = 0.006696` (`0%` bleed tolerance at `1/60` noise).
   - PR #83 `(1/20, 3/8)`: `eps* = 10179/563920 = 0.018050` (`2341/30537 = 7.67%` max `CDR2` bleed cliff).
@@ -47,7 +47,7 @@ project_beta_onto_qc_nullspace <- function(beta_hat, W_qc) {
 ```
 
 Date: 2026-11-13
-Status: Synthetic mathematical proofs (`PROVEN` in `formal/AsmaSubspaceFlagProofs.lean`) and deterministic replay checks (`VERIFIED` in `tools/verify_subspace_flag_paraneoplastic.py`). Does not claim clinical or study-data validation of open conjectures in `CLAIMS.md`.
+Status: Synthetic exact Lean identities (`formal/AsmaSubspaceFlagProofs.lean`; ledger `PROVEN` stays 0) and deterministic replay checks (`tools/verify_subspace_flag_paraneoplastic.py`). Sampled sections (seeded simulation/AUROC floats) are `sampled`, not exact. Does not claim clinical or study-data validation of open conjectures in `CLAIMS.md`.
 
 ## 1. Three Verified Results
 
