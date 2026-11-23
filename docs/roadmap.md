@@ -40,7 +40,12 @@ execution-condition checks on the rebuilt combined runtime. It closes the
 post-October-27 fixture rerun and cgroup-probe gaps; it uses artificial inputs
 only and does not close every Gate 0 item or the attestation, macOS preflight,
 A2 option B and A3 steps still open after the
-[2026-11-05 Gate 0 record](#pilot-001--gate-0-owner-decisions-2026-11-05). The [source-adapter report](pilot-001-source-adapter.md) records the
+[2026-11-05 Gate 0 record](#pilot-001--gate-0-owner-decisions-2026-11-05).
+*Status corrected 2026-11-08: Amendment 1 mechanisms have since landed; the
+[pre-run readiness audit](pilot-001-pre-run-readiness-2026-11-08.md) records
+per-item verdicts and the conformance gaps that remain. Statements in this
+roadmap describing A2 option B or A3 implementation as outstanding are
+superseded by that audit.* The [source-adapter report](pilot-001-source-adapter.md) records the
 commands, hashes and remaining unknowns. The same day's
 [GitHub source check](pilot-001-open-questions.md#github-follow-up-2026-11-04)
 found no new upstream input release. Software preparation and bounded public
@@ -131,7 +136,10 @@ files follows only after the owner's sign-off in Gate 0. Keep historical uncerta
 to improve agreement. Research fitting remains conditional on the data-use disposition
 and on the owner's sign-off in Gate 0. Before any research run, also resolve the
 remaining open items in the [reconstruction contract](../protocols/pilot-001-independent-reconstruction.md):
-a fixed sensitivity configuration and the per-repetition AUROC distribution. The
+a fixed sensitivity configuration and the per-repetition AUROC distribution.
+Both items were adopted on 2026-11-05 and implemented. Remaining conformance
+work is listed in the
+[2026-11-08 readiness audit](pilot-001-pre-run-readiness-2026-11-08.md). The
 per-model planted-signal direction test passed in the pinned image on
 2026-10-27. No researcher contact is needed for the software preparation. The
 2025 fallback remains unadopted.
@@ -171,6 +179,12 @@ preflight ([data-use](pilot-001-data-use.md#macos-runtime-preflight-study-data-h
 condition **(c)** on the run, A2 option B implementation, and A3 implementation.
 Issue [#31](https://github.com/Foundation-0/project-asma/issues/31) stays open until
 preflight, condition (c) on an executed run, and A2 option B are satisfied.
+
+Implementation status corrected 2026-11-08: A2 option B and A3 code has
+landed. Preflight and condition (c) remain open. Per-item status and the
+conformance items that remain are in the
+[readiness audit](pilot-001-pre-run-readiness-2026-11-08.md). The issue #31
+links in this section return 404 (checked 2026-11-08).
 
 Owner decision (2026-11-05, Gate 0 Q3): adopt
 [reconstruction amendment 1](../protocols/pilot-001-reconstruction-amendment-1.md)

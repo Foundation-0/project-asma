@@ -8,7 +8,14 @@ import unittest
 from unittest import mock
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import audit_cdr2l_spectrum_locator as locator
-from audit_cdr2l_spectrum_locator import inspect_mgf, source_link, NAME
+from audit_cdr2l_spectrum_locator import (
+    check_certificate,
+    inspect_mgf,
+    source_link,
+    NAME,
+    PINNED_MGF_SHA256,
+    PRODUCING_SCRIPT_SHA256,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 BLOCK = b'BEGIN IONS\nTITLE=synthetic\nPEPMASS=614.9990\nCHARGE=3+\n100.000 20.0\n200 0\nEND IONS\n'
@@ -106,6 +113,55 @@ class SpectrumLocatorTests(unittest.TestCase):
         for name, data in variants.items():
             with self.subTest(variant=name), self.assertRaises(ValueError):
                 run_live(data)
+
+    def test_offline_certificate_check_passes(self):
+        code = subprocess.run(
+            [sys.executable, str(ROOT / 'tools/audit_cdr2l_spectrum_locator.py'), '--check'],
+            cwd=ROOT,
+            check=False,
+        ).returncode
+        self.assertEqual(code, 0)
+
+    def test_producing_implementation_hash_passes_and_arbitrary_hash_fails(self):
+        import copy
+        import json
+        import tempfile
+        report = json.loads((ROOT / 'registries/cdr2l-spectrum-locator-2026-11-06.json').read_text(encoding='utf-8'))
+        report['implementation_sha256'] = PRODUCING_SCRIPT_SHA256
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as handle:
+            json.dump(report, handle)
+            path = Path(handle.name)
+        try:
+            check_certificate(path, CERTIFICATE)
+        finally:
+            path.unlink()
+        bad = copy.deepcopy(report)
+        bad['implementation_sha256'] = '0' * 64
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as handle:
+            json.dump(bad, handle)
+            path = Path(handle.name)
+        try:
+            with self.assertRaises(ValueError):
+                check_certificate(path, CERTIFICATE)
+        finally:
+            path.unlink()
+
+    def test_offline_check_pins_mgf_sha256(self):
+        import copy
+        import json
+        import tempfile
+        report = json.loads((ROOT / 'registries/cdr2l-spectrum-locator-2026-11-06.json').read_text(encoding='utf-8'))
+        self.assertEqual(report['sha256'], PINNED_MGF_SHA256)
+        bad = copy.deepcopy(report)
+        bad['sha256'] = '0' * 64
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as handle:
+            json.dump(bad, handle)
+            path = Path(handle.name)
+        try:
+            with self.assertRaises(ValueError):
+                check_certificate(path, CERTIFICATE)
+        finally:
+            path.unlink()
 
     def test_package_import(self):
         completed = subprocess.run(

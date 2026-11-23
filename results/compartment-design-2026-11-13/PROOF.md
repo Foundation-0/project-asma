@@ -1,6 +1,6 @@
 # Synthetic compartment measurement-design result
 
-Executed 2026-11-13 UTC. **VERIFIED synthetic calculation, V39.** This filename
+Executed 2026-11-13 UTC. **VERIFIED synthetic calculation, V48.** This filename
 follows the repository's result-record convention. It is not a proof-assistant
 certificate or a formally verified biological system.
 
