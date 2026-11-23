@@ -8,7 +8,7 @@ The notes also contained a private clinical section and routing instructions. Th
 
 The discovery comparison is unchanged. The audited discovery cohort has 83 platinum-sensitive patients and 52 primary platinum-refractory patients, which is 4,316 pairs. Mann-Whitney U is 3,491. The exact AUROC is 3,491 / 4,316 = 0.8088507878.
 
-That check is recorded in the [discrepancy analysis](pilot-001-auc-discrepancy.md) and as K07 in the [claims ledger](../CLAIMS.md). The printed 0.83 remains outside the 0.02 tolerance.
+The class counts 83 and 52 are K07 in the [claims ledger](../CLAIMS.md). The AUROC comparison is V08, and the candidate checks are V23. The [2026-11-13 provenance note](auroc-provenance-20261113.md) keeps the printed 0.83 separate from this sheet value. The printed 0.83 remains outside the 0.02 tolerance.
 
 One note factorized the same 4,316 pairs as 166 by 26. Both products equal 4,316. The audited split is 83 by 52, not 166 by 26.
 

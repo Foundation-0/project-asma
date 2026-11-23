@@ -1,0 +1,216 @@
+{
+  "all_three_pinned_files_complete": true,
+  "allotype_assigned": false,
+  "assay_id": 18456218,
+  "completed_utc": "2026-11-06T19:37:17.223599+00:00",
+  "compressed_bytes": 15907955,
+  "contract_basis": "Observed independently on all three files; not asserted as documented API semantics",
+  "expanded_bytes": 226809010,
+  "files": [
+    {
+      "api_sha1": "7567a487a3d6f8e2bc2a725cf98de59914dfe457",
+      "api_size": 85957996,
+      "compressed_bytes": 6103692,
+      "expanded_bytes": 85957996,
+      "expanded_sha1": "070d391a9c179a362573273fcfc05e92636f9dc0",
+      "expanded_sha256": "320f5047ef7d460c1f3aa53fd303f5bb1262095680dbe4eea852f0d50b5851af",
+      "file": "peptides_1_1_0_CII_r1.mzid.gz",
+      "http_metadata": {
+        "Content-Length": "6103692",
+        "ETag": "\"5d228c-5dc9c8f8dd840\"",
+        "Last-Modified": "Thu, 14 Apr 2022 12:37:45 GMT"
+      },
+      "matching_peptides": [],
+      "matching_results": [],
+      "metadata_checksum_domain": "served_gzip",
+      "metadata_size_domain": "expanded_mzidentml",
+      "protocols": [
+        {
+          "attributes": {
+            "analysisSoftware_ref": "ANALYSIS_SOFTWARE_PEAKS_1",
+            "id": "SPECTRUMIDENTIFICATIONPROTOCOL_1"
+          },
+          "threshold_parameters": [
+            {
+              "accession": "MS:1001494",
+              "cvRef": "PSI-MS",
+              "name": "no threshold"
+            }
+          ]
+        }
+      ],
+      "served_size_differs_from_api": true,
+      "sha1": "7567a487a3d6f8e2bc2a725cf98de59914dfe457",
+      "sha256": "89bc89402fe0e6aee0dcd7dc79a33ad345c6d687f853671764ee542dc23a2b0e",
+      "total_identification_items": 74510,
+      "total_identification_results": 74308,
+      "url": "https://ftp.pride.ebi.ac.uk/pride/data/archive/2021/05/PXD023044/peptides_1_1_0_CII_r1.mzid.gz",
+      "xml_complete": true
+    },
+    {
+      "api_sha1": "3c50729db24b4660db5aa29a83f16b9682b85292",
+      "api_size": 55563417,
+      "compressed_bytes": 4271117,
+      "expanded_bytes": 55563417,
+      "expanded_sha1": "003030f922944094f7bb7cf9b2b3c364938333af",
+      "expanded_sha256": "a690fc7136144ff6a2ed24400dc1f46bb41a2ff4aacd392942ef05979f4eead3",
+      "file": "peptides_1_1_0_CII_r2.mzid.gz",
+      "http_metadata": {
+        "Content-Length": "4271117",
+        "ETag": "\"412c0d-5dc9cdd751500\"",
+        "Last-Modified": "Thu, 14 Apr 2022 12:59:32 GMT"
+      },
+      "matching_peptides": [],
+      "matching_results": [],
+      "metadata_checksum_domain": "served_gzip",
+      "metadata_size_domain": "expanded_mzidentml",
+      "protocols": [
+        {
+          "attributes": {
+            "analysisSoftware_ref": "ANALYSIS_SOFTWARE_PEAKS_1",
+            "id": "SPECTRUMIDENTIFICATIONPROTOCOL_1"
+          },
+          "threshold_parameters": [
+            {
+              "accession": "MS:1001494",
+              "cvRef": "PSI-MS",
+              "name": "no threshold"
+            }
+          ]
+        }
+      ],
+      "served_size_differs_from_api": true,
+      "sha1": "3c50729db24b4660db5aa29a83f16b9682b85292",
+      "sha256": "1f138d433add8f2b6ac17abcbee78e50313ad482a5de58b980ad603b571c7804",
+      "total_identification_items": 46724,
+      "total_identification_results": 46623,
+      "url": "https://ftp.pride.ebi.ac.uk/pride/data/archive/2021/05/PXD023044/peptides_1_1_0_CII_r2.mzid.gz",
+      "xml_complete": true
+    },
+    {
+      "api_sha1": "77acfe2d87f608859e47dbe249a6c594c224cad3",
+      "api_size": 85287597,
+      "compressed_bytes": 5533146,
+      "expanded_bytes": 85287597,
+      "expanded_sha1": "619fdd6c0c4d078d74ec34a24790dc87ac916ecd",
+      "expanded_sha256": "7f3e81612a79445440d9efdf78fcf31359ff83fccf017982a6f4b2b67f81f9c4",
+      "file": "peptides_1_1_0_CII_r3.mzid.gz",
+      "http_metadata": {
+        "Content-Length": "5533146",
+        "ETag": "\"546dda-5dc9c8fbb9f00\"",
+        "Last-Modified": "Thu, 14 Apr 2022 12:37:48 GMT"
+      },
+      "matching_peptides": [
+        {
+          "id": "PEPTIDE_2890010",
+          "modifications": []
+        }
+      ],
+      "matching_results": [
+        {
+          "attributes": {
+            "id": "SPECGROUP_4292668",
+            "spectraData_ref": "SPECTRADATA_1111",
+            "spectrumID": "index=22949"
+          },
+          "items": [
+            {
+              "attributes": {
+                "calculatedMassToCharge": "614.99646",
+                "chargeState": "3",
+                "experimentalMassToCharge": "614.9990",
+                "id": "SII_4292668_2890010",
+                "passThreshold": "true",
+                "peptide_ref": "PEPTIDE_2890010",
+                "rank": "1"
+              },
+              "evidence_refs": [
+                "PEPTIDEEVIDENCE_PEPTIDE_2890010_DBSEQUENCE_Q86X02"
+              ],
+              "parameters": [
+                {
+                  "accession": "MS:1001950",
+                  "cvRef": "PSI-MS",
+                  "name": "PEAKS:peptideScore",
+                  "value": "33.56"
+                }
+              ],
+              "protein_evidence": [
+                {
+                  "attributes": {
+                    "dBSequence_ref": "DBSEQUENCE_607645",
+                    "end": "446",
+                    "id": "PEPTIDEEVIDENCE_PEPTIDE_2890010_DBSEQUENCE_Q86X02",
+                    "isDecoy": "false",
+                    "peptide_ref": "PEPTIDE_2890010",
+                    "post": "I",
+                    "pre": "Q",
+                    "start": "432"
+                  },
+                  "protein": {
+                    "accession": "Q86X02",
+                    "searchDatabase_ref": "SEARCHDATABASE_1"
+                  }
+                }
+              ]
+            }
+          ],
+          "parameters": [],
+          "spectra_data": {
+            "FileFormat": [
+              {
+                "accession": "MS:1001062",
+                "cvRef": "PSI-MS",
+                "name": "Mascot MGF file"
+              }
+            ],
+            "SpectrumIDFormat": [
+              {
+                "accession": "MS:1000774",
+                "cvRef": "PSI-MS",
+                "name": "multiple peak list nativeID format"
+              }
+            ],
+            "file_name": "F1202000304_PF_MDAMB231_IFN-positive_replicate_5_pool_6_Immunopeptidomics-classII.mgf",
+            "id": "SPECTRADATA_1111",
+            "source_location_sha256": "c9211bdfe7a63a3451afd570287c341cc7ffa6ef8c590ea0660c818a4d3d2c42"
+          }
+        }
+      ],
+      "metadata_checksum_domain": "served_gzip",
+      "metadata_size_domain": "expanded_mzidentml",
+      "protocols": [
+        {
+          "attributes": {
+            "analysisSoftware_ref": "ANALYSIS_SOFTWARE_PEAKS_1",
+            "id": "SPECTRUMIDENTIFICATIONPROTOCOL_1"
+          },
+          "threshold_parameters": [
+            {
+              "accession": "MS:1001494",
+              "cvRef": "PSI-MS",
+              "name": "no threshold"
+            }
+          ]
+        }
+      ],
+      "served_size_differs_from_api": true,
+      "sha1": "77acfe2d87f608859e47dbe249a6c594c224cad3",
+      "sha256": "c3bad2c0fcdd289d3302d5f8131c2b8443b44116529c3bc12e00b35a150e0eb2",
+      "total_identification_items": 77131,
+      "total_identification_results": 76957,
+      "url": "https://ftp.pride.ebi.ac.uk/pride/data/archive/2021/05/PXD023044/peptides_1_1_0_CII_r3.mzid.gz",
+      "xml_complete": true
+    }
+  ],
+  "implementation_sha256": "a41313a61ab0be74157792efa45d047ee3cb68a429da22aa088e24d18d5a79c2",
+  "initial_rejected_assumption": "API checksum and size describe one byte representation",
+  "metadata_contract": "API checksum matches served gzip SHA1; API size matches expanded XML bytes",
+  "project": "PXD023044",
+  "runtime": "3.14.6",
+  "schema_version": 1,
+  "source_license_metadata": "CC0",
+  "spectra_reanalyzed": false,
+  "started_utc": "2026-11-06T19:36:40.912405+00:00",
+  "target_sequence": "SQPEYKALFKEIFSR"
+}
