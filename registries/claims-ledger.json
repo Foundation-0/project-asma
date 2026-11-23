@@ -1695,15 +1695,40 @@
       "row_text": "| V48 | VERIFIED | In the declared synthetic four-world, three-action model, only LH among the six designs of at most two observations separates zero conversion from both material-conversion worlds at residual error 1/60. Its exact boundary is epsilon < 13/700, compared with < 3/200 for LR and < 1/280 for RH. No guaranteed all-four discrimination; independent offsets or changing selection admit explicit target collisions | `python3 results/compartment-design-2026-11-13/verify.py`; [report and continuous-family argument](docs/research/compartment-measurement-design.md), [frozen protocol](protocols/compartment-measurement-design.md), [certificate](results/compartment-design-2026-11-13/certificate.json). Original rational arithmetic and independently implemented checking; not empirical assay precision, biological identification, a novel method, or a clinical result. |",
       "source_ids": [],
       "statement": "In the declared synthetic four-world, three-action model, only LH among the six designs of at most two observations separates zero conversion from both material-conversion worlds at residual error 1/60. Its exact boundary is epsilon < 13/700, compared with < 3/200 for LR and < 1/280 for RH. No guaranteed all-four discrimination; independent offsets or changing selection admit explicit target collisions"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "ae586735364aca9218a28a29fb229c490d73480a6007260935983b4f8f53111b",
+      "certificate_paths": [],
+      "id": "K46",
+      "label": "KNOWN",
+      "recheck_commands": [],
+      "row_text": "| K46 | KNOWN | At the inspected revisions, Soko implements rechecked search exclusions and scoped finite bounds; the Proven Commons and Foundation-0 records distinguish proof statements, structural checks and exact certificates, with the implementation and licensing limits recorded in the assessment | [Pinned primary-source assessment](docs/ecosystem-research-fit-2026-11-12.md); S177–S184. Static code/report inspection, not a fresh replay or a biological validation claim. |",
+      "source_ids": [
+        "S177",
+        "S184"
+      ],
+      "statement": "At the inspected revisions, Soko implements rechecked search exclusions and scoped finite bounds; the Proven Commons and Foundation-0 records distinguish proof statements, structural checks and exact certificates, with the implementation and licensing limits recorded in the assessment"
+    },
+    {
+      "artifact_paths": [],
+      "canonical_sha256": "ae926101f8415731df4a7bc85adb5efbaf1d4f845c7b10f914d32983977767d6",
+      "certificate_paths": [],
+      "id": "C27",
+      "label": "CONJECTURE",
+      "recheck_commands": [],
+      "row_text": "| C27 | CONJECTURE | A bounded synthetic search with an independent checker, followed by separately gated candidate-spectrum or measurement-design work, may expose unsupported inferences or distinguish competing explanations useful to Project Asma | [Proposed contract, comparison baseline and stops](docs/ecosystem-research-fit-2026-11-12.md#a-bounded-next-increment). No prototype, novel biological result, source-data execution or dependency adoption follows from accepting the assessment. |",
+      "source_ids": [],
+      "statement": "A bounded synthetic search with an independent checker, followed by separately gated candidate-spectrum or measurement-design work, may expose unsupported inferences or distinguish competing explanations useful to Project Asma"
     }
   ],
   "counts": {
-    "CONJECTURE": 27,
-    "KNOWN": 49,
+    "CONJECTURE": 28,
+    "KNOWN": 50,
     "PROVEN": 0,
     "VERIFIED": 46
   },
-  "ledger_sha256": "38662b78530c03bbb39d666b609beb3ad42242157f26cec9907c9e54bb133589",
+  "ledger_sha256": "149e596fa9afdfb8e86342bd09cfda760fbf5b90fd1deecdff1060faa7e697ab",
   "schema_version": 1,
   "source": "CLAIMS.md"
 }
