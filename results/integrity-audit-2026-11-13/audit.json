@@ -493,10 +493,48 @@
       "run_executed": true,
       "run_exit_zero": true,
       "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "results/soko-weft-discriminators-20261113/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V45",
+      "recheck_commands": [
+        "python3 tools/analyze_soko_weft_discriminators.py --check",
+        "python3 results/soko-weft-discriminators-20261113/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "results/soko-weft-discriminators-20261113/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V46",
+      "recheck_commands": [
+        "python3 tools/analyze_soko_weft_discriminators.py --check",
+        "python3 results/soko-weft-discriminators-20261113/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V47",
+      "recheck_commands": [
+        "python3 -m unittest discover -s tests -p 'test_soko_weft_*.py' -v"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
     }
   ],
-  "generated_utc": "2026-11-23T05:40:41.498943+00:00",
-  "ledger_sha256": "72631b30fbe0cb6b0e6d5ce5d32bd6879fbf7e69181a108dd2a42d93588fdbf0",
+  "generated_utc": "2026-11-23T05:55:16.058199+00:00",
+  "ledger_sha256": "3a6c2ee4551b6f2f9964977021244b94ed6c8149e7be55a70887221c711b7218",
   "schema_version": 1,
   "summary": {
     "no_offline_checker": {
@@ -521,14 +559,14 @@
         "V35"
       ]
     },
-    "offline_ran_exit_zero": 25,
-    "offline_recheck_defined": 26,
+    "offline_ran_exit_zero": 28,
+    "offline_recheck_defined": 29,
     "skipped_heavy_recheck": [
       "V02"
     ],
     "tamper_applicable": 4,
     "tamper_fails_on_tamper": 4,
     "tamper_misses": [],
-    "verified_claims": 42
+    "verified_claims": 45
   }
 }
