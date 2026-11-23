@@ -124,6 +124,12 @@ Proven Commons/Foundation-0 source review. It credits the linked source authors,
 proposes bounded research tests and preserves existing teams’ open work.
 No upstream code was executed or copied; no proofs were rerun, and no private
 data or new study analysis was used in this assessment; proposed use is not adoption or scientific validation.
+The **6 November 2026 public-site refresh** was prepared with OpenAI Codex and
+**GPT-6 Astra** agents for public-source coverage, Pilot 001 status, Virtual Human
+capabilities and a separate final science review. It presents the teams' merged
+work through Project Asma #64 and Virtual Human #7, with source links and the
+original authorship preserved. Website and artificial-input checks do not
+establish new research results or clinical benefit.
 
 ## Prior work credited by name
 
