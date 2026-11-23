@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-13):** PROVEN **0** · VERIFIED **45** · KNOWN **49** · CONJECTURE **27**
+**Counts (2026-11-13):** PROVEN **0** · VERIFIED **46** · KNOWN **49** · CONJECTURE **27**
 
 ---
 
@@ -34,7 +34,7 @@ execution context where noted in [AGENTS.md](AGENTS.md).
 | ID | Claim | Re-check |
 | --- | --- | --- |
 | V01 | Registry JSON schema and cross-references validate offline | `python3 tools/validate.py` |
-| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`457` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
+| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`506` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |
 | V03 | **181** R test assertions pass on **synthetic fixtures** (41 input, 88 core, 52 model) | [Synthetic validation commands](docs/pilot-001-synthetic-validation.md#commands) |
 | V04 | Full **100-repeat** synthetic model pipeline completes on abstract fixtures | Same synthetic validation doc (pinned container) |
 | V05 | Source-adapter **19** R bridge assertions pass on **generated XLSX/matrix fixtures** | [Source-adapter commands](docs/pilot-001-source-adapter.md#commands-and-continuation) |
@@ -232,7 +232,7 @@ and do **not** substitute for study-data execution.
 
 | ID | Label | Statement | Evidence and boundary |
 | --- | --- | --- | --- |
-| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 45 VERIFIED rows, 29 offline checkers, 28 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |
+| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 46 VERIFIED rows, 30 offline checkers, 29 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |
 
 ## Ovarian interventional trial landscape, 2026-11-13 UTC
 
@@ -261,6 +261,12 @@ and do **not** substitute for study-data execution.
 | V46 | VERIFIED | Exact rational Farkas dual vectors reproduce the checked scalar compartment bounds (LH S vs C50 = 13/700, S vs C25 = 3/448 < 1/60), exhibit the 590/21 two-clone shedding blind spot, and show orthogonal 2-channel mitosis lifts worst-case separation across all 6 checked world pairs to 69/320 > 1/60 | `python3 tools/analyze_soko_weft_discriminators.py --check`; `python3 results/soko-weft-discriminators-20261113/verify.py`. Finite-fixture verification in Fraction arithmetic with a zero-shared-code second checker; not a mechanized proof and not clinical evidence. |
 | V47 | VERIFIED | Across 16 synthetic multi-compartment intervention cohorts (T = 6, 4,096 trajectories each), greedy scalar-marker selection violates C1/C2 safety in 16/16 cohorts while the safe Bellman-Pareto search matches the exhaustive safe oracle on 16/16 with 0 violations, pruning 70.94% of transitions | `python3 -m unittest discover -s tests -p 'test_soko_weft_*.py' -v`; same verify commands as V45. Synthetic cohorts only. |
 | C26 | CONJECTURE | The unrounded five-fold CV AUC that the authors displayed as 0.83 is absent from the public article, the public score sheet, and the pinned scripts. Whether 0.83 displays some other unrounded ROC, and whether the released sheet is that ROC’s input, remains open | C20 already records the sheet-versus-figure gap. This row adds that the plot label is a literal and that the unrounded roc.all1 value was not found. It does not assert that the paper misquoted 0.80885. |
+
+## Compartment measurement design, 2026-11-13 UTC
+
+| ID | Label | Claim | Evidence and limits |
+| --- | --- | --- | --- |
+| V48 | VERIFIED | In the declared synthetic four-world, three-action model, only LH among the six designs of at most two observations separates zero conversion from both material-conversion worlds at residual error 1/60. Its exact boundary is epsilon < 13/700, compared with < 3/200 for LR and < 1/280 for RH. No guaranteed all-four discrimination; independent offsets or changing selection admit explicit target collisions | `python3 results/compartment-design-2026-11-13/verify.py`; [report and continuous-family argument](docs/research/compartment-measurement-design.md), [frozen protocol](protocols/compartment-measurement-design.md), [certificate](results/compartment-design-2026-11-13/certificate.json). Original rational arithmetic and independently implemented checking; not empirical assay precision, biological identification, a novel method, or a clinical result. |
 
 ## What this ledger does not claim
 
