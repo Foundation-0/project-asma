@@ -112,3 +112,10 @@ bounded protocol and applicable execution gates. Pilot 001 is unchanged.
 
 Prepared with GPT-6 Astra and independent internal Astra review. Internal review
 is not external scientific review.
+
+## Subsequent source adjudication
+
+A [later executed follow-up](cdr2l-source-adjudication-2026-11-06.md) completed
+the broader sequence-service searches and inspected original source evidence.
+This earlier report and its named-candidate certificate remain a historical
+record of the narrower run, including its unavailable broad search.

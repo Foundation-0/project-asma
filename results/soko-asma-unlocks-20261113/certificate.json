@@ -1,0 +1,163 @@
+{
+  "patient_data_rows": 0,
+  "schema_version": "1.1.0",
+  "scope": "synthetic_offline_research_scaffolding_only",
+  "study_data_bytes": 0,
+  "unlock_1_crushing_gate_phase_transition": {
+    "clonal_schedule_sticky_monotherapy_mirage": {
+      "allow_wall_transmutation": false,
+      "bellman_violations": 0,
+      "edges_audited": 4,
+      "optimal_steps": 4,
+      "optimal_trace": [
+        "cytotoxic_pulse",
+        "cytotoxic_pulse",
+        "cytotoxic_pulse",
+        "cytotoxic_pulse"
+      ],
+      "reachable_states": 5,
+      "sticky_gate": true
+    },
+    "clonal_schedule_true_monotherapy_unsat": {
+      "allow_wall_transmutation": false,
+      "bellman_violations": 0,
+      "edges_audited": 1,
+      "optimal_steps": null,
+      "optimal_trace": [],
+      "reachable_states": 2,
+      "sticky_gate": false
+    },
+    "clonal_schedule_true_with_wall_transmutation": {
+      "allow_wall_transmutation": true,
+      "bellman_violations": 0,
+      "edges_audited": 16,
+      "optimal_steps": 5,
+      "optimal_trace": [
+        "lock_mhc_wall",
+        "lock_mhc_wall",
+        "cytotoxic_pulse",
+        "lock_mhc_wall",
+        "resensitized_clearance"
+      ],
+      "reachable_states": 12,
+      "sticky_gate": false
+    },
+    "high_wall_w8_true_crushing_gate": {
+      "bellman_violations": 0,
+      "crushed_at_step_on_true_gate": null,
+      "edges_audited": 13,
+      "final_walls": 9,
+      "initial_walls": 8,
+      "optimal_steps": 2,
+      "optimal_trace": [
+        "lock_on_switch",
+        "cross_gate"
+      ],
+      "reachable_states": 8,
+      "sticky_relaxation": false,
+      "survives_true_crushing_gate": true
+    },
+    "low_wall_w2_sticky_mirage": {
+      "bellman_violations": 0,
+      "crushed_at_step_on_true_gate": 3,
+      "edges_audited": 153,
+      "final_walls": 2,
+      "initial_walls": 2,
+      "optimal_steps": 3,
+      "optimal_trace": [
+        "engage_hold",
+        "engage_hold",
+        "cross_gate"
+      ],
+      "reachable_states": 72,
+      "sticky_relaxation": true,
+      "survives_true_crushing_gate": false
+    },
+    "low_wall_w2_true_crushing_gate": {
+      "bellman_violations": 0,
+      "crushed_at_step_on_true_gate": null,
+      "edges_audited": 153,
+      "final_walls": 9,
+      "initial_walls": 2,
+      "optimal_steps": 8,
+      "optimal_trace": [
+        "lock_on_switch",
+        "lock_on_switch",
+        "lock_on_switch",
+        "lock_on_switch",
+        "lock_on_switch",
+        "deploy_and_lock_reserve",
+        "deploy_and_lock_reserve",
+        "cross_gate"
+      ],
+      "reachable_states": 72,
+      "sticky_relaxation": false,
+      "survives_true_crushing_gate": true
+    }
+  },
+  "unlock_2_ms2_causal_rung_and_cnf": {
+    "dipeptide_swap_chimera_decoy": {
+      "causal_p01_plus_flow": 8,
+      "cnf_blocked_orphan_losses": 1,
+      "conserved_backbone_rungs": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "diagnostic_rung_3_conserved": false,
+      "static_p01_flow": 11,
+      "total_theoretical_ions": 11
+    },
+    "intensity_bytes_retained": 0,
+    "true_target_candidate": {
+      "causal_p01_plus_flow": 11,
+      "cnf_blocked_orphan_losses": 0,
+      "conserved_backbone_rungs": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "diagnostic_rung_3_conserved": true,
+      "static_p01_flow": 11,
+      "total_theoretical_ions": 11
+    }
+  },
+  "unlock_3_floating_rs_impossibility_and_farkas_cures": {
+    "cure_a_single_channel_threshold_with_p0_1_5": {
+      "at_p_1_25_eps_star": 0.016278,
+      "at_p_1_25_quadratic_val": "8/25",
+      "at_p_1_26_eps_star": 0.016916,
+      "at_p_1_26_quadratic_val": "-135/676",
+      "at_p_1_30_eps_star": 0.019332,
+      "boundary_witness_r_S": 20,
+      "threshold_quadratic": "125*p^2 + 328*p - 13 < 0"
+    },
+    "cure_b_two_channel_farkas_at_p_1_20": {
+      "ratio_vs_1_over_60_ceiling": 4.75,
+      "rs_invariant_eps_star_float": 0.079167,
+      "rs_invariant_eps_star_fraction": "19/240"
+    },
+    "floating_rs_impossibility_on_1_20_to_1": {
+      "algebraic_factorization_verified": true,
+      "continuum_sup_strictly_below_1_over_60": true,
+      "edge_eps_at_1_20": "1/80",
+      "exact_crossing_p": "1/14",
+      "positivity_quadratic_coeffs": [
+        570,
+        -169,
+        17
+      ],
+      "positivity_quadratic_discriminant": -10199,
+      "witness_r_S": 19
+    },
+    "pinned_s16_lh_bounds": {
+      "legacy_1_10_2_5_C25": "3/448",
+      "legacy_1_10_2_5_C50": "13/700",
+      "optimal_1_20_3_8_C25": "10179/563920",
+      "optimal_1_20_3_8_C50": "9451/213325"
+    }
+  }
+}

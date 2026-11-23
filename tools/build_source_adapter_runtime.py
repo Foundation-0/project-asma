@@ -14,10 +14,10 @@ import subprocess
 import sys
 import tarfile
 import tempfile
-import urllib.parse
-import urllib.request
+import urllib.error
 
 from build_synthetic_runtime import ROOT, local_docker_env
+from pinned_ubuntu_fetch import read_verified
 
 sys.path.insert(0, str(ROOT))
 
@@ -34,30 +34,30 @@ VALIDATION = {
 FAILURE = "ERROR: source-adapter runtime build failed; no study data were accessed."
 MAX_SOURCE_BYTES = 32 * 1024**2
 MAX_TAR_BYTES = 150 * 1024**2
-ALLOWED_HOSTS = {"www.python.org", "snapshot.ubuntu.com", "changelogs.ubuntu.com"}
 
 
-def checked_download(record, cache=None):
-    name = record["filename"]
+def checked_download(record, cache=None, platform="linux/amd64"):
+    name = record.get("filename") or record["url"].rstrip("/").split("/")[-1]
     if Path(name).name != name or not 0 < record["bytes"] <= MAX_SOURCE_BYTES:
         raise ValueError(FAILURE)
-    url = urllib.parse.urlsplit(record["url"])
-    if url.scheme != "https" or url.hostname not in ALLOWED_HOSTS or url.username or url.password:
-        raise ValueError(FAILURE)
-    path = None if cache is None else cache / name
-    if path is not None and path.is_file():
-        if path.stat().st_size != record["bytes"]:
-            raise ValueError(FAILURE)
-        body = path.read_bytes()
-    else:
-        with urllib.request.urlopen(record["url"], timeout=60) as response:
-            final = urllib.parse.urlsplit(response.geturl())
-            if final.scheme != "https" or final.hostname not in ALLOWED_HOSTS:
-                raise ValueError(FAILURE)
-            body = response.read(record["bytes"] + 1)
-    if len(body) != record["bytes"] or hashlib.sha256(body).hexdigest() != record["sha256"]:
-        raise ValueError(FAILURE)
-    return body
+    try:
+        return read_verified(record, cache, platform)
+    except Exception as exc:
+        raise ValueError(FAILURE) from exc
+
+
+def diagnose_failure(exc: BaseException) -> str:
+    if isinstance(exc, subprocess.CalledProcessError):
+        detail = (exc.stderr or exc.stdout or "").strip()
+        if detail:
+            line = detail.splitlines()[-1][:500]
+            return f"subprocess failed (exit {exc.returncode}): {line}"
+        return f"subprocess failed (exit {exc.returncode})"
+    if isinstance(exc, urllib.error.HTTPError):
+        return f"HTTP {exc.code} from {exc.url}"
+    if isinstance(exc, urllib.error.URLError):
+        return f"URLError: {exc.reason}"
+    return f"{type(exc).__name__}: {exc}"
 
 
 def checked_python_tar(body, record):
@@ -110,7 +110,7 @@ def build(cache=None, accept_rebuilt_base=False, platform="linux/amd64"):
         rebuilt = base["Id"] != expected_base if expected_base else True
         if rebuilt and not (accept_rebuilt_base and re.fullmatch(r"sha256:[0-9a-f]{64}", base["Id"])):
             raise ValueError(FAILURE)
-    source = checked_download(record["cpython"], cache)
+    source = checked_download(record["cpython"], cache, platform)
     converted = checked_python_tar(source, record["cpython"])
     with tempfile.TemporaryDirectory(prefix="asma-source-adapter-build-") as location:
         context = Path(location)
@@ -118,9 +118,13 @@ def build(cache=None, accept_rebuilt_base=False, platform="linux/amd64"):
         (context / "notices").mkdir()
         (context / "python-source.tar.gz").write_bytes(converted)
         for package in record["development_packages"]:
-            (context / "development" / package["filename"]).write_bytes(checked_download(package, cache))
+            (context / "development" / package["filename"]).write_bytes(
+                checked_download(package, cache, platform)
+            )
             notice = package["license_notice"]
-            (context / "notices" / notice["filename"]).write_bytes(checked_download(notice, cache))
+            (context / "notices" / notice["filename"]).write_bytes(
+                checked_download(notice, cache, platform)
+            )
         shutil.copyfile(dockerfile, context / "Dockerfile")
         subprocess.run(docker + ["build", "--pull=false", "--network=none", "--platform=" + platform,
                                  "-t", record["image_tag"], str(context)],
@@ -150,11 +154,19 @@ def main(argv=None):
         default="linux/amd64",
         help="Target platform for the pinned source-adapter runtime",
     )
+    parser.add_argument(
+        "--show-build-errors",
+        action="store_true",
+        help="Opt-in: print a single sanitized failure line (no study data or secrets)",
+    )
     arguments = parser.parse_args(argv)
     try:
         build(arguments.source_cache, arguments.accept_rebuilt_base, arguments.platform)
         return 0
-    except Exception:
+    except Exception as exc:
+        if arguments.show_build_errors:
+            root = exc.__cause__ if str(exc) == FAILURE and exc.__cause__ else exc
+            print(f"DIAG: {diagnose_failure(root)}", file=sys.stderr)
         print(FAILURE, file=sys.stderr)
         return 1
 

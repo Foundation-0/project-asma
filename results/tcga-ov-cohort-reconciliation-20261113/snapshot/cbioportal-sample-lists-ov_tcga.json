@@ -1,0 +1,122 @@
+{
+  "lists": [
+    {
+      "category": "all_cases_with_mutation_and_cna_and_mrna_data",
+      "description": "Samples with mutation, CNA and expression data (182 samples)",
+      "name": "Complete samples",
+      "sampleCount": 182,
+      "sampleListId": "ov_tcga_3way_complete",
+      "sample_id_count": 182,
+      "source_response_sha256": "d0a69acbcafb4899307979bfe6855c8ac7790193f4458531cdecd3d85bbcdae0"
+    },
+    {
+      "category": "all_cases_in_study",
+      "description": "All samples (617 samples)",
+      "name": "All samples",
+      "sampleCount": 617,
+      "sampleListId": "ov_tcga_all",
+      "sample_id_count": 617,
+      "source_response_sha256": "4fd86fe56f554dcd733a2a8b44da8a3678e6f3abcf286d957c59ea6e419f842f"
+    },
+    {
+      "category": "all_cases_with_cna_data",
+      "description": "Samples with CNA data (579 samples)",
+      "name": "Samples with CNA data",
+      "sampleCount": 579,
+      "sampleListId": "ov_tcga_cna",
+      "sample_id_count": 579,
+      "source_response_sha256": "04573b94a52d676400205bc1ae21e07fedc73aad44b237d9053cd5a447f70d9b"
+    },
+    {
+      "category": "all_cases_with_mutation_and_cna_data",
+      "description": "Samples with mutation and CNA data (311 samples)",
+      "name": "Samples with mutation and CNA data",
+      "sampleCount": 311,
+      "sampleListId": "ov_tcga_cnaseq",
+      "sample_id_count": 311,
+      "source_response_sha256": "8ffa40d61bda91fb2cab87723abb472eaa05c8f3e5a59d34c9e9cc42acfa23f7"
+    },
+    {
+      "category": "all_cases_with_methylation_data",
+      "description": "Samples with methylation data (592 samples)",
+      "name": "Samples with methylation data",
+      "sampleCount": 592,
+      "sampleListId": "ov_tcga_methylation_all",
+      "sample_id_count": 592,
+      "source_response_sha256": "d18b136ef122a544a0e1a4df9ff6c207f8ea66ae2a7a967aa6db3323ea4313c7"
+    },
+    {
+      "category": "all_cases_with_methylation_data",
+      "description": "Samples with methylation (HM27) data (592 samples)",
+      "name": "Samples with methylation data (HM27)",
+      "sampleCount": 592,
+      "sampleListId": "ov_tcga_methylation_hm27",
+      "sample_id_count": 592,
+      "source_response_sha256": "75d830a66970812aad4cdef2af07e759da968662e615ad0ed1bb6e3deaab5d4a"
+    },
+    {
+      "category": "all_cases_with_mrna_array_data",
+      "description": "Samples with mRNA expression data (558 samples)",
+      "name": "Samples with mRNA data (Agilent microarray)",
+      "sampleCount": 558,
+      "sampleListId": "ov_tcga_mrna",
+      "sample_id_count": 558,
+      "source_response_sha256": "d243d431e7ad90fa3d91ded6b5c7e8b045cee28861d6a8e303973cfd295e3158"
+    },
+    {
+      "category": "all_cases_with_mrna_array_data",
+      "description": "Samples with mRNA expression data (535 samples)",
+      "name": "Samples with mRNA data (U133 microarray only)",
+      "sampleCount": 535,
+      "sampleListId": "ov_tcga_mrna_U133",
+      "sample_id_count": 535,
+      "source_response_sha256": "fe9c0da00ea60239e967e341ffbab81ddcc5ca1ae0934428d36bae201d7ad74e"
+    },
+    {
+      "category": "other",
+      "description": "Tumor samples with phosphoprotein quantification data (69 samples)",
+      "name": "Samples with phosphoprotein quantification data (mass spectrometry by CPTAC)",
+      "sampleCount": 69,
+      "sampleListId": "ov_tcga_phosphoprotein_quantification",
+      "sample_id_count": 69,
+      "source_response_sha256": "eea1b77b9a32e396e9c185377b485edc4b59b3f5d0234574b61ee69da7955b1b"
+    },
+    {
+      "category": "other",
+      "description": "Samples with protein data (Mass Spec) (174 samples)",
+      "name": "Samples with protein data (Mass Spec)",
+      "sampleCount": 174,
+      "sampleListId": "ov_tcga_protein_quantification",
+      "sample_id_count": 174,
+      "source_response_sha256": "b5895bba620583458377d4dc3b53e9ca685f766cdd629fc2c1864265b2b45061"
+    },
+    {
+      "category": "all_cases_with_mrna_rnaseq_data",
+      "description": "Samples with mRNA expression data (307 samples)",
+      "name": "Samples with mRNA data (RNA Seq V2)",
+      "sampleCount": 307,
+      "sampleListId": "ov_tcga_rna_seq_v2_mrna",
+      "sample_id_count": 307,
+      "source_response_sha256": "e5c27232cc916a2ce455c34c17730c5c460b633913c7d0a7080f9d5b43b2cff2"
+    },
+    {
+      "category": "all_cases_with_rppa_data",
+      "description": "Samples with protein data (RPPA) (436 samples)",
+      "name": "Samples with protein data (RPPA)",
+      "sampleCount": 436,
+      "sampleListId": "ov_tcga_rppa",
+      "sample_id_count": 436,
+      "source_response_sha256": "02844c3a8a4c80331d4df739ce7e4af9d7f3f833ba7c25a6dd151a6dce132f69"
+    },
+    {
+      "category": "all_cases_with_mutation_data",
+      "description": "Samples with mutation data (316 samples)",
+      "name": "Samples with mutation data",
+      "sampleCount": 316,
+      "sampleListId": "ov_tcga_sequenced",
+      "sample_id_count": 316,
+      "source_response_sha256": "5d757d4059d6fa11b5d5d6c96780a2c8ce7f22a5a60e6f3c56763494443db787"
+    }
+  ],
+  "study_id": "ov_tcga"
+}

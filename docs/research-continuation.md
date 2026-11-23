@@ -1,6 +1,23 @@
 # Research preservation and continuation
 
+**Denominator check: [TCGA-OV cohort reconciliation, 2026-11-13 UTC](tcga-ov-cohort-reconciliation-20261113.md).** Open GDC and cBioPortal counts for the 608 and 489 figures already cited in the directions log. Data-availability counts only. It does not replace the atlas below and it is not clinical guidance.
+
+**Latest executed catalog check: [CDR2/CDR2L public evidence atlas, 2026-11-13](cdr2-cdr2l-evidence-atlas-2026-11-13.md).** Two independent readers re-derive 7 CDR2 and 2 CDR2L class-II assay annotations from a pinned snapshot, plus UniProt identity and public expression counts. The nine annotations match the 2026-11-05 audit. Receptor recognition and injury remain open.
+
+**Prior executed catalog check: [CDR2L named-sequence adjudication](cdr2l-sequence-adjudication-2026-11-06.md).** Two curated peptides match their CDR2L coordinates and do not match the explicitly checked CDR2 reference. Broad database uniqueness remains unresolved; spectra, allotype and receptor evidence remain the next questions.
+**Synthetic measurement-design continuation, 2026-11-13 UTC:**
+[Which extra observation distinguishes the mechanisms?](research/compartment-measurement-design.md)
+compares all six designs from a three-observation menu, with exact measurement
+error boundaries and an independently implemented checker. A paired contrast
+can distinguish the declared conversion alternatives despite shared measurement
+bias; different offsets or changing selection destroy that guarantee. This is
+conditional mathematics and an experimental-design requirement, not biological
+identification. The continuous-family extension and failure controls are retained.
+**Cross-repository reassessment, 12 November 2026:** [from plausible explanations to discriminating tests](ecosystem-research-fit-2026-11-12.md). Current Asma and Virtual Human state, Soko search/checker patterns, Proven Commons statement-review lessons, and bounded proposed next steps. Static assessment; no new study execution or dependency adoption.
+
 **Latest executed catalog check: [CDR2L named-sequence adjudication](cdr2l-sequence-adjudication-2026-11-06.md).** Two curated peptides match their CDR2L coordinates and do not match the explicitly checked CDR2 reference. Broad database uniqueness remains unresolved; spectra, allotype and receptor evidence remain the next questions.
+
+**Preservation extract, 11 November 2026: [public portion of the convergence notes](google-bio-convergence-2026-11-11.md).** Replayable arithmetic and title checks from those notes. It does not replace the catalog check above, and it does not include private archive material.
 
 **Prior desk deliverable: [CDR2/CDR2L HLA-II evidence map, 2026-11-06](cdr2-hla-ii-evidence-map-2026-11-06.md).**
 Source-grounded tables for curated immunopeptidome leads, separated from
@@ -16,7 +33,10 @@ below remains the dated record of the first exploration.
 
 **Latest recruiting trial-landscape snapshot: [2026-11-05 America/Chicago](trial-landscape-2026-11-05.md).**
 Finite ClinicalTrials.gov metadata counts, aggregate certificate and replay
-commands; not trial outcomes or eligibility.
+commands; not trial outcomes or eligibility. A later all-status interventional
+snapshot, [2026-11-13 UTC](trial-landscape-v2-2026-11-13.md), does not replace
+it. That later note counts registrations and states that an NCT-level diff
+against the 2026-11-05 certificate is not reconstructable.
 
 **Snapshot: 2026-11-04.** This is the entry point for the expanded research
 review. It preserves appropriate public evidence, concise decision rationale,
@@ -95,3 +115,15 @@ commands. **VERIFIED** refers to finite metadata counts, not study results,
 eligibility or clinical guidance. Source terms, processing/retrieval dates,
 classification limits and historical-replay limits are explicit. This separate
 metadata audit does not change Pilot 001 execution gates or the biology track.
+
+## CDR2L original-source adjudication, 2026-11-06
+
+The [executed follow-up](cdr2l-source-adjudication-2026-11-06.md) completes the
+broader sequence-service lookup, resolves the Atlas tissue association and
+traces the breast-cell-line lead into original deposited identification output
+and a checksum-verified experimental peak list with an explicit scan locator.
+The two peptides overlap by only two canonical residues and remain separate
+source-specific leads. Neither has an experimentally assigned allotype here.
+The next discriminating result is bounded original-spectrum adjudication followed
+by defined-allotype natural-presentation evidence, before receptor or injury
+inference. No clinical result, fitted model or private evidence was introduced.

@@ -94,6 +94,13 @@ CSF-exclusive clone, local expansion or a migration direction.
 
 ## Reproduction and limits
 
+**Continuation, 2026-11-13 UTC:** the
+[measurement-design experiment](research/compartment-measurement-design.md)
+compares changed mixtures and a repeat-baseline control under bounded shared
+measurement bias. It derives exact precision boundaries and preserves failures
+when bias or selection changes across conditions. Those added assumptions are
+hypothetical; the original snapshot result above is unchanged.
+
 Run from the repository root:
 
 ```sh
