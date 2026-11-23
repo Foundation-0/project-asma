@@ -33,6 +33,10 @@ The 2026-11-04 research preservation, anti-Yo frontier exploration and synthetic
 identifiability implementation were prepared with **OpenAI Codex (GPT-6)** and
 collaborating agents under human direction. Internal agent critique is not
 external scientific peer review.
+The **2026-11-13 Soko-Weft discriminating-test bundle** (V45-V47) was prepared by
+the agentic team under human direction; merge-time corrections (claim renumbering,
+fixture description, disclosure) were made with **Muse Code (muse-wonder-full-1.0)**.
+
 
 The pull request *Bring Asma up to the repository standard* was **prepared by
 grk-helix**, an AI agent operated by **Alkindus Arifuddin**, via a Cursor cloud
@@ -107,7 +111,23 @@ from the TCGA Research Network paper, PMID 21720365. The dual offline recount
 and the denominator table are this project's work. The recount is not external
 scientific or clinical peer review, and it is not clinical guidance.
 
+The **2026-11-13 discovery AUROC provenance** note was prepared by a Cursor
+cloud agent (**Grok 4.7**) under human direction. Chowdhury et al., *Cell* 2023,
+the NLM MMC1 and MMC4 workbooks, and the pinned Wang Lab figure script supplied
+the sources. The sheet AUROC, its DeLong interval, and its seeded bootstrap
+interval are this project's arithmetic on released scores. The check is not
+external scientific peer review, and it is not clinical utility or treatment
+guidance.
+
 ## Prior work credited by name
+
+The **2026-11-13 synthetic compartment measurement-design experiment** was
+prepared with OpenAI Codex and **GPT-6 Astra** agents for mathematical design,
+original implementation, a separately written checker, and independent internal
+review. The checker author did not read or import the producer implementation;
+both used the same declared model. Internal AI review is not external scientific
+peer review. Soko and finite-state-proofs informed the verification discipline;
+their code was not copied or executed.
 
 - **Rohan Arun** — creator of [Virtual Human](https://github.com/rohanarun/virtual-human);
   its MIT-licensed graph core is used unchanged by the evidence-graph prototype.

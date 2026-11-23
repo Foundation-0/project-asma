@@ -481,10 +481,72 @@
       "run_executed": true,
       "run_exit_zero": true,
       "runs_offline": true
+    },
+    {
+      "certificate_path": "results/auroc-provenance-20261113/certificate.json",
+      "checker": "results/auroc-provenance-20261113/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V44",
+      "recheck_commands": [
+        "python3 results/auroc-provenance-20261113/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "results/soko-weft-discriminators-20261113/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V45",
+      "recheck_commands": [
+        "python3 tools/analyze_soko_weft_discriminators.py --check",
+        "python3 results/soko-weft-discriminators-20261113/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "results/soko-weft-discriminators-20261113/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V46",
+      "recheck_commands": [
+        "python3 tools/analyze_soko_weft_discriminators.py --check",
+        "python3 results/soko-weft-discriminators-20261113/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V47",
+      "recheck_commands": [
+        "python3 -m unittest discover -s tests -p 'test_soko_weft_*.py' -v"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": "results/compartment-design-2026-11-13/certificate.json",
+      "checker": "results/compartment-design-2026-11-13/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V48",
+      "recheck_commands": [
+        "python3 results/compartment-design-2026-11-13/verify.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
     }
   ],
-  "generated_utc": "2026-11-13T06:11:36.946469+00:00",
-  "ledger_sha256": "0112efeda45149afc5b0fc02b3bf4d94df4f88ceb0f88e9259fd378ea7960a23",
+  "generated_utc": "2026-11-23T06:44:59.356759+00:00",
+  "ledger_sha256": "38662b78530c03bbb39d666b609beb3ad42242157f26cec9907c9e54bb133589",
   "schema_version": 1,
   "summary": {
     "no_offline_checker": {
@@ -509,14 +571,14 @@
         "V35"
       ]
     },
-    "offline_ran_exit_zero": 24,
-    "offline_recheck_defined": 25,
+    "offline_ran_exit_zero": 29,
+    "offline_recheck_defined": 30,
     "skipped_heavy_recheck": [
       "V02"
     ],
     "tamper_applicable": 4,
     "tamper_fails_on_tamper": 4,
     "tamper_misses": [],
-    "verified_claims": 41
+    "verified_claims": 46
   }
 }

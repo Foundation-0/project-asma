@@ -9,6 +9,7 @@
 /manifests/private/
 /outputs/
 # Keep result data ignored; permit only reviewed aggregate-only records.
+# Keep result data ignored; permit only named reviewed aggregate/synthetic records.
 /results/*
 !/results/trial-landscape-2026-11-05/
 /results/trial-landscape-2026-11-05/*
@@ -22,6 +23,15 @@
 # Integrity-layer checker audit (aggregate JSON only).
 !/results/integrity-audit-2026-11-13/
 !/results/integrity-audit-2026-11-13/**
+# Identifiability and C20 certificates from the 2026-11-13 vault drop (aggregate JSON only).
+!/results/identifiability-and-c20-2026-11-13/
+!/results/identifiability-and-c20-2026-11-13/**
+# Synthetic Soko-to-Asma unlocks drop (aggregate JSON only).
+!/results/soko-asma-unlocks-20261113/
+!/results/soko-asma-unlocks-20261113/**
+# Soko-Weft discriminator certificates (synthetic aggregates only).
+!/results/soko-weft-discriminators-20261113/
+!/results/soko-weft-discriminators-20261113/**
 # Projected ClinicalTrials.gov pages for the 2026-11-13 landscape. Public
 # registry fields only: no eligibility narratives and no participant rows.
 !/results/trial-landscape-v2-2026-11-13/
@@ -30,6 +40,16 @@
 # cohort reconciliation. Counts and set hashes only; no case identifiers.
 !/results/tcga-ov-cohort-reconciliation-20261113/
 !/results/tcga-ov-cohort-reconciliation-20261113/**
+# Discovery AUROC provenance. Frozen pair counts, intervals, and locators.
+# No scores and no sample identifiers.
+!/results/auroc-provenance-20261113/
+!/results/auroc-provenance-20261113/**
+!/results/compartment-design-2026-11-13/
+/results/compartment-design-2026-11-13/*
+!/results/compartment-design-2026-11-13/PROOF.md
+!/results/compartment-design-2026-11-13/certificate.json
+!/results/compartment-design-2026-11-13/verify.py
+!/results/compartment-design-2026-11-13/SHA256SUMS
 /artifacts/
 /checkpoints/
 /models/

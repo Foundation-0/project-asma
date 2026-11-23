@@ -9,7 +9,7 @@ main <- function(arguments) {
   dry <- "--dry-run" %in% arguments
   real <- "--real" %in% arguments
   asma_require(xor(dry, real), "run_mode")
-  reps <- 5L
+  reps <- if (real) 100L else 5L
   for (arg in arguments) {
     if (grepl("^--repetitions=", arg, fixed = FALSE)) {
       reps <- as.integer(sub("^--repetitions=", "", arg))
