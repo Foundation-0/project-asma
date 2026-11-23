@@ -4,11 +4,11 @@
 Unit and Adversarial Tamper Tests for Soko-Weft Discriminating Test Certifier
 =============================================================================
 Verifies:
-  1. Pillar 1 (P01 / V43): Abundance-free CDR2L vs. CDR2 / swap / deamidation PSM
+  1. Pillar 1 (P01 / V45): Abundance-free synthetic 9-mer swap/substitution PSM
      adjudication eliminates both peak-stacking and calibration-sign false admissions.
-  2. Pillar 2 (P02 / V44): Exact `Fraction` reproduction of PR #78 boundaries and
+  2. Pillar 2 (P02 / V46): Exact `Fraction` reproduction of PR #78 boundaries and
      verified orthogonal 2-channel mitosis lifting all 6 world pairs above eps = 1/60.
-  3. Pillar 3 (P03 / V45): Weft C1/C2 safe Bellman-Pareto + Soko prefix-nogood search
+  3. Pillar 3 (P03 / V47): Weft C1/C2 safe Bellman-Pareto + Soko prefix-nogood search
      matches exhaustive safe oracle on 16/16 scenarios with zero safety violations.
   4. PR #80 Tamper-Sensitivity Audit: Planted mutations across SHA-256, scope, min-cuts,
      Farkas duals, and trajectory states all fail closed in `verify.py`.

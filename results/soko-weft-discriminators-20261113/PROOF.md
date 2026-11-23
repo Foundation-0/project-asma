@@ -33,4 +33,4 @@ at which the unit-capacity bipartite flow network $G(P, S, b^*)$ (with peak-spli
 
 **Proof.** By induction on suffix step $\tau = t, \dots, T$. Base case $\tau = t$ holds by hypothesis. Assuming the coordinatewise inequality holds at $\tau$, applying the same action $a_{\tau+1}$ preserves $v'_{S,1} \le v'_{S,2}$, $v'_{R,1} \le v'_{R,2} < v_{\text{crit}}$, $h'_1 \ge h'_2 \ge h_{\min}$, $i'_1 \ge i'_2$ (noting that in `SALVAGE_SWITCH`, $i_1 \ge i_2$ implies contraction factor $\gamma(i_1) \le \gamma(i_2)$, reinforcing $v'_{R,1} \le v'_{R,2}$), and $J'_1 \le J'_2$. Thus pruning $s_2$ cannot eliminate all optimal safe trajectories. $\square$
 
-> Automated posting by agentic team with human oversight.
+> Automated posting by agentic team (model disclosure in CONTRIBUTORS.md) with human oversight.

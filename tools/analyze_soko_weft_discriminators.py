@@ -7,14 +7,14 @@ Turns the prose roadmap in PR #77 ("Assess Soko and proof-ecosystem methods for
 discriminating Asma research tests") into executable, zero-dependency, exact-rational
 (`fractions.Fraction`) algorithms and digest-bound certificates across three tracks:
 
-  1. Pillar 1 (P01 / V43 - Abundance-Free CDR2L vs. CDR2 PSM Exclusion):
+  1. Pillar 1 (P01 / V45 - Abundance-Free Synthetic PSM Exclusion):
      Combines unit-capacity Dinic peak-split matching (preventing near-isobaric
      fragment double-counting / "Hall-stacking") with 1-D Helly-Farkas rational
      calibration-interval sweeping. Proves whether an MS2 peak list uniquely
      supports CDR2L (Q86X02) over paralog CDR2 (Q01850), deamidated N->D variants,
      and positional-swap decoys WITHOUT storing raw peak abundance values (Issue #71).
 
-  2. Pillar 2 (P02 / V44 - Exact Rational Farkas Compartment Polytopes & Mitosis):
+  2. Pillar 2 (P02 / V46 - Exact Rational Farkas Compartment Polytopes & Mitosis):
      Recomputes PR #78's exact scalar compartment boundaries from scratch in pure
      `Fraction` arithmetic (eps*(L)=eps*(R)=eps*(H)=0, eps*(RH; S,C50)=1/280,
      eps*(LR; S,C50)=3/200, eps*(LH; S,C50)=13/700, eps*(LH; S,C25)=3/448 < 1/60),
@@ -23,7 +23,7 @@ discriminating Asma research tests") into executable, zero-dependency, exact-rat
      lifts the worst-case certified separation radius across ALL 6 world pairs
      above target precision eps = 1/60 with explicit rational Farkas dual witnesses.
 
-  3. Pillar 3 (P03 / V45 - Safe Bellman-Pareto & Prefix-Nogood Sequence Verifier):
+  3. Pillar 3 (P03 / V47 - Safe Bellman-Pareto & Prefix-Nogood Sequence Verifier):
      Unifies `tools/analyze_treatment_sequence.py` discrete dynamic programming with
      Weft C1/C2 frozen host-reserve invariants and Soko replay-checked prefix nogoods,
      emitting a compact non-execution Bellman-Pareto cut certificate verified in O(|C|)
@@ -308,17 +308,18 @@ def evaluate_psm_candidates_exact(
 
 def run_pillar1_cdr2l_psm_suite() -> Dict[str, Any]:
     """
-    Runs a deterministic 24-spectrum synthetic adjudication benchmark testing CDR2L (Q86X02)
-    coiled-coil HLA-II / tryptic peptides against homologous CDR2 (Q01850), N->D deamidated
-    variants, and dipeptide-inversion decoys under peak-stacking and calibration drift.
+    Runs a deterministic 24-spectrum synthetic adjudication benchmark on four invented
+    9-mer strings (occurring in neither Q86X02 nor Q01850; no accession or deamidation
+    claim) against positional-swap and near-isobaric-substitution decoys under
+    peak-stacking and calibration drift.
     """
-    # Grounded in canonical human CDR2L (Q86X02) vs CDR2 (Q01850) coiled-coil motifs:
-    # Target CDR2L register: LEERLKAQL (9-mer core, 16 theoretical b/y ions)
+    # Invented synthetic 9-mers (not substrings of Q86X02/Q01850); keys retain
+    # historical fixture names only. Target register: LEERLKAQL (16 theoretical b/y ions)
     candidates = {
         "CDR2L_Q86X02_core": "LEERLKAQL",
         "CDR2_Q01850_homolog": "LEERLKSQL",      # A->S (+15.9949 Da shift on suffix/prefix)
         "CDR2L_isobaric_swap": "LEELRKAQL",      # R4<->L5 inversion (shares b1..b3, b5..b8, y1..y4, y6..y8 = 14/16 ions!)
-        "CDR2L_N_deamidated_decoy": "LEERNKAQL", # L5->N (+0.9589 Da near-isobaric overlap)
+        "CDR2L_N_deamidated_decoy": "LEERNKAQL", # L5->N substitution (+0.9589 Da near-isobaric overlap; not an N->D deamidation)
     }
     ions_true = dict(theoretical_by_ions_uda(candidates["CDR2L_Q86X02_core"]))
     ions_swap = dict(theoretical_by_ions_uda(candidates["CDR2L_isobaric_swap"]))
@@ -382,7 +383,8 @@ def run_pillar1_cdr2l_psm_suite() -> Dict[str, Any]:
         if any(c_res[r]["soko_weft_admitted"] for r in rivals):
             soko_weft_false_admissions += 1
 
-    assert representative_cert is not None
+    if representative_cert is None:
+        raise RuntimeError("representative certificate missing")
     return {
         "n_spectra": 24,
         "min_support_ions": min_support,
@@ -900,7 +902,7 @@ def generate_certificate_payload() -> Dict[str, Any]:
         "scope": SCOPE_BANNER,
         "proof_type": "exact_rational_farkas_dinic_bellman_two_checker",
         "issuer": "tools/analyze_soko_weft_discriminators.py",
-        "claims_covered": ["P01", "P02", "P03", "V43", "V44", "V45"],
+        "claims_covered": ["P01", "P02", "P03", "V45", "V46", "V47"],
         "pillar1_cdr2l_psm_discrimination": p1,
         "pillar2_compartment_farkas_mitosis": p2,
         "pillar3_safe_bellman_pareto_sequences": p3,

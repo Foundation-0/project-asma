@@ -1,12 +1,12 @@
 {
-  "certificate_sha256": "f128460667307e8fac021fefcc18aefa83708580caf2e51d8ea46d56f59bf638",
+  "certificate_sha256": "856310fafe1cf229a5e1eba0fcb2cf66a0152c104528fbb290c0d1337f44237c",
   "claims_covered": [
     "P01",
     "P02",
     "P03",
-    "V43",
-    "V44",
-    "V45"
+    "V45",
+    "V46",
+    "V47"
   ],
   "issuer": "tools/analyze_soko_weft_discriminators.py",
   "pillar1_cdr2l_psm_discrimination": {
