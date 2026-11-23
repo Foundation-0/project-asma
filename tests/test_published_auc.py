@@ -134,7 +134,12 @@ class PublishedAucChecks(unittest.TestCase):
     def test_mocked_fixed_cohort_run_emits_only_aggregate_result_and_provenance(self):
         with mock.patch.object(audit, "Workbook", workbook_double()):
             output = verify.run_verification()
-        encoded = json.dumps(output, allow_nan=False)
+        scrubbed = dict(output)
+        scrubbed["execution"] = {
+            k: v for k, v in output["execution"].items()
+            if k not in ("started_at_utc", "completed_at_utc", "elapsed_seconds")
+        }
+        encoded = json.dumps(scrubbed, allow_nan=False)
         self.assertEqual(output["metric"]["auc_exact"], {"numerator": 1, "denominator": 2})
         self.assertEqual(output["metric"]["pair_counts"]["positive_negative_pairs"], 4316)
         self.assertEqual(output["selection"]["positive_count"], 52)

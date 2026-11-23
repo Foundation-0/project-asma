@@ -34,3 +34,5 @@ python3 -m unittest tests.test_soko_asma_unlocks -v
 python3 tools/verify_soko_asma_unlocks.py
 sha256sum -c results/soko-asma-unlocks-20261113/SHA256SUMS
 ```
+
+Amendment (PR #97): the verifier and its tests were superseded by the unlabelled-observable MS2 version; stdout and certificate.json bytes are unchanged (replay-identical), only implementation hashes moved.
