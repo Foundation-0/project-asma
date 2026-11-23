@@ -2,7 +2,7 @@
   Project Asma - Comprehensive Subspace-Flag, Epitope-Core Bifurcation,
   Offset-Saturation Optimum, Soko 0-1 ILP Assay Set, and N=1 Calibration Proofs
   =============================================================================
-  Stock Lean 4 (zero external dependencies, zero Mathlib imports, zero `sorry`).
+  Stock Lean 4 (zero external dependencies, zero Mathlib imports, no sorry).
   ASCII-only formatting compliant with `tools/validate.py`.
 -/
 
