@@ -1676,15 +1676,34 @@
       "row_text": "| C26 | CONJECTURE | The unrounded five-fold CV AUC that the authors displayed as 0.83 is absent from the public article, the public score sheet, and the pinned scripts. Whether 0.83 displays some other unrounded ROC, and whether the released sheet is that ROC’s input, remains open | C20 already records the sheet-versus-figure gap. This row adds that the plot label is a literal and that the unrounded roc.all1 value was not found. It does not assert that the paper misquoted 0.80885. |",
       "source_ids": [],
       "statement": "The unrounded five-fold CV AUC that the authors displayed as 0.83 is absent from the public article, the public score sheet, and the pinned scripts. Whether 0.83 displays some other unrounded ROC, and whether the released sheet is that ROC’s input, remains open"
+    },
+    {
+      "artifact_paths": [
+        "protocols/compartment-measurement-design.md",
+        "results/compartment-design-2026-11-13/certificate.json",
+        "results/compartment-design-2026-11-13/verify.py"
+      ],
+      "canonical_sha256": "d5797cc02f4198418cdaef3b980a068f0051a1bc567d8866fb3543415a21a0b7",
+      "certificate_paths": [
+        "results/compartment-design-2026-11-13/certificate.json"
+      ],
+      "id": "V48",
+      "label": "VERIFIED",
+      "recheck_commands": [
+        "python3 results/compartment-design-2026-11-13/verify.py"
+      ],
+      "row_text": "| V48 | VERIFIED | In the declared synthetic four-world, three-action model, only LH among the six designs of at most two observations separates zero conversion from both material-conversion worlds at residual error 1/60. Its exact boundary is epsilon < 13/700, compared with < 3/200 for LR and < 1/280 for RH. No guaranteed all-four discrimination; independent offsets or changing selection admit explicit target collisions | `python3 results/compartment-design-2026-11-13/verify.py`; [report and continuous-family argument](docs/research/compartment-measurement-design.md), [frozen protocol](protocols/compartment-measurement-design.md), [certificate](results/compartment-design-2026-11-13/certificate.json). Original rational arithmetic and independently implemented checking; not empirical assay precision, biological identification, a novel method, or a clinical result. |",
+      "source_ids": [],
+      "statement": "In the declared synthetic four-world, three-action model, only LH among the six designs of at most two observations separates zero conversion from both material-conversion worlds at residual error 1/60. Its exact boundary is epsilon < 13/700, compared with < 3/200 for LR and < 1/280 for RH. No guaranteed all-four discrimination; independent offsets or changing selection admit explicit target collisions"
     }
   ],
   "counts": {
     "CONJECTURE": 27,
     "KNOWN": 49,
     "PROVEN": 0,
-    "VERIFIED": 45
+    "VERIFIED": 46
   },
-  "ledger_sha256": "3a6c2ee4551b6f2f9964977021244b94ed6c8149e7be55a70887221c711b7218",
+  "ledger_sha256": "246f47a15c450deff764ccb3081a10c6a0018b7009953b82b0ba1fa75ccd38e1",
   "schema_version": 1,
   "source": "CLAIMS.md"
 }
