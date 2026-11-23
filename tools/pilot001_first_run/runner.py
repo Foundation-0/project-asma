@@ -12,8 +12,12 @@ from pathlib import Path
 from build_synthetic_runtime import ROOT, local_docker_env
 from pilot001_first_run import failure_codes as codes
 from pilot001_first_run.attestation import verify_owner_attestation_on_host
-from pilot001_first_run.config import RunConfig, parse_attestation_ref
-from pilot001_first_run.output_validator import validate_aggregate_document
+from pilot001_first_run.config import DRY_REPETITIONS, RunConfig, parse_attestation_ref
+from pilot001_first_run.output_validator import (
+    PROFILE_DRY,
+    PROFILE_REAL,
+    validate_aggregate_document,
+)
 
 AGGREGATE_FILENAME = "pilot001-first-run-aggregate.json"
 PREFLIGHT_FILENAME = "pilot001-preflight-report.json"
@@ -200,7 +204,7 @@ def build_dry_run_argv(
         "--vanilla",
         "tools/run_pilot001_reconstruction.R",
         "--dry-run",
-        "--repetitions=5",
+        f"--repetitions={DRY_REPETITIONS}",
     ]
 
 
@@ -383,8 +387,8 @@ def _finalize_aggregate_payload(
     return payload
 
 
-def _promote_aggregate(output_dir: Path, payload: dict) -> None:
-    validation_errors = validate_aggregate_document(payload)
+def _promote_aggregate(output_dir: Path, payload: dict, profile: str) -> None:
+    validation_errors = validate_aggregate_document(payload, profile)
     if validation_errors:
         raise ValueError(codes.P001_FAIL_OUTPUT_VALIDATION)
     staging = output_dir / STAGING_AGGREGATE
@@ -459,7 +463,7 @@ def run_dry_container_pipeline(
         digest=image_id,
     )
     try:
-        _promote_aggregate(output_dir, payload)
+        _promote_aggregate(output_dir, payload, PROFILE_DRY)
     except ValueError as error:
         return 1, str(error)
     return 0, completed.stdout.strip()
@@ -520,7 +524,7 @@ def run_real_container_pipeline(
                         platform=platform,
                         digest=image_id,
                     )
-                    _promote_aggregate(output_dir, payload)
+                    _promote_aggregate(output_dir, payload, PROFILE_REAL)
                     result = (0, analyze.stdout.strip())
                 except json.JSONDecodeError:
                     pass
