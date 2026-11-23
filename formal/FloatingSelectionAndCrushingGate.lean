@@ -207,8 +207,8 @@ theorem r19_lower_branch_decomposition (pN pD : Int) :
 
 theorem r19_two_sided_continuum_impossibility (pN pD : Int)
     (hpD : 0 < pD) (hLow : pD <= 20 * pN) :
-    let gap := (76 * pN) * (10 * pN + pD) - (43 * pN + pD) * (18 * pN + pD)
-    let den := (18 * pN + pD) * (10 * pN + pD)
+    let gap := (76 * pN) * (10 * pN + pD) - (43 * pN + pD) * (18 * pN + pD);
+    let den := (18 * pN + pD) * (10 * pN + pD);
     -2 * den < 15 * gap /\ 15 * gap < 2 * den := by
   dsimp only
   rw [floating_r19_gap_factorization pN pD]
@@ -492,7 +492,6 @@ theorem crushing_gate_wall_quorum_necessary (switchReq pullAura : Nat) (s : Scaf
       contradiction
     | inr hPre =>
       rw [if_neg hPre] at hCrossed
-      dsimp only at hCrossed
       cases Classical.em (switchReq <= s.walls + (s.mobileSw - pullAura)) with
       | inl hPost => exact hPost
       | inr hPost =>
