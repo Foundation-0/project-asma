@@ -1,0 +1,36 @@
+{
+  "accessed_at_utc": "2026-11-06T19:30:53.446942+00:00",
+  "assay_id": 11610866,
+  "certificate_sha256": "1bbcf8920cbc4eff40ee115ad7ed6bc6865f43ca1b63ba6c6bb09174e5da7476",
+  "epitope_id": 1281771,
+  "limits": [
+    "Source-association rows are not independent confirmations.",
+    "Portal display metadata do not verify spectra, cell type or peptide-specific allotype.",
+    "No donor IDs, sample linkage keys, genotypes or full page bodies are retained.",
+    "Offline validation checks internal consistency, not unretained live source truth."
+  ],
+  "page_route": "/peptide/{IEDB linear_sequence}",
+  "peptide_sha256": "e3f89dacbd675e575f9977b37d1377a7a1cd538fa7faf942fe22c64c588b19ea",
+  "portal_response_sha256_snapshot": "d20127f045a8916ef3cbbec2a6cb37d31ae88688825d332c6e076a3b55991c09",
+  "pubmed_id": "33858848",
+  "schema_version": 1,
+  "script_sha256": "070dc02a09562c61748d999cdceeb85d1a1d94e98057762986c054b39d911a65",
+  "shared_request_module_sha256": "85d8ca5ff0c402c80b6ffce640e90904ad88f6d717402be138e5102454d3e38d",
+  "source": "https://hla-ligand-atlas.org/",
+  "summary": {
+    "displayed_q_value_range": [
+      "0.00189334",
+      "0.00189334"
+    ],
+    "explicit_no_binding_prediction": true,
+    "hla_class": "II",
+    "original_spectrum_validation": "not_performed",
+    "peptide_specific_allotype": "unresolved",
+    "quality_granularity": "unresolved",
+    "quality_label": "q-value",
+    "source_association_rows": 1,
+    "tissue_counts": {
+      "Cerebellum": 1
+    }
+  }
+}

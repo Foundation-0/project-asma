@@ -11,53 +11,25 @@ No study data are involved.
 """
 
 import argparse
-import hashlib
 import json
-from pathlib import Path
 import time
-import urllib.parse
-import urllib.request
+from pathlib import Path
+
+from pinned_ubuntu_fetch import read_verified
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCK = ROOT / "runtime/source-adapter-python.json"
-LAUNCHPAD = "https://launchpad.net/ubuntu/+archive/primary/+files/"
-
-
-def matches(body, record):
-    return len(body) == record["bytes"] and hashlib.sha256(body).hexdigest() == record["sha256"]
-
-
-def fetch(url, record):
-    with urllib.request.urlopen(url, timeout=45) as response:
-        body = response.read(record["bytes"] + 1)
-    if not matches(body, record):
-        raise ValueError("bytes do not match the pinned size and SHA256")
-    return body
 
 
 def seed_one(cache, record):
     name = record["filename"]
-    if Path(name).name != name:
-        raise ValueError(f"unsafe filename in lock: {name!r}")
-    target = cache / name
-    if target.is_file():
-        if matches(target.read_bytes(), record):
-            print(f"{name}: already cached")
-            return True
-        target.unlink()
-    for url in (record["url"], LAUNCHPAD + urllib.parse.quote(name)):
-        host = urllib.parse.urlsplit(url).hostname
-        try:
-            body = fetch(url, record)
-        except Exception as error:
-            print(f"{name}: {host} unavailable ({error})")
-            continue
-        partial = cache / (name + ".partial")
-        partial.write_bytes(body)
-        partial.replace(target)
-        print(f"{name}: cached from {host} (size and SHA256 match the pin)")
-        return True
-    return False
+    try:
+        read_verified(record, cache, "linux/amd64")
+    except Exception as error:
+        print(f"{name}: unavailable ({error})")
+        return False
+    print(f"{name}: cached (size and SHA256 match the pin)")
+    return True
 
 
 def seed(cache, rounds=3, pause=20):

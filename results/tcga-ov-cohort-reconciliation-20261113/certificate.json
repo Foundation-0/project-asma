@@ -1,0 +1,866 @@
+{
+  "biological_conclusion": "none",
+  "clinical_guidance": "none",
+  "controlled_access_files_requested": false,
+  "counts": {
+    "biological_conclusion": "none",
+    "cbioportal_db_version": "3.1.0",
+    "cbioportal_git_commit": "995480e500b599862d4a27d44f5676f263317f34",
+    "cbioportal_portal_version": "v7.2.3",
+    "citation_rows": [
+      {
+        "cite_as": "GDC project TCGA-OV summary case_count on the recorded data release",
+        "location": "docs/directions.md GDC TCGA-OV case count",
+        "observed_number": 608,
+        "printed_number": 608
+      },
+      {
+        "cite_as": "cBioPortal ov_tcga_pub allSampleCount: the 2011 Nature analysed sample count for mRNA, microRNA, methylation and copy number",
+        "location": "docs/directions.md cBioPortal ov_tcga_pub sample count",
+        "observed_number": 489,
+        "printed_number": 489
+      },
+      {
+        "cite_as": "Exome sequencing count. Do not cite the portal description's exome sentence when it disagrees with sequencedSampleCount",
+        "location": "cBioPortal ov_tcga_pub sequencedSampleCount and PMID 21720365",
+        "observed_number": 316,
+        "printed_number": null
+      },
+      {
+        "cite_as": "Human Protein Atlas version 26.0 RNA cohort size for ovary serous cystadenocarcinoma. Not the GDC case count and not the 2011 analysed-sample count. Not remeasured here",
+        "location": "CLAIMS.md V40 Human Protein Atlas TCGA RNA cohort",
+        "observed_number": null,
+        "printed_number": 349
+      }
+    ],
+    "clinical_guidance": "none",
+    "controlled_access_files_requested": false,
+    "disease_type_counts": {
+      "cystic, mucinous and serous neoplasms": 600,
+      "not reported": 8
+    },
+    "gdc_access_open_file_count": 14519,
+    "gdc_api_version": 1,
+    "gdc_case_set_count": 608,
+    "gdc_case_set_sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4",
+    "gdc_case_unparsed": 0,
+    "gdc_cases_pagination_total": 608,
+    "gdc_cases_without_tumor_tissue": {
+      "count": 8,
+      "sha256": "9066f064472a6dd0d5a747d7e971c36763cef6c8dc8a56cf3f7dc183ed06b7a0"
+    },
+    "gdc_commit": "8f7c2a51ab0084b216ad1b62a3fae8b945439c53",
+    "gdc_controlled_file_count": 18372,
+    "gdc_data_release": "Data Release 46.0 - August 10, 2026",
+    "gdc_open_file_count": 14519,
+    "gdc_primary_tumor_cases": {
+      "count": 599,
+      "sha256": "80eeb974fbe39ac118a9dfab2711d6cb3d9ac38caf7d932ef3afc196de8ac4f6"
+    },
+    "gdc_project_case_count": 608,
+    "gdc_project_file_count": 32891,
+    "gdc_project_id": "TCGA-OV",
+    "gdc_project_name": "Ovarian Serous Cystadenocarcinoma",
+    "gdc_tag": "8.5.0",
+    "gdc_tumor_tissue_cases": {
+      "count": 600,
+      "sha256": "05879e649150863629721804f5f3c0ec6c47873be7ecdc2ed98683791589dd51"
+    },
+    "identifiers_retained": false,
+    "open_file_cases": {
+      "any": {
+        "count": 608,
+        "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+      },
+      "by_data_category": {
+        "Biospecimen": {
+          "count": 608,
+          "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+        },
+        "Clinical": {
+          "count": 608,
+          "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+        },
+        "Copy Number Variation": {
+          "count": 601,
+          "sha256": "ed6aacd005f34bed082bf8b1795fed208076ee954bdff4d26448876c6c52dcdc"
+        },
+        "DNA Methylation": {
+          "count": 602,
+          "sha256": "dc7242694727351a2bd924e50af26d36001e610df7b2fb705b8aa4fdca02a2ff"
+        },
+        "Proteome Profiling": {
+          "count": 422,
+          "sha256": "af4c11e3df81f86561a0fbf79f7128580cbcc1fc0fe9e8f088dfa8579920d6a9"
+        },
+        "Simple Nucleotide Variation": {
+          "count": 419,
+          "sha256": "3fc3ea8dea81c14d3abaa938611be2eba26155a1f92a7de791b057b5dd932e7e"
+        },
+        "Transcriptome Profiling": {
+          "count": 559,
+          "sha256": "396c324e45a45fb4bb47c0de283832b82c4adf8ad253c9c22b7eb7f00c7eda7f"
+        }
+      },
+      "by_data_type": {
+        "Allele-specific Copy Number Segment": {
+          "count": 570,
+          "sha256": "de3f066262e65e9f552dc3f69fada2e5a429f634776aa688b0e6863de9af8fba"
+        },
+        "Biospecimen Supplement": {
+          "count": 608,
+          "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+        },
+        "Clinical Supplement": {
+          "count": 608,
+          "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+        },
+        "Copy Number Segment": {
+          "count": 601,
+          "sha256": "ed6aacd005f34bed082bf8b1795fed208076ee954bdff4d26448876c6c52dcdc"
+        },
+        "Gene Expression Quantification": {
+          "count": 427,
+          "sha256": "c9c9c63ba5ec238a3a3d7ebdd734f3c1998bb5bf71510dc12b49ba0322fa6220"
+        },
+        "Gene Level Copy Number": {
+          "count": 578,
+          "sha256": "8388c76b4d51c55a7031d7532e76ba4244ac795d40f4b515c36830e21260e4b2"
+        },
+        "Isoform Expression Quantification": {
+          "count": 522,
+          "sha256": "280620566d13b46d1dc66492bec67875c4fa86674cdf95372b830e027b0ab831"
+        },
+        "Masked Copy Number Segment": {
+          "count": 597,
+          "sha256": "233abcb316107c4a6da8fb928827d965b67f4e0e6e7fe14c8e158f51e73fe95e"
+        },
+        "Masked Intensities": {
+          "count": 602,
+          "sha256": "dc7242694727351a2bd924e50af26d36001e610df7b2fb705b8aa4fdca02a2ff"
+        },
+        "Masked Somatic Mutation": {
+          "count": 419,
+          "sha256": "3fc3ea8dea81c14d3abaa938611be2eba26155a1f92a7de791b057b5dd932e7e"
+        },
+        "Methylation Beta Value": {
+          "count": 602,
+          "sha256": "dc7242694727351a2bd924e50af26d36001e610df7b2fb705b8aa4fdca02a2ff"
+        },
+        "Pathology Report": {
+          "count": 590,
+          "sha256": "c35bf76f0d824def7c37f2a3950af0e5d1bb5bb2160441e87c91bf3592d0dbe5"
+        },
+        "Protein Expression Quantification": {
+          "count": 422,
+          "sha256": "af4c11e3df81f86561a0fbf79f7128580cbcc1fc0fe9e8f088dfa8579920d6a9"
+        },
+        "Raw Intensities": {
+          "count": 530,
+          "sha256": "54fa254011cd5dc12ecab04eb4e1cd75088ee6b95e26c890aa48ddcdaf218398"
+        },
+        "Slide Image": {
+          "count": 590,
+          "sha256": "c35bf76f0d824def7c37f2a3950af0e5d1bb5bb2160441e87c91bf3592d0dbe5"
+        },
+        "miRNA Expression Quantification": {
+          "count": 522,
+          "sha256": "280620566d13b46d1dc66492bec67875c4fa86674cdf95372b830e027b0ab831"
+        }
+      },
+      "by_experimental_strategy": {
+        "Diagnostic Slide": {
+          "count": 106,
+          "sha256": "13d60874f0ed61d036aa3ec466467627457b81818d4069e904f30f825a014125"
+        },
+        "Expression Array": {
+          "count": 530,
+          "sha256": "54fa254011cd5dc12ecab04eb4e1cd75088ee6b95e26c890aa48ddcdaf218398"
+        },
+        "Genotyping Array": {
+          "count": 597,
+          "sha256": "233abcb316107c4a6da8fb928827d965b67f4e0e6e7fe14c8e158f51e73fe95e"
+        },
+        "Methylation Array": {
+          "count": 602,
+          "sha256": "dc7242694727351a2bd924e50af26d36001e610df7b2fb705b8aa4fdca02a2ff"
+        },
+        "RNA-Seq": {
+          "count": 427,
+          "sha256": "c9c9c63ba5ec238a3a3d7ebdd734f3c1998bb5bf71510dc12b49ba0322fa6220"
+        },
+        "Reverse Phase Protein Array": {
+          "count": 422,
+          "sha256": "af4c11e3df81f86561a0fbf79f7128580cbcc1fc0fe9e8f088dfa8579920d6a9"
+        },
+        "Tissue Slide": {
+          "count": 589,
+          "sha256": "be403c80b7960f5461bfc6e6acbed3dbe214d00ffce22f6c032c651918ac219d"
+        },
+        "WGS": {
+          "count": 331,
+          "sha256": "5c9b57c9112d5176f4b5c2df338d148dad7bcd5f0ff377a5b2cabca4bccd6ae1"
+        },
+        "WXS": {
+          "count": 419,
+          "sha256": "3fc3ea8dea81c14d3abaa938611be2eba26155a1f92a7de791b057b5dd932e7e"
+        },
+        "_missing": {
+          "count": 608,
+          "sha256": "4ded93e7468896709cdd4d77eafdb711f55c7fcb7dbee03c61297541dd868ea4"
+        },
+        "miRNA-Seq": {
+          "count": 522,
+          "sha256": "280620566d13b46d1dc66492bec67875c4fa86674cdf95372b830e027b0ab831"
+        }
+      },
+      "files_read": 14519,
+      "files_with_unparsed_case": 0,
+      "files_without_case": 0,
+      "gdc_cases_without_open_snv": {
+        "count": 189,
+        "sha256": "7785e597747f3c3476285efe972b85e0fd1f898f811bd887eed5662bc2783722"
+      },
+      "open_cna": {
+        "count": 601,
+        "sha256": "ed6aacd005f34bed082bf8b1795fed208076ee954bdff4d26448876c6c52dcdc"
+      },
+      "open_snv": {
+        "count": 419,
+        "sha256": "3fc3ea8dea81c14d3abaa938611be2eba26155a1f92a7de791b057b5dd932e7e"
+      },
+      "open_snv_and_cna": {
+        "count": 417,
+        "sha256": "5af395afeb3d1da74e8ea2ea547c92f44056a966d74b5040fb0f387603088ce0"
+      },
+      "open_wxs": {
+        "count": 419,
+        "sha256": "3fc3ea8dea81c14d3abaa938611be2eba26155a1f92a7de791b057b5dd932e7e"
+      },
+      "outside_gdc_case_set": 0
+    },
+    "open_files_by_category": {
+      "biospecimen": 2601,
+      "clinical": 1204,
+      "copy number variation": 5799,
+      "dna methylation": 1869,
+      "proteome profiling": 432,
+      "simple nucleotide variation": 482,
+      "transcriptome profiling": 2132
+    },
+    "open_files_by_data_type": {
+      "Allele-specific Copy Number Segment": 1238,
+      "Biospecimen Supplement": 1120,
+      "Clinical Supplement": 597,
+      "Copy Number Segment": 1564,
+      "Gene Expression Quantification": 434,
+      "Gene Level Copy Number": 1797,
+      "Isoform Expression Quantification": 575,
+      "Masked Copy Number Segment": 1200,
+      "Masked Intensities": 1246,
+      "Masked Somatic Mutation": 482,
+      "Methylation Beta Value": 623,
+      "Pathology Report": 607,
+      "Protein Expression Quantification": 432,
+      "Raw Intensities": 548,
+      "Slide Image": 1481,
+      "miRNA Expression Quantification": 575
+    },
+    "open_files_by_strategy": {
+      "Diagnostic Slide": 107,
+      "Expression Array": 548,
+      "Genotyping Array": 5247,
+      "Methylation Array": 1869,
+      "RNA-Seq": 434,
+      "Reverse Phase Protein Array": 432,
+      "Tissue Slide": 1374,
+      "WGS": 552,
+      "WXS": 482,
+      "_missing": 2324,
+      "miRNA-Seq": 1150
+    },
+    "primary_site_counts": {
+      "ovary": 601,
+      "retroperitoneum and peritoneum": 7
+    },
+    "project_category_case_counts": {
+      "Biospecimen": 608,
+      "Clinical": 608,
+      "Copy Number Variation": 601,
+      "DNA Methylation": 602,
+      "Proteome Profiling": 422,
+      "Sequencing Reads": 584,
+      "Simple Nucleotide Variation": 603,
+      "Somatic Structural Variation": 330,
+      "Structural Variation": 493,
+      "Transcriptome Profiling": 559
+    },
+    "project_category_file_counts": {
+      "Biospecimen": 2601,
+      "Clinical": 1204,
+      "Copy Number Variation": 7379,
+      "DNA Methylation": 1869,
+      "Proteome Profiling": 432,
+      "Sequencing Reads": 3717,
+      "Simple Nucleotide Variation": 9863,
+      "Somatic Structural Variation": 1219,
+      "Structural Variation": 2041,
+      "Transcriptome Profiling": 2566
+    },
+    "project_strategy_case_counts": {
+      "Diagnostic Slide": 106,
+      "Expression Array": 530,
+      "Genotyping Array": 597,
+      "Methylation Array": 602,
+      "RNA-Seq": 427,
+      "Reverse Phase Protein Array": 422,
+      "Tissue Slide": 589,
+      "WGS": 363,
+      "WXS": 457,
+      "miRNA-Seq": 522
+    },
+    "project_strategy_file_count_gap": 2324,
+    "project_strategy_file_count_sum": 30567,
+    "project_strategy_file_counts": {
+      "Diagnostic Slide": 107,
+      "Expression Array": 548,
+      "Genotyping Array": 7679,
+      "Methylation Array": 1869,
+      "RNA-Seq": 3906,
+      "Reverse Phase Protein Array": 432,
+      "Tissue Slide": 1374,
+      "WGS": 4950,
+      "WXS": 7977,
+      "miRNA-Seq": 1725
+    },
+    "retrieved_completed_utc": "2026-11-13T06:03:41.863445+00:00",
+    "retrieved_started_utc": "2026-11-13T06:03:12.019489+00:00",
+    "sample_type_case_counts": {
+      "blood derived normal": 464,
+      "primary tumor": 599,
+      "recurrent tumor": 19,
+      "solid tissue normal": 135
+    },
+    "studies": {
+      "ov_tcga": {
+        "all_sample_count": 617,
+        "cancer_type_id": "hgsoc",
+        "citation": null,
+        "cna_sample_count": 579,
+        "complete_sample_count": 182,
+        "exome_phrase_conflicts_with_sequenced_count": false,
+        "exome_phrase_count": null,
+        "name": "Ovarian Serous Cystadenocarcinoma (TCGA, Firehose Legacy)",
+        "overlap_patients_with_gdc_cases": {
+          "count": 600,
+          "gdc_only": 8,
+          "gdc_only_sha256": "9066f064472a6dd0d5a747d7e971c36763cef6c8dc8a56cf3f7dc183ed06b7a0",
+          "portal_only": 0,
+          "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "sha256": "05879e649150863629721804f5f3c0ec6c47873be7ecdc2ed98683791589dd51"
+        },
+        "overlap_sample_patients_with_gdc_cases": {
+          "count": 600,
+          "gdc_only": 8,
+          "gdc_only_sha256": "9066f064472a6dd0d5a747d7e971c36763cef6c8dc8a56cf3f7dc183ed06b7a0",
+          "portal_only": 0,
+          "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "sha256": "05879e649150863629721804f5f3c0ec6c47873be7ecdc2ed98683791589dd51"
+        },
+        "patient_count": 600,
+        "patient_sha256": "05879e649150863629721804f5f3c0ec6c47873be7ecdc2ed98683791589dd51",
+        "patient_unparsed": 0,
+        "patients_with_a_sample": {
+          "count": 600,
+          "sha256": "05879e649150863629721804f5f3c0ec6c47873be7ecdc2ed98683791589dd51"
+        },
+        "patients_without_a_sample": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "pmid": null,
+        "profile_count": 18,
+        "public_study": true,
+        "reference_genome": "hg19",
+        "sample_count_observed": 617,
+        "sample_lists": [
+          {
+            "category": "all_cases_with_mutation_and_cna_and_mrna_data",
+            "description_count": 182,
+            "name": "Complete samples",
+            "sample_count": 182,
+            "sample_id_count": 182,
+            "sample_list_id": "ov_tcga_3way_complete"
+          },
+          {
+            "category": "all_cases_in_study",
+            "description_count": 617,
+            "name": "All samples",
+            "sample_count": 617,
+            "sample_id_count": 617,
+            "sample_list_id": "ov_tcga_all"
+          },
+          {
+            "category": "all_cases_with_cna_data",
+            "description_count": 579,
+            "name": "Samples with CNA data",
+            "sample_count": 579,
+            "sample_id_count": 579,
+            "sample_list_id": "ov_tcga_cna"
+          },
+          {
+            "category": "all_cases_with_mutation_and_cna_data",
+            "description_count": 311,
+            "name": "Samples with mutation and CNA data",
+            "sample_count": 311,
+            "sample_id_count": 311,
+            "sample_list_id": "ov_tcga_cnaseq"
+          },
+          {
+            "category": "all_cases_with_methylation_data",
+            "description_count": 592,
+            "name": "Samples with methylation data",
+            "sample_count": 592,
+            "sample_id_count": 592,
+            "sample_list_id": "ov_tcga_methylation_all"
+          },
+          {
+            "category": "all_cases_with_methylation_data",
+            "description_count": 592,
+            "name": "Samples with methylation data (HM27)",
+            "sample_count": 592,
+            "sample_id_count": 592,
+            "sample_list_id": "ov_tcga_methylation_hm27"
+          },
+          {
+            "category": "all_cases_with_mrna_array_data",
+            "description_count": 558,
+            "name": "Samples with mRNA data (Agilent microarray)",
+            "sample_count": 558,
+            "sample_id_count": 558,
+            "sample_list_id": "ov_tcga_mrna"
+          },
+          {
+            "category": "all_cases_with_mrna_array_data",
+            "description_count": 535,
+            "name": "Samples with mRNA data (U133 microarray only)",
+            "sample_count": 535,
+            "sample_id_count": 535,
+            "sample_list_id": "ov_tcga_mrna_U133"
+          },
+          {
+            "category": "other",
+            "description_count": 69,
+            "name": "Samples with phosphoprotein quantification data (mass spectrometry by CPTAC)",
+            "sample_count": 69,
+            "sample_id_count": 69,
+            "sample_list_id": "ov_tcga_phosphoprotein_quantification"
+          },
+          {
+            "category": "other",
+            "description_count": 174,
+            "name": "Samples with protein data (Mass Spec)",
+            "sample_count": 174,
+            "sample_id_count": 174,
+            "sample_list_id": "ov_tcga_protein_quantification"
+          },
+          {
+            "category": "all_cases_with_mrna_rnaseq_data",
+            "description_count": 307,
+            "name": "Samples with mRNA data (RNA Seq V2)",
+            "sample_count": 307,
+            "sample_id_count": 307,
+            "sample_list_id": "ov_tcga_rna_seq_v2_mrna"
+          },
+          {
+            "category": "all_cases_with_rppa_data",
+            "description_count": 436,
+            "name": "Samples with protein data (RPPA)",
+            "sample_count": 436,
+            "sample_id_count": 436,
+            "sample_list_id": "ov_tcga_rppa"
+          },
+          {
+            "category": "all_cases_with_mutation_data",
+            "description_count": 316,
+            "name": "Samples with mutation data",
+            "sample_count": 316,
+            "sample_id_count": 316,
+            "sample_list_id": "ov_tcga_sequenced"
+          }
+        ],
+        "sample_sha256": "06d0306cc090630a6d8ba40f11d1af4e8bae16cf4e3caa512c5797e346135fc1",
+        "sample_unparsed": 0,
+        "sequenced_sample_count": 316
+      },
+      "ov_tcga_pan_can_atlas_2018": {
+        "all_sample_count": 585,
+        "cancer_type_id": "hgsoc",
+        "citation": "TCGA, Cell 2018",
+        "cna_sample_count": 572,
+        "complete_sample_count": 201,
+        "exome_phrase_conflicts_with_sequenced_count": false,
+        "exome_phrase_count": null,
+        "name": "Ovarian Serous Cystadenocarcinoma (TCGA, PanCancer Atlas)",
+        "overlap_patients_with_gdc_cases": {
+          "count": 585,
+          "gdc_only": 23,
+          "gdc_only_sha256": "6dcfeacef775d1d7e688bb51fabec8b85a52e9e6d9609f67d16a4838250a39f2",
+          "portal_only": 0,
+          "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "sha256": "44a29d6797768496b083869d88acfa46db479d956e0363a4b7b74f252b19f79d"
+        },
+        "overlap_sample_patients_with_gdc_cases": {
+          "count": 585,
+          "gdc_only": 23,
+          "gdc_only_sha256": "6dcfeacef775d1d7e688bb51fabec8b85a52e9e6d9609f67d16a4838250a39f2",
+          "portal_only": 0,
+          "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "sha256": "44a29d6797768496b083869d88acfa46db479d956e0363a4b7b74f252b19f79d"
+        },
+        "patient_count": 585,
+        "patient_sha256": "44a29d6797768496b083869d88acfa46db479d956e0363a4b7b74f252b19f79d",
+        "patient_unparsed": 0,
+        "patients_with_a_sample": {
+          "count": 585,
+          "sha256": "44a29d6797768496b083869d88acfa46db479d956e0363a4b7b74f252b19f79d"
+        },
+        "patients_without_a_sample": {
+          "count": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "pmid": "29625048,29596782,29622463,29617662,29625055,29625050,29617662,30643250,32214244,29625049,29850653,36334560",
+        "profile_count": 16,
+        "public_study": true,
+        "reference_genome": "hg19",
+        "sample_count_observed": 585,
+        "sample_lists": [
+          {
+            "category": "all_cases_with_mutation_and_cna_and_mrna_data",
+            "description_count": 201,
+            "name": "Complete samples",
+            "sample_count": 201,
+            "sample_id_count": 201,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_3way_complete"
+          },
+          {
+            "category": "all_cases_in_study",
+            "description_count": 585,
+            "name": "All samples",
+            "sample_count": 585,
+            "sample_id_count": 585,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_all"
+          },
+          {
+            "category": "all_cases_with_cna_data",
+            "description_count": 572,
+            "name": "Samples with CNA data",
+            "sample_count": 572,
+            "sample_id_count": 572,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_cna"
+          },
+          {
+            "category": "all_cases_with_mutation_and_cna_data",
+            "description_count": 398,
+            "name": "Samples with mutation and CNA data",
+            "sample_count": 398,
+            "sample_id_count": 398,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_cnaseq"
+          },
+          {
+            "category": "all_cases_with_log2_cna_data",
+            "description_count": 572,
+            "name": "Samples with log2 copy-number data",
+            "sample_count": 572,
+            "sample_id_count": 572,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_log2CNA"
+          },
+          {
+            "category": "all_cases_with_methylation_data",
+            "description_count": 584,
+            "name": "Samples with methylation data",
+            "sample_count": 584,
+            "sample_id_count": 584,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_methylation_all"
+          },
+          {
+            "category": "all_cases_with_methylation_data",
+            "description_count": 10,
+            "name": "Samples with methylation data (HM450)",
+            "sample_count": 10,
+            "sample_id_count": 10,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_methylation_hm450"
+          },
+          {
+            "category": "other",
+            "description_count": 68,
+            "name": "Samples with phosphoprotein quantification data (mass spectrometry by CPTAC)",
+            "sample_count": 68,
+            "sample_id_count": 68,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_phosphoprotein_quantification"
+          },
+          {
+            "category": "other",
+            "description_count": 121,
+            "name": "Samples with protein data (Mass Spec)",
+            "sample_count": 121,
+            "sample_id_count": 121,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_protein_quantification"
+          },
+          {
+            "category": "all_cases_with_mrna_rnaseq_data",
+            "description_count": 300,
+            "name": "Samples with mRNA data (RNA Seq V2)",
+            "sample_count": 300,
+            "sample_id_count": 300,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_rna_seq_v2_mrna"
+          },
+          {
+            "category": "all_cases_with_rppa_data",
+            "description_count": 414,
+            "name": "Samples with protein data (RPPA)",
+            "sample_count": 414,
+            "sample_id_count": 414,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_rppa"
+          },
+          {
+            "category": "all_cases_with_mutation_data",
+            "description_count": 523,
+            "name": "Samples with mutation data",
+            "sample_count": 523,
+            "sample_id_count": 523,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_sequenced"
+          },
+          {
+            "category": "all_cases_with_sv_data",
+            "description_count": null,
+            "name": "Samples with SV data",
+            "sample_count": 523,
+            "sample_id_count": 523,
+            "sample_list_id": "ov_tcga_pan_can_atlas_2018_sv"
+          }
+        ],
+        "sample_sha256": "d0191fc69321703411617511d6219a5ddcd3b96768fc3789b5b5eb1bf7248a16",
+        "sample_unparsed": 0,
+        "sequenced_sample_count": 523
+      },
+      "ov_tcga_pub": {
+        "all_sample_count": 489,
+        "cancer_type_id": "hgsoc",
+        "citation": "TCGA, Nature 2011",
+        "cna_sample_count": 489,
+        "complete_sample_count": 316,
+        "exome_phrase_conflicts_with_sequenced_count": true,
+        "exome_phrase_count": 489,
+        "name": "Ovarian Serous Cystadenocarcinoma (TCGA, Nature 2011)",
+        "overlap_patients_with_gdc_cases": {
+          "count": 492,
+          "gdc_only": 116,
+          "gdc_only_sha256": "6b9c69b5b092d301207144b7fceaeeb0b2b5ee5a3d8d97cd57be46fb01046ed2",
+          "portal_only": 0,
+          "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "sha256": "a97109d515733e7402173aae8f25aa03cf687b55c9448e0b9b7b80ebe65ce479"
+        },
+        "overlap_sample_patients_with_gdc_cases": {
+          "count": 489,
+          "gdc_only": 119,
+          "gdc_only_sha256": "261b3b6f50d86ca51069a18dbcfb37f9cdc9b8964fdd48c7d08779035469d97f",
+          "portal_only": 0,
+          "portal_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "sha256": "d94f80170afb4edfafc90020cdfa998369dddd62898d9ac37e93c662b7ec0e8a"
+        },
+        "patient_count": 492,
+        "patient_sha256": "a97109d515733e7402173aae8f25aa03cf687b55c9448e0b9b7b80ebe65ce479",
+        "patient_unparsed": 0,
+        "patients_with_a_sample": {
+          "count": 489,
+          "sha256": "d94f80170afb4edfafc90020cdfa998369dddd62898d9ac37e93c662b7ec0e8a"
+        },
+        "patients_without_a_sample": {
+          "count": 3,
+          "sha256": "edfa9a07889a9b810bd004a688675ea1ff1497b34bd5f884720f41729fdc6aa1"
+        },
+        "pmid": "21720365",
+        "profile_count": 10,
+        "public_study": true,
+        "reference_genome": "hg19",
+        "sample_count_observed": 489,
+        "sample_lists": [
+          {
+            "category": "all_cases_with_mutation_and_cna_and_mrna_data",
+            "description_count": 316,
+            "name": "Complete samples",
+            "sample_count": 316,
+            "sample_id_count": 316,
+            "sample_list_id": "ov_tcga_pub_3way_complete"
+          },
+          {
+            "category": "all_cases_in_study",
+            "description_count": 489,
+            "name": "All samples",
+            "sample_count": 489,
+            "sample_id_count": 489,
+            "sample_list_id": "ov_tcga_pub_all"
+          },
+          {
+            "category": "all_cases_with_cna_data",
+            "description_count": 489,
+            "name": "Samples with CNA data",
+            "sample_count": 489,
+            "sample_id_count": 489,
+            "sample_list_id": "ov_tcga_pub_cna"
+          },
+          {
+            "category": "all_cases_with_mutation_and_cna_data",
+            "description_count": 316,
+            "name": "Samples with mutation and CNA data",
+            "sample_count": 316,
+            "sample_id_count": 316,
+            "sample_list_id": "ov_tcga_pub_cna_seq"
+          },
+          {
+            "category": "other",
+            "description_count": 316,
+            "name": "Manuscript samples",
+            "sample_count": 316,
+            "sample_id_count": 316,
+            "sample_list_id": "ov_tcga_pub_complete_manuscript"
+          },
+          {
+            "category": "other",
+            "description_count": 134,
+            "name": "Expression Cluster Fallopian",
+            "sample_count": 134,
+            "sample_id_count": 134,
+            "sample_list_id": "ov_tcga_pub_exp1"
+          },
+          {
+            "category": "other",
+            "description_count": 110,
+            "name": "Expression Cluster Immunoreactive",
+            "sample_count": 110,
+            "sample_id_count": 110,
+            "sample_list_id": "ov_tcga_pub_exp2"
+          },
+          {
+            "category": "other",
+            "description_count": 108,
+            "name": "Expression Cluster Mesenchymal",
+            "sample_count": 108,
+            "sample_id_count": 108,
+            "sample_list_id": "ov_tcga_pub_exp3"
+          },
+          {
+            "category": "other",
+            "description_count": 137,
+            "name": "Expression Cluster Proliferative",
+            "sample_count": 137,
+            "sample_id_count": 137,
+            "sample_list_id": "ov_tcga_pub_exp4"
+          },
+          {
+            "category": "all_cases_with_log2_cna_data",
+            "description_count": 481,
+            "name": "Samples with log2 copy-number data",
+            "sample_count": 481,
+            "sample_id_count": 481,
+            "sample_list_id": "ov_tcga_pub_log2CNA"
+          },
+          {
+            "category": "other",
+            "description_count": 131,
+            "name": "Methylation cluster 1",
+            "sample_count": 131,
+            "sample_id_count": 131,
+            "sample_list_id": "ov_tcga_pub_meth1"
+          },
+          {
+            "category": "other",
+            "description_count": 64,
+            "name": "Methylation cluster 2",
+            "sample_count": 64,
+            "sample_id_count": 64,
+            "sample_list_id": "ov_tcga_pub_meth2"
+          },
+          {
+            "category": "other",
+            "description_count": 156,
+            "name": "Methylation cluster 3",
+            "sample_count": 156,
+            "sample_id_count": 156,
+            "sample_list_id": "ov_tcga_pub_meth3"
+          },
+          {
+            "category": "other",
+            "description_count": 138,
+            "name": "Methylation cluster 4",
+            "sample_count": 138,
+            "sample_id_count": 138,
+            "sample_list_id": "ov_tcga_pub_meth4"
+          },
+          {
+            "category": "all_cases_with_methylation_data",
+            "description_count": 489,
+            "name": "Samples with methylation data",
+            "sample_count": 489,
+            "sample_id_count": 489,
+            "sample_list_id": "ov_tcga_pub_methylation_all"
+          },
+          {
+            "category": "all_cases_with_methylation_data",
+            "description_count": 489,
+            "name": "Samples with methylation data (HM27)",
+            "sample_count": 489,
+            "sample_id_count": 489,
+            "sample_list_id": "ov_tcga_pub_methylation_hm27"
+          },
+          {
+            "category": "all_cases_with_microrna_data",
+            "description_count": 489,
+            "name": "Samples with microRNA data (microRNA-Seq)",
+            "sample_count": 489,
+            "sample_id_count": 489,
+            "sample_list_id": "ov_tcga_pub_microrna"
+          },
+          {
+            "category": "all_cases_with_mrna_array_data",
+            "description_count": 489,
+            "name": "Samples with mRNA data (Agilent microarray)",
+            "sample_count": 489,
+            "sample_id_count": 489,
+            "sample_list_id": "ov_tcga_pub_mrna"
+          },
+          {
+            "category": "all_cases_with_mutation_data",
+            "description_count": 316,
+            "name": "Samples with mutation data",
+            "sample_count": 316,
+            "sample_id_count": 316,
+            "sample_list_id": "ov_tcga_pub_sequenced"
+          }
+        ],
+        "sample_sha256": "30db7b91c5905c272c7b3f46093f95e07c19fb25cb31f922531a5ffbdf81da4d",
+        "sample_unparsed": 0,
+        "sequenced_sample_count": 316
+      }
+    },
+    "tissue_type_case_counts": {
+      "normal": 598,
+      "tumor": 600
+    }
+  },
+  "identifiers_retained": false,
+  "implementation_sha256": {
+    "results/tcga-ov-cohort-reconciliation-20261113/verify.py": "5d5afd9b950a610ed437d02eeeeb1ec4bbbae11b5a247cb838a83049e8fde9f7",
+    "tools/fetch_tcga_ov_cohort.py": "4d78cd0d571072887581a04cbfcf85422bdbe7225863add9f35e17db52f8dd07",
+    "tools/tcga_ov_cohort_export.py": "f148a82a8b5b593a1e43ce84fb216c7fc0404c0501c7492b8358254897a28678",
+    "tools/tcga_ov_cohort_recompute.py": "4882222b9d8e60689d95aa9f121c191d478242fb0fa8ed506741a5464a4ba86a"
+  },
+  "readers": [
+    "export_fields",
+    "recompute_buckets"
+  ],
+  "retrieved_completed_utc": "2026-11-13T06:03:41.863445+00:00",
+  "retrieved_started_utc": "2026-11-13T06:03:12.019489+00:00",
+  "schema_version": 1
+}

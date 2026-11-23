@@ -1,0 +1,21 @@
+{
+  "dbVersion": "3.1.0",
+  "geneTableVersion": "hgnc_v7_2025.10.7",
+  "genesetVersion": "msigdb_v2025.1.Hs",
+  "gitBranch": "v0.1.2",
+  "gitCommitId": "995480e500b599862d4a27d44f5676f263317f34",
+  "gitCommitIdDescribe": "995480e",
+  "gitCommitIdDescribeShort": "995480e",
+  "gitDirty": false,
+  "goRewriteJavaParityCommit": "bb5db0098ef4e12808552fa43dfa96d1a021bac8",
+  "goRewriteVersion": "v0.1.2",
+  "omission_reason": "Commit message and author fields were dropped before storage because they can contain a personal name, an email address, or a session URL.",
+  "omitted_fields": [
+    "gitCommitMessageFull",
+    "gitCommitMessageShort",
+    "gitCommitMessageUserEmail",
+    "gitCommitMessageUserName"
+  ],
+  "portalVersion": "v7.2.3",
+  "source_response_sha256": "489eebc96b41d3473bcc1d4249ae37cf98ebd85e5e9b731a8cf718fd67380ebc"
+}

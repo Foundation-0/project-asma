@@ -1,0 +1,22 @@
+Cancer	Abbriviation	Cancer group	Organ	Num samples
+Bladder Urothelial Carcinoma	BLCA	Urothelial cancer	Kidney & Urinary bladder	169
+Breast Invasive Carcinoma	BRCA	Breast cancer	Breast & female reproductive system	1022
+Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma	CESC	Cervical cancer	Breast & female reproductive system	283
+Colon Adenocarcinoma	COAD	Colorectal cancer	Gastrointestinal tract	254
+Glioblastoma Multiforme	GBM	Glioma	Brain	141
+Head and Neck Squamous Cell Carcinoma	HNSC	Head and neck cancer	Proximal digestive tract	492
+Kidney Chromophobe	KICH	Renal cancer	Kidney & Urinary bladder	64
+Kidney Renal Clear Cell Carcinoma	KIRC	Renal cancer	Kidney & Urinary bladder	521
+Kidney Renal Papillary Cell Carcinoma	KIRP	Renal cancer	Kidney & Urinary bladder	282
+Liver Hepatocellular Carcinoma	LIHC	Liver cancer	Liver & Gallbladder	362
+Lung Adenocarcinoma	LUAD	Lung cancer	Respiratory system	497
+Lung Squamous Cell Carcinoma	LUSC	Lung cancer	Respiratory system	489
+Ovary Serous Cystadenocarcinoma	OV	Ovarian cancer	Breast & female reproductive system	349
+Pancreatic Adenocarcinoma	PAAD	Pancreatic cancer	Pancreas	176
+Prostate Adenocarcinoma	PRAD	Prostate cancer	Male reproductive system	480
+Rectum Adenocarcinoma	READ	Colorectal cancer	Gastrointestinal tract	88
+Skin Cutaneous Melanoma	SKCM	Melanoma	Skin	99
+Stomach Adenocarcinoma	STAD	Stomach cancer	Gastrointestinal tract	346
+Testicular Germ Cell Tumor	TGCT	Testis cancer	Male reproductive system	133
+Thyroid Carcinoma	THCA	Thyroid cancer	Endocrine tissues	495
+Uterine Corpus Endometrial Carcinoma	UCEC	Endometrial cancer	Breast & female reproductive system	176

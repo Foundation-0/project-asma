@@ -66,8 +66,12 @@ evidence chain and a different risk direction.
 - The frozen block loads frozen labels (line 136) and then reloads the `noneo`
   files (137–138). If those define `senref`, the frozen labels would be replaced.
 
-None of this explains the 0.809 versus printed 0.83 discrepancy, and no cause is
-attributed. A private object inventory should record which names each file
+None of this explains the gap between the released-sheet AUROC 0.8088507877664504
+(three-decimal half-up 0.809) and the printed discovery AUC 0.83, and no cause is
+attributed. The 0.809 here is that rounding. The [provenance note](auroc-provenance-20261113.md)
+records where each number is printed or calculated.
+
+A private object inventory should record which names each file
 defines and compare `primmets` and `noneo` membership by aggregate counts.
 
 ## Orientation and operating points
@@ -85,7 +89,8 @@ defines and compare `primmets` and `noneo` membership by aggregate counts.
 - The paper defines the score as the probability of refractory disease (article
   S95) and reports detecting "a subset of ~35% refractory tumors" at 98%
   specificity (P54; similar wording in P58). The released discovery scores rank
-  refractory tumours higher (AUROC 0.809, or 0.191 reversed). If that sheet is the
+  refractory tumours higher (sheet AUROC 0.8088507877664504, three-decimal half-up
+  0.809, or 0.191 reversed). If that sheet is the
   unmodified output of part 3 as published, the Figure 3D labels must code
   refractory as 1, which is not established. Otherwise either the scores were
   transformed on export, with no export code found in a bounded search, or they
