@@ -13,6 +13,11 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:  # `python3 -I` leaves the script's own directory off sys.path
+    sys.path.insert(0, str(TOOLS))
+import strict_json  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "registries/claims-ledger.json"
 RESULT_DIR = ROOT / "results/integrity-audit-2026-11-13"
@@ -52,7 +57,7 @@ CERTIFICATE_DIGEST_KEYS = ("certificate_sha256", "implementation_sha256")
 
 
 def load_ledger() -> dict:
-    return json.loads(LEDGER.read_text(encoding="utf-8"))
+    return strict_json.load_path(LEDGER)
 
 
 def offline_command(command: str) -> bool:
@@ -118,7 +123,7 @@ def run_import_check(module: str, func: str, broken: Path) -> tuple[bool, int]:
 def run_tamper(checker: str, certificate: Path) -> bool:
     if not certificate.is_file():
         return False
-    data = json.loads(certificate.read_text(encoding="utf-8"))
+    data = strict_json.load_path(certificate)
     mutated = copy.deepcopy(data)
     if "certificate_sha256" in mutated:
         mutated["certificate_sha256"] = "0" * 64
@@ -155,7 +160,7 @@ def certificate_path(row: dict) -> Path | None:
 def has_recorded_digest(path: Path | None, checker: str | None) -> bool:
     if not path or not path.is_file() or not checker:
         return False
-    data = json.loads(path.read_text(encoding="utf-8"))
+    data = strict_json.load_path(path)
     if "certificate_sha256" in data:
         return True
     impl = data.get("implementation_sha256")
@@ -258,13 +263,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--write", action="store_true", help="write results/integrity-audit-2026-11-13/audit.json")
     parser.add_argument("--skip-run", action="store_true", help="structure-only audit for tests")
     args = parser.parse_args(argv)
-    report = build_audit(run_checks=not args.skip_run)
+    try:
+        report = build_audit(run_checks=not args.skip_run)
+    except ValueError as error:  # e.g. a ledger or certificate that is not strict JSON
+        print(f"FAIL: {error}", file=sys.stderr)
+        return 1
     rendered = json.dumps(report, indent=2, sort_keys=True) + "\n"
     if args.check:
         if not AUDIT_JSON.is_file():
             print("FAIL: missing committed audit.json", file=sys.stderr)
             return 1
-        committed = json.loads(AUDIT_JSON.read_text(encoding="utf-8"))
+        try:
+            committed = strict_json.load_path(AUDIT_JSON)
+        except ValueError as error:
+            print(f"FAIL: {error}", file=sys.stderr)
+            return 1
         report["generated_utc"] = committed.get("generated_utc")
         for key in ("schema_version", "ledger_sha256", "summary", "claims"):
             if committed.get(key) != report.get(key):

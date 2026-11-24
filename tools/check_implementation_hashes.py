@@ -24,11 +24,15 @@ Command-line exit codes:
 from __future__ import annotations
 
 import hashlib
-import json
 import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:  # `python3 -I` leaves the script's own directory off sys.path
+    sys.path.insert(0, str(TOOLS))
+import strict_json  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -199,7 +203,7 @@ def check_entry(
 def iter_registry_payloads(root: Path):
     reg_dir = root / "registries"
     for registry_path in sorted(reg_dir.glob("pilot-001-*.json")):
-        data = json.loads(registry_path.read_text(encoding="utf-8"))
+        data = strict_json.load_path(registry_path)
         yield registry_path.name, data
 
 
@@ -249,7 +253,11 @@ def main(argv=None) -> int:
         print("ERROR: git checkout required for stale-hash detection.", file=sys.stderr)
         return 1
 
-    results = check_implementation_hashes()
+    try:
+        results = check_implementation_hashes()
+    except ValueError as error:  # a registry that is not strict JSON is not checked
+        print(f"implementation_sha256 check failed: {error}", file=sys.stderr)
+        return 1
     stale_allowed = [r for r in results if r.status == STATUS_STALE and "allowed" in r.detail]
     failed = failures(results)
 

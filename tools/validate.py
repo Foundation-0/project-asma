@@ -1,12 +1,16 @@
 """Offline checks for this documentation scaffold; Python standard library only."""
 
 import datetime as dt
-import json
 from pathlib import Path
 import re
 import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
+
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:  # `python3 -I` leaves the script's own directory off sys.path
+    sys.path.insert(0, str(TOOLS))
+import strict_json  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,7 +57,7 @@ def https_url(value):
 
 def load_rows(root, name, required, errors):
     try:
-        data = json.loads((root / "registries" / f"{name}.json").read_text(encoding="utf-8"))
+        data = strict_json.loads((root / "registries" / f"{name}.json").read_text(encoding="utf-8"))
     except (OSError, ValueError) as exc:
         errors.append(f"{name}: {exc}")
         return []
