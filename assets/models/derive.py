@@ -18,6 +18,14 @@ SOURCES = {
 }
 
 
+def _require(condition, message=None):
+    """Raise AssertionError if a check fails. Unlike assert, python3 -O keeps it."""
+    if not condition:
+        if message is None:
+            raise AssertionError
+        raise AssertionError(message)
+
+
 def write_preview(model, target):
     """Orthographic scientific diagram: rotate deposited points, never invent them."""
     atoms = model['atoms']
@@ -88,7 +96,7 @@ def write_preview(model, target):
 def category(text, name):
     lines = text.splitlines()
     start = next(i for i, line in enumerate(lines) if line.startswith(name + '.'))
-    assert lines[start - 1].strip() == 'loop_', name
+    _require(lines[start - 1].strip() == 'loop_', name)
     keys, values = [], []
     for line in lines[start:]:
         if line.startswith('#'):
@@ -97,14 +105,14 @@ def category(text, name):
             keys.append(line.strip().split('.', 1)[1])
         else:
             values.extend(shlex.split(line, comments=False))
-    assert len(values) % len(keys) == 0, name
+    _require(len(values) % len(keys) == 0, name)
     return [dict(zip(keys, values[i:i + len(keys)])) for i in range(0, len(values), len(keys))]
 
 
 def derive(model_id, directory):
     accession, digest = SOURCES[model_id]
     raw = (directory / (accession + '.cif')).read_bytes()
-    assert hashlib.sha256(raw).hexdigest() == digest, 'Source changed; review before updating pins'
+    _require(hashlib.sha256(raw).hexdigest() == digest, 'Source changed; review before updating pins')
     text = raw.decode('utf-8')
     raw_atoms = category(text, '_atom_site')
     candidates = [a for a in raw_atoms if a['group_PDB'] == 'ATOM'
@@ -112,7 +120,7 @@ def derive(model_id, directory):
                   and a['pdbx_PDB_model_num'] == '1' and a['type_symbol'] not in ('H', 'D')]
     selected = {}
     for a in candidates:
-        assert a['pdbx_PDB_ins_code'] in ('?', '.'), 'Insertion code requires review'
+        _require(a['pdbx_PDB_ins_code'] in ('?', '.'), 'Insertion code requires review')
         key = (a['auth_asym_id'], int(a['auth_seq_id']), a['label_atom_id'])
         preference = (float(a['occupancy']), a['label_alt_id'] == '.', a['label_alt_id'] == 'A')
         if key not in selected or preference > selected[key][0]:
@@ -142,10 +150,10 @@ def derive(model_id, directory):
     for chain in ('A', 'B'):
         numbers = sorted(number for ch, number in residues if ch == chain)
         for number, following in zip(numbers, numbers[1:]):
-            assert following == number + 1
+            _require(following == number + 1)
             a, b = lookup[(chain, number, join_a)], lookup[(chain, following, join_b)]
             distance = math.dist([atoms[a][c] for c in 'xyz'], [atoms[b][c] for c in 'xyz'])
-            assert 1.1 < distance < 1.9, ('Unexpected polymer link', chain, number, distance)
+            _require(1.1 < distance < 1.9, ('Unexpected polymer link', chain, number, distance))
             bonds.append({'a': a, 'b': b, 'kind': 'covalent', 'order': 'sing', 'source': 'polymer-sequence'})
             backbone.append({'a': lookup[(chain, number, guide_atom)],
                              'b': lookup[(chain, following, guide_atom)]})
@@ -156,7 +164,7 @@ def derive(model_id, directory):
                  conn[f'ptnr{i}_label_atom_id']) for i in (1, 2)]
         if not all(k in lookup for k in keys):
             continue
-        assert all(conn[f'ptnr{i}_symmetry'] == '1_555' for i in (1, 2))
+        _require(all(conn[f'ptnr{i}_symmetry'] == '1_555' for i in (1, 2)))
         link = {'a': lookup[keys[0]], 'b': lookup[keys[1]],
                 'kind': 'disulfide' if conn['conn_type_id'] == 'disulf' else 'hydrogen',
                 'source': 'deposited-struct_conn'}
@@ -175,8 +183,8 @@ def derive(model_id, directory):
         omission = 'All HETATM records (including water, zinc, chloride and sodium), author chains C/D, and crystallographic symmetry copies. The deposit lacks LYS B29 CG/CD/CE/NZ and THR B30 OG1/CG2 side-chain atoms; these and hydrogens are not added.'
         citation = {'authors': 'Ciszak E; Smith GD', 'year': 1994, 'title': 'Crystallographic evidence for dual coordination around zinc in the T3R3 human insulin hexamer.', 'doi': '10.1021/bi00172a030'}
         resolution, deposited, released, revised = 1.6, '1993-11-19', '1994-01-31', '2024-11-06'
-        assert len(atoms) == 399 and len(residues) == 51
-        assert sum(b['kind'] == 'disulfide' for b in bonds) == 3
+        _require(len(atoms) == 399 and len(residues) == 51)
+        _require(sum(b['kind'] == 'disulfide' for b in bonds) == 3)
     else:
         title = 'DNA double helix'
         subtitle = 'Two complementary strands, carrying an ordered sequence'
@@ -191,7 +199,7 @@ def derive(model_id, directory):
         omission = 'All HETATM records (water) and crystallographic symmetry copies. Hydrogens and absent terminal phosphates are not added.'
         citation = {'authors': 'Drew HR; Wing RM; Takano T; Broka C; Tanaka S; Itakura K; Dickerson RE', 'year': 1981, 'title': 'Structure of a B-DNA dodecamer: conformation and dynamics.', 'doi': '10.1073/pnas.78.4.2179'}
         resolution, deposited, released, revised = 1.9, '1981-01-26', '1981-05-21', '2024-02-07'
-        assert len(atoms) == 486 and len(residues) == 24 and len(contacts) == 32
+        _require(len(atoms) == 486 and len(residues) == 24 and len(contacts) == 32)
     metadata = {
         'claimStatus': 'VERIFIED reference-coordinate derivation; not a Project Asma experimental result',
         'retrieved': '2026-11-05', 'coordinateUrl': f'https://files.rcsb.org/download/{accession}.cif',

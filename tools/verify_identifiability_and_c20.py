@@ -30,6 +30,14 @@ SEED = 20261113
 TRIALS = 3000
 
 
+def _require(condition, message=None):
+    """Raise AssertionError if a check fails. Unlike assert, python3 -O keeps it."""
+    if not condition:
+        if message is None:
+            raise AssertionError
+        raise AssertionError(message)
+
+
 def q_frac(p, r, c):
     return (r * p + c * (1 - p)) / (r * p + (1 - p))
 
@@ -62,35 +70,35 @@ def check_exact_rationals():
         "C75": (1, Fraction(3, 4)),
     }
     for r, c in worlds.values():
-        assert q_frac(Fraction(1, 5), r, c) == Fraction(4, 5)
+        _require(q_frac(Fraction(1, 5), r, c) == Fraction(4, 5))
     for c in [Fraction(1, 4), Fraction(1, 2), Fraction(3, 4)]:
         r = 16 - 20 * c
         for p in [Fraction(0), Fraction(1, 20), Fraction(1, 10), Fraction(3, 8)]:
-            assert q_frac(p, 16, 0) - q_frac(p, r, c) == c * (5 * p - 1) * (1 - p) / (
+            _require(q_frac(p, 16, 0) - q_frac(p, r, c) == c * (5 * p - 1) * (1 - p) / (
                 (15 * p + 1) * ((15 - 20 * c) * p + 1)
-            )
-            assert (1 - c) * q_frac(p, r, 0) + c == q_frac(p, r, c)
+            ))
+            _require((1 - c) * q_frac(p, r, 0) + c == q_frac(p, r, c))
             # Survival-ratio pencil: Phi(p) = (1 - p) / (1 - q) = ((r - 1) * p + 1) / (1 - c).
             if p != 1:
-                assert (1 - p) / (1 - q_frac(p, r, c)) == ((r - 1) * p + 1) / (1 - c)
-        assert (1 - Fraction(1, 5)) / (1 - q_frac(Fraction(1, 5), r, c)) == 4
+                _require((1 - p) / (1 - q_frac(p, r, c)) == ((r - 1) * p + 1) / (1 - c))
+        _require((1 - Fraction(1, 5)) / (1 - q_frac(Fraction(1, 5), r, c)) == 4)
 
     low, high = Fraction(1, 20), Fraction(3, 8)
-    assert q_frac(low, 11, Fraction(1, 4)) == Fraction(21, 40)
+    _require(q_frac(low, 11, Fraction(1, 4)) == Fraction(21, 40))
     contrast = {k: q_frac(high, r, c) - q_frac(low, r, c) for k, (r, c) in worlds.items()}
     eps = {
         (a, b): abs(contrast[a] - contrast[b]) / 4
         for i, a in enumerate(worlds)
         for b in list(worlds)[i + 1:]
     }
-    assert eps[("S", "C25")] == Fraction(10179, 563920)
-    assert eps[("S", "C50")] == Fraction(9451, 213325)
-    assert eps[("S", "C75")] == Fraction(21801, 237440)
-    assert eps[("C25", "C50")] == Fraction(4589, 174800)
-    assert eps[("C25", "C75")] == Fraction(897, 12160)
-    assert eps[("C50", "C75")] == Fraction(3497, 73600)
-    assert all(v > Fraction(1, 60) for v in eps.values())
-    assert min(eps.values()) == Fraction(10179, 563920)
+    _require(eps[("S", "C25")] == Fraction(10179, 563920))
+    _require(eps[("S", "C50")] == Fraction(9451, 213325))
+    _require(eps[("S", "C75")] == Fraction(21801, 237440))
+    _require(eps[("C25", "C50")] == Fraction(4589, 174800))
+    _require(eps[("C25", "C75")] == Fraction(897, 12160))
+    _require(eps[("C50", "C75")] == Fraction(3497, 73600))
+    _require(all(v > Fraction(1, 60) for v in eps.values()))
+    _require(min(eps.values()) == Fraction(10179, 563920))
     return eps
 
 
@@ -129,10 +137,10 @@ def simulate(d_prime, rho, trials=TRIALS, seed=SEED):
 def main():
     check_exact_rationals()
 
-    assert sum(FOLD_POS) == N_POS and sum(FOLD_NEG) == N_NEG
-    assert all(a + b == 27 for a, b in zip(FOLD_POS, FOLD_NEG))
+    _require(sum(FOLD_POS) == N_POS and sum(FOLD_NEG) == N_NEG)
+    _require(all(a + b == 27 for a, b in zip(FOLD_POS, FOLD_NEG)))
     within = sum(a * b for a, b in zip(FOLD_POS, FOLD_NEG))
-    assert within == 862 and TOTAL_PAIRS - within == 3454
+    _require(within == 862 and TOTAL_PAIRS - within == 3454)
 
     d_prime, req_cross, rho = fit_shift_spread(within)
     mean_pooled, mean_fold = simulate(d_prime, rho)
@@ -144,8 +152,8 @@ def main():
     print(f"  model at rho = 0: mean pooled AUROC {mean_pooled_no_shift:.5f}, mean fold AUROC {mean_fold_no_shift:.5f}")
     print(f"  observed pooled AUROC 3491/4316 = {target:.5f}")
     # The fitted model should land near the inputs it was fitted to.
-    assert abs(mean_pooled - target) < 0.01
-    assert abs(mean_fold - PRINTED_FOLD_MEAN) < 0.01
+    _require(abs(mean_pooled - target) < 0.01)
+    _require(abs(mean_fold - PRINTED_FOLD_MEAN) < 0.01)
     print("OK: exact rational checks passed; C20 fitted model is consistent with its fit inputs.")
 
 

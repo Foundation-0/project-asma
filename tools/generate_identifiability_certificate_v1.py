@@ -18,6 +18,14 @@ from fractions import Fraction
 from typing import Dict, List, Tuple
 
 
+def _require(condition: bool, message: object = None) -> None:
+    """Raise AssertionError if a check fails. Unlike assert, python3 -O keeps it."""
+    if not condition:
+        if message is None:
+            raise AssertionError
+        raise AssertionError(message)
+
+
 def q_fraction(p: Fraction, r: Fraction, c: Fraction) -> Fraction:
     """Post-assay resistant/target fraction q(p; r, c) = (r*p + c*(1-p)) / (r*p + (1-p))."""
     return (r * p + c * (1 - p)) / (r * p + (1 - p))
@@ -64,7 +72,7 @@ def verify_compartment_theorems() -> Dict[str, object]:
     }
     p_ref = Fraction(1, 5)
     for name, (r, c) in worlds.items():
-        assert q_fraction(p_ref, r, c) == Fraction(4, 5), f"Snapshot mismatch on {name}"
+        _require(q_fraction(p_ref, r, c) == Fraction(4, 5), f"Snapshot mismatch on {name}")
 
     # Verify affine survival-ratio linearization Phi(p) = ((r-1)/(1-c))*p + 1/(1-c)
     test_ps = [Fraction(0, 1), Fraction(1, 20), Fraction(1, 10), Fraction(1, 5), Fraction(3, 8), Fraction(2, 5)]
@@ -73,8 +81,8 @@ def verify_compartment_theorems() -> Dict[str, object]:
         slope = (r - 1) / (1 - c)
         intercept = Fraction(1, 1) / (1 - c)
         for p in test_ps:
-            assert survival_ratio(p, r, c) == slope * p + intercept
-        assert survival_ratio(p_ref, r, c) == Fraction(4, 1)
+            _require(survival_ratio(p, r, c) == slope * p + intercept)
+        _require(survival_ratio(p_ref, r, c) == Fraction(4, 1))
         linearized_lines[name] = {"slope": str(slope), "intercept": str(intercept)}
 
     # Verify universal snapshot gap factorization along r(c) = 16 - 20c:
@@ -84,7 +92,7 @@ def verify_compartment_theorems() -> Dict[str, object]:
         for p in test_ps:
             lhs = q_fraction(p, Fraction(16, 1), Fraction(0, 1)) - q_fraction(p, r_val, c_val)
             rhs = (c_val * (5 * p - 1) * (1 - p)) / ((15 * p + 1) * ((15 - 20 * c_val) * p + 1))
-            assert lhs == rhs
+            _require(lhs == rhs)
 
     # Compare PR #78 baseline (1/10, 2/5) vs Opt-Low (1/20, 3/8) vs Cell-Free Anchor (0, 3/8)
     bench_eps = Fraction(1, 60)
@@ -120,12 +128,12 @@ def verify_compartment_theorems() -> Dict[str, object]:
             "worlds_separated_at_eps_1_60": separated,
         }
 
-    assert design_certs["PR78_LH_1_10_to_2_5"]["ceilings"]["C50"]["exact_fraction"] == "13/700"
-    assert design_certs["PR78_LH_1_10_to_2_5"]["ceilings"]["C25"]["exact_fraction"] == "3/448"
-    assert design_certs["PR78_LH_1_10_to_2_5"]["worlds_separated_at_eps_1_60"] == ["C50", "C75"]
-    assert design_certs["OptLow_1_20_to_3_8"]["ceilings"]["C50"]["exact_fraction"] == "9451/213325"
-    assert design_certs["OptLow_1_20_to_3_8"]["ceilings"]["C25"]["exact_fraction"] == "10179/563920"
-    assert design_certs["OptLow_1_20_to_3_8"]["worlds_separated_at_eps_1_60"] == ["C25", "C50", "C75"]
+    _require(design_certs["PR78_LH_1_10_to_2_5"]["ceilings"]["C50"]["exact_fraction"] == "13/700")
+    _require(design_certs["PR78_LH_1_10_to_2_5"]["ceilings"]["C25"]["exact_fraction"] == "3/448")
+    _require(design_certs["PR78_LH_1_10_to_2_5"]["worlds_separated_at_eps_1_60"] == ["C50", "C75"])
+    _require(design_certs["OptLow_1_20_to_3_8"]["ceilings"]["C50"]["exact_fraction"] == "9451/213325")
+    _require(design_certs["OptLow_1_20_to_3_8"]["ceilings"]["C25"]["exact_fraction"] == "10179/563920")
+    _require(design_certs["OptLow_1_20_to_3_8"]["worlds_separated_at_eps_1_60"] == ["C25", "C50", "C75"])
 
     p_h_star = (7.0 + 8.0 * math.sqrt(3.0)) / 55.0
     return {
@@ -153,7 +161,7 @@ def verify_pgl2_cross_reactivity() -> Dict[str, object]:
         for p in grid_p:
             q_conv = q_fraction(p, r_true, c_true)
             y_bleed = (1 - alpha) * q_fraction(p, r_true, Fraction(0, 1)) + alpha
-            assert q_conv == y_bleed
+            _require(q_conv == y_bleed)
             checked_pairs += 1
 
     # Verify unique recovery when alpha is anchored at p=0 (y(0)_control = alpha_known):
@@ -172,7 +180,7 @@ def verify_pgl2_cross_reactivity() -> Dict[str, object]:
     intercept = phi1 - slope * p1
     c_rec = 1 - Fraction(1, 1) / intercept
     r_rec = 1 + slope / intercept
-    assert (r_rec, c_rec) == (r_true, c_true)
+    _require((r_rec, c_rec) == (r_true, c_true))
 
     return {
         "exact_gauge_identity": "(1 - c)*q(p; r, 0) + c == q(p; r, c) for all p in [0, 1]",
@@ -197,7 +205,7 @@ def verify_pilot001_c20() -> Dict[str, object]:
         "mixed":   sum(a * b for a, b in zip(fold_n1, [17, 16, 17, 17, 16])),
         "anti":    sum(a * b for a, b in zip(fold_n1, [16, 16, 17, 17, 17])),
     }
-    assert within_counts == {"aligned": 864, "mixed": 863, "anti": 862}
+    _require(within_counts == {"aligned": 864, "mixed": 863, "anti": 862})
 
     w_in = 863 / 4316.0
     w_cr = 3453 / 4316.0
@@ -242,7 +250,7 @@ def verify_pilot001_c20() -> Dict[str, object]:
                 "fold_aurocs": [round(v, 4) for v in f_aucs],
             }
 
-    assert exact_witness is not None
+    _require(exact_witness is not None)
     return {
         "cohort_counts": {"n_refractory": n1, "n_sensitive": n2, "total_pairs": total_pairs, "u_observed": u_obs},
         "exact_pooled_auroc_fraction": str(auc_pooled),
