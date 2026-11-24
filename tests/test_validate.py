@@ -137,6 +137,77 @@ class ScaffoldChecks(unittest.TestCase):
         self.assertTrue(any("kind/verification" in error for error in errors))
         self.assertTrue(any("invalid HTTPS" in error for error in errors))
 
+    def test_single_field_corruptions_name_their_guard(self):
+        """Each control changes one field and expects exactly the message of the guard it kills."""
+        # A synthetic source that no dataset cites, whatever the real registry cites, so changing
+        # its id adds no "unknown source" error.
+        synthetic = copy.deepcopy(self.sources["sources"][0])
+        synthetic["id"] = "S" + str(1 + max(int(row["id"][1:]) for row in self.sources["sources"]))
+        self.sources["sources"].append(synthetic)
+        self.write_registries()
+        self.assertEqual(validate.registry_errors(self.root), [])
+        clean_sources, clean_datasets = copy.deepcopy(self.sources), copy.deepcopy(self.datasets)
+        last = len(clean_sources["sources"]) - 1
+        source_id = synthetic["id"]
+        # A scaffold-state dataset, so changing assay or pilot_role adds no eligibility error.
+        scaffold = next(index for index, row in enumerate(clean_datasets["datasets"])
+                        if all(row[field] == value for field, value in validate.SCAFFOLD_STATE.items()))
+        dataset_id = clean_datasets["datasets"][scaffold]["id"]
+        changes = (
+            ("sources", {"title": "  "}, f"sources[{last}]: title must be nonempty text"),
+            ("sources", {"id": "X12"}, f"sources[{last}]: invalid id"),
+            # Python 3.11+ date.fromisoformat accepts "20261022"; only the pattern refuses it.
+            ("sources", {"checked_on": "20261022"}, f"sources[{last}]: invalid checked_on date"),
+            ("sources", {"reviewed_via": "http://example.org/abstract"}, f"{source_id}: invalid reviewed_via URL"),
+            ("datasets", {"cohort": "training"}, f"{dataset_id}: invalid cohort"),
+            ("datasets", {"preservation": "OCT"}, f"{dataset_id}: invalid preservation"),
+            ("datasets", {"assay": "transcriptome"}, f"{dataset_id}: invalid assay"),
+            ("datasets", {"histotype": "LGSOC"}, f"{dataset_id}: invalid histotype"),
+            ("datasets", {"pilot_role": "primary"}, f"{dataset_id}: invalid pilot_role"),
+        )
+        for registry, change, expected in changes:
+            with self.subTest(change=change):
+                self.sources, self.datasets = copy.deepcopy(clean_sources), copy.deepcopy(clean_datasets)
+                row = self.sources["sources"][last] if registry == "sources" else self.datasets["datasets"][scaffold]
+                row.update(change)
+                self.write_registries()
+                self.assertEqual(validate.registry_errors(self.root), [expected])
+
+    def test_empty_registry_list_is_reported(self):
+        self.sources["sources"] = []
+        self.write_registries()
+        self.assertIn("sources: expected a nonempty list", validate.registry_errors(self.root))
+
+    def test_duplicate_registry_key_is_reported(self):
+        # json.loads keeps the last of two equal keys: a reader scanning from the top would see
+        # the first value while a lenient validator checked only the second.
+        self.write_registries()
+        path = self.root / "registries/datasets.json"
+        text = json.dumps(self.datasets, indent=2)
+        original = '"terms_status": "not_reviewed"'
+        self.assertIn(original, text)
+        path.write_text(text.replace(original, '"terms_status": "permits_redistribution_verified", ' + original, 1))
+        self.assertEqual(validate.registry_errors(self.root), ["datasets: duplicate JSON key 'terms_status'"])
+
+    def test_command_line_exit_status(self):
+        """The script exits 1 with the problems on stderr, run isolated as the pinned runtime runs it."""
+        (self.root / "tools").mkdir()
+        for name in ("validate.py", "strict_json.py"):
+            shutil.copy2(validate.ROOT / "tools" / name, self.root / "tools" / name)
+        def run():
+            return subprocess.run([sys.executable, "-I", "-B", str(self.root / "tools/validate.py")],
+                                  cwd=self.root, capture_output=True, text=True, check=False)
+        self.write_registries()
+        clean = run()
+        self.assertEqual(clean.returncode, 0, clean.stderr)
+        self.assertTrue(clean.stdout.startswith("PASS: "), clean.stdout)
+        self.sources["sources"][0]["id"] = "X12"
+        self.write_registries()
+        failed = run()
+        self.assertEqual(failed.returncode, 1, failed.stdout)
+        self.assertIn("sources[0]: invalid id", failed.stderr.splitlines())
+        self.assertNotIn("PASS", failed.stdout)
+
     def isolated_git(self):
         """Ignore a surrounding Git command's repository settings, e.g. inside a commit hook."""
         patcher = mock.patch.dict(os.environ)

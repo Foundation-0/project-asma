@@ -535,18 +535,6 @@ class TestEntrypointFailureOutput(unittest.TestCase):
         self.assertEqual(lines, [codes.P001_FAIL_CONTAINER])
 
 
-class TestTrackedStudySources(unittest.TestCase):
-    def test_no_tracked_sources(self):
-        completed = subprocess.run(
-            [sys.executable, str(TOOLS / "check_tracked_study_sources.py")],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        self.assertEqual(completed.returncode, 0, msg=completed.stdout + completed.stderr)
-
-
 class TestAllowlistedFetch(unittest.TestCase):
     def test_refuses_non_allowlisted_host(self):
         with self.assertRaises(AllowlistedFetchError) as ctx:

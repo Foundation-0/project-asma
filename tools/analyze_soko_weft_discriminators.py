@@ -77,6 +77,14 @@ PROTON_UDA = 1007276
 H2O_UDA = 18010565
 
 
+def _require(condition: bool, message: object = None) -> None:
+    """Raise AssertionError if a check fails. Unlike assert, python3 -O keeps it."""
+    if not condition:
+        if message is None:
+            raise AssertionError
+        raise AssertionError(message)
+
+
 def q_str(val: Fraction) -> str:
     val = Fraction(val)
     return f"{val.numerator}/{val.denominator}"
@@ -527,7 +535,7 @@ def run_pillar2_compartment_and_shedding_suite() -> Dict[str, Any]:
             if (w1, w2) in (("S", "C50"), ("S", "C75")):
                 if min_mat_conv is None or eps_star < min_mat_conv:
                     min_mat_conv = eps_star
-        assert min_mat_conv is not None and min_all_pairs is not None
+        _require(min_mat_conv is not None and min_all_pairs is not None)
         row["min_eps_S_vs_C50_C75_q"] = q_str(min_mat_conv)
         row["min_eps_all_6_pairs_q"] = q_str(min_all_pairs)
         row["resolves_S_vs_C50_C75_at_1_60"] = bool(min_mat_conv > target_eps)
@@ -567,7 +575,7 @@ def run_pillar2_compartment_and_shedding_suite() -> Dict[str, Any]:
             "dual_z": [q_str(x) for x in dual_z],
             "separates_at_1_60": bool(eps_joint > target_eps),
         }
-    assert min_ortho_all is not None
+    _require(min_ortho_all is not None)
 
     # Two-Clone Shedding Blind-Spot Proof (`k_S = 118/100`, `k_R = 42/1000` -> ratio `590/21`)
     k_s = Fraction(118, 100)
@@ -706,7 +714,7 @@ def solve_and_certify_treatment_sequence(
                 best_marker = marker
                 best_act = act
                 best_next = (nvs, nvr, nhc, nmhc, sc)
-        assert best_next is not None
+        _require(best_next is not None)
         g_seq.append(best_act)
         g_state = best_next[:4]
         g_cost += best_next[4]
@@ -736,7 +744,7 @@ def solve_and_certify_treatment_sequence(
             _dfs_oracle(depth + 1, (nvs, nvr, nhc, nmhc), acc + sc, seq + [act])
 
     _dfs_oracle(0, init_state, Fraction(0, 1), [])
-    assert oracle_best_cost is not None and oracle_best_seq is not None
+    _require(oracle_best_cost is not None and oracle_best_seq is not None)
 
     # 3. Soko-Weft Certified Sequencer (Pareto frontier per depth + Bellman admissible lower bound)
     # Admissible optimistic per-step contraction lower bound on `v_R` (`(11/20)^rem`) and `v_S` (`(11/20)^rem`)
@@ -785,8 +793,8 @@ def solve_and_certify_treatment_sequence(
         else:
             bellman_bound_cuts += 1
 
-    assert best_incumbent is not None and best_soko_seq is not None and best_final_state is not None
-    assert best_incumbent == oracle_best_cost, f"Mismatch: {best_incumbent} != {oracle_best_cost}"
+    _require(best_incumbent is not None and best_soko_seq is not None and best_final_state is not None)
+    _require(best_incumbent == oracle_best_cost, f"Mismatch: {best_incumbent} != {oracle_best_cost}")
 
     # Emit compact step-by-step rational trajectory receipt for O(horizon) non-execution verification!
     trace_steps: List[Dict[str, Any]] = []

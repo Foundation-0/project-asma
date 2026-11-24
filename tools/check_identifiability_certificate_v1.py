@@ -2,8 +2,14 @@
 """Regenerate the v1 identifiability and C20 certificate and check its SHA-256.
 
 tools/generate_identifiability_certificate_v1.py is the generator from the
-2026-11-13 vault drop, kept byte for byte. The certificate it writes is added by
-PR #84 at results/identifiability-and-c20-2026-11-13/identifiability_and_c20_certificates.json.
+2026-11-13 vault drop. Its arithmetic and output are as delivered. On 2026-11-24
+its 14 bare assert statements became explicit _require() checks, which still
+run under python3 -O; the certificate bytes did not change. The delivered file
+has SHA-256 169cf87579ba3e2793ff13c6a9e1dccc09f83023adbcc45cd63469c8156fd7df
+(recorded in the SHA256SUMS added by e1a109b, a line 49a3f8b later removed;
+unchanged in git through de88b12).
+The certificate it writes is added by PR #84 at
+results/identifiability-and-c20-2026-11-13/identifiability_and_c20_certificates.json.
 
 This script runs a copy of the generator in a temporary directory, checks the
 output hash, and compares it with #84's committed file when that file exists.
@@ -14,8 +20,8 @@ tools/verify_identifiability_and_c20.py, uses the balanced 862-pair split and
 treats C20 as a fitted consistency check. Switching the v1 generator to the
 862-pair split (w_in = 862/4316, negatives 16, 16, 17, 17, 17) makes it find no
 draw in 4000 with U = 3491 and fold mean within 0.0025 of 0.83, so its assertion
-fails and it writes no certificate. The v1 generator is kept unchanged here to
-reproduce the cited hash.
+fails and it writes no certificate. The v1 generator's arithmetic is kept
+unchanged here to reproduce the cited hash.
 """
 
 import hashlib

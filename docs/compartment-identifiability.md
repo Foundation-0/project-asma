@@ -114,3 +114,9 @@ selection-bound calculation, and the sampling
 example. It writes no files. These are the executed results above; no study-data
 analysis has run. The purpose is to avoid an unidentifiable research claim and
 choose measurements that could distinguish the competing explanations.
+
+**Related imported study, 2026-11-24:** the
+[Möbius cross-ratio and `R_opt` study](../studies/expedition-mobius-ropt/README.md)
+evaluates exact cross-ratios on the four worlds above, which they cannot separate;
+its [scope and provenance notes](../studies/expedition-mobius-ropt/README.md#scope-and-provenance-2026-11-24)
+record its synthetic inputs and external labels.

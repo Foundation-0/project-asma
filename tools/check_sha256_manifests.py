@@ -10,6 +10,11 @@ import re
 import sys
 from pathlib import Path
 
+TOOLS = Path(__file__).resolve().parent
+if str(TOOLS) not in sys.path:  # `python3 -I` leaves the script's own directory off sys.path
+    sys.path.insert(0, str(TOOLS))
+import strict_json  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 SCAN_ROOTS = (ROOT / "results", ROOT / "registries")
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
@@ -47,7 +52,7 @@ def check_result_manifest(result_dir: Path) -> None:
     if not manifest.is_file() or not sums.is_file():
         return
     parse_sums(sums)
-    data = json.loads(manifest.read_text(encoding="utf-8"))
+    data = strict_json.load_path(manifest)
     paths = ["manifest.json"]
     for item in data.get("files", []):
         if not isinstance(item, dict) or "path" not in item:
@@ -63,7 +68,7 @@ def check_result_manifest(result_dir: Path) -> None:
 
 
 def check_registry_certificate(path: Path) -> None:
-    data = json.loads(path.read_text(encoding="utf-8"))
+    data = strict_json.load_path(path)
     digest = data.get("certificate_sha256")
     if not digest:
         return

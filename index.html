@@ -287,7 +287,7 @@ TCGA ovary serous cystadenocarcinoma samples: 349
         </li>
         <li>
           <div class="ledger-main"><h3>Checks on every pull request</h3>
-          <p>Automated checks exercise the software with artificial inputs, verify pinned dependencies and check the site. New platform tests explicitly simulate Linux and macOS so their results do not depend on the computer running the tests. Separate checks compare synthetic outputs across processor architectures. Passing these checks does not establish scientific reproduction or authorize study-data use.</p></div>
+          <p>Automated checks exercise the software with artificial inputs, verify pinned dependencies and check the site. New platform tests explicitly simulate Linux and macOS so their results do not depend on the computer running the tests. Separate checks compare synthetic outputs across processor architectures. The repository's own guards now stop with an error when they cannot do their job: the check for committed study files fails if Git cannot list the tracked files, record files with repeated keys or values such as NaN are rejected, and the verifier scripts keep their checks when Python runs with optimizations switched on. Each guard has a test that must fail on deliberately broken input. Passing these checks does not establish scientific reproduction or authorize study-data use.</p></div>
           <span class="badges"><span class="badge v"><span class="ladder" data-r="3" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>On main · #32, #43, #53, #55–56, #63</span><span class="badge p"><span class="ladder" data-r="2" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Software only</span></span>
         </li>
         <li>
