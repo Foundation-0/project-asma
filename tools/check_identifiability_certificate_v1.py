@@ -6,7 +6,8 @@ tools/generate_identifiability_certificate_v1.py is the generator from the
 its 14 bare assert statements became explicit _require() checks, which still
 run under python3 -O; the certificate bytes did not change. The delivered file
 has SHA-256 169cf87579ba3e2793ff13c6a9e1dccc09f83023adbcc45cd63469c8156fd7df
-(recorded in the SHA256SUMS added by e1a109b; unchanged in git through de88b12).
+(recorded in the SHA256SUMS added by e1a109b, a line 49a3f8b later removed;
+unchanged in git through de88b12).
 The certificate it writes is added by PR #84 at
 results/identifiability-and-c20-2026-11-13/identifiability_and_c20_certificates.json.
 

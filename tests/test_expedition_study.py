@@ -105,13 +105,29 @@ class ExpeditionScriptTest(unittest.TestCase):
         digest = hashlib.sha256(SCRIPT.read_bytes()).hexdigest()
         self.assertTrue(digest in text, f"README does not record the script's SHA-256 {digest}")
         for overclaim in ("exact critical slack threshold", "uniquely certifies", "provably",
-                          "100% parameter-free", "Amplification Law"):
-            self.assertFalse(overclaim in text, f"README repeats the overclaim {overclaim!r}")
+                          "100% parameter-free", "amplification law"):
+            self.assertFalse(overclaim in text.lower(), f"README repeats the overclaim {overclaim!r}")
         for phrase in ("## Scope and provenance (2026-11-24)",
                        "first-order sufficient threshold, not the exact crossing",
                        "That universal claim was not replayed here", "Knausgard, Lemma 6.1",
                        "They cannot separate selection from conversion"):
             self.assertTrue(phrase in text, f"README lacks {phrase!r}")
+
+    def test_readme_quotes_the_replayed_values(self) -> None:
+        # Every number the README quotes from the replays below must appear verbatim, so an
+        # edited README number fails here instead of drifting from the tested value.
+        text = README.read_text(encoding="utf-8")
+        for value in ("`9/7`", "`27/19`", "`CR4 = 1431/1133 != 9/7`", "`CR3 = 567/418 != 27/19`",
+                      "`180/7931`", "`31/50, 7/10, 4/5, 9/10`", "absolute error `0.002`",
+                      "within `0.005`", "between `0.0014` and `0.0015`",
+                      "between `0.0034` and `0.0035`", "`333/221`", "`9/10`",
+                      "$5\\tau < \\|P\\|_F^2 / (2 t) = 1/360$", "(43 - \\sqrt{1838})/44 \\approx 0.0029113",
+                      "4.8% above `1/360`", "$R_{\\mathrm{opt}} = 32761/32019$",
+                      "between $5\\tau = 0.00291$ and $0.002912$", "$22x^2 - 43x + 1/8 = 0$",
+                      "5/8 - \\sqrt{5565}/120 \\approx 0.003342",
+                      "between `0.00334` and `0.00335`"):
+            with self.subTest(value=value):
+                self.assertTrue(value in text, f"README lacks the replayed value {value!r}")
 
 
 class CrossRatioScopeTest(unittest.TestCase):
