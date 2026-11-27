@@ -15,7 +15,7 @@ reviewed unless explicitly stated. Software checks on **synthetic or fixture inp
 are VERIFIED for software behaviour only; they are **not** independently reproduced
 on study data and do not establish clinical performance.
 
-**Counts (2026-11-13):** PROVEN **0** · VERIFIED **46** · KNOWN **50** · CONJECTURE **28**
+**Counts (2026-11-26):** PROVEN **0** · VERIFIED **50** · KNOWN **50** · CONJECTURE **28**
 
 ---
 
@@ -232,7 +232,7 @@ and do **not** substitute for study-data execution.
 
 | ID | Label | Statement | Evidence and boundary |
 | --- | --- | --- | --- |
-| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 46 VERIFIED rows, 30 offline checkers, 29 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |
+| V41 | VERIFIED | Offline integrity layer: exported claims ledger matches CLAIMS.md; SHA-256 manifests under results/ and digest-bound registry certificates match; checker audit lists 50 VERIFIED rows, 34 offline checkers, 33 first offline commands replayed with exit 0 (V02 skipped as heavy), 4 digest-bound tamper checks yes, 0 tamper misses; 16 rows have no offline checker (V03, V04, V05, V20, V21, V24, V27, V35 doc-only; V08, V10, V11, V12, V13, V14, V15, V16 network-only) | `python3 tools/export_claims_ledger.py --check`; `python3 tools/check_sha256_manifests.py`; `python3 tools/audit_checkers.py --check`; `python3 results/integrity-audit-2026-11-13/verify.py`; [record](docs/integrity-layer-2026-11-13.md), [audit](results/integrity-audit-2026-11-13/audit.json). Software bookkeeping, not scientific replication or clinical performance. Network audits and doc-only re-checks remain outside this layer. |
 
 ## Ovarian interventional trial landscape, 2026-11-13 UTC
 
@@ -267,6 +267,15 @@ and do **not** substitute for study-data execution.
 | ID | Label | Claim | Evidence and limits |
 | --- | --- | --- | --- |
 | V48 | VERIFIED | In the declared synthetic four-world, three-action model, only LH among the six designs of at most two observations separates zero conversion from both material-conversion worlds at residual error 1/60. Its exact boundary is epsilon < 13/700, compared with < 3/200 for LR and < 1/280 for RH. No guaranteed all-four discrimination; independent offsets or changing selection admit explicit target collisions | `python3 results/compartment-design-2026-11-13/verify.py`; [report and continuous-family argument](docs/research/compartment-measurement-design.md), [frozen protocol](protocols/compartment-measurement-design.md), [certificate](results/compartment-design-2026-11-13/certificate.json). Original rational arithmetic and independently implemented checking; not empirical assay precision, biological identification, a novel method, or a clinical result. |
+
+## November 2026 audit additions, 2026-11-23 UTC
+
+| ID | Label | Statement | Evidence and limits |
+| --- | --- | --- | --- |
+| V49 | VERIFIED | Exact-rational search over 3,630 lattice nodes proves zero canonical unmodified C-terminal suffixes lie in [309.9772, 310.1273] Da for Scan 23848 peak #3, and the 173 retained peaks partition into four disjoint sets of 12, 8, 19 and 134 peaks | `python3 results/formal-synthesis-2026-11-13/verify.py`; `python3 -m unittest tests.test_formal_synthesis -v`. [Proof and report](results/formal-synthesis-2026-11-13/PROOF.md). The 19-peak set is read as a co-isolated ladder only as a hypothesis, not an identification; the spectrum link is not independent spectrum validation. |
+| V50 | VERIFIED | On invented inputs, the PGL(2) Möbius cross-ratios CR4 = 9/7 and CR3 = 27/19 are exact invariants across all four Lean worlds, and the non-Möbius control r(p) = 6 + 10p breaks both (CR4 = 1431/1133) | `python3 -m unittest tests.test_expedition_study`; `python3 -I -O -B -W error studies/expedition-mobius-ropt/optimal_inertia_rank.py`. [Study note](studies/expedition-mobius-ropt/README.md). Cross-ratio claim only; the R_opt trial counts have no in-repo second checker and the trace-slack value is a first-order sufficient threshold, not an exact critical threshold. |
+| V51 | VERIFIED | The stdlib verifier replays the exact C15 monoid collapse, the 2341/30537 (7.67%) paralog-bleed bound at the (1/20, 3/8) design, and the 3-stage flag recovery of (r = 11, c1 = 1/7, a2 = 1/8) on canonical UniProt sequences Q86X02/Q01850 and synthetic fixtures | `python3 tools/verify_subspace_flag_paraneoplastic.py`; `python3 -m unittest discover -s tests -p "test_subspace_flag_paraneoplastic.py" -v`. [Record](docs/research/subspace-flag-paraneoplastic-gates-2026-11-13.md). Exact rational checks only; seeded-simulation figures in the record are not part of this row. |
+| V52 | VERIFIED | The stdlib verifier replays the synthetic floating-r_S = 19 continuum impossibility (discriminant -10199, half-gap below 1/60 on p in [1/20, 1]) with the 19/240 Farkas remedy and the 11/11-vs-8/11 causal MS2 tiebreak at 0 retained peak-intensity bytes | `python3 tools/verify_soko_asma_unlocks.py`; `python3 -m unittest tests.test_soko_asma_unlocks -v`. [Record](docs/research/soko-phase-transition-and-floating-rs-proofs.md). Synthetic fixtures only; no study data, no clinical result. |
 
 ## What this ledger does not claim
 

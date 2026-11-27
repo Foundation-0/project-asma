@@ -543,10 +543,62 @@
       "run_executed": true,
       "run_exit_zero": true,
       "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "results/formal-synthesis-2026-11-13/verify.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V49",
+      "recheck_commands": [
+        "python3 results/formal-synthesis-2026-11-13/verify.py",
+        "python3 -m unittest tests.test_formal_synthesis -v"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": null,
+      "fails_on_tamper": "not-applicable",
+      "id": "V50",
+      "recheck_commands": [
+        "python3 -m unittest tests.test_expedition_study",
+        "python3 -I -O -B -W error studies/expedition-mobius-ropt/optimal_inertia_rank.py"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "tools/verify_subspace_flag_paraneoplastic.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V51",
+      "recheck_commands": [
+        "python3 tools/verify_subspace_flag_paraneoplastic.py",
+        "python3 -m unittest discover -s tests -p \"test_subspace_flag_paraneoplastic.py\" -v"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
+    },
+    {
+      "certificate_path": null,
+      "checker": "tools/verify_soko_asma_unlocks.py",
+      "fails_on_tamper": "not-applicable",
+      "id": "V52",
+      "recheck_commands": [
+        "python3 tools/verify_soko_asma_unlocks.py",
+        "python3 -m unittest tests.test_soko_asma_unlocks -v"
+      ],
+      "run_executed": true,
+      "run_exit_zero": true,
+      "runs_offline": true
     }
   ],
-  "generated_utc": "2026-11-23T07:43:52.957304+00:00",
-  "ledger_sha256": "149e596fa9afdfb8e86342bd09cfda760fbf5b90fd1deecdff1060faa7e697ab",
+  "generated_utc": "2026-11-27T01:59:04.579608+00:00",
+  "ledger_sha256": "5c87accabf53c0310980ee3cbda09edb11205c3dffe03c907873a4c89d3ddd9e",
   "schema_version": 1,
   "summary": {
     "no_offline_checker": {
@@ -571,14 +623,14 @@
         "V35"
       ]
     },
-    "offline_ran_exit_zero": 29,
-    "offline_recheck_defined": 30,
+    "offline_ran_exit_zero": 33,
+    "offline_recheck_defined": 34,
     "skipped_heavy_recheck": [
       "V02"
     ],
     "tamper_applicable": 4,
     "tamper_fails_on_tamper": 4,
     "tamper_misses": [],
-    "verified_claims": 46
+    "verified_claims": 50
   }
 }
