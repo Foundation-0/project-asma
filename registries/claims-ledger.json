@@ -17,16 +17,16 @@
     },
     {
       "artifact_paths": [],
-      "canonical_sha256": "d79fd7cab88b3c170d000a4f2b95cd85f8214712b9aa69ee5c45837361201c8b",
+      "canonical_sha256": "2240f017ee8ecbc1d7fc75254e05d106eed090eaa4b639cb1df63fed2163694d",
       "certificate_paths": [],
       "id": "V02",
       "label": "VERIFIED",
       "recheck_commands": [
         "python3 -m unittest discover -s tests -v"
       ],
-      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`506` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`) | `python3 -m unittest discover -s tests -v` |",
+      "row_text": "| V02 | The full Python `unittest` suite passes with no failures in a **git checkout** (`562` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command **fails 2** cases that need this project's git history: the committed audit replay (`test_audit_checkers.test_committed_audit_replays`) and the current-tree hash check (`test_implementation_hashes.test_current_tree_passes`), and **skips 6** cases that need the same history | `python3 -m unittest discover -s tests -v` |",
       "source_ids": [],
-      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`506` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command still passes but **skips 3** cases that need this project's git history: owner-attestation tracking (`test_validate`) and **2** stale-hash checker tests (`test_implementation_hashes`)"
+      "statement": "The full Python `unittest` suite passes with no failures in a **git checkout** (`562` cases, all run). Without a matching git top level (source archive without ``.git``, or the same tree nested inside another repository), the same command **fails 2** cases that need this project's git history: the committed audit replay (`test_audit_checkers.test_committed_audit_replays`) and the current-tree hash check (`test_implementation_hashes.test_current_tree_passes`), and **skips 6** cases that need the same history"
     },
     {
       "artifact_paths": [],
@@ -1791,7 +1791,7 @@
     "PROVEN": 0,
     "VERIFIED": 50
   },
-  "ledger_sha256": "5c87accabf53c0310980ee3cbda09edb11205c3dffe03c907873a4c89d3ddd9e",
+  "ledger_sha256": "e5abbdbc2ca7aa911725ec0fbb381c51e0139d8a7c77fdb901461a51e2b16690",
   "schema_version": 1,
   "source": "CLAIMS.md"
 }
